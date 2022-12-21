@@ -13,5 +13,12 @@
   "textSyncData": "Đồng bộ hóa dữ liệu",
   "textRegisterFinger": "Đăng ký vân tay",
   "textHelp": "Trợ giúp",
-  "hourAge": "{time} gio truoc"
+  "hourAge": "{time} gio truoc",
+  "textLogout": "Đăng xuất",
+  "textActivatePrepaid": "Kích hoạt trả trước",
+  "textActivatePostpaid": "Kích hoạt trả sau",
+  "textPortability": "Tính di động",
+  "textMigration": "Chuyển đổi",
+  "textAnyPay": "Trả tiền",
+  "textUtilities": "Tiện ích"
 }

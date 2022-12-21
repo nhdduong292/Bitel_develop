@@ -10,7 +10,7 @@ class LoginLogic extends GetxController{
   void onInit() {
     // TODO: implement onInit
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
-      SystemUiOverlay.bottom
+      SystemUiOverlay.bottom, SystemUiOverlay.top
     ]);
     super.onInit();
   }

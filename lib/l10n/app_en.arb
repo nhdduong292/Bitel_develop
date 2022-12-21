@@ -21,5 +21,12 @@
         "type": "int"
       }
     }
-  }
+  },
+  "textLogout": "Logout",
+  "textActivatePrepaid": "Activate prepaid",
+  "textActivatePostpaid": "Activate postpaid",
+  "textPortability": "Portability",
+  "textMigration": "Migration",
+  "textAnyPay": "Comprar Anypay",
+  "textUtilities": "Utilities"
 }

@@ -9,4 +9,5 @@ class AppColors{
   static const Color colorSelectBottomBar = Color(0xFF10c8c8);
   static const Color colorUnSelectBottomBar = Color(0xFF7998af);
   static const Color colorBgBottomBar = Color(0xFFFEFEFE);
+  static const Color colorBgSideBar = Color(0xFF01899c);
 }

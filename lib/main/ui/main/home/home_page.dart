@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:bitel_ventas/main/ui/main/home/home_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -9,16 +11,18 @@ class HomePage extends GetView<HomeLogic> {
     return GetBuilder(
       init: HomeLogic(),
       builder: (controller) {
-        return Scaffold(
-          body: IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {
-              controller.openDrawer();
+        return SafeArea(
+          child: Scaffold(
+            body: IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () {
+                controller.openDrawer();
 
-            },
-            color: Colors.red,
+              },
+              color: Colors.red,
+            ),
+
           ),
-
         );
       },
     );

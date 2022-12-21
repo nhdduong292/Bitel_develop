@@ -9,5 +9,12 @@
   "textLanguageES": "Tiếng Tây Ban Nha",
   "textSelectLanguage": "Chọn ngôn ngữ",
   "textContinue": "Tiếp tục",
-  "hourAge": "{time} gio truoc"
+  "hourAge": "{time} gio truoc",
+  "textLogout": "Cerrar sesión",
+  "textActivatePrepaid": "Activar prepago",
+  "textActivatePostpaid": "Activar postpago",
+  "textPortability": "Portabilidad",
+  "textMigration": "Migración",
+  "textAnyPay": "Comprar Anypay",
+  "textUtilities": "Utilidades"
 }
