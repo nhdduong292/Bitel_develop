@@ -1,0 +1,17 @@
+{
+  "btnLogin": "Đăng nhập",
+  "textHome": "Trang chủ",
+  "textReport": "Báo cáo",
+  "textWare": "Kho",
+  "textConfig": "Cấu hình",
+  "textLanguageEN": "Tiếng Anh",
+  "textLanguageVN": "Tiếng Viết",
+  "textLanguageES": "Tiếng Tây Ban Nha",
+  "textSelectLanguage": "Chọn ngôn ngữ",
+  "textContinue": "Tiếp tục",
+  "textMyInfo": "Thông tin của tôi",
+  "textSyncData": "Đồng bộ hóa dữ liệu",
+  "textRegisterFinger": "Đăng ký vân tay",
+  "textHelp": "Trợ giúp",
+  "hourAge": "{time} gio truoc"
+}

@@ -1,0 +1,13 @@
+{
+  "btnLogin": "Đăng nhập",
+  "textHome": "Trang chủ",
+  "textReport": "Báo cáo",
+  "textWare": "Kho",
+  "textConfig": "Cấu hình",
+  "textLanguageEN": "Tiếng Anh",
+  "textLanguageVN": "Tiếng Viết",
+  "textLanguageES": "Tiếng Tây Ban Nha",
+  "textSelectLanguage": "Chọn ngôn ngữ",
+  "textContinue": "Tiếp tục",
+  "hourAge": "{time} gio truoc"
+}

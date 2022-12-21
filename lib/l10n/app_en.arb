@@ -1,0 +1,25 @@
+{
+  "btnLogin": "Login",
+  "textHome": "Home",
+  "textReport": "Report",
+  "textWare": "Warehouse",
+  "textConfig": "Config",
+  "textLanguageEN": "English",
+  "textLanguageVN": "Vietnamese",
+  "textLanguageES": "Spain",
+  "textSelectLanguage": "Select language",
+  "textContinue": "Continue",
+  "textMyInfo": "Thông tin của tôi",
+  "textSyncData": "Đồng bộ hóa dữ liệu",
+  "textRegisterFinger": "Đăng ký vân tay",
+  "textHelp": "Trợ giúp",
+  "hourAge": "{time} hour age",
+  "@hourAge": {
+    "description": "",
+    "placeholders": {
+      "time": {
+        "type": "int"
+      }
+    }
+  }
+}
