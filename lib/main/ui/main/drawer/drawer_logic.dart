@@ -1,5 +1,9 @@
 import 'package:get/get.dart';
 
-class DrawerLogic extends GetxController{
+import '../../login/login_page.dart';
 
+class DrawerLogic extends GetxController{
+  void logOut() {
+    Get.offAll(LoginPage());
+  }
 }

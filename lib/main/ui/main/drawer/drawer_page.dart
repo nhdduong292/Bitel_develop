@@ -62,9 +62,7 @@ class DrawerPage extends GetView<DrawerLogic> {
                 bottom: 35,
                 left: 35,
                 child: InkWell(
-                  onTap: () {
-                    Get.offAll(LoginPage());
-                  },
+                  onTap: () => controller.logOut(),
                   child: Row(
                     children: [
                       Icon(

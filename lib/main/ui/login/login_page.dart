@@ -27,6 +27,19 @@ class LoginPage extends GetWidget {
                   controller.loginSuccess();
                 },
                 child: Text(AppLocalizations.of(context)!.btnLogin)),
+            Positioned(
+              bottom: 15,
+                child: Row(
+                  children: [
+                    Container(
+                      child: Row(
+                        children: [
+
+                        ],
+                      ),
+                    )
+                  ],
+                ))
           ],
         ),
       ),

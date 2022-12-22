@@ -24,3 +24,14 @@ Widget drawerItemWidget({required icon, required text}) {
     ),
   );
 }
+
+Widget inputLogin({required icon, required String}) {
+  return Container(
+    padding: EdgeInsets.all(20),
+    child: Row(
+      children: [
+        
+      ],
+    ),
+  )
+}
