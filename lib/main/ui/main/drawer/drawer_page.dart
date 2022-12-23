@@ -43,27 +43,27 @@ class DrawerPage extends GetView<DrawerLogic> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        drawerItemWidget(
-                            image: Icons.arrow_circle_right,
-                            text: AppLocalizations.of(context)!
-                                .textActivatePrepaid),
-                        drawerItemWidget(
-                            image: Icons.arrow_circle_right,
-                            text: AppLocalizations.of(context)!
-                                .textActivatePostpaid),
-                        drawerItemWidget(
-                            image: Icons.arrow_circle_right,
-                            text:
-                                AppLocalizations.of(context)!.textPortability),
-                        drawerItemWidget(
-                            image: Icons.arrow_circle_right,
-                            text: AppLocalizations.of(context)!.textMigration),
-                        drawerItemWidget(
-                            image: Icons.arrow_circle_right,
-                            text: AppLocalizations.of(context)!.textAnyPay),
-                        drawerItemWidget(
-                            image: Icons.arrow_circle_right,
-                            text: AppLocalizations.of(context)!.textUtilities),
+                        // drawerItemWidget(
+                        //     image: Icons.arrow_circle_right,
+                        //     text: AppLocalizations.of(context)!
+                        //         .textActivatePrepaid),
+                        // drawerItemWidget(
+                        //     image: Icons.arrow_circle_right,
+                        //     text: AppLocalizations.of(context)!
+                        //         .textActivatePostpaid),
+                        // drawerItemWidget(
+                        //     image: Icons.arrow_circle_right,
+                        //     text:
+                        //         AppLocalizations.of(context)!.textPortability),
+                        // drawerItemWidget(
+                        //     image: Icons.arrow_circle_right,
+                        //     text: AppLocalizations.of(context)!.textMigration),
+                        // drawerItemWidget(
+                        //     image: Icons.arrow_circle_right,
+                        //     text: AppLocalizations.of(context)!.textAnyPay),
+                        // drawerItemWidget(
+                        //     image: Icons.arrow_circle_right,
+                        //     text: AppLocalizations.of(context)!.textUtilities),
                       ],
                     )),
                 Positioned(

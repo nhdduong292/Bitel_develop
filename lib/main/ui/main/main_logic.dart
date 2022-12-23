@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class MainLogic extends GetxController {
@@ -7,6 +8,7 @@ class MainLogic extends GetxController {
 
   @override
   void onInit() {
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     super.onInit();
   }
 
