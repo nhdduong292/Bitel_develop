@@ -9,4 +9,16 @@ class AppColors{
   static const Color colorSelectBottomBar = Color(0xFF10c8c8);
   static const Color colorUnSelectBottomBar = Color(0xFF7998af);
   static const Color colorBgBottomBar = Color(0xFFFEFEFE);
+
+  static const Color colorButton = Color(0xFF9F5ED9);
+  static const Color colorBackground = Color(0xFFFFF200);
+  static const Color colorTitle = Color(0xFF007689);
+  static const Color colorContent = Color(0xFF00A5B1);
+  static const Color colorSubContent = Color(0xFF29BDBE);
+  static const Color colorTextError = Color(0xFFF76F5A);
+  static const Color colorTextButton = Color(0xFFFFFFFF);
+  static const Color colorText1 = Color(0xFF2B3A4A);
+  static const Color colorText2 = Color(0xFF6C8AA1);
+  static const Color colorText3 = Color(0xFF9454C9);
+
 }
