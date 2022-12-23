@@ -1,17 +1,56 @@
 import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/setting/setting_logic.dart';
+import 'package:bitel_ventas/res/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+
+import '../../../../res/app_colors.dart';
+import '../../../../res/app_styles.dart';
 
 class SettingPage extends GetView<SettingLogic> {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return GetBuilder(
       init: SettingLogic(),
       builder: (controller) {
+
         return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0.0,
+            title: Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Configuración", style:AppStyles.title),
+                  SizedBox(height: 5),
+                  Row(
+                    children: [
+                      SvgPicture.asset(AppImages.icTimeBar),
+                      SizedBox(width: 5,),
+                      Text("28/12/2020 07:30 - V1.1", style:AppStyles.b1),
+                      SizedBox(width: 20,),
+                      SvgPicture.asset(AppImages.icAccountBar),
+                      SizedBox(width: 5,),
+                      Text("GUADALUPECC-LI4", style:AppStyles.b1)
+                    ],
+                  )
+                ],
+              ),
+            ),
+            toolbarHeight: 100,
+            flexibleSpace: Container(
+              decoration: BoxDecoration(
+                color: AppColors.colorBackground,
+                borderRadius: BorderRadius.only(bottomLeft: Radius.elliptical(width/2,20), bottomRight: Radius.elliptical(width/2,20))
+              ),
+            ),
+          ),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

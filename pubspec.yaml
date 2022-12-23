@@ -65,19 +65,19 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/icon/ic_logo_app.png"
+  image_path: "assets/icons/ic_logo_app.png"
   min_sdk_android: 21
 
 flutter_native_splash:
   color: "#fff200"
-  image: assets/icon/ic_logo_splash_12.png
+  image: assets/icons/ic_logo_splash_12.png
   color_dark: "#fff200"
-  image_dark: assets/icon/ic_logo_splash_12.png
+  image_dark: assets/icons/ic_logo_splash_12.png
 
   android_12:
-    image: assets/icon/ic_logo_splash_12.png
+    image: assets/icons/ic_logo_splash_12.png
     icon_background_color: "#fff200"
-    image_dark: assets/icon/ic_logo_splash_12.png
+    image_dark: assets/icons/ic_logo_splash_12.png
     icon_background_color_dark: "#fff200"
 
   web: false
@@ -96,7 +96,9 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - assets/backgrounds/bg_login.png
+    - assets/backgrounds/
+    - assets/icons/
+    - assets/images/
 
   fonts:
     - family: Roboto

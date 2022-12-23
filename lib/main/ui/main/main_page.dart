@@ -1,15 +1,18 @@
 import 'package:bitel_ventas/main/ui/main/home/home_page.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
+import 'package:bitel_ventas/res/app_images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_launcher_icons/ios.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'main_logic.dart';
 import 'setting/setting_page.dart';
 
 class MainPage extends GetWidget {
-  static List<Widget> _widgetOptions = <Widget>[
+  static final List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     Text(
       'Index 1: Business',
@@ -34,19 +37,19 @@ class MainPage extends GetWidget {
           bottomNavigationBar: BottomNavigationBar(
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
+                icon: ImageIcon(AssetImage(AppImages.icHome)),
                 label: AppLocalizations.of(context)!.textHome,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.report),
+                icon: SvgPicture.asset(AppImages.icReport, color: Colors.red),
                 label: AppLocalizations.of(context)!.textReport,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.warehouse),
+                icon: SvgPicture.asset(AppImages.icWarehouse),
                 label: AppLocalizations.of(context)!.textWare,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
+                icon: SvgPicture.asset(AppImages.icConfig),
                 label: AppLocalizations.of(context)!.textConfig,
               ),
             ],
