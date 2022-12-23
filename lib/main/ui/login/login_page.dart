@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
 class LoginPage extends GetWidget {
   @override
@@ -20,7 +21,7 @@ class LoginPage extends GetWidget {
                 constraints: const BoxConstraints.expand(),
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage(AppImages.bgLogin), fit: BoxFit.cover),
+                      image: Svg(AppImages.bgLogin), fit: BoxFit.cover),
                 )),
             ElevatedButton(
                 onPressed: () {

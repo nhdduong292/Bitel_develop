@@ -65,7 +65,7 @@ class MainPage extends GetWidget {
               type: BottomNavigationBarType.fixed,
             ),
             drawer: Drawer(
-              width: MediaQuery.of(context).size.width * 0.8,
+              width: MediaQuery.of(context).size.width * 0.85,
               child: DrawerPage(),
             ),
             floatingActionButton: FloatingActionButton(
