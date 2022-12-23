@@ -31,7 +31,7 @@ class DrawerPage extends GetView<DrawerLogic> {
                   left: 25,
                   top: 25,
                   child: IconButton(
-                    iconSize: 36,
+                    iconSize: 30,
                     onPressed: () => Get.back(),
                     color: Colors.white,
                     icon: Icon(Icons.close),
@@ -44,25 +44,25 @@ class DrawerPage extends GetView<DrawerLogic> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         drawerItemWidget(
-                            icon: Icons.arrow_circle_right,
+                            image: Icons.arrow_circle_right,
                             text: AppLocalizations.of(context)!
                                 .textActivatePrepaid),
                         drawerItemWidget(
-                            icon: Icons.arrow_circle_right,
+                            image: Icons.arrow_circle_right,
                             text: AppLocalizations.of(context)!
                                 .textActivatePostpaid),
                         drawerItemWidget(
-                            icon: Icons.arrow_circle_right,
+                            image: Icons.arrow_circle_right,
                             text:
                                 AppLocalizations.of(context)!.textPortability),
                         drawerItemWidget(
-                            icon: Icons.arrow_circle_right,
+                            image: Icons.arrow_circle_right,
                             text: AppLocalizations.of(context)!.textMigration),
                         drawerItemWidget(
-                            icon: Icons.arrow_circle_right,
+                            image: Icons.arrow_circle_right,
                             text: AppLocalizations.of(context)!.textAnyPay),
                         drawerItemWidget(
-                            icon: Icons.arrow_circle_right,
+                            image: Icons.arrow_circle_right,
                             text: AppLocalizations.of(context)!.textUtilities),
                       ],
                     )),

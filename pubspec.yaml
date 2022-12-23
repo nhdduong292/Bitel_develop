@@ -100,7 +100,7 @@ flutter:
     - assets/backgrounds/bg_login.svg
     - assets/backgrounds/bg_deco_login_page.svg
     - assets/backgrounds/bg_home_drawer.svg
-    - assets/backgrounds/bg_login.svg
+    - assets/backgrounds/ic_activate_prepaid_unseleted.svg
 
   fonts:
     - family: Roboto

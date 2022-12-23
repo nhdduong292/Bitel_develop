@@ -2,23 +2,25 @@
 
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
-Widget drawerItemWidget({required icon, required text}) {
+Widget drawerItemWidget({required String image, required text}) {
   return InkWell(
     onTap: () {},
     child: Container(
       padding: EdgeInsets.only(bottom: 20),
       child: Row(
         children: [
-          Icon(
-            icon,
+          Image(
+            image: Svg(image),
             color: Colors.white,
-            size: 40,
+            width: 34,
+            height: 34,
           ),
           Padding(padding: EdgeInsets.only(left: 20)),
           Text(
             text,
-            style: TextStyle(color: Colors.white, fontSize: 24),
+            style: TextStyle(color: Colors.white, fontSize: 20, fontFamily: 'Barlow'),
           ),
         ],
       ),
