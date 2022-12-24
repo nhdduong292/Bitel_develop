@@ -3,9 +3,9 @@ class AppImages{
   static const bgLogin = 'assets/backgrounds/bg_login.png';
   static const icTimeBar = 'assets/images/ic_time.svg';
   static const icAccountBar = 'assets/images/ic_account.svg';
-  static String icHome = 'assets/images/ic_home.png';
-  static const icReport = 'assets/images/ic_report.svg';
-  static const icWarehouse = 'assets/images/ic_ware_house.svg';
-  static const icConfig = 'assets/images/ic_config.svg';
+  static const icHome = 'assets/images/ic_home.png';
+  static const icReport = 'assets/images/ic_report.png';
+  static const icWarehouse = 'assets/images/ic_ware_house.png';
+  static const icConfig = 'assets/images/ic_config.png';
 
 }
