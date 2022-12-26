@@ -45,15 +45,15 @@ class MainPage extends GetWidget {
                   label: AppLocalizations.of(context)!.textHome,
                 ),
                 BottomNavigationBarItem(
-                  icon: SvgPicture.asset(AppImages.icReport, color: Colors.red),
+                  icon: ImageIcon(AssetImage(AppImages.icReport)),
                   label: AppLocalizations.of(context)!.textReport,
                 ),
                 BottomNavigationBarItem(
-                  icon: SvgPicture.asset(AppImages.icWarehouse),
+                  icon: ImageIcon(AssetImage(AppImages.icWarehouse)),
                   label: AppLocalizations.of(context)!.textWare,
                 ),
                 BottomNavigationBarItem(
-                  icon: SvgPicture.asset(AppImages.icConfig),
+                  icon: ImageIcon(AssetImage(AppImages.icConfig)),
                   label: AppLocalizations.of(context)!.textConfig,
                 ),
               ],
