@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:bitel_ventas/main/ui/main/drawer/drawer_logic.dart';
+import 'package:bitel_ventas/res/app_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -11,7 +12,6 @@ import 'package:get/get.dart';
 
 import '../../../../res/app_colors.dart';
 import '../../../../res/app_images.dart';
-import '../../../utils/common_widgets.dart';
 
 class DrawerPage extends GetView<DrawerLogic> {
   @override
@@ -19,6 +19,7 @@ class DrawerPage extends GetView<DrawerLogic> {
     return GetBuilder(
       init: DrawerLogic(),
       builder: (controller) {
+        List<DrawerItem> drawerItems = controller.getListItem(context);
         return Scaffold(
           body: Container(
             decoration: BoxDecoration(
@@ -40,31 +41,40 @@ class DrawerPage extends GetView<DrawerLogic> {
                 Positioned(
                     top: 120,
                     left: 35,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // drawerItemWidget(
-                        //     image: Icons.arrow_circle_right,
-                        //     text: AppLocalizations.of(context)!
-                        //         .textActivatePrepaid),
-                        // drawerItemWidget(
-                        //     image: Icons.arrow_circle_right,
-                        //     text: AppLocalizations.of(context)!
-                        //         .textActivatePostpaid),
-                        // drawerItemWidget(
-                        //     image: Icons.arrow_circle_right,
-                        //     text:
-                        //         AppLocalizations.of(context)!.textPortability),
-                        // drawerItemWidget(
-                        //     image: Icons.arrow_circle_right,
-                        //     text: AppLocalizations.of(context)!.textMigration),
-                        // drawerItemWidget(
-                        //     image: Icons.arrow_circle_right,
-                        //     text: AppLocalizations.of(context)!.textAnyPay),
-                        // drawerItemWidget(
-                        //     image: Icons.arrow_circle_right,
-                        //     text: AppLocalizations.of(context)!.textUtilities),
-                      ],
+                    child: Container(
+                      child: ListView.builder(
+                        itemCount: drawerItems.length,
+                        itemBuilder: (context, index) {
+                          DrawerItem item = drawerItems[index];
+                          return GestureDetector(
+                            onTap: () {},
+                            child: Container(
+                              padding: EdgeInsets.only(bottom: 20),
+                              child: Row(
+                                children: [
+                                  Image(
+                                    image: Svg(item.isSelected
+                                        ? item.selectedImg
+                                        : item.unselectedImg),
+                                    width: 34,
+                                    height: 34,
+                                  ),
+                                  Padding(padding: EdgeInsets.only(left: 20)),
+                                  Text(
+                                    item.label,
+                                    style: TextStyle(
+                                        color: item.isSelected
+                                            ? AppColors.colorBackground
+                                            : Colors.white,
+                                        fontSize: 20,
+                                        fontFamily: AppFonts.Barlow),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
                     )),
                 Positioned(
                   bottom: 35,
@@ -81,7 +91,10 @@ class DrawerPage extends GetView<DrawerLogic> {
                         Padding(padding: EdgeInsets.only(left: 20)),
                         Text(
                           AppLocalizations.of(context)!.textLogout,
-                          style: TextStyle(color: Colors.yellow, fontSize: 20),
+                          style: TextStyle(
+                              color: Colors.yellow,
+                              fontSize: 18,
+                              fontFamily: AppFonts.Barlow),
                         ),
                       ],
                     ),
