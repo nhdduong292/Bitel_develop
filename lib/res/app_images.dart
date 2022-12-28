@@ -15,5 +15,13 @@ class AppImages{
   static const icArrowRight = 'assets/images/ic_arrow_right.svg';
   static const icBack = 'assets/images/ic_back.svg';
   static const icOvalArrowDown = 'assets/images/ic_oval_arrow_down.svg';
+  static const icSimMobile = 'assets/images/ic_sim_mobile.svg';
+  static const icKit = 'assets/images/ic_kit.svg';
+  static const icHandSet = 'assets/images/ic_handset.svg';
+  static const icAnyPay = 'assets/images/ic_anypay.svg';
+  static const bgHome = 'assets/backgrounds/bg_home.svg';
+  static const icMenu = 'assets/images/ic_menu.svg';
+  static const icNotification = 'assets/images/ic_notification.svg';
+  static const icAvatarDefault = 'assets/images/ic_avatar_default.png';
 
 }

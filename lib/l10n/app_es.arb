@@ -16,5 +16,12 @@
   "textChangePass": "Đổi mật khẩu",
   "textContactUS": "Liên hệ chúng tôi",
   "textQuestionsFle": "Câu hỏi thường gặp",
+  "textToday": "Hôm nay",
+  "textYesterday": "Hôm qua",
+  "textPersonal": "Cá nhân",
+  "textSimMobile": "SIM mobile",
+  "textKit": "Kit",
+  "textHandset": "Handset",
+  "textAnyPay": "Anypay",
   "hourAge": "{time} gio truoc"
 }

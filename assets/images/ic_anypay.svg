@@ -1,0 +1,15 @@
+<svg width="68" height="68" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 7">
+<rect id="Rectangle" width="68" height="68" rx="10" fill="#3BD5D5" fill-opacity="0.12"/>
+<g id="Group 4">
+<g id="mobile">
+<path id="Path" fill-rule="evenodd" clip-rule="evenodd" d="M50 22V46C50 54 48 56 40 56H28C20 56 18 54 18 46V22C18 14 20 12 28 12H40C48 12 50 14 50 22Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Path_2" d="M38 19H30" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="Group 3">
+<path id="Path Copy 2" d="M27.4897 41.4346C27.4675 42.7101 28.4283 43.7555 29.6445 43.7767L32.1262 43.82C33.1842 43.8385 34.0601 42.9537 34.0794 41.8464C34.1005 40.6401 33.5838 40.2058 32.8076 39.9153L28.8471 38.4616C28.0709 38.1711 27.5543 37.7368 27.5753 36.5306C27.5946 35.4232 28.4705 34.5385 29.5285 34.5569L32.0102 34.6002C33.2264 34.6215 34.1873 35.6668 34.165 36.9423" stroke="#292D32" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Path_3" d="M39.2157 33.2578L38.3153 33.4991L36.637 44.8602L37.5374 44.6189L39.2157 33.2578Z" fill="#292D32" stroke="#292D32" stroke-width="0.4" stroke-linejoin="round"/>
+</g>
+</g>
+</g>
+</svg>
