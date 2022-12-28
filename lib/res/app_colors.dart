@@ -20,5 +20,6 @@ class AppColors{
   static const Color colorText1 = Color(0xFF2B3A4A);
   static const Color colorText2 = Color(0xFF6C8AA1);
   static const Color colorText3 = Color(0xFF9454C9);
+  static const Color colorLineDash = Color(0xFFE3EAF2);
 
 }

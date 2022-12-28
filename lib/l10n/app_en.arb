@@ -13,6 +13,9 @@
   "textSyncData": "Đồng bộ hóa dữ liệu",
   "textRegisterFinger": "Đăng ký vân tay",
   "textHelp": "Trợ giúp",
+  "textChangePass": "Đổi mật khẩu",
+  "textContactUS": "Liên hệ chúng tôi",
+  "textQuestionsFle": "Câu hỏi thường gặp",
   "hourAge": "{time} hour age",
   "@hourAge": {
     "description": "",

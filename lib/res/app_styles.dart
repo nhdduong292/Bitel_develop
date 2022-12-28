@@ -21,4 +21,11 @@ class AppStyles{
     color: AppColors.colorText1,
   );
 
+  static final TextStyle r1 = TextStyle(
+    fontSize: 14,
+    fontFamily: AppFonts.Roboto,
+    color: AppColors.colorText1,
+
+  );
+
 }

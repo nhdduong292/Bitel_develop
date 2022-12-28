@@ -9,5 +9,12 @@
   "textLanguageES": "Tiếng Tây Ban Nha",
   "textSelectLanguage": "Chọn ngôn ngữ",
   "textContinue": "Tiếp tục",
+  "textMyInfo": "Thông tin của tôi",
+  "textSyncData": "Đồng bộ hóa dữ liệu",
+  "textRegisterFinger": "Đăng ký vân tay",
+  "textHelp": "Trợ giúp",
+  "textChangePass": "Đổi mật khẩu",
+  "textContactUS": "Liên hệ chúng tôi",
+  "textQuestionsFle": "Câu hỏi thường gặp",
   "hourAge": "{time} gio truoc"
 }

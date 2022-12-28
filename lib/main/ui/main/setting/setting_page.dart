@@ -1,3 +1,4 @@
+import 'package:bitel_ventas/main/custom_views/line_dash.dart';
 import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/setting/setting_logic.dart';
 import 'package:bitel_ventas/res/app_images.dart';
@@ -17,7 +18,6 @@ class SettingPage extends GetView<SettingLogic> {
     return GetBuilder(
       init: SettingLogic(),
       builder: (controller) {
-
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.transparent,
@@ -27,17 +27,23 @@ class SettingPage extends GetView<SettingLogic> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Configuración", style:AppStyles.title),
+                  Text("Configuración", style: AppStyles.title),
                   SizedBox(height: 5),
                   Row(
                     children: [
                       SvgPicture.asset(AppImages.icTimeBar),
-                      SizedBox(width: 5,),
-                      Text("28/12/2020 07:30 - V1.1", style:AppStyles.b1),
-                      SizedBox(width: 20,),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text("28/12/2020 07:30 - V1.1", style: AppStyles.b1),
+                      SizedBox(
+                        width: 20,
+                      ),
                       SvgPicture.asset(AppImages.icAccountBar),
-                      SizedBox(width: 5,),
-                      Text("GUADALUPECC-LI4", style:AppStyles.b1)
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text("GUADALUPECC-LI4", style: AppStyles.b1)
                     ],
                   )
                 ],
@@ -46,174 +52,144 @@ class SettingPage extends GetView<SettingLogic> {
             toolbarHeight: 100,
             flexibleSpace: Container(
               decoration: BoxDecoration(
-                color: AppColors.colorBackground,
-                borderRadius: BorderRadius.only(bottomLeft: Radius.elliptical(width/2,20), bottomRight: Radius.elliptical(width/2,20))
-              ),
+                  color: AppColors.colorBackground,
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.elliptical(width / 2, 20),
+                      bottomRight: Radius.elliptical(width / 2, 20))),
             ),
           ),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: double.infinity,
-                margin: EdgeInsets.only(top: 15, left: 15, right: 15),
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(22),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(0, 1),
-                      blurRadius: 2,
-                      color: Colors.black.withOpacity(0.3),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Icon(Icons.adb_rounded),
-                    Expanded(
-                        child: TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        AppLocalizations.of(context)!.textMyInfo,
-                        style: TextStyle(color: Colors.black),
+          body: Container(
+            child: ListView.builder(
+              itemCount: controller.getListSetting(context).length,
+              itemBuilder: (context, index) {
+                SettingModel settingModel =
+                    controller.getListSetting(context)[index];
+                if (settingModel.list!.isEmpty) {
+                  return GestureDetector(
+                    child: Container(
+                      width: double.infinity,
+                      margin: EdgeInsets.only(top: 15, left: 15, right: 15),
+                      padding: EdgeInsets.only(
+                          left: 22, top: 13, bottom: 13, right: 22),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(22),
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(0, 1),
+                            blurRadius: 2,
+                            color: Colors.black.withOpacity(0.3),
+                          ),
+                        ],
                       ),
-                    )),
-                    Icon(Icons.arrow_forward_rounded)
-                  ],
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                margin: EdgeInsets.only(top: 15, left: 15, right: 15),
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(22),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(0, 1),
-                      blurRadius: 2,
-                      color: Colors.black.withOpacity(0.3),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          SvgPicture.asset(settingModel.icon!),
+                          SizedBox(
+                            width: 22,
+                          ),
+                          Expanded(
+                              child: Text(
+                            settingModel.title!,
+                            style: AppStyles.r1,
+                          )),
+                          SvgPicture.asset(AppImages.icOvalArrowRight)
+                        ],
+                      ),
                     ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Icon(Icons.adb_rounded),
-                    Expanded(
-                        child: TextButton(
-                      onPressed: () {},
-                      child: Text(AppLocalizations.of(context)!.textSyncData,
-                          style: TextStyle(color: Colors.black)),
-                    )),
-                    Icon(Icons.arrow_forward_rounded)
-                  ],
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                margin: EdgeInsets.only(top: 15, left: 15, right: 15),
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(22),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(0, 1),
-                      blurRadius: 2,
-                      color: Colors.black.withOpacity(0.3),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Icon(Icons.adb_rounded),
-                    Expanded(
-                        child: TextButton(
-                      onPressed: () {},
-                      child: Text(
-                          AppLocalizations.of(context)!.textRegisterFinger,
-                          style: TextStyle(color: Colors.black)),
-                    )),
-                    Icon(Icons.arrow_forward_rounded)
-                  ],
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                margin: EdgeInsets.only(top: 15, left: 15, right: 15),
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(22),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(0, 1),
-                      blurRadius: 2,
-                      color: Colors.black.withOpacity(0.3),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Icon(Icons.adb_rounded),
-                    Expanded(
-                        child: TextButton(
-                      onPressed: () {
+                    onTap: () {
+                      if (index == 0) {
+                        Get.toNamed(RouteConfig.myInfo);
+                      } else if (index == 1) {
+                        Get.toNamed(RouteConfig.syncData);
+                      } else if (index == 2) {
+                        Get.toNamed(RouteConfig.registerFinger);
+                      } else if (index == 3) {
                         showDialog(
                           context: context,
                           builder: (context) {
                             return DialogLanguage();
                           },
                         );
-                      },
-                      child: Text(AppLocalizations.of(context)!.textSelectLanguage,
-                          style: TextStyle(color: Colors.black)),
-                    )),
-                    Icon(Icons.arrow_forward_rounded)
-                  ],
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                margin: EdgeInsets.only(top: 15, left: 15, right: 15),
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(22),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(0, 1),
-                      blurRadius: 2,
-                      color: Colors.black.withOpacity(0.3),
+                      }
+                    },
+                  );
+                } else {
+                  return Container(
+                    width: double.infinity,
+                    margin: EdgeInsets.only(top: 30, left: 15, right: 15),
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(22),
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(0, 1),
+                          blurRadius: 2,
+                          color: Colors.black.withOpacity(0.3),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Icon(Icons.adb_rounded),
-                    Expanded(
-                        child: TextButton(
-                      onPressed: () {},
-                      child: Text(AppLocalizations.of(context)!.textHelp,
-                          style: TextStyle(color: Colors.black)),
-                    )),
-                    Icon(Icons.arrow_forward_rounded)
-                  ],
-                ),
-              )
-            ],
+                    child: ExpansionTile(
+                      trailing: controller.isSelectHelp.value
+                          ? SvgPicture.asset(AppImages.icOvalArrowDown)
+                          : SvgPicture.asset(AppImages.icOvalArrowRight),
+                      leading: SvgPicture.asset(AppImages.icHelp),
+                      title: Text(settingModel.title!,
+                          style: AppStyles.r1.copyWith(
+                              color: controller.isSelectHelp.value
+                                  ? AppColors.colorContent
+                                  : AppColors.colorText1)),
+                      children: <Widget>[
+                        Column(
+                          children: _buildExpandableContent(settingModel),
+                        ),
+                      ],
+                      onExpansionChanged: (value) {
+                        controller.setStateSelectHelp(value);
+                      },
+                    ),
+                  );
+                }
+              },
+            ),
           ),
         );
       },
     );
+  }
+
+  _buildExpandableContent(SettingModel vehicle) {
+    List<Column> columnContent = [];
+    for (int i = 0; i < vehicle.list!.length; i++) {
+      String content = vehicle.list![i];
+      columnContent.add(Column(
+        children: [
+          const LineDash(color: AppColors.colorLineDash),
+          Padding(
+            padding: const EdgeInsets.only(left: 58, right: 8),
+            child: ListTile(
+              title: Text(
+                content,
+                style: AppStyles.r1,
+              ),
+              trailing: SvgPicture.asset(AppImages.icArrowRight),
+              onTap: () {
+                if (i == 0) {
+                  print("index: $i");
+                } else if (i == 1) {
+                  print("index: $i");
+                } else if (i == 2) {
+                  print("index: $i");
+                }
+              },
+            ),
+          )
+        ],
+      ));
+    }
+    return columnContent;
   }
 }
 
