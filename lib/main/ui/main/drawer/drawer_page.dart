@@ -3,7 +3,6 @@
 import 'package:bitel_ventas/main/ui/main/drawer/drawer_logic.dart';
 import 'package:bitel_ventas/res/app_fonts.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
@@ -19,7 +18,7 @@ class DrawerPage extends GetView<DrawerLogic> {
     return GetBuilder(
       init: DrawerLogic(),
       builder: (controller) {
-        List<DrawerItem> drawerItems = controller.getListItem(context);
+        controller.listItem = controller.getListItem(context).obs;
         return Scaffold(
           body: Container(
             decoration: BoxDecoration(
@@ -41,35 +40,45 @@ class DrawerPage extends GetView<DrawerLogic> {
                 Positioned(
                     top: 120,
                     left: 35,
-                    child: Container(
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height,
+                      width: MediaQuery.of(context).size.width,
                       child: ListView.builder(
-                        itemCount: drawerItems.length,
+                        itemCount: controller.listItem?.length,
                         itemBuilder: (context, index) {
-                          DrawerItem item = drawerItems[index];
-                          return GestureDetector(
-                            onTap: () {},
+                          return InkWell(
+                            splashColor: Colors.black54,
+                            onTap: () {
+                              controller.onItemClick(index: index);
+                            },
                             child: Container(
-                              padding: EdgeInsets.only(bottom: 20),
-                              child: Row(
-                                children: [
-                                  Image(
-                                    image: Svg(item.isSelected
-                                        ? item.selectedImg
-                                        : item.unselectedImg),
-                                    width: 34,
-                                    height: 34,
-                                  ),
-                                  Padding(padding: EdgeInsets.only(left: 20)),
-                                  Text(
-                                    item.label,
-                                    style: TextStyle(
-                                        color: item.isSelected
-                                            ? AppColors.colorBackground
-                                            : Colors.white,
-                                        fontSize: 20,
-                                        fontFamily: AppFonts.Barlow),
-                                  ),
-                                ],
+                              padding: EdgeInsets.symmetric(vertical: 20),
+                              child: Obx(
+                                  () => Row(
+                                  children: [
+                                    Image(
+                                      image: Svg(
+                                          controller.listItem![index].isSelected
+                                              ? controller
+                                                  .listItem![index].selectedImg
+                                              : controller.listItem![index]
+                                                  .unselectedImg),
+                                      width: 26,
+                                      height: 26,
+                                    ),
+                                    Padding(padding: EdgeInsets.only(left: 20)),
+                                    Text(
+                                      controller.listItem![index].label,
+                                      style: TextStyle(
+                                          color: controller
+                                                  .listItem![index].isSelected
+                                              ? AppColors.colorBackground
+                                              : Colors.white,
+                                          fontSize: 19,
+                                          fontFamily: AppFonts.Barlow),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           );
@@ -83,17 +92,17 @@ class DrawerPage extends GetView<DrawerLogic> {
                     onTap: () => controller.logOut(),
                     child: Row(
                       children: [
-                        Icon(
-                          Icons.arrow_circle_right,
-                          color: Colors.yellow,
-                          size: 30,
+                        Image(
+                          image: Svg(AppImages.icLogout),
+                          width: 24,
+                          height: 24,
                         ),
                         Padding(padding: EdgeInsets.only(left: 20)),
                         Text(
                           AppLocalizations.of(context)!.textLogout,
                           style: TextStyle(
                               color: Colors.yellow,
-                              fontSize: 18,
+                              fontSize: 17,
                               fontFamily: AppFonts.Barlow),
                         ),
                       ],

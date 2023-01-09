@@ -1,3 +1,8 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'dart:async';
+
+import 'package:bitel_ventas/main/ui/main/activate_prepaid_pages/find_customer_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
@@ -6,8 +11,26 @@ import '../../../../res/app_images.dart';
 import '../../login/login_page.dart';
 
 class DrawerLogic extends GetxController {
+  var item = DrawerItem(
+          unselectedImg: '', label: '', selectedImg: '', isSelected: false)
+      .obs;
+  RxList<DrawerItem>? listItem = RxList<DrawerItem>();
+
+
+
   void logOut() {
     Get.offAll(LoginPage());
+  }
+
+  void onItemClick({required int index}) {
+    listItem![index].isSelected = true;
+    Timer(Duration(milliseconds: 300), () {
+      Get.back();
+      switch (index) {
+        case 0:
+          Get.to(() => FindCustomerPage());
+      }
+    });
   }
 
   List<DrawerItem> getListItem(BuildContext context) {
@@ -44,7 +67,7 @@ class DrawerLogic extends GetxController {
           isSelected: false),
       DrawerItem(
           unselectedImg: AppImages.icSaleOfPackagesUnselected,
-          label: AppLocalizations.of(context)!.textUtilities,
+          label: AppLocalizations.of(context)!.textSaleOfPackages,
           selectedImg: AppImages.icSaleOfPackagesSelected,
           isSelected: false),
     ];
