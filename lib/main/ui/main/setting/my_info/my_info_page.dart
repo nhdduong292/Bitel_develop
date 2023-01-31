@@ -30,8 +30,10 @@ class MyInfoPage extends GetWidget {
 
             elevation: 0.0,
             title: Container(
+              color: Colors.red,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("Configuración", style: AppStyles.title),

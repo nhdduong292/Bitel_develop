@@ -14,3 +14,12 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+Note:
+1. Thêm icon, text, color, style, font thì phải kiểm tra xem đã có chưa, nếu chưa có thì thì thêm (để tránh duplicate)
+    Cách đặt tên icon, text, color
+    Ví dụ:
+    - icon: ic_tên icon (ic_avatar)
+    - background: bg_tên background (bg_home)
+    - text: text + tên text (textHome)
+2. Tên file class phải viết thường các nhau '_' còn bên trong viết Hoa chữ cái đầu

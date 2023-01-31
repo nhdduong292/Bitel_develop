@@ -26,7 +26,7 @@ class HomePage extends GetView<HomeLogic> {
                   ),
                 ],
               ),
-              margin: EdgeInsets.symmetric(horizontal: 5,vertical: 4),
+              margin: EdgeInsets.symmetric(horizontal: 5, vertical: 4),
               child: Container(
                 child: Center(
                     child: Text(
@@ -111,11 +111,12 @@ class HomePage extends GetView<HomeLogic> {
               ),
             ),
           ),
-          body:  Column(
+          body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(left: 20, right: 20, top: 17, bottom: 24),
+                padding:
+                    EdgeInsets.only(left: 20, right: 20, top: 17, bottom: 24),
                 child: Container(
                   alignment: Alignment.topLeft,
                   child: Text("Hola, Diego Guadalupe", style: AppStyles.b2),
@@ -131,11 +132,12 @@ class HomePage extends GetView<HomeLogic> {
                   },
                 ),
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               SmoothPageIndicator(
                 controller: controller.controllerPage,
                 count: pages.length,
-
                 effect: const WormEffect(
                   dotHeight: 8,
                   dotWidth: 16,
@@ -153,4 +155,3 @@ class HomePage extends GetView<HomeLogic> {
     );
   }
 }
-
