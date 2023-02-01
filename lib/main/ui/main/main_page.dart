@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_final_fields, prefer_const_constructors
 
 import 'package:bitel_ventas/main/ui/main/home/home_page.dart';
+import 'package:bitel_ventas/main/ui/main/report/report_page.dart';
+import 'package:bitel_ventas/main/ui/main/stock/stock_page.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,12 +19,8 @@ import 'setting/setting_page.dart';
 class MainPage extends GetWidget {
   static final List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    Text(
-      'Index 1: Business',
-    ),
-    Text(
-      'Index 2: School',
-    ),
+    ReportPage(),
+    StockPage(),
     SettingPage(),
   ];
 

@@ -1,14 +1,11 @@
-
 import 'package:bitel_ventas/res/app_fonts.dart';
 import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
 
-class AppStyles{
-  static final TextStyle h1 = TextStyle(
-    fontSize: 16,
-    fontFamily: AppFonts.Roboto
-  );
+class AppStyles {
+  static final TextStyle h1 =
+      TextStyle(fontSize: 16, fontFamily: AppFonts.Roboto);
 
   static final TextStyle title = TextStyle(
     fontSize: 20,
@@ -20,5 +17,31 @@ class AppStyles{
     fontFamily: AppFonts.Barlow,
     color: AppColors.colorText1,
   );
+  static final TextStyle b2 = TextStyle(
+    fontSize: 20,
+    fontFamily: AppFonts.Barlow,
+    color: AppColors.colorText1,
+  );
+  static final TextStyle b3 = TextStyle(
+    fontSize: 10,
+    fontFamily: AppFonts.Barlow,
+    color: AppColors.colorContent,
+  );
 
+  static final TextStyle r1 = TextStyle(
+    fontSize: 14,
+    fontFamily: AppFonts.Roboto,
+    color: AppColors.colorText1,
+  );
+
+  static final TextStyle r2 = TextStyle(
+    fontSize: 12,
+    fontFamily: AppFonts.Roboto,
+  );
+
+  static final TextStyle r3 = TextStyle(
+    fontSize: 14,
+    fontFamily: AppFonts.Roboto,
+    color: AppColors.colorContent,
+  );
 }
