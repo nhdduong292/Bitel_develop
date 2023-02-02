@@ -9,11 +9,6 @@ import 'main/services/settings_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-      overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.brown,
-  ));
   /// AWAIT SERVICES INITIALIZATION.
   await initServices();
   runApp(const MyApp());
