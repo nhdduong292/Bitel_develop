@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_final_fields, prefer_const_constructors
+
 import 'package:bitel_ventas/main/ui/main/home/home_page.dart';
 import 'package:bitel_ventas/main/ui/main/report/report_page.dart';
 import 'package:bitel_ventas/main/ui/main/stock/stock_page.dart';
@@ -10,6 +12,7 @@ import 'package:flutter_launcher_icons/ios.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import 'drawer/drawer_page.dart';
 import 'main_logic.dart';
 import 'setting/setting_page.dart';
 
@@ -61,7 +64,10 @@ class MainPage extends GetWidget {
             showUnselectedLabels: true,
             type: BottomNavigationBarType.fixed,
           ),
-          drawer: Drawer(child: Text("Drawer sdfsdf sdf sdf sdf asdf sdaf sdf sdf ")),
+          drawer: Drawer(
+            width: MediaQuery.of(context).size.width * 0.85,
+            child: DrawerPage(),
+          ),
         );
       },
     );

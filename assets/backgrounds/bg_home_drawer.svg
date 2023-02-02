@@ -1,0 +1,32 @@
+<svg width="304" height="680" viewBox="0 0 304 680" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="304" height="680" fill="#007689"/>
+<mask id="mask0_0_1000" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="304" height="680">
+<rect width="304" height="680" fill="white"/>
+</mask>
+<g mask="url(#mask0_0_1000)">
+<circle r="207.5" transform="matrix(-1 0 0 1 70.5 790.5)" stroke="#0094A9"/>
+<circle r="192" transform="matrix(-1 0 0 1 54 780)" fill="#01899C"/>
+<g filter="url(#filter0_b_0_1000)">
+<circle r="7" transform="matrix(-1 0 0 1 187 618)" fill="#0094A9"/>
+</g>
+<circle cx="10.5" cy="-35.5" r="129.5" stroke="#0094A9"/>
+<g filter="url(#filter1_b_0_1000)">
+<circle cx="122" cy="29" r="7" fill="#0094A9"/>
+</g>
+<circle cx="-15.5" cy="-35.5" r="129.5" fill="#01899C"/>
+</g>
+<defs>
+<filter id="filter0_b_0_1000" x="177.282" y="608.282" width="19.4366" height="19.4366" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feGaussianBlur in="BackgroundImageFix" stdDeviation="1.35914"/>
+<feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_0_1000"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_0_1000" result="shape"/>
+</filter>
+<filter id="filter1_b_0_1000" x="112.282" y="19.2817" width="19.4366" height="19.4366" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feGaussianBlur in="BackgroundImageFix" stdDeviation="1.35914"/>
+<feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_0_1000"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_0_1000" result="shape"/>
+</filter>
+</defs>
+</svg>
