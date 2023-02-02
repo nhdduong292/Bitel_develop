@@ -11,9 +11,6 @@ import '../../../../res/app_images.dart';
 import '../../login/login_page.dart';
 
 class DrawerLogic extends GetxController {
-  var item = DrawerItem(
-          unselectedImg: '', label: '', selectedImg: '', isSelected: false)
-      .obs;
   RxList<DrawerItem>? listItem = RxList<DrawerItem>();
 
 
@@ -36,40 +33,48 @@ class DrawerLogic extends GetxController {
   List<DrawerItem> getListItem(BuildContext context) {
     return [
       DrawerItem(
-          unselectedImg: AppImages.icActivatePrepaidUnselected,
-          label: AppLocalizations.of(context)!.textActivatePrepaid,
+          unselectedImg: AppImages.icMenuManageContact,
+          label: AppLocalizations.of(context)!.textManageContact,
           selectedImg: AppImages.icActivatePrepaidSelected,
-          isSelected: false),
+          isSelected: false,
+          list: [AppLocalizations.of(context)!.textCreateContact,
+            AppLocalizations.of(context)!.textManageContact]),
       DrawerItem(
-          unselectedImg: AppImages.icActivatePostpaidUnselected,
-          label: AppLocalizations.of(context)!.textActivatePostpaid,
+          unselectedImg: AppImages.icMenuFTTH,
+          label: AppLocalizations.of(context)!.textFTTH,
           selectedImg: AppImages.icActivatePostpaidSelected,
-          isSelected: false),
+          isSelected: false,
+          list: [
+            AppLocalizations.of(context)!.textSale,
+            AppLocalizations.of(context)!.textAfterSale,
+            AppLocalizations.of(context)!.textManageWO,
+          ]),
       DrawerItem(
           unselectedImg: AppImages.icPortabilityUnselected,
-          label: AppLocalizations.of(context)!.textPortability,
+          label: AppLocalizations.of(context)!.textMobile,
           selectedImg: AppImages.icPortabilitySelected,
-          isSelected: false),
+          isSelected: false,
+          list: []),
       DrawerItem(
           unselectedImg: AppImages.icMigrationUnselected,
-          label: AppLocalizations.of(context)!.textMigration,
+          label: AppLocalizations.of(context)!.textBuyAnypay,
           selectedImg: AppImages.icMigrationSelected,
-          isSelected: false),
+          isSelected: false,
+          list: []),
       DrawerItem(
           unselectedImg: AppImages.icBuyAnypayUnselected,
-          label: AppLocalizations.of(context)!.textAnyPay,
+          label: AppLocalizations.of(context)!.textClearDebt,
           selectedImg: AppImages.icBuyAnypaySelected,
-          isSelected: false),
+          isSelected: false,
+          list: []),
       DrawerItem(
-          unselectedImg: AppImages.icUtilitiesUnselected,
+          unselectedImg: AppImages.icMenuUtilites,
           label: AppLocalizations.of(context)!.textUtilities,
           selectedImg: AppImages.icUtilitiesSelected,
-          isSelected: false),
-      DrawerItem(
-          unselectedImg: AppImages.icSaleOfPackagesUnselected,
-          label: AppLocalizations.of(context)!.textSaleOfPackages,
-          selectedImg: AppImages.icSaleOfPackagesSelected,
-          isSelected: false),
+          isSelected: false,
+          list: [
+            AppLocalizations.of(context)!.textChangeLanguage,
+          ])
     ];
   }
 }
@@ -79,10 +84,12 @@ class DrawerItem {
   String label;
   String selectedImg;
   bool isSelected;
+  List<String>? list;
 
   DrawerItem(
       {required this.unselectedImg,
       required this.label,
       required this.selectedImg,
-      required this.isSelected});
+      required this.isSelected,
+      required this.list});
 }

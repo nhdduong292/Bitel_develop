@@ -63,5 +63,17 @@
   "textCheckBoxTownCenterPublicity3sub" : " BITEL khuyến mãi.",
   "textCheckBoxTownCenterPublicity4sub" : " quảng bá các công ty liên kết hoặc có liên quan về mặt thương mại với BITEL và của bất kỳ bên thứ ba nào.",
   "textCheckBoxTownCenterPublicity5" : "Tôi đồng ý nhận các thông tin liên quan đến khả năng thành lập ",
-  "textCheckBoxTownCenterPublicity5sub" : "các bộ lọc chặn quyền truy cập vào nội dung bạo lực và/hoặc người lớn."
+  "textCheckBoxTownCenterPublicity5sub" : "các bộ lọc chặn quyền truy cập vào nội dung bạo lực và/hoặc người lớn.",
+  "textManageContact": "Manage contact",
+  "textCreateContact": "Create contact",
+  "textFTTH": "FTTH",
+  "textSale": "Sale",
+  "textAfterSale": "After sale",
+  "textManageWO": "Manage WO",
+  "textMobile": "Mobile",
+  "textBuyAnypay": "Buy anypay",
+  "textClearDebt": "Clear debt",
+  "textUtilites": "Utilites",
+  "textChangeLanguage": "Change language"
+
 }

@@ -38,6 +38,9 @@ class MyApp extends StatelessWidget {
       getPages: RouteConfig.getPages,
       locale: Get.find<SettingService>().currentLocate.value,
       supportedLocales: RouteConfig.listLanguage,
+      theme: ThemeData(
+        dividerColor: Colors.transparent,
+      ),
     );
   }
 }

@@ -21,9 +21,11 @@ class LoginPage extends GetWidget {
                     fit: BoxFit.cover),
               )
           ),
-          ElevatedButton(onPressed: () {
-            controller.loginSuccess();
-          }, child: Text(AppLocalizations.of(context)!.btnLogin)
+          Center(
+            child: ElevatedButton(onPressed: () {
+              controller.loginSuccess();
+            }, child: Text(AppLocalizations.of(context)!.btnLogin),
+            ),
           ),
         ],
       ),

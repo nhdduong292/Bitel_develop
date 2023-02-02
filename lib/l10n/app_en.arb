@@ -73,5 +73,16 @@
   "textCheckBoxTownCenterPublicity3sub" : " BITEL promo.",
   "textCheckBoxTownCenterPublicity4sub" : " promotion of companies associated or commercially related to BITEL and, of any third party.",
   "textCheckBoxTownCenterPublicity5" : "I agree to receive information related to the possibility of establishing ",
-  "textCheckBoxTownCenterPublicity5sub" : "filters that block access to violent and/or adult content."
+  "textCheckBoxTownCenterPublicity5sub" : "filters that block access to violent and/or adult content.",
+  "textManageContact": "Manage contact",
+  "textCreateContact": "Create contact",
+  "textFTTH": "FTTH",
+  "textSale": "Sale",
+  "textAfterSale": "After sale",
+  "textManageWO": "Manage WO",
+  "textMobile": "Mobile",
+  "textBuyAnypay": "Buy anypay",
+  "textClearDebt": "Clear debt",
+  "textUtilites": "Utilites",
+  "textChangeLanguage": "Change language"
 }
