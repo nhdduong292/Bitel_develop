@@ -30,51 +30,43 @@ class MainPage extends GetWidget {
     return GetBuilder(
       init: MainLogic(),
       builder: (controller) {
-        return SafeArea(
-          child: Scaffold(
-            key: controller.scaffoldKey,
-            body: Center(
-              child: _widgetOptions.elementAt(controller.index.toInt()),
-            ),
-            bottomNavigationBar: BottomNavigationBar(
-              items: <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage(AppImages.icHome)),
-                  label: AppLocalizations.of(context)!.textHome,
-                ),
-                BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage(AppImages.icReport)),
-                  label: AppLocalizations.of(context)!.textReport,
-                ),
-                BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage(AppImages.icWarehouse)),
-                  label: AppLocalizations.of(context)!.textWare,
-                ),
-                BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage(AppImages.icConfig)),
-                  label: AppLocalizations.of(context)!.textConfig,
-                ),
-              ],
-              selectedItemColor: AppColors.colorSelectBottomBar,
-              backgroundColor: AppColors.colorBgBottomBar,
-              unselectedItemColor: AppColors.colorUnSelectBottomBar,
-              onTap: (value) {
-                controller.setIndex(value);
-              },
-              currentIndex: controller.index.toInt(),
-              showUnselectedLabels: true,
-              type: BottomNavigationBarType.fixed,
-            ),
-            drawer: Drawer(
-              width: MediaQuery.of(context).size.width * 0.85,
-              child: DrawerPage(),
-            ),
-            floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.adb),
-              onPressed: () {
-                controller.openDrawer();
-              },
-            ),
+        return Scaffold(
+          key: controller.scaffoldKey,
+          body: Center(
+            child: _widgetOptions.elementAt(controller.index.toInt()),
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage(AppImages.icHome)),
+                label: AppLocalizations.of(context)!.textHome,
+              ),
+              BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage(AppImages.icReport)),
+                label: AppLocalizations.of(context)!.textReport,
+              ),
+              BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage(AppImages.icWarehouse)),
+                label: AppLocalizations.of(context)!.textWare,
+              ),
+              BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage(AppImages.icConfig)),
+                label: AppLocalizations.of(context)!.textConfig,
+              ),
+            ],
+            selectedItemColor: AppColors.colorSelectBottomBar,
+            backgroundColor: AppColors.colorBgBottomBar,
+            unselectedItemColor: AppColors.colorUnSelectBottomBar,
+            onTap: (value) {
+              controller.setIndex(value);
+            },
+            currentIndex: controller.index.toInt(),
+            showUnselectedLabels: true,
+            type: BottomNavigationBarType.fixed,
+          ),
+          drawer: Drawer(
+            width: MediaQuery.of(context).size.width * 0.85,
+            child: DrawerPage(),
           ),
         );
       },
