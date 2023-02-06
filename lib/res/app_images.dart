@@ -71,4 +71,6 @@ class AppImages {
   static const icMenuManageContact = 'assets/images/ic_menu_manage_contact.svg';
   static const icMenuFTTH = 'assets/images/ic_menu_ftth.svg';
   static const icMenuUtilites = 'assets/images/ic_menu_utilites.svg';
+  static const String icCreateContact = "assets/icons/ic_create_contact.svg";
+  static const String icSortAlphabet = "assets/icons/ic_sort_alphabet.svg";
 }

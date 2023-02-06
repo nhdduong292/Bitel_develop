@@ -44,6 +44,7 @@ Widget inputForm(
               color: AppColors.colorText1,
               fontFamily: 'Roboto',
               fontSize: 14,
+              fontWeight: FontWeight.w500
             ),
             children: [
               TextSpan(

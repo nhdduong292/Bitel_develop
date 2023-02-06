@@ -14,6 +14,7 @@ import 'package:get/get.dart';
 import '../../../../res/app_colors.dart';
 import '../../../../res/app_images.dart';
 import '../../../router/route_config.dart';
+import '../activate_prepaid_pages/find_customer_page.dart';
 
 class DrawerPage extends GetView<DrawerLogic> {
   @override
@@ -195,9 +196,10 @@ class DrawerPage extends GetView<DrawerLogic> {
                 if(vehicle.label == AppLocalizations.of(context)!.textManageContact) {
                   if (i == 0) {
                     print("index: 0");
-                    Get.toNamed(RouteConfig.manageContact);
+                    Get.to(() => FindCustomerPage());
                   } else if (i == 1) {
                     print("index: 1");
+                    Get.toNamed(RouteConfig.manageContact);
                   }
                 } else if(vehicle.label == AppLocalizations.of(context)!.textFTTH){
                   if (i == 0) {

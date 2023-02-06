@@ -8,6 +8,8 @@ import 'package:bitel_ventas/main/ui/main/setting/my_info/my_info_page.dart';
 import 'package:bitel_ventas/main/ui/main/setting/sync_data/sync_data_page.dart';
 import 'package:get/get.dart';
 
+import '../ui/main/drawer/manage_contact/create/create_contact_page.dart';
+import '../ui/main/drawer/manage_contact/manage/manage_contact_page.dart';
 import '../ui/main/main_page.dart';
 import '../ui/main/setting/regiester_finger/register_finger_page.dart';
 
@@ -19,6 +21,7 @@ class RouteConfig {
   static const String syncData = "/setting/syncData";
   static const String registerFinger = "/setting/registerFinger";
   static const String manageContact = "/menu/manageContact";
+  static const String createContact = "/menu/createContact";
 
   ///page
   static final List<GetPage> getPages = [
@@ -28,6 +31,7 @@ class RouteConfig {
     GetPage(name: syncData, page: () => SyncDataPage()),
     GetPage(name: registerFinger, page: () => RegisterFingerPage()),
     GetPage(name: manageContact, page: () => ManageContactPage()),
+    GetPage(name: createContact, page: () => CreateContactPage()),
   ];
 
   ///language

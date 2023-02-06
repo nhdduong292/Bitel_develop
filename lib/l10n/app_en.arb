@@ -84,5 +84,14 @@
   "textBuyAnypay": "Buy anypay",
   "textClearDebt": "Clear debt",
   "textUtilites": "Utilites",
-  "textChangeLanguage": "Change language"
+  "textChangeLanguage": "Change language",
+  "textSearch" : "Search",
+  "textPhoneNumber" : "Phone number",
+  "hintPhoneNumber" : "Enter phone number",
+  "textIdentifyNumber" : "Identify number",
+  "hintIdentifyNumber" : "Enter identify number",
+  "textContactList" : "Contact list",
+  "textFullName" : "Full name",
+  "textDateOfBirth" : "Date of birth",
+  "textTypeOfDocument" : "Type of document"
 }
