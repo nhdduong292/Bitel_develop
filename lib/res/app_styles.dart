@@ -44,4 +44,21 @@ class AppStyles {
     fontFamily: AppFonts.Roboto,
     color: AppColors.colorContent,
   );
+
+  static final TextStyle r4 = TextStyle(
+    fontSize: 10,
+    fontFamily: AppFonts.Roboto,
+    color: AppColors.colorText1,
+  );
+
+  static final TextStyle r5 = TextStyle(
+    fontSize: 14,
+    fontFamily: AppFonts.Roboto,
+    color: Colors.white,
+  );
+
+  static final TextStyle r6 = TextStyle(
+    fontSize: 16,
+    fontFamily: AppFonts.Roboto,
+  );
 }

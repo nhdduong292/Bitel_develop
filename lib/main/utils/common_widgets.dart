@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:bitel_ventas/res/app_images.dart';
+import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -250,4 +251,52 @@ Widget notifyCoverageLocation({bool? coverage, required BuildContext context}) {
           ),
         )
       ]);
+}
+
+Widget spinnerFormV2(
+    {required BuildContext context,
+      required String hint,
+      required bool required,
+      required String dropValue,
+      required List<String> listDrop,
+      }) {
+  return Column(
+    children: [
+      Container(
+        height: 45,
+        padding: EdgeInsets.only(left: 12, top: 6, bottom: 6, right: 6),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(color: Color(0xFFE3EAF2))),
+        child: listDrop.isEmpty ?
+        TextField(
+          style: AppStyles.r2.copyWith(color: AppColors.colorTitle, fontWeight: FontWeight.w500),
+          decoration: InputDecoration(
+            hintText: hint,
+            hintStyle: AppStyles.r2.copyWith(color: AppColors.colorHint1, fontWeight: FontWeight.w400),
+            border: InputBorder.none,
+
+          )
+        ) :
+        DropdownButton<String>(
+          isExpanded: true,
+          underline: Container(),
+          value: dropValue.isNotEmpty ? dropValue: null,
+          onChanged: (value) {
+
+          },
+          items: listDrop.map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem(value: value, child: Text(value));
+          }).toList(),
+          alignment: AlignmentDirectional.centerStart,
+          style: AppStyles.r2.copyWith(color: AppColors.colorTitle, fontWeight: FontWeight.w500),
+          icon: SvgPicture.asset(AppImages.icDropdownSpinner),
+          hint: Text(
+            hint,
+            style: AppStyles.r2.copyWith(color: AppColors.colorHint1, fontWeight: FontWeight.w400),
+          ),
+        ),
+      ),
+    ],
+  );
 }

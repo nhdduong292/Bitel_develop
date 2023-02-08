@@ -71,4 +71,13 @@ class AppImages {
   static const icMenuManageContact = 'assets/images/ic_menu_manage_contact.svg';
   static const icMenuFTTH = 'assets/images/ic_menu_ftth.svg';
   static const icMenuUtilites = 'assets/images/ic_menu_utilites.svg';
+  static const icConceptLogin = 'assets/images/ic_concept_login.png';
+  static const icLogoSplash = 'assets/icons/ic_logo_splash.png';
+  static const icLoginUser = 'assets/images/ic_login_user.svg';
+  static const icLoginPass = 'assets/images/ic_login_pass.svg';
+  static const icLoginShowPass = 'assets/images/ic_login_show_pass.svg';
+  static const icSurveyAddress = 'assets/images/ic_survey_address.svg';
+  static const icSurveySuccessful = 'assets/images/ic_survey_successful.svg';
+  static const icSurveyUnsuccessful = 'assets/images/ic_survey_unsuccessful.svg';
+  static const icClose = 'assets/images/ic_close.svg';
 }
