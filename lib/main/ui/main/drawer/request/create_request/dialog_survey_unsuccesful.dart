@@ -1,12 +1,12 @@
+import 'package:bitel_ventas/main/custom_views/line_dash.dart';
+import 'package:bitel_ventas/res/app_colors.dart';
+import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../../res/app_colors.dart';
-import '../../../../../res/app_images.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../../custom_views/line_dash.dart';
 import 'package:get/get.dart';
 
 class DialogSurveyUnsuccessful extends StatelessWidget {

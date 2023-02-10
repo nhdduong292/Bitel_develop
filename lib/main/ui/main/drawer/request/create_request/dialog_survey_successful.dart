@@ -1,18 +1,18 @@
+import 'package:bitel_ventas/main/custom_views/line_dash.dart';
+import 'package:bitel_ventas/res/app_colors.dart';
+import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../../res/app_colors.dart';
-import '../../../../../res/app_images.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../../custom_views/line_dash.dart';
 import 'package:get/get.dart';
 
-class DialogSurveyMap extends StatelessWidget {
+class DialogSurveySuccessful extends StatelessWidget {
   final Function? onSubmit;
 
-  const DialogSurveyMap({super.key, this.onSubmit});
+  const DialogSurveySuccessful({super.key, this.onSubmit});
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +24,20 @@ class DialogSurveyMap extends StatelessWidget {
       backgroundColor: Colors.white,
       child: Padding(
         padding:
-        const EdgeInsets.only(top: 22, left: 16, right: 16, bottom: 26),
+            const EdgeInsets.only(top: 22, left: 16, right: 16, bottom: 26),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-                alignment: Alignment.centerRight,
-                child: SvgPicture.asset(AppImages.icClose)),
-           SizedBox(height: 200,),
+            SvgPicture.asset(AppImages.icSurveySuccessful),
+            Padding(
+              padding: const EdgeInsets.only(top: 15),
+              child: Text(AppLocalizations.of(context)!.textTitleSurveySuccessful, style: AppStyles.r6.copyWith(color: AppColors.colorSelectTab, fontWeight: FontWeight.w500),),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: const LineDash(color: AppColors.colorLineDash),
+            ),
+            Text(AppLocalizations.of(context)!.textContentSurveySuccessful, style: AppStyles.r6.copyWith(color: AppColors.colorText4, fontWeight: FontWeight.w500),),
             Row(
               children: [
                 Expanded(
@@ -54,11 +60,11 @@ class DialogSurveyMap extends StatelessWidget {
 
                       child: InkWell(
                         onTap: () {
-                          Get.back();
+                            Get.back();
                         },
                         child:  Center(
                             child: Text(
-                              AppLocalizations.of(context)!.textConnect.toUpperCase(),
+                              AppLocalizations.of(context)!.textCancel.toUpperCase(),
                               style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
                             )),
                       ),
@@ -80,7 +86,7 @@ class DialogSurveyMap extends StatelessWidget {
                         },
                         child:  Center(
                             child: Text(
-                              AppLocalizations.of(context)!.textSurvey.toUpperCase(),
+                              AppLocalizations.of(context)!.textAccept.toUpperCase(),
                               style: AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
                             )),
                       ),

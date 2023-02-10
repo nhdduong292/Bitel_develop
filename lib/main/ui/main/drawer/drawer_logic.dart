@@ -3,7 +3,6 @@
 import 'dart:async';
 
 import 'package:bitel_ventas/main/ui/main/activate_prepaid_pages/find_customer_page.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/create_request/create_request_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
@@ -29,7 +28,7 @@ class DrawerLogic extends GetxController {
           Get.to(() => FindCustomerPage());
           break;
         case 2:
-          Get.toNamed(RouteConfig.createRequest);
+          Get.toNamed(RouteConfig.listRequest);
           break;
       }
     });

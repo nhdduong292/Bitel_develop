@@ -80,4 +80,11 @@ class AppImages {
   static const icSurveySuccessful = 'assets/images/ic_survey_successful.svg';
   static const icSurveyUnsuccessful = 'assets/images/ic_survey_unsuccessful.svg';
   static const icClose = 'assets/images/ic_close.svg';
+  static const icCreateRequest = 'assets/images/ic_create_request.svg';
+  static const icAdvanceSearch = 'assets/images/ic_advance_search.svg';
+  static const icTranferSaff = 'assets/images/ic_tranfer_saff.svg';
+  static const icCancelRequest = 'assets/images/ic_cancel_request.svg';
+  static const icSearch = 'assets/images/ic_search.svg';
+  static const icSelectDate = 'assets/images/ic_select_date.svg';
+
 }

@@ -61,4 +61,14 @@ class AppStyles {
     fontSize: 16,
     fontFamily: AppFonts.Roboto,
   );
+
+  static final TextStyle r7 = TextStyle(
+    fontSize: 14,
+    fontFamily: AppFonts.Roboto,
+  );
+
+  static final TextStyle r8 = TextStyle(
+    fontSize: 13,
+    fontFamily: AppFonts.Roboto,
+  );
 }

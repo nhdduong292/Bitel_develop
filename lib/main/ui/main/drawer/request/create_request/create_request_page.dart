@@ -1,15 +1,16 @@
-import 'package:bitel_ventas/main/ui/main/drawer/create_request/create_request_logic.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/create_request/dialog_survey_map.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/create_request/dialog_survey_successful.dart';
+
+import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/create_request_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_map.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_successful.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
+import 'package:bitel_ventas/res/app_colors.dart';
+import 'package:bitel_ventas/res/app_images.dart';
+import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../../../../res/app_colors.dart';
-import '../../../../../res/app_images.dart';
-import '../../../../../res/app_styles.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'dialog_survey_unsuccesful.dart';
@@ -35,13 +36,8 @@ class CreateRequestPage extends GetWidget{
           ),
           elevation: 0.0,
           title: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Create new request", style: AppStyles.title),
-              ],
-            ),
+            margin: EdgeInsets.only(bottom: 20),
+            child: Text("Create new request", style: AppStyles.title),
           ),
           toolbarHeight: 100,
           flexibleSpace: Container(
@@ -149,7 +145,7 @@ class CreateRequestPage extends GetWidget{
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 16, bottom: 10),
-                      child: Text( AppLocalizations.of(context)!
+                      child: Text(AppLocalizations.of(context)!
                           .textContactPerson, style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),),
                     ),
                     spinnerFormV2(
@@ -186,7 +182,7 @@ class CreateRequestPage extends GetWidget{
                         InkWell(
                           child: SvgPicture.asset(AppImages.icSurveyAddress),
                           onTap: () {
-                            showDialogSurveyMap(context);
+                            // showDialogSurveyMap(context);
                           },
                         )
                       ],
@@ -272,7 +268,7 @@ class CreateRequestPage extends GetWidget{
 
                         child: InkWell(
                           onTap: () {
-                            showDialogSurveyUnsuccessful(context);
+                            Get.back();
                           },
                           child:  Center(
                               child: Text(
@@ -293,7 +289,7 @@ class CreateRequestPage extends GetWidget{
                         ),
                         child: InkWell(
                           onTap: () {
-                            showDialogSurveySuccessful(context);
+                            showDialogSurveyMap(context, controller);
                           },
                           child:  Center(
                               child: Text(
@@ -312,38 +308,43 @@ class CreateRequestPage extends GetWidget{
     },);
   }
   
-  void showDialogSurveySuccessful(BuildContext context){
+  void showDialogSurveySuccessful(BuildContext context, CreateRequestLogic controller){
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (context) {
            return DialogSurveySuccessful(
              onSubmit: (){
-
+               controller.createRequest();
            },);
         });
   }
 
-  void showDialogSurveyUnsuccessful(BuildContext context){
+  void showDialogSurveyUnsuccessful(BuildContext context, CreateRequestLogic controller){
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (context) {
           return DialogSurveyUnsuccessful(
             onSubmit: (){
-
+                controller.createRequest();
             },);
         });
   }
 
-  void showDialogSurveyMap(BuildContext context){
+  void showDialogSurveyMap(BuildContext context, CreateRequestLogic controller){
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (context) {
           return DialogSurveyMap(
             onSubmit: (){
-
+                bool isOffline = false;
+                if(isOffline) {
+                  showDialogSurveySuccessful(context, controller);
+                } else {
+                  showDialogSurveyUnsuccessful(context, controller);
+                }
             },);
         });
   }
