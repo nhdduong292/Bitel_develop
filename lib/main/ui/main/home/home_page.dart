@@ -113,6 +113,7 @@ class HomePage extends GetView<HomeLogic> {
           ),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Padding(
                 padding:
@@ -122,7 +123,7 @@ class HomePage extends GetView<HomeLogic> {
                   child: Text("Hola, Diego Guadalupe", style: AppStyles.b2),
                 ),
               ),
-              SizedBox(
+              Container(
                 height: 240,
                 child: PageView.builder(
                   controller: controller.controllerPage,

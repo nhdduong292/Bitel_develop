@@ -8,6 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 
 import '../../../../res/app_images.dart';
+import '../../../router/route_config.dart';
 import '../../login/login_page.dart';
 
 class DrawerLogic extends GetxController {
@@ -22,10 +23,13 @@ class DrawerLogic extends GetxController {
   void onItemClick({required int index}) {
     listItem![index].isSelected = true;
     Timer(Duration(milliseconds: 300), () {
-      Get.back();
       switch (index) {
-        case 0:
+        case 3:
           Get.to(() => FindCustomerPage());
+          break;
+        case 2:
+          Get.toNamed(RouteConfig.listRequest);
+          break;
       }
     });
   }

@@ -1,6 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:ffi';
+
 import 'package:bitel_ventas/res/app_images.dart';
+import 'package:bitel_ventas/res/app_styles.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -500,6 +504,129 @@ Widget bottomButton({required String text, required onTap}) {
         )),
       ),
     ),
+  );
+}
+
+
+Widget spinnerFormV3(
+    {required BuildContext context,
+      required String hint,
+      required bool required,
+      required String dropValue,
+      required List<String> listDrop,
+      }) {
+  return Column(
+    children: [
+      Container(
+        height: 45,
+        padding: EdgeInsets.only(left: 12, top: 6, bottom: 6, right: 6),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(color: Color(0xFFE3EAF2))),
+        child: listDrop.isEmpty ?
+        TextField(
+          style: AppStyles.r2.copyWith(color: AppColors.colorTitle, fontWeight: FontWeight.w500),
+          decoration: InputDecoration(
+            hintText: hint,
+            hintStyle: AppStyles.r2.copyWith(color: AppColors.colorHint1, fontWeight: FontWeight.w400),
+            border: InputBorder.none,
+
+          )
+        ) :
+        DropdownButton<String>(
+          isExpanded: true,
+          underline: Container(),
+          value: dropValue.isNotEmpty ? dropValue: null,
+          onChanged: (value) {
+
+          },
+          items: listDrop.map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem(value: value, child: Text(value));
+          }).toList(),
+          alignment: AlignmentDirectional.centerStart,
+          style: AppStyles.r2.copyWith(color: AppColors.colorTitle, fontWeight: FontWeight.w500),
+          icon: SvgPicture.asset(AppImages.icDropdownSpinner),
+          hint: Text(
+            hint,
+            style: AppStyles.r2.copyWith(color: AppColors.colorHint1, fontWeight: FontWeight.w400),
+          ),
+
+        ),
+      ),
+    ],
+  );
+}
+
+Widget spinnerFormV2(
+    {required BuildContext context,
+      required String hint,
+      required bool required,
+      required String dropValue,
+      required List<String> listDrop,
+      double height = 0,
+    }) {
+  return Column(
+    children: [
+      Container(
+        height: height > 45 ? height : 45,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(color: Color(0xFFE3EAF2))),
+        child: listDrop.isEmpty ?
+        Padding(
+          padding: EdgeInsets.only(left: 12, top: 6, bottom: 6, right: 6),
+          child: TextField(
+              style: AppStyles.r2.copyWith(color: AppColors.colorTitle, fontWeight: FontWeight.w500),
+              decoration: InputDecoration(
+                hintText: hint,
+                hintStyle: AppStyles.r2.copyWith(color: AppColors.colorHint1, fontWeight: FontWeight.w400),
+                border: InputBorder.none,
+
+              )
+          ),
+        ) :
+        DropdownButtonFormField2(
+          decoration: InputDecoration(
+            //Add isDense true and zero Padding.
+            //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
+            isDense: true,
+            contentPadding: EdgeInsets.zero,
+
+            border: InputBorder.none,
+
+            //Add more decoration as you want here
+            //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
+          ),
+          // selectedItemHighlightColor: Colors.red,
+          buttonHeight: 60,
+          buttonPadding: const EdgeInsets.only(left: 0, right: 10),
+          dropdownDecoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(color: Color(0xFFE3EAF2))),
+          isExpanded: true,
+          value: dropValue.isNotEmpty ? dropValue: null,
+          onChanged: (value) {
+
+          },
+          items: listDrop.map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem(value: value, child: Text(value));
+          }).toList(),
+          alignment: AlignmentDirectional.centerStart,
+          style: AppStyles.r2.copyWith(color: AppColors.colorTitle, fontWeight: FontWeight.w500),
+          icon: SvgPicture.asset(AppImages.icDropdownSpinner),
+          hint: Text(
+            hint,
+            style: AppStyles.r2.copyWith(color: AppColors.colorHint1, fontWeight: FontWeight.w400),
+          ),
+          validator: (value) {
+            if (value == null) {
+              return 'Please select gender.';
+            }
+          },
+
+        ),
+      ),
+    ],
   );
 }
 
