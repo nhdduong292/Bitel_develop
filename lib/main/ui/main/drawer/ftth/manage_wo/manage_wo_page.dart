@@ -133,7 +133,7 @@ class ManageWOPage extends GetView<ManageWOLogic> {
                                 label: "",
                                 hint: AppLocalizations.of(context)!.hintWOType,
                                 required: false,
-                                items: controller.listWOType,
+                                items: controller.listWOTypes,
                                 dropdownValue: controller.WOType),
                           ),
                           Expanded(
@@ -480,101 +480,222 @@ class DialogAdvancedSearch extends Dialog {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16.0)),
             alignment: Alignment.center,
-            insetPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 100),
-            child: Stack(children: [
-              Column(
-                children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(AppLocalizations.of(context)!.textAdvancedSearch,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'Roboto',
-                          fontSize: 18)),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  DottedLine(
-                    dashColor: Color(0xFFE3EAF2),
-                    dashGapLength: 3,
-                    dashLength: 4,
-                  ),
-                  spinnerFormNormalV2(
-                      context: context,
-                      label: AppLocalizations.of(context)!.textWOType,
-                      hint: '',
-                      required: false,
-                      items: controller.listWOType,
-                      dropdownValue: controller.allWOType,
-                      width: width * 0.52),
-                  // multipleSelectField(
-                  //     context: context,
-                  //     label: AppLocalizations.of(context)!.textWOType,
-                  //     hint: '',
-                  //     required: false,
-                  //     items: controller.serviceItems,
-                  //     chosenItems: controller.chosenServiceItems.value,
-                  //     chosenItemsString: controller.chosenServiceString.value,
-                  //     width: width * 0.52),
-                  spinnerFormNormalV2(
-                      context: context,
-                      label: AppLocalizations.of(context)!.textService,
-                      hint: '',
-                      required: false,
-                      items: controller.serviceItems,
-                      dropdownValue: controller.serviceItem,
-                      width: width * 0.52),
-                  inputFormV2(
-                      label: AppLocalizations.of(context)!.textRequestCode,
-                      hint: AppLocalizations.of(context)!.hintEnterCode,
-                      required: false,
-                      inputType: TextInputType.text,
-                      width: width * 0.52),
-                  inputFormV2(
-                      label: AppLocalizations.of(context)!.textAccount,
-                      hint: AppLocalizations.of(context)!.hintAccount,
-                      required: false,
-                      inputType: TextInputType.text,
-                      width: width * 0.52),
-                  inputFormV2(
-                      label:
-                          AppLocalizations.of(context)!.textCustomerPhoneNumber,
-                      hint: AppLocalizations.of(context)!.hintEnterPhone,
-                      required: false,
-                      inputType: TextInputType.text,
-                      width: width * 0.52),
-                  spinnerFormNormalV2(
-                      context: context,
-                      label: AppLocalizations.of(context)!.textTeam,
-                      hint: AppLocalizations.of(context)!.hintChooseTeam,
-                      required: false,
-                      items: controller.serviceItems,
-                      dropdownValue: controller.serviceItem,
-                      width: width * 0.52),
-                  spinnerFormNormalV2(
-                      context: context,
-                      label: AppLocalizations.of(context)!.textTechnician,
-                      hint: AppLocalizations.of(context)!.hintChooseTechnician,
-                      required: false,
-                      items: controller.serviceItems,
-                      dropdownValue: controller.serviceItem,
-                      width: width * 0.52),
-                ],
-              ),
-              Positioned(
-                  top: 10,
-                  right: 10,
-                  child: InkWell(
-                    onTap: () => Get.back(),
-                    child: Icon(
-                      Icons.close,
-                      color: Color(0xFF4B5765),
-                      size: 25,
+            insetPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 70),
+            child: SingleChildScrollView(
+              child: Stack(children: [
+                Column(
+                  children: [
+                    SizedBox(
+                      height: 20,
                     ),
-                  ))
-            ]),
+                    Text(AppLocalizations.of(context)!.textAdvancedSearch,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'Roboto',
+                            fontSize: 18)),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    DottedLine(
+                      dashColor: Color(0xFFE3EAF2),
+                      dashGapLength: 3,
+                      dashLength: 4,
+                    ),
+                    multiSelectDropdownForm(
+                        context: context,
+                        items: controller.serviceItems,
+                        label: AppLocalizations.of(context)!.textService,
+                        required: false,
+                        hint: 'All service',
+                        hintStyle: TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'Roboto',
+                            color: Color(0xFF415263),
+                            fontWeight: FontWeight.w500),
+                        width: width * 0.52,
+                        selectedItems: controller.chosenServiceItems.value),
+                    multiSelectDropdownForm(
+                        context: context,
+                        items: controller.listWOTypes,
+                        label: AppLocalizations.of(context)!.textWOType,
+                        required: false,
+                        hint: 'All WO type',
+                        hintStyle: TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'Roboto',
+                            color: Color(0xFF415263),
+                            fontWeight: FontWeight.w500),
+                        width: width * 0.52,
+                        selectedItems: controller.chosenWOTypes.value),
+                    inputFormV2(
+                        label: AppLocalizations.of(context)!.textRequestCode,
+                        hint: AppLocalizations.of(context)!.hintEnterCode,
+                        required: false,
+                        inputType: TextInputType.text,
+                        width: width * 0.52),
+                    inputFormV2(
+                        label: AppLocalizations.of(context)!.textAccount,
+                        hint: AppLocalizations.of(context)!.hintAccount,
+                        required: false,
+                        inputType: TextInputType.text,
+                        width: width * 0.52),
+                    inputFormV2(
+                        label:
+                            AppLocalizations.of(context)!.textCustomerPhoneNumber,
+                        hint: AppLocalizations.of(context)!.hintEnterPhone,
+                        required: false,
+                        inputType: TextInputType.text,
+                        width: width * 0.52),
+                    multiSelectDropdownForm(
+                        context: context,
+                        items: controller.listTeams,
+                        label: AppLocalizations.of(context)!.textTeam,
+                        required: false,
+                        hint: 'Choose team',
+                        hintStyle: TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'Roboto',
+                            color: Color(0xFF415263),
+                            fontWeight: FontWeight.w300),
+                        width: width * 0.52,
+                        selectedItems: controller.chosenTeams.value),
+                    multiSelectDropdownForm(
+                        context: context,
+                        items: controller.listTechnician,
+                        label: AppLocalizations.of(context)!.textTechnician,
+                        required: false,
+                        hint: 'Choose technician',
+                        hintStyle: TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'Roboto',
+                            color: Color(0xFF415263),
+                            fontWeight: FontWeight.w300),
+                        width: width * 0.52,
+                        selectedItems: controller.chosenTechnician.value),
+                    multiSelectDropdownForm(
+                        context: context,
+                        items: controller.listStatus,
+                        label: AppLocalizations.of(context)!.textStatus,
+                        required: false,
+                        hint: 'Complete',
+                        hintStyle: TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'Roboto',
+                            color: Color(0xFF415263),
+                            fontWeight: FontWeight.w500),
+                        width: width * 0.52,
+                        selectedItems: controller.chosenStatus.value),
+                    Container(
+                      padding: EdgeInsets.only(top: 16, right: 16, left: 16),
+                      child: Row(
+                        children: [
+                          Expanded(flex: 2, child:  Text(
+                            AppLocalizations.of(context)!.textRequestDate,
+                            style: AppStyles.r8.copyWith(
+                                color: AppColors.colorText1.withOpacity(0.85),
+                                fontWeight: FontWeight.w400),
+                          )),
+                          Expanded(
+                              flex: 5,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    flex:1,
+                                    child: InkWell(
+                                        onTap: () {
+                                          _selectDate(context,controller, true);
+                                        },
+                                        child:  Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(24),
+                                              border: Border.all(color: Color(0xFFE3EAF2))),
+                                          padding: EdgeInsets.only(top: 11,bottom: 11, left: 16, right: 16),
+                                          child: Text.rich(TextSpan(
+                                              style: AppStyles.r2.copyWith(color: controller.fromDate.value.isEmpty  ? AppColors.colorHint1 : AppColors.colorText1, fontWeight: FontWeight.w400),
+                                              children: [
+                                                WidgetSpan(
+                                                  child: controller.fromDate.value.isEmpty ? Padding(
+                                                    padding: const EdgeInsets.only(right: 8.0),
+                                                    child: SvgPicture.asset(AppImages.icSelectDate),
+                                                  ) : Container(),
+                                                ),
+
+                                                TextSpan(
+                                                  text: controller.fromDate.value.isEmpty ? AppLocalizations.of(context)!.textFrom: controller.fromDate.value,
+                                                )
+                                              ]
+                                          )),
+                                        )),
+                                  ),
+                                  SizedBox(width: 12,),
+                                  Expanded(
+                                    flex:1,
+                                    child: InkWell(
+                                        onTap: () {
+                                          _selectDate(context,controller,false);
+                                        },
+                                        child:  Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(24),
+                                              border: Border.all(color: Color(0xFFE3EAF2))),
+                                          padding: EdgeInsets.only(top: 11,bottom: 11, left: 16, right: 16),
+                                          child: Text.rich(TextSpan(
+                                              style: AppStyles.r2.copyWith(color: controller.toDate.value.isEmpty  ? AppColors.colorHint1 : AppColors.colorText1, fontWeight: FontWeight.w400),
+                                              children: [
+                                                WidgetSpan(
+                                                  child: controller.toDate.value.isEmpty ? Padding(
+                                                    padding: const EdgeInsets.only(right: 8.0),
+                                                    child: SvgPicture.asset(AppImages.icSelectDate),
+                                                  ) : Container(),
+                                                ),
+
+                                                TextSpan(
+                                                  text: controller.toDate.value.isEmpty ? AppLocalizations.of(context)!.textTo: controller.toDate.value,
+                                                )
+                                              ]
+                                          )),
+                                        )),
+                                  )
+                                ],
+                              ))
+                        ],
+                      ),
+                    ),
+                    bottomButton(
+                        text: AppLocalizations.of(context)!.textSearch,
+                        onTap: () => Get.back()),
+                    SizedBox(height: 20,)
+                  ],
+                ),
+                Positioned(
+                    top: 10,
+                    right: 10,
+                    child: InkWell(
+                      onTap: () => Get.back(),
+                      child: Icon(
+                        Icons.close,
+                        color: Color(0xFF4B5765),
+                        size: 25,
+                      ),
+                    ))
+              ]),
+            ),
           );
         });
+  }
+
+  _selectDate(BuildContext context, ManageWOLogic control, bool from) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: control.selectDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2025),
+    );
+    if(from){
+      control.setFromDate(picked!);
+    } else {
+      control.setToDate(picked!);
+    }
   }
 }

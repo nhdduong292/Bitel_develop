@@ -11,9 +11,7 @@ class ManageWOLogic extends GetxController with GetSingleTickerProviderStateMixi
     super.onInit();
 
   }
-  var WOType = RxnString();
-  var allWOType = 'All WO type'.obs;
-  List<String> listWOType = ['All WO type', 'Survey offline', 'Deployment'];
+
   List<WorkOrder> assignedWOList = [
     WorkOrder(
         type: 'Survey',
@@ -43,10 +41,31 @@ class ManageWOLogic extends GetxController with GetSingleTickerProviderStateMixi
         deadline: '13/01/2023 08:31:12')
   ];
 
-  var serviceItem = "All service".obs;
-  List<String> serviceItems = ['All service', 'FTTH', 'Office Wan', 'Leased Line'];
-  RxList<String> chosenServiceItems = [''].obs;
-  var chosenServiceString = 'All service'.obs;
+  List<String> serviceItems = ['FTTH', 'Office Wan', 'Leased Line'];
+  var chosenServiceItems = RxList<String>();
+  var WOType = RxnString();
+  List<String> listWOTypes = ['Survey offline', 'Deployment'];
+  var chosenWOTypes = RxList<String>();
+  List<String> listTeams = ['team1', 'team2'];
+  var chosenTeams = RxList<String>();
+  List<String> listTechnician = ['tech1', 'tech2'];
+  var chosenTechnician = RxList<String>();
+  List<String> listStatus = ['Not started', 'In progress', 'Complete', 'Pending', 'Cancel'];
+  var chosenStatus = RxList<String>();
+
+  var fromDate = "".obs;
+  var toDate = "".obs;
+  DateTime selectDate = DateTime.now();
+
+  void setToDate(DateTime picked) {
+    toDate.value = "${picked.day}/${picked.month}/${picked.year}";
+    update();
+  }
+
+  void setFromDate(DateTime picked) {
+    fromDate.value = "${picked.day}/${picked.month}/${picked.year}";
+    update();
+  }
 }
 
 class WorkOrder {
