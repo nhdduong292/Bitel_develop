@@ -6,7 +6,6 @@ import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
 // import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -207,6 +206,7 @@ class DrawerPage extends GetView<DrawerLogic> {
                   } else if (i == 1) {
                     print("index: 3");
                   } else if (i == 2) {
+                    Get.toNamed(RouteConfig.manageWO);
                     print("index: 4");
                   }
                 }else if(vehicle.label == AppLocalizations.of(context)!.textUtilites){

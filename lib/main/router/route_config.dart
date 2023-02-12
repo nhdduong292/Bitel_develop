@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:bitel_ventas/main/ui/login/login_binding.dart';
 import 'package:bitel_ventas/main/ui/login/login_page.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/ftth/manage_wo/mange_wo_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/manage_wo/manage_wo_page.dart';
 import 'package:bitel_ventas/main/ui/main/main_binding.dart';
 import 'package:bitel_ventas/main/ui/main/setting/my_info/my_info_page.dart';
 import 'package:bitel_ventas/main/ui/main/setting/sync_data/sync_data_page.dart';
@@ -22,6 +22,7 @@ class RouteConfig {
   static const String registerFinger = "/setting/registerFinger";
   static const String manageContact = "/menu/manageContact";
   static const String createContact = "/menu/createContact";
+  static const String manageWO = "/menu/manageWO";
 
   ///page
   static final List<GetPage> getPages = [
@@ -32,6 +33,7 @@ class RouteConfig {
     GetPage(name: registerFinger, page: () => RegisterFingerPage()),
     GetPage(name: manageContact, page: () => ManageContactPage()),
     GetPage(name: createContact, page: () => CreateContactPage()),
+    GetPage(name: manageWO, page: () => ManageWOPage()),
   ];
 
   ///language

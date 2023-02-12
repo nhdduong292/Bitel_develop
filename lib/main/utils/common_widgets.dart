@@ -4,7 +4,6 @@ import 'package:bitel_ventas/res/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg_provider;
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
@@ -34,59 +33,137 @@ Widget inputForm(
     required TextInputType inputType}) {
   return Column(
     children: [
-      Container(
-        margin: EdgeInsets.only(left: 20, top: 15),
-        alignment: Alignment.topLeft,
-        child: RichText(
-          text: TextSpan(
-            text: label,
-            style: TextStyle(
-              color: AppColors.colorText1,
-              fontFamily: 'Roboto',
-              fontSize: 14,
-              fontWeight: FontWeight.w500
-            ),
-            children: [
-              TextSpan(
-                  text: required ? ' *' : '',
+      label.isNotEmpty
+          ? Container(
+              margin: EdgeInsets.only(left: 20, top: 15),
+              alignment: Alignment.topLeft,
+              child: RichText(
+                text: TextSpan(
+                  text: label,
                   style: TextStyle(
-                    color: AppColors.colorTextError,
-                    fontFamily: 'Roboto',
-                    fontSize: 14,
-                  )),
-            ],
+                      color: AppColors.colorText1,
+                      fontFamily: 'Roboto',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500),
+                  children: [
+                    TextSpan(
+                        text: required ? ' *' : '',
+                        style: TextStyle(
+                          color: AppColors.colorTextError,
+                          fontFamily: 'Roboto',
+                          fontSize: 14,
+                        )),
+                  ],
+                ),
+              ),
+            )
+          : Container(),
+      Container(
+        margin: EdgeInsets.only(left: 15, right: 15, top: 10),
+        child: SizedBox(
+          height: 45,
+          child: TextField(
+            style: TextStyle(
+                fontSize: 18,
+                fontFamily: 'Roboto',
+                color: Color(0xFF415263),
+                fontWeight: FontWeight.w500),
+            keyboardType: inputType,
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(horizontal: 15),
+              hintText: hint,
+              hintStyle: TextStyle(
+                  fontSize: 18,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w300),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(24),
+                borderSide: BorderSide(
+                  color: Color(0xFFE3EAF2),
+                  width: 1,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(24),
+                borderSide: BorderSide(
+                  color: Color(0xFFE3EAF2),
+                  width: 1,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+Widget inputFormV2(
+    {required String label,
+    required String hint,
+    required bool required,
+    required TextInputType inputType,
+    required double width}) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: [
+      Expanded(
+        child: Container(
+          margin: EdgeInsets.only(left: 20, top: 15),
+          alignment: Alignment.topLeft,
+          child: RichText(
+            text: TextSpan(
+              text: label,
+              style: TextStyle(
+                color: AppColors.colorText1,
+                fontFamily: 'Roboto',
+                fontSize: 14,
+              ),
+              children: [
+                TextSpan(
+                    text: required ? ' *' : '',
+                    style: TextStyle(
+                      color: AppColors.colorTextError,
+                      fontFamily: 'Roboto',
+                      fontSize: 14,
+                    )),
+              ],
+            ),
           ),
         ),
       ),
       Container(
-        height: 45,
-        margin: EdgeInsets.only(left: 15, right: 15, top: 10),
-        child: TextField(
-          textAlignVertical: TextAlignVertical.bottom,
-          style: TextStyle(
-              fontSize: 18,
-              fontFamily: 'Roboto',
-              color: Color(0xFF415263),
-              fontWeight: FontWeight.w500),
-          keyboardType: inputType,
-          decoration: InputDecoration(
-            hintText: hint,
-            hintStyle: TextStyle(
+        margin: EdgeInsets.only(left: 15, right: 15, top: 15),
+        child: SizedBox(
+          height: 45,
+          width: width,
+          child: TextField(
+            style: TextStyle(
                 fontSize: 18,
                 fontFamily: 'Roboto',
-                fontWeight: FontWeight.w300),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(24),
-              borderSide: BorderSide(
-                color: Color(0xFFE3EAF2),
-                width: 1,
+                color: Color(0xFF415263),
+                fontWeight: FontWeight.w500),
+            keyboardType: inputType,
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(horizontal: 15),
+              hintText: hint,
+              hintStyle: TextStyle(
+                  fontSize: 18,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w300),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(24),
+                borderSide: BorderSide(
+                  color: Color(0xFFE3EAF2),
+                  width: 1,
+                ),
               ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(24),
-              borderSide: BorderSide(
-                color: Color(0xFFE3EAF2),
-                width: 1,
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(24),
+                borderSide: BorderSide(
+                  color: Color(0xFFE3EAF2),
+                  width: 1,
+                ),
               ),
             ),
           ),
@@ -107,29 +184,31 @@ Widget spinnerForm(
     List<TownCenter>? townCenterItems}) {
   return Column(
     children: [
-      Container(
-        margin: EdgeInsets.only(left: 20, top: 15),
-        alignment: Alignment.topLeft,
-        child: RichText(
-          text: TextSpan(
-            text: label,
-            style: TextStyle(
-              color: AppColors.colorText1,
-              fontFamily: 'Roboto',
-              fontSize: 14,
-            ),
-            children: [
-              TextSpan(
-                  text: required ? ' *' : '',
+      label.isNotEmpty
+          ? Container(
+              margin: EdgeInsets.only(left: 20, top: 15),
+              alignment: Alignment.topLeft,
+              child: RichText(
+                text: TextSpan(
+                  text: label,
                   style: TextStyle(
-                    color: AppColors.colorTextError,
+                    color: AppColors.colorText1,
                     fontFamily: 'Roboto',
                     fontSize: 14,
-                  )),
-            ],
-          ),
-        ),
-      ),
+                  ),
+                  children: [
+                    TextSpan(
+                        text: required ? ' *' : '',
+                        style: TextStyle(
+                          color: AppColors.colorTextError,
+                          fontFamily: 'Roboto',
+                          fontSize: 14,
+                        )),
+                  ],
+                ),
+              ),
+            )
+          : Container(),
       Container(
         // width: double.infinity,
         height: 45,
@@ -159,9 +238,7 @@ Widget spinnerForm(
                       fontFamily: 'Roboto',
                       color: Color(0xFF415263),
                       fontWeight: FontWeight.w500),
-                  icon: Image(
-                    image: svg_provider.Svg(AppImages.icDropdownSpinner),
-                  ),
+                  icon: SvgPicture.asset(AppImages.icDropdownSpinner),
                   hint: Text(
                     hint,
                     style: TextStyle(
@@ -184,9 +261,7 @@ Widget spinnerForm(
                       fontFamily: 'Roboto',
                       color: Color(0xFF415263),
                       fontWeight: FontWeight.w500),
-                  icon: Image(
-                    image: svg_provider.Svg(AppImages.icDropdownSpinner),
-                  ),
+                  icon: SvgPicture.asset(AppImages.icDropdownSpinner),
                   hint: Text(
                     hint,
                     style: TextStyle(
@@ -198,57 +273,233 @@ Widget spinnerForm(
         ),
       ),
       Obx(
-        () => Wrap(
-          children: [Container(
+        () => Wrap(children: [
+          Container(
               width: double.infinity,
               margin: EdgeInsets.symmetric(horizontal: 15),
               child: townCenterItems != null
                   ? notifyCoverageLocation(
-                      coverage: townCenterItem?.value?.coverage, context: context)
-                  : null),
+                      coverage: townCenterItem?.value?.coverage,
+                      context: context)
+                  : SizedBox()),
         ]),
       )
     ],
   );
 }
 
-Widget notifyCoverageLocation({bool? coverage, required BuildContext context}) {
-  return Stack(
-      alignment: AlignmentDirectional.center,
-      children: [
-        SvgPicture.asset((coverage != null && coverage) || coverage == null
-            ? AppImages.bgLocationCoverageNotify
-            : AppImages.bgLocationNotCoverageNotify,
-        height: 80,),
-        Positioned(
-          top: 27,
-          left: 65,
-          right: 10,
+Widget spinnerFormNormalV2({
+  required BuildContext context,
+  required String label,
+  required String hint,
+  required bool required,
+  required items,
+  required dropdownValue,
+  required double width,
+}) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: [
+      Expanded(
+        child: Container(
+          margin: EdgeInsets.only(left: 20, top: 15),
+          alignment: Alignment.topLeft,
           child: RichText(
             text: TextSpan(
-              text: AppLocalizations.of(context)!.textSelectedLoation,
+              text: label,
+              style: TextStyle(
+                color: AppColors.colorText1,
+                fontFamily: 'Roboto',
+                fontSize: 14,
+              ),
+              children: [
+                TextSpan(
+                    text: required ? ' *' : '',
+                    style: TextStyle(
+                      color: AppColors.colorTextError,
+                      fontFamily: 'Roboto',
+                      fontSize: 14,
+                    )),
+              ],
+            ),
+          ),
+        ),
+      ),
+      Container(
+        // width: double.infinity,
+        height: 45,
+        width: width,
+        padding: EdgeInsets.only(left: 12, top: 6, bottom: 6, right: 6),
+        margin: EdgeInsets.only(left: 15, right: 15, top: 15),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(color: Color(0xFFE3EAF2))),
+        child: Obx(
+          () => DropdownButton<String>(
+            isExpanded: true,
+            underline: Container(),
+            value: dropdownValue.value,
+            onChanged: (String? value) => dropdownValue.value = value,
+            items: items.map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem(value: value, child: Text(value));
+            }).toList(),
+            alignment: AlignmentDirectional.centerStart,
+            style: TextStyle(
+                fontSize: 18,
+                fontFamily: 'Roboto',
+                color: Color(0xFF415263),
+                fontWeight: FontWeight.w500),
+            icon: SvgPicture.asset(AppImages.icDropdownSpinner),
+            hint: Text(
+              hint,
+              style: TextStyle(
+                  fontSize: 18,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w300),
+            ),
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+Widget spinnerFormNormal(
+    {required BuildContext context,
+    required String label,
+    required String hint,
+    required bool required,
+    required items,
+    required dropdownValue}) {
+  return Column(
+    children: [
+      label.isNotEmpty
+          ? Container(
+              margin: EdgeInsets.only(left: 20, top: 15),
+              alignment: Alignment.topLeft,
+              child: RichText(
+                text: TextSpan(
+                  text: label,
+                  style: TextStyle(
+                    color: AppColors.colorText1,
+                    fontFamily: 'Roboto',
+                    fontSize: 14,
+                  ),
+                  children: [
+                    TextSpan(
+                        text: required ? ' *' : '',
+                        style: TextStyle(
+                          color: AppColors.colorTextError,
+                          fontFamily: 'Roboto',
+                          fontSize: 14,
+                        )),
+                  ],
+                ),
+              ),
+            )
+          : Container(),
+      Container(
+        // width: double.infinity,
+        height: 45,
+        padding: EdgeInsets.only(left: 12, top: 6, bottom: 6, right: 6),
+        margin: EdgeInsets.only(left: 15, right: 15, top: 10),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(color: Color(0xFFE3EAF2))),
+        child: Obx(
+          () => DropdownButton<String>(
+            isExpanded: true,
+            underline: Container(),
+            value: dropdownValue.value,
+            onChanged: (String? value) => dropdownValue.value = value,
+            items: items.map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem(value: value, child: Text(value));
+            }).toList(),
+            alignment: AlignmentDirectional.centerStart,
+            style: TextStyle(
+                fontSize: 18,
+                fontFamily: 'Roboto',
+                color: Color(0xFF415263),
+                fontWeight: FontWeight.w500),
+            icon: SvgPicture.asset(AppImages.icDropdownSpinner),
+            hint: Text(
+              hint,
+              style: TextStyle(
+                  fontSize: 18,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w300),
+            ),
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+Widget notifyCoverageLocation({bool? coverage, required BuildContext context}) {
+  return Stack(alignment: AlignmentDirectional.center, children: [
+    SvgPicture.asset(
+      (coverage != null && coverage) || coverage == null
+          ? AppImages.bgLocationCoverageNotify
+          : AppImages.bgLocationNotCoverageNotify,
+      height: 80,
+    ),
+    Positioned(
+      top: 27,
+      left: 65,
+      right: 10,
+      child: RichText(
+        text: TextSpan(
+          text: AppLocalizations.of(context)!.textSelectedLoation,
+          style: TextStyle(
+              color: (coverage != null && coverage) || coverage == null
+                  ? AppColors.colorContent
+                  : AppColors.colorTextError,
+              fontFamily: 'Roboto',
+              fontSize: 14),
+          children: [
+            TextSpan(
+              text: (coverage != null && coverage) || coverage == null
+                  ? AppLocalizations.of(context)!.textHasCoverage
+                  : AppLocalizations.of(context)!.textHasNoCoverage,
               style: TextStyle(
                   color: (coverage != null && coverage) || coverage == null
                       ? AppColors.colorContent
                       : AppColors.colorTextError,
                   fontFamily: 'Roboto',
-                  fontSize: 14),
-              children: [
-                TextSpan(
-                  text: (coverage != null && coverage) || coverage == null
-                      ? AppLocalizations.of(context)!.textHasCoverage
-                      : AppLocalizations.of(context)!.textHasNoCoverage,
-                  style: TextStyle(
-                      color: (coverage != null && coverage) || coverage == null
-                          ? AppColors.colorContent
-                          : AppColors.colorTextError,
-                      fontFamily: 'Roboto',
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold),
             ),
-          ),
-        )
-      ]);
+          ],
+        ),
+      ),
+    )
+  ]);
 }
+
+Widget bottomButton({required String text, required onTap}) {
+  return Container(
+    margin: EdgeInsets.only(left: 15, top: 24, right: 15, bottom: 10),
+    child: InkWell(
+      splashColor: Colors.black38,
+      onTap: () => onTap,
+      child: Container(
+        height: 50,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25),
+            color: AppColors.colorText3,
+            boxShadow: [BoxShadow(color: Color(0xFFB3BBC5), blurRadius: 5)]),
+        child: Center(
+            child: Text(
+          text.toUpperCase(),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 15,
+            fontWeight: FontWeight.w500,
+          ),
+        )),
+      ),
+    ),
+  );
+}
+
