@@ -22,11 +22,30 @@ class ApiUtil {
 
   void get({
     required String url,
-    required Map<String, dynamic> params,
+    Map<String, dynamic> params = const {},
     required Function(BaseResponse data) onSuccess,
     required Function(dynamic error) onError,
   }) {
     dio!.get(url, queryParameters: params).then((res) {
+      if (onSuccess != null) onSuccess(getBaseResponse(res));
+    }).catchError((error) {
+      if (onError != null) onError(error);
+    });
+  }
+
+  void put({
+    required String url,
+    Map<String, dynamic>? body,
+    Map<String, dynamic> params = const {},
+    String contentType = Headers.jsonContentType,
+    required Function(BaseResponse response) onSuccess,
+    required Function(dynamic error) onError,
+  }) {
+    dio!.put(url,
+      queryParameters: params,
+      data: body,
+      options: Options(responseType: ResponseType.json, contentType: contentType),
+    ).then((res) {
       if (onSuccess != null) onSuccess(getBaseResponse(res));
     }).catchError((error) {
       if (onError != null) onError(error);

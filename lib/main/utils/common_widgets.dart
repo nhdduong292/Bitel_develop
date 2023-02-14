@@ -754,7 +754,7 @@ Widget multiSelectDropdownForm(
 }
 
 Widget expandableV1(
-    {required String label, required Widget child, required RxBool isExpand}) {
+    {required String label, required Widget child}) {
   return ExpandableNotifier(
     child: Column(
       children: [
@@ -768,7 +768,7 @@ Widget expandableV1(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
                   border: Border.all(color: Color(0xFFE3EAF2)),
-                  color: isExpand.value ? Colors.transparent : Colors.white,
+                  color: Colors.white,
                   boxShadow: [
                     BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
                   ]),

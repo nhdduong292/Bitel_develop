@@ -21,6 +21,9 @@ class RequestModel {
   String createdBy = "";
   String updatedBy = "";
 
+
+  RequestModel();
+
   RequestModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     service = json['service'];
