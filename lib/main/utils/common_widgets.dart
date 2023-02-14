@@ -3,6 +3,7 @@
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -506,6 +507,33 @@ Widget bottomButton({required String text, required onTap}) {
   );
 }
 
+Widget bottomButtonV2({required String text, required onTap}) {
+  return Container(
+    margin: EdgeInsets.only(left: 15, top: 24, right: 15, bottom: 10),
+    child: InkWell(
+      splashColor: Colors.black38,
+      onTap: onTap,
+      child: Container(
+        height: 50,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25),
+            color: Colors.white,
+            border: Border.all(color: Color(0xFFE3EAF2)),
+            ),
+        child: Center(
+            child: Text(
+              text.toUpperCase(),
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+              ),
+            )),
+      ),
+    ),
+  );
+}
+
 Widget spinnerFormV3({
   required BuildContext context,
   required String hint,
@@ -722,5 +750,91 @@ Widget multiSelectDropdownForm(
         ),
       ),
     ],
+  );
+}
+
+Widget expandableV1(
+    {required String label, required Widget child, required RxBool isExpand}) {
+  return ExpandableNotifier(
+    child: Column(
+      children: [
+        Expandable(
+          theme: ExpandableThemeData(hasIcon: false),
+          collapsed: ExpandableButton(
+            child: Container(
+              margin: EdgeInsets.only(left: 15, right: 15),
+              padding: EdgeInsets.all(12),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  border: Border.all(color: Color(0xFFE3EAF2)),
+                  color: isExpand.value ? Colors.transparent : Colors.white,
+                  boxShadow: [
+                    BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
+                  ]),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.arrow_drop_down_sharp,
+                    color: Colors.black,
+                    size: 20,
+                  ),
+                  Text(
+                    label,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 15),
+                  )
+                ],
+              ),
+            ),
+          ),
+          expanded: Column(
+            children: [
+              ExpandableButton(
+                child: Container(
+                  margin: EdgeInsets.only(left: 15, right: 15),
+                  padding: EdgeInsets.only(left: 13, top: 13, bottom: 11),
+                  alignment: Alignment.center,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.arrow_drop_down_sharp,
+                        color: Colors.black,
+                        size: 20,
+                      ),
+                      Text(
+                        label,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 15),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 15, right: 15),
+                padding: EdgeInsets.symmetric(vertical: 20),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    border: Border.all(color: Color(0xFFE3EAF2)),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
+                    ]),
+                child: child,
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 15,)
+      ],
+    ),
   );
 }

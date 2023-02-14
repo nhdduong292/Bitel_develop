@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
 
-class ManageWOLogic extends GetxController with GetSingleTickerProviderStateMixin{
+class ManageWOLogic extends GetxController
+    with GetSingleTickerProviderStateMixin {
   TabController? tabController;
+
   @override
   void onInit() {
     // TODO: implement onInit
     tabController = TabController(vsync: this, length: 2);
     super.onInit();
-
   }
 
   List<WorkOrder> assignedWOList = [
@@ -18,26 +18,39 @@ class ManageWOLogic extends GetxController with GetSingleTickerProviderStateMixi
         line: '11_a_line_ricardosun1',
         address: 'Av, xd, Independencia, Lima',
         isStarted: false,
+        customerName: 'name1',
+        assigned: true,
+        phoneNumber: '123456',
         deadline: '13/01/2023 08:31:12'),
     WorkOrder(
         type: 'Deployment',
-        line: '11_a_line_ricardosun1',
+        account: '11_a_line_ricardosun1',
         address: 'Av, xd, Independencia, Lima',
         isStarted: true,
+        customerName: 'name2',
+        assigned: true,
+        phoneNumber: '123456',
         deadline: '13/01/2023 08:31:12')
   ];
   List<WorkOrder> notAssignWOList = [
     WorkOrder(
-        type: 'Deployment',
-        line: '11_a_line_ricardosun1',
-        address: 'Av, xd, Independencia, Lima',
-        isStarted: true,
-        deadline: '13/01/2023 08:31:12'),
+      type: 'Deployment',
+      account: '11_a_line_ricardosun1',
+      address: 'Av, xd, Independencia, Lima',
+      isStarted: true,
+      customerName: 'name3',
+      assigned: false,
+      phoneNumber: '123456',
+      deadline: '13/01/2023 08:31:12',
+    ),
     WorkOrder(
         type: 'Survey',
         line: '11_a_line_ricardosun1',
         address: 'Av, xd, Independencia, Lima',
         isStarted: false,
+        customerName: 'name4',
+        assigned: false,
+        phoneNumber: '123456',
         deadline: '13/01/2023 08:31:12')
   ];
 
@@ -50,7 +63,13 @@ class ManageWOLogic extends GetxController with GetSingleTickerProviderStateMixi
   var chosenTeams = RxList<String>();
   List<String> listTechnician = ['tech1', 'tech2'];
   var chosenTechnician = RxList<String>();
-  List<String> listStatus = ['Not started', 'In progress', 'Complete', 'Pending', 'Cancel'];
+  List<String> listStatus = [
+    'Not started',
+    'In progress',
+    'Complete',
+    'Pending',
+    'Cancel'
+  ];
   var chosenStatus = RxList<String>();
 
   var fromDate = "".obs;
@@ -74,12 +93,20 @@ class WorkOrder {
   String address;
   bool isStarted;
   String deadline;
+  String customerName;
+  String phoneNumber;
+  String account;
+  bool assigned;
 
   WorkOrder({
     required this.type,
-    required this.line,
+    this.line = '',
     required this.address,
     required this.isStarted,
     required this.deadline,
+    required this.customerName,
+    required this.phoneNumber,
+    this.account = '',
+    required this.assigned
   });
 }

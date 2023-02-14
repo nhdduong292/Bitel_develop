@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/manage_wo/manage_wo_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/manage_wo/wo_detail_page.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,6 @@ class ManageWOPage extends GetView<ManageWOLogic> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
     // TODO: implement build
     return GetBuilder(
         init: ManageWOLogic(),
@@ -306,164 +306,167 @@ Widget tabBarView({
 }
 
 Widget _woItem({required WorkOrder wo, required BuildContext context}) {
-  return Column(
-    children: [
-      SizedBox(
-        height: 25,
-      ),
-      Row(
-        children: [
-          SizedBox(
-            width: 15,
-          ),
-          Expanded(
-            child: Text(
-              AppLocalizations.of(context)!.textFTTHWOType,
+  return InkWell(
+    onTap: () {Get.to(() => WODetailPage(wo: wo,));},
+    child: Column(
+      children: [
+        SizedBox(
+          height: 25,
+        ),
+        Row(
+          children: [
+            SizedBox(
+              width: 15,
+            ),
+            Expanded(
+              child: Text(
+                AppLocalizations.of(context)!.textFTTHWOType,
+                style: TextStyle(
+                    color: AppColors.colorText2,
+                    fontSize: 15,
+                    fontFamily: 'Roboto'),
+              ),
+            ),
+            Text(
+              wo.type,
               style: TextStyle(
-                  color: AppColors.colorText2,
+                  color: Color(0xFF415263),
                   fontSize: 15,
+                  fontWeight: FontWeight.w500,
                   fontFamily: 'Roboto'),
             ),
-          ),
-          Text(
-            wo.type,
-            style: TextStyle(
-                color: Color(0xFF415263),
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-                fontFamily: 'Roboto'),
-          ),
-          SizedBox(
-            width: 25,
-          ),
-        ],
-      ),
-      SizedBox(
-        height: 10,
-      ),
-      Row(
-        children: [
-          SizedBox(
-            width: 15,
-          ),
-          Expanded(
-            child: Text(
-              AppLocalizations.of(context)!.textLine,
+            SizedBox(
+              width: 25,
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Row(
+          children: [
+            SizedBox(
+              width: 15,
+            ),
+            Expanded(
+              child: Text(
+                AppLocalizations.of(context)!.textLine,
+                style: TextStyle(
+                    color: AppColors.colorText2,
+                    fontSize: 15,
+                    fontFamily: 'Roboto'),
+              ),
+            ),
+            Text(
+              wo.line,
               style: TextStyle(
-                  color: AppColors.colorText2,
+                  color: Color(0xFF415263),
                   fontSize: 15,
+                  fontWeight: FontWeight.w500,
                   fontFamily: 'Roboto'),
             ),
-          ),
-          Text(
-            wo.line,
-            style: TextStyle(
-                color: Color(0xFF415263),
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-                fontFamily: 'Roboto'),
-          ),
-          SizedBox(
-            width: 25,
-          ),
-        ],
-      ),
-      SizedBox(
-        height: 10,
-      ),
-      Row(
-        children: [
-          SizedBox(
-            width: 15,
-          ),
-          Expanded(
-            child: Text(
-              AppLocalizations.of(context)!.textAddress,
+            SizedBox(
+              width: 25,
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Row(
+          children: [
+            SizedBox(
+              width: 15,
+            ),
+            Expanded(
+              child: Text(
+                AppLocalizations.of(context)!.textAddress,
+                style: TextStyle(
+                    color: AppColors.colorText2,
+                    fontSize: 15,
+                    fontFamily: 'Roboto'),
+              ),
+            ),
+            Text(
+              wo.address,
               style: TextStyle(
-                  color: AppColors.colorText2,
+                  color: Color(0xFF415263),
                   fontSize: 15,
+                  fontWeight: FontWeight.w500,
                   fontFamily: 'Roboto'),
             ),
-          ),
-          Text(
-            wo.address,
-            style: TextStyle(
-                color: Color(0xFF415263),
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-                fontFamily: 'Roboto'),
-          ),
-          SizedBox(
-            width: 25,
-          ),
-        ],
-      ),
-      SizedBox(
-        height: 10,
-      ),
-      Row(
-        children: [
-          SizedBox(
-            width: 15,
-          ),
-          Expanded(
-            child: Text(
-              AppLocalizations.of(context)!.textStatus,
+            SizedBox(
+              width: 25,
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Row(
+          children: [
+            SizedBox(
+              width: 15,
+            ),
+            Expanded(
+              child: Text(
+                AppLocalizations.of(context)!.textStatus,
+                style: TextStyle(
+                    color: AppColors.colorText2,
+                    fontSize: 15,
+                    fontFamily: 'Roboto'),
+              ),
+            ),
+            Text(
+              wo.isStarted
+                  ? AppLocalizations.of(context)!.textStarted
+                  : AppLocalizations.of(context)!.textNotStarted,
               style: TextStyle(
-                  color: AppColors.colorText2,
+                  color: AppColors.colorContent,
                   fontSize: 15,
+                  fontWeight: FontWeight.w500,
                   fontFamily: 'Roboto'),
             ),
-          ),
-          Text(
-            wo.isStarted
-                ? AppLocalizations.of(context)!.textStarted
-                : AppLocalizations.of(context)!.textNotStarted,
-            style: TextStyle(
-                color: AppColors.colorContent,
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-                fontFamily: 'Roboto'),
-          ),
-          SizedBox(
-            width: 25,
-          ),
-        ],
-      ),
-      SizedBox(
-        height: 10,
-      ),
-      Row(
-        children: [
-          SizedBox(
-            width: 15,
-          ),
-          Expanded(
-            child: Text(
-              AppLocalizations.of(context)!.textDeadline,
+            SizedBox(
+              width: 25,
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Row(
+          children: [
+            SizedBox(
+              width: 15,
+            ),
+            Expanded(
+              child: Text(
+                AppLocalizations.of(context)!.textDeadline,
+                style: TextStyle(
+                    color: AppColors.colorText2,
+                    fontSize: 15,
+                    fontFamily: 'Roboto'),
+              ),
+            ),
+            Text(
+              wo.deadline,
               style: TextStyle(
-                  color: AppColors.colorText2,
+                  color: Color(0xFF415263),
                   fontSize: 15,
+                  fontWeight: FontWeight.w500,
                   fontFamily: 'Roboto'),
             ),
-          ),
-          Text(
-            wo.deadline,
-            style: TextStyle(
-                color: Color(0xFF415263),
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-                fontFamily: 'Roboto'),
-          ),
-          SizedBox(
-            width: 25,
-          ),
-        ],
-      ),
-      SizedBox(
-        height: 25,
-      ),
-    ],
+            SizedBox(
+              width: 25,
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 25,
+        ),
+      ],
+    ),
   );
 }
 
