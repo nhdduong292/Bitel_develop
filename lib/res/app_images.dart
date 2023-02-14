@@ -87,4 +87,6 @@ class AppImages {
   static const icSearch = 'assets/images/ic_search.svg';
   static const icSelectDate = 'assets/images/ic_select_date.svg';
 
+  static const String icCreateContact = "assets/icons/ic_create_contact.svg";
+  static const String icSortAlphabet = "assets/icons/ic_sort_alphabet.svg";
 }
