@@ -4,6 +4,7 @@ import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/dialog_adv
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/dialog_cancel_request_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/dialog_transfer_request_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_tab_page.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
@@ -197,70 +198,22 @@ class ListRequestPage extends GetWidget {
                                 showDialogCancelRequest(context);
                               },
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 16, right: 16, top: 20, bottom: 12),
+                                padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
                                 child: SvgPicture.asset(AppImages.icCancelRequest),
                               ),
                             )
                           ],
                         ),
-                        const LineDash(color: AppColors.colorLineDash),
                         Expanded(child: TabBarView(
                           controller: controller.tabController,
                           children: [
                             // first tab bar view widget
-                            ListView.builder(
-                                itemCount: 20,
-                                itemBuilder: (context, index) {
-                                  return InkWell(
-                                    onTap: () {
-                                      Get.toNamed(RouteConfig.requestDetail);
-                                    },
-                                    child: Padding(
-                                      padding: EdgeInsets.all(25),
-                                      child: Text("Home Day"),
-                                    ),
-                                  );
-                                }),
-                            ListView.builder(
-                                itemCount: 20,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: EdgeInsets.all(25),
-                                    child: Text("Home Day"),
-                                  );
-                                }),
-                            ListView.builder(
-                                itemCount: 20,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: EdgeInsets.all(25),
-                                    child: Text("Home Day"),
-                                  );
-                                }),
-                            ListView.builder(
-                                itemCount: 20,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: EdgeInsets.all(25),
-                                    child: Text("Home Day"),
-                                  );
-                                }),
-                            ListView.builder(
-                                itemCount: 20,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: EdgeInsets.all(25),
-                                    child: Text("Home Day"),
-                                  );
-                                }),
-                            ListView.builder(
-                                itemCount: 20,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: EdgeInsets.all(25),
-                                    child: Text("Home Day"),
-                                  );
-                                }),
+                            ListRequestTabPage(),
+                            ListRequestTabPage(),
+                            ListRequestTabPage(),
+                            ListRequestTabPage(),
+                            ListRequestTabPage(),
+                            ListRequestTabPage(),
                           ],
                         )),
                       ],

@@ -23,11 +23,11 @@ class ApiUtil {
   void get({
     required String url,
     required Map<String, dynamic> params,
-    required Function(dynamic data) onSuccess,
+    required Function(BaseResponse data) onSuccess,
     required Function(dynamic error) onError,
   }) {
     dio!.get(url, queryParameters: params).then((res) {
-      if (onSuccess != null) onSuccess(res.data['data']);
+      if (onSuccess != null) onSuccess(getBaseResponse(res));
     }).catchError((error) {
       if (onError != null) onError(error);
     });

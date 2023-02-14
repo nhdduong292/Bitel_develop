@@ -126,5 +126,7 @@
   "hintStatus": "Create request, Create",
   "textRequestDate": "Request date",
   "textFrom": "From",
-  "textTo": "To"
+  "textTo": "To",
+  "textCustomerInformation": "Customer information",
+  "textInstallationAddress": "Installation address"
 }

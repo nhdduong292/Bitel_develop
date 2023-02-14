@@ -80,7 +80,7 @@
   "hintIdentityNumber":"Enter identity number",
   "textContactPerson":"Contact person*",
   "hintContactPerson":"Enter Contact person",
-  "textContactPhone":"Contact phone*",
+  "textContactPhone":"Contact phone",
   "hintContactPhone":"Enter Contact phone",
   "textSurveyAddress":"Survey address",
   "textProvince":"Province*",
@@ -125,6 +125,18 @@
   "hintStatus": "Create request, Create",
   "textRequestDate": "Request date",
   "textFrom": "From",
-  "textTo": "To"
+  "textTo": "To",
+  "textCustomerInformation": "Customer information",
+  "textInstallationAddress": "Installation address",
+  "textInformationRequired": "Information required",
+  "textCustomerName": "Customer name",
+  "textService": "Service",
+  "textLine": "Line",
+  "textISDNAccount": "ISDN/Account",
+  "textTechnicalTeam": "Technical team",
+  "textWorkProgressStatus": "Work progress status",
+  "textNo": "No",
+  "textServices": "Services"
+
 
 }
