@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 class RequestDetailLogic extends GetxController {
   RequestModel requestModel =  RequestModel();
+  bool isLoading = false;
 
   @override
   void onInit() {
@@ -14,6 +15,9 @@ class RequestDetailLogic extends GetxController {
   }
 
   void getRequestDetail(int id) async {
+    isLoading = true;
+    update();
+    Future.delayed(Duration(seconds: 1));
     Map<String, dynamic> body = {
       "address": "proid",
       "district": "irure magna in",
@@ -31,13 +35,18 @@ class RequestDetailLogic extends GetxController {
           if (response.isSuccess) {
             print("success");
             requestModel = RequestModel.fromJson(response.data);
-            update();
           } else {
             print("error: ${response.status}");
           }
+          isLoading = false;
+          update();
         },
         onError: (error) {
           print("error: " + error.toString());
+          isLoading = false;
+          update();
         });
   }
+
+
 }

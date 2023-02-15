@@ -225,5 +225,20 @@
   "textEndDate": "End date",
   "textPhone": "Phone",
   "textTeams": "Teams",
-  "textServices": "Services"
+  "textServices": "Services",
+  "textAfterSaleFuntion": "After sale funtion",
+  "textChangePlan": "Change plan",
+  "textTransferService": "Transfer service",
+  "textCancelService": "Cancel service",
+  "textFunction": "Function",
+  "textCreateRequest": "Create request",
+  "textRechargeAnypay": "Recharge anypay",
+  "textConnectSubscriber": "Connect subscriber",
+  "textSearchRequest": "Search request",
+  "textAssignTask": "Assign task",
+  "textCompleteTask": "Complete task",
+  "textSearchTask": "Search task"
+
+
+
 }

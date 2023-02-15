@@ -203,8 +203,10 @@ class DrawerPage extends GetView<DrawerLogic> {
                 } else if(vehicle.label == AppLocalizations.of(context)!.textFTTH){
                   if (i == 0) {
                     print("index: 2");
+                    Get.toNamed(RouteConfig.sale);
                   } else if (i == 1) {
                     print("index: 3");
+                    Get.toNamed(RouteConfig.afterSale);
                   } else if (i == 2) {
                     Get.toNamed(RouteConfig.manageWO);
                     print("index: 4");

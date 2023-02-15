@@ -229,25 +229,25 @@ class ListRequestPage extends GetWidget {
   }
 
   void showDialogTransferRequest(BuildContext context) {
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return DialogTransferRequest(
-            onSubmit: () {},
-          );
-        });
+    // showDialog(
+    //     barrierDismissible: false,
+    //     context: context,
+    //     builder: (context) {
+    //       return DialogTransferRequest(
+    //         onSubmit: () {},
+    //       );
+    //     });
   }
 
   void showDialogCancelRequest(BuildContext context) {
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return DialogCancelRequest(
-            onSubmit: () {},
-          );
-        });
+    // showDialog(
+    //     barrierDismissible: false,
+    //     context: context,
+    //     builder: (context) {
+    //       return DialogCancelRequest(
+    //         onSubmit: () {},
+    //       );
+    //     });
   }
 
   void showDialogAdvanceSearch(BuildContext context) {

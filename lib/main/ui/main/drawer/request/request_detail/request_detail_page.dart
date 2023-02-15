@@ -1,3 +1,5 @@
+import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/dialog_cancel_request_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/dialog_transfer_request_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/request_detail/request_detail_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
@@ -45,282 +47,287 @@ class RequestDetailPage extends GetWidget{
                         bottomRight: Radius.elliptical(width / 2, 20))),
               ),
             ),
-            body: controller.requestModel.id == 0 ? Center(child: Text("No data"),)  : SingleChildScrollView(
+            body: controller.isLoading   ? const Center(
+              child: CircularProgressIndicator(
+                  strokeWidth: 4,
+                color: AppColors.colorBackground,
+              ),
+            ) : (controller.requestModel.id == 0 ? Center(child: Text("No data"),)  : SingleChildScrollView(
               child: Column(
                 children: [
                   const SizedBox(height: 20,),
                   expandableV1(
-                      label: AppLocalizations.of(context)!.textInformationRequired,
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 15, left: 15, right: 15),
-                            child: Row(
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)!.textCustomerName,
+                    label: AppLocalizations.of(context)!.textInformationRequired,
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 15, left: 15, right: 15),
+                          child: Row(
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.textCustomerName,
+                                style: const TextStyle(
+                                    color: AppColors.colorText2,
+                                    fontSize: 15,
+                                    fontFamily: 'Roboto'),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  "wo.customerName",
+                                  textAlign: TextAlign.right,
                                   style: const TextStyle(
-                                      color: AppColors.colorText2,
+                                      color: Color(0xFF415263),
                                       fontSize: 15,
+                                      fontWeight: FontWeight.w500,
                                       fontFamily: 'Roboto'),
                                 ),
-                                Expanded(
-                                    child: Text(
-                                      "wo.customerName",
-                                      textAlign: TextAlign.right,
-                                      style: const TextStyle(
-                                          color: Color(0xFF415263),
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: 'Roboto'),
-                                    ),
-                                )
-                              ],
-                            ),
+                              )
+                            ],
                           ),
-                          const DottedLine(
-                            dashColor: Color(0xFFE3EAF2),
-                            dashGapLength: 3,
-                            dashLength: 4,
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 15, left: 15, right: 15, top: 15),
-                            child: Row(
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)!.textContactPhone,
+                        ),
+                        const DottedLine(
+                          dashColor: Color(0xFFE3EAF2),
+                          dashGapLength: 3,
+                          dashLength: 4,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 15, left: 15, right: 15, top: 15),
+                          child: Row(
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.textContactPhone,
+                                style: const TextStyle(
+                                    color: AppColors.colorText2,
+                                    fontSize: 15,
+                                    fontFamily: 'Roboto'),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  "wo.customerName",
+                                  textAlign: TextAlign.right,
                                   style: const TextStyle(
-                                      color: AppColors.colorText2,
+                                      color: Color(0xFF415263),
                                       fontSize: 15,
+                                      fontWeight: FontWeight.w500,
                                       fontFamily: 'Roboto'),
                                 ),
-                                Expanded(
-                                  child: Text(
-                                    "wo.customerName",
-                                    textAlign: TextAlign.right,
-                                    style: const TextStyle(
-                                        color: Color(0xFF415263),
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: 'Roboto'),
-                                  ),
-                                )
-                              ],
-                            ),
+                              )
+                            ],
                           ),
-                          const DottedLine(
-                            dashColor: Color(0xFFE3EAF2),
-                            dashGapLength: 3,
-                            dashLength: 4,
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 15, left: 15, right: 15, top: 15),
-                            child: Row(
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)!.textInstallationAddress,
+                        ),
+                        const DottedLine(
+                          dashColor: Color(0xFFE3EAF2),
+                          dashGapLength: 3,
+                          dashLength: 4,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 15, left: 15, right: 15, top: 15),
+                          child: Row(
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.textInstallationAddress,
+                                style: const TextStyle(
+                                    color: AppColors.colorText2,
+                                    fontSize: 15,
+                                    fontFamily: 'Roboto'),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  "wo.customerName",
+                                  textAlign: TextAlign.right,
                                   style: const TextStyle(
-                                      color: AppColors.colorText2,
+                                      color: Color(0xFF415263),
                                       fontSize: 15,
+                                      fontWeight: FontWeight.w500,
                                       fontFamily: 'Roboto'),
                                 ),
-                                Expanded(
-                                  child: Text(
-                                    "wo.customerName",
-                                    textAlign: TextAlign.right,
-                                    style: const TextStyle(
-                                        color: Color(0xFF415263),
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: 'Roboto'),
-                                  ),
-                                )
-                              ],
-                            ),
+                              )
+                            ],
                           ),
-                          const DottedLine(
-                            dashColor: Color(0xFFE3EAF2),
-                            dashGapLength: 3,
-                            dashLength: 4,
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 15, left: 15, right: 15, top: 15),
-                            child: Row(
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)!.textService,
+                        ),
+                        const DottedLine(
+                          dashColor: Color(0xFFE3EAF2),
+                          dashGapLength: 3,
+                          dashLength: 4,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 15, left: 15, right: 15, top: 15),
+                          child: Row(
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.textService,
+                                style: const TextStyle(
+                                    color: AppColors.colorText2,
+                                    fontSize: 15,
+                                    fontFamily: 'Roboto'),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  "wo.customerName",
+                                  textAlign: TextAlign.right,
                                   style: const TextStyle(
-                                      color: AppColors.colorText2,
+                                      color: Color(0xFF415263),
                                       fontSize: 15,
+                                      fontWeight: FontWeight.w500,
                                       fontFamily: 'Roboto'),
                                 ),
-                                Expanded(
-                                  child: Text(
-                                    "wo.customerName",
-                                    textAlign: TextAlign.right,
-                                    style: const TextStyle(
-                                        color: Color(0xFF415263),
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: 'Roboto'),
-                                  ),
-                                )
-                              ],
-                            ),
+                              )
+                            ],
                           ),
-                          const DottedLine(
-                            dashColor: Color(0xFFE3EAF2),
-                            dashGapLength: 3,
-                            dashLength: 4,
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 15, left: 15, right: 15, top: 15),
-                            child: Row(
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)!.textTechnology,
+                        ),
+                        const DottedLine(
+                          dashColor: Color(0xFFE3EAF2),
+                          dashGapLength: 3,
+                          dashLength: 4,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 15, left: 15, right: 15, top: 15),
+                          child: Row(
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.textTechnology,
+                                style: const TextStyle(
+                                    color: AppColors.colorText2,
+                                    fontSize: 15,
+                                    fontFamily: 'Roboto'),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  "wo.customerName",
+                                  textAlign: TextAlign.right,
                                   style: const TextStyle(
-                                      color: AppColors.colorText2,
+                                      color: Color(0xFF415263),
                                       fontSize: 15,
+                                      fontWeight: FontWeight.w500,
                                       fontFamily: 'Roboto'),
                                 ),
-                                Expanded(
-                                  child: Text(
-                                    "wo.customerName",
-                                    textAlign: TextAlign.right,
-                                    style: const TextStyle(
-                                        color: Color(0xFF415263),
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: 'Roboto'),
-                                  ),
-                                )
-                              ],
-                            ),
+                              )
+                            ],
                           ),
-                          const DottedLine(
-                            dashColor: Color(0xFFE3EAF2),
-                            dashGapLength: 3,
-                            dashLength: 4,
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 15, left: 15, right: 15, top: 15),
-                            child: Row(
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)!.textLine,
+                        ),
+                        const DottedLine(
+                          dashColor: Color(0xFFE3EAF2),
+                          dashGapLength: 3,
+                          dashLength: 4,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 15, left: 15, right: 15, top: 15),
+                          child: Row(
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.textLine,
+                                style: const TextStyle(
+                                    color: AppColors.colorText2,
+                                    fontSize: 15,
+                                    fontFamily: 'Roboto'),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  "wo.customerName",
+                                  textAlign: TextAlign.right,
                                   style: const TextStyle(
-                                      color: AppColors.colorText2,
+                                      color: Color(0xFF415263),
                                       fontSize: 15,
+                                      fontWeight: FontWeight.w500,
                                       fontFamily: 'Roboto'),
                                 ),
-                                Expanded(
-                                  child: Text(
-                                    "wo.customerName",
-                                    textAlign: TextAlign.right,
-                                    style: const TextStyle(
-                                        color: Color(0xFF415263),
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: 'Roboto'),
-                                  ),
-                                )
-                              ],
-                            ),
+                              )
+                            ],
                           ),
-                          const DottedLine(
-                            dashColor: Color(0xFFE3EAF2),
-                            dashGapLength: 3,
-                            dashLength: 4,
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 15, left: 15, right: 15, top: 15),
-                            child: Row(
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)!.hintISDNAccount,
+                        ),
+                        const DottedLine(
+                          dashColor: Color(0xFFE3EAF2),
+                          dashGapLength: 3,
+                          dashLength: 4,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 15, left: 15, right: 15, top: 15),
+                          child: Row(
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.hintISDNAccount,
+                                style: const TextStyle(
+                                    color: AppColors.colorText2,
+                                    fontSize: 15,
+                                    fontFamily: 'Roboto'),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  "wo.customerName",
+                                  textAlign: TextAlign.right,
                                   style: const TextStyle(
-                                      color: AppColors.colorText2,
+                                      color: Color(0xFF415263),
                                       fontSize: 15,
+                                      fontWeight: FontWeight.w500,
                                       fontFamily: 'Roboto'),
                                 ),
-                                Expanded(
-                                  child: Text(
-                                    "wo.customerName",
-                                    textAlign: TextAlign.right,
-                                    style: const TextStyle(
-                                        color: Color(0xFF415263),
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: 'Roboto'),
-                                  ),
-                                )
-                              ],
-                            ),
+                              )
+                            ],
                           ),
-                          const DottedLine(
-                            dashColor: Color(0xFFE3EAF2),
-                            dashGapLength: 3,
-                            dashLength: 4,
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 15, left: 15, right: 15, top: 15),
-                            child: Row(
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)!.textTechnicalTeam,
+                        ),
+                        const DottedLine(
+                          dashColor: Color(0xFFE3EAF2),
+                          dashGapLength: 3,
+                          dashLength: 4,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 15, left: 15, right: 15, top: 15),
+                          child: Row(
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.textTechnicalTeam,
+                                style: const TextStyle(
+                                    color: AppColors.colorText2,
+                                    fontSize: 15,
+                                    fontFamily: 'Roboto'),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  "wo.customerName",
+                                  textAlign: TextAlign.right,
                                   style: const TextStyle(
-                                      color: AppColors.colorText2,
+                                      color: Color(0xFF415263),
                                       fontSize: 15,
+                                      fontWeight: FontWeight.w500,
                                       fontFamily: 'Roboto'),
                                 ),
-                                Expanded(
-                                  child: Text(
-                                    "wo.customerName",
-                                    textAlign: TextAlign.right,
-                                    style: const TextStyle(
-                                        color: Color(0xFF415263),
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: 'Roboto'),
-                                  ),
-                                )
-                              ],
-                            ),
+                              )
+                            ],
                           ),
-                          const DottedLine(
-                            dashColor: Color(0xFFE3EAF2),
-                            dashGapLength: 3,
-                            dashLength: 4,
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only( left: 15, right: 15, top: 15),
-                            child: Row(
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)!.textStatus,
+                        ),
+                        const DottedLine(
+                          dashColor: Color(0xFFE3EAF2),
+                          dashGapLength: 3,
+                          dashLength: 4,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only( left: 15, right: 15, top: 15),
+                          child: Row(
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.textStatus,
+                                style: const TextStyle(
+                                    color: AppColors.colorText2,
+                                    fontSize: 15,
+                                    fontFamily: 'Roboto'),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  "wo.customerName",
+                                  textAlign: TextAlign.right,
                                   style: const TextStyle(
-                                      color: AppColors.colorText2,
+                                      color: Color(0xFF415263),
                                       fontSize: 15,
+                                      fontWeight: FontWeight.w500,
                                       fontFamily: 'Roboto'),
                                 ),
-                                Expanded(
-                                  child: Text(
-                                    "wo.customerName",
-                                    textAlign: TextAlign.right,
-                                    style: const TextStyle(
-                                        color: Color(0xFF415263),
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: 'Roboto'),
-                                  ),
-                                )
-                              ],
-                            ),
+                              )
+                            ],
                           ),
-                        ],
-                      ),
-                      ),
+                        ),
+                      ],
+                    ),
+                  ),
                   expandableV1(
                     label: AppLocalizations.of(context)!.textWorkProgressStatus,
                     child: Column(
@@ -646,7 +653,7 @@ class RequestDetailPage extends GetWidget{
 
                             child: InkWell(
                               onTap: () {
-                                Get.back();
+                                showDialogCancelRequest(context, controller.requestModel.id);
                               },
                               child:  Center(
                                   child: Text(
@@ -667,7 +674,7 @@ class RequestDetailPage extends GetWidget{
                             ),
                             child: InkWell(
                               onTap: () {
-                                // showDialogSurveyMap(context, controller);
+                                showDialogTransferRequest(context, controller.requestModel.id);
                               },
                               child:  Center(
                                   child: Text(
@@ -681,9 +688,32 @@ class RequestDetailPage extends GetWidget{
                   SizedBox(height: 50,)
                 ],
               ),
-            ),
+            )),
           );
         },);
+  }
+
+  void showDialogTransferRequest(BuildContext context, int id) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return DialogTransferRequest(
+            id: id,
+            onSubmit: () {},
+          );
+        });
+  }
+
+  void showDialogCancelRequest(BuildContext context, int id) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return DialogCancelRequest(onSubmit: (){
+
+          }, id: id,);
+        });
   }
 
 }

@@ -168,7 +168,8 @@ class CreateRequestPage extends GetWidget{
                             .textContactPhone,
                         required: false,
                         dropValue: "",
-                        listDrop: []
+                        listDrop: [],
+                        inputType: TextInputType.number
                     ),
 
                     Row(

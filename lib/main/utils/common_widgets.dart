@@ -589,6 +589,8 @@ Widget spinnerFormV2({
   required String dropValue,
   required List<String> listDrop,
   double height = 0,
+  TextInputType inputType = TextInputType.text,
+  TextEditingController? controlTextField,
 }) {
   return Column(
     children: [
@@ -601,6 +603,8 @@ Widget spinnerFormV2({
             ? Padding(
                 padding: EdgeInsets.only(left: 12, top: 6, bottom: 6, right: 6),
                 child: TextField(
+                    controller: controlTextField,
+                    keyboardType: inputType,
                     style: AppStyles.r2.copyWith(
                         color: AppColors.colorTitle,
                         fontWeight: FontWeight.w500),

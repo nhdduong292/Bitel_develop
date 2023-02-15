@@ -15,16 +15,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 
 class DialogTransferRequest extends GetWidget {
+  int id;
   final Function? onSubmit;
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
+  TextEditingController controllerTextField = TextEditingController();
+  DialogTransferRequest({super.key, required this.id ,this.onSubmit});
 
-  DialogTransferRequest({super.key, this.onSubmit});
-
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +76,7 @@ class DialogTransferRequest extends GetWidget {
                                 AppLocalizations.of(context)!.hintStaffCode,
                             required: false,
                             dropValue: "",
+                            controlTextField: controllerTextField,
                             listDrop: []))
                   ],
                 ),
@@ -117,6 +113,11 @@ class DialogTransferRequest extends GetWidget {
                 ),
                 child: InkWell(
                   onTap: () {
+                    controller.transferRequest(id, controllerTextField.text, (isSuccess) =>(isSuccess) {
+                        if(isSuccess){
+                          Get.back();
+                        }
+                    });
                     onSubmit!.call();
                   },
                   child: Center(

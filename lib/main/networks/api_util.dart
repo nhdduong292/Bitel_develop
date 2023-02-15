@@ -23,7 +23,7 @@ class ApiUtil {
   void get({
     required String url,
     Map<String, dynamic> params = const {},
-    required Function(BaseResponse data) onSuccess,
+    required Function(BaseResponse response) onSuccess,
     required Function(dynamic error) onError,
   }) {
     dio!.get(url, queryParameters: params).then((res) {
@@ -73,10 +73,9 @@ class ApiUtil {
 
   BaseResponse getBaseResponse(Response response) {
     return BaseResponse.success(
-        data: response.data,
+        data: response.data['data'],
         code: response.statusCode,
         message: response.statusMessage,
-        status: response.data is Map<String, dynamic> ? response.data["status"] : null,
-        errMessage: response.data is Map<String, dynamic> ? response.data["errorMessage"] : null);
+        status: response.data['status']);
   }
 }
