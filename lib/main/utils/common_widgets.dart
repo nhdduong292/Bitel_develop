@@ -842,3 +842,12 @@ Widget expandableV1(
     ),
   );
 }
+
+Widget LoadingCirculApi(){
+  return Center(
+    child: CircularProgressIndicator(
+      strokeWidth: 4,
+      color: AppColors.colorBackground,
+    ),
+  );
+}

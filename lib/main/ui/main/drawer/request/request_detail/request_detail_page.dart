@@ -47,12 +47,7 @@ class RequestDetailPage extends GetWidget{
                         bottomRight: Radius.elliptical(width / 2, 20))),
               ),
             ),
-            body: controller.isLoading   ? const Center(
-              child: CircularProgressIndicator(
-                  strokeWidth: 4,
-                color: AppColors.colorBackground,
-              ),
-            ) : (controller.requestModel.id == 0 ? Center(child: Text("No data"),)  : SingleChildScrollView(
+            body: controller.isLoading   ? LoadingCirculApi() : (controller.requestModel.id == 0 ? Center(child: Text("No data"),)  : SingleChildScrollView(
               child: Column(
                 children: [
                   const SizedBox(height: 20,),

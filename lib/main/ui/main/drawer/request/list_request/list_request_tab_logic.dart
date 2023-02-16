@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 class ListRequestTabLogic extends GetxController{
   List<RequestModel> listRequest = [];
+  bool isLoading = false;
   @override
   void onInit() {
     // TODO: implement onInit
@@ -14,6 +15,9 @@ class ListRequestTabLogic extends GetxController{
   }
 
   void getListRequest(){
+    isLoading = true;
+    update();
+    Future.delayed(Duration(seconds: 1));
     Map<String, dynamic> params = {
       "page":"0",
       "pageSize":"10",
@@ -27,13 +31,16 @@ class ListRequestTabLogic extends GetxController{
             print("success :");
             ListRequestResponse listRequestResponse = ListRequestResponse.fromJson(response.data);
             listRequest.addAll(listRequestResponse.list);
-            update();
           } else {
             print("error: ${response.status}");
           }
+          isLoading = false;
+          update();
         },
         onError: (error) {
           print("error: " + error.toString());
+          isLoading = false;
+          update();
         });
   }
 }

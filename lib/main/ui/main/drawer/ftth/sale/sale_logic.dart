@@ -9,7 +9,6 @@ class SaleLogic extends GetxController {
       OptionSale("icon", AppLocalizations.of(context)!.textConnectSubscriber),
       OptionSale("icon", AppLocalizations.of(context)!.textRechargeAnypay),
       OptionSale("icon", AppLocalizations.of(context)!.textSearchRequest),
-      OptionSale("icon", AppLocalizations.of(context)!.textCreateRequest),
       OptionSale("icon", AppLocalizations.of(context)!.textClearDebt),
       OptionSale("icon", AppLocalizations.of(context)!.textCreateContact),
     ];

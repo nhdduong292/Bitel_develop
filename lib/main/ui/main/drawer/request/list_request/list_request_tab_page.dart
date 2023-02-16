@@ -2,6 +2,7 @@ import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_tab_item.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_tab_logic.dart';
+import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +13,7 @@ class ListRequestTabPage extends GetWidget{
     return GetBuilder(
       init: ListRequestTabLogic(),
       builder: (controller) {
-      return  controller.listRequest.isEmpty ? InkWell(
+      return  controller.isLoading ? LoadingCirculApi() : controller.listRequest.isEmpty ? InkWell(
         child: Center(
           child: Text("No data"),
         ),
