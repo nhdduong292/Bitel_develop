@@ -1,19 +1,19 @@
-import 'package:bitel_ventas/main/networks/model/request_model.dart';
+import 'package:bitel_ventas/main/networks/model/contact_model.dart';
 
-class ListRequestResponse{
+class SearchContactResponse{
   int? total;
   int? totalPage;
   int? currentPage;
   int? pageSize;
-  List<RequestModel> list =[];
+  List<ContactModel> list =[];
 
-  ListRequestResponse.fromJson(Map<String, dynamic> json) {
+  SearchContactResponse.fromJson(Map<String, dynamic> json) {
     total = json['total'];
     totalPage = json['totalPage'];
     currentPage = json['currentPage'];
     pageSize = json['pageSize'];
     list = (json['data'] as List)
-        .map((postJson) => RequestModel.fromJson(postJson))
+        .map((postJson) => ContactModel.fromJson(postJson))
         .toList();
   }
 }

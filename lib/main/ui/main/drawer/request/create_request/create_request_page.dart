@@ -16,6 +16,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dialog_survey_unsuccesful.dart';
 
 class CreateRequestPage extends GetWidget{
+  TextEditingController textFieldIdNumber = TextEditingController();
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -132,12 +133,18 @@ class CreateRequestPage extends GetWidget{
                                 .hintIdentityNumber,
                             required: false,
                             dropValue: "",
+                            controlTextField: textFieldIdNumber,
+                            inputType: TextInputType.number,
+                            typeAction: TextInputAction.send,
+                            function: (value) {
+                              controller.searchNumberContact(value);
+                            },
                             listDrop: []
                         )
                         )
                       ],
                     ),
-                    Container(
+                    controller.isAddContact ? Container() : Container(
                       margin: EdgeInsets.only(top: 10),
                       alignment: Alignment.centerRight,
                       child: Text(style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500, color: AppColors.colorTitle,decoration: TextDecoration.underline),AppLocalizations.of(context)!

@@ -237,7 +237,13 @@
   "textSearchRequest": "Search request",
   "textAssignTask": "Assign task",
   "textCompleteTask": "Complete task",
-  "textSearchTask": "Search task"
+  "textSearchTask": "Search task",
+  "textCreateNewRequest": "Create new request",
+  "textInfoCreateRequest1": "I freely, previously, expressly, informed and unequivocally accept authorize Bitel to carry out the ",
+  "textInfoCreateRequest2": "processing of my personal and sensitive data",
+  "textInfoCreateRequest3": ", with the collection of the same"
+
+
 
 
 

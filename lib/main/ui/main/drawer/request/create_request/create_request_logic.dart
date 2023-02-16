@@ -1,44 +1,80 @@
+import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
+import 'package:bitel_ventas/main/networks/model/contact_model.dart';
+import 'package:bitel_ventas/main/networks/response/search_contact_response.dart';
 import 'package:get/get.dart';
 
-class CreateRequestLogic extends GetxController{
-    String currentService = "FTTH";
-    List<String> listService =["FTTH", "Office Wan", "Leased Line"];
-    String currentIdentity = "DNI";
-    List<String> listIdentity = ["DNI", "CE", "PP", "PTP"];
-    String currentProvince = "HN";
-    List<String> listProvince = ["HN", "HCM", "Hue"];
-    String currentDistrict = "VN";
-    List<String> listDistrict = ["VN", "TQ","LAO"];
-    String currentPrecinct = "";
-    List<String> listPrecinct = ["1","2","3"];
-    String currentAddress = "";
-    List<String> listAddress = ["TDP", "Xa", "Phuong"];
+class CreateRequestLogic extends GetxController {
+  String currentService = "FTTH";
+  List<String> listService = ["FTTH", "Office Wan", "Leased Line"];
+  String currentIdentity = "";
+  List<String> listIdentity = ["DNI", "CE", "PP", "PTP"];
+  String currentProvince = "HN";
+  List<String> listProvince = ["HN", "HCM", "Hue"];
+  String currentDistrict = "VN";
+  List<String> listDistrict = ["VN", "TQ", "LAO"];
+  String currentPrecinct = "";
+  List<String> listPrecinct = ["1", "2", "3"];
+  String currentAddress = "";
+  List<String> listAddress = ["TDP", "Xa", "Phuong"];
+  bool isAddContact = true;
+  ContactModel contactModel = ContactModel();
 
-    void createRequest() async{
-        Map<String, dynamic> body = {
-            "address": "proid",
-            "district": "irure magna in",
-            "idNumber": "1234564",
-            "name": "amet",
-            "phone": "097845535634563",
-            "precinct": "nisi",
-            "province": "ea est magna esse ut",
-            "service": "FTTH",
-            "identityType": "PTP"
-        };
-        ApiUtil.getInstance()!.post(
-            url: "http://10.121.14.196:9092/v1/requests",
-            body: body,
-            onSuccess: (response) {
-              if(response.isSuccess){
-                  print("success");
-              } else {
-                  print("error: ${response.status}");
-              }
-            },
-            onError: (error) {
-                print("error: " + error.toString());
-            });
-    }
+  void createRequest() async {
+    Map<String, dynamic> body = {
+      "address": "proid",
+      "district": "irure magna in",
+      "idNumber": "1234564",
+      "name": "amet",
+      "phone": "097845535634563",
+      "precinct": "nisi",
+      "province": "ea est magna esse ut",
+      "service": "FTTH",
+      "identityType": "PTP"
+    };
+    ApiUtil.getInstance()!.post(
+        url: ApiEndPoints.API_CREATE_REQUEST,
+        body: body,
+        onSuccess: (response) {
+          if (response.isSuccess) {
+            print("success");
+          } else {
+            print("error: ${response.status}");
+          }
+        },
+        onError: (error) {
+          print("error: " + error.toString());
+        });
+  }
+
+  void searchNumberContact(String id) async {
+    Map<String, dynamic> params = {
+      "phone": "",
+      "identityType": currentIdentity,
+      "idNumber": id,
+      "page": "0",
+      "pageSize": "10",
+      "sort": "createdDate"
+    };
+    ApiUtil.getInstance()!.get(
+        url: "${ApiEndPoints.API_SEARCH_CONTACT}",
+        params: params,
+        onSuccess: (response) {
+          if (response.isSuccess) {
+            print("success");
+            SearchContactResponse contactResponse = SearchContactResponse.fromJson(response.data);
+            if(contactResponse.list.isNotEmpty){
+              contactModel = contactResponse.list[0];
+              print("${contactModel.toString()}");
+            }
+          } else {
+            print("error: ${response.status}");
+            isAddContact = false;
+            update();
+          }
+        },
+        onError: (error) {
+          print("error: " + error.toString());
+        });
+  }
 }

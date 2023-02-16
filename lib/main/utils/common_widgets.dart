@@ -591,6 +591,8 @@ Widget spinnerFormV2({
   double height = 0,
   TextInputType inputType = TextInputType.text,
   TextEditingController? controlTextField,
+  TextInputAction typeAction = TextInputAction.continueAction,
+  Function(String value)? function
 }) {
   return Column(
     children: [
@@ -605,9 +607,13 @@ Widget spinnerFormV2({
                 child: TextField(
                     controller: controlTextField,
                     keyboardType: inputType,
+                    textInputAction: typeAction,
                     style: AppStyles.r2.copyWith(
                         color: AppColors.colorTitle,
                         fontWeight: FontWeight.w500),
+                    onSubmitted: (value) {
+                      function!.call(value);
+                    },
                     decoration: InputDecoration(
                       hintText: hint,
                       hintStyle: AppStyles.r2.copyWith(
