@@ -591,7 +591,7 @@ Widget spinnerFormV2({
   double height = 0,
   TextInputType inputType = TextInputType.text,
   TextEditingController? controlTextField,
-  TextInputAction typeAction = TextInputAction.continueAction,
+  TextInputAction? typeAction,
   Function(String value)? function
 }) {
   return Column(
@@ -607,6 +607,7 @@ Widget spinnerFormV2({
                 child: TextField(
                     controller: controlTextField,
                     keyboardType: inputType,
+                    autofocus: required,
                     textInputAction: typeAction,
                     style: AppStyles.r2.copyWith(
                         color: AppColors.colorTitle,
@@ -624,15 +625,9 @@ Widget spinnerFormV2({
               )
             : DropdownButtonFormField2(
                 decoration: InputDecoration(
-                  //Add isDense true and zero Padding.
-                  //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
                   isDense: true,
                   contentPadding: EdgeInsets.zero,
-
                   border: InputBorder.none,
-
-                  //Add more decoration as you want here
-                  //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
                 ),
                 // selectedItemHighlightColor: Colors.red,
                 buttonHeight: 60,
@@ -642,7 +637,9 @@ Widget spinnerFormV2({
                     border: Border.all(color: Color(0xFFE3EAF2))),
                 isExpanded: true,
                 value: dropValue.isNotEmpty ? dropValue : null,
-                onChanged: (value) {},
+                onChanged: (value) {
+                  function!.call(value!);
+                },
                 items: listDrop.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem(value: value, child: Text(value));
                 }).toList(),
