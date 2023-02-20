@@ -71,4 +71,13 @@ class AppImages {
   static const icMenuManageContact = 'assets/images/ic_menu_manage_contact.svg';
   static const icMenuFTTH = 'assets/images/ic_menu_ftth.svg';
   static const icMenuUtilites = 'assets/images/ic_menu_utilites.svg';
+  static const String icPasswordVisibility =
+      'assets/icons/ic_ password_visibility.svg';
+  static const String icRefreshCapcha = 'assets/icons/ic_refresh_capcha.svg';
+  static const imgCapchaTest = 'assets/images/capcha_test.png';
+  static const String icWarning = 'assets/icons/ic_warning.svg';
+  static const String imgCongratulations =
+      'assets/images/img_congratulations_forgot_password.svg';
+  static const String imgNotify =
+      'assets/images/img_notify_forgot_password.svg';
 }
