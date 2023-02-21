@@ -361,7 +361,7 @@ class ForgotPassword extends GetView<ForgotPasswordLogic> {
           child: Center(
               child: Text(
             AppLocalizations.of(context)!.textAnOTPHasBeen,
-            style: AppStyles.r7,
+            style: AppStyles.r18,
             textAlign: TextAlign.center,
           )),
         ),
@@ -377,7 +377,7 @@ class ForgotPassword extends GetView<ForgotPasswordLogic> {
             fieldStyle: FieldStyle.box,
             outlineBorderRadius: 19,
             spaceBetween: 10,
-            style: AppStyles.r8,
+            style: AppStyles.r19,
             onChanged: (pin) {
               print("Changed: " + pin);
             },

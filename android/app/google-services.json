@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "687680612219",
+    "project_id": "bitel-ventas-9cd08",
+    "storage_bucket": "bitel-ventas-9cd08.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:687680612219:android:c6d52f5546a0dea0ba7fde",
+        "android_client_info": {
+          "package_name": "com.bitel.bss.viettelpos.v3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "687680612219-khh93cjdllur7tm8rt5lbj6nvf8dfdj4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkvGxvhfz26HyvM5YwkUyzpgZQwKkWOwQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "687680612219-khh93cjdllur7tm8rt5lbj6nvf8dfdj4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -44,10 +44,12 @@ class HomePage extends GetView<HomeLogic> {
             backgroundColor: Colors.transparent,
             elevation: 0.0,
             flexibleSpace: Container(
-                child: FittedBox(
-              fit: BoxFit.cover,
-              child: SvgPicture.asset(AppImages.bgHome),
-            )),
+              constraints: BoxConstraints.expand(),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(AppImages.bgHome),
+                    fit: BoxFit.cover),
+              ),),
             toolbarHeight: 280,
             leading: GestureDetector(
               child: Stack(
@@ -119,6 +121,7 @@ class HomePage extends GetView<HomeLogic> {
           ),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Padding(
                 padding:
@@ -128,7 +131,7 @@ class HomePage extends GetView<HomeLogic> {
                   child: Text("Hola, Diego Guadalupe", style: AppStyles.b2),
                 ),
               ),
-              SizedBox(
+              Container(
                 height: 240,
                 child: PageView.builder(
                   controller: controller.controllerPage,

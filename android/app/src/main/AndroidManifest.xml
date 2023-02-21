@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bitel.bss.viettelpos.v3.bitel_ventas">
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
    <application
         android:label="Bitel Ventas"
         android:name="${applicationName}"
@@ -30,5 +32,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+       <meta-data android:name="com.google.android.geo.API_KEY"
+           android:value="AIzaSyCTgsWcVjG2g97rsaT91Rb_Ax1xR9UdUis"/>
     </application>
 </manifest>

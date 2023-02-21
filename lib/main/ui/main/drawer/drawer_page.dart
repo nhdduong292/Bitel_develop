@@ -6,7 +6,6 @@ import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
 // import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -14,6 +13,7 @@ import 'package:get/get.dart';
 import '../../../../res/app_colors.dart';
 import '../../../../res/app_images.dart';
 import '../../../router/route_config.dart';
+import '../activate_prepaid_pages/find_customer_page.dart';
 
 class DrawerPage extends GetView<DrawerLogic> {
   @override
@@ -195,16 +195,20 @@ class DrawerPage extends GetView<DrawerLogic> {
                 if(vehicle.label == AppLocalizations.of(context)!.textManageContact) {
                   if (i == 0) {
                     print("index: 0");
-                    Get.toNamed(RouteConfig.manageContact);
+                    Get.to(() => FindCustomerPage());
                   } else if (i == 1) {
                     print("index: 1");
+                    Get.toNamed(RouteConfig.manageContact);
                   }
                 } else if(vehicle.label == AppLocalizations.of(context)!.textFTTH){
                   if (i == 0) {
                     print("index: 2");
+                    Get.toNamed(RouteConfig.sale);
                   } else if (i == 1) {
                     print("index: 3");
+                    Get.toNamed(RouteConfig.afterSale);
                   } else if (i == 2) {
+                    Get.toNamed(RouteConfig.manageWO);
                     print("index: 4");
                   }
                 }else if(vehicle.label == AppLocalizations.of(context)!.textUtilites){

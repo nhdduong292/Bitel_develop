@@ -2,14 +2,20 @@ import 'dart:ui';
 
 import 'package:bitel_ventas/main/ui/login/login_binding.dart';
 import 'package:bitel_ventas/main/ui/login/login_page.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/create_request/create_request_page.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/ftth/manage_wo/mange_wo_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/manage_wo/manage_wo_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/sale/sale_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/create_request_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/request_detail/request_detail_page.dart';
 import 'package:bitel_ventas/main/ui/main/main_binding.dart';
 import 'package:bitel_ventas/main/ui/main/setting/my_info/my_info_page.dart';
 import 'package:bitel_ventas/main/ui/main/setting/sync_data/sync_data_page.dart';
 import 'package:get/get.dart';
 import 'package:bitel_ventas/main/ui/forgotPassword/forgot_password.dart';
 
+import '../ui/main/drawer/manage_contact/create/create_contact_page.dart';
+import '../ui/main/drawer/manage_contact/manage/manage_contact_page.dart';
 import '../ui/main/main_page.dart';
 import '../ui/main/setting/regiester_finger/register_finger_page.dart';
 
@@ -23,6 +29,12 @@ class RouteConfig {
   static const String manageContact = "/menu/manageContact";
   static const String forgotPassword = "/forgotPassword";
   static const String createRequest = "/menu/CreaetRequest";
+  static const String listRequest = "/menu/ListRequest";
+  static const String requestDetail = "/menu/RequestDetail";
+  static const String createContact = "/menu/createContact";
+  static const String manageWO = "/menu/manageWO";
+  static const String afterSale = "/menu/ftth/aftersale";
+  static const String sale = "/menu/ftth/sale";
 
   ///page
   static final List<GetPage> getPages = [
@@ -34,6 +46,12 @@ class RouteConfig {
     GetPage(name: manageContact, page: () => ManageContactPage()),
     GetPage(name: forgotPassword, page: () => ForgotPassword()),
     GetPage(name: createRequest, page: () => CreateRequestPage()),
+    GetPage(name: listRequest, page: () => ListRequestPage()),
+    GetPage(name: requestDetail, page: () => RequestDetailPage()),
+    GetPage(name: createContact, page: () => CreateContactPage()),
+    GetPage(name: manageWO, page: () => ManageWOPage()),
+    GetPage(name: afterSale, page: () => AfterSalePage()),
+    GetPage(name: sale, page: () => SalePage()),
   ];
 
   ///language
