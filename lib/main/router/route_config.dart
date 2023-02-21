@@ -8,6 +8,7 @@ import 'package:bitel_ventas/main/ui/main/main_binding.dart';
 import 'package:bitel_ventas/main/ui/main/setting/my_info/my_info_page.dart';
 import 'package:bitel_ventas/main/ui/main/setting/sync_data/sync_data_page.dart';
 import 'package:get/get.dart';
+import 'package:bitel_ventas/main/ui/forgotPassword/forgot_password.dart';
 
 import '../ui/main/main_page.dart';
 import '../ui/main/setting/regiester_finger/register_finger_page.dart';
@@ -20,6 +21,7 @@ class RouteConfig {
   static const String syncData = "/setting/syncData";
   static const String registerFinger = "/setting/registerFinger";
   static const String manageContact = "/menu/manageContact";
+  static const String forgotPassword = "/forgotPassword";
   static const String createRequest = "/menu/CreaetRequest";
 
   ///page
@@ -30,6 +32,7 @@ class RouteConfig {
     GetPage(name: syncData, page: () => SyncDataPage()),
     GetPage(name: registerFinger, page: () => RegisterFingerPage()),
     GetPage(name: manageContact, page: () => ManageContactPage()),
+    GetPage(name: forgotPassword, page: () => ForgotPassword()),
     GetPage(name: createRequest, page: () => CreateRequestPage()),
   ];
 

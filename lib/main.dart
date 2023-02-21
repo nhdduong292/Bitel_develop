@@ -9,6 +9,7 @@ import 'main/services/settings_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   /// AWAIT SERVICES INITIALIZATION.
   await initServices();
   runApp(const MyApp());

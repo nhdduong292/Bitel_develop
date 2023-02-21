@@ -80,4 +80,13 @@ class AppImages {
   static const icSurveySuccessful = 'assets/images/ic_survey_successful.svg';
   static const icSurveyUnsuccessful = 'assets/images/ic_survey_unsuccessful.svg';
   static const icClose = 'assets/images/ic_close.svg';
+  static const String icPasswordVisibility =
+      'assets/icons/ic_ password_visibility.svg';
+  static const String icRefreshCapcha = 'assets/icons/ic_refresh_capcha.svg';
+  static const imgCapchaTest = 'assets/images/capcha_test.png';
+  static const String icWarning = 'assets/icons/ic_warning.svg';
+  static const String imgCongratulations =
+      'assets/images/img_congratulations_forgot_password.svg';
+  static const String imgNotify =
+      'assets/images/img_notify_forgot_password.svg';
 }
