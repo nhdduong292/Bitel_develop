@@ -13,6 +13,7 @@ import 'package:multiselect/multiselect.dart';
 
 import '../../res/app_colors.dart';
 import '../ui/main/activate_prepaid_pages/activate_prepaid_logic.dart';
+import '../../../../res/app_styles.dart';
 
 Icon iconUnchecked() {
   return Icon(
@@ -479,6 +480,112 @@ Widget notifyCoverageLocation({bool? coverage, required BuildContext context}) {
       ),
     )
   ]);
+}
+
+Widget circleMarkerView({required RxBool check, required String text}) {
+  return Obx(() => Container(
+        width: 36,
+        height: 36,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(18)),
+            gradient: check.value
+                ? LinearGradient(
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topRight,
+                    transform: GradientRotation(124.84),
+                    colors: [
+                      Color(0xFF0FDDDB),
+                      Color(0xFF00A5B1),
+                    ],
+                    stops: [0.0583, 0.7052],
+                  )
+                : null,
+            color: check.value ? null : Colors.white),
+        child: Center(
+          child:
+              Text(text, style: check.value ? AppStyles.rw13 : AppStyles.rb13),
+        ),
+      ));
+}
+
+Widget inputFormPassword(
+    {required String label,
+    required String hint,
+    required bool required,
+    required TextInputType inputType,
+    required RxBool isVisibility}) {
+  return Column(
+    children: [
+      Container(
+        margin: EdgeInsets.only(left: 20, top: 15),
+        alignment: Alignment.topLeft,
+        child: RichText(
+          text: TextSpan(
+            text: label,
+            style: TextStyle(
+              color: AppColors.colorText1,
+              fontFamily: 'Roboto',
+              fontSize: 14,
+            ),
+            children: [
+              TextSpan(
+                  text: required ? ' *' : '',
+                  style: TextStyle(
+                    color: AppColors.colorTextError,
+                    fontFamily: 'Roboto',
+                    fontSize: 14,
+                  )),
+            ],
+          ),
+        ),
+      ),
+      Container(
+          height: 45,
+          margin: EdgeInsets.only(left: 15, right: 15, top: 10),
+          child: Obx(() => TextField(
+                obscureText: !isVisibility.value,
+                textAlignVertical: TextAlignVertical.bottom,
+                style: TextStyle(
+                    fontSize: 18,
+                    fontFamily: 'Roboto',
+                    color: Color(0xFF415263),
+                    fontWeight: FontWeight.w500),
+                keyboardType: inputType,
+                decoration: InputDecoration(
+                  hintText: hint,
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      color: AppColors.color_919BA5,
+                      isVisibility.value
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                    ),
+                    onPressed: () {
+                      isVisibility.value = (!isVisibility.value);
+                    },
+                  ),
+                  hintStyle: TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w300),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(24),
+                    borderSide: BorderSide(
+                      color: Color(0xFFE3EAF2),
+                      width: 1,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(24),
+                    borderSide: BorderSide(
+                      color: Color(0xFFE3EAF2),
+                      width: 1,
+                    ),
+                  ),
+                ),
+              ))),
+    ],
+  );
 }
 
 Widget bottomButton({required String text, required onTap}) {

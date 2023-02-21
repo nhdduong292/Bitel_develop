@@ -8,6 +8,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../../res/app_colors.dart';
 import '../../../../res/app_styles.dart';
+import '../../../router/route_config.dart';
 
 class HomePage extends GetView<HomeLogic> {
   @override
@@ -68,7 +69,12 @@ class HomePage extends GetView<HomeLogic> {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(right: 20, top: 20),
-                    child: SvgPicture.asset(AppImages.icNotification),
+                    child: InkWell(
+                      onTap: () {
+                        Get.toNamed(RouteConfig.forgotPassword);
+                      },
+                      child: SvgPicture.asset(AppImages.icNotification),
+                    ),
                   )
                 ],
               )

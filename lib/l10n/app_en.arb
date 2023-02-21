@@ -85,6 +85,27 @@
   "textClearDebt": "Clear debt",
   "textUtilites": "Utilites",
   "textChangeLanguage": "Change language",
+  "textForgotPassword": "Forgot your password?",
+  "textChangePassword": "Change Password",
+  "textUpdatePassword": "UPDATE PASSWORD",
+  "textCongratulations": "Congratulations",
+  "textYourPassword": "Your password has been updated successfully.",
+  "textOk": "OK",
+  "textNotify": "Notify",
+  "textYouHaveEntered": "You have entered the code wrong three times.",
+  "textYouWillRedo": "You will redo the process..",
+  "textUnderstood": "Understood",
+  "textVerifyYour": "Verify your phone number",
+  "textEnterTheOTP": "Enter the OTP code",
+  "textAnOTPHasBeen": "An OTP has been send to mobile number xxxxxx456, please enter the otp to verify",
+  "textTimeRemaining": "Time remaining: ",
+  "textCorrectCode": "Correct code",
+  "textDidntGetTheOTP": "Didn't get the OTP? ",
+  "textResendOTP": "Resend OTP",
+  "textOldPassword": "OldPassword",
+  "textNewPassword": "NewPassword",
+  "textRepeatNewPassword": "Repeat new password",
+  "textEnterCaptcha": "Enter Captcha",
   "textChooseService":"Choose service",
   "textIdentityNumber":"Identity number",
   "hintIdentityNumber":"Enter identity number",
@@ -249,4 +270,4 @@
 
 
 
-}
+  }
