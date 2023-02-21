@@ -1,7 +1,7 @@
 
 import 'package:bitel_ventas/main/networks/model/address_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/create_request_logic.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_map.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_map_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_successful.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
@@ -80,7 +80,8 @@ class CreateRequestPage extends GetWidget{
                           flex: 1,
                             child: RichText(
                           text: TextSpan(
-                            text: "I freely, previously, expressly, informed and unequivocally accept authorize Bitel to carry out the ",
+                            text: AppLocalizations.of(context)!
+                                .textInfoCreateRequest1,
                             style: AppStyles.r2.copyWith(color: AppColors.colorText1),
                             children: const <TextSpan>[
                               TextSpan(
@@ -106,6 +107,9 @@ class CreateRequestPage extends GetWidget{
                           .textChooseService,
                       required: false,
                       dropValue: controller.currentService,
+                      function: (value) {
+                        controller.setService(value);
+                      },
                       listDrop: controller.listService
                     ),
 
@@ -123,7 +127,10 @@ class CreateRequestPage extends GetWidget{
                                 hint: AppLocalizations.of(context)!
                                     .hintIdentityNumber,
                                 required: false,
-                                dropValue: controller.currentIdentity,
+                                dropValue: controller.currentIdentityType,
+                                function: (value) {
+                                  controller.setIdentityType(value);
+                                },
                                 listDrop: controller.listIdentity
                             )
                         ),
@@ -162,6 +169,9 @@ class CreateRequestPage extends GetWidget{
                         hint: AppLocalizations.of(context)!
                             .hintContactPerson,
                         required: false,
+                        function: (value) {
+                          controller.setName(value);
+                        },
                         dropValue: "",
                         listDrop: []
                     ),
@@ -178,6 +188,9 @@ class CreateRequestPage extends GetWidget{
                         required: false,
                         dropValue: "",
                         listDrop: [],
+                        function: (value) {
+                          controller.setPhone(value);
+                        },
                         inputType: TextInputType.number
                     ),
 
@@ -205,7 +218,6 @@ class CreateRequestPage extends GetWidget{
                     ),
                     InkWell(
                       onTap: () {
-                        print("objecttttttttttt");
                         if(controller.listProvince.isEmpty){
                           _onLoading(context);
                           controller.getListProvince((isSuccess) {
@@ -234,7 +246,7 @@ class CreateRequestPage extends GetWidget{
                           isExpanded: true,
                           // value: controller.currentProvince.name!.isNotEmpty ? controller.currentProvince.name! : null,
                           onChanged: (value) {
-                            controller.currentProvince = value!.areaCode!;
+                            controller.setProvince(value!.areaCode!);
                           },
 
                           items: controller.listProvince.map<DropdownMenuItem<AddressModel>>((AddressModel value) {
@@ -293,7 +305,7 @@ class CreateRequestPage extends GetWidget{
                           isExpanded: true,
                           // value: controller.currentDistrict.isNotEmpty ? controller.currentDistrict : null,
                           onChanged: (value) {
-                            controller.currentDistrict = value!.areaCode!;
+                            controller.setDistrict(value!.areaCode!);
                           },
                           items: controller.listDistrict.map<DropdownMenuItem<AddressModel>>((AddressModel value) {
                             return DropdownMenuItem(value: value, child: Text(value.name!));
@@ -350,7 +362,7 @@ class CreateRequestPage extends GetWidget{
                           isExpanded: true,
                           // value: controller.currentPrecinct.isNotEmpty ? controller.currentPrecinct : null,
                           onChanged: (value) {
-                            controller.currentPrecinct = value!.areaCode!;
+                            controller.setPrecinct(value!.areaCode!);
                           },
                           items: controller.listPrecinct.map<DropdownMenuItem<AddressModel>>((AddressModel value) {
                             return DropdownMenuItem(value: value, child: Text(value.name!));
@@ -382,6 +394,9 @@ class CreateRequestPage extends GetWidget{
                             .hintAddress,
                         required: false,
                         dropValue: "",
+                        function: (value) {
+                          controller.setAddress(value);
+                        },
                         listDrop: []
                     ),
                   ],
@@ -393,7 +408,7 @@ class CreateRequestPage extends GetWidget{
                       flex: 1,
                       child: Container(
                         width: double.infinity,
-                        margin: EdgeInsets.only(top: 30, left: 25, right: 25),
+                        margin: EdgeInsets.only(top: 30, left: 25, right: 5),
                         padding: EdgeInsets.symmetric(vertical: 14),
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -422,15 +437,22 @@ class CreateRequestPage extends GetWidget{
                       flex: 1,
                       child: Container(
                         width: double.infinity,
-                        margin: EdgeInsets.only(top: 30, left: 25, right: 25),
-                        padding: EdgeInsets.symmetric(vertical: 14),
+                        margin: const EdgeInsets.only(top: 30, left: 5, right: 25),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
                         decoration: BoxDecoration(
                           color: AppColors.colorButton,
                           borderRadius: BorderRadius.circular(24),
                         ),
                         child: InkWell(
                           onTap: () {
-                            showDialogSurveyMap(context, controller);
+                            controller.createRequest((isSuccess) {
+                              if(isSuccess){
+                                showDialogSurveyMap(context, controller);
+                              }else {
+                                print("Có lỗi xảy ra");
+                              }
+                            },);
+
                           },
                           child:  Center(
                               child: Text(
@@ -441,7 +463,7 @@ class CreateRequestPage extends GetWidget{
                       ))
                 ],
               ),
-              SizedBox(height: 50,)
+              const SizedBox(height: 50,)
             ],
           ),
         ),
@@ -456,7 +478,7 @@ class CreateRequestPage extends GetWidget{
         builder: (context) {
            return DialogSurveySuccessful(
              onSubmit: (){
-               controller.createRequest();
+               // controller.createRequest();
            },);
         });
   }
@@ -468,7 +490,7 @@ class CreateRequestPage extends GetWidget{
         builder: (context) {
           return DialogSurveyUnsuccessful(
             onSubmit: (){
-                controller.createRequest();
+                // controller.createRequest();
             },);
         });
   }
@@ -478,7 +500,7 @@ class CreateRequestPage extends GetWidget{
         barrierDismissible: false,
         context: context,
         builder: (context) {
-          return DialogSurveyMap(
+          return DialogSurveyMapPage(
             onSubmit: (){
                 bool isOffline = false;
                 if(isOffline) {

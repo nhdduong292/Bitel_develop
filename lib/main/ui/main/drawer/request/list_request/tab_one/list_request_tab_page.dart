@@ -11,11 +11,12 @@ class ListRequestTabPage extends GetWidget{
 
   ListRequestTabPage(this.status);
 
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return GetBuilder(
-      init: ListRequestTabLogic(status),
+      init: ListRequestTabLogic(status, context),
       builder: (controller) {
       return  controller.isLoading ? LoadingCirculApi() : controller.listRequest.isEmpty ? InkWell(
         child: Center(

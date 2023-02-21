@@ -5,6 +5,8 @@ import 'package:bitel_ventas/main/custom_views/line_dash.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/dialog_advance_search_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/dialog_transfer_request_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
+import 'package:bitel_ventas/main/utils/event_bus.dart';
+import 'package:bitel_ventas/main/utils/provider/search_request_provider.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
@@ -20,6 +22,7 @@ class DialogAdvancedSearchPage extends GetWidget {
   final Function(String status)? onSubmit;
 
   DialogAdvancedSearchPage({super.key, this.onSubmit});
+
 
 
   @override

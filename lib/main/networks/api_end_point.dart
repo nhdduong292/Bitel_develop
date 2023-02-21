@@ -12,4 +12,5 @@ class ApiEndPoints{
    static final String API_PROVINCES = "${isDev ? DOMAIN_TEST: DOMAIN}/v1/areas/provinces";
    static final String API_PRECINCTS = "${isDev ? DOMAIN_TEST: DOMAIN}/v1/areas/precincts";
    static final String API_DISTRICTS = "${isDev ? DOMAIN_TEST: DOMAIN}/v1/areas/districts";
+   static final String API_SURVEY = "${isDev ? DOMAIN_TEST: DOMAIN}/v1/surveys";
 }

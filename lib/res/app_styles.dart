@@ -30,45 +30,45 @@ class AppStyles {
 
   static final TextStyle r1 = TextStyle(
     fontSize: 14,
-    fontFamily: AppFonts.Roboto,
+    fontFamily: AppFonts.Barlow,
     color: AppColors.colorText1,
   );
 
   static final TextStyle r2 = TextStyle(
     fontSize: 12,
-    fontFamily: AppFonts.Roboto,
+    fontFamily: AppFonts.Barlow,
   );
 
   static final TextStyle r3 = TextStyle(
     fontSize: 14,
-    fontFamily: AppFonts.Roboto,
+    fontFamily: AppFonts.Barlow,
     color: AppColors.colorContent,
   );
 
   static final TextStyle r4 = TextStyle(
     fontSize: 10,
-    fontFamily: AppFonts.Roboto,
+    fontFamily: AppFonts.Barlow,
     color: AppColors.colorText1,
   );
 
   static final TextStyle r5 = TextStyle(
     fontSize: 14,
-    fontFamily: AppFonts.Roboto,
+    fontFamily: AppFonts.Barlow,
     color: Colors.white,
   );
 
   static final TextStyle r6 = TextStyle(
     fontSize: 16,
-    fontFamily: AppFonts.Roboto,
+    fontFamily: AppFonts.Barlow,
   );
 
   static final TextStyle r7 = TextStyle(
     fontSize: 14,
-    fontFamily: AppFonts.Roboto,
+    fontFamily: AppFonts.Barlow,
   );
 
   static final TextStyle r8 = TextStyle(
     fontSize: 13,
-    fontFamily: AppFonts.Roboto,
+    fontFamily: AppFonts.Barlow,
   );
 }

@@ -8,7 +8,8 @@ import 'package:get/get.dart';
 class CreateRequestLogic extends GetxController {
   String currentService = "FTTH";
   List<String> listService = ["FTTH", "Office Wan", "Leased Line"];
-  String currentIdentity = "DNI";
+  String currentIdentityType = "DNI";
+  String currentIdentity = "";
   List<String> listIdentity = ["DNI", "CE", "PP", "PTP"];
   String currentProvince = "";
   List<AddressModel> listProvince = [];
@@ -21,18 +22,70 @@ class CreateRequestLogic extends GetxController {
   bool isAddContact = true;
   ContactModel contactModel = ContactModel();
   bool isLoading = false;
+  String currentName ="";
+  String currentPhone = "";
 
-  void createRequest() async {
+  void setIdentityType(String value){
+    currentIdentityType = value;
+    update();
+  }
+
+  void setPrecinct(String value){
+    currentPrecinct = value;
+    update();
+  }
+
+  void setDistrict(String value){
+    currentDistrict = value;
+    update();
+  }
+
+  void setProvince(String value){
+    currentProvince = value;
+    update();
+  }
+  void setAddress(String value){
+    currentAddress = value;
+    update();
+  }
+
+  void setName(String value){
+    currentName = value;
+    update();
+  }
+
+  void setPhone(String value){
+    currentPhone = value;
+    update();
+  }
+
+  void setService(String value){
+    currentService = value;
+    update();
+  }
+
+  bool checkValidateCreate(){
+    if(currentIdentity.isEmpty || currentName.isEmpty|| currentPhone.isEmpty || currentProvince.isEmpty || currentPrecinct.isEmpty || currentDistrict.isEmpty || currentAddress.isEmpty){
+      Get.snackbar("Vui lòng nhập đầy đủ thông tin!","", snackPosition: SnackPosition.BOTTOM);
+      return true;
+    }
+    return false;
+  }
+
+  void createRequest(Function(bool isSuccess) function) async {
+    if(checkValidateCreate()){
+      return;
+    }
     Map<String, dynamic> body = {
-      "address": "proid",
-      "district": "irure magna in",
-      "idNumber": "1234564",
-      "name": "amet",
-      "phone": "097845535634563",
-      "precinct": "nisi",
-      "province": "ea est magna esse ut",
-      "service": "FTTH",
-      "identityType": "PTP"
+      "address": currentAddress,
+      "district": currentDistrict,
+      "idNumber": currentIdentity,
+      "name": currentName,
+      "phone": currentPhone,
+      "precinct": currentPrecinct,
+      "province": currentProvince,
+      "service": currentService,
+      "identityType": currentIdentityType
     };
     ApiUtil.getInstance()!.post(
         url: ApiEndPoints.API_CREATE_REQUEST,
@@ -40,19 +93,24 @@ class CreateRequestLogic extends GetxController {
         onSuccess: (response) {
           if (response.isSuccess) {
             print("success");
+            function.call(true);
           } else {
             print("error: ${response.status}");
+            function.call(false);
           }
         },
         onError: (error) {
           print("error: " + error.toString());
+          function.call(false);
         });
   }
 
   void searchNumberContact(String id) async {
+    currentIdentity = id;
+    update();
     Map<String, dynamic> params = {
       "phone": "",
-      "identityType": currentIdentity,
+      "identityType": currentIdentityType,
       "idNumber": id,
       "page": "0",
       "pageSize": "10",
@@ -158,4 +216,5 @@ class CreateRequestLogic extends GetxController {
           function.call(false);
         });
   }
+
 }

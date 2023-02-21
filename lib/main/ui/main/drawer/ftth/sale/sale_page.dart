@@ -93,15 +93,19 @@ class SalePage extends GetWidget {
                     onTap: () {
                         if(optionSale.title == AppLocalizations.of(context)!.textCreateRequest){
                           Get.toNamed(RouteConfig.createRequest);
+                        } else if(optionSale.title == AppLocalizations.of(context)!.textSearchRequest){
+                          Get.toNamed(RouteConfig.listRequest);
                         }
                     },
                     child: Container(
+                      margin: EdgeInsets.only(left: 16),
                       child: Row(
                         children: [
-                          Icon(Icons.access_alarm_outlined),
+                          SvgPicture.asset(optionSale.icon),
                           SizedBox(width: 10,),
                           Text(
-                              controller.getListOptionSale(context)[index].title),
+                              optionSale.title, style: AppStyles.r7.copyWith(fontWeight: FontWeight.w500, color: Colors.black),
+                          ),
                         ],
                       ),
                     ),

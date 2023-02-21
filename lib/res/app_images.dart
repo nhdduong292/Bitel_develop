@@ -89,4 +89,11 @@ class AppImages {
 
   static const String icCreateContact = "assets/icons/ic_create_contact.svg";
   static const String icSortAlphabet = "assets/icons/ic_sort_alphabet.svg";
+  static const String icSaleCreateRequest = "assets/images/ic_sale_create_request.svg";
+  static const String icSaleConnectSubscriber = "assets/images/ic_sale_connect_subscriber.svg";
+  static const String icSaleRechargeAnypay = "assets/images/ic_sale_recharge_anypay.svg";
+  static const String icSaleSearchRequest = "assets/images/ic_sale_search_request.svg";
+  static const String icSaleClearDebt = "assets/images/ic_sale_clear_debt.svg";
+  static const String icSaleCreateContact = "assets/images/ic_sale_create_contact.svg";
+
 }
