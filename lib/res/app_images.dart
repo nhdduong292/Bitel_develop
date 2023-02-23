@@ -78,7 +78,8 @@ class AppImages {
   static const icLoginShowPass = 'assets/images/ic_login_show_pass.svg';
   static const icSurveyAddress = 'assets/images/ic_survey_address.svg';
   static const icSurveySuccessful = 'assets/images/ic_survey_successful.svg';
-  static const icSurveyUnsuccessful = 'assets/images/ic_survey_unsuccessful.svg';
+  static const icSurveyUnsuccessful =
+      'assets/images/ic_survey_unsuccessful.svg';
   static const icClose = 'assets/images/ic_close.svg';
   static const icCreateRequest = 'assets/images/ic_create_request.svg';
   static const icAdvanceSearch = 'assets/images/ic_advance_search.svg';
@@ -89,4 +90,7 @@ class AppImages {
 
   static const String icCreateContact = "assets/icons/ic_create_contact.svg";
   static const String icSortAlphabet = "assets/icons/ic_sort_alphabet.svg";
+  static const String imgIdentity = 'assets/images/img_identity_demo.svg';
+  static const String icCameraRound = "assets/images/ic_camera_round.svg";
+  static const String icBorderIdentity = "assets/images/ic_border_identity.svg";
 }

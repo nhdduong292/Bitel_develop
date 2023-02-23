@@ -838,3 +838,30 @@ Widget expandableV1(
     ),
   );
 }
+
+Widget circleMarkerView({required RxBool check, required String text}) {
+  return Obx(() => Container(
+        width: 36,
+        height: 36,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(18)),
+            gradient: check.value
+                ? LinearGradient(
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topRight,
+                    transform: GradientRotation(124.84),
+                    colors: [
+                      Color(0xFF0FDDDB),
+                      Color(0xFF00A5B1),
+                    ],
+                    stops: [0.0583, 0.7052],
+                  )
+                : null,
+            color: check.value ? null : Colors.white),
+        child: Center(
+          child:
+              Text(text, style: check.value ? AppStyles.rw13 : AppStyles.rb13),
+        ),
+      ));
+}
+

@@ -1,4 +1,3 @@
-
 import 'package:bitel_ventas/main/ui/login/login_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
@@ -10,7 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends GetWidget {
-  FocusNode focusNode  = FocusNode ();
+  FocusNode focusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -21,11 +20,13 @@ class LoginPage extends GetWidget {
           resizeToAvoidBottomInset: false,
           body: Stack(
             children: [
-              SvgPicture.asset(
-                AppImages.bgLogin,
-                fit: BoxFit.cover,
+              SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
+                child: SvgPicture.asset(
+                  AppImages.bgLogin,
+                  fit: BoxFit.fill,
+                ),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -51,9 +52,7 @@ class LoginPage extends GetWidget {
                       ),
                     ),
                   ),
-                  Expanded(
-                    flex: 1,
-                      child: Container()),
+                  Expanded(flex: 1, child: Container()),
                   Container(
                     width: double.infinity,
                     margin: EdgeInsets.only(top: 0, left: 20, right: 20),
@@ -68,14 +67,15 @@ class LoginPage extends GetWidget {
                           onTap: () {
                             FocusScope.of(context).requestFocus(focusNode);
                           },
-                          autofocus:true,
+                          autofocus: true,
                           controller: controller.controller,
                           focusNode: focusNode,
                           decoration: InputDecoration(
                             hintText: "Enter user name",
                             labelText: "Username",
                             prefixIcon: Padding(
-                              padding: const EdgeInsets.only(left: 19, right: 10, bottom: 8),
+                              padding: const EdgeInsets.only(
+                                  left: 19, right: 10, bottom: 8),
                               child: SvgPicture.asset(AppImages.icLoginUser),
                             ),
                             border: InputBorder.none,
@@ -95,15 +95,18 @@ class LoginPage extends GetWidget {
                             hintText: "Enter password",
                             labelText: "Password",
                             prefixIcon: Padding(
-                              padding: const EdgeInsets.only(left: 19, right: 10, bottom: 8),
+                              padding: const EdgeInsets.only(
+                                  left: 19, right: 10, bottom: 8),
                               child: SvgPicture.asset(AppImages.icLoginPass),
                             ),
                             // filled: true,
                             // fillColor: Colors.white,
                             border: InputBorder.none,
                             suffixIcon: Padding(
-                              padding: const EdgeInsets.only(left: 12, right: 18, top: 14),
-                              child: SvgPicture.asset(AppImages.icLoginShowPass),
+                              padding: const EdgeInsets.only(
+                                  left: 12, right: 18, top: 14),
+                              child:
+                                  SvgPicture.asset(AppImages.icLoginShowPass),
                             ),
                             prefixIconConstraints: BoxConstraints(
                               minWidth: 28,
@@ -159,11 +162,11 @@ class LoginPage extends GetWidget {
                       onTap: () {
                         controller.loginSuccess();
                       },
-                      child:  Center(
+                      child: Center(
                           child: Text(
-                            AppLocalizations.of(context)!.btnLogin.toUpperCase(),
-                            style: AppStyles.r5,
-                          )),
+                        AppLocalizations.of(context)!.btnLogin.toUpperCase(),
+                        style: AppStyles.r5,
+                      )),
                     ),
                   ),
                   Padding(

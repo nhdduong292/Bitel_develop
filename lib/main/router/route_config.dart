@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:bitel_ventas/main/ui/login/login_binding.dart';
 import 'package:bitel_ventas/main/ui/login/login_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/manage_wo/manage_wo_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/id_card_scanner.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/create_request_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/request_detail/request_detail_page.dart';
@@ -29,6 +30,7 @@ class RouteConfig {
   static const String requestDetail = "/menu/RequestDetail";
   static const String createContact = "/menu/createContact";
   static const String manageWO = "/menu/manageWO";
+  static const String idCardScanner = "/createManage/idCardScanner";
 
   ///page
   static final List<GetPage> getPages = [
@@ -43,6 +45,7 @@ class RouteConfig {
     GetPage(name: requestDetail, page: () => RequestDetailPage()),
     GetPage(name: createContact, page: () => CreateContactPage()),
     GetPage(name: manageWO, page: () => ManageWOPage()),
+    GetPage(name: idCardScanner, page: () => IDCardScanner()),
   ];
 
   ///language

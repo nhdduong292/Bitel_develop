@@ -32,11 +32,15 @@ class DrawerPage extends GetView<DrawerLogic> {
             // ),
             child: Stack(
               children: [
-                SvgPicture.asset(
-                  AppImages.bgHomeDrawer,
-                  fit: BoxFit.cover,
-                  width: MediaQuery.of(context).size.width * 0.85,
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
+                  child: SvgPicture.asset(
+                    AppImages.bgHomeDrawer,
+                    fit: BoxFit.fill,
+                    // width: MediaQuery.of(context).size.width * 0.85,
+                    // height: MediaQuery.of(context).size.height,
+                  ),
                 ),
                 Positioned(
                   left: 25,
@@ -49,17 +53,19 @@ class DrawerPage extends GetView<DrawerLogic> {
                   ),
                 ),
                 Positioned(
-                    top: 120,
+                    top: 80,
                     left: 35,
                     right: 30,
+                    bottom: 100,
                     child: SizedBox(
                       height: MediaQuery.of(context).size.height,
-                      width: MediaQuery.of(context).size.width * 0.85,
+                      width: MediaQuery.of(context).size.width,
                       child: ListView.builder(
                         itemCount: controller.listItem?.length,
                         itemBuilder: (context, index) {
-                          DrawerItem drawerItem = controller.getListItem(context)[index];
-                          if(drawerItem.list!.isEmpty){
+                          DrawerItem drawerItem =
+                              controller.getListItem(context)[index];
+                          if (drawerItem.list!.isEmpty) {
                             return InkWell(
                               splashColor: Colors.black54,
                               onTap: () {
@@ -68,13 +74,14 @@ class DrawerPage extends GetView<DrawerLogic> {
                               child: Container(
                                 padding: EdgeInsets.symmetric(vertical: 20),
                                 child: Obx(
-                                      () => Row(
+                                  () => Row(
                                     children: [
-                                      SvgPicture.asset(controller.listItem![index].isSelected
-                                          ? controller
-                                          .listItem![index].selectedImg
-                                          : controller.listItem![index]
-                                          .unselectedImg),
+                                      SvgPicture.asset(
+                                          controller.listItem![index].isSelected
+                                              ? controller
+                                                  .listItem![index].selectedImg
+                                              : controller.listItem![index]
+                                                  .unselectedImg),
                                       // Image(
                                       //   image: Svg(
                                       //       controller.listItem![index].isSelected
@@ -85,12 +92,13 @@ class DrawerPage extends GetView<DrawerLogic> {
                                       //   width: 26,
                                       //   height: 26,
                                       // ),
-                                      Padding(padding: EdgeInsets.only(left: 20)),
+                                      Padding(
+                                          padding: EdgeInsets.only(left: 20)),
                                       Text(
                                         controller.listItem![index].label,
                                         style: TextStyle(
                                             color: controller
-                                                .listItem![index].isSelected
+                                                    .listItem![index].isSelected
                                                 ? AppColors.colorBackground
                                                 : Colors.white,
                                             fontSize: 19,
@@ -112,22 +120,24 @@ class DrawerPage extends GetView<DrawerLogic> {
                                 contentPadding: EdgeInsets.all(0),
                                 minLeadingWidth: 0,
                                 child: ExpansionTile(
-
-                                  trailing: SvgPicture.asset(AppImages.icArrowDown),
+                                  trailing:
+                                      SvgPicture.asset(AppImages.icArrowDown),
                                   //     : SvgPicture.asset(AppImages.icOvalArrowRight),
-                                  leading:  SvgPicture.asset(drawerItem.unselectedImg),
+                                  leading: SvgPicture.asset(
+                                      drawerItem.unselectedImg),
 
-                                  title: Text(drawerItem.label!,
+                                  title: Text(drawerItem.label,
                                       style: TextStyle(
-                                      color: controller
-                                          .listItem![index].isSelected
-                                          ? AppColors.colorBackground
-                                          : Colors.white,
-                                      fontSize: 19,
-                                      fontFamily: AppFonts.Barlow)),
+                                          color: controller
+                                                  .listItem![index].isSelected
+                                              ? AppColors.colorBackground
+                                              : Colors.white,
+                                          fontSize: 19,
+                                          fontFamily: AppFonts.Barlow)),
                                   children: <Widget>[
                                     Column(
-                                      children: _buildExpandableContent(drawerItem, context),
+                                      children: _buildExpandableContent(
+                                          drawerItem, context),
                                     ),
                                   ],
                                   onExpansionChanged: (value) {
@@ -192,7 +202,8 @@ class DrawerPage extends GetView<DrawerLogic> {
               ),
               // trailing: SvgPicture.asset(AppImages.icArrowRight),
               onTap: () {
-                if(vehicle.label == AppLocalizations.of(context)!.textManageContact) {
+                if (vehicle.label ==
+                    AppLocalizations.of(context)!.textManageContact) {
                   if (i == 0) {
                     print("index: 0");
                     Get.to(() => FindCustomerPage());
@@ -200,7 +211,8 @@ class DrawerPage extends GetView<DrawerLogic> {
                     print("index: 1");
                     Get.toNamed(RouteConfig.manageContact);
                   }
-                } else if(vehicle.label == AppLocalizations.of(context)!.textFTTH){
+                } else if (vehicle.label ==
+                    AppLocalizations.of(context)!.textFTTH) {
                   if (i == 0) {
                     print("index: 2");
                   } else if (i == 1) {
@@ -209,12 +221,12 @@ class DrawerPage extends GetView<DrawerLogic> {
                     Get.toNamed(RouteConfig.manageWO);
                     print("index: 4");
                   }
-                }else if(vehicle.label == AppLocalizations.of(context)!.textUtilites){
+                } else if (vehicle.label ==
+                    AppLocalizations.of(context)!.textUtilites) {
                   if (i == 0) {
                     print("index: 5");
                   }
                 }
-
               },
             ),
           )
