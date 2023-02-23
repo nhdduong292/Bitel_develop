@@ -152,15 +152,4 @@ class AppStyles {
     color: AppColors.color_F76F5A,
     fontWeight: FontWeight.w500,
   );
-  static final TextStyle rw13 = TextStyle(
-      fontSize: 13,
-      fontFamily: AppFonts.Roboto,
-      color: Colors.white,
-      fontWeight: FontWeight.w700);
-
-  static final TextStyle rb13 = TextStyle(
-      fontSize: 13,
-      fontFamily: AppFonts.Roboto,
-      color: Colors.black,
-      fontWeight: FontWeight.w700);
 }
