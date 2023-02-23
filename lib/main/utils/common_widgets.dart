@@ -13,7 +13,6 @@ import 'package:multiselect/multiselect.dart';
 
 import '../../res/app_colors.dart';
 import '../ui/main/activate_prepaid_pages/activate_prepaid_logic.dart';
-import '../../../../res/app_styles.dart';
 
 Icon iconUnchecked() {
   return Icon(
@@ -487,20 +486,29 @@ Widget circleMarkerView({required RxBool check, required String text}) {
         width: 36,
         height: 36,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(18)),
-            gradient: check.value
-                ? LinearGradient(
-                    begin: Alignment.bottomLeft,
-                    end: Alignment.topRight,
-                    transform: GradientRotation(124.84),
-                    colors: [
-                      Color(0xFF0FDDDB),
-                      Color(0xFF00A5B1),
-                    ],
-                    stops: [0.0583, 0.7052],
-                  )
-                : null,
-            color: check.value ? null : Colors.white),
+          borderRadius: BorderRadius.all(Radius.circular(18)),
+          gradient: check.value
+              ? LinearGradient(
+                  begin: Alignment.bottomLeft,
+                  end: Alignment.topRight,
+                  transform: GradientRotation(124.84),
+                  colors: [
+                    Color(0xFF00A5B1),
+                    Color(0xFF0FDDDB),
+                  ],
+                  stops: [0.0583, 0.7052],
+                )
+              : LinearGradient(
+                  begin: Alignment.bottomLeft,
+                  end: Alignment.topRight,
+                  transform: GradientRotation(124.84),
+                  colors: [
+                    Color(0xFFEBEFF3),
+                    Color(0xFFFFFFFF),
+                  ],
+                  stops: [0.0583, 0.7052],
+                ),
+        ),
         child: Center(
           child:
               Text(text, style: check.value ? AppStyles.rw13 : AppStyles.rb13),
@@ -623,19 +631,19 @@ Widget bottomButtonV2({required String text, required onTap}) {
       child: Container(
         height: 50,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(25),
-            color: Colors.white,
-            border: Border.all(color: Color(0xFFE3EAF2)),
-            ),
+          borderRadius: BorderRadius.circular(25),
+          color: Colors.white,
+          border: Border.all(color: Color(0xFFE3EAF2)),
+        ),
         child: Center(
             child: Text(
-              text.toUpperCase(),
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-              ),
-            )),
+          text.toUpperCase(),
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 15,
+            fontWeight: FontWeight.w500,
+          ),
+        )),
       ),
     ),
   );
@@ -689,18 +697,17 @@ Widget spinnerFormV3({
   );
 }
 
-Widget spinnerFormV2({
-  required BuildContext context,
-  required String hint,
-  required bool required,
-  required String dropValue,
-  required List<String> listDrop,
-  double height = 0,
-  TextInputType inputType = TextInputType.text,
-  TextEditingController? controlTextField,
-  TextInputAction? typeAction,
-  Function(String value)? function
-}) {
+Widget spinnerFormV2(
+    {required BuildContext context,
+    required String hint,
+    required bool required,
+    required String dropValue,
+    required List<String> listDrop,
+    double height = 0,
+    TextInputType inputType = TextInputType.text,
+    TextEditingController? controlTextField,
+    TextInputAction? typeAction,
+    Function(String value)? function}) {
   return Column(
     children: [
       Container(
@@ -867,8 +874,7 @@ Widget multiSelectDropdownForm(
   );
 }
 
-Widget expandableV1(
-    {required String label, required Widget child}) {
+Widget expandableV1({required String label, required Widget child}) {
   return ExpandableNotifier(
     child: Column(
       children: [
@@ -947,13 +953,15 @@ Widget expandableV1(
             ],
           ),
         ),
-        SizedBox(height: 15,)
+        SizedBox(
+          height: 15,
+        )
       ],
     ),
   );
 }
 
-Widget LoadingCirculApi(){
+Widget LoadingCirculApi() {
   return Center(
     child: CircularProgressIndicator(
       strokeWidth: 4,

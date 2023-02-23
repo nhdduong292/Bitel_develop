@@ -11,6 +11,6 @@ class ProductPaymentMethodLogic extends GetxController{
   final ItemPositionsListener itemPositionsListener =
   ItemPositionsListener.create();
 
-  var isOnMethodPage = false.obs;
+  var isOnMethodPage = true.obs;
   var isOnInvoicePage = false.obs;
 }

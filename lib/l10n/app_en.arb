@@ -264,8 +264,9 @@
   "textInfoCreateRequest2": "processing of my personal and sensitive data",
   "textInfoCreateRequest3": ", with the collection of the same",
   "textChooseTechnology": "Choose technology",
-  "textMaxRadius": "Max radius 500m"
-
+  "textMaxRadius": "Max radius 500m",
+  "textProductPaymentMethod" : "Product & payment method",
+  "textInvoiceInfo" : "Invoice information"
 
 
 
