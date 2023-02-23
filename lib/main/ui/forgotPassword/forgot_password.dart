@@ -1,21 +1,22 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:math';
+
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_images.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../../res/app_styles.dart';
 import 'forgot_password_logic.dart';
-import 'package:otp_text_field/otp_text_field.dart';
-import 'package:dotted_border/dotted_border.dart';
-import 'dart:math';
 
 class ForgotPassword extends GetView<ForgotPasswordLogic> {
   final ItemScrollController _scrollController = ItemScrollController();
@@ -145,51 +146,37 @@ class ForgotPassword extends GetView<ForgotPasswordLogic> {
                                 }
                               }),
                         ),
-                        Container(
-                          width: double.infinity,
-                          margin: const EdgeInsets.only(
-                              top: 41, left: 25, right: 25),
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          decoration: BoxDecoration(
-                            color: AppColors.colorButton,
-                            borderRadius: BorderRadius.circular(24),
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              checkIsVerify.value = true;
-                              _scrollController.scrollTo(
-                                index: 1,
-                                duration: const Duration(milliseconds: 200),
+                        bottomButton(
+                          text: !checkIsUpdate.value
+                              ? AppLocalizations.of(context)!
+                                  .textContinue
+                                  .toUpperCase()
+                              : AppLocalizations.of(context)!
+                                  .textUpdatePassword
+                                  .toUpperCase(),
+                          onTap: () {
+                            checkIsVerify.value = true;
+                            _scrollController.scrollTo(
+                              index: 1,
+                              duration: const Duration(milliseconds: 200),
+                            );
+
+                            var random = Random();
+                            bool randomBool = random.nextBool();
+
+                            if (checkIsUpdate.value) {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return SuccessDialog(
+                                    height: randomBool ? 299 : 341,
+                                    isSuccess: randomBool,
+                                  );
+                                },
                               );
-
-                              var random = Random();
-                              bool randomBool = random.nextBool();
-
-                              if (checkIsUpdate.value) {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return SuccessDialog(
-                                      height: randomBool ? 299 : 341,
-                                      isSuccess: randomBool,
-                                    );
-                                  },
-                                );
-                              }
-                            },
-                            child: Center(
-                                child: Obx(() => Text(
-                                      !checkIsUpdate.value
-                                          ? AppLocalizations.of(context)!
-                                              .textContinue
-                                              .toUpperCase()
-                                          : AppLocalizations.of(context)!
-                                              .textUpdatePassword
-                                              .toUpperCase(),
-                                      style: AppStyles.r5,
-                                    ))),
-                          ),
-                        ),
+                            }
+                          },
+                        )
                       ],
                     ),
                   ),
@@ -499,6 +486,7 @@ class SuccessDialog extends Dialog {
 
   const SuccessDialog(
       {super.key, required this.height, required this.isSuccess});
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
