@@ -1,8 +1,8 @@
 
-class BaseResponse<T> {
+class BaseResponse{
   String? message;
   int? code;
-  T? data;
+  dynamic data;
   int? status;
   String? errMessage;
 

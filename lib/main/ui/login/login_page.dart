@@ -17,18 +17,14 @@ class LoginPage extends GetWidget {
       init: LoginLogic(),
       builder: (controller) {
         return Scaffold(
-          resizeToAvoidBottomInset: false,
-          body: Stack(
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                child: SvgPicture.asset(
-                  AppImages.bgLogin,
-                  fit: BoxFit.fill,
-                ),
+            resizeToAvoidBottomInset: false,
+            body: Container(
+              constraints: BoxConstraints.expand(),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(AppImages.bgLogin), fit: BoxFit.cover),
               ),
-              Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Center(
@@ -185,9 +181,7 @@ class LoginPage extends GetWidget {
                   )
                 ],
               ),
-            ],
-          ),
-        );
+            ));
       },
     );
   }

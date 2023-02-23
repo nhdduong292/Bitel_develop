@@ -1,11 +1,13 @@
 
+import 'package:bitel_ventas/main/networks/model/address_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/create_request_logic.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_map.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_map_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_successful.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
@@ -16,6 +18,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dialog_survey_unsuccesful.dart';
 
 class CreateRequestPage extends GetWidget{
+  TextEditingController textFieldIdNumber = TextEditingController();
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -37,7 +40,7 @@ class CreateRequestPage extends GetWidget{
           elevation: 0.0,
           title: Container(
             margin: EdgeInsets.only(bottom: 20),
-            child: Text("Create new request", style: AppStyles.title),
+            child: Text(AppLocalizations.of(context)!.textCreateNewRequest, style: AppStyles.title),
           ),
           toolbarHeight: 100,
           flexibleSpace: Container(
@@ -77,7 +80,8 @@ class CreateRequestPage extends GetWidget{
                           flex: 1,
                             child: RichText(
                           text: TextSpan(
-                            text: "I freely, previously, expressly, informed and unequivocally accept authorize Bitel to carry out the ",
+                            text: AppLocalizations.of(context)!
+                                .textInfoCreateRequest1,
                             style: AppStyles.r2.copyWith(color: AppColors.colorText1),
                             children: const <TextSpan>[
                               TextSpan(
@@ -103,6 +107,9 @@ class CreateRequestPage extends GetWidget{
                           .textChooseService,
                       required: false,
                       dropValue: controller.currentService,
+                      function: (value) {
+                        controller.setService(value);
+                      },
                       listDrop: controller.listService
                     ),
 
@@ -120,7 +127,10 @@ class CreateRequestPage extends GetWidget{
                                 hint: AppLocalizations.of(context)!
                                     .hintIdentityNumber,
                                 required: false,
-                                dropValue: controller.currentIdentity,
+                                dropValue: controller.currentIdentityType,
+                                function: (value) {
+                                  controller.setIdentityType(value);
+                                },
                                 listDrop: controller.listIdentity
                             )
                         ),
@@ -132,12 +142,18 @@ class CreateRequestPage extends GetWidget{
                                 .hintIdentityNumber,
                             required: false,
                             dropValue: "",
+                            controlTextField: textFieldIdNumber,
+                            inputType: TextInputType.number,
+                            typeAction: TextInputAction.send,
+                            function: (value) {
+                              controller.searchNumberContact(value);
+                            },
                             listDrop: []
                         )
                         )
                       ],
                     ),
-                    Container(
+                    controller.isAddContact ? Container() : Container(
                       margin: EdgeInsets.only(top: 10),
                       alignment: Alignment.centerRight,
                       child: Text(style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500, color: AppColors.colorTitle,decoration: TextDecoration.underline),AppLocalizations.of(context)!
@@ -153,6 +169,9 @@ class CreateRequestPage extends GetWidget{
                         hint: AppLocalizations.of(context)!
                             .hintContactPerson,
                         required: false,
+                        function: (value) {
+                          controller.setName(value);
+                        },
                         dropValue: "",
                         listDrop: []
                     ),
@@ -168,7 +187,11 @@ class CreateRequestPage extends GetWidget{
                             .textContactPhone,
                         required: false,
                         dropValue: "",
-                        listDrop: []
+                        listDrop: [],
+                        function: (value) {
+                          controller.setPhone(value);
+                        },
+                        inputType: TextInputType.number
                     ),
 
                     Row(
@@ -193,13 +216,59 @@ class CreateRequestPage extends GetWidget{
                       child: Text( AppLocalizations.of(context)!
                           .textProvince, style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),),
                     ),
-                    spinnerFormV2(
-                        context: context,
-                        hint: AppLocalizations.of(context)!
-                            .hintProvince,
-                        required: false,
-                        dropValue: controller.currentProvince,
-                        listDrop: controller.listProvince
+                    InkWell(
+                      onTap: () {
+                        if(controller.listProvince.isEmpty){
+                          _onLoading(context);
+                          controller.getListProvince((isSuccess) {
+                            Get.back();
+                          },);
+                        }
+                      },
+                      child: Container(
+                        height: 45,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(24),
+                            border: Border.all(color: Color(0xFFE3EAF2))),
+                        child: DropdownButtonFormField2(
+                          autofocus: true,
+                          decoration: const InputDecoration(
+                            isDense: true,
+                            contentPadding: EdgeInsets.zero,
+                            border: InputBorder.none,
+                          ),
+                          // selectedItemHighlightColor: Colors.red,
+                          buttonHeight: 60,
+                          buttonPadding: const EdgeInsets.only(left: 0, right: 10),
+                          dropdownDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(24),
+                              border: Border.all(color: Color(0xFFE3EAF2))),
+                          isExpanded: true,
+                          // value: controller.currentProvince.name!.isNotEmpty ? controller.currentProvince.name! : null,
+                          onChanged: (value) {
+                            controller.setProvince(value!.areaCode!);
+                          },
+
+                          items: controller.listProvince.map<DropdownMenuItem<AddressModel>>((AddressModel value) {
+                            return DropdownMenuItem(value: value, child: Text(value.name!));
+                          }).toList(),
+                          style: AppStyles.r2.copyWith(
+                              color: AppColors.colorTitle, fontWeight: FontWeight.w500),
+                          icon: SvgPicture.asset(AppImages.icDropdownSpinner),
+                          hint: Text(
+                            AppLocalizations.of(context)!
+                                .hintProvince,
+                            style: AppStyles.r2.copyWith(
+                                color: AppColors.colorHint1, fontWeight: FontWeight.w400),
+                          ),
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Please select gender.';
+                            }
+                          },
+
+                        ),
+                      ),
                     ),
 
                     Padding(
@@ -207,13 +276,54 @@ class CreateRequestPage extends GetWidget{
                       child: Text( AppLocalizations.of(context)!
                           .textDistrict, style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),),
                     ),
-                    spinnerFormV2(
-                        context: context,
-                        hint: AppLocalizations.of(context)!
-                            .hintDistrict,
-                        required: false,
-                        dropValue: controller.currentDistrict,
-                        listDrop: controller.listDistrict
+                    InkWell(
+                      onTap: () {
+                        if(controller.currentProvince.isNotEmpty && controller.listDistrict.isEmpty){
+                          _onLoading(context);
+                          controller.getListDistrict(controller.currentProvince, (isSuccess) {
+                            Get.back();
+                          },);
+                        }
+                      },
+                      child: Container(
+                        height: 45,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(24),
+                            border: Border.all(color: Color(0xFFE3EAF2))),
+                        child: DropdownButtonFormField2(
+                          decoration: const InputDecoration(
+                            isDense: true,
+                            contentPadding: EdgeInsets.zero,
+                            border: InputBorder.none,
+                          ),
+                          // selectedItemHighlightColor: Colors.red,
+                          buttonHeight: 60,
+                          buttonPadding: const EdgeInsets.only(left: 0, right: 10),
+                          dropdownDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(24),
+                              border: Border.all(color: Color(0xFFE3EAF2))),
+                          isExpanded: true,
+                          // value: controller.currentDistrict.isNotEmpty ? controller.currentDistrict : null,
+                          onChanged: (value) {
+                            controller.setDistrict(value!.areaCode!);
+                          },
+                          items: controller.listDistrict.map<DropdownMenuItem<AddressModel>>((AddressModel value) {
+                            return DropdownMenuItem(value: value, child: Text(value.name!));
+                          }).toList(),
+                          style: AppStyles.r2.copyWith(
+                              color: AppColors.colorTitle, fontWeight: FontWeight.w500),
+                          icon: SvgPicture.asset(AppImages.icDropdownSpinner),
+                          hint: Text(AppLocalizations.of(context)!.hintDistrict,
+                            style: AppStyles.r2.copyWith(
+                                color: AppColors.colorHint1, fontWeight: FontWeight.w400),
+                          ),
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Please select gender.';
+                            }
+                          },
+                        ),
+                      ),
                     ),
 
                     Padding(
@@ -221,13 +331,56 @@ class CreateRequestPage extends GetWidget{
                       child: Text( AppLocalizations.of(context)!
                           .textPrecinct, style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),),
                     ),
-                    spinnerFormV2(
-                        context: context,
-                        hint: AppLocalizations.of(context)!
-                            .hintPrecinct,
-                        required: false,
-                        dropValue: controller.currentPrecinct,
-                        listDrop: controller.listPrecinct
+                    InkWell(
+                      onTap: () {
+                        if(controller.currentDistrict.isNotEmpty && controller.listPrecinct.isEmpty){
+                          _onLoading(context);
+                          controller.getListPrecincts(controller.currentDistrict, (isSuccess) {
+                            Get.back();
+                          },);
+
+
+                        }
+                      },
+                      child:  Container(
+                        height: 45,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(24),
+                            border: Border.all(color: Color(0xFFE3EAF2))),
+                        child: DropdownButtonFormField2(
+                          decoration: const InputDecoration(
+                            isDense: true,
+                            contentPadding: EdgeInsets.zero,
+                            border: InputBorder.none,
+                          ),
+                          // selectedItemHighlightColor: Colors.red,
+                          buttonHeight: 60,
+                          buttonPadding: const EdgeInsets.only(left: 0, right: 10),
+                          dropdownDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(24),
+                              border: Border.all(color: Color(0xFFE3EAF2))),
+                          isExpanded: true,
+                          // value: controller.currentPrecinct.isNotEmpty ? controller.currentPrecinct : null,
+                          onChanged: (value) {
+                            controller.setPrecinct(value!.areaCode!);
+                          },
+                          items: controller.listPrecinct.map<DropdownMenuItem<AddressModel>>((AddressModel value) {
+                            return DropdownMenuItem(value: value, child: Text(value.name!));
+                          }).toList(),
+                          style: AppStyles.r2.copyWith(
+                              color: AppColors.colorTitle, fontWeight: FontWeight.w500),
+                          icon: SvgPicture.asset(AppImages.icDropdownSpinner),
+                          hint: Text(AppLocalizations.of(context)!.hintPrecinct,
+                            style: AppStyles.r2.copyWith(
+                                color: AppColors.colorHint1, fontWeight: FontWeight.w400),
+                          ),
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Please select gender.';
+                            }
+                          },
+                        ),
+                      ),
                     ),
 
                     Padding(
@@ -240,8 +393,11 @@ class CreateRequestPage extends GetWidget{
                         hint: AppLocalizations.of(context)!
                             .hintAddress,
                         required: false,
-                        dropValue: controller.currentAddress,
-                        listDrop: controller.listAddress
+                        dropValue: "",
+                        function: (value) {
+                          controller.setAddress(value);
+                        },
+                        listDrop: []
                     ),
                   ],
                 ),
@@ -252,7 +408,7 @@ class CreateRequestPage extends GetWidget{
                       flex: 1,
                       child: Container(
                         width: double.infinity,
-                        margin: EdgeInsets.only(top: 30, left: 25, right: 25),
+                        margin: EdgeInsets.only(top: 30, left: 25, right: 5),
                         padding: EdgeInsets.symmetric(vertical: 14),
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -281,15 +437,22 @@ class CreateRequestPage extends GetWidget{
                       flex: 1,
                       child: Container(
                         width: double.infinity,
-                        margin: EdgeInsets.only(top: 30, left: 25, right: 25),
-                        padding: EdgeInsets.symmetric(vertical: 14),
+                        margin: const EdgeInsets.only(top: 30, left: 5, right: 25),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
                         decoration: BoxDecoration(
                           color: AppColors.colorButton,
                           borderRadius: BorderRadius.circular(24),
                         ),
                         child: InkWell(
                           onTap: () {
-                            showDialogSurveyMap(context, controller);
+                            controller.createRequest((isSuccess) {
+                              if(isSuccess){
+                                showDialogSurveyMap(context, controller);
+                              }else {
+                                print("Có lỗi xảy ra");
+                              }
+                            },);
+
                           },
                           child:  Center(
                               child: Text(
@@ -300,7 +463,7 @@ class CreateRequestPage extends GetWidget{
                       ))
                 ],
               ),
-              SizedBox(height: 50,)
+              const SizedBox(height: 50,)
             ],
           ),
         ),
@@ -315,7 +478,7 @@ class CreateRequestPage extends GetWidget{
         builder: (context) {
            return DialogSurveySuccessful(
              onSubmit: (){
-               controller.createRequest();
+               // controller.createRequest();
            },);
         });
   }
@@ -327,7 +490,7 @@ class CreateRequestPage extends GetWidget{
         builder: (context) {
           return DialogSurveyUnsuccessful(
             onSubmit: (){
-                controller.createRequest();
+                // controller.createRequest();
             },);
         });
   }
@@ -337,7 +500,7 @@ class CreateRequestPage extends GetWidget{
         barrierDismissible: false,
         context: context,
         builder: (context) {
-          return DialogSurveyMap(
+          return DialogSurveyMapPage(
             onSubmit: (){
                 bool isOffline = false;
                 if(isOffline) {
@@ -347,6 +510,20 @@ class CreateRequestPage extends GetWidget{
                 }
             },);
         });
+  }
+
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
+      },
+    );
   }
 
 }

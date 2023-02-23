@@ -4,6 +4,10 @@ import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/dialog_adv
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/dialog_cancel_request_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/dialog_transfer_request_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/tab_one/list_request_tab_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/tab_two/tab_two_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/tab_one/list_request_tab_page.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
@@ -86,7 +90,7 @@ class ListRequestPage extends GetWidget {
                       )),
                       InkWell(
                         onTap: () {
-                          showDialogAdvanceSearch(context);
+                          showDialogAdvanceSearch(context, controller);
                         },
                         child: SvgPicture.asset(AppImages.icAdvanceSearch),
                       )
@@ -123,36 +127,37 @@ class ListRequestPage extends GetWidget {
                     tabs: [
                       // first tab [you can add an icon using the icon property]
                       Tab(
-                        child: Text(
-                            style: AppStyles.r7,
-                            AppLocalizations.of(context)!.textToday),
+                        child: Text("Status 1",
+                            style: AppStyles.r7)
+
                       ),
 
                       // second tab [you can add an icon using the icon property]
                       Tab(
                         child: Text(
-                            style: AppStyles.r7,
-                            AppLocalizations.of(context)!.textYesterday),
+                            "Status 2",
+                            style: AppStyles.r7,)
                       ),
                       Tab(
                         child: Text(
-                            style: AppStyles.r7,
-                            AppLocalizations.of(context)!.textPersonal),
+                            "Status 3",
+                            style: AppStyles.r7,)
                       ),
                       Tab(
                         child: Text(
-                            style: AppStyles.r7,
-                            AppLocalizations.of(context)!.textPersonal),
+                            "Status 4",
+                            style: AppStyles.r7,)
                       ),
                       Tab(
                         child: Text(
-                            style: AppStyles.r7,
-                            AppLocalizations.of(context)!.textPersonal),
+                            "Status 5",
+                            style: AppStyles.r7)
                       ),
                       Tab(
                         child: Text(
+                            "Status 6",
                             style: AppStyles.r7,
-                            AppLocalizations.of(context)!.textPersonal),
+                            ),
                       ),
                     ],
                   ),
@@ -197,70 +202,22 @@ class ListRequestPage extends GetWidget {
                                 showDialogCancelRequest(context);
                               },
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 16, right: 16, top: 20, bottom: 12),
+                                padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
                                 child: SvgPicture.asset(AppImages.icCancelRequest),
                               ),
                             )
                           ],
                         ),
-                        const LineDash(color: AppColors.colorLineDash),
                         Expanded(child: TabBarView(
                           controller: controller.tabController,
                           children: [
                             // first tab bar view widget
-                            ListView.builder(
-                                itemCount: 20,
-                                itemBuilder: (context, index) {
-                                  return InkWell(
-                                    onTap: () {
-                                      Get.toNamed(RouteConfig.requestDetail);
-                                    },
-                                    child: Padding(
-                                      padding: EdgeInsets.all(25),
-                                      child: Text("Home Day"),
-                                    ),
-                                  );
-                                }),
-                            ListView.builder(
-                                itemCount: 20,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: EdgeInsets.all(25),
-                                    child: Text("Home Day"),
-                                  );
-                                }),
-                            ListView.builder(
-                                itemCount: 20,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: EdgeInsets.all(25),
-                                    child: Text("Home Day"),
-                                  );
-                                }),
-                            ListView.builder(
-                                itemCount: 20,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: EdgeInsets.all(25),
-                                    child: Text("Home Day"),
-                                  );
-                                }),
-                            ListView.builder(
-                                itemCount: 20,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: EdgeInsets.all(25),
-                                    child: Text("Home Day"),
-                                  );
-                                }),
-                            ListView.builder(
-                                itemCount: 20,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: EdgeInsets.all(25),
-                                    child: Text("Home Day"),
-                                  );
-                                }),
+                            ListRequestTabPage(REQUEST_STATUS.CREATE_REQUEST),
+                            TabTwoPage(REQUEST_STATUS.CREATE_REQUEST_WITHOUT_SURVEY),
+                            ListRequestTabPage(REQUEST_STATUS.CONNECTED),
+                            TabTwoPage(REQUEST_STATUS.DEPLOYING),
+                            ListRequestTabPage(REQUEST_STATUS.COMPLETE),
+                            TabTwoPage(REQUEST_STATUS.CANCEL),
                           ],
                         )),
                       ],
@@ -276,34 +233,38 @@ class ListRequestPage extends GetWidget {
   }
 
   void showDialogTransferRequest(BuildContext context) {
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return DialogTransferRequest(
-            onSubmit: () {},
-          );
-        });
+    // showDialog(
+    //     barrierDismissible: false,
+    //     context: context,
+    //     builder: (context) {
+    //       return DialogTransferRequest(
+    //         onSubmit: () {},
+    //       );
+    //     });
   }
 
   void showDialogCancelRequest(BuildContext context) {
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return DialogCancelRequest(
-            onSubmit: () {},
-          );
-        });
+    // showDialog(
+    //     barrierDismissible: false,
+    //     context: context,
+    //     builder: (context) {
+    //       return DialogCancelRequest(
+    //         onSubmit: () {},
+    //       );
+    //     });
   }
 
-  void showDialogAdvanceSearch(BuildContext context) {
+  void showDialogAdvanceSearch(BuildContext context, ListRequestLogic controller) {
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (context) {
           return DialogAdvancedSearchPage(
-            onSubmit: () {},
+            onSubmit: (status) {
+              controller.setValueSearch("", "", status, "", "", "", "");
+              ListRequestTabLogic logicController = Get.find<ListRequestTabLogic>();
+              logicController.getListRequest(status);
+            },
           );
         });
   }

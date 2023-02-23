@@ -1,6 +1,6 @@
 class AppImages {
   //static final icSplash = 'assets/images/ic_splash_home.png';
-  static const String bgLogin = 'assets/backgrounds/bg_login.svg';
+  static const String bgLogin = 'assets/backgrounds/bg_login.png';
   static const String icTimeBar = 'assets/images/ic_time.svg';
   static const String icAccountBar = 'assets/images/ic_account.svg';
   static const String icHome = 'assets/images/ic_home.png';
@@ -19,7 +19,7 @@ class AppImages {
   static const icKit = 'assets/images/ic_kit.svg';
   static const icHandSet = 'assets/images/ic_handset.svg';
   static const icAnyPay = 'assets/images/ic_anypay.svg';
-  static const bgHome = 'assets/backgrounds/bg_home.svg';
+  static const bgHome = 'assets/backgrounds/bg_home.png';
   static const icMenu = 'assets/images/ic_menu.svg';
   static const icNotification = 'assets/images/ic_notification.svg';
   static const icAvatarDefault = 'assets/images/ic_avatar_default.png';
@@ -81,6 +81,15 @@ class AppImages {
   static const icSurveyUnsuccessful =
       'assets/images/ic_survey_unsuccessful.svg';
   static const icClose = 'assets/images/ic_close.svg';
+  static const String icPasswordVisibility =
+      'assets/icons/ic_ password_visibility.svg';
+  static const String icRefreshCapcha = 'assets/icons/ic_refresh_capcha.svg';
+  static const imgCapchaTest = 'assets/images/capcha_test.png';
+  static const String icWarning = 'assets/icons/ic_warning.svg';
+  static const String imgCongratulations =
+      'assets/images/img_congratulations_forgot_password.svg';
+  static const String imgNotify =
+      'assets/images/img_notify_forgot_password.svg';
   static const icCreateRequest = 'assets/images/ic_create_request.svg';
   static const icAdvanceSearch = 'assets/images/ic_advance_search.svg';
   static const icTranferSaff = 'assets/images/ic_tranfer_saff.svg';
@@ -93,4 +102,15 @@ class AppImages {
   static const String imgIdentity = 'assets/images/img_identity_demo.svg';
   static const String icCameraRound = "assets/images/ic_camera_round.svg";
   static const String icBorderIdentity = "assets/images/ic_border_identity.svg";
+  static const String icSaleCreateRequest =
+      "assets/images/ic_sale_create_request.svg";
+  static const String icSaleConnectSubscriber =
+      "assets/images/ic_sale_connect_subscriber.svg";
+  static const String icSaleRechargeAnypay =
+      "assets/images/ic_sale_recharge_anypay.svg";
+  static const String icSaleSearchRequest =
+      "assets/images/ic_sale_search_request.svg";
+  static const String icSaleClearDebt = "assets/images/ic_sale_clear_debt.svg";
+  static const String icSaleCreateContact =
+      "assets/images/ic_sale_create_contact.svg";
 }

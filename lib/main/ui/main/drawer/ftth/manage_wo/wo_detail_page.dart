@@ -217,21 +217,21 @@ class WODetailPage extends GetView<ManageWOLogic> {
                           ),
                         ],
                       ),
-                      isExpand: false.obs),
+                     ),
                   expandableV1(
                       label: AppLocalizations.of(context)!.textWOInformation,
                       child: const SizedBox(
                         height: 200,
                         width: double.infinity,
                       ),
-                      isExpand: false.obs),
+                     ),
                   expandableV1(
                       label: AppLocalizations.of(context)!.textStaffInfo,
                       child: const SizedBox(
                         height: 200,
                         width: double.infinity,
                       ),
-                      isExpand: false.obs),
+                      ),
                   expandableV1(
                       label: AppLocalizations.of(context)!
                           .textInfrastructureInformation,
@@ -239,7 +239,7 @@ class WODetailPage extends GetView<ManageWOLogic> {
                         height: 200,
                         width: double.infinity,
                       ),
-                      isExpand: false.obs),
+                     ),
                   expandableV1(
                       label: AppLocalizations.of(context)!
                           .textMaterialsGoodsInformation,
@@ -247,14 +247,14 @@ class WODetailPage extends GetView<ManageWOLogic> {
                         height: 200,
                         width: double.infinity,
                       ),
-                      isExpand: false.obs),
+                     ),
                   expandableV1(
                       label: AppLocalizations.of(context)!.textAcceptanceRecord,
                       child: const SizedBox(
                         height: 200,
                         width: double.infinity,
                       ),
-                      isExpand: false.obs),
+                      ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

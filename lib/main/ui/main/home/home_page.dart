@@ -8,6 +8,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../../res/app_colors.dart';
 import '../../../../res/app_styles.dart';
+import '../../../router/route_config.dart';
 
 class HomePage extends GetView<HomeLogic> {
   @override
@@ -43,10 +44,12 @@ class HomePage extends GetView<HomeLogic> {
             backgroundColor: Colors.transparent,
             elevation: 0.0,
             flexibleSpace: Container(
-                child: FittedBox(
-              fit: BoxFit.cover,
-              child: SvgPicture.asset(AppImages.bgHome),
-            )),
+              constraints: BoxConstraints.expand(),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(AppImages.bgHome),
+                    fit: BoxFit.cover),
+              ),),
             toolbarHeight: 280,
             leading: GestureDetector(
               child: Stack(
@@ -66,7 +69,12 @@ class HomePage extends GetView<HomeLogic> {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(right: 20, top: 20),
-                    child: SvgPicture.asset(AppImages.icNotification),
+                    child: InkWell(
+                      onTap: () {
+                        Get.toNamed(RouteConfig.forgotPassword);
+                      },
+                      child: SvgPicture.asset(AppImages.icNotification),
+                    ),
                   )
                 ],
               )

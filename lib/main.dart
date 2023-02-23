@@ -1,3 +1,4 @@
+import 'package:bitel_ventas/main/utils/provider/search_request_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -9,6 +10,7 @@ import 'main/services/settings_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   /// AWAIT SERVICES INITIALIZATION.
   await initServices();
   runApp(const MyApp());
