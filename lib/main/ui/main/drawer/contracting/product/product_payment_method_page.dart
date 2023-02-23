@@ -36,7 +36,7 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                       width: width,
                     ),
                     Positioned(
-                      top: 40,
+                      top: 50,
                       left: 70,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -56,7 +56,7 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                       ),
                     ),
                     Positioned(
-                        top: 35,
+                        top: 45,
                         left: 20,
                         child: InkWell(
                           onTap: () {
@@ -91,6 +91,13 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                           ),
                         )),
                     Positioned(
+                        top: 50,
+                        right: 15,
+                        child: InkWell(
+                          onTap: () {},
+                          child: SvgPicture.asset(AppImages.icNotify),
+                        )),
+                    Positioned(
                         top: 111,
                         left: 0,
                         right: 0,
@@ -120,10 +127,8 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                       scrollDirection: Axis.horizontal,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: 2,
-                      itemScrollController:
-                      controller.scrollController,
-                      itemPositionsListener:
-                      controller.itemPositionsListener,
+                      itemScrollController: controller.scrollController,
+                      itemPositionsListener: controller.itemPositionsListener,
                       itemBuilder: (context, index) {
                         if (index == 0) {
                           return MethodPage(controller: controller);

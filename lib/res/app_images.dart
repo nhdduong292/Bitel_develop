@@ -104,5 +104,5 @@ class AppImages {
   static const String icSaleSearchRequest = "assets/images/ic_sale_search_request.svg";
   static const String icSaleClearDebt = "assets/images/ic_sale_clear_debt.svg";
   static const String icSaleCreateContact = "assets/images/ic_sale_create_contact.svg";
-  static const String icNotify = 'assets/icons/ic_notify.svg';
+  static const String icNotify = "assets/icons/ic_notify.svg";
 }
