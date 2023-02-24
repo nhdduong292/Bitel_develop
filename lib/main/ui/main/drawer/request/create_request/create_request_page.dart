@@ -18,7 +18,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dialog_survey_unsuccesful.dart';
 
 class CreateRequestPage extends GetWidget{
-  TextEditingController textFieldIdNumber = TextEditingController();
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -136,20 +135,45 @@ class CreateRequestPage extends GetWidget{
                         ),
                         SizedBox(width: 10,),
                         Expanded(
-                            flex: 2, child: spinnerFormV2(
-                            context: context,
-                            hint: AppLocalizations.of(context)!
-                                .hintIdentityNumber,
-                            required: false,
-                            dropValue: "",
-                            controlTextField: textFieldIdNumber,
-                            inputType: TextInputType.number,
-                            typeAction: TextInputAction.send,
-                            function: (value) {
-                              controller.searchNumberContact(value);
-                            },
-                            listDrop: []
-                        )
+                            flex: 2,
+                          child: Container(
+                            height: 45,
+                            child: TextField(
+                                controller: controller.textFieldIdNumber,
+                                keyboardType: TextInputType.number,
+                                focusNode: controller.focusIdNumber,
+                                textInputAction: TextInputAction.send,
+                                style: AppStyles.r2.copyWith(
+                                    color: AppColors.colorTitle,
+                                    fontWeight: FontWeight.w500),
+                                onSubmitted: (value) {
+                                  controller.searchNumberContact(value);
+                                },
+                                decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.only(top: 5,left: 10, right: 10),
+                                  hintText: AppLocalizations.of(context)!.hintIdentityNumber,
+                                  hintStyle: AppStyles.r2.copyWith(
+                                      color: AppColors.colorHint1,
+                                      fontWeight: FontWeight.w400),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(24),
+                                      borderSide: const BorderSide(width: 1, color: AppColors.colorLineDash)
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(24),
+                                      borderSide: const BorderSide(width: 1, color: Colors.redAccent)
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(24),
+                                      borderSide: const BorderSide(width: 1, color: AppColors.colorLineDash)
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(24),
+                                      borderSide: const BorderSide(width: 1, color: AppColors.colorLineDash)
+                                  ),
+
+                                )),
+                          ),
                         )
                       ],
                     ),
@@ -164,16 +188,41 @@ class CreateRequestPage extends GetWidget{
                       child: Text(AppLocalizations.of(context)!
                           .textContactPerson, style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),),
                     ),
-                    spinnerFormV2(
-                        context: context,
-                        hint: AppLocalizations.of(context)!
-                            .hintContactPerson,
-                        required: false,
-                        function: (value) {
-                          controller.setName(value);
-                        },
-                        dropValue: "",
-                        listDrop: []
+                    Container(
+                      height: 45,
+                      child: TextField(
+                          controller: controller.textFieldName,
+                          focusNode: controller.focusName,
+                          style: AppStyles.r2.copyWith(
+                              color: AppColors.colorTitle,
+                              fontWeight: FontWeight.w500),
+                          onSubmitted: (value) {
+                            controller.setName(value);
+                          },
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.only(top: 5,left: 10, right: 10),
+                            hintText: AppLocalizations.of(context)!.hintContactPerson,
+                            hintStyle: AppStyles.r2.copyWith(
+                                color: AppColors.colorHint1,
+                                fontWeight: FontWeight.w400),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(width: 1, color: AppColors.colorLineDash)
+                            ),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(width: 1, color: Colors.redAccent)
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(width: 1, color: AppColors.colorLineDash)
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(width: 1, color: AppColors.colorLineDash)
+                            ),
+
+                          )),
                     ),
 
                     Padding(
@@ -181,17 +230,42 @@ class CreateRequestPage extends GetWidget{
                       child: Text( AppLocalizations.of(context)!
                           .textContactPhone, style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),),
                     ),
-                    spinnerFormV2(
-                        context: context,
-                        hint: AppLocalizations.of(context)!
-                            .textContactPhone,
-                        required: false,
-                        dropValue: "",
-                        listDrop: [],
-                        function: (value) {
-                          controller.setPhone(value);
-                        },
-                        inputType: TextInputType.number
+                    Container(
+                      height: 45,
+                      child: TextField(
+                          keyboardType: TextInputType.number,
+                          focusNode: controller.focusPhone,
+                          controller: controller.textFieldPhone,
+                          style: AppStyles.r2.copyWith(
+                              color: AppColors.colorTitle,
+                              fontWeight: FontWeight.w500),
+                          onSubmitted: (value) {
+                            controller.setPhone(value);
+                          },
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.only(top: 5,left: 10, right: 10),
+                            hintText: AppLocalizations.of(context)!.textContactPhone,
+                            hintStyle: AppStyles.r2.copyWith(
+                                color: AppColors.colorHint1,
+                                fontWeight: FontWeight.w400),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(width: 1, color: AppColors.colorLineDash)
+                            ),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(width: 1, color: Colors.redAccent)
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(width: 1, color: AppColors.colorLineDash)
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(width: 1, color: AppColors.colorLineDash)
+                            ),
+
+                          )),
                     ),
 
                     Row(
@@ -238,6 +312,7 @@ class CreateRequestPage extends GetWidget{
                             border: InputBorder.none,
                           ),
                           // selectedItemHighlightColor: Colors.red,
+                          focusNode: controller.focusProvince,
                           buttonHeight: 60,
                           buttonPadding: const EdgeInsets.only(left: 0, right: 10),
                           dropdownDecoration: BoxDecoration(
@@ -298,6 +373,7 @@ class CreateRequestPage extends GetWidget{
                           ),
                           // selectedItemHighlightColor: Colors.red,
                           buttonHeight: 60,
+                          focusNode: controller.focusDistrict,
                           buttonPadding: const EdgeInsets.only(left: 0, right: 10),
                           dropdownDecoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(24),
@@ -355,10 +431,12 @@ class CreateRequestPage extends GetWidget{
                           ),
                           // selectedItemHighlightColor: Colors.red,
                           buttonHeight: 60,
+                          focusNode: controller.focusPrecinct,
                           buttonPadding: const EdgeInsets.only(left: 0, right: 10),
                           dropdownDecoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(24),
                               border: Border.all(color: Color(0xFFE3EAF2))),
+                          focusColor: Colors.redAccent,
                           isExpanded: true,
                           // value: controller.currentPrecinct.isNotEmpty ? controller.currentPrecinct : null,
                           onChanged: (value) {
@@ -388,16 +466,41 @@ class CreateRequestPage extends GetWidget{
                       child: Text( AppLocalizations.of(context)!
                           .textAddress, style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),),
                     ),
-                    spinnerFormV2(
-                        context: context,
-                        hint: AppLocalizations.of(context)!
-                            .hintAddress,
-                        required: false,
-                        dropValue: "",
-                        function: (value) {
-                          controller.setAddress(value);
-                        },
-                        listDrop: []
+                    Container(
+                      height: 45,
+                      child: TextField(
+                        focusNode: controller.focusAddress,
+                          controller: controller.textFieldAddress,
+                          style: AppStyles.r2.copyWith(
+                              color: AppColors.colorTitle,
+                              fontWeight: FontWeight.w500),
+                          onSubmitted: (value) {
+                            controller.setAddress(value);
+                          },
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.only(top: 5,left: 10, right: 10),
+                            hintText: AppLocalizations.of(context)!.hintAddress,
+                            hintStyle: AppStyles.r2.copyWith(
+                                color: AppColors.colorHint1,
+                                fontWeight: FontWeight.w400),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(width: 1, color: AppColors.colorLineDash)
+                            ),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(width: 1, color: Colors.redAccent)
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(width: 1, color: AppColors.colorLineDash)
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(width: 1, color: AppColors.colorLineDash)
+                            ),
+
+                          )),
                     ),
                   ],
                 ),

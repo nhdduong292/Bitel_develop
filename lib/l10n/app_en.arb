@@ -264,10 +264,20 @@
   "textInfoCreateRequest2": "processing of my personal and sensitive data",
   "textInfoCreateRequest3": ", with the collection of the same",
   "textChooseTechnology": "Choose technology",
-  "textMaxRadius": "Max radius 500m"
-
-
-
+  "textMaxRadius": "Max radius 500m",
+  "textRequestManagement": "Request management",
+  "textWaitingSurvey": "Waiting survey",
+  "textWaitingConnect": "Waiting connect",
+  "textWaitingDeployment": "Waiting deployment",
+  "textWaitingInstallation": "Waiting installation",
+  "textKPICommission": "KPI & Commission",
+  "textKPI": "KPI",
+  "textContractMonth": "Contract/month",
+  "textPerformance": "Performance",
+  "textContract": "Contract",
+  "textCommission": "Commission",
+  "textWalletControl": "Wallet control",
+  "textAnypayBalance": "Anypay balance"
 
 
   }

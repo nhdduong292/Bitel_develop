@@ -7,8 +7,13 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class LoginLogic extends GetxController{
-  TextEditingController controller = TextEditingController();
-  final FocusNode focusNode = FocusNode();
+  TextEditingController controllerUser = TextEditingController();
+  TextEditingController controllerPass = TextEditingController();
+  FocusNode focusUser = FocusNode();
+  FocusNode focusPass = FocusNode();
+  bool isSubmitPass = false;
+  bool isSubmitUser = false;
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -20,7 +25,27 @@ class LoginLogic extends GetxController{
     // });
     super.onInit();
   }
+
+  void setStateUser(bool value){
+    isSubmitUser = value;
+    update();
+  }
+  void setStatePass(bool value){
+    isSubmitPass = value;
+    update();
+  }
+
   void loginSuccess(){
+    if(controllerUser.value.text.isEmpty){
+      setStateUser(true);
+      focusUser.requestFocus();
+      return;
+    }
+    if(controllerPass.value.text.isEmpty) {
+      setStatePass(true);
+      focusPass.requestFocus();
+      return;
+    }
     Get.offAllNamed(RouteConfig.main);
   }
 }
