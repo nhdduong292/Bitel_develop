@@ -5,6 +5,7 @@ import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/dialog_can
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/dialog_transfer_request_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/tab_one/list_request_tab_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/tab_two/tab_two_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/tab_two/tab_two_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/tab_one/list_request_tab_page.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
@@ -262,8 +263,10 @@ class ListRequestPage extends GetWidget {
           return DialogAdvancedSearchPage(
             onSubmit: (status) {
               controller.setValueSearch("", "", status, "", "", "", "");
-              ListRequestTabLogic logicController = Get.find<ListRequestTabLogic>();
-              logicController.getListRequest(status);
+              ListRequestTabLogic tabOneLogic = Get.find<ListRequestTabLogic>();
+              TabTwoLogic tabTwoLogic = Get.find<TabTwoLogic>();
+              tabOneLogic.getListRequest(status);
+              tabTwoLogic.getListRequest(status);
             },
           );
         });

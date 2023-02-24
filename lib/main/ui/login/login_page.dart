@@ -6,11 +6,11 @@ import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends GetWidget {
-  FocusNode focusNode  = FocusNode ();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -28,6 +28,7 @@ class LoginPage extends GetWidget {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
               children: [
                 Center(
                   child: Padding(
@@ -40,19 +41,24 @@ class LoginPage extends GetWidget {
                     ),
                   ),
                 ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 30),
-                    child: Image.asset(
-                      AppImages.icConceptLogin,
-                      height: 240,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Expanded(
-                    flex: 1,
-                    child: Container()),
+                KeyboardVisibilityBuilder(builder: (context, visible) {
+                  if(!visible){
+                    return Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 30),
+                        child: Image.asset(
+                          AppImages.icConceptLogin,
+                          height: 240,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  }else {
+                    return Container();
+                  }
+                }),
+
+                const SizedBox(height: 100,),
                 Container(
                   width: double.infinity,
                   margin: EdgeInsets.only(top: 0, left: 20, right: 20),
@@ -64,21 +70,38 @@ class LoginPage extends GetWidget {
                   child: Column(
                     children: [
                       TextField(
-                        onTap: () {
-                          FocusScope.of(context).requestFocus(focusNode);
-                        },
                         autofocus:true,
-                        controller: controller.controller,
-                        focusNode: focusNode,
+                        controller: controller.controllerUser,
+                        focusNode: controller.focusUser,
+                        onChanged: (value) {
+                          controller.setStateUser(false);
+                        },
+                        cursorColor: AppColors.colorText1,
                         decoration: InputDecoration(
+                          errorText: controller.isSubmitUser ? (controller.controllerPass.value.text.length < 6 ? "" : null) : null,
                           hintText: "Enter user name",
                           labelText: "Username",
+                          labelStyle: const TextStyle(color: AppColors.colorText1),
                           prefixIcon: Padding(
                             padding: const EdgeInsets.only(left: 19, right: 10, bottom: 8),
                             child: SvgPicture.asset(AppImages.icLoginUser),
                           ),
-                          border: InputBorder.none,
-                          prefixIconConstraints: BoxConstraints(
+                          border: const UnderlineInputBorder(
+                              borderSide:
+                              BorderSide(width: 1, color: Colors.transparent)
+                          ),
+                          errorBorder: const UnderlineInputBorder( //<-- SEE HERE
+                            borderSide: BorderSide(
+                                width: 1, color: Colors.redAccent),
+                          ),
+                          focusedBorder: const UnderlineInputBorder( //<-- SEE HERE
+                            borderSide: BorderSide(
+                                width: 1, color: Colors.transparent),
+                          ),
+                          enabledBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(width: 1, color: Colors.transparent),
+                          ),
+                          prefixIconConstraints: const BoxConstraints(
                             minWidth: 28,
                             minHeight: 28,
                           ),
@@ -90,21 +113,44 @@ class LoginPage extends GetWidget {
                       ),
                       TextField(
                         obscureText: true,
+                        focusNode: controller.focusPass,
+                        controller: controller.controllerPass,
+                        cursorColor: AppColors.colorText1,
+                        onChanged: (value) {
+                          controller.setStatePass(false);
+                        },
                         decoration: InputDecoration(
+                          errorText: controller.isSubmitPass ? (controller.controllerPass.value.text.length < 6 ? "" : null) : null,
                           hintText: "Enter password",
                           labelText: "Password",
+                          labelStyle: const TextStyle(color: AppColors.colorText1),
                           prefixIcon: Padding(
                             padding: const EdgeInsets.only(left: 19, right: 10, bottom: 8),
                             child: SvgPicture.asset(AppImages.icLoginPass),
                           ),
                           // filled: true,
                           // fillColor: Colors.white,
-                          border: InputBorder.none,
+                          // border: InputBorder.none,
+                          border: const UnderlineInputBorder(
+                              borderSide:
+                              BorderSide(width: 1, color: Colors.transparent)
+                          ),
+                          errorBorder: const UnderlineInputBorder( //<-- SEE HERE
+                            borderSide: BorderSide(
+                                width: 1, color: Colors.redAccent),
+                          ),
+                          focusedBorder: const UnderlineInputBorder( //<-- SEE HERE
+                            borderSide: BorderSide(
+                                width: 1, color: Colors.transparent),
+                          ),
+                          enabledBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(width: 1, color: Colors.transparent),
+                          ),
                           suffixIcon: Padding(
                             padding: const EdgeInsets.only(left: 12, right: 18, top: 14),
                             child: SvgPicture.asset(AppImages.icLoginShowPass),
                           ),
-                          prefixIconConstraints: BoxConstraints(
+                          prefixIconConstraints: const BoxConstraints(
                             minWidth: 28,
                             minHeight: 28,
                           ),
