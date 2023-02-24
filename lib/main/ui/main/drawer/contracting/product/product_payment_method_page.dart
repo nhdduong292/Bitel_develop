@@ -10,6 +10,7 @@ import '../../../../../../res/app_colors.dart';
 import '../../../../../../res/app_images.dart';
 import '../../../../../../res/app_styles.dart';
 import '../../../../../utils/common_widgets.dart';
+import 'invoice_page.dart';
 
 class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
   @override
@@ -122,6 +123,7 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                         )),
                   ],
                 ),
+                const SizedBox(height: 20,),
                 Expanded(
                   child: ScrollablePositionedList.builder(
                       scrollDirection: Axis.horizontal,
@@ -133,7 +135,7 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                         if (index == 0) {
                           return MethodPage(controller: controller);
                         } else {
-                          return MethodPage(controller: controller);
+                          return InvoicePage(controller: controller);
                         }
                       }),
                 ),

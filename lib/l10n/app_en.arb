@@ -266,8 +266,18 @@
   "textChooseTechnology": "Choose technology",
   "textMaxRadius": "Max radius 500m",
   "textProductPaymentMethod" : "Product & payment method",
-  "textInvoiceInfo" : "Invoice information"
-
+  "textInvoiceInfo" : "Invoice information",
+  "textSelectProduct" : "Select product",
+  "textSelectPaymentMethod" : "Select payment method",
+  "textProduct" : "Product",
+  "textPayment" : "Payment",
+  "textAnyPayBalanceRemain" : "remain on AnyPay balance",
+  "textPrepaid1Month" : "Prepaid 1 month",
+  "textInstallationFee" : "Installation fee",
+  "textDiscount" : "Discount",
+  "textTotalAPagar" : "Total a pagar",
+  "contentRechargeDialog" : "You don’t have enough anypay in your account. Please recharge to continue perform transaction.",
+  "textRecharge" : "Recharge"
 
 
 
