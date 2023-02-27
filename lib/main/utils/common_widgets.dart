@@ -596,18 +596,21 @@ Widget inputFormPassword(
   );
 }
 
-Widget bottomButton({required String text, required onTap}) {
+Widget bottomButton({required String text, required onTap, color}) {
   return Container(
     margin: EdgeInsets.only(left: 15, top: 24, right: 15, bottom: 10),
     child: InkWell(
-      splashColor: Colors.black38,
       onTap: onTap,
       child: Container(
         height: 50,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
-            color: AppColors.colorText3,
-            boxShadow: [BoxShadow(color: Color(0xFFB3BBC5), blurRadius: 5)]),
+            color: color ?? AppColors.colorText3,
+            boxShadow: [
+              BoxShadow(
+                  color: color == null ? Color(0xFFB3BBC5) : Colors.transparent,
+                  blurRadius: 5)
+            ]),
         child: Center(
             child: Text(
           text.toUpperCase(),
@@ -626,7 +629,6 @@ Widget bottomButtonV2({required String text, required onTap}) {
   return Container(
     margin: EdgeInsets.only(left: 15, top: 24, right: 15, bottom: 10),
     child: InkWell(
-      splashColor: Colors.black38,
       onTap: onTap,
       child: Container(
         height: 50,
