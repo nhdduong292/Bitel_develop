@@ -9,6 +9,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../../../../../res/app_colors.dart';
 import '../../../../../../res/app_images.dart';
 import '../../../../../../res/app_styles.dart';
+import '../../../../../router/route_config.dart';
 import '../../../../../utils/common_widgets.dart';
 
 class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
@@ -94,7 +95,9 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                         top: 50,
                         right: 15,
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Get.toNamed(RouteConfig.customerInformation);
+                          },
                           child: SvgPicture.asset(AppImages.icNotify),
                         )),
                     Positioned(

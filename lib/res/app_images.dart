@@ -78,7 +78,8 @@ class AppImages {
   static const icLoginShowPass = 'assets/images/ic_login_show_pass.svg';
   static const icSurveyAddress = 'assets/images/ic_survey_address.svg';
   static const icSurveySuccessful = 'assets/images/ic_survey_successful.svg';
-  static const icSurveyUnsuccessful = 'assets/images/ic_survey_unsuccessful.svg';
+  static const icSurveyUnsuccessful =
+      'assets/images/ic_survey_unsuccessful.svg';
   static const icClose = 'assets/images/ic_close.svg';
   static const String icPasswordVisibility =
       'assets/icons/ic_ password_visibility.svg';
@@ -98,11 +99,29 @@ class AppImages {
 
   static const String icCreateContact = "assets/icons/ic_create_contact.svg";
   static const String icSortAlphabet = "assets/icons/ic_sort_alphabet.svg";
-  static const String icSaleCreateRequest = "assets/images/ic_sale_create_request.svg";
-  static const String icSaleConnectSubscriber = "assets/images/ic_sale_connect_subscriber.svg";
-  static const String icSaleRechargeAnypay = "assets/images/ic_sale_recharge_anypay.svg";
-  static const String icSaleSearchRequest = "assets/images/ic_sale_search_request.svg";
+  static const String icSaleCreateRequest =
+      "assets/images/ic_sale_create_request.svg";
+  static const String icSaleConnectSubscriber =
+      "assets/images/ic_sale_connect_subscriber.svg";
+  static const String icSaleRechargeAnypay =
+      "assets/images/ic_sale_recharge_anypay.svg";
+  static const String icSaleSearchRequest =
+      "assets/images/ic_sale_search_request.svg";
   static const String icSaleClearDebt = "assets/images/ic_sale_clear_debt.svg";
-  static const String icSaleCreateContact = "assets/images/ic_sale_create_contact.svg";
+  static const String icSaleCreateContact =
+      "assets/images/ic_sale_create_contact.svg";
   static const String icNotify = "assets/icons/ic_notify.svg";
+  static const String icArrowDownLockedBox =
+      "assets/icons/ic_arrow_down_locked_box.svg";
+  static const String icRadioChecked = "assets/icons/radio_button_checked.svg";
+  static const String icRadioUnChecked =
+      "assets/icons/radio_button_unchecked.svg";
+  static const String imgValidateFingerprint =
+      "assets/images/img_validate_fingerprint.svg";
+  static const String imgHuellaDactilar =
+      "assets/images/img_huella_dactilar.svg";
+  static const String bgFtthContracting =
+      "assets/backgrounds/bg_ftth_contracting.svg";
+  static const String icSuccessFtthContracting =
+      "assets/images/ic_success_ftth_contracting.png";
 }
