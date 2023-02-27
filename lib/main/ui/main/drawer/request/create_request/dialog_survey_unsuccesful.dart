@@ -65,68 +65,30 @@ class DialogSurveyUnsuccessful extends StatelessWidget {
                 ),
               ),
             ),
-            Row(
-              children: [
-                Expanded(
-                    flex: 1,
-                    child: Container(
-                      width: double.infinity,
-                      margin: EdgeInsets.only(top: 15),
-                      padding: EdgeInsets.symmetric(vertical: 14),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(24),
-                        boxShadow: [
-                          BoxShadow(
-                            offset: Offset(0, 1),
-                            blurRadius: 2,
-                            color: Colors.black.withOpacity(0.3),
-                          ),
-                        ],
-                      ),
-                      child: InkWell(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: Center(
-                            child: Text(
-                          AppLocalizations.of(context)!
-                              .textCancel
-                              .toUpperCase(),
-                          style: AppStyles.r1
-                              .copyWith(fontWeight: FontWeight.w500),
-                        )),
-                      ),
-                    )),
-                SizedBox(
-                  width: 15,
-                ),
-                Expanded(
-                    flex: 1,
-                    child: Container(
-                      width: double.infinity,
-                      margin: EdgeInsets.only(top: 15),
-                      padding: EdgeInsets.symmetric(vertical: 14),
-                      decoration: BoxDecoration(
-                        color: AppColors.colorButton,
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                      child: InkWell(
-                        onTap: () {
-                          onSubmit!.call();
-                        },
-                        child: Center(
-                            child: Text(
+            Expanded(
+                flex: 1,
+                child: Container(
+                  width: double.infinity,
+                  margin: EdgeInsets.only(top: 15),
+                  padding: EdgeInsets.symmetric(vertical: 14),
+                  decoration: BoxDecoration(
+                    color: AppColors.colorButton,
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                      onSubmit!.call();
+                    },
+                    child: Center(
+                        child: Text(
                           AppLocalizations.of(context)!
                               .textAccept
                               .toUpperCase(),
                           style: AppStyles.r5
                               .copyWith(fontWeight: FontWeight.w500),
                         )),
-                      ),
-                    ))
-              ],
-            ),
+                  ),
+                ))
           ],
         ),
       ),

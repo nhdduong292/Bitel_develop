@@ -3,6 +3,7 @@ import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/address_model.dart';
 import 'package:bitel_ventas/main/networks/model/contact_model.dart';
 import 'package:bitel_ventas/main/networks/response/search_contact_response.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CreateRequestLogic extends GetxController {
@@ -24,6 +25,18 @@ class CreateRequestLogic extends GetxController {
   bool isLoading = false;
   String currentName ="";
   String currentPhone = "";
+
+  TextEditingController textFieldIdNumber = TextEditingController();
+  TextEditingController textFieldPhone = TextEditingController();
+  TextEditingController textFieldName = TextEditingController();
+  TextEditingController textFieldAddress = TextEditingController();
+  FocusNode focusIdNumber = FocusNode();
+  FocusNode focusName = FocusNode();
+  FocusNode focusPhone = FocusNode();
+  FocusNode focusProvince = FocusNode();
+  FocusNode focusDistrict = FocusNode();
+  FocusNode focusPrecinct = FocusNode();
+  FocusNode focusAddress = FocusNode();
 
   void setIdentityType(String value){
     currentIdentityType = value;
@@ -65,6 +78,34 @@ class CreateRequestLogic extends GetxController {
   }
 
   bool checkValidateCreate(){
+    if(textFieldIdNumber.value.text.isEmpty){
+      focusIdNumber.requestFocus();
+      return true;
+    }
+    if(textFieldName.value.text.isEmpty){
+      focusName.requestFocus();
+      return true;
+    }
+    if(textFieldPhone.value.text.isEmpty) {
+      focusPhone.requestFocus();
+      return true;
+    }
+    // if(currentProvince.isEmpty){
+    //   focusProvince.requestFocus();
+    //   return true;
+    // }
+    // if(currentDistrict.isEmpty){
+    //   focusDistrict.requestFocus();
+    //   return true;
+    // }
+    // if(currentPrecinct.isEmpty){
+    //   focusPrecinct.requestFocus();
+    //   return true;
+    // }
+    if(textFieldAddress.value.text.isEmpty){
+      focusAddress.requestFocus();
+      return true;
+    }
     if(currentIdentity.isEmpty || currentName.isEmpty|| currentPhone.isEmpty || currentProvince.isEmpty || currentPrecinct.isEmpty || currentDistrict.isEmpty || currentAddress.isEmpty){
       Get.snackbar("Vui lòng nhập đầy đủ thông tin!","", snackPosition: SnackPosition.BOTTOM);
       return true;

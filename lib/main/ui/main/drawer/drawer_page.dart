@@ -3,6 +3,7 @@
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/drawer_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/utilitis/change_language/dialog_change_language_page.dart';
 import 'package:bitel_ventas/res/app_fonts.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:flutter/material.dart';
@@ -104,38 +105,32 @@ class DrawerPage extends GetView<DrawerLogic> {
                               ),
                             );
                           } else {
-                            return InkWell(
-                              splashColor: Colors.black54,
-                              onTap: () {
-                                controller.onItemClick(index: index);
-                              },
-                              child: ListTileTheme(
-                                // padding: EdgeInsets.symmetric(vertical: 20),
-                                contentPadding: EdgeInsets.all(0),
-                                minLeadingWidth: 0,
-                                child: ExpansionTile(
+                            return ListTileTheme(
+                              // padding: EdgeInsets.symmetric(vertical: 20),
+                              contentPadding: EdgeInsets.all(0),
+                              minLeadingWidth: 0,
+                              child: ExpansionTile(
 
-                                  trailing: SvgPicture.asset(AppImages.icArrowDown),
-                                  //     : SvgPicture.asset(AppImages.icOvalArrowRight),
-                                  leading:  SvgPicture.asset(drawerItem.unselectedImg),
+                                trailing: SvgPicture.asset(AppImages.icArrowDown),
+                                //     : SvgPicture.asset(AppImages.icOvalArrowRight),
+                                leading:  SvgPicture.asset(drawerItem.unselectedImg),
 
-                                  title: Text(drawerItem.label!,
-                                      style: TextStyle(
-                                      color: controller
-                                          .listItem![index].isSelected
-                                          ? AppColors.colorBackground
-                                          : Colors.white,
-                                      fontSize: 19,
-                                      fontFamily: AppFonts.Barlow)),
-                                  children: <Widget>[
-                                    Column(
-                                      children: _buildExpandableContent(drawerItem, context),
-                                    ),
-                                  ],
-                                  onExpansionChanged: (value) {
-                                    // controller.setStateSelectHelp(value);
-                                  },
-                                ),
+                                title: Text(drawerItem.label!,
+                                    style: TextStyle(
+                                        color: controller
+                                            .listItem![index].isSelected
+                                            ? AppColors.colorBackground
+                                            : Colors.white,
+                                        fontSize: 19,
+                                        fontFamily: AppFonts.Barlow)),
+                                children: <Widget>[
+                                  Column(
+                                    children: _buildExpandableContent(drawerItem, context),
+                                  ),
+                                ],
+                                onExpansionChanged: (value) {
+                                  // controller.setStateSelectHelp(value);
+                                },
                               ),
                             );
                           }
@@ -194,6 +189,7 @@ class DrawerPage extends GetView<DrawerLogic> {
               ),
               // trailing: SvgPicture.asset(AppImages.icArrowRight),
               onTap: () {
+                Future.delayed(Duration(milliseconds: 600));
                 if(vehicle.label == AppLocalizations.of(context)!.textManageContact) {
                   if (i == 0) {
                     print("index: 0");
@@ -215,8 +211,15 @@ class DrawerPage extends GetView<DrawerLogic> {
                     print("index: 4");
                   }
                 }else if(vehicle.label == AppLocalizations.of(context)!.textUtilites){
+                  print("index: 5");
                   if (i == 0) {
                     print("index: 5");
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return DialogChangeLanguagePage();
+                      },
+                    );
                   }
                 }
 

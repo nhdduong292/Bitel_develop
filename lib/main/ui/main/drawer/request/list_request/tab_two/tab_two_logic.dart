@@ -2,14 +2,18 @@ import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/networks/response/list_request_response.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_logic.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TabTwoLogic extends GetxController{
+  ListRequestLogic listRequestLogic = Get.find();
   List<RequestModel> listRequest = [];
   bool isLoading = false;
   String status;
+  BuildContext context;
 
-  TabTwoLogic(this.status);
+  TabTwoLogic(this.status, this.context);
 
   @override
   void onInit() {
@@ -23,13 +27,13 @@ class TabTwoLogic extends GetxController{
     update();
     Future.delayed(Duration(seconds: 1));
     Map<String, dynamic> params = {
-      "service":"",
-      "code":"",
+      "service":listRequestLogic.searchRequest.service,
+      "code":listRequestLogic.searchRequest.code,
       "status":status,
-      "province":"",
-      "staffCode":"",
-      "fromDate":"",
-      "toDate":"",
+      "province":listRequestLogic.searchRequest.province,
+      "staffCode":listRequestLogic.searchRequest.staffCode,
+      "fromDate":listRequestLogic.searchRequest.fromDate,
+      "toDate":listRequestLogic.searchRequest.toDate,
       "key":"",
       "page":"0",
       "pageSize":"10",
@@ -41,6 +45,7 @@ class TabTwoLogic extends GetxController{
         onSuccess: (response) {
           if(response.isSuccess){
             print("success :");
+            listRequest.clear();
             ListRequestResponse listRequestResponse = ListRequestResponse.fromJson(response.data);
             listRequest.addAll(listRequestResponse.list);
           } else {

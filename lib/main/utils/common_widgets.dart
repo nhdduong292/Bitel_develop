@@ -707,7 +707,9 @@ Widget spinnerFormV2(
     TextInputType inputType = TextInputType.text,
     TextEditingController? controlTextField,
     TextInputAction? typeAction,
-    Function(String value)? function}) {
+  Function(String value)? function,
+  FocusNode? focusNode
+}) {
   return Column(
     children: [
       Container(
@@ -745,6 +747,7 @@ Widget spinnerFormV2(
                 ),
                 // selectedItemHighlightColor: Colors.red,
                 buttonHeight: 60,
+                focusNode: focusNode,
                 buttonPadding: const EdgeInsets.only(left: 0, right: 10),
                 dropdownDecoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(24),
@@ -754,6 +757,7 @@ Widget spinnerFormV2(
                 onChanged: (value) {
                   function!.call(value!);
                 },
+
                 items: listDrop.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem(value: value, child: Text(value));
                 }).toList(),

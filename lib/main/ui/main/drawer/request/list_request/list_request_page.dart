@@ -5,6 +5,7 @@ import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/dialog_can
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/dialog_transfer_request_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/tab_one/list_request_tab_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/tab_two/tab_two_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/tab_two/tab_two_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/tab_one/list_request_tab_page.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
@@ -212,12 +213,12 @@ class ListRequestPage extends GetWidget {
                           controller: controller.tabController,
                           children: [
                             // first tab bar view widget
-                            ListRequestTabPage(REQUEST_STATUS.CREATE_REQUEST),
-                            TabTwoPage(REQUEST_STATUS.CREATE_REQUEST_WITHOUT_SURVEY),
-                            ListRequestTabPage(REQUEST_STATUS.CONNECTED),
-                            TabTwoPage(REQUEST_STATUS.DEPLOYING),
-                            ListRequestTabPage(REQUEST_STATUS.COMPLETE),
-                            TabTwoPage(REQUEST_STATUS.CANCEL),
+                            ListRequestTabPage(RequestStatus.CREATE_REQUEST),
+                            TabTwoPage(RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY),
+                            ListRequestTabPage(RequestStatus.CONNECTED),
+                            TabTwoPage(RequestStatus.DEPLOYING),
+                            ListRequestTabPage(RequestStatus.COMPLETE),
+                            TabTwoPage(RequestStatus.CANCEL),
                           ],
                         )),
                       ],
@@ -260,12 +261,21 @@ class ListRequestPage extends GetWidget {
         context: context,
         builder: (context) {
           return DialogAdvancedSearchPage(
-            onSubmit: (status) {
-              controller.setValueSearch("", "", status, "", "", "", "");
-              ListRequestTabLogic logicController = Get.find<ListRequestTabLogic>();
-              logicController.getListRequest(status);
+            onSubmit: (model) {
+              // if(controller.index == model.getPositionStatus()){
+                controller.updateSearchRequest(model);
+                if(controller.index % 2 == 0) {
+                  TabTwoLogic tabTwoLogic = Get.find<TabTwoLogic>();
+                  tabTwoLogic.getListRequest(model.status);
+                }else {
+                  ListRequestTabLogic tabOneLogic = Get.find<ListRequestTabLogic>();
+                  tabOneLogic.getListRequest(model.status);
+                }
+              // } else {
+              //   controller.updateSearchRequest(model);
+              // }
             },
-          );
+           searchRequest: controller.searchRequest);
         });
   }
 }

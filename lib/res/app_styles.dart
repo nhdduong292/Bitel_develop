@@ -28,6 +28,11 @@ class AppStyles {
     color: AppColors.colorContent,
   );
 
+  static final TextStyle b4 = TextStyle(
+    fontSize: 18,
+    fontFamily: AppFonts.Barlow,
+  );
+
   static final TextStyle r1 = TextStyle(
     fontSize: 14,
     fontFamily: AppFonts.Barlow,
