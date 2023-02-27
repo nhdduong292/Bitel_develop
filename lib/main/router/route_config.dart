@@ -14,6 +14,9 @@ import 'package:bitel_ventas/main/ui/main/setting/sync_data/sync_data_page.dart'
 import 'package:get/get.dart';
 import 'package:bitel_ventas/main/ui/forgotPassword/forgot_password.dart';
 
+import '../ui/main/drawer/contracting/customer_information/customer_information_page.dart';
+import '../ui/main/drawer/contracting/ftth_contracting/ftth_contracting_page.dart';
+import '../ui/main/drawer/contracting/validate_fingerprint/validate_fingerprint.dart';
 import '../ui/main/drawer/manage_contact/create/create_contact_page.dart';
 import '../ui/main/drawer/manage_contact/manage/manage_contact_page.dart';
 import '../ui/main/main_page.dart';
@@ -35,6 +38,9 @@ class RouteConfig {
   static const String manageWO = "/menu/manageWO";
   static const String afterSale = "/menu/ftth/aftersale";
   static const String sale = "/menu/ftth/sale";
+  static const String customerInformation = "/contracting/customerInformation";
+  static const String validateFingerprint = "/contracting/validateFingerprint";
+  static const String ftthContracting = "/contracting/ftthContracting";
 
   ///page
   static final List<GetPage> getPages = [
@@ -52,6 +58,9 @@ class RouteConfig {
     GetPage(name: manageWO, page: () => ManageWOPage()),
     GetPage(name: afterSale, page: () => AfterSalePage()),
     GetPage(name: sale, page: () => SalePage()),
+    GetPage(name: customerInformation, page: () => CustommerInformationPage()),
+    GetPage(name: validateFingerprint, page: () => ValidateFingerprintPage()),
+    GetPage(name: ftthContracting, page: () => FTTHContractingPage()),
   ];
 
   ///language

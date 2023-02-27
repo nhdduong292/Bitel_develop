@@ -13,7 +13,6 @@ import 'package:multiselect/multiselect.dart';
 
 import '../../res/app_colors.dart';
 import '../ui/main/activate_prepaid_pages/activate_prepaid_logic.dart';
-import '../../../../res/app_styles.dart';
 
 Icon iconUnchecked() {
   return Icon(
@@ -487,20 +486,29 @@ Widget circleMarkerView({required RxBool check, required String text}) {
         width: 36,
         height: 36,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(18)),
-            gradient: check.value
-                ? LinearGradient(
-                    begin: Alignment.bottomLeft,
-                    end: Alignment.topRight,
-                    transform: GradientRotation(124.84),
-                    colors: [
-                      Color(0xFF0FDDDB),
-                      Color(0xFF00A5B1),
-                    ],
-                    stops: [0.0583, 0.7052],
-                  )
-                : null,
-            color: check.value ? null : Colors.white),
+          borderRadius: BorderRadius.all(Radius.circular(18)),
+          gradient: check.value
+              ? LinearGradient(
+                  begin: Alignment.bottomLeft,
+                  end: Alignment.topRight,
+                  transform: GradientRotation(124.84),
+                  colors: [
+                    Color(0xFF00A5B1),
+                    Color(0xFF0FDDDB),
+                  ],
+                  stops: [0.0583, 0.7052],
+                )
+              : LinearGradient(
+                  begin: Alignment.bottomLeft,
+                  end: Alignment.topRight,
+                  transform: GradientRotation(124.84),
+                  colors: [
+                    Color(0xFFEBEFF3),
+                    Color(0xFFFFFFFF),
+                  ],
+                  stops: [0.0583, 0.7052],
+                ),
+        ),
         child: Center(
           child:
               Text(text, style: check.value ? AppStyles.rw13 : AppStyles.rb13),
@@ -588,18 +596,21 @@ Widget inputFormPassword(
   );
 }
 
-Widget bottomButton({required String text, required onTap}) {
+Widget bottomButton({required String text, required onTap, color}) {
   return Container(
     margin: EdgeInsets.only(left: 15, top: 24, right: 15, bottom: 10),
     child: InkWell(
-      splashColor: Colors.black38,
       onTap: onTap,
       child: Container(
         height: 50,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
-            color: AppColors.colorText3,
-            boxShadow: [BoxShadow(color: Color(0xFFB3BBC5), blurRadius: 5)]),
+            color: color ?? AppColors.colorText3,
+            boxShadow: [
+              BoxShadow(
+                  color: color == null ? Color(0xFFB3BBC5) : Colors.transparent,
+                  blurRadius: 5)
+            ]),
         child: Center(
             child: Text(
           text.toUpperCase(),
@@ -618,24 +629,23 @@ Widget bottomButtonV2({required String text, required onTap}) {
   return Container(
     margin: EdgeInsets.only(left: 15, top: 24, right: 15, bottom: 10),
     child: InkWell(
-      splashColor: Colors.black38,
       onTap: onTap,
       child: Container(
         height: 50,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(25),
-            color: Colors.white,
-            border: Border.all(color: Color(0xFFE3EAF2)),
-            ),
+          borderRadius: BorderRadius.circular(25),
+          color: Colors.white,
+          border: Border.all(color: Color(0xFFE3EAF2)),
+        ),
         child: Center(
             child: Text(
-              text.toUpperCase(),
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-              ),
-            )),
+          text.toUpperCase(),
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 15,
+            fontWeight: FontWeight.w500,
+          ),
+        )),
       ),
     ),
   );
@@ -689,16 +699,16 @@ Widget spinnerFormV3({
   );
 }
 
-Widget spinnerFormV2({
-  required BuildContext context,
-  required String hint,
-  required bool required,
-  required String dropValue,
-  required List<String> listDrop,
-  double height = 0,
-  TextInputType inputType = TextInputType.text,
-  TextEditingController? controlTextField,
-  TextInputAction? typeAction,
+Widget spinnerFormV2(
+    {required BuildContext context,
+    required String hint,
+    required bool required,
+    required String dropValue,
+    required List<String> listDrop,
+    double height = 0,
+    TextInputType inputType = TextInputType.text,
+    TextEditingController? controlTextField,
+    TextInputAction? typeAction,
   Function(String value)? function,
   FocusNode? focusNode
 }) {
@@ -870,8 +880,7 @@ Widget multiSelectDropdownForm(
   );
 }
 
-Widget expandableV1(
-    {required String label, required Widget child}) {
+Widget expandableV1({required String label, required Widget child}) {
   return ExpandableNotifier(
     child: Column(
       children: [
@@ -950,17 +959,157 @@ Widget expandableV1(
             ],
           ),
         ),
-        SizedBox(height: 15,)
+        SizedBox(
+          height: 15,
+        )
       ],
     ),
   );
 }
 
-Widget LoadingCirculApi(){
+Widget LoadingCirculApi() {
   return Center(
     child: CircularProgressIndicator(
       strokeWidth: 4,
       color: AppColors.colorBackground,
     ),
+  );
+}
+
+Widget lockedBox(
+    {required String label,
+    required String content,
+    required bool required,
+    required bool isIcon,
+    required double width}) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: [
+      Expanded(
+        child: Container(
+          margin: EdgeInsets.only(left: 20, top: 15),
+          alignment: Alignment.topLeft,
+          child: RichText(
+            text: TextSpan(
+              text: label,
+              style: TextStyle(
+                color: AppColors.colorText1,
+                fontFamily: 'Roboto',
+                fontSize: 14,
+              ),
+              children: [
+                TextSpan(
+                    text: required ? ' *' : '',
+                    style: TextStyle(
+                      color: AppColors.colorTextError,
+                      fontFamily: 'Roboto',
+                      fontSize: 14,
+                    )),
+              ],
+            ),
+          ),
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.only(left: 15, right: 15, top: 15),
+        child: Container(
+            height: 45,
+            width: width,
+            padding: EdgeInsets.only(left: 18, right: 7),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24),
+                border: Border.all(color: Color(0xFFE3EAF2), width: 1)),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      content,
+                      style: TextStyle(
+                          fontFamily: 'Roboto',
+                          color: Color(0xFFCFCFCF),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 13),
+                    ),
+                  ),
+                ),
+                Visibility(
+                    visible: isIcon,
+                    child: SvgPicture.asset(AppImages.icArrowDownLockedBox))
+              ],
+            )),
+      ),
+    ],
+  );
+}
+
+Widget customRadioGroup(
+    {required int value,
+    required String label,
+    required RxInt groupValue,
+    required var onChange}) {
+  return InkWell(
+    onTap: () {
+      onChange(value);
+    },
+    child: Row(
+      children: [
+        Obx(() => Container(
+              width: 24.0,
+              height: 24.0,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: value == groupValue.value
+                    ? Colors.blue
+                    : Colors.transparent,
+                border: Border.all(
+                  color: Colors.blue,
+                  width: 2.0,
+                ),
+              ),
+              child: Center(
+                child: value == groupValue.value
+                    ? Icon(
+                        Icons.check,
+                        size: 16.0,
+                        color: Colors.white,
+                      )
+                    : null,
+              ),
+            )),
+        SizedBox(width: 8.0),
+        Text(label),
+      ],
+    ),
+  );
+}
+
+Widget customRadioMutiple(
+    {required var width,
+    required String text,
+    required var check,
+    required var changeValue}) {
+  return Container(
+    margin: EdgeInsets.only(left: 15, right: 15, top: 16),
+    child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+      InkWell(
+          onTap: () {
+            changeValue(!check.value);
+          },
+          splashColor: Colors.black38,
+          child: Obx(() => check.value
+              ? SvgPicture.asset(AppImages.icRadioChecked)
+              : SvgPicture.asset(AppImages.icRadioUnChecked))),
+      SizedBox(
+        width: 10,
+      ),
+      SizedBox(
+          width: width * 0.75,
+          child: Text(
+            text,
+            style: AppStyles.r2B3A4A_12_500,
+          )),
+    ]),
   );
 }

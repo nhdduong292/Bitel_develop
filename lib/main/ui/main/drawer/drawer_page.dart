@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/drawer_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/utilitis/change_language/dialog_change_language_page.dart';
 import 'package:bitel_ventas/res/app_fonts.dart';
@@ -204,7 +206,8 @@ class DrawerPage extends GetView<DrawerLogic> {
                     print("index: 3");
                     Get.toNamed(RouteConfig.afterSale);
                   } else if (i == 2) {
-                    Get.toNamed(RouteConfig.manageWO);
+                    // Get.toNamed(RouteConfig.manageWO);
+                    Get.to(() => ProductPaymentMethodPage());
                     print("index: 4");
                   }
                 }else if(vehicle.label == AppLocalizations.of(context)!.textUtilites){
