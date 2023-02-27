@@ -16,7 +16,7 @@ class TabTwoPage extends GetWidget{
   Widget build(BuildContext context) {
     // TODO: implement build
     return GetBuilder(
-      init: TabTwoLogic(status),
+      init: TabTwoLogic(status, context),
       builder: (controller) {
         return  controller.isLoading ? LoadingCirculApi() : controller.listRequest.isEmpty ? InkWell(
           child: Center(

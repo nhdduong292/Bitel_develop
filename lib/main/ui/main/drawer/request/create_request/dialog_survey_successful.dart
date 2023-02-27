@@ -64,7 +64,7 @@ class DialogSurveySuccessful extends StatelessWidget {
                         },
                         child:  Center(
                             child: Text(
-                              AppLocalizations.of(context)!.textCancel.toUpperCase(),
+                              AppLocalizations.of(context)!.textAccept.toUpperCase(),
                               style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
                             )),
                       ),
@@ -86,7 +86,7 @@ class DialogSurveySuccessful extends StatelessWidget {
                         },
                         child:  Center(
                             child: Text(
-                              AppLocalizations.of(context)!.textAccept.toUpperCase(),
+                              AppLocalizations.of(context)!.textConnect.toUpperCase(),
                               style: AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
                             )),
                       ),

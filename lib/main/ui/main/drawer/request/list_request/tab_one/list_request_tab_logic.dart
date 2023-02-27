@@ -29,13 +29,13 @@ class ListRequestTabLogic extends GetxController{
     update();
     Future.delayed(Duration(seconds: 1));
     Map<String, dynamic> params = {
-      "service":listRequestLogic.currentService,
-      "code":listRequestLogic.currentCode,
+      "service":listRequestLogic.searchRequest.service,
+      "code":listRequestLogic.searchRequest.code,
       "status":status,
-      "province":listRequestLogic.currentProvince,
-      "staffCode":listRequestLogic.currentStaffCode,
-      "fromDate":listRequestLogic.currentFromDate,
-      "toDate":listRequestLogic.currentToDate,
+      "province":listRequestLogic.searchRequest.province,
+      "staffCode":listRequestLogic.searchRequest.staffCode,
+      "fromDate":listRequestLogic.searchRequest.fromDate,
+      "toDate":listRequestLogic.searchRequest.toDate,
       "key":"",
       "page":"0",
       "pageSize":"10",

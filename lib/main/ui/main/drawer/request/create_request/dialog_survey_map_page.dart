@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_map_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_successful.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_unsuccesful.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_images.dart';
@@ -167,8 +169,16 @@ class DialogSurveyMapPage extends GetWidget {
                           ),
                           child: InkWell(
                             onTap: () {
-                              Navigator.of(context).pop();
-                              onSubmit!.call();
+                              Future.delayed(Duration(seconds: 1));
+                              controller.createSurvey((isSuccess) {
+                                  bool isSurveyOnline = true;
+                                  if(isSurveyOnline){
+                                    showDialogSurveySuccessful(context);
+                                  } else {
+                                    showDialogSurveyUnsuccessful(context);
+                                  }
+                              },);
+                              // onSubmit!.call();
                             },
                             child:  Center(
                                 child: Text(
@@ -185,5 +195,29 @@ class DialogSurveyMapPage extends GetWidget {
         ),
       );
     },);
+  }
+
+  void showDialogSurveySuccessful(BuildContext context){
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return DialogSurveySuccessful(
+            onSubmit: (){
+              // controller.createRequest();
+            },);
+        });
+  }
+
+  void showDialogSurveyUnsuccessful(BuildContext context){
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return DialogSurveyUnsuccessful(
+            onSubmit: (){
+              // controller.createRequest();
+            },);
+        });
   }
 }
