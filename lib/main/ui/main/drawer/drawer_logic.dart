@@ -29,11 +29,12 @@ class DrawerLogic extends GetxController {
           Get.to(() => FindCustomerPage());
           break;
         case 2:
-          Get.toNamed(RouteConfig.listRequest);
+          // Get.toNamed(RouteConfig.listRequest);
           break;
         case 4:
-          Get.to(DemoNativePage());
+          // Get.to(DemoNativePage());
           break;
+
       }
     });
   }
@@ -77,7 +78,7 @@ class DrawerLogic extends GetxController {
           list: []),
       DrawerItem(
           unselectedImg: AppImages.icMenuUtilites,
-          label: AppLocalizations.of(context)!.textUtilities,
+          label: AppLocalizations.of(context)!.textUtilites,
           selectedImg: AppImages.icUtilitiesSelected,
           isSelected: false,
           list: [

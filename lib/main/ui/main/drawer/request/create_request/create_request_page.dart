@@ -196,7 +196,7 @@ class CreateRequestPage extends GetWidget{
                           style: AppStyles.r2.copyWith(
                               color: AppColors.colorTitle,
                               fontWeight: FontWeight.w500),
-                          onSubmitted: (value) {
+                          onChanged: (value) {
                             controller.setName(value);
                           },
                           decoration: InputDecoration(
@@ -239,7 +239,7 @@ class CreateRequestPage extends GetWidget{
                           style: AppStyles.r2.copyWith(
                               color: AppColors.colorTitle,
                               fontWeight: FontWeight.w500),
-                          onSubmitted: (value) {
+                          onChanged: (value) {
                             controller.setPhone(value);
                           },
                           decoration: InputDecoration(

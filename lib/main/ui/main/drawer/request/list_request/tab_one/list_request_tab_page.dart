@@ -6,11 +6,10 @@ import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ListRequestTabPage extends GetWidget{
+class ListRequestTabPage extends GetWidget {
   String status;
 
   ListRequestTabPage(this.status);
-
 
   @override
   Widget build(BuildContext context) {
@@ -18,23 +17,29 @@ class ListRequestTabPage extends GetWidget{
     return GetBuilder(
       init: ListRequestTabLogic(status, context),
       builder: (controller) {
-      return  controller.isLoading ? LoadingCirculApi() : controller.listRequest.isEmpty ? InkWell(
-        child: Center(
-          child: Text("No data"),
-        ),
-        onTap: () {
-          Get.toNamed(RouteConfig.requestDetail);
-        },
-      ) : ListView.builder(
-          itemCount: controller.listRequest.length,
-          itemBuilder: (context, index) {
-            return InkWell(
-              onTap: () {
-                Get.toNamed(RouteConfig.requestDetail);
-              },
-              child: ListRequestTabItem(controller.listRequest[index]),
-            );
-          });
-    },);
+        return controller.isLoading
+            ? LoadingCirculApi()
+            : controller.listRequest.isEmpty
+                ? InkWell(
+                    child: Center(
+                      child: Text("No data"),
+                    ),
+                    onTap: () {
+                      // Get.toNamed(RouteConfig.requestDetail);
+                    },
+                  )
+                : ListView.builder(
+                    itemCount: controller.listRequest.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          Get.toNamed(RouteConfig.requestDetail, arguments: controller.listRequest[index].id);
+                        },
+                        child:
+                            ListRequestTabItem(controller.listRequest[index]),
+                      );
+                    });
+      },
+    );
   }
 }

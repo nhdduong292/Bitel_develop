@@ -3,34 +3,84 @@ import 'dart:math';
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/address_model.dart';
+import 'package:bitel_ventas/main/networks/request/search_request.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DialogAdvanceSearchLogic extends GetxController {
   var fromDate = "".obs;
   var toDate = "".obs;
   DateTime selectDate = DateTime.now();
-  String currentReason = "";
   List<String> listReason = ["HN", "HCM", "PQ"];
-  String currentService = "FTTH";
   List<String> listService = ["FTTH", "Office Wan", "Leased Line"];
-  String currentStatus="";
-  List<String> listStatus = ["CREATE_REQUEST","CREATE_REQUEST_WITHOUT_SURVEY","CONNECTED","DEPLOYING","COMPLETE","CANCEL"];
-  String currentProvince = "";
   List<AddressModel> listProvince = [];
+  SearchRequest searchRequest;
+  TextEditingController controllerCode = TextEditingController();
+  TextEditingController controllerStaffCode = TextEditingController();
+
+
+  DialogAdvanceSearchLogic(this.searchRequest){
+    if(searchRequest.fromDate.isNotEmpty) {
+      DateTime dateFrom = DateTime.parse(searchRequest.fromDate);
+      fromDate.value = "${dateFrom.day}/${dateFrom.month}";
+    }
+    if(searchRequest.toDate.isNotEmpty) {
+      DateTime dateTo = DateTime.parse(searchRequest.toDate);
+      toDate.value = "${dateTo.day}/${dateTo.month}";
+    }
+    controllerCode.text = searchRequest.code;
+    controllerStaffCode.text = searchRequest.staffCode;
+  }
+
+  void setProvince(String value){
+    searchRequest.province = value;
+    update();
+  }
+
+  void setStaffCode(String value){
+    searchRequest.staffCode = value;
+    update();
+  }
 
   void setToDate(DateTime picked) {
+    // print("Date: "+picked.toString());
     toDate.value = "${picked.day}/${picked.month}";
+    searchRequest.toDate = picked.toIso8601String();
     update();
   }
 
   void setFromDate(DateTime picked) {
+    // print("Date: "+picked.toString());
+    // print("Date: "+picked.toIso8601String());
     fromDate.value = "${picked.day}/${picked.month}";
+    searchRequest.fromDate = picked.toIso8601String();
+    // DateTime pi = DateTime.parse(picked.toIso8601String());
     update();
   }
 
   void setStatus(String value){
-    currentStatus = value;
+    searchRequest.status = value;
     update();
+  }
+
+  void setService(String value){
+    searchRequest.service = value;
+    update();
+  }
+
+  void setRequestCode(String value){
+    searchRequest.code = value;
+    update();
+  }
+
+  bool checkValidate(){
+    // if(currentService.isEmpty){
+    //   return false;
+    // }
+    // if(currentService.isEmpty){
+    //   return false;
+    // }
+    return true;
   }
 
   void getListProvince(Function(bool isSuccess) function) async{
