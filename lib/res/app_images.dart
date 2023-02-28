@@ -76,6 +76,7 @@ class AppImages {
   static const icLoginUser = 'assets/images/ic_login_user.svg';
   static const icLoginPass = 'assets/images/ic_login_pass.svg';
   static const icLoginShowPass = 'assets/images/ic_login_show_pass.svg';
+  static const icLoginOffPass = 'assets/images/ic_login_off_pass.svg';
   static const icSurveyAddress = 'assets/images/ic_survey_address.svg';
   static const icSurveySuccessful = 'assets/images/ic_survey_successful.svg';
   static const icSurveyUnsuccessful =

@@ -112,7 +112,7 @@ class LoginPage extends GetWidget {
                         color: AppColors.colorLineDash,
                       ),
                       TextField(
-                        obscureText: true,
+                        obscureText: controller.isShowPass.value,
                         focusNode: controller.focusPass,
                         controller: controller.controllerPass,
                         cursorColor: AppColors.colorText1,
@@ -146,9 +146,15 @@ class LoginPage extends GetWidget {
                           enabledBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(width: 1, color: Colors.transparent),
                           ),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.only(left: 12, right: 18, top: 14),
-                            child: SvgPicture.asset(AppImages.icLoginShowPass),
+                          suffixIcon: InkWell(
+                            onTap: () {
+
+                              controller.setShowPass(!controller.isShowPass.value);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 12, right: 18, top: 14),
+                              child: controller.isShowPass.value ? SvgPicture.asset(AppImages.icLoginShowPass) : SvgPicture.asset(AppImages.icLoginOffPass),
+                            ),
                           ),
                           prefixIconConstraints: const BoxConstraints(
                             minWidth: 28,
@@ -164,22 +170,28 @@ class LoginPage extends GetWidget {
                   child: Row(
                     children: [
                       Expanded(
-                          child: Row(
-                            children: [
-                              const SizedBox(
-                                width: 31,
-                              ),
-                              iconChecked(),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                "Remember account",
-                                style: AppStyles.r2
-                                    .copyWith(color: AppColors.colorText1),
-                              )
-                            ],
-                          )),
+                          child: InkWell(
+                            onTap: () {
+                              controller.setRememberAccount(!controller.isRememberAccount);
+                            },
+                            child: Row(
+                              children: [
+                                const SizedBox(
+                                  width: 31,
+                                ),
+                                controller.isRememberAccount ? iconChecked() : iconUnchecked(),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  "Remember account",
+                                  style: AppStyles.r2
+                                      .copyWith(color: AppColors.colorText1),
+                                )
+                              ],
+                            ),
+                          )
+                      ),
                       Expanded(
                           child: Padding(
                             padding: const EdgeInsets.only(left: 30),
