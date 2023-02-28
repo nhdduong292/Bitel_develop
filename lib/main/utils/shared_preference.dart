@@ -8,6 +8,9 @@ class SPrefCache {
   static const String PREF_KEY_LANGUAGE = "pref_key_language";
   static const String PREF_KEY_USER_INFO = "pref_key_user_info";
   static const String PREF_KEY_IS_KEEP_LOGIN = "pref_key_is_keep_login";
+  static const String PREF_KEY_REMEMBER_ACCOUNT = "pref_key_remember_account";
+  static const String PREF_KEY_USER_NAME = "pref_key_user_name";
+  static const String PREF_KEY_PASS_WORD = "pref_key_pass_word";
 }
 
 class SharedPreferenceUtil {
@@ -36,14 +39,43 @@ class SharedPreferenceUtil {
     await prefs.setString(SPrefCache.PREF_KEY_USER_INFO, json.encode(user));
   }
 
-//  static Future<LoginResponse> getUserInfo() async {
-//    SharedPreferences prefs = await SharedPreferences.getInstance();
-//    var data = prefs.getString(SPrefCache.PREF_KEY_USER_INFO);
-//    if (data == null) {
-//      return null;
-//    }
-//    return LoginResponse.fromMap(json.decode(data));
-//  }
+ // static Future<LoginResponse> getUserInfo() async {
+ //   SharedPreferences prefs = await SharedPreferences.getInstance();
+ //   var data = prefs.getString(SPrefCache.PREF_KEY_USER_INFO);
+ //   if (data == null) {
+ //     return null;
+ //   }
+ //   return LoginResponse.fromMap(json.decode(data));
+ // }
+  static Future saveRememberAccount(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(SPrefCache.PREF_KEY_REMEMBER_ACCOUNT, value);
+  }
+
+  static Future<bool> isRememberAccount() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(SPrefCache.PREF_KEY_REMEMBER_ACCOUNT) ?? false;
+  }
+
+  static Future saveUserName(String name) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(SPrefCache.PREF_KEY_USER_NAME, name);
+  }
+
+  static Future<String> getUserName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(SPrefCache.PREF_KEY_USER_NAME) ?? "";
+  }
+
+  static Future savePassWord(String name) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(SPrefCache.PREF_KEY_PASS_WORD, name);
+  }
+
+  static Future<String> getPassWord() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(SPrefCache.PREF_KEY_PASS_WORD) ?? "";
+  }
 
   static Future clearData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
