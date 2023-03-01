@@ -61,7 +61,7 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                           ),
                         )),
                     Positioned(
-                        top: 35,
+                        top: 45,
                         left: 20,
                         child: InkWell(
                           onTap: () {

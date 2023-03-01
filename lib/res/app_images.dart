@@ -124,4 +124,9 @@ class AppImages {
       "assets/backgrounds/bg_ftth_contracting.svg";
   static const String icSuccessFtthContracting =
       "assets/images/ic_success_ftth_contracting.png";
+  static const String icSelectFinger = "assets/icons/ic_select_finger.svg";
+  static const String imgFinger = "assets/images/img_finger.png";
+  static const String imgFingerPrint = "assets/images/img_finger_print.png";
+  static const String icTickFingerPrint =
+      "assets/icons/ic_tick_finger_print.svg";
 }

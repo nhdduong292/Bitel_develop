@@ -38,7 +38,7 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                       width: width,
                     ),
                     Positioned(
-                      top: 40,
+                      top: 50,
                       left: 70,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +53,7 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                       ),
                     ),
                     Positioned(
-                        top: 35,
+                        top: 45,
                         left: 20,
                         child: InkWell(
                           onTap: () {

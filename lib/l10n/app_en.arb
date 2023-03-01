@@ -336,5 +336,20 @@
   "textBillCycle" : "Bill cycle:",
   "textClose" : "Close",
   "textDocumentsWereSentTo" : "Documents were sent to",
-  "textViewDetail" : "View detail"
+  "textViewDetail" : "View detail",
+  "textAddressCustomerInfo" : "Address",
+  "textRegister" : "Register",
+  "textLeft" : "Left",
+  "textRight" : "Right",
+  "textThumb" : "Thumb",
+  "textIndex" : "Index",
+  "textMiddle" : "Middle",
+  "textRing" : "Ring",
+  "textLittle" : "Little",
+  "textRegisterFingerprintWith" : "Register fingerprint with reader: ",
+  "textTimes" : "times",
+  "textClickHereTo" : "CLICK HERE TO REGISTER START AGAIN",
+  "textDigitalFingerprint" : "Digital fingerprint",
+  "textRegisterFingerPrint" : "Register finger print",
+  "textYourBestFingerprint" : "Your best fingerprint"
   }

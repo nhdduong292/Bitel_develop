@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../../../../res/app_colors.dart';
+import '../../../../../../../router/route_config.dart';
 import '../../../../../../../utils/common_widgets.dart';
 import 'additional_information_logic.dart';
 
@@ -160,19 +161,20 @@ class AdditionalInformationWidget extends GetView<AdditionalInformationLogic> {
                   inputFormV2(
                       hint: AppLocalizations.of(context)!.textEnterPhoneNumber,
                       label: AppLocalizations.of(context)!.textPhoneNumber,
-                      required: false,
+                      required: true,
                       inputType: TextInputType.text,
                       width: 210),
                   inputFormV2(
                       hint: AppLocalizations.of(context)!.textEnterEmail,
                       label: AppLocalizations.of(context)!.textEmail,
-                      required: false,
+                      required: true,
                       inputType: TextInputType.text,
                       width: 210),
                   inputFormV2(
                       hint: AppLocalizations.of(context)!.textEnterAddress,
-                      label: AppLocalizations.of(context)!.textAddress,
-                      required: false,
+                      label:
+                          AppLocalizations.of(context)!.textAddressCustomerInfo,
+                      required: true,
                       inputType: TextInputType.text,
                       width: 210),
                   SizedBox(

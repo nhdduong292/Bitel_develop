@@ -44,7 +44,7 @@ class CustommerInformationPage extends GetView<CustomerInformationLogic> {
                       width: width,
                     ),
                     Positioned(
-                      top: 40,
+                      top: 50,
                       left: 70,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -57,7 +57,7 @@ class CustommerInformationPage extends GetView<CustomerInformationLogic> {
                       ),
                     ),
                     Positioned(
-                        top: 35,
+                        top: 45,
                         left: 20,
                         child: InkWell(
                           onTap: () {
