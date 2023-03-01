@@ -1113,3 +1113,11 @@ Widget customRadioMutiple(
     ]),
   );
 }
+
+SvgPicture iconOnlyUnRadio() {
+  return SvgPicture.asset(AppImages.icUnSelectRadio, height: 20, width: 20,);
+}
+
+SvgPicture iconOnlyRadio() {
+  return SvgPicture.asset(AppImages.icSelectRadio, height: 20, width: 20,);
+}

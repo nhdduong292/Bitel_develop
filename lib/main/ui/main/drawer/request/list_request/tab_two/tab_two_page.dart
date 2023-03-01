@@ -23,14 +23,15 @@ class TabTwoPage extends GetWidget{
             child: Text("No data"),
           ),
           onTap: () {
-            Get.toNamed(RouteConfig.requestDetail);
+            // Get.toNamed(RouteConfig.requestDetail);
           },
         ) : ListView.builder(
             itemCount: controller.listRequest.length,
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
-                  Get.toNamed(RouteConfig.requestDetail);
+                  List<String> listArgument = ["${controller.listRequest[index].id}",status];
+                  Get.toNamed(RouteConfig.requestDetail, arguments: listArgument);
                 },
                 child: ListRequestTabItem(controller.listRequest[index]),
               );

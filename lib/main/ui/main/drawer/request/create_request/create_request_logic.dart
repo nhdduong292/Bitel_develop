@@ -2,7 +2,9 @@ import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/address_model.dart';
 import 'package:bitel_ventas/main/networks/model/contact_model.dart';
+import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/networks/response/search_contact_response.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -37,6 +39,7 @@ class CreateRequestLogic extends GetxController {
   FocusNode focusDistrict = FocusNode();
   FocusNode focusPrecinct = FocusNode();
   FocusNode focusAddress = FocusNode();
+  RequestModel requestModel = RequestModel();
 
   void setIdentityType(String value){
     currentIdentityType = value;
@@ -113,7 +116,7 @@ class CreateRequestLogic extends GetxController {
     return false;
   }
 
-  void createRequest(Function(bool isSuccess) function) async {
+  void createRequest(Function(bool isSuccess, int id) function) async {
     if(checkValidateCreate()){
       return;
     }
@@ -133,16 +136,18 @@ class CreateRequestLogic extends GetxController {
         body: body,
         onSuccess: (response) {
           if (response.isSuccess) {
+            requestModel = RequestModel.fromJson(response.data);
+            update();
             print("success");
-            function.call(true);
+            function.call(true,requestModel.id);
           } else {
             print("error: ${response.status}");
-            function.call(false);
+            function.call(false,0);
           }
         },
         onError: (error) {
           print("error: " + error.toString());
-          function.call(false);
+          function.call(false,0);
         });
   }
 
@@ -255,6 +260,49 @@ class CreateRequestLogic extends GetxController {
         onError: (error) {
           print("error: " + error.toString());
           function.call(false);
+        });
+  }
+
+  void createSurveyOffline(Function (bool isSuccess) callBack) async{
+    Map<String, dynamic> body = {
+      "status": RequestStatus.CREATE_REQUEST,
+      "reasonId": "",
+      "note": ""
+    };
+    ApiUtil.getInstance( )!.put(
+        url: "${ApiEndPoints.API_REQUEST_DETAIL}/${requestModel.id}${ApiEndPoints.API_CHANGE_STATUS_REQUEST}",
+        body: body,
+        onSuccess: (response) {
+          if (response.isSuccess) {
+            print("success");
+            // requestModel = RequestModel.fromJson(response.data);
+            callBack.call(true);
+          } else {
+            print("error: ${response.status}");
+            callBack.call(false);
+          }
+        },
+        onError: (error) {
+          print("error: " + error.toString());
+          callBack.call(false);
+        });
+  }
+
+  void createSurveyOnline(Function(bool isSuccess) callBack) async{
+    ApiUtil.getInstance( )!.get(
+        url: "${ApiEndPoints.API_SURVEY}/${requestModel.id}${ApiEndPoints.API_SURVEY_ONLINE}",
+        onSuccess: (response) {
+          if (response.isSuccess) {
+            print("success");
+            callBack.call(true);
+          } else {
+            print("error: ${response.status}");
+            callBack.call(false);
+          }
+        },
+        onError: (error) {
+          print("error: " + error.toString());
+          callBack.call(false);
         });
   }
 

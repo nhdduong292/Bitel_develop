@@ -83,5 +83,10 @@ flutter {
 }
 
 dependencies {
+    implementation fileTree(include: '*.jar', dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation project(':ftrScanApiAndroidHelperUsbHost')
+    implementation project(':ftrWsqAndroidHelper')
+    implementation project(':libBioMini')
+    implementation 'io.reactivex:rxjava:1.1.6'
 }

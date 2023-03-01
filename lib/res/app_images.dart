@@ -125,4 +125,6 @@ class AppImages {
       "assets/backgrounds/bg_ftth_contracting.svg";
   static const String icSuccessFtthContracting =
       "assets/images/ic_success_ftth_contracting.png";
+  static const String icSelectRadio = "assets/images/ic_select_radio.svg";
+  static const String icUnSelectRadio = "assets/images/ic_unselect_radio.svg";
 }

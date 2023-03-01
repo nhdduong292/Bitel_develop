@@ -17,8 +17,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 
 class DialogSurveyMapPage extends GetWidget {
-  final Function? onSubmit;
-  DialogSurveyMapPage({super.key, this.onSubmit});
+  final Function(bool isSuccess) onSubmit;
+  String requestId;
+  DialogSurveyMapPage({super.key, required this.onSubmit, required this.requestId});
 
 
 
@@ -27,7 +28,7 @@ class DialogSurveyMapPage extends GetWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: DialogSurveyMapLogic(),
+      init: DialogSurveyMapLogic(requestId: requestId),
       builder: (controller) {
       return Dialog(
         shape: RoundedRectangleBorder(
@@ -169,14 +170,10 @@ class DialogSurveyMapPage extends GetWidget {
                           ),
                           child: InkWell(
                             onTap: () {
-                              Future.delayed(Duration(seconds: 1));
+                              // _onLoading(context);
                               controller.createSurvey((isSuccess) {
-                                  bool isSurveyOnline = true;
-                                  if(isSurveyOnline){
-                                    showDialogSurveySuccessful(context);
-                                  } else {
-                                    showDialogSurveyUnsuccessful(context);
-                                  }
+                              //     Get.back();
+                                  onSubmit.call(isSuccess);
                               },);
                               // onSubmit!.call();
                             },
@@ -197,27 +194,41 @@ class DialogSurveyMapPage extends GetWidget {
     },);
   }
 
-  void showDialogSurveySuccessful(BuildContext context){
+  void _onLoading(BuildContext context) {
     showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return DialogSurveySuccessful(
-            onSubmit: (){
-              // controller.createRequest();
-            },);
-        });
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
+      },
+    );
+  }
+
+  void showDialogSurveySuccessful(BuildContext context){
+    // showDialog(
+    //     barrierDismissible: false,
+    //     context: context,
+    //     builder: (context) {
+    //       return DialogSurveySuccessful(
+    //         onSubmit: (){
+    //           // controller.createRequest();
+    //         },);
+    //     });
   }
 
   void showDialogSurveyUnsuccessful(BuildContext context){
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return DialogSurveyUnsuccessful(
-            onSubmit: (){
-              // controller.createRequest();
-            },);
-        });
+    // showDialog(
+    //     barrierDismissible: false,
+    //     context: context,
+    //     builder: (context) {
+    //       return DialogSurveyUnsuccessful(
+    //         onSubmit: (){
+    //           // controller.createRequest();
+    //         },);
+    //     });
   }
 }

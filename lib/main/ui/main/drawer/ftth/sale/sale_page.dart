@@ -1,5 +1,6 @@
 import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/sale/sale_logic.dart';
+import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
@@ -13,6 +14,7 @@ class SalePage extends GetWidget {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    // _onLoading(context);
     return GetBuilder(
       init: SaleLogic(),
       builder: (controller) {
@@ -65,7 +67,7 @@ class SalePage extends GetWidget {
                       bottomRight: Radius.elliptical(width / 2, 20))),
             ),
           ),
-          body: SingleChildScrollView(
+          body: controller.isLoading ? SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -160,8 +162,8 @@ class SalePage extends GetWidget {
                                       margin: index == 1 ? EdgeInsets.only(left: 8) : EdgeInsets.only(left: 0),
                                       padding: index == 1 ? EdgeInsets.all(2) : EdgeInsets.all(0),
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(4),
-                                        color: Colors.white
+                                          borderRadius: BorderRadius.circular(4),
+                                          color: Colors.white
                                       ) ,
                                       child: index == 1 ? Text("${controller.getPerformanceKPI()}%", style: AppStyles.r2.copyWith(color: AppColors.color_83BF6E, fontWeight: FontWeight.w600),) : Text(""),
                                     )
@@ -201,9 +203,9 @@ class SalePage extends GetWidget {
                           child: Container(
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             decoration: BoxDecoration(
-                              color: optionSale.index == controller.indexSelect ? Colors.white : AppColors.colorBackground1,
-                              borderRadius: BorderRadius.circular(6),
-                              border: Border.all(color: optionSale.index == controller.indexSelect ? AppColors.colorTitle: AppColors.colorBackground1)
+                                color: optionSale.index == controller.indexSelect ? Colors.white : AppColors.colorBackground1,
+                                borderRadius: BorderRadius.circular(6),
+                                border: Border.all(color: optionSale.index == controller.indexSelect ? AppColors.colorTitle: AppColors.colorBackground1)
                             ),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
@@ -264,7 +266,7 @@ class SalePage extends GetWidget {
                     )),
               ],
             ),
-          ),
+          ) :Center(child: LoadingCirculApi()),
         );
       },
     );

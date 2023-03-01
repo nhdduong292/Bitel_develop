@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:bitel_ventas/main/ui/login/login_binding.dart';
 import 'package:bitel_ventas/main/ui/login/login_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/manage_wo/manage_wo_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/sale/sale_page.dart';
@@ -38,6 +39,7 @@ class RouteConfig {
   static const String manageWO = "/menu/manageWO";
   static const String afterSale = "/menu/ftth/aftersale";
   static const String sale = "/menu/ftth/sale";
+  static const String productPayment = "/menu/ftth/contract/productandpayment)";
   static const String customerInformation = "/contracting/customerInformation";
   static const String validateFingerprint = "/contracting/validateFingerprint";
   static const String ftthContracting = "/contracting/ftthContracting";
@@ -61,6 +63,7 @@ class RouteConfig {
     GetPage(name: customerInformation, page: () => CustommerInformationPage()),
     GetPage(name: validateFingerprint, page: () => ValidateFingerprintPage()),
     GetPage(name: ftthContracting, page: () => FTTHContractingPage()),
+    GetPage(name: productPayment, page: () => ProductPaymentMethodPage()),
   ];
 
   ///language

@@ -33,7 +33,8 @@ class ListRequestTabPage extends GetWidget {
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
-                          Get.toNamed(RouteConfig.requestDetail, arguments: controller.listRequest[index].id);
+                          List<String> listArgument = ["${controller.listRequest[index].id}",status];
+                          Get.toNamed(RouteConfig.requestDetail, arguments: listArgument);
                         },
                         child:
                             ListRequestTabItem(controller.listRequest[index]),

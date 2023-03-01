@@ -53,7 +53,7 @@
   "hintFullLevelAddress" : "Enter district",
   "textDirectionProfile" : "Address",
   "hintDirection" : "Ej: Calle ABC # 123, Urb XYZ",
-  "textContractNumber" : "Contact number",
+  "textContractNumber" : "Contract number",
   "hintContractNumber" : "Enter mobile or landline number",
   "textEmail" : "Email",
   "hintEmail" : "Ej: abc@gmail.com",
@@ -336,5 +336,12 @@
   "textBillCycle" : "Bill cycle:",
   "textClose" : "Close",
   "textDocumentsWereSentTo" : "Documents were sent to",
-  "textViewDetail" : "View detail"
+  "textViewDetail" : "View detail",
+  "textID": "ID",
+  "textSubscriptionInformation": "Subscription information",
+  "textPlan": "Plan",
+  "textMonthlyFee": "Monthly fee",
+  "textBillingCycle": "Billing cycle",
+  "textWorkOrderInformation": "Work order information",
+  "textPassword": "Password"
   }

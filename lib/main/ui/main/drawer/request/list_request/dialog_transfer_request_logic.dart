@@ -1,13 +1,57 @@
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
+import 'package:bitel_ventas/main/networks/model/reason_model.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:get/get.dart';
 
 class DialogTransferRequestLogic extends GetxController{
   String currentReason="";
-  List<String> listReason = ["HN", "HCM", "PQ"];
+  String currentStaffCode = "";
+  List<ReasonModel> listReason = [];
   bool isLoading = false;
 
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    getListReason();
+  }
+
+  void setStaffCode(String value){
+    currentStaffCode = value;
+    update();
+  }
+
+  void getListReason(){
+    Map<String, dynamic> params = {
+      "type": Reason.REASON_REQUEST,
+    };
+    ApiUtil.getInstance()!.get(
+      url: "${ApiEndPoints.API_REASONS}",
+      params: params,
+      onSuccess: (response) {
+        if(response.isSuccess){
+          List<ReasonModel> list = (response.data as List)
+              .map((postJson) => ReasonModel.fromJson(postJson))
+              .toList();
+          if(list.isNotEmpty) {
+            listReason.addAll(list);
+            update();
+          }
+        }else {
+
+        }
+      },
+      onError: (error) {
+
+      },);
+  }
+
   void transferRequest(int id, String staffCode, Function(bool isSuccess) callBack) async {
+    if(currentStaffCode.isEmpty && currentReason.isEmpty){
+      Get.snackbar("Vui lòng nhập đầy đủ thông tin!","", snackPosition: SnackPosition.BOTTOM);
+      return;
+    }
     isLoading = true;
     update();
     Future.delayed(Duration(seconds: 1));

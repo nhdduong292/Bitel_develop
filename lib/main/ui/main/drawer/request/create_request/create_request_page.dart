@@ -548,9 +548,11 @@ class CreateRequestPage extends GetWidget{
                         ),
                         child: InkWell(
                           onTap: () {
-                            controller.createRequest((isSuccess) {
+                            _onLoading(context);
+                            controller.createRequest((isSuccess, id) {
+                              Get.back();
                               if(isSuccess){
-                                showDialogSurveyMap(context, controller);
+                                showDialogSurveyMap(context, controller, id);
                               }else {
                                 print("Có lỗi xảy ra");
                               }
@@ -580,8 +582,23 @@ class CreateRequestPage extends GetWidget{
         context: context,
         builder: (context) {
            return DialogSurveySuccessful(
-             onSubmit: (){
-               // controller.createRequest();
+             onSubmit: (isOnline){
+               _onLoading(context);
+               if(isOnline){
+                    controller.createSurveyOnline((isSuccess) {
+                      Get.back();
+                      if(isSuccess){
+                        Get.back();
+                      }
+                    },);
+               } else {
+                    controller.createSurveyOffline((isSuccess) {
+                      Get.back();
+                      if(isSuccess){
+                        Get.back();
+                      }
+                    },);
+               }
            },);
         });
   }
@@ -593,25 +610,28 @@ class CreateRequestPage extends GetWidget{
         builder: (context) {
           return DialogSurveyUnsuccessful(
             onSubmit: (){
-                // controller.createRequest();
+                controller.createSurveyOffline((isSuccess) {
+                  if(isSuccess){
+                    Get.back();
+                  }
+                },);
             },);
         });
   }
 
-  void showDialogSurveyMap(BuildContext context, CreateRequestLogic controller){
+  void showDialogSurveyMap(BuildContext context, CreateRequestLogic controller, int id){
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (context) {
           return DialogSurveyMapPage(
-            onSubmit: (){
-                bool isOffline = false;
-                if(isOffline) {
+            onSubmit: (isSuccess){
+                if(isSuccess) {
                   showDialogSurveySuccessful(context, controller);
                 } else {
                   showDialogSurveyUnsuccessful(context, controller);
                 }
-            },);
+            },requestId: "$id",);
         });
   }
 

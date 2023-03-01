@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 class DialogCancelRequestLogic extends GetxController {
   String currentReason = "";
+  String currentNote = "";
   List<ReasonModel> listReason = [];
   bool isLoading = false;
 
@@ -14,6 +15,11 @@ class DialogCancelRequestLogic extends GetxController {
     // TODO: implement onInit
     super.onInit();
     getListReason();
+  }
+
+  void setNote(String value){
+    currentNote = value;
+    update();
   }
 
   void getListReason(){
@@ -42,11 +48,15 @@ class DialogCancelRequestLogic extends GetxController {
   }
 
   void changeStatusRequest(int id, String note, Function(bool isSuccess) callBack) async {
+    if(currentNote.isEmpty && currentReason.isEmpty){
+      Get.snackbar("Vui lòng nhập đầy đủ thông tin!","", snackPosition: SnackPosition.BOTTOM);
+      return;
+    }
     isLoading = true;
     update();
     Future.delayed(Duration(seconds: 1));
     Map<String, dynamic> body = {
-      "status": "CANCEL",
+      "status": RequestStatus.CANCEL,
       "reasonId": currentReason,
       "note": note
     };
