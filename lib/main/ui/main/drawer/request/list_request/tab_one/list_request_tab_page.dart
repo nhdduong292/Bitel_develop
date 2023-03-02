@@ -12,8 +12,7 @@ import 'package:get/get.dart';
 
 class ListRequestTabPage extends StatefulWidget {
   String status;
-
-  ListRequestTabPage(this.status);
+  ListRequestTabPage({required this.status});
 
   // @override
   // Widget build(BuildContext context) {
@@ -54,20 +53,20 @@ class ListRequestTabPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _ListRequestTabState(status);
+    return ListRequestTabState(status);
   }
-  static _ListRequestTabState? of(BuildContext context) =>
-      context.findAncestorStateOfType<_ListRequestTabState>();
+  // static ListRequestTabState? of(BuildContext context) =>
+  //     context.findAncestorStateOfType<_ListRequestTabState>();
 
 }
-class _ListRequestTabState extends State<ListRequestTabPage>{
+class ListRequestTabState extends State<ListRequestTabPage>{
   String status;
 
   bool isLoading = false;
   List<RequestModel> listRequest = [];
   ListRequestLogic listRequestLogic = Get.find();
 
-  _ListRequestTabState(this.status);
+  ListRequestTabState(this.status);
   @override
   void initState() {
     // TODO: implement initState

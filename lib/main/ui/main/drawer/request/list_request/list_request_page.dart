@@ -19,6 +19,7 @@ import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ListRequestPage extends GetWidget {
+  // GlobalKey<ListRequestTabState> globalKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -216,12 +217,12 @@ class ListRequestPage extends GetWidget {
                           controller: controller.tabController,
                           children: [
                             // first tab bar view widget
-                            ListRequestTabPage(RequestStatus.CREATE_REQUEST),
-                            ListRequestTabPage(RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY),
-                            ListRequestTabPage(RequestStatus.CONNECTED),
-                            ListRequestTabPage(RequestStatus.DEPLOYING),
-                            ListRequestTabPage(RequestStatus.COMPLETE),
-                            ListRequestTabPage(RequestStatus.CANCEL),
+                            ListRequestTabPage(status: RequestStatus.CREATE_REQUEST),
+                            ListRequestTabPage(status:RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY),
+                            ListRequestTabPage(status:RequestStatus.CONNECTED),
+                            ListRequestTabPage(status:RequestStatus.DEPLOYING),
+                            ListRequestTabPage(status:RequestStatus.COMPLETE),
+                            ListRequestTabPage(status:RequestStatus.CANCEL),
                           ],
                         )),
                       ],
@@ -280,6 +281,7 @@ class ListRequestPage extends GetWidget {
               // } else {
               //   controller.updateSearchRequest(model);
               // }
+              // globalKey.currentState!.getListRequest();
             },
            searchRequest: controller.searchRequest);
         });

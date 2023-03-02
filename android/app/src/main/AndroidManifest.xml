@@ -2,6 +2,7 @@
     package="com.bitel.bss.viettelpos.v3.bitel_ventas">
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
    <application
         android:label="Bitel Ventas"
         android:name="${applicationName}"
