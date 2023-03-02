@@ -151,9 +151,13 @@ class CreateRequestLogic extends GetxController {
         });
   }
 
-  void searchNumberContact(String id) async {
-    currentIdentity = id;
+
+  void setIdentity(String value){
+    currentIdentity = value;
     update();
+  }
+
+  void searchNumberContact(String id) async {
     Map<String, dynamic> params = {
       "phone": "",
       "identityType": currentIdentityType,

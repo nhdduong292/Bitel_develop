@@ -1,32 +1,38 @@
 class SubscriptionModel{
-  String? implementBy;
-  String? codeEnding;
-  String? isdnAccount;
-  String? vatService;
-  String? installationDate;
-  String? installationAddress;
-  String? password;
-  String? service;
-  String? line;
-  String? promotion;
-  String? technology;
-  String? servicePlan;
-  String? typeOfSub;
+  String? _subId;
+  String? _isdn;
+  String? _account;
+  String? _password;
+  String? _speed;
+  String? _productCode;
+  String? _pricePlan;
+  String? _localPricePlan;
 
   SubscriptionModel();
   SubscriptionModel.fromJson(Map<String, dynamic> json) {
-    implementBy = json['implementBy'];
-    codeEnding = json['codeEnding'];
-    isdnAccount = json['isdnAccount'];
-    vatService = json['vatService'];
-    installationDate = json['installationDate'];
-    installationAddress = json['installationAddress'];
-    password = json['password'];
-    service = json['service'];
-    line = json['line'];
-    promotion = json['promotion'];
-    technology = json['technology'];
-    servicePlan = json['servicePlan'];
-    typeOfSub = json['typeOfSub'];
+    _subId = json['subId'];
+    _isdn = json['isdn'];
+    _account = json['account'];
+    _password = json['password'];
+    _speed = json['speed'];
+    _productCode = json['productCode'];
+    _pricePlan = json['pricePlan'];
+    _localPricePlan = json['localPricePlan'];
   }
+
+  String get localPricePlan => _localPricePlan ?? "";
+
+  String get pricePlan => _pricePlan ?? "";
+
+  String get productCode => _productCode ?? "";
+
+  String get speed => _speed ?? "";
+
+  String get password => _password ?? "";
+
+  String get account => _account ?? "";
+
+  String get isdn => _isdn ?? "";
+
+  String get subId => _subId ?? "";
 }

@@ -39,7 +39,7 @@ class RouteConfig {
   static const String manageWO = "/menu/manageWO";
   static const String afterSale = "/menu/ftth/aftersale";
   static const String sale = "/menu/ftth/sale";
-  static const String productPayment = "/menu/ftth/contract/productandpayment)";
+  static const String productPayment = "/menu/ftth/contract/productandpayment";
   static const String customerInformation = "/contracting/customerInformation";
   static const String validateFingerprint = "/contracting/validateFingerprint";
   static const String ftthContracting = "/contracting/ftthContracting";

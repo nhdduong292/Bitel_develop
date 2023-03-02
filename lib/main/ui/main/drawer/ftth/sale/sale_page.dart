@@ -14,7 +14,6 @@ class SalePage extends GetWidget {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    // _onLoading(context);
     return GetBuilder(
       init: SaleLogic(),
       builder: (controller) {

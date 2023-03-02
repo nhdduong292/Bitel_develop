@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bitel_ventas/main/networks/model/work_order_model.dart';
 import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/dialog_cancel_request_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/dialog_transfer_request_page.dart';
@@ -83,11 +84,10 @@ class RequestDetailPage extends GetWidget {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        controller.requestModel.customerModel!
-                                                .fullName!.isEmpty
+                                        controller.requestModel.customerModel.fullName.isEmpty
                                             ? "---"
                                             : controller.requestModel
-                                                .customerModel!.fullName!,
+                                                .customerModel.fullName,
                                         textAlign: TextAlign.right,
                                         style: AppStyles.r415263_13_500,
                                       ),
@@ -115,11 +115,10 @@ class RequestDetailPage extends GetWidget {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        controller.requestModel.customerModel!
-                                                .fullName!.isEmpty
+                                        controller.requestModel.customerModel.idNumber.isEmpty
                                             ? "---"
                                             : controller.requestModel
-                                                .customerModel!.fullName!,
+                                                .customerModel.fullName,
                                         textAlign: TextAlign.right,
                                         style: AppStyles.r415263_13_500,
                                       ),
@@ -146,11 +145,10 @@ class RequestDetailPage extends GetWidget {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        controller.requestModel.customerModel!
-                                                .fullName!.isEmpty
+                                        controller.requestModel.customerModel.custId.isEmpty
                                             ? "---"
                                             : controller.requestModel
-                                                .customerModel!.fullName!,
+                                                .customerModel.fullName,
                                         textAlign: TextAlign.right,
                                         style: AppStyles.rU00A5B1_13_500,
                                       ),
@@ -178,13 +176,12 @@ class RequestDetailPage extends GetWidget {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        controller.requestModel.customerModel!
-                                                .fullName!.isEmpty
+                                        controller.requestModel.customerModel.fullName.isEmpty
                                             ? "---"
                                             : controller.requestModel
-                                                .customerModel!.fullName!,
+                                                .customerModel.fullName,
                                         textAlign: TextAlign.right,
-                                        style: AppStyles.rU00A5B1_13_500,
+                                        style: AppStyles.r415263_13_500,
                                       ),
                                     )
                                   ],
@@ -212,13 +209,12 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.customerModel!
-                                                  .fullName!.isEmpty
+                                          controller.requestModel.service.isEmpty
                                               ? "---"
                                               : controller.requestModel
-                                                  .customerModel!.fullName!,
+                                                  .service,
                                           textAlign: TextAlign.right,
-                                          style: AppStyles.rU00A5B1_13_500,
+                                          style: AppStyles.r415263_13_500,
                                         ),
                                       )
                                     ],
@@ -243,13 +239,12 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.customerModel!
-                                                  .fullName!.isEmpty
+                                          controller.requestModel.customerModel.fullName.isEmpty
                                               ? "---"
-                                              : controller.requestModel
-                                                  .customerModel!.fullName!,
+                                              : "${controller.requestModel
+                                                  .subscriptionModel.productCode} + ${controller.requestModel.subscriptionModel.speed}",
                                           textAlign: TextAlign.right,
-                                          style: AppStyles.rU00A5B1_13_500,
+                                          style: AppStyles.r415263_13_500,
                                         ),
                                       )
                                     ],
@@ -275,13 +270,12 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.customerModel!
-                                                  .fullName!.isEmpty
+                                          controller.requestModel.technology.isEmpty
                                               ? "---"
                                               : controller.requestModel
-                                                  .customerModel!.fullName!,
+                                                  .technology,
                                           textAlign: TextAlign.right,
-                                          style: AppStyles.rU00A5B1_13_500,
+                                          style: AppStyles.r415263_13_500,
                                         ),
                                       )
                                     ],
@@ -307,13 +301,12 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.customerModel!
-                                                  .fullName!.isEmpty
+                                          controller.requestModel.subscriptionModel.pricePlan.isEmpty
                                               ? "---"
                                               : controller.requestModel
-                                                  .customerModel!.fullName!,
+                                                  .subscriptionModel.pricePlan,
                                           textAlign: TextAlign.right,
-                                          style: AppStyles.rU00A5B1_13_500,
+                                          style: AppStyles.r415263_13_500,
                                         ),
                                       )
                                     ],
@@ -342,13 +335,12 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.customerModel!
-                                                  .fullName!.isEmpty
+                                          controller.requestModel.contractModel.contractId.isEmpty
                                               ? "---"
                                               : controller.requestModel
-                                                  .customerModel!.fullName!,
+                                                  .contractModel.contractId,
                                           textAlign: TextAlign.right,
-                                          style: AppStyles.rU00A5B1_13_500,
+                                          style: AppStyles.r415263_13_500,
                                         ),
                                       )
                                     ],
@@ -374,13 +366,12 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.customerModel!
-                                                  .fullName!.isEmpty
+                                          controller.requestModel.contractModel.billCycleFrom.isEmpty
                                               ? "---"
                                               : controller.requestModel
-                                                  .customerModel!.fullName!,
+                                                  .contractModel.billCycleFrom,
                                           textAlign: TextAlign.right,
-                                          style: AppStyles.rU00A5B1_13_500,
+                                          style: AppStyles.r415263_13_500,
                                         ),
                                       )
                                     ],
@@ -406,13 +397,12 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.customerModel!
-                                                  .fullName!.isEmpty
+                                          controller.requestModel.contractModel.signDate.isEmpty
                                               ? "---"
                                               : controller.requestModel
-                                                  .customerModel!.fullName!,
+                                                  .contractModel.signDate,
                                           textAlign: TextAlign.right,
-                                          style: AppStyles.rU00A5B1_13_500,
+                                          style: AppStyles.r415263_13_500,
                                         ),
                                       )
                                     ],
@@ -438,13 +428,12 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.customerModel!
-                                                  .fullName!.isEmpty
+                                          controller.requestModel.contractModel.status.isEmpty
                                               ? "---"
                                               : controller.requestModel
-                                                  .customerModel!.fullName!,
+                                                  .contractModel.status,
                                           textAlign: TextAlign.right,
-                                          style: AppStyles.rU00A5B1_13_500,
+                                          style: AppStyles.r415263_13_500,
                                         ),
                                       )
                                     ],
@@ -473,13 +462,12 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.customerModel!
-                                                  .fullName!.isEmpty
+                                          controller.requestModel.isdnAccount.isEmpty
                                               ? "---"
                                               : controller.requestModel
-                                                  .customerModel!.fullName!,
+                                                  .isdnAccount,
                                           textAlign: TextAlign.right,
-                                          style: AppStyles.rU00A5B1_13_500,
+                                          style: AppStyles.r415263_13_500,
                                         ),
                                       )
                                     ],
@@ -505,13 +493,12 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.customerModel!
-                                                  .fullName!.isEmpty
+                                          controller.requestModel.subscriptionModel.password.isEmpty
                                               ? "---"
                                               : controller.requestModel
-                                                  .customerModel!.fullName!,
+                                                  .subscriptionModel.password,
                                           textAlign: TextAlign.right,
-                                          style: AppStyles.rU00A5B1_13_500,
+                                          style: AppStyles.r415263_13_500,
                                         ),
                                       )
                                     ],
@@ -536,13 +523,12 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.customerModel!
-                                                  .fullName!.isEmpty
+                                          controller.requestModel.listWO.isEmpty
                                               ? "---"
                                               : controller.requestModel
-                                                  .customerModel!.fullName!,
+                                                  .listWO[0].teamName,
                                           textAlign: TextAlign.right,
-                                          style: AppStyles.rU00A5B1_13_500,
+                                          style: AppStyles.r415263_13_500,
                                         ),
                                       )
                                     ],
@@ -567,13 +553,11 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.customerModel!
-                                                  .fullName!.isEmpty
+                                          controller.requestModel.listWO.isEmpty
                                               ? "---"
-                                              : controller.requestModel
-                                                  .customerModel!.fullName!,
+                                              : controller.requestModel.listWO[0].staffName,
                                           textAlign: TextAlign.right,
-                                          style: AppStyles.rU00A5B1_13_500,
+                                          style: AppStyles.r415263_13_500,
                                         ),
                                       )
                                     ],
@@ -593,22 +577,24 @@ class RequestDetailPage extends GetWidget {
                                 2: FractionColumnWidth(0.2),
                                 3: FractionColumnWidth(0.2),
                               },
-                              children: [
-                                buildRow([
-                                  "WO type",
-                                  "Start date",
-                                  "End date",
-                                  "Status"
-                                ], true),
-                                buildRow([
-                                  "AKAM",
-                                  "Akamai Technologies",
-                                  "93.9",
-                                  "64.0"
-                                ], false),
-                                buildRow(
-                                    ["MU", "Micron", "40.1", "33.1"], false)
-                              ],
+                              children: List.generate(controller.requestModel.listWO.length + 1 , (index) {
+                                if(index == 0) {
+                                  return buildRow([
+                                    AppLocalizations.of(context)!.textWOType,
+                                    AppLocalizations.of(context)!.textStartDate,
+                                    AppLocalizations.of(context)!.textEndDate,
+                                    AppLocalizations.of(context)!.textStatus
+                                  ], true);
+                                } else {
+                                  WorkOrderModel model = controller.requestModel.listWO[index - 1];
+                                  return buildRow([
+                                    model.woType,
+                                    model.creationDate,
+                                    model.expectedDate,
+                                    model.status
+                                  ], false);
+                                }
+                              }),
                             ),
                           ),
                           controller.isShowBtnConnect

@@ -149,6 +149,9 @@ class CreateRequestPage extends GetWidget{
                                 onSubmitted: (value) {
                                   controller.searchNumberContact(value);
                                 },
+                                onChanged: (value) {
+                                  controller.setIdentity(value);
+                                },
                                 decoration: InputDecoration(
                                   contentPadding: const EdgeInsets.only(top: 5,left: 10, right: 10),
                                   hintText: AppLocalizations.of(context)!.hintIdentityNumber,

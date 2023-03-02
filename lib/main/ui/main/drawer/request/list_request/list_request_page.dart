@@ -124,6 +124,9 @@ class ListRequestPage extends GetWidget {
                       color: AppColors.colorSelectTab,
                     ),
                     labelColor: Colors.white,
+                    onTap: (value) {
+                      print("tap: $value");
+                    },
                     unselectedLabelColor: AppColors.colorText2,
                     tabs: [
                       // first tab [you can add an icon using the icon property]
@@ -214,11 +217,11 @@ class ListRequestPage extends GetWidget {
                           children: [
                             // first tab bar view widget
                             ListRequestTabPage(RequestStatus.CREATE_REQUEST),
-                            TabTwoPage(RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY),
+                            ListRequestTabPage(RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY),
                             ListRequestTabPage(RequestStatus.CONNECTED),
-                            TabTwoPage(RequestStatus.DEPLOYING),
+                            ListRequestTabPage(RequestStatus.DEPLOYING),
                             ListRequestTabPage(RequestStatus.COMPLETE),
-                            TabTwoPage(RequestStatus.CANCEL),
+                            ListRequestTabPage(RequestStatus.CANCEL),
                           ],
                         )),
                       ],
@@ -264,13 +267,16 @@ class ListRequestPage extends GetWidget {
             onSubmit: (model) {
               // if(controller.index == model.getPositionStatus()){
                 controller.updateSearchRequest(model);
-                if(controller.index % 2 == 0) {
-                  TabTwoLogic tabTwoLogic = Get.find<TabTwoLogic>();
-                  tabTwoLogic.getListRequest(model.status);
-                }else {
-                  ListRequestTabLogic tabOneLogic = Get.find<ListRequestTabLogic>();
-                  tabOneLogic.getListRequest(model.status);
-                }
+                // if(controller.index == model.getPositionStatus()) {
+                //   ListRequestTabPage.of(context)!.getListRequest();
+                // }
+                // if(controller.index % 2 == 0) {
+                //   TabTwoLogic tabTwoLogic = Get.find<TabTwoLogic>();
+                //   tabTwoLogic.getListRequest(model.status);
+                // }else {
+                //   ListRequestTabLogic tabOneLogic = Get.find<ListRequestTabLogic>();
+                //   tabOneLogic.getListRequest();
+                // }
               // } else {
               //   controller.updateSearchRequest(model);
               // }

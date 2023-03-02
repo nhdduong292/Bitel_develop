@@ -3,8 +3,6 @@ import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/networks/response/list_request_response.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_logic.dart';
-import 'package:bitel_ventas/main/utils/event_bus.dart';
-import 'package:bitel_ventas/main/utils/provider/search_request_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,14 +11,14 @@ class ListRequestTabLogic extends GetxController{
   List<RequestModel> listRequest = [];
   bool isLoading = false;
   String status;
-  BuildContext context;
 
-  ListRequestTabLogic(this.status, this.context);
+  ListRequestTabLogic(this.status);
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+
     getListRequest(status);
   }
 
@@ -44,6 +42,7 @@ class ListRequestTabLogic extends GetxController{
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_LIST_REQUEST,
         params: params,
+        isCancel: true,
         onSuccess: (response) {
           if(response.isSuccess){
             print("success :");
