@@ -4,6 +4,7 @@ import 'package:bitel_ventas/main/networks/model/address_model.dart';
 import 'package:bitel_ventas/main/networks/model/contact_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/networks/response/search_contact_response.dart';
+import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,12 +22,12 @@ class CreateRequestLogic extends GetxController {
   String currentPrecinct = "";
   List<AddressModel> listPrecinct = [];
   String currentAddress = "";
-  List<String> listAddress = ["TDP", "Xa", "Phuong"];
   bool isAddContact = true;
   ContactModel contactModel = ContactModel();
   bool isLoading = false;
   String currentName ="";
   String currentPhone = "";
+  bool isCheckAgree = true;
 
   TextEditingController textFieldIdNumber = TextEditingController();
   TextEditingController textFieldPhone = TextEditingController();
@@ -40,6 +41,11 @@ class CreateRequestLogic extends GetxController {
   FocusNode focusPrecinct = FocusNode();
   FocusNode focusAddress = FocusNode();
   RequestModel requestModel = RequestModel();
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+  }
 
   void setIdentityType(String value){
     currentIdentityType = value;
@@ -50,7 +56,6 @@ class CreateRequestLogic extends GetxController {
     currentPrecinct = value;
     update();
   }
-
   void setDistrict(String value){
     currentDistrict = value;
     update();
@@ -109,17 +114,14 @@ class CreateRequestLogic extends GetxController {
       focusAddress.requestFocus();
       return true;
     }
-    if(currentIdentity.isEmpty || currentName.isEmpty|| currentPhone.isEmpty || currentProvince.isEmpty || currentPrecinct.isEmpty || currentDistrict.isEmpty || currentAddress.isEmpty){
-      Get.snackbar("Vui lòng nhập đầy đủ thông tin!","", snackPosition: SnackPosition.BOTTOM);
+    if(!isCheckAgree || currentIdentity.isEmpty || currentName.isEmpty|| currentPhone.isEmpty || currentProvince.isEmpty || currentPrecinct.isEmpty || currentDistrict.isEmpty || currentAddress.isEmpty){
+      Common.showToastCenter("Vui lòng nhập đầy đủ thông tin!");
       return true;
     }
     return false;
   }
 
   void createRequest(Function(bool isSuccess, int id) function) async {
-    if(checkValidateCreate()){
-      return;
-    }
     Map<String, dynamic> body = {
       "address": currentAddress,
       "district": currentDistrict,
@@ -308,6 +310,11 @@ class CreateRequestLogic extends GetxController {
           print("error: " + error.toString());
           callBack.call(false);
         });
+  }
+
+  void setCheckAgree(bool value){
+    isCheckAgree = value;
+    update();
   }
 
 }

@@ -19,7 +19,12 @@ import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ListRequestPage extends GetWidget {
-  // GlobalKey<ListRequestTabState> globalKey = GlobalKey();
+  GlobalKey<ListRequestTabState> globalKey1 = GlobalKey();
+  GlobalKey<ListRequestTabState> globalKey2 = GlobalKey();
+  GlobalKey<ListRequestTabState> globalKey3 = GlobalKey();
+  GlobalKey<ListRequestTabState> globalKey4 = GlobalKey();
+  GlobalKey<ListRequestTabState> globalKey5 = GlobalKey();
+  GlobalKey<ListRequestTabState> globalKey6 = GlobalKey();
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -217,12 +222,12 @@ class ListRequestPage extends GetWidget {
                           controller: controller.tabController,
                           children: [
                             // first tab bar view widget
-                            ListRequestTabPage(status: RequestStatus.CREATE_REQUEST),
-                            ListRequestTabPage(status:RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY),
-                            ListRequestTabPage(status:RequestStatus.CONNECTED),
-                            ListRequestTabPage(status:RequestStatus.DEPLOYING),
-                            ListRequestTabPage(status:RequestStatus.COMPLETE),
-                            ListRequestTabPage(status:RequestStatus.CANCEL),
+                            ListRequestTabPage(status: RequestStatus.CREATE_REQUEST, key: globalKey1,),
+                            ListRequestTabPage(status:RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY, key: globalKey2,),
+                            ListRequestTabPage(status:RequestStatus.CONNECTED, key: globalKey3,),
+                            ListRequestTabPage(status:RequestStatus.DEPLOYING, key: globalKey4,),
+                            ListRequestTabPage(status:RequestStatus.COMPLETE, key: globalKey5,),
+                            ListRequestTabPage(status:RequestStatus.CANCEL, key: globalKey6,),
                           ],
                         )),
                       ],
@@ -267,7 +272,7 @@ class ListRequestPage extends GetWidget {
           return DialogAdvancedSearchPage(
             onSubmit: (model) {
               // if(controller.index == model.getPositionStatus()){
-                controller.updateSearchRequest(model);
+
                 // if(controller.index == model.getPositionStatus()) {
                 //   ListRequestTabPage.of(context)!.getListRequest();
                 // }
@@ -281,7 +286,24 @@ class ListRequestPage extends GetWidget {
               // } else {
               //   controller.updateSearchRequest(model);
               // }
-              // globalKey.currentState!.getListRequest();
+                if(controller.index == model.getPositionStatus()) {
+                  controller.updateSearchRequest(model);
+                  if(controller.index == 0) {
+                    globalKey1.currentState!.getListRequest();
+                  } else if(controller.index == 1){
+                    globalKey2.currentState!.getListRequest();
+                  } else if(controller.index == 2){
+                    globalKey3.currentState!.getListRequest();
+                  } else if(controller.index == 3){
+                    globalKey4.currentState!.getListRequest();
+                  } else if(controller.index == 4){
+                    globalKey5.currentState!.getListRequest();
+                  } else if(controller.index == 5){
+                    globalKey6.currentState!.getListRequest();
+                  }
+                }else {
+                  controller.updateSearchRequest(model);
+                }
             },
            searchRequest: controller.searchRequest);
         });

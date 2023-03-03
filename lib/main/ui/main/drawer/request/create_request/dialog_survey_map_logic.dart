@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
+import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -16,6 +17,7 @@ class DialogSurveyMapLogic extends GetxController{
   double lat = 0;
   double long = 0;
   String requestId;
+  bool isConnect = false;
 
   final Completer<GoogleMapController> controllerMap = Completer<GoogleMapController>();
   late CameraPosition kGooglePlex;
@@ -88,11 +90,21 @@ class DialogSurveyMapLogic extends GetxController{
     return await Geolocator.getCurrentPosition();
   }
 
-  void createSurvey(Function(bool isSuccess) function) async{
+  bool checkValidate(){
     if(currentRadius.isEmpty || currentTechnology.isEmpty){
-      Get.snackbar("Vui lòng nhập đầy đủ thông tin!","", snackPosition: SnackPosition.BOTTOM);
-      return;
+      Common.showToastCenter("Vui lòng nhập đầy đủ thông tin!");
+      return true;
     }
+    int radius = int.parse(currentRadius);
+    if(radius > 500){
+      Common.showToastCenter("Giới hạn radius là 500");
+      return true;
+    }
+    return false;
+  }
+
+  void createSurvey(Function(bool isSuccess) function) async{
+
     Future.delayed(Duration(seconds: 1));
     Map<String, dynamic> body = {
       "requestId": requestId,
@@ -120,5 +132,9 @@ class DialogSurveyMapLogic extends GetxController{
         });
   }
 
+  void setStateConnect(bool value){
+    isConnect = value;
+    update();
+  }
 
 }

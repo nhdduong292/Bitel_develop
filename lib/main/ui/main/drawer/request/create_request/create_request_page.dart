@@ -1,8 +1,10 @@
 
 import 'package:bitel_ventas/main/networks/model/address_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/create_request_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_map_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_map_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_successful.dart';
+import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_images.dart';
@@ -71,29 +73,34 @@ class CreateRequestPage extends GetWidget{
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        iconChecked(),
-                        SizedBox(width: 14,),
-                        Expanded(
-                          flex: 1,
-                            child: RichText(
-                          text: TextSpan(
-                            text: AppLocalizations.of(context)!
-                                .textInfoCreateRequest1,
-                            style: AppStyles.r2.copyWith(color: AppColors.colorText1),
-                            children: const <TextSpan>[
-                              TextSpan(
-                                  text: 'processing of my personal and sensitive data',
-                                  style: TextStyle(color: AppColors.colorUnderText, decoration: TextDecoration.underline)),
-                              TextSpan(
-                                  text: ", with the collection of the same"
-                              )
-                            ],
+                    InkWell(
+                      onTap: () {
+                        controller.setCheckAgree(!controller.isCheckAgree);
+                      },
+                      child: Row(
+                        children: [
+                          controller.isCheckAgree ? iconChecked() : iconUnchecked(),
+                          SizedBox(width: 14,),
+                          Expanded(
+                              flex: 1,
+                              child: RichText(
+                                text: TextSpan(
+                                  text: AppLocalizations.of(context)!
+                                      .textInfoCreateRequest1,
+                                  style: AppStyles.r2.copyWith(color: AppColors.colorText1),
+                                  children: const <TextSpan>[
+                                    TextSpan(
+                                        text: 'processing of my personal and sensitive data',
+                                        style: TextStyle(color: AppColors.colorUnderText, decoration: TextDecoration.underline)),
+                                    TextSpan(
+                                        text: ", with the collection of the same"
+                                    )
+                                  ],
 
-                          ),
-                        ))
-                      ],
+                                ),
+                              ))
+                        ],
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 16, bottom: 10),
@@ -361,6 +368,8 @@ class CreateRequestPage extends GetWidget{
                           controller.getListDistrict(controller.currentProvince, (isSuccess) {
                             Get.back();
                           },);
+                        } else {
+                          // Get.snackbar("Thông báo", "Bạn phải chọn Province trước", snackPosition: SnackPosition.BOTTOM);
                         }
                       },
                       child: Container(
@@ -418,7 +427,8 @@ class CreateRequestPage extends GetWidget{
                             Get.back();
                           },);
 
-
+                        }  else {
+                          // Get.snackbar("Thông báo", "Bạn phải chọn District trước", snackPosition: SnackPosition.BOTTOM);
                         }
                       },
                       child:  Container(
@@ -477,7 +487,7 @@ class CreateRequestPage extends GetWidget{
                           style: AppStyles.r2.copyWith(
                               color: AppColors.colorTitle,
                               fontWeight: FontWeight.w500),
-                          onSubmitted: (value) {
+                          onChanged: (value) {
                             controller.setAddress(value);
                           },
                           decoration: InputDecoration(
@@ -551,13 +561,16 @@ class CreateRequestPage extends GetWidget{
                         ),
                         child: InkWell(
                           onTap: () {
+                            if(controller.checkValidateCreate()) {
+                              return;
+                            }
                             _onLoading(context);
                             controller.createRequest((isSuccess, id) {
                               Get.back();
                               if(isSuccess){
                                 showDialogSurveyMap(context, controller, id);
                               }else {
-                                print("Có lỗi xảy ra");
+                                Common.showToastCenter("Có lỗi xảy ra, vui lòng thử lại sau");
                               }
                             },);
 
@@ -592,6 +605,8 @@ class CreateRequestPage extends GetWidget{
                       Get.back();
                       if(isSuccess){
                         Get.back();
+                        DialogSurveyMapLogic surveyMapLogic = Get.find();
+                        surveyMapLogic.setStateConnect(true);
                       }
                     },);
                } else {
@@ -599,6 +614,8 @@ class CreateRequestPage extends GetWidget{
                       Get.back();
                       if(isSuccess){
                         Get.back();
+                        DialogSurveyMapLogic surveyMapLogic = Get.find();
+                        surveyMapLogic.setStateConnect(true);
                       }
                     },);
                }
@@ -613,9 +630,13 @@ class CreateRequestPage extends GetWidget{
         builder: (context) {
           return DialogSurveyUnsuccessful(
             onSubmit: (){
+                _onLoading(context);
                 controller.createSurveyOffline((isSuccess) {
+                  Get.back();
                   if(isSuccess){
                     Get.back();
+                    DialogSurveyMapLogic surveyMapLogic = Get.find();
+                    surveyMapLogic.setStateConnect(true);
                   }
                 },);
             },);

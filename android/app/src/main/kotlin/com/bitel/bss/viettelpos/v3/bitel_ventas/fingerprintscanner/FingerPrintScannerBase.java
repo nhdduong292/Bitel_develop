@@ -8,6 +8,8 @@ import android.os.Environment;
 import android.util.Log;
 
 
+import com.bitel.bss.viettelpos.v3.bitel_ventas.MainFingerActivity;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -44,9 +46,9 @@ public abstract class FingerPrintScannerBase {
         return context.getString(idRes);
     }
 
-//    protected ViettelActivity getMainActivity(){
-//        return (ViettelActivity)activity;
-//    }
+    protected MainFingerActivity getMainActivity(){
+        return (MainFingerActivity)activity;
+    }
 
     public void onCapture(CaptureFingerListener captureFingerListener) {
         this.captureFingerListener = captureFingerListener;
@@ -134,7 +136,7 @@ public abstract class FingerPrintScannerBase {
 //        }
         // Test code to generate wsq image to local drive to view by http://www.cognaxon.com/index.php?page=wsqview
         String ext_storage_state = Environment.getExternalStorageState();
-        File mediaStorage = new File(Environment.getExternalStorageDirectory() + "/luong");
+        File mediaStorage = new File(Environment.getExternalStorageDirectory() + "/ftth");
         if (ext_storage_state.equalsIgnoreCase(Environment.MEDIA_MOUNTED)) {
             if (!mediaStorage.exists()) {
                 mediaStorage.mkdirs();
@@ -143,7 +145,7 @@ public abstract class FingerPrintScannerBase {
 
         FileOutputStream fos = null;
         try {
-            File myFile = new File(Environment.getExternalStorageDirectory() + "/luong/"+fileName);
+            File myFile = new File(Environment.getExternalStorageDirectory() + "/ftth/"+fileName);
             myFile.createNewFile();
             fos = new FileOutputStream(myFile);
 

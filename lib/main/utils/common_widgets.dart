@@ -730,7 +730,7 @@ Widget spinnerFormV2(
                     style: AppStyles.r2.copyWith(
                         color: AppColors.colorTitle,
                         fontWeight: FontWeight.w500),
-                    onSubmitted: (value) {
+                    onChanged: (value) {
                       function!.call(value);
                     },
                     decoration: InputDecoration(
@@ -1121,3 +1121,6 @@ SvgPicture iconOnlyUnRadio() {
 SvgPicture iconOnlyRadio() {
   return SvgPicture.asset(AppImages.icSelectRadio, height: 20, width: 20,);
 }
+
+
+

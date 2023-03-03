@@ -58,10 +58,10 @@ public class SecugenFingerPrintScanner extends FingerPrintScannerBase implements
     private boolean isSmartCapture = true;
     private boolean usbReceiverRegistered = false;
     private SGAutoOnEventNotifier autoOn;
-    private Context context;
+//    private Context context;
     public SecugenFingerPrintScanner(Context context){
         super(context);
-        this.context = context;
+//        this.context = context;
     }
 
     @Override
@@ -149,7 +149,7 @@ public class SecugenFingerPrintScanner extends FingerPrintScannerBase implements
     @SuppressLint("LongLogTag")
     private void initSecugenDevices(boolean resume){
         if(!resume) {
-            sgfplib = new JSGFPLib((UsbManager) context.getSystemService(Context.USB_SERVICE));
+            sgfplib = new JSGFPLib((UsbManager) getMainActivity().getSystemService(Context.USB_SERVICE));
             sgfplib.WriteData((byte) 0, isCaptureModeN ? (byte) 0 : (byte) 1);
         }
 
@@ -166,6 +166,7 @@ public class SecugenFingerPrintScanner extends FingerPrintScannerBase implements
 //            CommonActivity.createAlertDialog(getMainActivity(),
 //                    getString(R.string.warning_usb_device_not_available),
 //                    getString(R.string.error) ).show();
+            Utilities.showToastMessage(activity, "Không tìm thấy thiết bị lấy dấu vân tay, hay quay lại bước trước và cắm máy vân tay");
         }
     }
 
@@ -203,12 +204,12 @@ public class SecugenFingerPrintScanner extends FingerPrintScannerBase implements
         FINGER_PRINT.reset();
         if (secugenDeviceError != SGFDxErrorCode.SGFDX_ERROR_NONE || usbDevice == null) {
             Log.d(TAG,"error_capture_finger");
-//            getMainActivity().runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    Utilities.showToastMessage(getMainActivity(), getString(R.string.error_capture_finger));
-//                }
-//            });
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Utilities.showToastMessage(activity, "Cannot capture your fingerprint, please try to plugin in a Secugen finger print scanner and restart current flow!");
+                }
+            });
         }
         else {
 

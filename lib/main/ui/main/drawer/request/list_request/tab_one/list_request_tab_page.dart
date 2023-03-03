@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 
 class ListRequestTabPage extends StatefulWidget {
   String status;
-  ListRequestTabPage({required this.status});
+  ListRequestTabPage({required this.status, required Key key}):super(key: key);
 
   // @override
   // Widget build(BuildContext context) {
@@ -92,8 +92,8 @@ class ListRequestTabState extends State<ListRequestTabPage>{
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {
-              // List<String> listArgument = ["${controller.listRequest[index].id}",status];
-              // Get.toNamed(RouteConfig.requestDetail, arguments: listArgument);
+              List<String> listArgument = ["${listRequest[index].id}",status];
+              Get.toNamed(RouteConfig.requestDetail, arguments: listArgument);
             },
             child:
             ListRequestTabItem(listRequest[index]),

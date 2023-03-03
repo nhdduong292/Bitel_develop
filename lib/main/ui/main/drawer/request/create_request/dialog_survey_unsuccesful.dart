@@ -60,24 +60,6 @@ class DialogSurveyUnsuccessful extends StatelessWidget {
                 style: AppStyles.r6.copyWith(
                     color: AppColors.colorText4, fontWeight: FontWeight.w500),
               ),
-              Container(
-                margin: EdgeInsets.only(left: 30),
-                child: RadioListTile(
-                  contentPadding: EdgeInsets.all(0),
-                  activeColor: AppColors.colorText3,
-                  value: 1,
-                  groupValue: 1,
-                  onChanged: (value) {},
-                  title: Transform.translate(
-                    offset: Offset(-15, 0),
-                    child: Text(
-                      AppLocalizations.of(context)!.textCreateOfflineSurvey,
-                      style: AppStyles.r6.copyWith(
-                          color: AppColors.colorText4, fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                ),
-              ),
               InkWell(
                 onTap: () {
                   controller.setSurveyOffline(!controller.isSelectOffline);

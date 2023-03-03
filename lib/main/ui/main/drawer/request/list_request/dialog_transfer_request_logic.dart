@@ -1,6 +1,7 @@
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/reason_model.dart';
+import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:get/get.dart';
 
@@ -49,7 +50,7 @@ class DialogTransferRequestLogic extends GetxController{
 
   void transferRequest(int id, String staffCode, Function(bool isSuccess) callBack) async {
     if(currentStaffCode.isEmpty && currentReason.isEmpty){
-      Get.snackbar("Vui lòng nhập đầy đủ thông tin!","", snackPosition: SnackPosition.BOTTOM);
+      Common.showToastCenter("Vui lòng nhập đầy đủ thông tin!");
       return;
     }
     isLoading = true;

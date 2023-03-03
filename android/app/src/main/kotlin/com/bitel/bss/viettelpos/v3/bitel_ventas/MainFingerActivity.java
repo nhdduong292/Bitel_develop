@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.bitel.bss.viettelpos.v3.bitel_ventas.fingerprintscanner.FingerPrint;
 import com.bitel.bss.viettelpos.v3.bitel_ventas.fingerprintscanner.FingerPrintConstant;
 import com.bitel.bss.viettelpos.v3.bitel_ventas.fingerprintscanner.FingerPrintScannerBase;
 import com.bitel.bss.viettelpos.v3.bitel_ventas.fingerprintscanner.FingerScannerFactory;
+import com.bitel.bss.viettelpos.v3.bitel_ventas.fingerprintscanner.NewFingerPrintScanner;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,6 +34,7 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 
 public class MainFingerActivity extends FlutterActivity {
+    private static final String TAG = "MainFingerActivity";
     private String platformFinger = "bitel.com/finger";
     String nameFinger = "getFinger";
     private MethodChannel channelFinger;
@@ -48,17 +51,18 @@ public class MainFingerActivity extends FlutterActivity {
     @Override
     public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
         super.configureFlutterEngine(flutterEngine);
+
         new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), platformFinger).setMethodCallHandler(new MethodChannel.MethodCallHandler() {
             @Override
             public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
                 if(call.method.equals(nameFinger)){
-                   getImageCapture();
-                    if(bitmap != null) {
-                        result.success(saveImageToCache(bitmap));
-                        bitmap = null;
-                    } else {
-                        result.error("UNAVAILABLE", "Finger not available.", null);
-                    }
+                   getImageCapture(result);
+//                    if(bitmap != null) {
+//                        result.success(saveImageToCache(bitmap));
+//                        bitmap = null;
+//                    } else {
+//                        result.error("UNAVAILABLE", "Finger not available.", null);
+//                    }
                 } else {
                     result.notImplemented();
                 }
@@ -66,25 +70,33 @@ public class MainFingerActivity extends FlutterActivity {
         });
     }
     Bitmap bitmap;
-    void getImageCapture(){
+    void getImageCapture(MethodChannel.Result result){
         if (FingerPrintConstant.IS_BY_PASS_FINGER_PRINT) {
             String wsqLeft = FingerPrintConstant.DUMMY_FINGERPRINT;
             Bitmap fingerPrintImgTest = BitmapFactory.decodeResource(getResources(), R.drawable.fingerprint_test);
             FingerPrintScannerBase.FINGER_PRINT.setEncodeBase64(wsqLeft);
             FingerPrintScannerBase.FINGER_PRINT.setFingerPrintBmp(fingerPrintImgTest);
+            result.error("UNAVAILABLE", "Finger not available.", null);
             return;
         }
 
         if (FingerScannerFactory.fingerPrintScannerImp == null) {
-            showDialog("Error","Your device is not compatible with this version. Please, use Android 6 or lower.","","Cancel");
+            Log.d(TAG,"fingerPrintScannerImp == null");
+            showDialog("Error","Your device is not compatible with this version. Please, use Android 6.123 or lower.","","Cancel");
+            result.error("UNAVAILABLE", "Finger not available.", null);
         } else if (FingerScannerFactory.fingerPrintScannerImp instanceof EmptyFingerPrintScanner) {
+            Log.d(TAG,"fingerPrintScannerImp instanceof EmptyFingerPrintScanner");
             if (((EmptyFingerPrintScanner) FingerScannerFactory.fingerPrintScannerImp).getStatus()
                     == EmptyFingerPrintScanner.STATUS.DEVICE_NOT_FOUND) {
+                Log.d(TAG,"fingerPrintScannerImp instanceof EmptyFingerPrintScanner DEVICE_NOT_FOUND");
                 showDialog("Error","Can\\'t find usb fingerprint scanner. Please go back one step and plugin the device","","Cancel");
             } else {
-                showDialog("Error","Your device is not compatible with this version. Please, use Android 6 or lower.","","Cancel");
+                Log.d(TAG,"fingerPrintScannerImp instanceof EmptyFingerPrintScanner DEVICE");
+                showDialog("Error","Your device is not compatible with this version. Please, use Android 6.1 or lower.","","Cancel");
             }
+            result.error("UNAVAILABLE", "Finger not available.", null);
         } else {
+            Log.d(TAG,"fingerPrintScannerImp.onCapture");
             FingerScannerFactory.fingerPrintScannerImp.onCapture(new FingerPrintScannerBase.CaptureFingerListener() {
                 @Override
                 public void onPreExecute() {
@@ -97,9 +109,12 @@ public class MainFingerActivity extends FlutterActivity {
                     if (fingerPrint != null) {
                         if (fingerPrint.getFingerPrintBmp() != null) {
                             bitmap = fingerPrint.getFingerPrintBmp();
+                            result.success(saveImageToCache(bitmap));
                         } else {
-                            bitmap = null;
+                            result.error("UNAVAILABLE", "Finger not available.", null);
                         }
+                    } else {
+                        result.error("UNAVAILABLE", "Finger not available.", null);
                     }
                 }
 
@@ -109,6 +124,41 @@ public class MainFingerActivity extends FlutterActivity {
                 }
             });
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (FingerScannerFactory.fingerPrintScannerImp != null
+                && FingerScannerFactory.fingerPrintScannerImp instanceof NewFingerPrintScanner) {
+            NewFingerPrintScanner newFingerPrintScanner = (NewFingerPrintScanner) FingerScannerFactory.fingerPrintScannerImp;
+            newFingerPrintScanner.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        try {
+            FingerScannerFactory.fingerPrintScannerImp.onPause();
+        } catch (Exception e) {
+        }
+
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        FingerScannerFactory.onResume();
+        if (FingerScannerFactory.fingerPrintScannerImp != null) {
+            FingerScannerFactory.fingerPrintScannerImp.onResume();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        FingerScannerFactory.onStop();
     }
     private void showDialog(String title, String content, String btnLeft, String btnRight){
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
