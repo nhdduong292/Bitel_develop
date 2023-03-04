@@ -76,6 +76,7 @@ class AppImages {
   static const icLoginUser = 'assets/images/ic_login_user.svg';
   static const icLoginPass = 'assets/images/ic_login_pass.svg';
   static const icLoginShowPass = 'assets/images/ic_login_show_pass.svg';
+  static const icLoginOffPass = 'assets/images/ic_login_off_pass.svg';
   static const icSurveyAddress = 'assets/images/ic_survey_address.svg';
   static const icSurveySuccessful = 'assets/images/ic_survey_successful.svg';
   static const icSurveyUnsuccessful =
@@ -124,6 +125,8 @@ class AppImages {
       "assets/backgrounds/bg_ftth_contracting.svg";
   static const String icSuccessFtthContracting =
       "assets/images/ic_success_ftth_contracting.png";
+  static const String icSelectRadio = "assets/images/ic_select_radio.svg";
+  static const String icUnSelectRadio = "assets/images/ic_unselect_radio.svg";
   static const String icSelectFinger = "assets/icons/ic_select_finger.svg";
   static const String imgFinger = "assets/images/img_finger.png";
   static const String imgFingerPrint = "assets/images/img_finger_print.png";

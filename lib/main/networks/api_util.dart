@@ -5,6 +5,7 @@ import 'api_interceptors.dart';
 class ApiUtil {
   Dio? dio;
   static ApiUtil? _mInstance;
+  CancelToken? cancelToken;
 
   static ApiUtil? getInstance() {
     _mInstance ??= ApiUtil();
@@ -15,9 +16,10 @@ class ApiUtil {
     if (dio == null) {
       dio = Dio();
       dio!.options.connectTimeout = 60000;
-      dio!.options.receiveTimeout = 20000;
+      dio!.options.receiveTimeout = 30000;
       dio!.interceptors.add(ApiInterceptors());
     }
+    cancelToken ??= CancelToken();
   }
 
   void get({
@@ -25,7 +27,11 @@ class ApiUtil {
     Map<String, dynamic> params = const {},
     required Function(BaseResponse response) onSuccess,
     required Function(dynamic error) onError,
+    bool isCancel = false
   }) {
+    // if(isCancel) {
+    //   cancelToken!.cancel();
+    // }
     dio!.get(url, queryParameters: params).then((res) {
       if (onSuccess != null) onSuccess(getBaseResponse(res));
     }).catchError((error) {

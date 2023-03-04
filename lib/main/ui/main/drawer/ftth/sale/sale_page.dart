@@ -1,5 +1,6 @@
 import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/sale/sale_logic.dart';
+import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
@@ -65,7 +66,7 @@ class SalePage extends GetWidget {
                       bottomRight: Radius.elliptical(width / 2, 20))),
             ),
           ),
-          body: SingleChildScrollView(
+          body: controller.isLoading ? SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -230,8 +231,7 @@ class SalePage extends GetWidget {
                                           ? EdgeInsets.all(2)
                                           : EdgeInsets.all(0),
                                       decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
+                                          borderRadius: BorderRadius.circular(4),
                                           color: Colors.white),
                                       child: index == 1
                                           ? Text(
@@ -387,7 +387,7 @@ class SalePage extends GetWidget {
                 )),
               ],
             ),
-          ),
+          ) :Center(child: LoadingCirculApi()),
         );
       },
     );
