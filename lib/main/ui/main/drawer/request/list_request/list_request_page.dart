@@ -25,6 +25,7 @@ class ListRequestPage extends GetWidget {
   GlobalKey<ListRequestTabState> globalKey4 = GlobalKey();
   GlobalKey<ListRequestTabState> globalKey5 = GlobalKey();
   GlobalKey<ListRequestTabState> globalKey6 = GlobalKey();
+  GlobalKey<ListRequestTabState> globalKey7 = GlobalKey();
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -137,35 +138,39 @@ class ListRequestPage extends GetWidget {
                     tabs: [
                       // first tab [you can add an icon using the icon property]
                       Tab(
-                        child: Text("Status 1",
+                        child: Text(AppLocalizations.of(context)!.textCreateRequest,
                             style: AppStyles.r7)
 
                       ),
 
-                      // second tab [you can add an icon using the icon property]
                       Tab(
                         child: Text(
-                            "Status 2",
+                          AppLocalizations.of(context)!.textCreateRequestWithout,
+                            style: AppStyles.r7,)
+                      ),
+                      Tab(
+                          child: Text(
+                            AppLocalizations.of(context)!.textSurveyOfflineSuccess,
                             style: AppStyles.r7,)
                       ),
                       Tab(
                         child: Text(
-                            "Status 3",
+                          AppLocalizations.of(context)!.textConnected,
                             style: AppStyles.r7,)
                       ),
                       Tab(
                         child: Text(
-                            "Status 4",
+                          AppLocalizations.of(context)!.textDeploying,
                             style: AppStyles.r7,)
                       ),
                       Tab(
                         child: Text(
-                            "Status 5",
+                            AppLocalizations.of(context)!.textComplete,
                             style: AppStyles.r7)
                       ),
                       Tab(
                         child: Text(
-                            "Status 6",
+                          AppLocalizations.of(context)!.textCancel,
                             style: AppStyles.r7,
                             ),
                       ),
@@ -224,10 +229,11 @@ class ListRequestPage extends GetWidget {
                             // first tab bar view widget
                             ListRequestTabPage(status: RequestStatus.CREATE_REQUEST, key: globalKey1,),
                             ListRequestTabPage(status:RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY, key: globalKey2,),
-                            ListRequestTabPage(status:RequestStatus.CONNECTED, key: globalKey3,),
-                            ListRequestTabPage(status:RequestStatus.DEPLOYING, key: globalKey4,),
-                            ListRequestTabPage(status:RequestStatus.COMPLETE, key: globalKey5,),
-                            ListRequestTabPage(status:RequestStatus.CANCEL, key: globalKey6,),
+                            ListRequestTabPage(status:RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY, key: globalKey3,),
+                            ListRequestTabPage(status:RequestStatus.CONNECTED, key: globalKey4,),
+                            ListRequestTabPage(status:RequestStatus.DEPLOYING, key: globalKey5,),
+                            ListRequestTabPage(status:RequestStatus.COMPLETE, key: globalKey6,),
+                            ListRequestTabPage(status:RequestStatus.CANCEL, key: globalKey7,),
                           ],
                         )),
                       ],
@@ -300,6 +306,8 @@ class ListRequestPage extends GetWidget {
                     globalKey5.currentState!.getListRequest();
                   } else if(controller.index == 5){
                     globalKey6.currentState!.getListRequest();
+                  } else if(controller.index == 6){
+                    globalKey7.currentState!.getListRequest();
                   }
                 }else {
                   controller.updateSearchRequest(model);

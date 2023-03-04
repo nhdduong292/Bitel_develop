@@ -343,5 +343,12 @@
   "textMonthlyFee": "Monthly fee",
   "textBillingCycle": "Billing cycle",
   "textWorkOrderInformation": "Work order information",
-  "textPassword": "Password"
+  "textPassword": "Password",
+  "textComplete": "Complete",
+  "textCreateRequestWithout": "Create request without survey",
+  "textSurveyOfflineSuccess": "Survey offline successfully",
+  "textConnected": "Connected",
+  "textDeploying": "Deploying"
+
+
   }

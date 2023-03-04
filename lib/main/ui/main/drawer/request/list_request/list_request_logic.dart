@@ -13,7 +13,7 @@ class ListRequestLogic extends GetxController with SingleGetTickerProviderMixin{
   @override
   void onInit() {
     // TODO: implement onInit
-    tabController = TabController(vsync: this, length: 6);
+    tabController = TabController(vsync: this, length: 7);
     super.onInit();
     tabController!.addListener(() {
       print("Position: ${tabController!.index}");
@@ -31,15 +31,18 @@ class ListRequestLogic extends GetxController with SingleGetTickerProviderMixin{
       return RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY;
     }
     else if(index == 2){
-      return RequestStatus.CONNECTED;
+      return RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY;
     }
     else if(index == 3){
-      return RequestStatus.DEPLOYING;
+      return RequestStatus.CONNECTED;
     }
     else if(index == 4){
-      return RequestStatus.COMPLETE;
+      return RequestStatus.DEPLOYING;
     }
     else if(index == 5){
+      return RequestStatus.COMPLETE;
+    }
+    else if(index == 6){
       return RequestStatus.CANCEL;
     }
     return"";

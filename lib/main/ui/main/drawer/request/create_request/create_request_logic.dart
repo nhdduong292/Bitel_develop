@@ -15,11 +15,11 @@ class CreateRequestLogic extends GetxController {
   String currentIdentityType = "DNI";
   String currentIdentity = "";
   List<String> listIdentity = ["DNI", "CE", "PP", "PTP"];
-  String currentProvince = "";
+  AddressModel currentProvince = AddressModel();
   List<AddressModel> listProvince = [];
-  String currentDistrict = "";
+  AddressModel currentDistrict = AddressModel();
   List<AddressModel> listDistrict = [];
-  String currentPrecinct = "";
+  AddressModel currentPrecinct = AddressModel();
   List<AddressModel> listPrecinct = [];
   String currentAddress = "";
   bool isAddContact = true;
@@ -32,6 +32,9 @@ class CreateRequestLogic extends GetxController {
   TextEditingController textFieldIdNumber = TextEditingController();
   TextEditingController textFieldPhone = TextEditingController();
   TextEditingController textFieldName = TextEditingController();
+  TextEditingController textFieldProvince = TextEditingController();
+  TextEditingController textFieldDistrict = TextEditingController();
+  TextEditingController textFieldPrecinct = TextEditingController();
   TextEditingController textFieldAddress = TextEditingController();
   FocusNode focusIdNumber = FocusNode();
   FocusNode focusName = FocusNode();
@@ -52,17 +55,20 @@ class CreateRequestLogic extends GetxController {
     update();
   }
 
-  void setPrecinct(String value){
+  void setPrecinct(AddressModel value){
     currentPrecinct = value;
+    textFieldPrecinct.text = value.name;
     update();
   }
-  void setDistrict(String value){
+  void setDistrict(AddressModel value){
     currentDistrict = value;
+    textFieldDistrict.text = value.name;
     update();
   }
 
-  void setProvince(String value){
+  void setProvince(AddressModel value){
     currentProvince = value;
+    textFieldProvince.text = value.name;
     update();
   }
   void setAddress(String value){
@@ -114,7 +120,7 @@ class CreateRequestLogic extends GetxController {
       focusAddress.requestFocus();
       return true;
     }
-    if(!isCheckAgree || currentIdentity.isEmpty || currentName.isEmpty|| currentPhone.isEmpty || currentProvince.isEmpty || currentPrecinct.isEmpty || currentDistrict.isEmpty || currentAddress.isEmpty){
+    if(!isCheckAgree || currentIdentity.isEmpty || currentName.isEmpty|| currentPhone.isEmpty || currentProvince.areaCode.isEmpty || currentPrecinct.areaCode.isEmpty || currentDistrict.areaCode.isEmpty || currentAddress.isEmpty){
       Common.showToastCenter("Vui lòng nhập đầy đủ thông tin!");
       return true;
     }
@@ -202,10 +208,11 @@ class CreateRequestLogic extends GetxController {
             if(listProvince.isNotEmpty){
               update();
             }
+            function.call(true);
           } else {
             print("error: ${response.status}");
+            function.call(false);
           }
-          function.call(false);
 
         },
         onError: (error) {
@@ -230,10 +237,12 @@ class CreateRequestLogic extends GetxController {
             if(listPrecinct.isNotEmpty){
               update();
             }
+            function.call(true);
           } else {
             print("error: ${response.status}");
+            function.call(false);
           }
-          function.call(false);
+
         },
         onError: (error) {
           print("error: " + error.toString());
@@ -258,10 +267,12 @@ class CreateRequestLogic extends GetxController {
             if(listDistrict.isNotEmpty){
               update();
             }
+            function.call(true);
           } else {
             print("error: ${response.status}");
+            function.call(false);
           }
-          function.call(false);
+
         },
         onError: (error) {
           print("error: " + error.toString());
