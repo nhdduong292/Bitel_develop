@@ -224,6 +224,11 @@ class AppStyles {
       fontSize: 12,
       color: AppColors.color_2B3A4A,
       fontWeight: FontWeight.w500);
+  static TextStyle b384858_14_500 = TextStyle(
+      fontFamily: AppFonts.Barlow,
+      fontSize: 14,
+      color: AppColors.color_384858,
+      fontWeight: FontWeight.w500);
 
   static TextStyle rText2_13_400 = TextStyle(
       fontFamily: AppFonts.Barlow,

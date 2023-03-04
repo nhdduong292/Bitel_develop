@@ -1,4 +1,4 @@
-class CustomerModel{
+class CustomerModel {
   String? _custId;
   String? _firstName;
   String? _fullName;

@@ -1,3 +1,6 @@
+import 'package:bitel_ventas/main/networks/api_end_point.dart';
+import 'package:bitel_ventas/main/networks/api_util.dart';
+import 'package:bitel_ventas/main/networks/response/product_response.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -9,6 +12,7 @@ class ProductPaymentMethodLogic extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    getProduts();
   }
 
   final ItemScrollController scrollController = ItemScrollController();
@@ -19,6 +23,9 @@ class ProductPaymentMethodLogic extends GetxController {
   var isOnInvoicePage = false.obs;
   var isSelectedMethod = false.obs;
   var isSelectedProduct = false.obs;
+
+  var valueProduct = (-1).obs;
+  var valueMethod = (-1).obs;
 
   ProductModel selectedProduct = ProductModel();
   void setSelectedProduct(ProductModel product) {
@@ -32,28 +39,7 @@ class ProductPaymentMethodLogic extends GetxController {
     update();
   }
 
-  List<ProductModel> listProduct = [
-    ProductModel(
-        name: 'BITELFIBRA 100',
-        desc: 'Bitelfibra 100',
-        speed: '100.00 Mpbs',
-        price: '89/month'),
-    ProductModel(
-        name: 'BITELFIBRA 100',
-        desc: 'Bitelfibra 100',
-        speed: '100.00 Mpbs',
-        price: '89/month'),
-    ProductModel(
-        name: 'BITELFIBRA 100',
-        desc: 'Bitelfibra 100',
-        speed: '100.00 Mpbs',
-        price: '89/month'),
-    ProductModel(
-        name: 'BITELFIBRA 100',
-        desc: 'Bitelfibra 100',
-        speed: '100.00 Mpbs',
-        price: '89/month'),
-  ];
+  List<ProductModel> listProduct = [];
 
   List<MethodModel> listMethod = [
     MethodModel(
@@ -72,4 +58,21 @@ class ProductPaymentMethodLogic extends GetxController {
         reasonCodeName: '093020',
         price: '89/month'),
   ];
+
+  void getProduts() {
+    ApiUtil.getInstance()!.get(
+      url: '${ApiEndPoints.API_LIST_PRODUCT}/54',
+      onSuccess: (response) {
+        if (response.isSuccess) {
+          listProduct = (response.data as List)
+              .map((postJson) => ProductModel.fromJson(postJson))
+              .toList();
+          update();
+        } else {
+          print("error: ${response.status}");
+        }
+      },
+      onError: (error) {},
+    );
+  }
 }

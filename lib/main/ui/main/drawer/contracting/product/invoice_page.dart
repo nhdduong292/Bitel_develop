@@ -101,7 +101,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              controller.selectedProduct.name ?? 'null',
+                              controller.selectedProduct.productName ?? 'null',
                               style: const TextStyle(
                                   fontSize: 14,
                                   fontFamily: 'Roboto',
@@ -109,7 +109,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                                   fontWeight: FontWeight.w500),
                             ),
                             Text(
-                              controller.selectedProduct.desc ?? 'null',
+                              controller.selectedProduct.offerName ?? 'null',
                               style: const TextStyle(
                                   fontSize: 14,
                                   fontFamily: 'Roboto',
@@ -135,7 +135,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
-                          controller.selectedProduct.price ?? 'null',
+                          controller.selectedProduct.defaultValue ?? 'null',
                           style: const TextStyle(
                               fontSize: 16,
                               fontFamily: 'Roboto',
@@ -219,9 +219,11 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
             text: AppLocalizations.of(context)!.textContinue,
             onTap: () {
               if (true) {
-                showDialog(context: context, builder: (context) {
-                  return const RechargeDialog(height: 340);
-                });
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return const RechargeDialog(height: 340);
+                    });
               }
             },
           ),
@@ -266,8 +268,8 @@ class RechargeDialog extends Dialog {
       alignment: Alignment.bottomCenter,
       insetPadding: const EdgeInsets.only(bottom: 24, left: 20, right: 20),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: Wrap(
-        children:[ Column(
+      child: Wrap(children: [
+        Column(
           children: [
             const SizedBox(
               height: 22,
@@ -312,10 +314,12 @@ class RechargeDialog extends Dialog {
                         onTap: () => Get.back()))
               ],
             ),
-            const SizedBox(height: 20,)
+            const SizedBox(
+              height: 20,
+            )
           ],
-        ),]
-      ),
+        ),
+      ]),
     );
   }
 }

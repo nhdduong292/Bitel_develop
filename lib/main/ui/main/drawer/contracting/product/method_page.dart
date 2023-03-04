@@ -58,7 +58,12 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                     primary: false,
                     itemBuilder: (BuildContext context, int index) =>
                         _itemProduct(
-                            controller.listProduct[index], controller, context),
+                            groupValue: controller.valueProduct,
+                            product: controller.listProduct[index],
+                            value: index,
+                            onChange: (value) {
+                              controller.valueProduct.value = value;
+                            }),
                     separatorBuilder: (BuildContext context, int index) =>
                         const Divider(
                           color: AppColors.colorLineDash,
@@ -107,7 +112,12 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                     primary: false,
                     itemBuilder: (BuildContext context, int index) =>
                         _itemMethod(
-                            controller.listMethod[index], controller, context),
+                            groupValue: controller.valueMethod,
+                            method: controller.listMethod[index],
+                            value: index,
+                            onChange: (value) {
+                              controller.valueMethod.value = value;
+                            }),
                     separatorBuilder: (BuildContext context, int index) =>
                         const Divider(
                           color: AppColors.colorLineDash,
@@ -146,18 +156,16 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
   }
 }
 
-Widget _itemProduct(ProductModel product, ProductPaymentMethodLogic controller,
-    BuildContext context) {
+Widget _itemProduct(
+    {required int value,
+    required ProductModel product,
+    required RxInt groupValue,
+    required var onChange}) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
     child: InkWell(
       onTap: () {
-        controller.isSelectedProduct.value = true;
-        controller.setSelectedProduct(product);
-        for (ProductModel item in controller.listProduct) {
-          item.isSelected.value = false;
-        }
-        product.isSelected.value = true;
+        groupValue.value != value ? onChange(value) : onChange(-1);
       },
       splashColor: Colors.black38,
       child: Expanded(
@@ -165,7 +173,7 @@ Widget _itemProduct(ProductModel product, ProductPaymentMethodLogic controller,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Obx(() =>
-                product.isSelected.value ? iconChecked() : iconUnchecked()),
+                groupValue.value == value ? iconChecked() : iconUnchecked()),
             const SizedBox(
               width: 16,
             ),
@@ -174,7 +182,7 @@ Widget _itemProduct(ProductModel product, ProductPaymentMethodLogic controller,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    product.name ?? 'null',
+                    product.productName ?? 'null',
                     style: const TextStyle(
                         fontSize: 14,
                         fontFamily: 'Roboto',
@@ -182,7 +190,7 @@ Widget _itemProduct(ProductModel product, ProductPaymentMethodLogic controller,
                         fontWeight: FontWeight.w500),
                   ),
                   Text(
-                    product.desc ?? 'null',
+                    product.offerName ?? 'null',
                     style: const TextStyle(
                         fontSize: 14,
                         fontFamily: 'Roboto',
@@ -201,7 +209,7 @@ Widget _itemProduct(ProductModel product, ProductPaymentMethodLogic controller,
               ),
             ),
             Text(
-              product.price ?? 'null',
+              product.defaultValue ?? 'null',
               style: const TextStyle(
                   fontSize: 14,
                   fontFamily: 'Roboto',
@@ -215,18 +223,16 @@ Widget _itemProduct(ProductModel product, ProductPaymentMethodLogic controller,
   );
 }
 
-Widget _itemMethod(MethodModel method, ProductPaymentMethodLogic controller,
-    BuildContext context) {
+Widget _itemMethod(
+    {required int value,
+    required MethodModel method,
+    required RxInt groupValue,
+    required var onChange}) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
     child: InkWell(
       onTap: () {
-        controller.isSelectedMethod.value = true;
-        controller.setSelectedMethod(method);
-        for (MethodModel item in controller.listMethod) {
-          item.isSelected.value = false;
-        }
-        method.isSelected.value = true;
+        groupValue.value != value ? onChange(value) : onChange(-1);
       },
       splashColor: Colors.black38,
       child: Expanded(
@@ -234,7 +240,7 @@ Widget _itemMethod(MethodModel method, ProductPaymentMethodLogic controller,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Obx(() =>
-                method.isSelected.value ? iconChecked() : iconUnchecked()),
+                groupValue.value == value ? iconChecked() : iconUnchecked()),
             const SizedBox(
               width: 16,
             ),

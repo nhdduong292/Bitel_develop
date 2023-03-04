@@ -337,6 +337,20 @@
   "textClose" : "Close",
   "textDocumentsWereSentTo" : "Documents were sent to",
   "textViewDetail" : "View detail",
+  "textAddressCustomerInfo" : "Address",
+  "textRegister" : "Register",
+  "textLeft" : "Left",
+  "textRight" : "Right",
+  "textThumb" : "Thumb",
+  "textIndex" : "Index",
+  "textMiddle" : "Middle",
+  "textRing" : "Ring",
+  "textLittle" : "Little",
+  "textRegisterFingerprintWith" : "Register fingerprint with reader: ",
+  "textTimes" : "times",
+  "textClickHereTo" : "CLICK HERE TO REGISTER START AGAIN",
+  "textDigitalFingerprint" : "Digital fingerprint",
+  "textRegisterFingerPrint" : "Register finger print",
   "textID": "ID",
   "textSubscriptionInformation": "Subscription information",
   "textPlan": "Plan",
@@ -348,7 +362,6 @@
   "textCreateRequestWithout": "Create request without survey",
   "textSurveyOfflineSuccess": "Survey offline successfully",
   "textConnected": "Connected",
-  "textDeploying": "Deploying"
-
-
+  "textDeploying": "Deploying",
+  "textYourBestFingerprint" : "Your best fingerprint"
   }
