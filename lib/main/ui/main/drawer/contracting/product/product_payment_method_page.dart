@@ -126,7 +126,9 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                         )),
                   ],
                 ),
-                const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 Expanded(
                   child: ScrollablePositionedList.builder(
                       scrollDirection: Axis.horizontal,

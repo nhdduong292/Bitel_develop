@@ -33,6 +33,19 @@ class ApiUtil {
     });
   }
 
+  void getPDF({
+    required String url,
+    Map<String, dynamic> params = const {},
+    required Function(Response success) onSuccess,
+    required Function(dynamic error) onError,
+  }) {
+    dio!.get(url, queryParameters: params).then((res) {
+      if (onSuccess != null) onSuccess(res);
+    }).catchError((error) {
+      if (onError != null) onError(error);
+    });
+  }
+
   void put({
     required String url,
     Map<String, dynamic>? body,
@@ -41,11 +54,15 @@ class ApiUtil {
     required Function(BaseResponse response) onSuccess,
     required Function(dynamic error) onError,
   }) {
-    dio!.put(url,
+    dio!
+        .put(
+      url,
       queryParameters: params,
       data: body,
-      options: Options(responseType: ResponseType.json, contentType: contentType),
-    ).then((res) {
+      options:
+          Options(responseType: ResponseType.json, contentType: contentType),
+    )
+        .then((res) {
       if (onSuccess != null) onSuccess(getBaseResponse(res));
     }).catchError((error) {
       if (onError != null) onError(error);
@@ -60,11 +77,15 @@ class ApiUtil {
     required Function(BaseResponse response) onSuccess,
     required Function(dynamic error) onError,
   }) {
-    dio!.post(url,
-        queryParameters: params,
-        data: body,
-        options: Options(responseType: ResponseType.json, contentType: contentType),
-    ).then((res) {
+    dio!
+        .post(
+      url,
+      queryParameters: params,
+      data: body,
+      options:
+          Options(responseType: ResponseType.json, contentType: contentType),
+    )
+        .then((res) {
       if (onSuccess != null) onSuccess(getBaseResponse(res));
     }).catchError((error) {
       if (onError != null) onError(error);

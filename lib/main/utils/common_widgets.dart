@@ -177,6 +177,83 @@ Widget inputFormV2(
   );
 }
 
+Widget inputFormV3(
+    {required String label,
+    required String hint,
+    required bool required,
+    required TextInputType inputType,
+    String? textDefalut,
+    required double width}) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: [
+      Expanded(
+        child: Container(
+          margin: EdgeInsets.only(left: 20, top: 15),
+          alignment: Alignment.topLeft,
+          child: RichText(
+            text: TextSpan(
+              text: label,
+              style: TextStyle(
+                color: AppColors.colorText1,
+                fontFamily: 'Roboto',
+                fontSize: 14,
+              ),
+              children: [
+                TextSpan(
+                    text: required ? ' *' : '',
+                    style: TextStyle(
+                      color: AppColors.colorTextError,
+                      fontFamily: 'Roboto',
+                      fontSize: 14,
+                    )),
+              ],
+            ),
+          ),
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.only(left: 15, right: 15, top: 15),
+        child: SizedBox(
+          height: 45,
+          width: width,
+          child: TextField(
+            controller: TextEditingController(text: textDefalut),
+            style: TextStyle(
+                fontSize: 18,
+                fontFamily: 'Roboto',
+                color: Color(0xFF415263),
+                fontWeight: FontWeight.w500),
+            keyboardType: inputType,
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(horizontal: 15),
+              hintText: hint,
+              hintStyle: TextStyle(
+                  fontSize: 18,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w300),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(24),
+                borderSide: BorderSide(
+                  color: Color(0xFFE3EAF2),
+                  width: 1,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(24),
+                borderSide: BorderSide(
+                  color: Color(0xFFE3EAF2),
+                  width: 1,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
 Widget spinnerForm(
     {required BuildContext context,
     required String label,
@@ -709,9 +786,8 @@ Widget spinnerFormV2(
     TextInputType inputType = TextInputType.text,
     TextEditingController? controlTextField,
     TextInputAction? typeAction,
-  Function(String value)? function,
-  FocusNode? focusNode
-}) {
+    Function(String value)? function,
+    FocusNode? focusNode}) {
   return Column(
     children: [
       Container(
