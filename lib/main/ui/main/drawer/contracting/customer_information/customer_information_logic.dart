@@ -22,6 +22,9 @@ class CustomerInformationLogic extends GetxController {
   var titleScreen = 'Customer information'.obs;
   var isUpdate = false.obs;
   var signDate = ''.obs;
+  var path = '';
+  var checkOption = false.obs;
+
   CustomerModel customer = CustomerModel();
   CustomerInformationLogic({required this.context});
 
@@ -30,6 +33,8 @@ class CustomerInformationLogic extends GetxController {
     // TODO: implement onInit
     super.onInit();
     getCustomer();
+    fromAsset('assets/demo-link.pdf', 'demo.pdf')
+        .then((value) => {path = value.path});
   }
 
   void getCurrentTime() {
@@ -173,6 +178,11 @@ class CustomerInformationLogic extends GetxController {
   //   }
 
   //   return completer.future;
+  // }
+
+  // void setPath() {
+  //   fromAsset('assets/demo-link.pdf', 'demo.pdf')
+  //       .then((value) => {path.value = value.path});
   // }
 
   Future<File> fromAsset(String asset, String filename) async {
