@@ -8,6 +8,7 @@ import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -16,6 +17,7 @@ import 'package:intl/intl.dart';
 import '../../../../../../../../res/app_colors.dart';
 import '../../../../../../../router/route_config.dart';
 import '../../../../../../../utils/common_widgets.dart';
+import '../../test_pdf.dart';
 import '../contract_preview/contract_preview.dart';
 import 'contract_information_logic.dart';
 
@@ -222,19 +224,19 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                         onTap: () {
                           controller.createContract();
                           controller
-                              .fromAsset('assets/demo_link.pdf', 'demo.pdf')
-                              .then((value) => {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => PDFScreen(
-                                          path: value.path,
-                                        ),
-                                      ),
-                                    )
-                                  });
+                              .fromAsset('assets/demo-link.pdf', 'demo.pdf')
+                              .then((value) {
+                            Get.to(PDFScreen(
+                              path: value.path,
+                            ));
+                            // controller.path.value = value.path;
 
-                          callback();
+                            callback();
+                          });
+
+                          // controller.setPath();
+
+                          // callback();
                         },
                         text: AppLocalizations.of(context)!
                             .textContinue

@@ -134,8 +134,8 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
             () => bottomButton(
                 text: AppLocalizations.of(context)!.textContinue,
                 onTap: () {
-                  if (controller.isSelectedMethod.value &&
-                      controller.isSelectedProduct.value) {
+                  if (controller.valueMethod.value > -1 &&
+                      controller.valueProduct.value > -1) {
                     controller.isOnMethodPage.value = false;
                     controller.isOnInvoicePage.value = true;
                     controller.scrollController.scrollTo(
@@ -144,8 +144,8 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                     );
                   }
                 },
-                color: !controller.isSelectedMethod.value ||
-                        !controller.isSelectedProduct.value
+                color: !(controller.valueMethod.value > -1 &&
+                        controller.valueProduct.value > -1)
                     ? const Color(0xFF415263).withOpacity(0.2)
                     : null),
           ),

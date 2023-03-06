@@ -108,6 +108,9 @@ class AppImages {
       "assets/images/ic_sale_recharge_anypay.svg";
   static const String icSaleSearchRequest =
       "assets/images/ic_sale_search_request.svg";
+  static const String imgIdentity = 'assets/images/img_identity_demo.svg';
+  static const String icCameraRound = "assets/images/ic_camera_round.svg";
+  static const String icBorderIdentity = "assets/images/ic_border_identity.svg";
   static const String icSaleClearDebt = "assets/images/ic_sale_clear_debt.svg";
   static const String icSaleCreateContact =
       "assets/images/ic_sale_create_contact.svg";

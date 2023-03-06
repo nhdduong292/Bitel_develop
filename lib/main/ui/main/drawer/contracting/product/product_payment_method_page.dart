@@ -140,8 +140,7 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                         if (index == 0) {
                           return MethodPage(controller: controller);
                         } else {
-                          // return InvoicePage(controller: controller);
-                          return Container();
+                          return InvoicePage(controller: controller);
                         }
                       }),
                 ),
