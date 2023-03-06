@@ -78,16 +78,6 @@ class DrawerPage extends GetView<DrawerLogic> {
                                           .listItem![index].selectedImg
                                           : controller.listItem![index]
                                           .unselectedImg),
-                                      // Image(
-                                      //   image: Svg(
-                                      //       controller.listItem![index].isSelected
-                                      //           ? controller
-                                      //           .listItem![index].selectedImg
-                                      //           : controller.listItem![index]
-                                      //           .unselectedImg),
-                                      //   width: 26,
-                                      //   height: 26,
-                                      // ),
                                       Padding(padding: EdgeInsets.only(left: 20)),
                                       Text(
                                         controller.listItem![index].label,

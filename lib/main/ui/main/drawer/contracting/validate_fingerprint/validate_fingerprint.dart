@@ -1,4 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'dart:io';
+
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/validate_fingerprint/validate_fingerprint_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -179,7 +181,7 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                             SizedBox(
                               height: 41,
                             ),
-                            SvgPicture.asset(AppImages.imgHuellaDactilar),
+                            controller.textCapture.isNotEmpty ? Image.file(File(controller.textCapture), width: 80, height: 160,) : SvgPicture.asset(AppImages.imgHuellaDactilar),
                             SizedBox(
                               height: 22,
                             ),
@@ -192,7 +194,9 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                 Expanded(
                                     flex: 1,
                                     child: bottomButtonV2(
-                                        onTap: () {},
+                                        onTap: () {
+                                          controller.getCapture();
+                                        },
                                         text: AppLocalizations.of(context)!
                                             .textCapture
                                             .toUpperCase())),
@@ -217,4 +221,6 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
           );
         });
   }
+
+
 }

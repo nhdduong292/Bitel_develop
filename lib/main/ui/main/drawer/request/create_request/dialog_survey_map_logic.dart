@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
+import 'package:bitel_ventas/main/utils/common.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -14,6 +16,8 @@ class DialogSurveyMapLogic extends GetxController{
   String currentRadius = "";
   double lat = 0;
   double long = 0;
+  String requestId;
+  bool isConnect = false;
 
   final Completer<GoogleMapController> controllerMap = Completer<GoogleMapController>();
   late CameraPosition kGooglePlex;
@@ -25,6 +29,7 @@ class DialogSurveyMapLogic extends GetxController{
   Set<Marker> markers = Set<Marker>();
 
 
+  DialogSurveyMapLogic({required this.requestId});
 
   @override
   void onInit() {
@@ -85,12 +90,26 @@ class DialogSurveyMapLogic extends GetxController{
     return await Geolocator.getCurrentPosition();
   }
 
-  void createSurvey(Function(bool isSuccess) function){
+  bool checkValidate(){
     if(currentRadius.isEmpty || currentTechnology.isEmpty){
-      Get.snackbar("Vui lòng nhập đầy đủ thông tin!","", snackPosition: SnackPosition.BOTTOM);
-      return;
+      Common.showToastCenter("Vui lòng nhập đầy đủ thông tin!");
+      return true;
     }
-    String requestId = const Uuid().v4();
+    int radius = int.parse(currentRadius);
+    if(currentTechnology == "GPON" && (radius > 500 || radius < 1)){
+      Common.showToastCenter("Giới hạn radius là 500");
+      return true;
+    }
+    if(currentTechnology == "AON" && (radius > 300 || radius < 1)){
+      Common.showToastCenter("Giới hạn radius là 300");
+      return true;
+    }
+    return false;
+  }
+
+  void createSurvey(Function(bool isSuccess) function) async{
+
+    Future.delayed(Duration(seconds: 1));
     Map<String, dynamic> body = {
       "requestId": requestId,
       "lat": "$lat",
@@ -98,6 +117,7 @@ class DialogSurveyMapLogic extends GetxController{
       "type": currentTechnology,
       "radius": currentRadius
     };
+    print("post");
     ApiUtil.getInstance()!.post(
         url: ApiEndPoints.API_SURVEY,
         body: body,
@@ -115,4 +135,10 @@ class DialogSurveyMapLogic extends GetxController{
           function.call(false);
         });
   }
+
+  void setStateConnect(bool value){
+    isConnect = value;
+    update();
+  }
+
 }

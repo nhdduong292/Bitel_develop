@@ -17,8 +17,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 
 class DialogSurveyMapPage extends GetWidget {
-  final Function? onSubmit;
-  DialogSurveyMapPage({super.key, this.onSubmit});
+  final Function(bool isSuccess) onSubmit;
+  String requestId;
+  DialogSurveyMapPage({super.key, required this.onSubmit, required this.requestId});
 
 
 
@@ -27,7 +28,7 @@ class DialogSurveyMapPage extends GetWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: DialogSurveyMapLogic(),
+      init: DialogSurveyMapLogic(requestId: requestId),
       builder: (controller) {
       return Dialog(
         shape: RoundedRectangleBorder(
@@ -134,7 +135,7 @@ class DialogSurveyMapPage extends GetWidget {
                           margin: EdgeInsets.only(top: 30),
                           padding: EdgeInsets.symmetric(vertical: 14),
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: controller.isConnect ? AppColors.colorButton :Colors.white,
                             borderRadius: BorderRadius.circular(24),
                             boxShadow: [
                               BoxShadow(
@@ -147,12 +148,13 @@ class DialogSurveyMapPage extends GetWidget {
 
                           child: InkWell(
                             onTap: () {
-                              Get.back();
+                              if(controller.isConnect){
+                              }
                             },
                             child:  Center(
                                 child: Text(
                                   AppLocalizations.of(context)!.textConnect.toUpperCase(),
-                                  style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
+                                  style: controller.isConnect ? AppStyles.r5.copyWith(fontWeight: FontWeight.w500) : AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
                                 )),
                           ),
                         )),
@@ -164,26 +166,32 @@ class DialogSurveyMapPage extends GetWidget {
                           margin: EdgeInsets.only(top: 30),
                           padding: EdgeInsets.symmetric(vertical: 14),
                           decoration: BoxDecoration(
-                            color: AppColors.colorButton,
+                            color: controller.isConnect ? Colors.white: AppColors.colorButton,
                             borderRadius: BorderRadius.circular(24),
+                            boxShadow: [
+                              BoxShadow(
+                                offset: Offset(0, 1),
+                                blurRadius: 2,
+                                color: Colors.black.withOpacity(0.3),
+                              ),
+                            ],
                           ),
                           child: InkWell(
                             onTap: () {
-                              Future.delayed(Duration(seconds: 1));
+                              if(controller.checkValidate() || controller.isConnect){
+                                return;
+                              }
+                              _onLoading(context);
                               controller.createSurvey((isSuccess) {
-                                  bool isSurveyOnline = true;
-                                  if(isSurveyOnline){
-                                    showDialogSurveySuccessful(context);
-                                  } else {
-                                    showDialogSurveyUnsuccessful(context);
-                                  }
+                                  Get.back();
+                                  onSubmit.call(isSuccess);
                               },);
                               // onSubmit!.call();
                             },
                             child:  Center(
                                 child: Text(
                                   AppLocalizations.of(context)!.textSurvey.toUpperCase(),
-                                  style: AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
+                                  style: controller.isConnect ? AppStyles.r1.copyWith(fontWeight: FontWeight.w500) : AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
                                 )),
                           ),
                         ))
@@ -197,27 +205,41 @@ class DialogSurveyMapPage extends GetWidget {
     },);
   }
 
-  void showDialogSurveySuccessful(BuildContext context){
+  void _onLoading(BuildContext context) {
     showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return DialogSurveySuccessful(
-            onSubmit: (){
-              // controller.createRequest();
-            },);
-        });
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
+      },
+    );
+  }
+
+  void showDialogSurveySuccessful(BuildContext context){
+    // showDialog(
+    //     barrierDismissible: false,
+    //     context: context,
+    //     builder: (context) {
+    //       return DialogSurveySuccessful(
+    //         onSubmit: (){
+    //           // controller.createRequest();
+    //         },);
+    //     });
   }
 
   void showDialogSurveyUnsuccessful(BuildContext context){
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return DialogSurveyUnsuccessful(
-            onSubmit: (){
-              // controller.createRequest();
-            },);
-        });
+    // showDialog(
+    //     barrierDismissible: false,
+    //     context: context,
+    //     builder: (context) {
+    //       return DialogSurveyUnsuccessful(
+    //         onSubmit: (){
+    //           // controller.createRequest();
+    //         },);
+    //     });
   }
 }

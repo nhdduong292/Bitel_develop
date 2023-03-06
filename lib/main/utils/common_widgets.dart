@@ -17,7 +17,7 @@ import '../ui/main/activate_prepaid_pages/activate_prepaid_logic.dart';
 Icon iconUnchecked() {
   return Icon(
     Icons.circle_outlined,
-    color: Color(0xFF87A0B3),
+    color: Color(0xFF29BDBE),
     size: 20,
   );
 }
@@ -25,7 +25,7 @@ Icon iconUnchecked() {
 Icon iconChecked() {
   return Icon(
     Icons.check_circle,
-    color: Color(0xFF87A0B3),
+    color: Color(0xFF29BDBE),
     size: 20,
   );
 }
@@ -806,7 +806,7 @@ Widget spinnerFormV2(
                     style: AppStyles.r2.copyWith(
                         color: AppColors.colorTitle,
                         fontWeight: FontWeight.w500),
-                    onSubmitted: (value) {
+                    onChanged: (value) {
                       function!.call(value);
                     },
                     decoration: InputDecoration(
@@ -1189,3 +1189,14 @@ Widget customRadioMutiple(
     ]),
   );
 }
+
+SvgPicture iconOnlyUnRadio() {
+  return SvgPicture.asset(AppImages.icUnSelectRadio, height: 20, width: 20,);
+}
+
+SvgPicture iconOnlyRadio() {
+  return SvgPicture.asset(AppImages.icSelectRadio, height: 20, width: 20,);
+}
+
+
+

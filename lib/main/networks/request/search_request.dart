@@ -1,7 +1,7 @@
 import 'package:bitel_ventas/main/utils/values.dart';
 
 class SearchRequest {
-  String service = "";
+  String service = "FTTH";
   String code = "";
   String status = "";
   String province = "";

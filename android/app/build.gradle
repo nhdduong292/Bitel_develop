@@ -53,10 +53,14 @@ android {
         applicationId "com.bitel.bss.viettelpos.v3"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion 20
+        minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+
+//        multiDexEnabled true
+//        ndk.abiFilters 'armeabi-v7a','arm64-v8a','x86','x86_64'
+//        vectorDrawables.useSupportLibrary = true
     }
 
     signingConfigs {
@@ -83,5 +87,10 @@ flutter {
 }
 
 dependencies {
+    implementation fileTree(include: '*.jar', dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation project(':ftrScanApiAndroidHelperUsbHost')
+    implementation project(':ftrWsqAndroidHelper')
+    implementation project(':libBioMini')
+    implementation 'io.reactivex:rxjava:1.1.6'
 }

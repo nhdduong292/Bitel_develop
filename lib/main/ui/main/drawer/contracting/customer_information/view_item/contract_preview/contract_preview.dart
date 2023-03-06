@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:bitel_ventas/main/router/route_config.dart';
 import 'dart:async';
 import 'dart:typed_data';
 
@@ -71,17 +72,28 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 16),
-                  child: Text(
-                    AppLocalizations.of(context)!.textMainContract,
-                    style: AppStyles.rU9454C9_12_500,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 16),
-                  child: Text(AppLocalizations.of(context)!.textLendingContract,
-                      style: AppStyles.rU9454C9_12_500),
+                      InkWell(
+                        onTap: () {
+                          Get.toNamed(RouteConfig.validateFingerprint);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16),
+                          child: Text(
+                            AppLocalizations.of(context)!.textMainContract,
+                            style: AppStyles.rU9454C9_12_500,
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Get.toNamed(RouteConfig.validateFingerprint);
+                        },
+                        child:Padding(
+                          padding: const EdgeInsets.only(right: 16),
+                          child: Text(
+                              AppLocalizations.of(context)!.textLendingContract,
+                              style: AppStyles.rU9454C9_12_500),
+                        ),
                 )
               ],
             ),

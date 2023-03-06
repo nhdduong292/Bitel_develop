@@ -60,6 +60,7 @@ dependencies:
   geolocator: ^9.0.2
   uuid: ^3.0.7
   flutter_keyboard_visibility: ^5.4.0
+  fluttertoast: ^8.2.1
   path_provider: ^2.0.13
   flutter_pdfview: ^1.2.5
 

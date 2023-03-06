@@ -22,6 +22,7 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
       width: MediaQuery.of(context).size.width,
       child: SingleChildScrollView(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
         children: [
           Container(
             margin: const EdgeInsets.only(left: 15, right: 15),
@@ -35,6 +36,7 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                   BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
                 ]),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   AppLocalizations.of(context)!.textSelectProduct,
@@ -170,14 +172,17 @@ Widget _itemProduct(
       splashColor: Colors.black38,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
         children: [
           Obx(() =>
-              groupValue.value == value ? iconChecked() : iconUnchecked()),
+          groupValue.value == value ? iconChecked() : iconUnchecked()),
           const SizedBox(
             width: 16,
           ),
           Expanded(
+            flex: 1,
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -234,14 +239,16 @@ Widget _itemMethod(
       },
       splashColor: Colors.black38,
       child: Row(
+        mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Obx(() =>
-              groupValue.value == value ? iconChecked() : iconUnchecked()),
+          groupValue.value == value ? iconChecked() : iconUnchecked()),
           const SizedBox(
             width: 16,
           ),
           Expanded(
+            flex: 1,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
