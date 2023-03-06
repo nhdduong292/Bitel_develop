@@ -4,7 +4,6 @@ import 'package:get/get.dart' hide Response;
 
 import '../utils/logger.dart';
 
-
 class ApiInterceptors extends InterceptorsWrapper {
   @override
   void onRequest(

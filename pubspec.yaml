@@ -57,6 +57,9 @@ dependencies:
   dropdown_button2: ^1.9.2
   expandable: ^5.0.1
   multiselect: ^0.0.7
+  camera: ^0.9.7+1
+  image_picker: ^0.8.6+3
+  image_cropper:
   geolocator: ^9.0.2
   uuid: ^3.0.7
   flutter_keyboard_visibility: ^5.4.0
