@@ -5,6 +5,7 @@ import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/dialog_can
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/dialog_transfer_request_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/tab_one/list_request_tab_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/tab_two/tab_two_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/tab_two/tab_two_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/tab_one/list_request_tab_page.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
@@ -18,6 +19,13 @@ import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ListRequestPage extends GetWidget {
+  GlobalKey<ListRequestTabState> globalKey1 = GlobalKey();
+  GlobalKey<ListRequestTabState> globalKey2 = GlobalKey();
+  GlobalKey<ListRequestTabState> globalKey3 = GlobalKey();
+  GlobalKey<ListRequestTabState> globalKey4 = GlobalKey();
+  GlobalKey<ListRequestTabState> globalKey5 = GlobalKey();
+  GlobalKey<ListRequestTabState> globalKey6 = GlobalKey();
+  GlobalKey<ListRequestTabState> globalKey7 = GlobalKey();
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -123,39 +131,46 @@ class ListRequestPage extends GetWidget {
                       color: AppColors.colorSelectTab,
                     ),
                     labelColor: Colors.white,
+                    onTap: (value) {
+                      print("tap: $value");
+                    },
                     unselectedLabelColor: AppColors.colorText2,
                     tabs: [
                       // first tab [you can add an icon using the icon property]
                       Tab(
-                        child: Text("Status 1",
+                        child: Text(AppLocalizations.of(context)!.textCreateRequest,
                             style: AppStyles.r7)
 
                       ),
 
-                      // second tab [you can add an icon using the icon property]
                       Tab(
                         child: Text(
-                            "Status 2",
+                          AppLocalizations.of(context)!.textCreateRequestWithout,
+                            style: AppStyles.r7,)
+                      ),
+                      Tab(
+                          child: Text(
+                            AppLocalizations.of(context)!.textSurveyOfflineSuccess,
                             style: AppStyles.r7,)
                       ),
                       Tab(
                         child: Text(
-                            "Status 3",
+                          AppLocalizations.of(context)!.textConnected,
                             style: AppStyles.r7,)
                       ),
                       Tab(
                         child: Text(
-                            "Status 4",
+                          AppLocalizations.of(context)!.textDeploying,
                             style: AppStyles.r7,)
                       ),
                       Tab(
                         child: Text(
-                            "Status 5",
+                            AppLocalizations.of(context)!.textComplete,
                             style: AppStyles.r7)
                       ),
                       Tab(
                         child: Text(
-                            "Status 6",
+                          AppLocalizations.of(context)!.textCancel,
                             style: AppStyles.r7,
                             ),
                       ),
@@ -212,12 +227,13 @@ class ListRequestPage extends GetWidget {
                           controller: controller.tabController,
                           children: [
                             // first tab bar view widget
-                            ListRequestTabPage(REQUEST_STATUS.CREATE_REQUEST),
-                            TabTwoPage(REQUEST_STATUS.CREATE_REQUEST_WITHOUT_SURVEY),
-                            ListRequestTabPage(REQUEST_STATUS.CONNECTED),
-                            TabTwoPage(REQUEST_STATUS.DEPLOYING),
-                            ListRequestTabPage(REQUEST_STATUS.COMPLETE),
-                            TabTwoPage(REQUEST_STATUS.CANCEL),
+                            ListRequestTabPage(status: RequestStatus.CREATE_REQUEST, key: globalKey1,),
+                            ListRequestTabPage(status:RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY, key: globalKey2,),
+                            ListRequestTabPage(status:RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY, key: globalKey3,),
+                            ListRequestTabPage(status:RequestStatus.CONNECTED, key: globalKey4,),
+                            ListRequestTabPage(status:RequestStatus.DEPLOYING, key: globalKey5,),
+                            ListRequestTabPage(status:RequestStatus.COMPLETE, key: globalKey6,),
+                            ListRequestTabPage(status:RequestStatus.CANCEL, key: globalKey7,),
                           ],
                         )),
                       ],
@@ -260,12 +276,29 @@ class ListRequestPage extends GetWidget {
         context: context,
         builder: (context) {
           return DialogAdvancedSearchPage(
-            onSubmit: (status) {
-              controller.setValueSearch("", "", status, "", "", "", "");
-              ListRequestTabLogic logicController = Get.find<ListRequestTabLogic>();
-              logicController.getListRequest(status);
+            onSubmit: (model) {
+                if(controller.index == model.getPositionStatus()) {
+                  controller.updateSearchRequest(model);
+                  if(controller.index == 0) {
+                    globalKey1.currentState!.getListRequest();
+                  } else if(controller.index == 1){
+                    globalKey2.currentState!.getListRequest();
+                  } else if(controller.index == 2){
+                    globalKey3.currentState!.getListRequest();
+                  } else if(controller.index == 3){
+                    globalKey4.currentState!.getListRequest();
+                  } else if(controller.index == 4){
+                    globalKey5.currentState!.getListRequest();
+                  } else if(controller.index == 5){
+                    globalKey6.currentState!.getListRequest();
+                  } else if(controller.index == 6){
+                    globalKey7.currentState!.getListRequest();
+                  }
+                }else {
+                  controller.updateSearchRequest(model);
+                }
             },
-          );
+           searchRequest: controller.searchRequest);
         });
   }
 }

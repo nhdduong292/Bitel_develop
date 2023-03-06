@@ -28,6 +28,11 @@ class AppStyles {
     color: AppColors.colorContent,
   );
 
+  static final TextStyle b4 = TextStyle(
+    fontSize: 18,
+    fontFamily: AppFonts.Barlow,
+  );
+
   static final TextStyle r1 = TextStyle(
     fontSize: 14,
     fontFamily: AppFonts.Barlow,
@@ -152,4 +157,82 @@ class AppStyles {
     color: AppColors.color_F76F5A,
     fontWeight: FontWeight.w500,
   );
+  static final TextStyle rF76F5A_13_500 = TextStyle(
+      fontFamily: AppFonts.Roboto,
+      fontSize: 13,
+      fontWeight: FontWeight.w500,
+      color: AppColors.color_F76F5A);
+  static final TextStyle r415263_13_500 = TextStyle(
+      fontFamily: AppFonts.Roboto,
+      fontSize: 13,
+      fontWeight: FontWeight.w500,
+      color: AppColors.color_415263);
+  static final TextStyle rU00A5B1_13_500 = TextStyle(
+      fontFamily: AppFonts.Roboto,
+      fontSize: 13,
+      fontWeight: FontWeight.w500,
+      color: AppColors.colorContent,
+      decoration: TextDecoration.underline);
+  static final TextStyle r6C8AA1_13_400 = TextStyle(
+      fontFamily: AppFonts.Roboto,
+      fontSize: 13,
+      fontWeight: FontWeight.w400,
+      color: AppColors.color_6C8AA1);
+  static final TextStyle r00A5B1_13_500 = TextStyle(
+    fontFamily: AppFonts.Roboto,
+    fontSize: 13,
+    fontWeight: FontWeight.w500,
+    color: AppColors.colorContent,
+  );
+  static final TextStyle b00A5B1_20_500 = TextStyle(
+    fontFamily: AppFonts.Barlow,
+    fontSize: 20,
+    fontWeight: FontWeight.w500,
+    color: AppColors.colorContent,
+  );
+  static final TextStyle r007689_14_500 = TextStyle(
+    fontFamily: AppFonts.Roboto,
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: AppColors.color_007689,
+  );
+  static final TextStyle r00A5B1_15d5_500 = TextStyle(
+    fontFamily: AppFonts.Roboto,
+    fontSize: 15.5,
+    fontWeight: FontWeight.w500,
+    color: AppColors.colorContent,
+  );
+  static final TextStyle r405264_14_500 = TextStyle(
+      fontSize: 14,
+      fontFamily: AppFonts.Roboto,
+      color: AppColors.color_405264,
+      fontWeight: FontWeight.w500);
+  static final TextStyle r9454C9_14_500 = TextStyle(
+    fontSize: 14,
+    fontFamily: AppFonts.Roboto,
+    color: AppColors.color_9454C9,
+    fontWeight: FontWeight.w500,
+  );
+  static final TextStyle rU9454C9_12_500 = TextStyle(
+      color: AppColors.color_9454C9,
+      fontFamily: AppFonts.Roboto,
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      decoration: TextDecoration.underline);
+  static TextStyle r2B3A4A_12_500 = TextStyle(
+      fontFamily: AppFonts.Roboto,
+      fontSize: 12,
+      color: AppColors.color_2B3A4A,
+      fontWeight: FontWeight.w500);
+  static TextStyle b384858_14_500 = TextStyle(
+      fontFamily: AppFonts.Barlow,
+      fontSize: 14,
+      color: AppColors.color_384858,
+      fontWeight: FontWeight.w500);
+
+  static TextStyle rText2_13_400 = TextStyle(
+      fontFamily: AppFonts.Barlow,
+      fontSize: 13,
+      color: AppColors.colorText2,
+      fontWeight: FontWeight.w400);
 }

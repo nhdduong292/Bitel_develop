@@ -23,15 +23,15 @@ class ApiInterceptors extends InterceptorsWrapper {
           "✈️ REQUEST[$method] => PATH: $uri \n Token: ${options.headers}",
           printFullText: true);
     } else {
-      // try {
-      //   apiLogger.log(
-      //       "✈️ REQUEST[$method] => PATH: $uri \n Token: ${token?.accessToken} \n DATA: ${jsonEncode(data)}",
-      //       printFullText: true);
-      // } catch (e) {
-      //   apiLogger.log(
-      //       "✈️ REQUEST[$method] => PATH: $uri \n Token: ${token?.accessToken} \n DATA: $data",
-      //       printFullText: true);
-      // }
+      try {
+        apiLogger.log(
+            "✈️ REQUEST[$method] => PATH: $uri \n DATA: ${jsonEncode(data)}",
+            printFullText: true);
+      } catch (e) {
+        apiLogger.log(
+            "✈️ REQUEST[$method] => PATH: $uri \n DATA: $data",
+            printFullText: true);
+      }
     }
     super.onRequest(options, handler);
   }

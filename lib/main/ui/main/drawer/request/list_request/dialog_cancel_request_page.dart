@@ -75,12 +75,6 @@ class DialogCancelRequest extends GetWidget {
                         )),
                     Expanded(
                         flex: 5,
-                        // child: spinnerFormV2(
-                        //     context: context,
-                        //     hint: AppLocalizations.of(context)!.hintReason,
-                        //     required: false,
-                        //     dropValue: controller.currentReason,
-                        //     listDrop: controller.listReason))
                       child: Container(
                         height: 45,
                         decoration: BoxDecoration(
@@ -144,6 +138,9 @@ class DialogCancelRequest extends GetWidget {
                             hint: AppLocalizations.of(context)!.hintNote,
                             required: false,
                             dropValue: "",
+                            function: (value) {
+                              controller.setNote(value);
+                            },
                             listDrop: [],
                             controlTextField: controllerTextField,
                             height: 150)

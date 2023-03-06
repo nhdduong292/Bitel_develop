@@ -1,11 +1,13 @@
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/reason_model.dart';
+import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:get/get.dart';
 
 class DialogCancelRequestLogic extends GetxController {
   String currentReason = "";
+  String currentNote = "";
   List<ReasonModel> listReason = [];
   bool isLoading = false;
 
@@ -14,6 +16,11 @@ class DialogCancelRequestLogic extends GetxController {
     // TODO: implement onInit
     super.onInit();
     getListReason();
+  }
+
+  void setNote(String value){
+    currentNote = value;
+    update();
   }
 
   void getListReason(){
@@ -42,11 +49,15 @@ class DialogCancelRequestLogic extends GetxController {
   }
 
   void changeStatusRequest(int id, String note, Function(bool isSuccess) callBack) async {
+    if(currentNote.isEmpty && currentReason.isEmpty){
+      Common.showToastCenter("Vui lòng nhập đầy đủ thông tin!");
+      return;
+    }
     isLoading = true;
     update();
     Future.delayed(Duration(seconds: 1));
     Map<String, dynamic> body = {
-      "status": "CANCEL",
+      "status": RequestStatus.CANCEL,
       "reasonId": currentReason,
       "note": note
     };

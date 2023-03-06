@@ -16,21 +16,22 @@ class TabTwoPage extends GetWidget{
   Widget build(BuildContext context) {
     // TODO: implement build
     return GetBuilder(
-      init: TabTwoLogic(status),
+      init: TabTwoLogic(status, context),
       builder: (controller) {
         return  controller.isLoading ? LoadingCirculApi() : controller.listRequest.isEmpty ? InkWell(
           child: Center(
             child: Text("No data"),
           ),
           onTap: () {
-            Get.toNamed(RouteConfig.requestDetail);
+            // Get.toNamed(RouteConfig.requestDetail);
           },
         ) : ListView.builder(
             itemCount: controller.listRequest.length,
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
-                  Get.toNamed(RouteConfig.requestDetail);
+                  List<String> listArgument = ["${controller.listRequest[index].id}",status];
+                  Get.toNamed(RouteConfig.requestDetail, arguments: listArgument);
                 },
                 child: ListRequestTabItem(controller.listRequest[index]),
               );

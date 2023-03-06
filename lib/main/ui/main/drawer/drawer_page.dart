@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/drawer_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/utilitis/change_language/dialog_change_language_page.dart';
 import 'package:bitel_ventas/res/app_fonts.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:flutter/material.dart';
@@ -32,15 +35,11 @@ class DrawerPage extends GetView<DrawerLogic> {
             // ),
             child: Stack(
               children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
+                SvgPicture.asset(
+                  AppImages.bgHomeDrawer,
+                  fit: BoxFit.cover,
+                  width: MediaQuery.of(context).size.width * 0.85,
                   height: MediaQuery.of(context).size.height,
-                  child: SvgPicture.asset(
-                    AppImages.bgHomeDrawer,
-                    fit: BoxFit.fill,
-                    // width: MediaQuery.of(context).size.width * 0.85,
-                    // height: MediaQuery.of(context).size.height,
-                  ),
                 ),
                 Positioned(
                   left: 25,
@@ -53,19 +52,17 @@ class DrawerPage extends GetView<DrawerLogic> {
                   ),
                 ),
                 Positioned(
-                    top: 80,
+                    top: 120,
                     left: 35,
                     right: 30,
-                    bottom: 100,
                     child: SizedBox(
                       height: MediaQuery.of(context).size.height,
-                      width: MediaQuery.of(context).size.width,
+                      width: MediaQuery.of(context).size.width * 0.85,
                       child: ListView.builder(
                         itemCount: controller.listItem?.length,
                         itemBuilder: (context, index) {
-                          DrawerItem drawerItem =
-                              controller.getListItem(context)[index];
-                          if (drawerItem.list!.isEmpty) {
+                          DrawerItem drawerItem = controller.getListItem(context)[index];
+                          if(drawerItem.list!.isEmpty){
                             return InkWell(
                               splashColor: Colors.black54,
                               onTap: () {
@@ -74,31 +71,19 @@ class DrawerPage extends GetView<DrawerLogic> {
                               child: Container(
                                 padding: EdgeInsets.symmetric(vertical: 20),
                                 child: Obx(
-                                  () => Row(
+                                      () => Row(
                                     children: [
-                                      SvgPicture.asset(
-                                          controller.listItem![index].isSelected
-                                              ? controller
-                                                  .listItem![index].selectedImg
-                                              : controller.listItem![index]
-                                                  .unselectedImg),
-                                      // Image(
-                                      //   image: Svg(
-                                      //       controller.listItem![index].isSelected
-                                      //           ? controller
-                                      //           .listItem![index].selectedImg
-                                      //           : controller.listItem![index]
-                                      //           .unselectedImg),
-                                      //   width: 26,
-                                      //   height: 26,
-                                      // ),
-                                      Padding(
-                                          padding: EdgeInsets.only(left: 20)),
+                                      SvgPicture.asset(controller.listItem![index].isSelected
+                                          ? controller
+                                          .listItem![index].selectedImg
+                                          : controller.listItem![index]
+                                          .unselectedImg),
+                                      Padding(padding: EdgeInsets.only(left: 20)),
                                       Text(
                                         controller.listItem![index].label,
                                         style: TextStyle(
                                             color: controller
-                                                    .listItem![index].isSelected
+                                                .listItem![index].isSelected
                                                 ? AppColors.colorBackground
                                                 : Colors.white,
                                             fontSize: 19,
@@ -110,40 +95,32 @@ class DrawerPage extends GetView<DrawerLogic> {
                               ),
                             );
                           } else {
-                            return InkWell(
-                              splashColor: Colors.black54,
-                              onTap: () {
-                                controller.onItemClick(index: index);
-                              },
-                              child: ListTileTheme(
-                                // padding: EdgeInsets.symmetric(vertical: 20),
-                                contentPadding: EdgeInsets.all(0),
-                                minLeadingWidth: 0,
-                                child: ExpansionTile(
-                                  trailing:
-                                      SvgPicture.asset(AppImages.icArrowDown),
-                                  //     : SvgPicture.asset(AppImages.icOvalArrowRight),
-                                  leading: SvgPicture.asset(
-                                      drawerItem.unselectedImg),
+                            return ListTileTheme(
+                              // padding: EdgeInsets.symmetric(vertical: 20),
+                              contentPadding: EdgeInsets.all(0),
+                              minLeadingWidth: 0,
+                              child: ExpansionTile(
 
-                                  title: Text(drawerItem.label,
-                                      style: TextStyle(
-                                          color: controller
-                                                  .listItem![index].isSelected
-                                              ? AppColors.colorBackground
-                                              : Colors.white,
-                                          fontSize: 19,
-                                          fontFamily: AppFonts.Barlow)),
-                                  children: <Widget>[
-                                    Column(
-                                      children: _buildExpandableContent(
-                                          drawerItem, context),
-                                    ),
-                                  ],
-                                  onExpansionChanged: (value) {
-                                    // controller.setStateSelectHelp(value);
-                                  },
-                                ),
+                                trailing: SvgPicture.asset(AppImages.icArrowDown),
+                                //     : SvgPicture.asset(AppImages.icOvalArrowRight),
+                                leading:  SvgPicture.asset(drawerItem.unselectedImg),
+
+                                title: Text(drawerItem.label!,
+                                    style: TextStyle(
+                                        color: controller
+                                            .listItem![index].isSelected
+                                            ? AppColors.colorBackground
+                                            : Colors.white,
+                                        fontSize: 19,
+                                        fontFamily: AppFonts.Barlow)),
+                                children: <Widget>[
+                                  Column(
+                                    children: _buildExpandableContent(drawerItem, context),
+                                  ),
+                                ],
+                                onExpansionChanged: (value) {
+                                  // controller.setStateSelectHelp(value);
+                                },
                               ),
                             );
                           }
@@ -202,8 +179,8 @@ class DrawerPage extends GetView<DrawerLogic> {
               ),
               // trailing: SvgPicture.asset(AppImages.icArrowRight),
               onTap: () {
-                if (vehicle.label ==
-                    AppLocalizations.of(context)!.textManageContact) {
+                Future.delayed(Duration(milliseconds: 600));
+                if(vehicle.label == AppLocalizations.of(context)!.textManageContact) {
                   if (i == 0) {
                     print("index: 0");
                     Get.to(() => FindCustomerPage());
@@ -211,8 +188,7 @@ class DrawerPage extends GetView<DrawerLogic> {
                     print("index: 1");
                     Get.toNamed(RouteConfig.manageContact);
                   }
-                } else if (vehicle.label ==
-                    AppLocalizations.of(context)!.textFTTH) {
+                } else if(vehicle.label == AppLocalizations.of(context)!.textFTTH){
                   if (i == 0) {
                     print("index: 2");
                     Get.toNamed(RouteConfig.sale);
@@ -220,15 +196,23 @@ class DrawerPage extends GetView<DrawerLogic> {
                     print("index: 3");
                     Get.toNamed(RouteConfig.afterSale);
                   } else if (i == 2) {
-                    Get.toNamed(RouteConfig.manageWO);
+                    // Get.toNamed(RouteConfig.manageWO);
+                    Get.to(() => ProductPaymentMethodPage());
                     print("index: 4");
                   }
-                } else if (vehicle.label ==
-                    AppLocalizations.of(context)!.textUtilites) {
+                }else if(vehicle.label == AppLocalizations.of(context)!.textUtilites){
+                  print("index: 5");
                   if (i == 0) {
                     print("index: 5");
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return DialogChangeLanguagePage();
+                      },
+                    );
                   }
                 }
+
               },
             ),
           )

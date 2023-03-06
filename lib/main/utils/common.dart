@@ -1,5 +1,8 @@
 import 'dart:math' as Math;
 
+import 'package:bitel_ventas/res/app_colors.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
 class Common {
@@ -108,4 +111,14 @@ class Common {
   // static shareContent(String content) {
   //   Share.share(content);
   // }
+
+  static void showToastCenter(String content){
+    Fluttertoast.showToast(
+        msg: content,
+        toastLength: Toast.LENGTH_LONG,
+        backgroundColor: AppColors.colorBackground1,
+        textColor: AppColors.colorText1,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 5);
+  }
 }
