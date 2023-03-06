@@ -81,7 +81,7 @@ class ListRequestTabState extends State<ListRequestTabPage>{
         : listRequest.isEmpty
         ? InkWell(
       child: Center(
-        child: Text("No data $status"),
+        child: Text("No data"),
       ),
       onTap: () {
         // Get.toNamed(RouteConfig.requestDetail);

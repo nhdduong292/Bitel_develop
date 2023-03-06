@@ -96,11 +96,11 @@ class DialogSurveyMapLogic extends GetxController{
       return true;
     }
     int radius = int.parse(currentRadius);
-    if(currentTechnology == "GPON" && radius > 500){
+    if(currentTechnology == "GPON" && (radius > 500 || radius < 1)){
       Common.showToastCenter("Giới hạn radius là 500");
       return true;
     }
-    if(currentTechnology == "AON" && radius > 300){
+    if(currentTechnology == "AON" && (radius > 300 || radius < 1)){
       Common.showToastCenter("Giới hạn radius là 300");
       return true;
     }

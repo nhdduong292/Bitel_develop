@@ -22,6 +22,7 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
       width: MediaQuery.of(context).size.width,
       child: SingleChildScrollView(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
         children: [
           Container(
             margin: const EdgeInsets.only(left: 15, right: 15),
@@ -35,6 +36,7 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                   BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
                 ]),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   AppLocalizations.of(context)!.textSelectProduct,
@@ -168,56 +170,57 @@ Widget _itemProduct(
         groupValue.value != value ? onChange(value) : onChange(-1);
       },
       splashColor: Colors.black38,
-      child: Expanded(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Obx(() =>
-                groupValue.value == value ? iconChecked() : iconUnchecked()),
-            const SizedBox(
-              width: 16,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Obx(() =>
+          groupValue.value == value ? iconChecked() : iconUnchecked()),
+          const SizedBox(
+            width: 16,
+          ),
+          Expanded(
+            flex: 1,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  product.productName ?? 'null',
+                  style: const TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'Roboto',
+                      color: AppColors.colorText1,
+                      fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  product.offerName ?? 'null',
+                  style: const TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'Roboto',
+                      color: AppColors.colorText1,
+                      fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  'Speed ${product.speed}',
+                  style: const TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'Roboto',
+                      color: AppColors.colorText1,
+                      fontWeight: FontWeight.w500),
+                ),
+              ],
             ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    product.productName ?? 'null',
-                    style: const TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'Roboto',
-                        color: AppColors.colorText1,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  Text(
-                    product.offerName ?? 'null',
-                    style: const TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'Roboto',
-                        color: AppColors.colorText1,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  Text(
-                    'Speed ${product.speed}',
-                    style: const TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'Roboto',
-                        color: AppColors.colorText1,
-                        fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-            ),
-            Text(
-              product.defaultValue ?? 'null',
-              style: const TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'Roboto',
-                  color: AppColors.colorText1,
-                  fontWeight: FontWeight.w500),
-            ),
-          ],
-        ),
+          ),
+          Text(
+            product.defaultValue ?? 'null',
+            style: const TextStyle(
+                fontSize: 14,
+                fontFamily: 'Roboto',
+                color: AppColors.colorText1,
+                fontWeight: FontWeight.w500),
+          ),
+        ],
       ),
     ),
   );
@@ -235,63 +238,63 @@ Widget _itemMethod(
         groupValue.value != value ? onChange(value) : onChange(-1);
       },
       splashColor: Colors.black38,
-      child: Expanded(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Obx(() =>
-                groupValue.value == value ? iconChecked() : iconUnchecked()),
-            const SizedBox(
-              width: 16,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Obx(() =>
+          groupValue.value == value ? iconChecked() : iconUnchecked()),
+          const SizedBox(
+            width: 16,
+          ),
+          Expanded(
+            flex: 1,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  method.name ?? 'null',
+                  style: const TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'Roboto',
+                      color: AppColors.colorText1,
+                      fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  'Free installation: ${method.freeInstallation}',
+                  style: const TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'Roboto',
+                      color: AppColors.colorText2,
+                      fontWeight: FontWeight.w400),
+                ),
+                Text(
+                  'Reason code-name: ${method.reasonCodeName}',
+                  style: const TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'Roboto',
+                      color: AppColors.colorText2,
+                      fontWeight: FontWeight.w400),
+                ),
+              ],
             ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    method.name ?? 'null',
-                    style: const TextStyle(
-                        fontSize: 16,
-                        fontFamily: 'Roboto',
-                        color: AppColors.colorText1,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  Text(
-                    'Free installation: ${method.freeInstallation}',
-                    style: const TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'Roboto',
-                        color: AppColors.colorText2,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  Text(
-                    'Reason code-name: ${method.reasonCodeName}',
-                    style: const TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'Roboto',
-                        color: AppColors.colorText2,
-                        fontWeight: FontWeight.w400),
-                  ),
-                ],
-              ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
+            decoration: BoxDecoration(
+              color: AppColors.colorSubContent.withOpacity(0.07),
+              borderRadius: BorderRadius.circular(20),
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
-              decoration: BoxDecoration(
-                color: AppColors.colorSubContent.withOpacity(0.07),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Text(
-                method.price ?? 'null',
-                style: const TextStyle(
-                    fontSize: 16,
-                    fontFamily: 'Roboto',
-                    color: AppColors.colorText3,
-                    fontWeight: FontWeight.w700),
-              ),
+            child: Text(
+              method.price ?? 'null',
+              style: const TextStyle(
+                  fontSize: 16,
+                  fontFamily: 'Roboto',
+                  color: AppColors.colorText3,
+                  fontWeight: FontWeight.w700),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     ),
   );

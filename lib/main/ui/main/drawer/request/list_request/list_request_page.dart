@@ -277,21 +277,6 @@ class ListRequestPage extends GetWidget {
         builder: (context) {
           return DialogAdvancedSearchPage(
             onSubmit: (model) {
-              // if(controller.index == model.getPositionStatus()){
-
-                // if(controller.index == model.getPositionStatus()) {
-                //   ListRequestTabPage.of(context)!.getListRequest();
-                // }
-                // if(controller.index % 2 == 0) {
-                //   TabTwoLogic tabTwoLogic = Get.find<TabTwoLogic>();
-                //   tabTwoLogic.getListRequest(model.status);
-                // }else {
-                //   ListRequestTabLogic tabOneLogic = Get.find<ListRequestTabLogic>();
-                //   tabOneLogic.getListRequest();
-                // }
-              // } else {
-              //   controller.updateSearchRequest(model);
-              // }
                 if(controller.index == model.getPositionStatus()) {
                   controller.updateSearchRequest(model);
                   if(controller.index == 0) {

@@ -145,8 +145,9 @@ class CreateRequestPage extends GetWidget{
                         Expanded(
                             flex: 2,
                           child: Container(
-                            height: 45,
+                            margin: EdgeInsets.only(top: 14),
                             child: TextField(
+                                maxLength: controller.getMaxLengthIdNumber(controller.currentIdentityType),
                                 controller: controller.textFieldIdNumber,
                                 keyboardType: TextInputType.number,
                                 focusNode: controller.focusIdNumber,
@@ -242,7 +243,6 @@ class CreateRequestPage extends GetWidget{
                           .textContactPhone, style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),),
                     ),
                     Container(
-                      height: 45,
                       child: TextField(
                           keyboardType: TextInputType.number,
                           focusNode: controller.focusPhone,
@@ -253,6 +253,7 @@ class CreateRequestPage extends GetWidget{
                           onChanged: (value) {
                             controller.setPhone(value);
                           },
+                          maxLength: 11,
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.only(top: 5,left: 10, right: 10),
                             hintText: AppLocalizations.of(context)!.textContactPhone,

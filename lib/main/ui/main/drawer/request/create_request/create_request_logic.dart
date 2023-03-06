@@ -48,6 +48,7 @@ class CreateRequestLogic extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    // getMaxLengthIdNumber(currentIdentityType);
   }
 
   void setIdentityType(String value){
@@ -100,8 +101,9 @@ class CreateRequestLogic extends GetxController {
       focusName.requestFocus();
       return true;
     }
-    if(textFieldPhone.value.text.isEmpty) {
+    if(textFieldPhone.value.text.isEmpty || textFieldPhone.value.text.length < 9) {
       focusPhone.requestFocus();
+      Common.showToastCenter("Số điện thoại ít nhất phải 9 chữ số");
       return true;
     }
     // if(currentProvince.isEmpty){
@@ -129,15 +131,15 @@ class CreateRequestLogic extends GetxController {
 
   void createRequest(Function(bool isSuccess, int id) function) async {
     Map<String, dynamic> body = {
-      "address": currentAddress,
-      "district": currentDistrict,
-      "idNumber": currentIdentity,
-      "name": currentName,
-      "phone": currentPhone,
-      "precinct": currentPrecinct,
-      "province": currentProvince,
-      "service": currentService,
-      "identityType": currentIdentityType
+      "address": currentAddress.trim(),
+      "district": currentDistrict.areaCode.trim(),
+      "idNumber": currentIdentity.trim(),
+      "name": currentName.trim(),
+      "phone": currentPhone.trim(),
+      "precinct": currentPrecinct.areaCode.trim(),
+      "province": currentProvince.areaCode.trim(),
+      "service": currentService.trim(),
+      "identityType": currentIdentityType.trim()
     };
     ApiUtil.getInstance()!.post(
         url: ApiEndPoints.API_CREATE_REQUEST,
@@ -326,6 +328,16 @@ class CreateRequestLogic extends GetxController {
   void setCheckAgree(bool value){
     isCheckAgree = value;
     update();
+  }
+
+  int getMaxLengthIdNumber(String value){
+    if(value == listIdentity[0]){
+      return 8;
+    } else if(value == listIdentity[2]){
+      return 15;
+    } else {
+      return 9;
+    }
   }
 
 }
