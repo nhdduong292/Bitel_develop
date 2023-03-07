@@ -31,4 +31,8 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts";
   static final String API_CONTRACT_PREVIEW =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts/id/preview";
+  static final String API_PLAN_REASON =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/plan-reasons";
+  static final String API_WALLET =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/wallets/balance";
 }

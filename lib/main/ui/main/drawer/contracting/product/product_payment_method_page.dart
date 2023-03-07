@@ -96,9 +96,7 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                         top: 50,
                         right: 15,
                         child: InkWell(
-                          onTap: () {
-                            Get.toNamed(RouteConfig.customerInformation);
-                          },
+                          onTap: () {},
                           child: SvgPicture.asset(AppImages.icNotify),
                         )),
                     Positioned(

@@ -1,3 +1,4 @@
+import 'package:bitel_ventas/main/networks/model/plan_reason_model.dart';
 import 'package:bitel_ventas/main/networks/model/product_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_logic.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
@@ -63,6 +64,10 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                             value: index,
                             onChange: (value) {
                               controller.valueProduct.value = value;
+                              if (value > -1) {
+                                controller.getPlanReason(
+                                    controller.listProduct[value].productId!);
+                              }
                             }),
                     separatorBuilder: (BuildContext context, int index) =>
                         const Divider(
@@ -77,55 +82,58 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
           const SizedBox(
             height: 20,
           ),
-          Container(
-            margin: const EdgeInsets.only(left: 15, right: 15),
-            padding: const EdgeInsets.only(top: 15),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                border: Border.all(color: const Color(0xFFE3EAF2)),
-                color: Colors.white,
-                boxShadow: const [
-                  BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
-                ]),
-            child: Column(
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.textSelectPaymentMethod,
-                  style: const TextStyle(
-                      color: AppColors.colorContent,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: 'Roboto'),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                const DottedLine(
-                  dashColor: Color(0xFFE3EAF2),
-                  dashGapLength: 3,
-                  dashLength: 4,
-                ),
-                ListView.separated(
-                    padding: const EdgeInsets.only(top: 0),
-                    shrinkWrap: true,
-                    primary: false,
-                    itemBuilder: (BuildContext context, int index) =>
-                        _itemMethod(
-                            groupValue: controller.valueMethod,
-                            method: controller.listMethod[index],
-                            value: index,
-                            onChange: (value) {
-                              controller.valueMethod.value = value;
-                            }),
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const Divider(
-                          color: AppColors.colorLineDash,
-                          height: 1,
-                          thickness: 1,
-                        ),
-                    itemCount: controller.listMethod.length)
-              ],
+          Visibility(
+            visible: controller.valueProduct.value > -1,
+            child: Container(
+              margin: const EdgeInsets.only(left: 15, right: 15),
+              padding: const EdgeInsets.only(top: 15),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  border: Border.all(color: const Color(0xFFE3EAF2)),
+                  color: Colors.white,
+                  boxShadow: const [
+                    BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
+                  ]),
+              child: Column(
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!.textSelectPaymentMethod,
+                    style: const TextStyle(
+                        color: AppColors.colorContent,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'Roboto'),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  const DottedLine(
+                    dashColor: Color(0xFFE3EAF2),
+                    dashGapLength: 3,
+                    dashLength: 4,
+                  ),
+                  ListView.separated(
+                      padding: const EdgeInsets.only(top: 0),
+                      shrinkWrap: true,
+                      primary: false,
+                      itemBuilder: (BuildContext context, int index) =>
+                          _itemMethod(
+                              groupValue: controller.valueMethod,
+                              reason: controller.listPlanReason[index],
+                              value: index,
+                              onChange: (value) {
+                                controller.valueMethod.value = value;
+                              }),
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const Divider(
+                            color: AppColors.colorLineDash,
+                            height: 1,
+                            thickness: 1,
+                          ),
+                      itemCount: controller.listMethod.length)
+                ],
+              ),
             ),
           ),
           Obx(
@@ -134,13 +142,16 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                 onTap: () {
                   if (controller.valueMethod.value > -1 &&
                       controller.valueProduct.value > -1) {
-                    controller.isOnMethodPage.value = false;
-                    controller.isOnInvoicePage.value = true;
                     controller.scrollController.scrollTo(
                       index: 1,
                       duration: const Duration(milliseconds: 200),
                     );
                   }
+                  controller.getWallet();
+                  controller.scrollController.scrollTo(
+                    index: 1,
+                    duration: const Duration(milliseconds: 200),
+                  );
                 },
                 color: !(controller.valueMethod.value > -1 &&
                         controller.valueProduct.value > -1)
@@ -223,7 +234,7 @@ Widget _itemProduct(
 
 Widget _itemMethod(
     {required int value,
-    required MethodModel method,
+    required PlanReasonModel reason,
     required RxInt groupValue,
     required var onChange}) {
   return Container(
@@ -246,7 +257,7 @@ Widget _itemMethod(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  method.name ?? 'null',
+                  reason.name ?? 'null',
                   style: const TextStyle(
                       fontSize: 16,
                       fontFamily: 'Roboto',
@@ -254,7 +265,7 @@ Widget _itemMethod(
                       fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  'Free installation: ${method.freeInstallation}',
+                  'Free installation: ${reason.feeInstallation}',
                   style: const TextStyle(
                       fontSize: 14,
                       fontFamily: 'Roboto',
@@ -262,7 +273,7 @@ Widget _itemMethod(
                       fontWeight: FontWeight.w400),
                 ),
                 Text(
-                  'Reason code-name: ${method.reasonCodeName}',
+                  'Reason code-name: ${reason.reasonCode}',
                   style: const TextStyle(
                       fontSize: 14,
                       fontFamily: 'Roboto',
@@ -279,7 +290,7 @@ Widget _itemMethod(
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
-              method.price ?? 'null',
+              reason.fee.toString(),
               style: const TextStyle(
                   fontSize: 16,
                   fontFamily: 'Roboto',
