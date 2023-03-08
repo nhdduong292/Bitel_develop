@@ -188,7 +188,8 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                   return RichText(
                                       text: TextSpan(
                                           text: controller
-                                              .contractModel.billCycleFrom,
+                                              .contractModel.billCycleFrom
+                                              .toString(),
                                           style: AppStyles.r415263_13_500,
                                           children: [
                                         TextSpan(

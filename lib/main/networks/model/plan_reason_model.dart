@@ -1,9 +1,9 @@
 class PlanReasonModel {
   int? id;
   String? name;
-  int? feeInstallation;
+  double? feeInstallation;
   String? reasonCode;
-  int? fee;
+  double? fee;
 
   PlanReasonModel();
 

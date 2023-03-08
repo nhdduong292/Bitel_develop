@@ -346,10 +346,12 @@ class RequestDetailPage extends GetWidget {
                                       Expanded(
                                         child: Text(
                                           controller.requestModel.contractModel
-                                                  .contractId.isEmpty
+                                                      .contractId ==
+                                                  0
                                               ? "---"
                                               : controller.requestModel
-                                                  .contractModel.contractId,
+                                                  .contractModel.contractId
+                                                  .toString(),
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),
@@ -378,10 +380,12 @@ class RequestDetailPage extends GetWidget {
                                       Expanded(
                                         child: Text(
                                           controller.requestModel.contractModel
-                                                  .billCycleFrom.isEmpty
+                                                      .billCycleFrom ==
+                                                  0
                                               ? "---"
                                               : controller.requestModel
-                                                  .contractModel.billCycleFrom,
+                                                  .contractModel.billCycleFrom
+                                                  .toString(),
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),
@@ -442,10 +446,12 @@ class RequestDetailPage extends GetWidget {
                                       Expanded(
                                         child: Text(
                                           controller.requestModel.contractModel
-                                                  .status.isEmpty
+                                                      .status ==
+                                                  0
                                               ? "---"
                                               : controller.requestModel
-                                                  .contractModel.status,
+                                                  .contractModel.status
+                                                  .toString(),
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),

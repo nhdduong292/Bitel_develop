@@ -1,4 +1,4 @@
-class ContactModel{
+class ContactModel {
   int? id;
   String? identityType;
   String? idNumber;
@@ -12,6 +12,7 @@ class ContactModel{
   String? email;
   String? address;
   String? note;
+  String? status;
 
   ContactModel();
 
@@ -28,6 +29,7 @@ class ContactModel{
     phoneNumber = json['phoneNumber'];
     email = json['email'];
     note = json['note'];
+    status = json['status'];
   }
 
   @override
