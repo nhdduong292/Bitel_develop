@@ -21,10 +21,10 @@ import 'package:otp_text_field/style.dart';
 import '../../../../../../../../../res/app_colors.dart';
 import 'contract_preview_logic.dart';
 
-typedef void TouchScan();
+typedef void TouchRegister(String type);
 
 class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
-  final TouchScan callback;
+  final TouchRegister callback;
   const ContractPreviewWidget({super.key, required this.callback});
 
   @override
@@ -69,41 +69,63 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
             SizedBox(
               height: 18,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                      InkWell(
-                        onTap: () {
-                          Get.toNamed(RouteConfig.validateFingerprint);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 16),
-                          child: Text(
-                            AppLocalizations.of(context)!.textMainContract,
-                            style: AppStyles.rU9454C9_12_500,
-                          ),
+            Obx(
+              () => Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(RouteConfig.validateFingerprint);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 16),
+                      child: Container(
+                        padding: EdgeInsets.all(5),
+                        decoration: controller.checkMainContract.value
+                            ? BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Color(0xFF0b0b0b).withAlpha(40),
+                              )
+                            : null,
+                        child: Text(
+                          AppLocalizations.of(context)!.textMainContract,
+                          style: AppStyles.rU9454C9_12_500,
                         ),
                       ),
-                      InkWell(
-                        onTap: () {
-                          Get.toNamed(RouteConfig.validateFingerprint);
-                        },
-                        child:Padding(
-                          padding: const EdgeInsets.only(right: 16),
-                          child: Text(
-                              AppLocalizations.of(context)!.textLendingContract,
-                              style: AppStyles.rU9454C9_12_500),
-                        ),
-                )
-              ],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(RouteConfig.validateFingerprint);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 16),
+                      child: Container(
+                        padding: EdgeInsets.all(5),
+                        decoration: controller.checkLendingContract.value
+                            ? BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Color(0xFF0b0b0b).withAlpha(40),
+                              )
+                            : null,
+                        child: Text(
+                            AppLocalizations.of(context)!.textLendingContract,
+                            style: AppStyles.rU9454C9_12_500),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
             SizedBox(
               height: 18,
             ),
-            SizedBox(
-              width: width - 40,
-              height: (width - 40) * 1.1625,
-              child: pdfPreview(path: controller.path),
+            InkWell(
+              child: Image.asset(
+                AppImages.imgDemoContract,
+                width: 320,
+                height: 372,
+              ),
             ),
             customRadioMutiple(
                 width: width,
@@ -118,78 +140,28 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
           ]),
         ),
         Container(
-            width: width - 62,
-            margin: EdgeInsets.only(left: 31, right: 31),
-            child: bottomButton(
+          width: width - 62,
+          margin: EdgeInsets.only(left: 31, right: 31),
+          child: Obx(
+            () => bottomButton(
                 text: AppLocalizations.of(context)!
                     .textSignContract
                     .toUpperCase(),
                 onTap: () {
-                  callback();
-                }))
-      ]),
-    );
-  }
-
-  Widget pdfPreview({required var path}) {
-    int currentPage = 0;
-    return Stack(
-      children: <Widget>[
-        SizedBox(
-          child: PDFView(
-            filePath: path,
-            enableSwipe: true,
-            swipeHorizontal: true,
-            autoSpacing: false,
-            pageFling: true,
-            pageSnap: true,
-            defaultPage: currentPage,
-            fitPolicy: FitPolicy.BOTH,
-            preventLinkNavigation:
-                false, // if set to true the link is handled in flutter
-            // onRender: (_pages) {
-            //   setState(() {
-            //     pages = _pages;
-            //     isReady = true;
-            //   });
-            // },
-            // onError: (error) {
-            //   setState(() {
-            //     errorMessage = error.toString();
-            //   });
-            //   print(error.toString());
-            // },
-            // onPageError: (page, error) {
-            //   setState(() {
-            //     errorMessage = '$page: ${error.toString()}';
-            //   });
-            //   print('$page: ${error.toString()}');
-            // },
-            // onViewCreated: (PDFViewController pdfViewController) {
-            //   _controller.complete(pdfViewController);
-            // },
-            // onLinkHandler: (String? uri) {
-            //   print('goto uri: $uri');
-            // },
-            // onPageChanged: (int? page, int? total) {
-            //   print('page change: $page/$total');
-            //   setState(() {
-            //     currentPage = page;
-            //   });
-            // },
+                  if (controller.checkOption.value) {
+                    if (controller.checkMainContract.value) {
+                      callback('MAIN');
+                    } else {
+                      callback('LENDING');
+                    }
+                  }
+                },
+                color: !(controller.checkOption.value)
+                    ? const Color(0xFF415263).withOpacity(0.2)
+                    : null),
           ),
-        ),
-
-        // errorMessage.isEmpty
-        //     ? !isReady
-        //         ? Center(
-        //             child: CircularProgressIndicator(),
-        //           )
-        //         : Container()
-        //     : Center(
-        //         child: Text(errorMessage),
-        //       )
-      ],
+        )
+      ]),
     );
   }
 }

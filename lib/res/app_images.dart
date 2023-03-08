@@ -135,4 +135,5 @@ class AppImages {
   static const String imgFingerPrint = "assets/images/img_finger_print.png";
   static const String icTickFingerPrint =
       "assets/icons/ic_tick_finger_print.svg";
+  static const String imgDemoContract = "assets/images/img_demo_contract.png";
 }

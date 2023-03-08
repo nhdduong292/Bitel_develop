@@ -84,7 +84,8 @@ class RequestDetailPage extends GetWidget {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        controller.requestModel.customerModel.fullName.isEmpty
+                                        controller.requestModel.customerModel
+                                                .fullName.isEmpty
                                             ? "---"
                                             : controller.requestModel
                                                 .customerModel.fullName,
@@ -115,7 +116,8 @@ class RequestDetailPage extends GetWidget {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        controller.requestModel.customerModel.idNumber.isEmpty
+                                        controller.requestModel.customerModel
+                                                .idNumber.isEmpty
                                             ? "---"
                                             : controller.requestModel
                                                 .customerModel.fullName,
@@ -209,10 +211,10 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.service.isEmpty
+                                          controller
+                                                  .requestModel.service.isEmpty
                                               ? "---"
-                                              : controller.requestModel
-                                                  .service,
+                                              : controller.requestModel.service,
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),
@@ -239,10 +241,10 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.customerModel.fullName.isEmpty
+                                          controller.requestModel.customerModel
+                                                  .fullName.isEmpty
                                               ? "---"
-                                              : "${controller.requestModel
-                                                  .subscriptionModel.productCode} + ${controller.requestModel.subscriptionModel.speed}",
+                                              : "${controller.requestModel.subscriptionModel.productCode} + ${controller.requestModel.subscriptionModel.speed}",
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),
@@ -270,10 +272,11 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.technology.isEmpty
+                                          controller.requestModel.technology
+                                                  .isEmpty
                                               ? "---"
-                                              : controller.requestModel
-                                                  .technology,
+                                              : controller
+                                                  .requestModel.technology,
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),
@@ -396,7 +399,8 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.contractModel.signDate.isEmpty
+                                          controller.requestModel.contractModel
+                                                  .signDate.isEmpty
                                               ? "---"
                                               : controller.requestModel
                                                   .contractModel.signDate,
@@ -461,10 +465,11 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.isdnAccount.isEmpty
+                                          controller.requestModel.isdnAccount
+                                                  .isEmpty
                                               ? "---"
-                                              : controller.requestModel
-                                                  .isdnAccount,
+                                              : controller
+                                                  .requestModel.isdnAccount,
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),
@@ -492,7 +497,11 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.subscriptionModel.password.isEmpty
+                                          controller
+                                                  .requestModel
+                                                  .subscriptionModel
+                                                  .password
+                                                  .isEmpty
                                               ? "---"
                                               : controller.requestModel
                                                   .subscriptionModel.password,
@@ -554,7 +563,8 @@ class RequestDetailPage extends GetWidget {
                                         child: Text(
                                           controller.requestModel.listWO.isEmpty
                                               ? "---"
-                                              : controller.requestModel.listWO[0].staffName,
+                                              : controller.requestModel
+                                                  .listWO[0].staffName,
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),
@@ -576,8 +586,10 @@ class RequestDetailPage extends GetWidget {
                                 2: FractionColumnWidth(0.2),
                                 3: FractionColumnWidth(0.2),
                               },
-                              children: List.generate(controller.requestModel.listWO.length + 1 , (index) {
-                                if(index == 0) {
+                              children: List.generate(
+                                  controller.requestModel.listWO.length + 1,
+                                  (index) {
+                                if (index == 0) {
                                   return buildRow([
                                     AppLocalizations.of(context)!.textWOType,
                                     AppLocalizations.of(context)!.textStartDate,
@@ -585,7 +597,8 @@ class RequestDetailPage extends GetWidget {
                                     AppLocalizations.of(context)!.textStatus
                                   ], true);
                                 } else {
-                                  WorkOrderModel model = controller.requestModel.listWO[index - 1];
+                                  WorkOrderModel model =
+                                      controller.requestModel.listWO[index - 1];
                                   return buildRow([
                                     model.woType,
                                     model.creationDate,

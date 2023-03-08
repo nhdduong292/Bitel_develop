@@ -1,10 +1,15 @@
+import 'dart:async';
+import 'dart:ffi';
+
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/response/product_response.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+import '../../../../../networks/model/customer_model.dart';
 import '../../../../../networks/model/method_model.dart';
+import '../../../../../networks/model/plan_reason_model.dart';
 import '../../../../../networks/model/product_model.dart';
 
 class ProductPaymentMethodLogic extends GetxController {
@@ -21,11 +26,14 @@ class ProductPaymentMethodLogic extends GetxController {
 
   var isOnMethodPage = true.obs;
   var isOnInvoicePage = false.obs;
-  var isSelectedMethod = false.obs;
-  var isSelectedProduct = false.obs;
+  var balance = (0.0).obs; // so du trong vi
+  var valueProduct = (-1).obs; // index cua product
+  var valueMethod = (-1).obs; // index cua reason
+  var totalPayment = 0; // tong tien phai thanh toan
 
-  var valueProduct = (-1).obs;
-  var valueMethod = (-1).obs;
+  CustomerModel customer = CustomerModel();
+
+  List<PlanReasonModel> listPlanReason = [];
 
   ProductModel selectedProduct = ProductModel();
   void setSelectedProduct(ProductModel product) {
@@ -74,5 +82,55 @@ class ProductPaymentMethodLogic extends GetxController {
       },
       onError: (error) {},
     );
+  }
+
+  void getPlanReason(int id) {
+    ApiUtil.getInstance()!.get(
+      url: '${ApiEndPoints.API_PLAN_REASON}/$id',
+      onSuccess: (response) {
+        if (response.isSuccess) {
+          listPlanReason = (response.data['data'] as List)
+              .map((postJson) => PlanReasonModel.fromJson(postJson))
+              .toList();
+          update();
+        } else {
+          print("error: ${response.status}");
+        }
+      },
+      onError: (error) {},
+    );
+  }
+
+  void getWallet() {
+    ApiUtil.getInstance()!.get(
+      url: ApiEndPoints.API_WALLET,
+      onSuccess: (response) {
+        if (response.isSuccess) {
+          balance.value = response.data['data'] as double;
+        } else {
+          print("error: ${response.status}");
+        }
+      },
+      onError: (error) {},
+    );
+  }
+
+  Future<bool> checkRegisterCustomer() async {
+    Completer<bool> completer = Completer();
+    ApiUtil.getInstance()!.get(
+      url: '${ApiEndPoints.API_CUSTOMER}/54/',
+      onSuccess: (response) {
+        if (response.isSuccess) {
+          customer = CustomerModel.fromJson(response.data['data']);
+          completer.complete(true);
+        } else {
+          print("error: ${response.status}");
+        }
+      },
+      onError: (error) {
+        completer.complete(false);
+      },
+    );
+    return completer.future;
   }
 }

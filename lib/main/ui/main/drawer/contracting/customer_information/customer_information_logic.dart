@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
+import 'package:bitel_ventas/main/networks/model/plan_reason_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/view_item/contract_preview/contract_preview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -24,15 +25,18 @@ class CustomerInformationLogic extends GetxController {
   var signDate = ''.obs;
   var path = '';
   var checkOption = false.obs;
-
+  var checkMainContract = true.obs;
+  var checkLendingContract = false.obs;
   CustomerModel customer = CustomerModel();
+
   CustomerInformationLogic({required this.context});
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    getCustomer();
+    customer = Get.arguments;
+    // getCustomer();
     fromAsset('assets/demo-link.pdf', 'demo.pdf')
         .then((value) => {path = value.path});
   }
@@ -42,20 +46,38 @@ class CustomerInformationLogic extends GetxController {
     signDate.value = DateFormat("yyyy-MM-ddTHH:mm:ss").format(now);
   }
 
-  void getCustomer() {
-    ApiUtil.getInstance()!.get(
-      url: '${ApiEndPoints.API_CUSTOMER}/54/',
-      onSuccess: (response) {
-        if (response.isSuccess) {
-          customer = CustomerModel.fromJson(response.data['data']);
-          update();
-        } else {
-          print("error: ${response.status}");
-        }
-      },
-      onError: (error) {},
-    );
+  String getTypeCustomer() {
+    var type = customer.type;
+    if (type == 1) {
+      return 'DNI';
+    } else if (type == 2) {
+      return 'CE';
+    } else if (type == 3) {
+      return 'RUC';
+    } else if (type == 4) {
+      return 'PP';
+    } else if (type == 7) {
+      return 'PTP';
+    } else if (type == 8) {
+      return 'CPP';
+    }
+    return '';
   }
+
+  // void getCustomer() {
+  //   ApiUtil.getInstance()!.get(
+  //     url: '${ApiEndPoints.API_CUSTOMER}/54/',
+  //     onSuccess: (response) {
+  //       if (response.isSuccess) {
+  //         customer = CustomerModel.fromJson(response.data['data']);
+  //         update();
+  //       } else {
+  //         print("error: ${response.status}");
+  //       }
+  //     },
+  //     onError: (error) {},
+  //   );
+  // }
 
   var checkOption1 = false.obs;
   var checkOption2 = false.obs;
@@ -78,19 +100,19 @@ class CustomerInformationLogic extends GetxController {
       "reasonId": 0,
       "promotionId": 0,
       "contractType": "UNDETERMINED",
-      "numOfSubscriber": 0,
+      "numOfSubscriber": 1,
       "signDate": signDate.value,
       "billCycle": "CYCLE6",
-      "changeNotification": "string",
-      "printBill": "string",
-      "currency": "string",
+      "changeNotification": "Email",
+      "printBill": "Email",
+      "currency": "SOL",
       "language": contractLanguagetValue.value.toUpperCase(),
-      "province": "string",
-      "district": "string",
-      "precinct": "string",
-      "address": "string",
-      "phone": "string",
-      "email": "string",
+      "province": customer.province,
+      "district": customer.district,
+      "precinct": customer.precinct,
+      "address": customer.address,
+      "phone": customer.telFax,
+      "email": customer.email,
       "protectionFilter": true,
       "receiveInfoByMail": true,
       "receiveFromThirdParty": true,
@@ -110,10 +132,10 @@ class CustomerInformationLogic extends GetxController {
     );
   }
 
-  void contractPreview() {
+  void contractPreview(String type) {
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_CONTRACT_PREVIEW.replaceAll("id", "54"),
-      params: {"type": "MAIN"},
+      params: {"type": type},
       onSuccess: (response) {
         if (response.isSuccess) {
           print('bxloc get success');

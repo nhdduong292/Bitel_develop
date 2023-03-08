@@ -124,10 +124,11 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 items: controller.contractLanguages,
                 dropdownValue: controller.contractLanguagetValue,
                 width: 210),
-            inputFormV2(
+            inputFormV3(
                 hint: 'Enter billing address',
                 label: AppLocalizations.of(context)!.textBillingAddress,
                 required: true,
+                textDefalut: controller.customer.address,
                 inputType: TextInputType.streetAddress,
                 width: 210),
             SizedBox(
@@ -226,9 +227,9 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                           controller
                               .fromAsset('assets/demo-link.pdf', 'demo.pdf')
                               .then((value) {
-                            Get.to(PDFScreen(
-                              path: value.path,
-                            ));
+                            // Get.to(PDFScreen(
+                            //   path: value.path,
+                            // ));
                             // controller.path.value = value.path;
 
                             callback();

@@ -62,13 +62,15 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   RichText(
-                    text:
-                        TextSpan(text: 'DNI: ', style: AppStyles.r3, children: [
-                      TextSpan(
-                        text: '001573053',
-                        style: AppStyles.r1,
-                      )
-                    ]),
+                    text: TextSpan(
+                        text: '${controller.getTypeCustomer()}: ',
+                        style: AppStyles.r3,
+                        children: [
+                          TextSpan(
+                            text: controller.customer.idNumber,
+                            style: AppStyles.r1,
+                          )
+                        ]),
                   )
                 ]),
               ),

@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import '../../../../../../res/app_colors.dart';
 import '../../../../../../res/app_images.dart';
 import '../../../../../../res/app_styles.dart';
+import '../../../../../router/route_config.dart';
 import '../../../../../utils/common_widgets.dart';
 
 class InvoicePage extends GetView<ProductPaymentMethodLogic> {
@@ -51,19 +52,21 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 15, vertical: 12),
-                        child: RichText(
-                          text: TextSpan(
-                              text: 'S/522.1  ',
-                              style: AppStyles.r3
-                                  .copyWith(fontWeight: FontWeight.w700),
-                              children: [
-                                TextSpan(
-                                  text: AppLocalizations.of(context)!
-                                      .textAnyPayBalanceRemain,
-                                  style: AppStyles.r1
-                                      .copyWith(fontWeight: FontWeight.w400),
-                                )
-                              ]),
+                        child: Obx(
+                          () => RichText(
+                            text: TextSpan(
+                                text: 'S/${controller.balance} ',
+                                style: AppStyles.r3
+                                    .copyWith(fontWeight: FontWeight.w700),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!
+                                        .textAnyPayBalanceRemain,
+                                    style: AppStyles.r1
+                                        .copyWith(fontWeight: FontWeight.w400),
+                                  )
+                                ]),
+                          ),
                         ),
                       ),
                     ),
@@ -101,7 +104,13 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              controller.selectedProduct.productName ?? 'null',
+                              controller.valueProduct.value > -1
+                                  ? controller
+                                          .listProduct[
+                                              controller.valueProduct.value]
+                                          .productName ??
+                                      'null'
+                                  : 'null',
                               style: const TextStyle(
                                   fontSize: 14,
                                   fontFamily: 'Roboto',
@@ -219,11 +228,24 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
             text: AppLocalizations.of(context)!.textContinue,
             onTap: () {
               if (true) {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return const RechargeDialog(height: 340);
-                    });
+                if (controller.balance < controller.totalPayment) {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const RechargeDialog(height: 340);
+                      });
+                } else {
+                  controller.checkRegisterCustomer().then((value) {
+                    if (value) {
+                      Get.toNamed(RouteConfig.customerInformation,
+                          arguments: controller.customer);
+                    } else {
+                      Get.toNamed(RouteConfig.customerInformation,
+                          arguments: controller.customer);
+                      // Get.toNamed(RouteConfig.createContact);
+                    }
+                  });
+                }
               }
             },
           ),
@@ -311,7 +333,7 @@ class RechargeDialog extends Dialog {
                 Expanded(
                     child: bottomButton(
                         text: AppLocalizations.of(context)!.textRecharge,
-                        onTap: () => Get.back()))
+                        onTap: () {}))
               ],
             ),
             const SizedBox(
