@@ -37,7 +37,7 @@ class ListRequestTabLogic extends GetxController{
       "key":"",
       "page":"0",
       "pageSize":"10",
-      "sort":""
+      "sort":"createdDate"
     };
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_LIST_REQUEST,
@@ -47,7 +47,7 @@ class ListRequestTabLogic extends GetxController{
           if(response.isSuccess){
             print("success :");
             listRequest.clear();
-            ListRequestResponse listRequestResponse = ListRequestResponse.fromJson(response.data);
+            ListRequestResponse listRequestResponse = ListRequestResponse.fromJson(response.data['data']);
             listRequest.addAll(listRequestResponse.list);
           } else {
             print("error: ${response.status}");
@@ -56,7 +56,6 @@ class ListRequestTabLogic extends GetxController{
           update();
         },
         onError: (error) {
-          print("error: " + error.toString());
           isLoading = false;
           update();
         });

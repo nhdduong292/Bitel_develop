@@ -72,7 +72,7 @@ class ProductPaymentMethodLogic extends GetxController {
       url: '${ApiEndPoints.API_LIST_PRODUCT}/54',
       onSuccess: (response) {
         if (response.isSuccess) {
-          listProduct = (response.data as List)
+          listProduct = (response.data['data'] as List)
               .map((postJson) => ProductModel.fromJson(postJson))
               .toList();
           update();

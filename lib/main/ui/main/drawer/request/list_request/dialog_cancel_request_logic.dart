@@ -32,7 +32,7 @@ class DialogCancelRequestLogic extends GetxController {
         params: params,
         onSuccess: (response) {
           if(response.isSuccess){
-            List<ReasonModel> list = (response.data as List)
+            List<ReasonModel> list = (response.data['data'] as List)
                 .map((postJson) => ReasonModel.fromJson(postJson))
                 .toList();
             if(list.isNotEmpty) {
@@ -48,13 +48,15 @@ class DialogCancelRequestLogic extends GetxController {
         },);
   }
 
-  void changeStatusRequest(int id, String note, Function(bool isSuccess) callBack) async {
-    if(currentNote.isEmpty && currentReason.isEmpty){
+  bool checkValidate(){
+    if(currentNote.isEmpty || currentReason.isEmpty){
       Common.showToastCenter("Vui lòng nhập đầy đủ thông tin!");
-      return;
+      return true;
     }
-    isLoading = true;
-    update();
+    return false;
+  }
+
+  void changeStatusRequest(int id, String note, Function(bool isSuccess) callBack) async {
     Future.delayed(Duration(seconds: 1));
     Map<String, dynamic> body = {
       "status": RequestStatus.CANCEL,
@@ -74,14 +76,10 @@ class DialogCancelRequestLogic extends GetxController {
             print("error: ${response.status}");
             callBack.call(false);
           }
-          isLoading = false;
-          update();
         },
         onError: (error) {
-          print("error: " + error.toString());
           callBack.call(false);
-          isLoading = false;
-          update();
+          Get.back();
         });
   }
 }

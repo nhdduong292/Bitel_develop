@@ -21,7 +21,7 @@ class SharedPreferenceUtil {
 
   static Future<String> getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(SPrefCache.KEY_TOKEN) ?? '';
+    return prefs.getString(SPrefCache.KEY_TOKEN) ?? "";
   }
 
   static Future saveKeepLogin(bool value) async {

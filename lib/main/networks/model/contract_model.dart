@@ -62,9 +62,6 @@ class ContractModel {
 
   int get status => _status ?? 0;
 
-  set status(int value) {
-    _status = value;
-  }
 
   String get billCycleFromCharging => _billCycleFromCharging ?? "";
 
@@ -73,10 +70,6 @@ class ContractModel {
   }
 
   int get billCycleFrom => _billCycleFrom ?? 0;
-
-  set billCycleFrom(int value) {
-    _billCycleFrom = value;
-  }
 
   String get signDate => _signDate ?? "";
 
@@ -92,9 +85,6 @@ class ContractModel {
 
   int get contractId => _contractId ?? 0;
 
-  set contractId(int value) {
-    _contractId = value;
-  }
 
   String get identityType => _identityType ?? "";
 

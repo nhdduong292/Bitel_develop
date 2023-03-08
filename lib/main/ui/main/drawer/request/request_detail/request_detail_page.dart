@@ -147,9 +147,7 @@ class RequestDetailPage extends GetWidget {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        controller.requestModel.customerModel
-                                                    .custId ==
-                                                -1
+                                        controller.requestModel.customerModel.custId < 1
                                             ? "---"
                                             : controller.requestModel
                                                 .customerModel.fullName,
@@ -180,11 +178,10 @@ class RequestDetailPage extends GetWidget {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        controller.requestModel.customerModel
-                                                .fullName.isEmpty
+                                        controller.requestModel.customerModel.getInstalAddress().isEmpty
                                             ? "---"
                                             : controller.requestModel
-                                                .customerModel.fullName,
+                                                .customerModel.getInstalAddress(),
                                         textAlign: TextAlign.right,
                                         style: AppStyles.r415263_13_500,
                                       ),
@@ -307,14 +304,10 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller
-                                                  .requestModel
-                                                  .subscriptionModel
-                                                  .pricePlan
-                                                  .isEmpty
+                                          controller.requestModel.subscriptionModel.pricePlan < 1
                                               ? "---"
-                                              : controller.requestModel
-                                                  .subscriptionModel.pricePlan,
+                                              : "${controller.requestModel
+                                                  .subscriptionModel.pricePlan}",
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),
@@ -345,13 +338,9 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.contractModel
-                                                      .contractId ==
-                                                  0
+                                          controller.requestModel.contractModel.contractId < 1
                                               ? "---"
-                                              : controller.requestModel
-                                                  .contractModel.contractId
-                                                  .toString(),
+                                              : "${controller.requestModel.contractModel.contractId}",
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),
@@ -379,13 +368,10 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.contractModel
-                                                      .billCycleFrom ==
-                                                  0
+                                          controller.requestModel.contractModel.billCycleFrom < 1
                                               ? "---"
-                                              : controller.requestModel
-                                                  .contractModel.billCycleFrom
-                                                  .toString(),
+                                              : "${controller.requestModel
+                                                  .contractModel.billCycleFrom}",
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),
@@ -445,13 +431,10 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.contractModel
-                                                      .status ==
-                                                  0
+                                          controller.requestModel.contractModel.status < 1
                                               ? "---"
-                                              : controller.requestModel
-                                                  .contractModel.status
-                                                  .toString(),
+                                              : "${controller.requestModel
+                                                  .contractModel.status}",
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),

@@ -86,7 +86,7 @@ class CustomerModel {
 
   String get idNumber => _idNumber ?? "";
 
-  int get type => _type ?? -1;
+  int get type => _type ?? 0;
 
   String get telFax => _telFax ?? "";
 
@@ -94,5 +94,9 @@ class CustomerModel {
 
   String get firstName => _firstName ?? "";
 
-  int get custId => _custId ?? -1;
+  int get custId => _custId ?? 0;
+
+  String getInstalAddress(){
+    return "$address, $precinct, $district, $province";
+  }
 }

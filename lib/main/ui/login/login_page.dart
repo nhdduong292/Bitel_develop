@@ -238,7 +238,7 @@ class LoginPage extends GetWidget {
                     ),
                     child: InkWell(
                       onTap: () {
-                        controller.loginSuccess();
+                        controller.loginSuccess(context);
                       },
                       child: Center(
                           child: Text(

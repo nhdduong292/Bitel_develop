@@ -1,5 +1,6 @@
 package com.bitel.bss.viettelpos.v3.bitel_ventas;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -7,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -15,7 +17,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 
+import com.bitel.bss.viettelpos.v3.bitel_ventas.camera.camera.IDCardCamera;
+import com.bitel.bss.viettelpos.v3.bitel_ventas.camera.permission.PermissionListener;
+import com.bitel.bss.viettelpos.v3.bitel_ventas.camera.permission.PermissionsUtil;
+import com.bitel.bss.viettelpos.v3.bitel_ventas.camera.utils.ImageUtils;
 import com.bitel.bss.viettelpos.v3.bitel_ventas.fingerprintscanner.EmptyFingerPrintScanner;
 import com.bitel.bss.viettelpos.v3.bitel_ventas.fingerprintscanner.FingerPrint;
 import com.bitel.bss.viettelpos.v3.bitel_ventas.fingerprintscanner.FingerPrintConstant;
@@ -36,9 +43,16 @@ import io.flutter.plugin.common.MethodChannel;
 public class MainFingerActivity extends FlutterActivity {
     private static final String TAG = "MainFingerActivity";
     private String platformFinger = "bitel.com/finger";
+    private String platformScan1 = "bitel.com/scan1";
+    private String platformScan2 = "bitel.com/scan2";
     String nameFinger = "getFinger";
-    private MethodChannel channelFinger;
+    String nameScan1 = "getScan1";
+    String nameScan2 = "getScan2";
+    private MethodChannel channelScan1;
+    private MethodChannel channelScan2;
     private ProgressDialog waitProgress;
+
+    int positionScan = 0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,13 +70,35 @@ public class MainFingerActivity extends FlutterActivity {
             @Override
             public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
                 if(call.method.equals(nameFinger)){
+                    positionScan = 0;
                    getImageCapture(result);
-//                    if(bitmap != null) {
-//                        result.success(saveImageToCache(bitmap));
-//                        bitmap = null;
-//                    } else {
-//                        result.error("UNAVAILABLE", "Finger not available.", null);
-//                    }
+                } else {
+                    result.notImplemented();
+                }
+            }
+        });
+
+        channelScan1 = new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), platformScan1);
+        channelScan1.setMethodCallHandler(new MethodChannel.MethodCallHandler() {
+            @Override
+            public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
+                if(call.method.equals(nameScan1)){
+                    onScanImage();
+                    result.success("open scan successssssssssssssss");
+                } else {
+                    result.notImplemented();
+                }
+            }
+        });
+
+        channelScan2 = new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), platformScan2);
+        channelScan2.setMethodCallHandler(new MethodChannel.MethodCallHandler() {
+            @Override
+            public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
+                if(call.method.equals(nameScan2)){
+                    positionScan = 1;
+                    onScanImage();
+                    result.success("open scan successssssssssssssss");
                 } else {
                     result.notImplemented();
                 }
@@ -129,10 +165,47 @@ public class MainFingerActivity extends FlutterActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (FingerScannerFactory.fingerPrintScannerImp != null
-                && FingerScannerFactory.fingerPrintScannerImp instanceof NewFingerPrintScanner) {
+        if (FingerScannerFactory.fingerPrintScannerImp instanceof NewFingerPrintScanner) {
             NewFingerPrintScanner newFingerPrintScanner = (NewFingerPrintScanner) FingerScannerFactory.fingerPrintScannerImp;
             newFingerPrintScanner.onActivityResult(requestCode, resultCode, data);
+        }
+        if (resultCode == IDCardCamera.RESULT_CODE) {
+            if (requestCode != IDCardCamera.REQUEST_SCAN_IMAGE) {
+                return;
+            }
+            final String path = IDCardCamera.getImagePath(data);
+
+            if (TextUtils.isEmpty(path)) {
+//                decodeORCFail();
+                return;
+            }
+            File photoFile = new File(path);
+            Uri imageUri = FileProvider.getUriForFile(MainFingerActivity.this,
+                    BuildConfig.APPLICATION_ID + ".provider",
+                    photoFile);
+
+            File file = null;
+            try {
+                file = ImageUtils.convertBitmapToFile(MainFingerActivity.this,
+                        ImageUtils.scaleImageBitmap(MainFingerActivity.this,
+                                imageUri, 640, 480), ""+System.currentTimeMillis());
+//                currentCustomer.setImageFile(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (file == null) {
+                if(positionScan == 0) {
+                    channelScan1.invokeMethod(nameScan1, photoFile.getPath());
+                } else {
+                    channelScan2.invokeMethod(nameScan2, photoFile.getPath());
+                }
+            } else {
+                if(positionScan == 0) {
+                    channelScan1.invokeMethod(nameScan1, file.getPath());
+                } else {
+                    channelScan2.invokeMethod(nameScan2, file.getPath());
+                }
+            }
         }
     }
 
@@ -225,4 +298,24 @@ public class MainFingerActivity extends FlutterActivity {
         }
         return fileName.getPath();
     }
+
+    private void onScanImage() {
+        PermissionsUtil.requestPermission(MainFingerActivity.this, new PermissionListener() {
+            @Override
+            public void permissionGranted(@NonNull String[] permissions) {
+//                isCaptureImage.set(false);
+                IDCardCamera.create(MainFingerActivity.this).openCamera(IDCardCamera.REQUEST_SCAN_IMAGE);
+            }
+
+            @Override
+            public void permissionDenied(@NonNull String[] permissions) {
+
+
+            }
+        }, new String[]{ android.Manifest.permission.CAMERA,
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE});
+
+
+    }
+
 }

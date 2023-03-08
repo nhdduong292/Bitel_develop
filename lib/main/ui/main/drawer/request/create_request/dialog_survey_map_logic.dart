@@ -131,7 +131,6 @@ class DialogSurveyMapLogic extends GetxController{
           }
         },
         onError: (error) {
-          print("error: " + error.toString());
           function.call(false);
         });
   }

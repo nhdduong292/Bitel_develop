@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bitel_ventas/main/utils/shared_preference.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Response;
 
@@ -12,10 +13,10 @@ class ApiInterceptors extends InterceptorsWrapper {
     final uri = options.uri;
     final data = options.data;
     // final authRepository = Get.find<AuthRepository>(tag: (AuthRepository).toString());
-    // final token = await authRepository.getToken();
-    // if (token != null) {
-    //   options.headers['Authorization'] = 'Bearer ${token.accessToken}';
-    // }
+    final token = await SharedPreferenceUtil.getToken();
+    if (token != null) {
+      options.headers['Authorization'] = 'Bearer ${token}';
+    }
     apiLogger.log(
         "\n\n--------------------------------------------------------------------------------------------------------");
     if (method == 'GET') {
@@ -58,7 +59,9 @@ class ApiInterceptors extends InterceptorsWrapper {
     var data = "";
     try {
       data = jsonEncode(err.response?.data);
-    } catch (e) {}
+    } catch (e) {
+
+    }
     apiLogger.log("⚠️ ERROR[$statusCode] => PATH: $uri\n DATA: $data");
     super.onError(err, handler);
   }

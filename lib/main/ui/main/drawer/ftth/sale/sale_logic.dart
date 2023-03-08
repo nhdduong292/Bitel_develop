@@ -91,7 +91,7 @@ class SaleLogic extends GetxController {
         // Get.back();
         if (response.isSuccess) {
           print("success");
-          homeSaleModel = HomeSaleModel.fromJson(response.data);
+          homeSaleModel = HomeSaleModel.fromJson(response.data['data']);
 
         } else {
           print("error: ${response.status}");

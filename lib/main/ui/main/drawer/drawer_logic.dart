@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:bitel_ventas/main/ui/main/activate_prepaid_pages/find_customer_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/demo_native_page.dart';
+import 'package:bitel_ventas/main/utils/shared_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
@@ -18,6 +19,7 @@ class DrawerLogic extends GetxController {
 
 
   void logOut() {
+    SharedPreferenceUtil.clearData();
     Get.offAll(LoginPage());
   }
 

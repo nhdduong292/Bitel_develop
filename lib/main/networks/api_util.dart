@@ -100,7 +100,7 @@ class ApiUtil {
 
   BaseResponse getBaseResponse(Response response) {
     return BaseResponse.success(
-        data: response.data['data'],
+        data: response.data,
         code: response.statusCode,
         message: response.statusMessage,
         status: response.data['status']);
