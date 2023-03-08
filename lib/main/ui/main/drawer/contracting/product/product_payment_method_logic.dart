@@ -89,7 +89,7 @@ class ProductPaymentMethodLogic extends GetxController {
       url: '${ApiEndPoints.API_PLAN_REASON}/$id',
       onSuccess: (response) {
         if (response.isSuccess) {
-          listPlanReason = (response.data as List)
+          listPlanReason = (response.data['data'] as List)
               .map((postJson) => PlanReasonModel.fromJson(postJson))
               .toList();
           update();
@@ -106,7 +106,7 @@ class ProductPaymentMethodLogic extends GetxController {
       url: ApiEndPoints.API_WALLET,
       onSuccess: (response) {
         if (response.isSuccess) {
-          balance.value = response.data as double;
+          balance.value = response.data['data'] as double;
         } else {
           print("error: ${response.status}");
         }
@@ -121,7 +121,7 @@ class ProductPaymentMethodLogic extends GetxController {
       url: '${ApiEndPoints.API_CUSTOMER}/54/',
       onSuccess: (response) {
         if (response.isSuccess) {
-          customer = CustomerModel.fromJson(response.data);
+          customer = CustomerModel.fromJson(response.data['data']);
           completer.complete(true);
         } else {
           print("error: ${response.status}");

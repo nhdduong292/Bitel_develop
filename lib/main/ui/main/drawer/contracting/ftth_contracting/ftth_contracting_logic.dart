@@ -22,7 +22,7 @@ class FTTHContractingLogic extends GetxController {
       url: '${ApiEndPoints.API_CREATE_CONTRACT}/54',
       onSuccess: (response) {
         if (response.isSuccess) {
-          contractModel = ContractModel.fromJson(response.data);
+          contractModel = ContractModel.fromJson(response.data['data']);
           update();
         } else {
           print("error: ${response.status}");

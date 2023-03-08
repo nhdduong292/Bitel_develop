@@ -53,7 +53,7 @@ class ValidateFingerprintLogic extends GetxController {
       url: ApiEndPoints.API_CUSTOMER.replaceAll('id', cusId.toString()),
       onSuccess: (response) {
         if (response.isSuccess) {
-          bestFinger = BestFingerModel.fromJson(response.data);
+          bestFinger = BestFingerModel.fromJson(response.data['data']);
         } else {
           print("error: ${response.status}");
         }
