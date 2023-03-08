@@ -1,10 +1,10 @@
 class ContractModel{
-  String? _contractId;
+  int? _contractId;
   String? _contractNo;
   String? _signDate;
-  String? _billCycleFrom;
+  int? _billCycleFrom;
   String? _billCycleFromCharging;
-  String? _status;
+  int? _status;
   String? _operationCode;
   String? _fullNameCus;
   String? _phone;
@@ -56,11 +56,8 @@ class ContractModel{
     _operationCode = value;
   }
 
-  String get status => _status ?? "";
+  int get status => _status ?? 0;
 
-  set status(String value) {
-    _status = value;
-  }
 
   String get billCycleFromCharging => _billCycleFromCharging ?? "";
 
@@ -68,11 +65,7 @@ class ContractModel{
     _billCycleFromCharging = value;
   }
 
-  String get billCycleFrom => _billCycleFrom ?? "";
-
-  set billCycleFrom(String value) {
-    _billCycleFrom = value;
-  }
+  int get billCycleFrom => _billCycleFrom ?? 0;
 
   String get signDate => _signDate ?? "";
 
@@ -86,9 +79,6 @@ class ContractModel{
     _contractNo = value;
   }
 
-  String get contractId => _contractId ?? "";
+  int get contractId => _contractId ?? 0;
 
-  set contractId(String value) {
-    _contractId = value;
-  }
 }

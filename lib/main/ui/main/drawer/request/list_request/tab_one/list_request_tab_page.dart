@@ -127,7 +127,7 @@ class ListRequestTabState extends State<ListRequestTabPage>{
           if(response.isSuccess){
             print("success :");
             listRequest.clear();
-            ListRequestResponse listRequestResponse = ListRequestResponse.fromJson(response.data);
+            ListRequestResponse listRequestResponse = ListRequestResponse.fromJson(response.data['data']);
             setState(() {
               listRequest.addAll(listRequestResponse.list);
             });
@@ -139,7 +139,6 @@ class ListRequestTabState extends State<ListRequestTabPage>{
           });
         },
         onError: (error) {
-          print("error: " + error.toString());
           setState(() {
             isLoading = false;
           });

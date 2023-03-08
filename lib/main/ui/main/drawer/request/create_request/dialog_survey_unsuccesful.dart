@@ -69,7 +69,7 @@ class DialogSurveyUnsuccessful extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      controller.isSelectOffline ? iconOnlyRadio() : iconOnlyUnRadio(),
+                      controller.isSelectOffline ? iconOnlyRadio(-1) : iconOnlyUnRadio(),
                       SizedBox(width: 10,),
                       Text(
                         AppLocalizations.of(context)!.textCreateOfflineSurvey,

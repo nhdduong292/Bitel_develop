@@ -4,7 +4,7 @@ import 'package:bitel_ventas/main/networks/model/subscription_model.dart';
 import 'package:bitel_ventas/main/networks/model/work_order_model.dart';
 
 class RequestDetailModel{
-  int id = 0;
+  int? _id;
   String? _service;
   String? _technology;
   String? _line;
@@ -23,7 +23,7 @@ class RequestDetailModel{
   RequestDetailModel();
 
   RequestDetailModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    _id = json['id'];
     _service = json['service'];
     _technology = json['technology'];
     _line = json['line'];
@@ -33,7 +33,6 @@ class RequestDetailModel{
     _district = json['district'];
     _precinct = json['precinct'];
     _address = json['address'];
-  ;
     if(json['customer'] != null){
       _customerModel = CustomerModel.fromJson(json['customer']);
     }
@@ -133,5 +132,11 @@ class RequestDetailModel{
 
   set address(String value) {
     _address = value;
+  }
+
+  int get id => _id ?? 0;
+
+  String getInstalAddress(){
+    return "$address, $precinct, $district, $province";
   }
 }

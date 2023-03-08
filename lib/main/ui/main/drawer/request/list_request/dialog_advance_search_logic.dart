@@ -12,7 +12,7 @@ class DialogAdvanceSearchLogic extends GetxController {
   var toDate = "".obs;
   DateTime selectDate = DateTime.now();
   List<String> listReason = ["HN", "HCM", "PQ"];
-  List<String> listService = ["FTTH", "Office Wan", "Leased Line"];
+  List<String> listService = ["FTTH", "OFFICE_WAN", "LEASED_LINE"];
   List<AddressModel> listProvince = [];
   SearchRequest searchRequest;
   TextEditingController controllerCode = TextEditingController();
@@ -89,7 +89,7 @@ class DialogAdvanceSearchLogic extends GetxController {
         onSuccess: (response) {
           if (response.isSuccess) {
             print("success");
-            listProvince = (response.data as List)
+            listProvince = (response.data['data'] as List)
                 .map((postJson) => AddressModel.fromJson(postJson))
                 .toList();
             if(listProvince.isNotEmpty){
@@ -102,7 +102,6 @@ class DialogAdvanceSearchLogic extends GetxController {
 
         },
         onError: (error) {
-          print("error: " + error.toString());
           function.call(false);
         });
   }

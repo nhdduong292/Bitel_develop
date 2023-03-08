@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 
 class CreateRequestLogic extends GetxController {
   String currentService = "FTTH";
-  List<String> listService = ["FTTH", "Office Wan", "Leased Line"];
+  List<String> listService = ["FTTH", "OFFICE_WAN", "LEASED_LINE"];
   String currentIdentityType = "DNI";
   String currentIdentity = "";
   List<String> listIdentity = ["DNI", "CE", "PP", "PTP"];
@@ -57,19 +57,28 @@ class CreateRequestLogic extends GetxController {
   }
 
   void setPrecinct(AddressModel value){
+    if(value.areaCode == currentPrecinct.areaCode) return;
     currentPrecinct = value;
     textFieldPrecinct.text = value.name;
     update();
   }
   void setDistrict(AddressModel value){
+    if(value.areaCode == currentDistrict.areaCode) return;
     currentDistrict = value;
     textFieldDistrict.text = value.name;
+    textFieldPrecinct.text = "";
+    listPrecinct.clear();
     update();
   }
 
   void setProvince(AddressModel value){
+    if(value.areaCode == currentProvince.areaCode) return;
     currentProvince = value;
     textFieldProvince.text = value.name;
+    textFieldDistrict.text = "";
+    textFieldPrecinct.text = "";
+    listDistrict.clear();
+    listPrecinct.clear();
     update();
   }
   void setAddress(String value){
@@ -146,7 +155,7 @@ class CreateRequestLogic extends GetxController {
         body: body,
         onSuccess: (response) {
           if (response.isSuccess) {
-            requestModel = RequestModel.fromJson(response.data);
+            requestModel = RequestModel.fromJson(response.data['data']);
             update();
             print("success");
             function.call(true,requestModel.id);
@@ -156,7 +165,6 @@ class CreateRequestLogic extends GetxController {
           }
         },
         onError: (error) {
-          print("error: " + error.toString());
           function.call(false,0);
         });
   }
@@ -182,7 +190,7 @@ class CreateRequestLogic extends GetxController {
         onSuccess: (response) {
           if (response.isSuccess) {
             print("success");
-            SearchContactResponse contactResponse = SearchContactResponse.fromJson(response.data);
+            SearchContactResponse contactResponse = SearchContactResponse.fromJson(response.data['data']);
             if(contactResponse.list.isNotEmpty){
               contactModel = contactResponse.list[0];
               print("${contactModel.toString()}");
@@ -194,7 +202,6 @@ class CreateRequestLogic extends GetxController {
           }
         },
         onError: (error) {
-          print("error: " + error.toString());
         });
   }
 
@@ -204,7 +211,7 @@ class CreateRequestLogic extends GetxController {
         onSuccess: (response) {
           if (response.isSuccess) {
             print("success");
-            listProvince = (response.data as List)
+            listProvince = (response.data['data'] as List)
                 .map((postJson) => AddressModel.fromJson(postJson))
                 .toList();
             if(listProvince.isNotEmpty){
@@ -218,7 +225,6 @@ class CreateRequestLogic extends GetxController {
 
         },
         onError: (error) {
-          print("error: " + error.toString());
           function.call(false);
         });
   }
@@ -233,7 +239,7 @@ class CreateRequestLogic extends GetxController {
         onSuccess: (response) {
           if (response.isSuccess) {
             print("success");
-            listPrecinct = (response.data as List)
+            listPrecinct = (response.data['data'] as List)
                 .map((postJson) => AddressModel.fromJson(postJson))
                 .toList();
             if(listPrecinct.isNotEmpty){
@@ -247,7 +253,6 @@ class CreateRequestLogic extends GetxController {
 
         },
         onError: (error) {
-          print("error: " + error.toString());
           function.call(false);
         });
   }
@@ -263,7 +268,7 @@ class CreateRequestLogic extends GetxController {
         onSuccess: (response) {
           if (response.isSuccess) {
             print("success");
-            listDistrict = (response.data as List)
+            listDistrict = (response.data['data'] as List)
                 .map((postJson) => AddressModel.fromJson(postJson))
                 .toList();
             if(listDistrict.isNotEmpty){
@@ -277,7 +282,6 @@ class CreateRequestLogic extends GetxController {
 
         },
         onError: (error) {
-          print("error: " + error.toString());
           function.call(false);
         });
   }
@@ -302,7 +306,6 @@ class CreateRequestLogic extends GetxController {
           }
         },
         onError: (error) {
-          print("error: " + error.toString());
           callBack.call(false);
         });
   }
@@ -320,7 +323,6 @@ class CreateRequestLogic extends GetxController {
           }
         },
         onError: (error) {
-          print("error: " + error.toString());
           callBack.call(false);
         });
   }

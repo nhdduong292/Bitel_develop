@@ -12,6 +12,7 @@ class SearchRequest {
   List<String> listStatus = [
     RequestStatus.CREATE_REQUEST,
     RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY,
+    RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY,
     RequestStatus.CONNECTED,
     RequestStatus.DEPLOYING,
     RequestStatus.COMPLETE,

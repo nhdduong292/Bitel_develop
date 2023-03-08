@@ -31,7 +31,7 @@ class CreateRequestPage extends GetWidget{
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           leading: Padding(
-            padding: EdgeInsets.only(left: 18, bottom: 18, top: 2),
+            padding: const EdgeInsets.only(left: 18, bottom: 18, top: 2),
             child: GestureDetector(
               child: SvgPicture.asset(AppImages.icBack),
               onTap: () {
@@ -41,7 +41,7 @@ class CreateRequestPage extends GetWidget{
           ),
           elevation: 0.0,
           title: Container(
-            margin: EdgeInsets.only(bottom: 20),
+            margin: const EdgeInsets.only(bottom: 20),
             child: Text(AppLocalizations.of(context)!.textCreateNewRequest, style: AppStyles.title),
           ),
           toolbarHeight: 100,
@@ -58,14 +58,14 @@ class CreateRequestPage extends GetWidget{
             children: [
               Container(
                 width: double.infinity,
-                margin: EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 20),
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+                margin: const EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(22),
                   boxShadow: [
                     BoxShadow(
-                      offset: Offset(0, 1),
+                      offset: const Offset(0, 1),
                       blurRadius: 2,
                       color: Colors.black.withOpacity(0.3),
                     ),
@@ -80,8 +80,8 @@ class CreateRequestPage extends GetWidget{
                       },
                       child: Row(
                         children: [
-                          controller.isCheckAgree ? iconChecked() : iconUnchecked(),
-                          SizedBox(width: 14,),
+                          controller.isCheckAgree ? iconOnlyRadio(0) : iconOnlyUnRadio(),
+                          const SizedBox(width: 14,),
                           Expanded(
                               flex: 1,
                               child: RichText(
@@ -89,12 +89,14 @@ class CreateRequestPage extends GetWidget{
                                   text: AppLocalizations.of(context)!
                                       .textInfoCreateRequest1,
                                   style: AppStyles.r2.copyWith(color: AppColors.colorText1),
-                                  children: const <TextSpan>[
+                                  children: <TextSpan>[
                                     TextSpan(
-                                        text: 'processing of my personal and sensitive data',
-                                        style: TextStyle(color: AppColors.colorUnderText, decoration: TextDecoration.underline)),
+                                        text: AppLocalizations.of(context)!
+                                            .textInfoCreateRequest2,
+                                        style: const TextStyle(color: AppColors.colorUnderText, decoration: TextDecoration.underline)),
                                     TextSpan(
-                                        text: ", with the collection of the same"
+                                        text: AppLocalizations.of(context)!
+                                            .textInfoCreateRequest3
                                     )
                                   ],
 
@@ -141,11 +143,11 @@ class CreateRequestPage extends GetWidget{
                                 listDrop: controller.listIdentity
                             )
                         ),
-                        SizedBox(width: 10,),
+                        const SizedBox(width: 10,),
                         Expanded(
                             flex: 2,
                           child: Container(
-                            margin: EdgeInsets.only(top: 14),
+                            margin: const EdgeInsets.only(top: 14),
                             child: TextField(
                                 maxLength: controller.getMaxLengthIdNumber(controller.currentIdentityType),
                                 controller: controller.textFieldIdNumber,
@@ -190,7 +192,7 @@ class CreateRequestPage extends GetWidget{
                       ],
                     ),
                     controller.isAddContact ? Container() : Container(
-                      margin: EdgeInsets.only(top: 10),
+                      margin: const EdgeInsets.only(top: 10),
                       alignment: Alignment.centerRight,
                       child: Text(style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500, color: AppColors.colorTitle,decoration: TextDecoration.underline),AppLocalizations.of(context)!
                           .textAddNewContact.toUpperCase()),
@@ -287,7 +289,7 @@ class CreateRequestPage extends GetWidget{
                           child: Text( AppLocalizations.of(context)!
                               .textSurveyAddress, style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),),
                         ),
-                        SizedBox(width: 10,),
+                        const SizedBox(width: 10,),
                         InkWell(
                           child: SvgPicture.asset(AppImages.icSurveyAddress),
                           onTap: () {
@@ -350,7 +352,7 @@ class CreateRequestPage extends GetWidget{
                                   borderSide: const BorderSide(width: 1, color: AppColors.colorLineDash)
                               ),
                               suffixIcon: Padding(
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 child: SvgPicture.asset(AppImages.icDropdownSpinner),
                               )
 
@@ -419,7 +421,7 @@ class CreateRequestPage extends GetWidget{
                                     borderSide: const BorderSide(width: 1, color: AppColors.colorLineDash)
                                 ),
                                 suffixIcon: Padding(
-                                  padding: EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(10),
                                   child: SvgPicture.asset(AppImages.icDropdownSpinner),
                                 )
 
@@ -490,7 +492,7 @@ class CreateRequestPage extends GetWidget{
                                     borderSide: const BorderSide(width: 1, color: AppColors.colorLineDash)
                                 ),
                                 suffixIcon: Padding(
-                                  padding: EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(10),
                                   child: SvgPicture.asset(AppImages.icDropdownSpinner),
                                 )
 
@@ -548,14 +550,14 @@ class CreateRequestPage extends GetWidget{
                       flex: 1,
                       child: Container(
                         width: double.infinity,
-                        margin: EdgeInsets.only(top: 30, left: 25, right: 5),
-                        padding: EdgeInsets.symmetric(vertical: 14),
+                        margin: const EdgeInsets.only(top: 30, left: 25, right: 5),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(24),
                           boxShadow: [
                             BoxShadow(
-                              offset: Offset(0, 1),
+                              offset: const Offset(0, 1),
                               blurRadius: 2,
                               color: Colors.black.withOpacity(0.3),
                             ),
@@ -594,7 +596,7 @@ class CreateRequestPage extends GetWidget{
                               if(isSuccess){
                                 showDialogSurveyMap(context, controller, id);
                               }else {
-                                Common.showToastCenter("Có lỗi xảy ra, vui lòng thử lại sau");
+                                Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
                               }
                             },);
 

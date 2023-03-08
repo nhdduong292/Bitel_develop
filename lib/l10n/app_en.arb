@@ -264,7 +264,8 @@
   "textInfoCreateRequest2": "processing of my personal and sensitive data",
   "textInfoCreateRequest3": ", with the collection of the same",
   "textChooseTechnology": "Choose technology",
-  "textMaxRadius": "Max radius 500m",
+  "textMaxRadius5": "Max radius 500m",
+  "textMaxRadius3": "Max radius 300m",
   "textRequestManagement": "Request management",
   "textWaitingSurvey": "Waiting survey",
   "textWaitingConnect": "Waiting connect",
@@ -363,5 +364,7 @@
   "textSurveyOfflineSuccess": "Survey offline successfully",
   "textConnected": "Connected",
   "textDeploying": "Deploying",
-  "textYourBestFingerprint" : "Your best fingerprint"
+  "textYourBestFingerprint" : "Your best fingerprint",
+  "textErrorAPI": "Có lỗi xảy ra, vui lòng thử lại sau",
+  "textSuccessAPI": "Thành công"
   }

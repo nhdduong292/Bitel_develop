@@ -10,7 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RequestDetailLogic extends GetxController {
   RequestDetailModel requestModel =  RequestDetailModel();
-  bool isLoading = false;
+  bool isLoading = true;
   String currentId = "";
   String status = "";
   List<String> listArgument = [];
@@ -37,15 +37,13 @@ class RequestDetailLogic extends GetxController {
   }
 
   void getRequestDetail(String id) async {
-    isLoading = true;
-    update();
     Future.delayed(Duration(seconds: 1));
     ApiUtil.getInstance()!.get(
         url: "${ApiEndPoints.API_REQUEST_DETAIL}/$id",
         onSuccess: (response) {
           if (response.isSuccess) {
             print("success");
-            requestModel = RequestDetailModel.fromJson(response.data);
+            requestModel = RequestDetailModel.fromJson(response.data['data']);
           } else {
             print("error: ${response.status}");
           }
@@ -53,7 +51,6 @@ class RequestDetailLogic extends GetxController {
           update();
         },
         onError: (error) {
-          print("error: " + error.toString());
           isLoading = false;
           update();
         });

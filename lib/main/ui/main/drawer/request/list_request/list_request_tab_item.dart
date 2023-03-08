@@ -24,7 +24,7 @@ class ListRequestTabItem extends StatelessWidget{
             child: Row(
               children: [
                 Text(AppLocalizations.of(context)!.textRequestCode, style: AppStyles.r8.copyWith(fontWeight: FontWeight.w400, color: AppColors.colorText2.withOpacity(0.85)),),
-                Expanded(child: Text(requestModel.id.toString(), style: AppStyles.r8.copyWith(fontWeight: FontWeight.w500, color: AppColors.colorText4,),textAlign: TextAlign.right,))
+                Expanded(child: Text(requestModel.code.toString(), style: AppStyles.r8.copyWith(fontWeight: FontWeight.w500, color: AppColors.colorText4,),textAlign: TextAlign.right,))
               ],
             ),
           ),
@@ -60,7 +60,7 @@ class ListRequestTabItem extends StatelessWidget{
             child: Row(
               children: [
                 Text(AppLocalizations.of(context)!.textInstallationAddress, style: AppStyles.r8.copyWith(fontWeight: FontWeight.w400, color: AppColors.colorText2.withOpacity(0.85)),),
-                Expanded(child: Text("19/1000, Ica, Ica Ica/2022", style: AppStyles.r8.copyWith(fontWeight: FontWeight.w500, color: AppColors.colorText4),textAlign: TextAlign.right))
+                Expanded(child: Text(requestModel.getInstalAddress(), style: AppStyles.r8.copyWith(fontWeight: FontWeight.w500, color: AppColors.colorText4),textAlign: TextAlign.right))
               ],
             ),
           ),

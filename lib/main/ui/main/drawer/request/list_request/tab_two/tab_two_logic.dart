@@ -46,7 +46,7 @@ class TabTwoLogic extends GetxController{
           if(response.isSuccess){
             print("success :");
             listRequest.clear();
-            ListRequestResponse listRequestResponse = ListRequestResponse.fromJson(response.data);
+            ListRequestResponse listRequestResponse = ListRequestResponse.fromJson(response.data['data']);
             listRequest.addAll(listRequestResponse.list);
           } else {
             print("error: ${response.status}");
@@ -55,7 +55,6 @@ class TabTwoLogic extends GetxController{
           update();
         },
         onError: (error) {
-          print("error: " + error.toString());
           isLoading = false;
           update();
         });

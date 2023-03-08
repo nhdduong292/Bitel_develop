@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/id_card_scanner.dart';
+import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:camera/camera.dart';
@@ -164,7 +165,10 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                       SizedBox(
                         height: 16,
                       ),
-                      Container(
+                      GestureDetector(onTap: () {
+                        controller.getScan();
+                      },
+                      child: Container(
                         height: 48,
                         margin: EdgeInsets.only(left: 15, right: 25),
                         decoration: BoxDecoration(
@@ -192,7 +196,7 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                             )
                           ],
                         ),
-                      ),
+                      ),),
                       SizedBox(
                         height: 16,
                       ),
@@ -213,18 +217,20 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                           Center(
                               child:
                                   SvgPicture.asset(AppImages.icBorderIdentity)),
-                          Obx(
-                            () => Visibility(
-                              visible: path.value != '',
-                              child: Center(
-                                  child: Container(
-                                width: 290,
-                                height: 160,
-                                margin: EdgeInsets.all(4),
-                                child: Image.file(File(path.value)),
-                              )),
-                            ),
-                          )
+                          controller.textPathScan.isNotEmpty ? Image.file(File(controller.textPathScan),width: 290,
+                            height: 160,) : Container(),
+                          // Obx(
+                          //   () => Visibility(
+                          //     visible: path.value != '',
+                          //     child: Center(
+                          //         child: Container(
+                          //       width: 290,
+                          //       height: 160,
+                          //       margin: EdgeInsets.all(4),
+                          //       child: Image.file(File(path.value)),
+                          //     )),
+                          //   ),
+                          // )
                         ]),
                       ),
                       SizedBox(
@@ -245,7 +251,11 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                 ),
                 child: InkWell(
                   onTap: () {
-                    callback();
+                    if(controller.textPathScan.isEmpty){
+                      Common.showToastCenter("Bạn chưa chụp ảnh thẻ");
+                    } else {
+                      callback();
+                    }
                   },
                   child: Center(
                       child: Text(

@@ -60,7 +60,7 @@ class DialogSurveyMapPage extends GetWidget {
                     borderRadius: BorderRadius.circular(6),
                     boxShadow: [
                       BoxShadow(
-                        offset: Offset(0, 1),
+                        offset: const Offset(0, 1),
                         blurRadius: 2,
                         color: Colors.black.withOpacity(0.3),
                       ),
@@ -77,7 +77,7 @@ class DialogSurveyMapPage extends GetWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(top: 18),
+                  padding: const EdgeInsets.only(top: 18),
                   child: Row(
                     children: [
                       Expanded(flex: 2, child:  Text(
@@ -102,7 +102,7 @@ class DialogSurveyMapPage extends GetWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(top: 16),
+                  padding: const EdgeInsets.only(top: 16),
                   child: Row(
                     children: [
                       Expanded(flex: 2, child:  Text(
@@ -115,7 +115,7 @@ class DialogSurveyMapPage extends GetWidget {
                           flex: 5,
                           child: spinnerFormV2(
                               context: context,
-                              hint: AppLocalizations.of(context)!.textMaxRadius,
+                              hint: controller.currentTechnology == "AON" ? AppLocalizations.of(context)!.textMaxRadius3 : AppLocalizations.of(context)!.textMaxRadius5,
                               inputType: TextInputType.number,
                               required: false,
                               dropValue: "",
@@ -132,14 +132,14 @@ class DialogSurveyMapPage extends GetWidget {
                         flex: 1,
                         child: Container(
                           width: double.infinity,
-                          margin: EdgeInsets.only(top: 30),
-                          padding: EdgeInsets.symmetric(vertical: 14),
+                          margin: const EdgeInsets.only(top: 30),
+                          padding: const EdgeInsets.symmetric(vertical: 14),
                           decoration: BoxDecoration(
                             color: controller.isConnect ? AppColors.colorButton :Colors.white,
                             borderRadius: BorderRadius.circular(24),
                             boxShadow: [
                               BoxShadow(
-                                offset: Offset(0, 1),
+                                offset: const Offset(0, 1),
                                 blurRadius: 2,
                                 color: Colors.black.withOpacity(0.3),
                               ),
@@ -158,19 +158,19 @@ class DialogSurveyMapPage extends GetWidget {
                                 )),
                           ),
                         )),
-                    SizedBox(width: 15,),
+                    const SizedBox(width: 15,),
                     Expanded(
                         flex: 1,
                         child: Container(
                           width: double.infinity,
-                          margin: EdgeInsets.only(top: 30),
-                          padding: EdgeInsets.symmetric(vertical: 14),
+                          margin: const EdgeInsets.only(top: 30),
+                          padding: const EdgeInsets.symmetric(vertical: 14),
                           decoration: BoxDecoration(
                             color: controller.isConnect ? Colors.white: AppColors.colorButton,
                             borderRadius: BorderRadius.circular(24),
                             boxShadow: [
                               BoxShadow(
-                                offset: Offset(0, 1),
+                                offset: const Offset(0, 1),
                                 blurRadius: 2,
                                 color: Colors.black.withOpacity(0.3),
                               ),
@@ -178,7 +178,7 @@ class DialogSurveyMapPage extends GetWidget {
                           ),
                           child: InkWell(
                             onTap: () {
-                              if(controller.checkValidate() || controller.isConnect){
+                              if(controller.isConnect || controller.checkValidate()){
                                 return;
                               }
                               _onLoading(context);

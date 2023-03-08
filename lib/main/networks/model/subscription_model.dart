@@ -1,12 +1,12 @@
 class SubscriptionModel{
-  String? _subId;
+  int? _subId;
   String? _isdn;
   String? _account;
   String? _password;
-  String? _speed;
+  double? _speed;
   String? _productCode;
-  String? _pricePlan;
-  String? _localPricePlan;
+  int? _pricePlan;
+  int? _localPricePlan;
 
   SubscriptionModel();
   SubscriptionModel.fromJson(Map<String, dynamic> json) {
@@ -20,13 +20,13 @@ class SubscriptionModel{
     _localPricePlan = json['localPricePlan'];
   }
 
-  String get localPricePlan => _localPricePlan ?? "";
+  int get localPricePlan => _localPricePlan ?? 0;
 
-  String get pricePlan => _pricePlan ?? "";
+  int get pricePlan => _pricePlan ?? 0;
 
   String get productCode => _productCode ?? "";
 
-  String get speed => _speed ?? "";
+  double get speed => _speed ?? 0;
 
   String get password => _password ?? "";
 
@@ -34,5 +34,5 @@ class SubscriptionModel{
 
   String get isdn => _isdn ?? "";
 
-  String get subId => _subId ?? "";
+  int get subId => _subId ?? 0;
 }

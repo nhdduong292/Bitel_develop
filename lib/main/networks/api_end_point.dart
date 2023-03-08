@@ -32,4 +32,7 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts";
   static final String API_CONTRACT_PREVIEW =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts/id/preview";
+  static final String API_LOGIN =
+      "http://10.121.14.196:9093/login";
+
 }

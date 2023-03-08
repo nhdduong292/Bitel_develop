@@ -23,7 +23,7 @@ class AdditionalInformationLogic extends GetxController {
       url: '${ApiEndPoints.API_CUSTOMER}/54/',
       onSuccess: (response) {
         if (response.isSuccess) {
-          customer = CustomerModel.fromJson(response.data);
+          customer = CustomerModel.fromJson(response.data['data']);
           // update();
         } else {
           print("error: ${response.status}");

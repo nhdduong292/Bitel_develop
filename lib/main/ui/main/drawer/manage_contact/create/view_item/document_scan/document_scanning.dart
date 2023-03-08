@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:io';
+
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -203,7 +205,8 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                   SizedBox(
                     height: 12,
                   ),
-                  SvgPicture.asset(AppImages.imgIdentity),
+                  controller.textPathScan.isNotEmpty ? Image.file(File(controller.textPathScan)) : SvgPicture.asset(AppImages.imgIdentity),
+
                   SizedBox(
                     height: 23,
                   ),
@@ -220,7 +223,11 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                 ),
                 child: InkWell(
                   onTap: () {
-                    callback();
+                    // if(controller.textPathScan.isEmpty) {
+                    //   controller.getScan();
+                    // } else {
+                      callback();
+                    // }
                   },
                   child: Center(
                       child: Text(

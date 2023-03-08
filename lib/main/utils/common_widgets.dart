@@ -1194,7 +1194,11 @@ SvgPicture iconOnlyUnRadio() {
   return SvgPicture.asset(AppImages.icUnSelectRadio, height: 20, width: 20,);
 }
 
-SvgPicture iconOnlyRadio() {
+SvgPicture iconOnlyRadio(int color) {
+  if(color == 0) { // xanh
+    return SvgPicture.asset(AppImages.icRadioChecked, height: 20, width: 20);
+  }
+  //tim default = -1
   return SvgPicture.asset(AppImages.icSelectRadio, height: 20, width: 20,);
 }
 
