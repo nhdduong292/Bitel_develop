@@ -104,7 +104,13 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              controller.selectedProduct.productName ?? 'null',
+                              controller.valueProduct.value > -1
+                                  ? controller
+                                          .listProduct[
+                                              controller.valueProduct.value]
+                                          .productName ??
+                                      'null'
+                                  : 'null',
                               style: const TextStyle(
                                   fontSize: 14,
                                   fontFamily: 'Roboto',
@@ -229,15 +235,16 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                         return const RechargeDialog(height: 340);
                       });
                 } else {
-                  controller.checkRegisterCustomer().then((value) => {
-                        if (value)
-                          {
-                            Get.toNamed(RouteConfig.customerInformation,
-                                arguments: controller.customer)
-                          }
-                        else
-                          {Get.toNamed(RouteConfig.createContact)}
-                      });
+                  controller.checkRegisterCustomer().then((value) {
+                    if (value) {
+                      Get.toNamed(RouteConfig.customerInformation,
+                          arguments: controller.customer);
+                    } else {
+                      Get.toNamed(RouteConfig.customerInformation,
+                          arguments: controller.customer);
+                      // Get.toNamed(RouteConfig.createContact);
+                    }
+                  });
                 }
               }
             },

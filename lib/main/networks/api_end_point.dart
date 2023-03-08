@@ -6,7 +6,8 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/requests";
   static final String API_CREATE_REQUEST =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/requests";
-   static final String API_CHANGE_STATUS_REQUEST = "/change-status"; //todo dùng cho cả survey offline
+  static final String API_CHANGE_STATUS_REQUEST =
+      "/change-status"; //todo dùng cho cả survey offline
   static final String API_REQUEST_DETAIL =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/requests";
   static final String API_TRANSFER_REQUEST = "/transfer";
@@ -21,7 +22,7 @@ class ApiEndPoints {
   static final String API_DISTRICTS =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/areas/districts";
   static final String API_SURVEY = "${isDev ? DOMAIN_TEST : DOMAIN}/v1/surveys";
-   static final String API_SURVEY_ONLINE = "/lock";
+  static final String API_SURVEY_ONLINE = "/lock";
   static final String API_HOME_SALE =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/home-page/statistic";
   static final String API_LIST_PRODUCT =
@@ -36,4 +37,8 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/plan-reasons";
   static final String API_WALLET =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/wallets/balance";
+  static final String API_BEST_FINGER =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/customers/id/best-finger";
+  static final String API_SIGN_CONTRACT =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts/id/sign";
 }

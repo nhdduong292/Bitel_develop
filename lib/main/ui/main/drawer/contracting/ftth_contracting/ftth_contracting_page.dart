@@ -116,7 +116,7 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                     .textOperationCode,
                                 richText: () {
                                   return Text(
-                                    'IA-1345645646444544',
+                                    controller.contractModel.operationCode,
                                     style: AppStyles.rF76F5A_13_500,
                                   );
                                 }),
@@ -130,7 +130,7 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                     AppLocalizations.of(context)!.textCustomer,
                                 richText: () {
                                   return Text(
-                                    'ADHIN fgar',
+                                    controller.contractModel.fullNameCus,
                                     style: AppStyles.r415263_13_500,
                                   );
                                 }),
@@ -144,7 +144,7 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                     .textDocIdentity,
                                 richText: () {
                                   return Text(
-                                    'DNI-963852741',
+                                    '${controller.contractModel.identityType}-${controller.contractModel.idNumber}',
                                     style: AppStyles.r415263_13_500,
                                   );
                                 }),
@@ -158,7 +158,7 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                     AppLocalizations.of(context)!.textProduct,
                                 richText: () {
                                   return Text(
-                                    'BITELFIBRA80',
+                                    controller.contractModel.productName,
                                     style: AppStyles.r415263_13_500,
                                   );
                                 }),
@@ -172,7 +172,7 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                     AppLocalizations.of(context)!.textPromotion,
                                 richText: () {
                                   return Text(
-                                    'DScto. S/.20 el 2d0, 3er',
+                                    controller.contractModel.promotionName,
                                     style: AppStyles.r415263_13_500,
                                   );
                                 }),
@@ -187,7 +187,8 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                 richText: () {
                                   return RichText(
                                       text: TextSpan(
-                                          text: 'Ciclo 26 ',
+                                          text: controller
+                                              .contractModel.billCycleFrom,
                                           style: AppStyles.r415263_13_500,
                                           children: [
                                         TextSpan(
@@ -208,7 +209,7 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                         ':',
                                 richText: () {
                                   return Text(
-                                    '12/04/2022  ',
+                                    controller.contractModel.signDate,
                                     style: AppStyles.r415263_13_500,
                                   );
                                 }),

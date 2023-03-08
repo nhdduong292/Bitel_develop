@@ -1,4 +1,4 @@
-class ContractModel{
+class ContractModel {
   String? _contractId;
   String? _contractNo;
   String? _signDate;
@@ -6,6 +6,8 @@ class ContractModel{
   String? _billCycleFromCharging;
   String? _status;
   String? _operationCode;
+  String? _identityType;
+  String? _idNumber;
   String? _fullNameCus;
   String? _phone;
   String? _productName;
@@ -20,6 +22,8 @@ class ContractModel{
     _billCycleFromCharging = json['billCycleFromCharging'];
     _status = json['status'];
     _operationCode = json['operationCode'];
+    _identityType = json['identityType'];
+    _idNumber = json['idNumber'];
     _fullNameCus = json['fullNameCus'];
     _phone = json['phone'];
     _productName = json['productName'];
@@ -90,5 +94,17 @@ class ContractModel{
 
   set contractId(String value) {
     _contractId = value;
+  }
+
+  String get identityType => _identityType ?? "";
+
+  set identityType(String value) {
+    _identityType = value;
+  }
+
+  String get idNumber => _idNumber ?? "";
+
+  set idNumber(String value) {
+    _idNumber = value;
   }
 }

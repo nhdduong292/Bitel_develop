@@ -137,11 +137,12 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                     children: [
                                       RichText(
                                         text: TextSpan(
-                                            text: 'DNI: ',
+                                            text:
+                                                '${controller.typeCustomer}: ',
                                             style: AppStyles.r3,
                                             children: [
                                               TextSpan(
-                                                text: '001573053',
+                                                text: controller.idNumber,
                                                 style: AppStyles.r1,
                                               )
                                             ]),
@@ -181,7 +182,13 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                             SizedBox(
                               height: 41,
                             ),
-                            controller.textCapture.isNotEmpty ? Image.file(File(controller.textCapture), width: 80, height: 160,) : SvgPicture.asset(AppImages.imgHuellaDactilar),
+                            controller.textCapture.isNotEmpty
+                                ? Image.file(
+                                    File(controller.textCapture),
+                                    width: 80,
+                                    height: 160,
+                                  )
+                                : SvgPicture.asset(AppImages.imgHuellaDactilar),
                             SizedBox(
                               height: 22,
                             ),
@@ -204,8 +211,12 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                     flex: 1,
                                     child: bottomButton(
                                         onTap: () {
-                                          Get.toNamed(
-                                              RouteConfig.ftthContracting);
+                                          if (controller.type == 'LENDING') {
+                                            Get.toNamed(
+                                                RouteConfig.ftthContracting);
+                                          } else {
+                                            Get.back(result: true);
+                                          }
                                         },
                                         text: AppLocalizations.of(context)!
                                             .textValidate)),
@@ -221,6 +232,4 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
           );
         });
   }
-
-
 }

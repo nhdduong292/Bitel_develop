@@ -156,7 +156,6 @@ class CustommerInformationPage extends GetView<CustomerInformationLogic> {
                                 duration: const Duration(milliseconds: 200),
                               );
                               controller.getCurrentTime();
-                              controller.contractPreview();
                             },
                           );
                         } else if (index == 1) {
@@ -173,8 +172,19 @@ class CustommerInformationPage extends GetView<CustomerInformationLogic> {
                           );
                         } else {
                           return ContractPreviewWidget(
-                            callback: () {
-                              Get.toNamed(RouteConfig.validateFingerprint);
+                            callback: (value) {
+                              Get.toNamed(RouteConfig.validateFingerprint,
+                                  arguments: [
+                                    value,
+                                    controller.customer.custId,
+                                    controller.getTypeCustomer(),
+                                    controller.customer.idNumber
+                                  ])?.then((value) {
+                                if (value != null && value) {
+                                  controller.checkMainContract.value = false;
+                                  controller.checkLendingContract.value = true;
+                                }
+                              });
                             },
                           );
                         }

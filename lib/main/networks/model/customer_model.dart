@@ -1,9 +1,9 @@
 class CustomerModel {
-  String? _custId;
+  int? _custId;
   String? _firstName;
   String? _fullName;
   String? _telFax;
-  String? _type;
+  int? _type;
   String? _idNumber;
   String? _areaCode;
   String? _province;
@@ -86,7 +86,7 @@ class CustomerModel {
 
   String get idNumber => _idNumber ?? "";
 
-  String get type => _type ?? "";
+  int get type => _type ?? -1;
 
   String get telFax => _telFax ?? "";
 
@@ -94,5 +94,5 @@ class CustomerModel {
 
   String get firstName => _firstName ?? "";
 
-  String get custId => _custId ?? "";
+  int get custId => _custId ?? -1;
 }

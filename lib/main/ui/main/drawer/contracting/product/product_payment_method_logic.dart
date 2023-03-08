@@ -118,7 +118,7 @@ class ProductPaymentMethodLogic extends GetxController {
   Future<bool> checkRegisterCustomer() async {
     Completer<bool> completer = Completer();
     ApiUtil.getInstance()!.get(
-      url: '${ApiEndPoints.API_CUSTOMER}/45/',
+      url: '${ApiEndPoints.API_CUSTOMER}/54/',
       onSuccess: (response) {
         if (response.isSuccess) {
           customer = CustomerModel.fromJson(response.data);
