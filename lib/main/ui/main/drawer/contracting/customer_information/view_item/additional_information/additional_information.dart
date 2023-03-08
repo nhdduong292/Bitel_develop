@@ -13,7 +13,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../../../../res/app_colors.dart';
 import '../../../../../../../router/route_config.dart';
 import '../../../../../../../utils/common_widgets.dart';
-import 'additional_information_logic.dart';
 
 typedef void TouchContinue();
 
@@ -79,31 +78,31 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
               height: 15,
             ),
             lockedBox(
-                content: controller.customer.fullName ?? '',
+                content: controller.customer.fullName,
                 label: AppLocalizations.of(context)!.textFullName,
                 required: false,
                 isIcon: false,
                 width: 210),
             lockedBox(
-                content: controller.customer.nationality ?? '',
+                content: controller.customer.nationality,
                 label: AppLocalizations.of(context)!.textNationality,
                 required: false,
                 isIcon: false,
                 width: 210),
             lockedBox(
-                content: controller.customer.sex ?? '',
+                content: controller.customer.sex,
                 label: AppLocalizations.of(context)!.textSex,
                 required: false,
                 isIcon: false,
                 width: 210),
             lockedBox(
-                content: controller.customer.birthDate ?? '',
+                content: controller.customer.birthDate,
                 label: AppLocalizations.of(context)!.textDateOfBirth,
                 required: false,
                 isIcon: false,
                 width: 210),
             lockedBox(
-                content: controller.customer.idIssueDate ?? '',
+                content: controller.customer.idIssueDate,
                 label: AppLocalizations.of(context)!.textIssuedate,
                 required: false,
                 isIcon: false,

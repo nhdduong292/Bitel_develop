@@ -33,8 +33,7 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts";
   static final String API_CONTRACT_PREVIEW =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts/id/preview";
-  static final String API_LOGIN =
-      "http://10.121.14.196:9093/login";
+  static final String API_LOGIN = "http://10.121.14.196:9093/login";
 
   static final String API_PLAN_REASON =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/plan-reasons";
@@ -44,4 +43,6 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/customers/id/best-finger";
   static final String API_SIGN_CONTRACT =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts/id/sign";
+  static final String API_CREATE_CUSTOMER =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/customers";
 }

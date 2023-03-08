@@ -2,10 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
-import 'package:bitel_ventas/main/networks/model/plan_reason_model.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/view_item/contract_preview/contract_preview.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -23,10 +20,14 @@ class CustomerInformationLogic extends GetxController {
   var titleScreen = 'Customer information'.obs;
   var isUpdate = false.obs;
   var signDate = ''.obs;
-  var path = '';
+  var path = ''.obs;
   var checkOption = false.obs;
   var checkMainContract = true.obs;
   var checkLendingContract = false.obs;
+  var billCycle = ''.obs;
+  int requestId = 0;
+  int productId = 0;
+  int reasonId = 0;
   CustomerModel customer = CustomerModel();
 
   CustomerInformationLogic({required this.context});
@@ -35,14 +36,25 @@ class CustomerInformationLogic extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    customer = Get.arguments;
+    var data = Get.arguments;
+    customer = data[0];
+    requestId = data[1];
+    productId = data[2];
+    reasonId = data[3];
     // getCustomer();
-    fromAsset('assets/demo-link.pdf', 'demo.pdf')
-        .then((value) => {path = value.path});
+    // fromAsset('assets/demo-link.pdf', 'demo.pdf')
+    //     .then((value) => {path = value.path});
   }
 
   void getCurrentTime() {
     DateTime now = DateTime.now();
+    if (now.day >= 6 && now.day < 16) {
+      billCycle.value = 'Ciclo 6';
+    } else if (now.day >= 16 && now.day < 26) {
+      billCycle.value = 'Ciclo 16';
+    } else {
+      billCycle.value = 'Ciclo 26';
+    }
     signDate.value = DateFormat("yyyy-MM-ddTHH:mm:ss").format(now);
   }
 
@@ -62,6 +74,24 @@ class CustomerInformationLogic extends GetxController {
       return 'CPP';
     }
     return '';
+  }
+
+  Future<File> fromAsset(String asset, String filename) async {
+    // To open from assets, you can copy them to the app storage folder, and the access them "locally"
+    Completer<File> completer = Completer();
+
+    try {
+      var dir = await getApplicationDocumentsDirectory();
+      File file = File("${dir.path}/$filename");
+      var data = await rootBundle.load(asset);
+      var bytes = data.buffer.asUint8List();
+      await file.writeAsBytes(bytes, flush: true);
+      completer.complete(file);
+    } catch (e) {
+      throw Exception('Error parsing asset file!');
+    }
+
+    return completer.future;
   }
 
   // void getCustomer() {
@@ -95,14 +125,14 @@ class CustomerInformationLogic extends GetxController {
 
   void createContract() {
     Map<String, dynamic> body = {
-      "requestId": 54,
-      "productId": 0,
-      "reasonId": 0,
+      "requestId": requestId,
+      "productId": productId,
+      "reasonId": reasonId,
       "promotionId": 0,
       "contractType": "UNDETERMINED",
       "numOfSubscriber": 1,
       "signDate": signDate.value,
-      "billCycle": "CYCLE6",
+      "billCycle": billCycle,
       "changeNotification": "Email",
       "printBill": "Email",
       "currency": "SOL",
@@ -113,10 +143,10 @@ class CustomerInformationLogic extends GetxController {
       "address": customer.address,
       "phone": customer.telFax,
       "email": customer.email,
-      "protectionFilter": true,
-      "receiveInfoByMail": true,
-      "receiveFromThirdParty": true,
-      "receiveFromBitel": true
+      "protectionFilter": checkOption1,
+      "receiveInfoByMail": checkOption2,
+      "receiveFromThirdParty": checkOption3,
+      "receiveFromBitel": checkOption4
     };
     ApiUtil.getInstance()!.post(
       url: ApiEndPoints.API_CREATE_CONTRACT,
@@ -207,23 +237,23 @@ class CustomerInformationLogic extends GetxController {
   //       .then((value) => {path.value = value.path});
   // }
 
-  Future<File> fromAsset(String asset, String filename) async {
-    // To open from assets, you can copy them to the app storage folder, and the access them "locally"
-    Completer<File> completer = Completer();
+  // Future<File> fromAsset(String asset, String filename) async {
+  //   // To open from assets, you can copy them to the app storage folder, and the access them "locally"
+  //   Completer<File> completer = Completer();
 
-    try {
-      var dir = await getApplicationDocumentsDirectory();
-      File file = File("${dir.path}/$filename");
-      var data = await rootBundle.load(asset);
-      var bytes = data.buffer.asUint8List();
-      await file.writeAsBytes(bytes, flush: true);
-      completer.complete(file);
-    } catch (e) {
-      throw Exception('Error parsing asset file!');
-    }
+  //   try {
+  //     var dir = await getApplicationDocumentsDirectory();
+  //     File file = File("${dir.path}/$filename");
+  //     var data = await rootBundle.load(asset);
+  //     var bytes = data.buffer.asUint8List();
+  //     await file.writeAsBytes(bytes, flush: true);
+  //     completer.complete(file);
+  //   } catch (e) {
+  //     throw Exception('Error parsing asset file!');
+  //   }
 
-    return completer.future;
-  }
+  //   return completer.future;
+  // }
 
   Uint8List convertStringToUint8List(String str) {
     final List<int> codeUnits = str.codeUnits;

@@ -23,7 +23,7 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
       width: MediaQuery.of(context).size.width,
       child: SingleChildScrollView(
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Container(
             margin: const EdgeInsets.only(left: 15, right: 15),
@@ -66,8 +66,9 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                             value: index,
                             onChange: (value) {
                               controller.valueProduct.value = value;
+                              controller.resetPlanReason();
                               if (value > -1) {
-                                controller.getPlanReason(
+                                controller.getPlanReasons(
                                     controller.listProduct[value].productId!);
                               }
                             }),
@@ -84,57 +85,59 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
           const SizedBox(
             height: 20,
           ),
-          Visibility(
-            visible: controller.valueProduct.value > -1,
-            child: Container(
-              margin: const EdgeInsets.only(left: 15, right: 15),
-              padding: const EdgeInsets.only(top: 15),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  border: Border.all(color: const Color(0xFFE3EAF2)),
-                  color: Colors.white,
-                  boxShadow: const [
-                    BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
-                  ]),
-              child: Column(
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.textSelectPaymentMethod,
-                    style: const TextStyle(
-                        color: AppColors.colorContent,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'Roboto'),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const DottedLine(
-                    dashColor: Color(0xFFE3EAF2),
-                    dashGapLength: 3,
-                    dashLength: 4,
-                  ),
-                  ListView.separated(
-                      padding: const EdgeInsets.only(top: 0),
-                      shrinkWrap: true,
-                      primary: false,
-                      itemBuilder: (BuildContext context, int index) =>
-                          _itemMethod(
-                              groupValue: controller.valueMethod,
-                              reason: controller.listPlanReason[index],
-                              value: index,
-                              onChange: (value) {
-                                controller.valueMethod.value = value;
-                              }),
-                      separatorBuilder: (BuildContext context, int index) =>
-                          const Divider(
-                            color: AppColors.colorLineDash,
-                            height: 1,
-                            thickness: 1,
-                          ),
-                      itemCount: controller.listMethod.length)
-                ],
+          Obx(
+            () => Visibility(
+              visible: controller.valueProduct.value > -1,
+              child: Container(
+                margin: const EdgeInsets.only(left: 15, right: 15),
+                padding: const EdgeInsets.only(top: 15),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    border: Border.all(color: const Color(0xFFE3EAF2)),
+                    color: Colors.white,
+                    boxShadow: const [
+                      BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
+                    ]),
+                child: Column(
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.textSelectPaymentMethod,
+                      style: const TextStyle(
+                          color: AppColors.colorContent,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'Roboto'),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const DottedLine(
+                      dashColor: Color(0xFFE3EAF2),
+                      dashGapLength: 3,
+                      dashLength: 4,
+                    ),
+                    ListView.separated(
+                        padding: const EdgeInsets.only(top: 0),
+                        shrinkWrap: true,
+                        primary: false,
+                        itemBuilder: (BuildContext context, int index) =>
+                            _itemMethod(
+                                groupValue: controller.valueMethod,
+                                reason: controller.listPlanReason[index],
+                                value: index,
+                                onChange: (value) {
+                                  controller.valueMethod.value = value;
+                                }),
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const Divider(
+                              color: AppColors.colorLineDash,
+                              height: 1,
+                              thickness: 1,
+                            ),
+                        itemCount: controller.listPlanReason.length)
+                  ],
+                ),
               ),
             ),
           ),
@@ -144,16 +147,14 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                 onTap: () {
                   if (controller.valueMethod.value > -1 &&
                       controller.valueProduct.value > -1) {
+                    controller.isOnMethodPage.value = false;
+                    controller.isOnInvoicePage.value = true;
+                    controller.getWallet();
                     controller.scrollController.scrollTo(
                       index: 1,
                       duration: const Duration(milliseconds: 200),
                     );
                   }
-                  controller.getWallet();
-                  controller.scrollController.scrollTo(
-                    index: 1,
-                    duration: const Duration(milliseconds: 200),
-                  );
                 },
                 color: !(controller.valueMethod.value > -1 &&
                         controller.valueProduct.value > -1)
@@ -186,7 +187,7 @@ Widget _itemProduct(
         mainAxisSize: MainAxisSize.max,
         children: [
           Obx(() =>
-          groupValue.value == value ? iconChecked() : iconUnchecked()),
+              groupValue.value == value ? iconChecked() : iconUnchecked()),
           const SizedBox(
             width: 16,
           ),
@@ -254,7 +255,7 @@ Widget _itemMethod(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Obx(() =>
-          groupValue.value == value ? iconChecked() : iconUnchecked()),
+              groupValue.value == value ? iconChecked() : iconUnchecked()),
           const SizedBox(
             width: 16,
           ),

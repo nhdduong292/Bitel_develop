@@ -16,6 +16,8 @@ import '../../../../../../res/app_images.dart';
 import '../../../../../../res/app_styles.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+import '../../contracting/register_finger_print/register_finger_print_page.dart';
+
 class CreateContactPage extends GetView<CreateContactPageLogic> {
   final ItemScrollController _scrollController = ItemScrollController();
   final ItemPositionsListener _itemPositionsListener =
@@ -174,8 +176,6 @@ class CreateContactPage extends GetView<CreateContactPageLogic> {
                               const SizedBox(
                                 width: 16,
                               ),
-                              circleMarkerView(
-                                  check: controller.checkItem4, text: '4')
                             ],
                           ),
                         )),
@@ -212,38 +212,15 @@ class CreateContactPage extends GetView<CreateContactPageLogic> {
                               );
                             },
                           );
-                        } else if (index == 2) {
-                          return CellPhoneSmsWidget(
-                            callback: () {
-                              _scrollController.scrollTo(
-                                index: 3,
-                                duration: const Duration(milliseconds: 200),
-                              );
-                            },
-                          );
-                        } else if (index == 3) {
-                          return CellPhoneVerifySmsWidget(
-                            callback: () {
-                              controller.checkItem4.value = true;
-                              _scrollController.scrollTo(
-                                index: 4,
-                                duration: const Duration(milliseconds: 200),
-                              );
-                            },
-                          );
-                        } else if (index == 4) {
-                          return CellPhoneEmailWidget(
-                            callback: () {
-                              _scrollController.scrollTo(
-                                index: 5,
-                                duration: const Duration(milliseconds: 200),
-                              );
-                            },
-                          );
                         } else {
-                          return CellPhoneVerifyEmailWidget(
-                            callback: () {},
-                          );
+                          return RegisterFingerPrintPage(
+                              // callback: () {
+                              //   _scrollController.scrollTo(
+                              //     index: 3,
+                              //     duration: const Duration(milliseconds: 200),
+                              //   );
+                              // },
+                              );
                         }
                       }),
                 ),
