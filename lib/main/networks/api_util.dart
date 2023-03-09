@@ -44,7 +44,16 @@ class ApiUtil {
     required Function(Response success) onSuccess,
     required Function(dynamic error) onError,
   }) {
-    dio!.get(url, queryParameters: params).then((res) {
+    dio!
+        .get(
+      url,
+      queryParameters: params,
+      options: Options(
+        responseType: ResponseType.bytes,
+        followRedirects: false,
+      ),
+    )
+        .then((res) {
       if (onSuccess != null) onSuccess(res);
     }).catchError((error) {
       if (onError != null) onError(error);

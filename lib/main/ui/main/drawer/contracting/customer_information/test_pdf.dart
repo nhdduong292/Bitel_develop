@@ -27,8 +27,9 @@ class PDFPreviewLogic extends GetxController {
     //   loadSuccess.value = true;
     // });
     getPDF('demo.pdf').then((value) {
-      // path.value = value.path;
-      path = value;
+      // // path.value = value.path;
+      // path = value;
+      data = value;
       loadSuccess.value = true;
     });
   }
@@ -51,9 +52,9 @@ class PDFPreviewLogic extends GetxController {
     return completer.future;
   }
 
-  Future<String> getPDF(String filename) async {
+  Future<Uint8List> getPDF(String filename) async {
     // To open from assets, you can copy them to the app storage folder, and the access them "locally"
-    Completer<String> completer = Completer();
+    Completer<Uint8List> completer = Completer();
 
     var dir = await getApplicationDocumentsDirectory();
     File file = File("${dir.path}/$filename");
@@ -62,18 +63,8 @@ class PDFPreviewLogic extends GetxController {
         url: ApiEndPoints.API_CONTRACT_PREVIEW.replaceAll("id", "8061275"),
         params: {"type": "MAIN"},
         onSuccess: (response) async {
-          // print(response.data);
-          // var bytes = convertStringToUint8List(response.data);
-          Uint8List pdfBytes = base64Decode(response.data);
-          //        var data = await rootBundle.load(asset);
-          // // var bytes = data.buffer.asUint8List();
-          // var bytes = await consolidateHttpClientResponseBytes(response.data);
-          // await file.writeAsBytes(bytes, flush: true);
-          // return file;
-          // ByteData data = ByteData.view(bytes.buffer);
-
-          await file.writeAsBytes(pdfBytes, flush: true);
-          completer.complete(file.path);
+          await file.writeAsBytes(response.data, flush: true);
+          completer.complete(response.data);
         },
         onError: (error) {},
       );
@@ -120,8 +111,8 @@ class PDFScreen extends GetView<PDFPreviewLogic> {
                         height: width * 1.1625,
                         child: (controller.loadSuccess.value)
                             ? PDFView(
-                                filePath: controller.path,
-                                // pdfData: controller.data,
+                                // filePath: controller.path,
+                                pdfData: controller.data,
                                 enableSwipe: true,
                                 swipeHorizontal: true,
                                 autoSpacing: false,
