@@ -59,7 +59,7 @@ dependencies:
   multiselect: ^0.0.7
   camera: ^0.9.7+1
   image_picker: ^0.8.6+3
-  image_cropper:
+  image_cropper: ^3.0.1
   geolocator: ^9.0.2
   uuid: ^3.0.7
   flutter_keyboard_visibility: ^5.4.0
