@@ -13,7 +13,8 @@ class ValidateFingerprintLogic extends GetxController {
   late BuildContext context;
   String textCapture = "";
   String type = '';
-  int cusId = -1;
+  int cusId = 0;
+  int contractId = 0;
   String typeCustomer = '';
   String idNumber = '';
   BestFingerModel bestFinger = BestFingerModel();
@@ -27,6 +28,7 @@ class ValidateFingerprintLogic extends GetxController {
     cusId = data[1];
     typeCustomer = data[2];
     idNumber = data[3];
+    contractId = data[4];
   }
 
   void setCapture(String value) {
@@ -70,7 +72,8 @@ class ValidateFingerprintLogic extends GetxController {
     };
     Map<String, dynamic> params = {"type": type};
     ApiUtil.getInstance()!.put(
-      url: ApiEndPoints.API_SIGN_CONTRACT.replaceAll('id', cusId.toString()),
+      url: ApiEndPoints.API_SIGN_CONTRACT
+          .replaceAll('id', contractId.toString()),
       body: body,
       params: params,
       onSuccess: (response) {

@@ -1,355 +1,344 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/register_finger_print/register_finger_print_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
+import 'package:bitel_ventas/res/app_images.dart';
+import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
+import '../../../../../../../../../res/app_colors.dart';
 
-import '../../../../../../res/app_colors.dart';
-import '../../../../../../res/app_images.dart';
-import '../../../../../../res/app_styles.dart';
-import '../../../../../router/route_config.dart';
+typedef void TouchScan();
 
 class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    final TouchScan callback;
     return GetBuilder(
         init: RegisterFingerPrintLogic(),
         builder: (controller) {
-          return Scaffold(
-            body: Column(
-              children: [
-                Stack(
-                  children: [
-                    Container(
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFF8FBFB),
-                      ),
-                      width: width,
-                      height: 147,
+          return SingleChildScrollView(
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Container(
+                margin: EdgeInsets.only(left: 10, right: 10),
+                width: MediaQuery.of(context).size.width - 20,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFFFFF),
+                  border: Border.all(
+                    color: const Color(0xFFE3EAF2),
+                    width: 1.0,
+                  ),
+                  boxShadow: [
+                    const BoxShadow(
+                      color: Color.fromRGBO(185, 212, 220, 0.2),
+                      offset: Offset(0, 2),
+                      blurRadius: 7.0,
                     ),
-                    SvgPicture.asset(
-                      AppImages.bgAppbar,
-                      width: width,
-                    ),
-                    Positioned(
-                      top: 50,
-                      left: 70,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                              AppLocalizations.of(context)!
-                                  .textRegisterFingerPrint,
-                              style: AppStyles.title),
-                          const SizedBox(height: 5),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                        top: 45,
-                        left: 20,
-                        child: InkWell(
-                          onTap: () {
-                            Get.back();
-                          },
-                          child: Container(
-                            width: 35,
-                            height: 35,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(13)),
-                            child: const Center(
-                              child: Icon(
-                                Icons.arrow_back_ios_new,
-                                size: 15,
-                                color: AppColors.colorTitle,
-                              ),
-                            ),
-                          ),
-                        )),
                   ],
+                  borderRadius: BorderRadius.circular(24.0),
                 ),
-                const SizedBox(
-                  height: 7,
-                ),
-                Expanded(
-                    child: SingleChildScrollView(
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(left: 10, right: 10),
-                          width: MediaQuery.of(context).size.width - 20,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFFFFFFF),
-                            border: Border.all(
-                              color: const Color(0xFFE3EAF2),
-                              width: 1.0,
-                            ),
-                            boxShadow: [
-                              const BoxShadow(
-                                color: Color.fromRGBO(185, 212, 220, 0.2),
-                                offset: Offset(0, 2),
-                                blurRadius: 7.0,
-                              ),
-                            ],
-                            borderRadius: BorderRadius.circular(24.0),
-                          ),
-                          child: Column(children: [
-                            SizedBox(
-                              height: 52,
-                              child: Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 51, right: 82),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      selectedFingerView(
-                                          isSelect: false,
-                                          text: AppLocalizations.of(context)!
-                                              .textLeft),
-                                      selectedFingerView(
-                                          isSelect: true,
-                                          text: AppLocalizations.of(context)!
-                                              .textRight)
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            DottedLine(
-                              dashColor: Color(0xFFE3EAF2),
-                              dashGapLength: 3,
-                              dashLength: 4,
-                            ),
-                            SizedBox(
-                              height: 25,
-                            ),
-                            Text(
-                                AppLocalizations.of(context)!
-                                    .textYourBestFingerprint,
-                                style: AppStyles.r00A5B1_13_500.copyWith(
-                                    fontSize: 16, fontWeight: FontWeight.w400)),
-                            SizedBox(
-                              height: 25,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                left: 72,
-                                right: 82,
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Image.asset(
-                                    AppImages.imgFinger,
-                                    height: 140,
-                                    fit: BoxFit.cover,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      selectedFingerView(
-                                          isSelect: false,
-                                          text: AppLocalizations.of(context)!
-                                              .textThumb),
-                                      SizedBox(
-                                        height: 12,
-                                      ),
-                                      selectedFingerView(
-                                          isSelect: false,
-                                          text: AppLocalizations.of(context)!
-                                              .textIndex),
-                                      SizedBox(
-                                        height: 12,
-                                      ),
-                                      selectedFingerView(
-                                          isSelect: true,
-                                          text: AppLocalizations.of(context)!
-                                              .textMiddle),
-                                      SizedBox(
-                                        height: 12,
-                                      ),
-                                      selectedFingerView(
-                                          isSelect: false,
-                                          text: AppLocalizations.of(context)!
-                                              .textRing),
-                                      SizedBox(
-                                        height: 12,
-                                      ),
-                                      selectedFingerView(
-                                          isSelect: false,
-                                          text: AppLocalizations.of(context)!
-                                              .textLittle)
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 25,
-                            ),
-                            DottedLine(
-                              dashColor: Color(0xFFE3EAF2),
-                              dashGapLength: 3,
-                              dashLength: 4,
-                            ),
-                            SizedBox(
-                              height: 21,
-                            ),
-                            RichText(
-                                textAlign: TextAlign.center,
-                                text: TextSpan(
-                                    text: AppLocalizations.of(context)!
-                                        .textRegisterFingerprintWith,
-                                    style: AppStyles.r405264_14_500.copyWith(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w400),
-                                    children: [
-                                      TextSpan(
-                                        text:
-                                            '3 ${AppLocalizations.of(context)!.textTimes}',
-                                        style: AppStyles.r9454C9_14_500
-                                            .copyWith(fontSize: 13),
-                                      ),
-                                    ])),
-                            SizedBox(
-                              height: 21,
-                            ),
-                            DottedBorder(
-                              borderType: BorderType.RRect,
-                              radius: Radius.circular(26),
-                              dashPattern: [2, 2],
-                              strokeWidth: 1,
-                              color: Color(0xFF9454C9),
-                              child: SizedBox(
-                                width: 266,
-                                height: 44,
-                                child: Center(
-                                  child: Text(
-                                    AppLocalizations.of(context)!
-                                        .textClickHereTo,
-                                    style: AppStyles.r9454C9_14_500
-                                        .copyWith(fontSize: 12),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 25,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 57, right: 57),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            AppLocalizations.of(context)!
-                                                .textDigitalFingerprint,
-                                            style: AppStyles.r405264_14_500
-                                                .copyWith(
-                                                    fontSize: 13,
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                          )),
-                                      SizedBox(
-                                        height: 12,
-                                      ),
-                                      Container(
-                                        width: 150,
-                                        height: 165,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: Color(0xFFE3EAF2),
-                                              width: 1),
-                                          borderRadius:
-                                              BorderRadius.circular(2),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      fingerPrintView(
-                                          link: AppImages.imgFingerPrint),
-                                      fingerPrintView(
-                                          link: AppImages.imgFingerPrint),
-                                      fingerPrintView(
-                                          link: AppImages.imgFingerPrint)
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 27,
-                            )
-                          ]),
+                child: Column(children: [
+                  SizedBox(
+                    height: 52,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 51, right: 82),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            selectedFingerView(
+                                text: AppLocalizations.of(context)!.textLeft,
+                                value: 1,
+                                groupValue: controller.handValue,
+                                onChange: (value) {
+                                  controller.handValue.value = value;
+                                }),
+                            selectedFingerView(
+                                text: AppLocalizations.of(context)!.textRight,
+                                value: 2,
+                                groupValue: controller.handValue,
+                                onChange: (value) {
+                                  controller.handValue.value = value;
+                                }),
+                          ],
                         ),
+                      ),
+                    ),
+                  ),
+                  DottedLine(
+                    dashColor: Color(0xFFE3EAF2),
+                    dashGapLength: 3,
+                    dashLength: 4,
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Text(AppLocalizations.of(context)!.textYourBestFingerprint,
+                      style: AppStyles.r00A5B1_13_500
+                          .copyWith(fontSize: 16, fontWeight: FontWeight.w400)),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 72,
+                      right: 82,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
                         SizedBox(
-                            width: width,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                    flex: 1,
-                                    child: bottomButtonV2(
-                                        onTap: () {},
-                                        text: AppLocalizations.of(context)!
-                                            .textCapture
-                                            .toUpperCase())),
-                                Expanded(
-                                    flex: 1,
-                                    child: bottomButton(
-                                        onTap: () {},
-                                        text: AppLocalizations.of(context)!
-                                            .textRegister
-                                            .toUpperCase())),
-                              ],
-                            )),
-                        SizedBox(
-                          height: 126,
+                          width: 92,
+                          height: 140,
+                          child: Obx(
+                            () => Image.asset(
+                              controller.pathFinger.value,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            selectedFingerView(
+                                text: AppLocalizations.of(context)!.textThumb,
+                                value: 1,
+                                groupValue: controller.fingerValue,
+                                onChange: (value) {
+                                  controller.fingerValue.value = value;
+                                }),
+                            SizedBox(
+                              height: 12,
+                            ),
+                            selectedFingerView(
+                                text: AppLocalizations.of(context)!.textIndex,
+                                value: 2,
+                                groupValue: controller.fingerValue,
+                                onChange: (value) {
+                                  controller.fingerValue.value = value;
+                                }),
+                            SizedBox(
+                              height: 12,
+                            ),
+                            selectedFingerView(
+                                text: AppLocalizations.of(context)!.textMiddle,
+                                value: 3,
+                                groupValue: controller.fingerValue,
+                                onChange: (value) {
+                                  controller.fingerValue.value = value;
+                                }),
+                            SizedBox(
+                              height: 12,
+                            ),
+                            selectedFingerView(
+                                text: AppLocalizations.of(context)!.textRing,
+                                value: 4,
+                                groupValue: controller.fingerValue,
+                                onChange: (value) {
+                                  controller.fingerValue.value = value;
+                                }),
+                            SizedBox(
+                              height: 12,
+                            ),
+                            selectedFingerView(
+                                text: AppLocalizations.of(context)!.textLittle,
+                                value: 5,
+                                groupValue: controller.fingerValue,
+                                onChange: (value) {
+                                  controller.fingerValue.value = value;
+                                }),
+                          ],
                         )
-                      ]),
-                )),
-              ],
-            ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  DottedLine(
+                    dashColor: Color(0xFFE3EAF2),
+                    dashGapLength: 3,
+                    dashLength: 4,
+                  ),
+                  SizedBox(
+                    height: 21,
+                  ),
+                  RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                          text: AppLocalizations.of(context)!
+                              .textRegisterFingerprintWith,
+                          style: AppStyles.r405264_14_500.copyWith(
+                              fontSize: 13, fontWeight: FontWeight.w400),
+                          children: [
+                            TextSpan(
+                              text:
+                                  '3 ${AppLocalizations.of(context)!.textTimes}',
+                              style: AppStyles.r9454C9_14_500
+                                  .copyWith(fontSize: 13),
+                            ),
+                          ])),
+                  SizedBox(
+                    height: 21,
+                  ),
+                  DottedBorder(
+                    borderType: BorderType.RRect,
+                    radius: Radius.circular(26),
+                    dashPattern: [2, 2],
+                    strokeWidth: 1,
+                    color: Color(0xFF9454C9),
+                    child: SizedBox(
+                      width: 266,
+                      height: 44,
+                      child: Center(
+                        child: Text(
+                          AppLocalizations.of(context)!.textClickHereTo,
+                          style:
+                              AppStyles.r9454C9_14_500.copyWith(fontSize: 12),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 57, right: 57),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  AppLocalizations.of(context)!
+                                      .textDigitalFingerprint,
+                                  style: AppStyles.r405264_14_500.copyWith(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w400),
+                                )),
+                            SizedBox(
+                              height: 12,
+                            ),
+                            Container(
+                              width: 150,
+                              height: 165,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Color(0xFFE3EAF2), width: 1),
+                                borderRadius: BorderRadius.circular(2),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            fingerPrintView(link: AppImages.imgFingerPrint),
+                            fingerPrintView(link: AppImages.imgFingerPrint),
+                            fingerPrintView(link: AppImages.imgFingerPrint)
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 27,
+                  )
+                ]),
+              ),
+              SizedBox(
+                  width: width,
+                  child: Row(
+                    children: [
+                      Expanded(
+                          flex: 1,
+                          child: bottomButtonV2(
+                              onTap: () {},
+                              text: AppLocalizations.of(context)!
+                                  .textCapture
+                                  .toUpperCase())),
+                      Expanded(
+                          flex: 1,
+                          child: bottomButton(
+                              onTap: () {},
+                              text: AppLocalizations.of(context)!
+                                  .textRegister
+                                  .toUpperCase())),
+                    ],
+                  )),
+              SizedBox(
+                height: 126,
+              )
+            ]),
           );
         });
   }
 
-  Widget selectedFingerView({required bool isSelect, required String text}) {
-    return SizedBox(
-      child: Row(
-        children: [
-          isSelect ? radioSelectFinger() : radioUnSelectFinger(),
-          SizedBox(
-            width: 9,
+  Widget infoClientView({required String lable, required String content}) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 17,
+            ),
+            Text(lable),
+          ],
+        ),
+        SizedBox(
+          height: 4,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 17,
+            ),
+            Text(content),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget selectedFingerView(
+      {required String text,
+      required int value,
+      required var groupValue,
+      required onChange}) {
+    return InkWell(
+      onTap: () {
+        onChange(value);
+        controller.pathFinger.value = controller.findPathFinger();
+      },
+      splashColor: Colors.black38,
+      child: Obx(
+        () => SizedBox(
+          child: Row(
+            children: [
+              groupValue.value == value
+                  ? radioSelectFinger()
+                  : radioUnSelectFinger(),
+              SizedBox(
+                width: 9,
+              ),
+              Text(
+                text,
+                style: AppStyles.b384858_14_500,
+              )
+            ],
           ),
-          Text(
-            text,
-            style: AppStyles.b384858_14_500,
-          )
-        ],
+        ),
       ),
     );
   }

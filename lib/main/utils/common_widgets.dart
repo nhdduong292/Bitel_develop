@@ -182,8 +182,9 @@ Widget inputFormV3(
     required String hint,
     required bool required,
     required TextInputType inputType,
-    String? textDefalut,
-    required double width}) {
+    String? textDefault,
+    required double width,
+    var onChange}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.end,
     children: [
@@ -218,7 +219,10 @@ Widget inputFormV3(
           height: 45,
           width: width,
           child: TextField(
-            controller: TextEditingController(text: textDefalut),
+            controller: textDefault != null
+                ? TextEditingController(text: textDefault)
+                : null,
+            onChanged: (value) => {onChange(value)},
             style: TextStyle(
                 fontSize: 18,
                 fontFamily: 'Roboto',
@@ -1168,39 +1172,46 @@ Widget customRadioMutiple(
     required var changeValue}) {
   return Container(
     margin: EdgeInsets.only(left: 15, right: 15, top: 16),
-    child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-      InkWell(
-          onTap: () {
-            changeValue(!check.value);
-          },
-          splashColor: Colors.black38,
-          child: Obx(() => check.value
-              ? SvgPicture.asset(AppImages.icRadioChecked)
-              : SvgPicture.asset(AppImages.icRadioUnChecked))),
-      SizedBox(
-        width: 10,
-      ),
-      SizedBox(
-          width: width * 0.75,
-          child: Text(
-            text,
-            style: AppStyles.r2B3A4A_12_500,
-          )),
-    ]),
+    child: InkWell(
+      onTap: () {
+        changeValue(!check.value);
+      },
+      splashColor: Colors.black38,
+      child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        Obx(() => check.value
+            ? SvgPicture.asset(AppImages.icRadioChecked)
+            : SvgPicture.asset(AppImages.icRadioUnChecked)),
+        SizedBox(
+          width: 10,
+        ),
+        SizedBox(
+            width: width * 0.75,
+            child: Text(
+              text,
+              style: AppStyles.r2B3A4A_12_500,
+            )),
+      ]),
+    ),
   );
 }
 
 SvgPicture iconOnlyUnRadio() {
-  return SvgPicture.asset(AppImages.icUnSelectRadio, height: 20, width: 20,);
+  return SvgPicture.asset(
+    AppImages.icUnSelectRadio,
+    height: 20,
+    width: 20,
+  );
 }
 
 SvgPicture iconOnlyRadio(int color) {
-  if(color == 0) { // xanh
+  if (color == 0) {
+    // xanh
     return SvgPicture.asset(AppImages.icRadioChecked, height: 20, width: 20);
   }
   //tim default = -1
-  return SvgPicture.asset(AppImages.icSelectRadio, height: 20, width: 20,);
+  return SvgPicture.asset(
+    AppImages.icSelectRadio,
+    height: 20,
+    width: 20,
+  );
 }
-
-
-

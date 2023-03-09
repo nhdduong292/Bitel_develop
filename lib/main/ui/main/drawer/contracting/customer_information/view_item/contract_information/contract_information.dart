@@ -1,25 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'dart:io';
-
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/customer_information_logic.dart';
-import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:intl/intl.dart';
-
-import '../../../../../../../../res/app_colors.dart';
-import '../../../../../../../router/route_config.dart';
 import '../../../../../../../utils/common_widgets.dart';
-import '../../test_pdf.dart';
-import '../contract_preview/contract_preview.dart';
-import 'contract_information_logic.dart';
 
 typedef void TouchUpadte();
 
@@ -92,12 +79,14 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 required: false,
                 isIcon: false,
                 width: 210)),
-            lockedBox(
-                content: 'Ciclo 26',
-                label: AppLocalizations.of(context)!.textBillCycle,
-                required: true,
-                isIcon: true,
-                width: 210),
+            Obx(
+              () => lockedBox(
+                  content: controller.billCycle.value,
+                  label: AppLocalizations.of(context)!.textBillCycle,
+                  required: true,
+                  isIcon: true,
+                  width: 210),
+            ),
             lockedBox(
                 content: 'Email',
                 label: AppLocalizations.of(context)!.textChangeNotification,
@@ -128,7 +117,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 hint: 'Enter billing address',
                 label: AppLocalizations.of(context)!.textBillingAddress,
                 required: true,
-                textDefalut: controller.customer.address,
+                textDefault: controller.customer.address,
                 inputType: TextInputType.streetAddress,
                 width: 210),
             SizedBox(
@@ -224,20 +213,20 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                     child: bottomButton(
                         onTap: () {
                           controller.createContract();
-                          controller
-                              .fromAsset('assets/demo-link.pdf', 'demo.pdf')
-                              .then((value) {
-                            // Get.to(PDFScreen(
-                            //   path: value.path,
-                            // ));
-                            // controller.path.value = value.path;
+                          // controller
+                          //     .fromAsset('assets/demo-link.pdf', 'demo.pdf')
+                          //     .then((value) {
+                          //   // Get.to(PDFScreen(
+                          //   //   path: value.path,
+                          //   // ));
+                          //   // controller.path.value = value.path;
 
-                            callback();
-                          });
+                          //   callback();
+                          // });
 
                           // controller.setPath();
 
-                          // callback();
+                          callback();
                         },
                         text: AppLocalizations.of(context)!
                             .textContinue

@@ -97,62 +97,50 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                       boxShadow: const [
                         BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
                       ]),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              controller.valueProduct.value > -1
-                                  ? controller
-                                          .listProduct[
-                                              controller.valueProduct.value]
-                                          .productName ??
-                                      'null'
-                                  : 'null',
-                              style: const TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: 'Roboto',
-                                  color: AppColors.colorText1,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            Text(
-                              controller.selectedProduct.offerName ?? 'null',
-                              style: const TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: 'Roboto',
-                                  color: AppColors.colorText1,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            Text(
-                              'Speed ${controller.selectedProduct.speed}',
-                              style: const TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: 'Roboto',
-                                  color: AppColors.colorText1,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                          ],
+                  child: Obx(
+                    () => Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                controller.getProduct().productName ?? 'null',
+                                style: const TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: 'Roboto',
+                                    color: AppColors.colorText1,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                              Text(
+                                'Speed ${controller.getProduct().speed ?? 'null'} Mpbs',
+                                style: const TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: 'Roboto',
+                                    color: AppColors.colorText1,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 30, vertical: 10),
-                        decoration: BoxDecoration(
-                          color: AppColors.colorSubContent.withOpacity(0.07),
-                          borderRadius: BorderRadius.circular(20),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 10),
+                          decoration: BoxDecoration(
+                            color: AppColors.colorSubContent.withOpacity(0.07),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Text(
+                            '${controller.getProduct().defaultValue ?? 'null'} /month',
+                            style: const TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'Roboto',
+                                color: AppColors.colorText3,
+                                fontWeight: FontWeight.w700),
+                          ),
                         ),
-                        child: Text(
-                          controller.selectedProduct.defaultValue ?? 'null',
-                          style: const TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Roboto',
-                              color: AppColors.colorText3,
-                              fontWeight: FontWeight.w700),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -179,47 +167,42 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                         boxShadow: const [
                           BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
                         ]),
-                    child: Column(
-                      children: [
-                        _paymentElement(
-                            AppLocalizations.of(context)!.textPrepaid1Month,
-                            'S/.79.0',
-                            const Color(0xFF415263)),
-                        const DottedLine(
-                          dashColor: Color(0xFFE3EAF2),
-                          dashGapLength: 3,
-                          dashLength: 4,
-                        ),
-                        _paymentElement(
-                            AppLocalizations.of(context)!.textInstallationFee,
-                            'S/.120.0',
-                            const Color(0xFF415263)),
-                        const DottedLine(
-                          dashColor: Color(0xFFE3EAF2),
-                          dashGapLength: 3,
-                          dashLength: 4,
-                        ),
-                        _paymentElement(AppLocalizations.of(context)!.textModem,
-                            'S/.100.0', const Color(0xFF415263)),
-                        const DottedLine(
-                          dashColor: Color(0xFFE3EAF2),
-                          dashGapLength: 3,
-                          dashLength: 4,
-                        ),
-                        _paymentElement(
-                            AppLocalizations.of(context)!.textDiscount,
-                            'S/.-220.0',
-                            const Color(0xFFD91C02)),
-                        const DottedLine(
-                          dashColor: Color(0xFFE3EAF2),
-                          dashGapLength: 3,
-                          dashLength: 4,
-                        ),
-                        _paymentElement(
-                            AppLocalizations.of(context)!.textTotalAPagar,
-                            'S/.79.0',
-                            const Color(0xFF9454C9)),
-                      ],
+                    child: Obx(
+                      () => Column(
+                        children: [
+                          _paymentElement(
+                              controller.getPlanReason().name ?? 'null',
+                              'S/.${controller.getPlanReason().fee}',
+                              const Color(0xFF415263)),
+                          const DottedLine(
+                            dashColor: Color(0xFFE3EAF2),
+                            dashGapLength: 3,
+                            dashLength: 4,
+                          ),
+                          _paymentElement(
+                              AppLocalizations.of(context)!.textInstallationFee,
+                              'S/.${controller.getPlanReason().feeInstallation}',
+                              const Color(0xFF415263)),
+                          const DottedLine(
+                            dashColor: Color(0xFFE3EAF2),
+                            dashGapLength: 3,
+                            dashLength: 4,
+                          ),
+                          _paymentElement(
+                              AppLocalizations.of(context)!.textDiscount,
+                              'S/.-0.0',
+                              const Color(0xFFD91C02)),
+                          const DottedLine(
+                            dashColor: Color(0xFFE3EAF2),
+                            dashGapLength: 3,
+                            dashLength: 4,
+                          ),
+                          _paymentElement(
+                              AppLocalizations.of(context)!.textTotalAPagar,
+                              'S/.79.0',
+                              const Color(0xFF9454C9)),
+                        ],
+                      ),
                     ))
               ],
             ),
@@ -237,12 +220,14 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                 } else {
                   controller.checkRegisterCustomer().then((value) {
                     if (value) {
-                      Get.toNamed(RouteConfig.customerInformation,
-                          arguments: controller.customer);
+                      Get.toNamed(RouteConfig.customerInformation, arguments: [
+                        controller.customer,
+                        controller.requestId,
+                        controller.getProduct().productId,
+                        controller.getPlanReason().id
+                      ]);
                     } else {
-                      Get.toNamed(RouteConfig.customerInformation,
-                          arguments: controller.customer);
-                      // Get.toNamed(RouteConfig.createContact);
+                      Get.toNamed(RouteConfig.createContact);
                     }
                   });
                 }

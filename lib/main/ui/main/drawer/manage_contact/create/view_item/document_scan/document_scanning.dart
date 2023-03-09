@@ -207,8 +207,9 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                   SizedBox(
                     height: 12,
                   ),
-                  controller.textPathScan.isNotEmpty ? Image.file(File(controller.textPathScan)) : SvgPicture.asset(AppImages.imgIdentity),
-
+                  controller.textPathScan.isNotEmpty
+                      ? Image.file(File(controller.textPathScan))
+                      : SvgPicture.asset(AppImages.imgIdentity),
                   SizedBox(
                     height: 23,
                   ),

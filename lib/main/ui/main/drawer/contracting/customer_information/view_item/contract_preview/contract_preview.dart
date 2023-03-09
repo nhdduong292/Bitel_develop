@@ -19,7 +19,7 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 
 import '../../../../../../../../../res/app_colors.dart';
-import 'contract_preview_logic.dart';
+import '../../test_pdf.dart';
 
 typedef void TouchRegister(String type);
 
@@ -74,44 +74,26 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
-                    onTap: () {
-                      Get.toNamed(RouteConfig.validateFingerprint);
-                    },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 16),
-                      child: Container(
-                        padding: EdgeInsets.all(5),
-                        decoration: controller.checkMainContract.value
-                            ? BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Color(0xFF0b0b0b).withAlpha(40),
-                              )
-                            : null,
-                        child: Text(
-                          AppLocalizations.of(context)!.textMainContract,
-                          style: AppStyles.rU9454C9_12_500,
-                        ),
+                      child: Text(
+                        AppLocalizations.of(context)!.textMainContract,
+                        style: controller.checkMainContract.value
+                            ? AppStyles.rU9454C9_12_500
+                            : AppStyles.rU9454C9_12_500.copyWith(
+                                color: Color(0xFF415263).withOpacity(0.2)),
                       ),
                     ),
                   ),
                   InkWell(
-                    onTap: () {
-                      Get.toNamed(RouteConfig.validateFingerprint);
-                    },
                     child: Padding(
                       padding: const EdgeInsets.only(right: 16),
-                      child: Container(
-                        padding: EdgeInsets.all(5),
-                        decoration: controller.checkLendingContract.value
-                            ? BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Color(0xFF0b0b0b).withAlpha(40),
-                              )
-                            : null,
-                        child: Text(
-                            AppLocalizations.of(context)!.textLendingContract,
-                            style: AppStyles.rU9454C9_12_500),
-                      ),
+                      child: Text(
+                          AppLocalizations.of(context)!.textLendingContract,
+                          style: controller.checkLendingContract.value
+                              ? AppStyles.rU9454C9_12_500
+                              : AppStyles.rU9454C9_12_500.copyWith(
+                                  color: Color(0xFF415263).withOpacity(0.2))),
                     ),
                   )
                 ],
@@ -121,6 +103,9 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
               height: 18,
             ),
             InkWell(
+              onTap: () {
+                Get.to(PDFScreen());
+              },
               child: Image.asset(
                 AppImages.imgDemoContract,
                 width: 320,

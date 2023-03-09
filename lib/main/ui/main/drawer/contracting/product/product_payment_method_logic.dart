@@ -13,11 +13,15 @@ import '../../../../../networks/model/plan_reason_model.dart';
 import '../../../../../networks/model/product_model.dart';
 
 class ProductPaymentMethodLogic extends GetxController {
+  int requestId = 0;
+
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    getProduts();
+    // requestId = Get.arguments;
+    requestId = 20142;
+    getProduts(requestId);
   }
 
   final ItemScrollController scrollController = ItemScrollController();
@@ -49,27 +53,9 @@ class ProductPaymentMethodLogic extends GetxController {
 
   List<ProductModel> listProduct = [];
 
-  List<MethodModel> listMethod = [
-    MethodModel(
-        name: 'Pre paid 1 month 0%',
-        freeInstallation: 0,
-        reasonCodeName: '093020',
-        price: '89/month'),
-    MethodModel(
-        name: 'Pre paid 2 month 0%',
-        freeInstallation: 0,
-        reasonCodeName: '093020',
-        price: '89/month'),
-    MethodModel(
-        name: 'Pre paid 3 month 0%',
-        freeInstallation: 0,
-        reasonCodeName: '093020',
-        price: '89/month'),
-  ];
-
-  void getProduts() {
+  void getProduts(int requestId) {
     ApiUtil.getInstance()!.get(
-      url: '${ApiEndPoints.API_LIST_PRODUCT}/54',
+      url: '${ApiEndPoints.API_LIST_PRODUCT}/$requestId',
       onSuccess: (response) {
         if (response.isSuccess) {
           listProduct = (response.data['data'] as List)
@@ -84,7 +70,26 @@ class ProductPaymentMethodLogic extends GetxController {
     );
   }
 
-  void getPlanReason(int id) {
+  ProductModel getProduct() {
+    if (valueProduct.value > -1) {
+      return listProduct[valueProduct.value];
+    }
+    return ProductModel();
+  }
+
+  PlanReasonModel getPlanReason() {
+    if (valueMethod.value > -1) {
+      return listPlanReason[valueMethod.value];
+    }
+    return PlanReasonModel();
+  }
+
+  void resetPlanReason() {
+    listPlanReason.clear();
+    valueMethod.value = -1;
+  }
+
+  void getPlanReasons(int id) {
     ApiUtil.getInstance()!.get(
       url: '${ApiEndPoints.API_PLAN_REASON}/$id',
       onSuccess: (response) {
@@ -118,7 +123,7 @@ class ProductPaymentMethodLogic extends GetxController {
   Future<bool> checkRegisterCustomer() async {
     Completer<bool> completer = Completer();
     ApiUtil.getInstance()!.get(
-      url: '${ApiEndPoints.API_CUSTOMER}/54/',
+      url: '${ApiEndPoints.API_CUSTOMER}/$requestId/',
       onSuccess: (response) {
         if (response.isSuccess) {
           customer = CustomerModel.fromJson(response.data['data']);

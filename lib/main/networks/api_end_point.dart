@@ -33,8 +33,7 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts";
   static final String API_CONTRACT_PREVIEW =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts/id/preview";
-  static final String API_LOGIN =
-      "http://10.121.14.196:9093/login";
+  static final String API_LOGIN = "http://10.121.14.196:9093/login";
 
   static final String API_PLAN_REASON =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/plan-reasons";
@@ -46,4 +45,8 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts/id/sign";
 
   static final String API_DETECT_ID = "https://vision.googleapis.com/v1/images:annotate";
+  static final String API_CREATE_CUSTOMER =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/customers";
+  static final String API_REGISTER_FINGER =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/customers/id/register-finger";
 }
