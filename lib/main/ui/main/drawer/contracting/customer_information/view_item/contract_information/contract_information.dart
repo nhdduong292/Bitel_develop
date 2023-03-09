@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/customer_information_logic.dart';
+import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
@@ -212,21 +213,14 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                     flex: 1,
                     child: bottomButton(
                         onTap: () {
-                          controller.createContract();
-                          // controller
-                          //     .fromAsset('assets/demo-link.pdf', 'demo.pdf')
-                          //     .then((value) {
-                          //   // Get.to(PDFScreen(
-                          //   //   path: value.path,
-                          //   // ));
-                          //   // controller.path.value = value.path;
+                          controller.createContract(context, (p0) {
+                            if(p0){
+                              callback();
+                            } else {
+                              Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
+                            }
+                          },);
 
-                          //   callback();
-                          // });
-
-                          // controller.setPath();
-
-                          callback();
                         },
                         text: AppLocalizations.of(context)!
                             .textContinue

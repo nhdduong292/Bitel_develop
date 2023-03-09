@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:bitel_ventas/main/networks/model/contract_model.dart';
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
+import 'package:bitel_ventas/main/utils/common.dart';
+import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,7 +36,6 @@ class CustomerInformationLogic extends GetxController {
   String address = '';
   CustomerModel customer = CustomerModel();
   ContractModel contract = ContractModel();
-
   CustomerInformationLogic({required this.context});
 
   @override
@@ -123,7 +124,8 @@ class CustomerInformationLogic extends GetxController {
     'Espanol'
   ];
 
-  void createContract() {
+  void createContract(BuildContext context, Function(bool) isSuccess) {
+    _onLoading(context);
     Map<String, dynamic> body = {
       "requestId": requestId,
       "productId": productId,
@@ -152,13 +154,19 @@ class CustomerInformationLogic extends GetxController {
       url: ApiEndPoints.API_CREATE_CONTRACT,
       body: body,
       onSuccess: (response) {
+        Get.back();
         if (response.isSuccess) {
           contract = ContractModel.fromJson(response.data);
+          isSuccess.call(true);
         } else {
           print("error: ${response.status}");
+          isSuccess.call(false);
         }
       },
-      onError: (error) {},
+      onError: (error) {
+        isSuccess.call(false);
+        Get.back();
+      },
     );
   }
 
@@ -174,6 +182,36 @@ class CustomerInformationLogic extends GetxController {
         }
       },
       onError: (error) {},
+    );
+  }
+
+  bool checkValidateAddInfo(){
+    if(phone.isEmpty || email.isEmpty || address.isEmpty) {
+      Common.showToastCenter("Vui lòng nhập đầy đủ thông tin!");
+      return true;
+    }
+    return false;
+  }
+
+  bool checkValidateContractInfo(){
+    // if(phone.isEmpty || email.isEmpty || address.isEmpty) {
+    //   Common.showToastCenter("Vui lòng nhập đầy đủ thông tin!");
+    //   return true;
+    // }
+    return false;
+  }
+
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
+      },
     );
   }
 }

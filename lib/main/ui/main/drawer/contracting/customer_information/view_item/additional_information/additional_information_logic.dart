@@ -11,6 +11,7 @@ class AdditionalInformationLogic extends GetxController {
   var customer = CustomerModel();
   var isUpdate = false.obs;
 
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -32,4 +33,5 @@ class AdditionalInformationLogic extends GetxController {
       onError: (error) {},
     );
   }
+
 }

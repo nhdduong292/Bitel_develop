@@ -706,7 +706,7 @@ Widget bottomButton({required String text, required onTap, color}) {
   );
 }
 
-Widget bottomButtonV2({required String text, required onTap}) {
+Widget bottomButtonV2({required String text, required onTap, bool isEnable = false}) {
   return Container(
     margin: EdgeInsets.only(left: 15, top: 24, right: 15, bottom: 10),
     child: InkWell(

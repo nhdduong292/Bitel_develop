@@ -166,82 +166,82 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                       SizedBox(
                         height: 16,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          controller.getScan();
-                        },
-                        child: Container(
-                          height: 48,
-                          margin: EdgeInsets.only(left: 15, right: 25),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(24),
-                            gradient: RadialGradient(
-                              center: const Alignment(-0.3292, 0.3296),
-                              radius: 1.2106,
-                              colors: [
-                                const Color(0xFF0FDDDB),
-                                const Color(0xFF00A5B1)
-                              ],
-                              stops: [0, 1],
-                            ),
-                          ),
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 18,
-                              ),
-                              Expanded(
-                                  child:
-                                      Text('Photo of identity card (front)')),
-                              SvgPicture.asset(AppImages.icCameraRound),
-                              SizedBox(
-                                width: 8,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      InkWell(
-                        onTap: () async {
-                          late List<CameraDescription> _cameras;
-                          WidgetsFlutterBinding.ensureInitialized();
-
-                          _cameras = await availableCameras();
-                          Get.toNamed(RouteConfig.idCardScanner,
-                                  arguments: _cameras)
-                              ?.then((result) {
-                            print(result);
-                            path.value = result;
-                          });
-                        },
-                        child: Stack(children: [
-                          Center(
-                              child:
-                                  SvgPicture.asset(AppImages.icBorderIdentity)),
-                          controller.textPathScan.isNotEmpty
-                              ? Image.file(
-                                  File(controller.textPathScan),
-                                  width: 290,
-                                  height: 160,
-                                )
-                              : Container(),
-                          // Obx(
-                          //   () => Visibility(
-                          //     visible: path.value != '',
-                          //     child: Center(
-                          //         child: Container(
-                          //       width: 290,
-                          //       height: 160,
-                          //       margin: EdgeInsets.all(4),
-                          //       child: Image.file(File(path.value)),
-                          //     )),
-                          //   ),
-                          // )
-                        ]),
-                      ),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     controller.getScan();
+                      //   },
+                      //   child: Container(
+                      //     height: 48,
+                      //     margin: EdgeInsets.only(left: 15, right: 25),
+                      //     decoration: BoxDecoration(
+                      //       borderRadius: BorderRadius.circular(24),
+                      //       gradient: RadialGradient(
+                      //         center: const Alignment(-0.3292, 0.3296),
+                      //         radius: 1.2106,
+                      //         colors: [
+                      //           const Color(0xFF0FDDDB),
+                      //           const Color(0xFF00A5B1)
+                      //         ],
+                      //         stops: [0, 1],
+                      //       ),
+                      //     ),
+                      //     child: Row(
+                      //       children: [
+                      //         SizedBox(
+                      //           width: 18,
+                      //         ),
+                      //         Expanded(
+                      //             child:
+                      //                 Text('Photo of identity card (front)')),
+                      //         SvgPicture.asset(AppImages.icCameraRound),
+                      //         SizedBox(
+                      //           width: 8,
+                      //         )
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: 16,
+                      // ),
+                      // InkWell(
+                      //   onTap: () async {
+                      //     late List<CameraDescription> _cameras;
+                      //     WidgetsFlutterBinding.ensureInitialized();
+                      //
+                      //     _cameras = await availableCameras();
+                      //     Get.toNamed(RouteConfig.idCardScanner,
+                      //             arguments: _cameras)
+                      //         ?.then((result) {
+                      //       print(result);
+                      //       path.value = result;
+                      //     });
+                      //   },
+                      //   child: Stack(children: [
+                      //     Center(
+                      //         child:
+                      //             SvgPicture.asset(AppImages.icBorderIdentity)),
+                      //     controller.textPathScan.isNotEmpty
+                      //         ? Image.file(
+                      //             File(controller.textPathScan),
+                      //             width: 290,
+                      //             height: 160,
+                      //           )
+                      //         : Container(),
+                      //     // Obx(
+                      //     //   () => Visibility(
+                      //     //     visible: path.value != '',
+                      //     //     child: Center(
+                      //     //         child: Container(
+                      //     //       width: 290,
+                      //     //       height: 160,
+                      //     //       margin: EdgeInsets.all(4),
+                      //     //       child: Image.file(File(path.value)),
+                      //     //     )),
+                      //     //   ),
+                      //     // )
+                      //   ]),
+                      // ),
                       SizedBox(
                         height: 42,
                       )

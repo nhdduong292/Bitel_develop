@@ -197,7 +197,9 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                 Expanded(
                     flex: 1,
                     child: bottomButtonV2(
-                        onTap: () {},
+                        onTap: () {
+                          Get.back();
+                        },
                         text: AppLocalizations.of(context)!
                             .textCancel
                             .toUpperCase())),
@@ -205,6 +207,9 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                     flex: 1,
                     child: bottomButton(
                         onTap: () {
+                          if(controller.checkValidateAddInfo()){
+                            return;
+                          }
                           callback();
                         },
                         text: AppLocalizations.of(context)!

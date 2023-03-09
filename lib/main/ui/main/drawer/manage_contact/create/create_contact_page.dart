@@ -47,7 +47,7 @@ class CreateContactPage extends GetView<CreateContactPageLogic> {
                       width: width,
                     ),
                     Positioned(
-                      top: 40,
+                      top: 50,
                       left: 70,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,

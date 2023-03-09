@@ -218,7 +218,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                         return const RechargeDialog(height: 340);
                       });
                 } else {
-                  controller.checkRegisterCustomer().then((value) {
+                  controller.checkRegisterCustomer(context).then((value) {
                     if (value) {
                       Get.toNamed(RouteConfig.customerInformation, arguments: [
                         controller.customer,

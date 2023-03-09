@@ -4,6 +4,8 @@ import 'dart:ffi';
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/response/product_response.dart';
+import 'package:bitel_ventas/main/utils/common_widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -14,6 +16,7 @@ import '../../../../../networks/model/product_model.dart';
 
 class ProductPaymentMethodLogic extends GetxController {
   int requestId = 0;
+  bool isLoadingProduct = true;
 
   @override
   void onInit() {
@@ -61,12 +64,17 @@ class ProductPaymentMethodLogic extends GetxController {
           listProduct = (response.data['data'] as List)
               .map((postJson) => ProductModel.fromJson(postJson))
               .toList();
-          update();
+
         } else {
           print("error: ${response.status}");
         }
+        isLoadingProduct = false;
+        update();
       },
-      onError: (error) {},
+      onError: (error) {
+        isLoadingProduct = false;
+        update();
+      },
     );
   }
 
@@ -89,10 +97,12 @@ class ProductPaymentMethodLogic extends GetxController {
     valueMethod.value = -1;
   }
 
-  void getPlanReasons(int id) {
+  void getPlanReasons(int id, BuildContext context) {
+    _onLoading(context);
     ApiUtil.getInstance()!.get(
       url: '${ApiEndPoints.API_PLAN_REASON}/$id',
       onSuccess: (response) {
+        Get.back();
         if (response.isSuccess) {
           listPlanReason = (response.data['data'] as List)
               .map((postJson) => PlanReasonModel.fromJson(postJson))
@@ -102,29 +112,37 @@ class ProductPaymentMethodLogic extends GetxController {
           print("error: ${response.status}");
         }
       },
-      onError: (error) {},
+      onError: (error) {
+        Get.back();
+      },
     );
   }
 
-  void getWallet() {
+  void getWallet(BuildContext context) {
+    _onLoading(context);
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_WALLET,
       onSuccess: (response) {
+        Get.back();
         if (response.isSuccess) {
           balance.value = response.data['data'] as double;
         } else {
           print("error: ${response.status}");
         }
       },
-      onError: (error) {},
+      onError: (error) {
+        Get.back();
+      },
     );
   }
 
-  Future<bool> checkRegisterCustomer() async {
+  Future<bool> checkRegisterCustomer(BuildContext context) async {
+    _onLoading(context);
     Completer<bool> completer = Completer();
     ApiUtil.getInstance()!.get(
       url: '${ApiEndPoints.API_CUSTOMER}/$requestId/',
       onSuccess: (response) {
+        Get.back();
         if (response.isSuccess) {
           customer = CustomerModel.fromJson(response.data['data']);
           completer.complete(true);
@@ -133,9 +151,24 @@ class ProductPaymentMethodLogic extends GetxController {
         }
       },
       onError: (error) {
+        Get.back();
         completer.complete(false);
       },
     );
     return completer.future;
+  }
+
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
+      },
+    );
   }
 }

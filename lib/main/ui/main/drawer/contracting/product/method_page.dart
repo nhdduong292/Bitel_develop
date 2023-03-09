@@ -69,7 +69,7 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                               controller.resetPlanReason();
                               if (value > -1) {
                                 controller.getPlanReasons(
-                                    controller.listProduct[value].productId!);
+                                    controller.listProduct[value].productId!, context);
                               }
                             }),
                     separatorBuilder: (BuildContext context, int index) =>
@@ -149,11 +149,12 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                       controller.valueProduct.value > -1) {
                     controller.isOnMethodPage.value = false;
                     controller.isOnInvoicePage.value = true;
-                    controller.getWallet();
+
                     controller.scrollController.scrollTo(
                       index: 1,
                       duration: const Duration(milliseconds: 200),
                     );
+                    controller.getWallet(context);
                   }
                 },
                 color: !(controller.valueMethod.value > -1 &&

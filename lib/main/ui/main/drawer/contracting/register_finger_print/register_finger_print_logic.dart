@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,30 +23,41 @@ class RegisterFingerPrintLogic extends GetxController {
   List<String> listImageRight = [];
 
   String findPathFinger() {
-    if (handValue.value == 1) {
+    if (handValue.value == 1) { //todo trai
+      indexRight = 0;
       if (fingerValue.value == 1) {
+        indexLeft = 6;
         return AppImages.imgFingerLeft1;
       } else if (fingerValue.value == 2) {
+        indexLeft = 7;
         return AppImages.imgFingerLeft2;
       } else if (fingerValue.value == 3) {
+        indexLeft = 8;
         return AppImages.imgFingerLeft3;
       } else if (fingerValue.value == 4) {
+        indexLeft = 9;
         return AppImages.imgFingerLeft4;
       } else {
+        indexLeft = 10;
         return AppImages.imgFingerLeft5;
       }
-    } else {
-      if (fingerValue.value == 1) {
-        return AppImages.imgFingerRight1;
-      } else if (fingerValue.value == 1) {
+
+    } else { //todo phai
+      indexLeft = 0;
+     if (fingerValue.value == 1) {
+        indexRight = 1;
         return AppImages.imgFingerRight2;
       } else if (fingerValue.value == 2) {
+        indexRight = 2;
         return AppImages.imgFingerRight3;
       } else if (fingerValue.value == 3) {
+        indexRight = 3;
         return AppImages.imgFingerRight3;
       } else if (fingerValue.value == 4) {
+        indexRight = 4;
         return AppImages.imgFingerRight4;
       } else {
+        indexRight = 5;
         return AppImages.imgFingerRight5;
       }
     }
@@ -91,12 +103,13 @@ class RegisterFingerPrintLogic extends GetxController {
 
     if(indexLeft > 0) {
       listImageLeft.add(result);
+      Common.showToastCenter("Bạn đã lấy thành công lần ${listImageLeft.length}");
     }
-    if(indexRight > 0) {
+    else {
       listImageRight.add(result);
+      Common.showToastCenter("Bạn đã lấy thành công lần ${listImageRight.length}");
     }
     update();
-    // setCapture(result);
   }
 
   void setIndexLeft(int value){
