@@ -182,8 +182,9 @@ Widget inputFormV3(
     required String hint,
     required bool required,
     required TextInputType inputType,
-    String? textDefalut,
-    required double width}) {
+    String? textDefault,
+    required double width,
+    var onChange}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.end,
     children: [
@@ -218,7 +219,10 @@ Widget inputFormV3(
           height: 45,
           width: width,
           child: TextField(
-            controller: TextEditingController(text: textDefalut),
+            controller: textDefault != null
+                ? TextEditingController(text: textDefault)
+                : null,
+            onChanged: (value) => {onChange(value)},
             style: TextStyle(
                 fontSize: 18,
                 fontFamily: 'Roboto',

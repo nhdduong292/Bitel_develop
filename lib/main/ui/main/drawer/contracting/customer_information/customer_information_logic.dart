@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:bitel_ventas/main/networks/model/contract_model.dart';
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,11 @@ class CustomerInformationLogic extends GetxController {
   int requestId = 0;
   int productId = 0;
   int reasonId = 0;
+  String phone = '';
+  String email = '';
+  String address = '';
   CustomerModel customer = CustomerModel();
+  ContractModel contract = ContractModel();
 
   CustomerInformationLogic({required this.context});
 
@@ -41,6 +46,9 @@ class CustomerInformationLogic extends GetxController {
     requestId = data[1];
     productId = data[2];
     reasonId = data[3];
+    phone = customer.telFax;
+    email = customer.email;
+    address = customer.address;
     // getCustomer();
     // fromAsset('assets/demo-link.pdf', 'demo.pdf')
     //     .then((value) => {path = value.path});
@@ -132,7 +140,7 @@ class CustomerInformationLogic extends GetxController {
       "contractType": "UNDETERMINED",
       "numOfSubscriber": 1,
       "signDate": signDate.value,
-      "billCycle": billCycle,
+      "billCycle": billCycle.value,
       "changeNotification": "Email",
       "printBill": "Email",
       "currency": "SOL",
@@ -143,17 +151,17 @@ class CustomerInformationLogic extends GetxController {
       "address": customer.address,
       "phone": customer.telFax,
       "email": customer.email,
-      "protectionFilter": checkOption1,
-      "receiveInfoByMail": checkOption2,
-      "receiveFromThirdParty": checkOption3,
-      "receiveFromBitel": checkOption4
+      "protectionFilter": checkOption1.value,
+      "receiveInfoByMail": checkOption2.value,
+      "receiveFromThirdParty": checkOption3.value,
+      "receiveFromBitel": checkOption4.value
     };
     ApiUtil.getInstance()!.post(
       url: ApiEndPoints.API_CREATE_CONTRACT,
       body: body,
       onSuccess: (response) {
         if (response.isSuccess) {
-          print('bxloc post success');
+          contract = ContractModel.fromJson(response.data);
         } else {
           print("error: ${response.status}");
         }

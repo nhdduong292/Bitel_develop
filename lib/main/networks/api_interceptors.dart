@@ -29,8 +29,7 @@ class ApiInterceptors extends InterceptorsWrapper {
             "✈️ REQUEST[$method] => PATH: $uri \n DATA: ${jsonEncode(data)}",
             printFullText: true);
       } catch (e) {
-        apiLogger.log(
-            "✈️ REQUEST[$method] => PATH: $uri \n DATA: $data",
+        apiLogger.log("✈️ REQUEST[$method] => PATH: $uri \n DATA: $data",
             printFullText: true);
       }
     }
@@ -59,9 +58,7 @@ class ApiInterceptors extends InterceptorsWrapper {
     var data = "";
     try {
       data = jsonEncode(err.response?.data);
-    } catch (e) {
-
-    }
+    } catch (e) {}
     apiLogger.log("⚠️ ERROR[$statusCode] => PATH: $uri\n DATA: $data");
     super.onError(err, handler);
   }

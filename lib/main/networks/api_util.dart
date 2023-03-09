@@ -22,13 +22,12 @@ class ApiUtil {
     cancelToken ??= CancelToken();
   }
 
-  void get({
-    required String url,
-    Map<String, dynamic> params = const {},
-    required Function(BaseResponse response) onSuccess,
-    required Function(dynamic error) onError,
-    bool isCancel = false
-  }) {
+  void get(
+      {required String url,
+      Map<String, dynamic> params = const {},
+      required Function(BaseResponse response) onSuccess,
+      required Function(dynamic error) onError,
+      bool isCancel = false}) {
     // if(isCancel) {
     //   cancelToken!.cancel();
     // }

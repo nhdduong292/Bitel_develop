@@ -19,7 +19,8 @@ class ProductPaymentMethodLogic extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    requestId = Get.arguments;
+    // requestId = Get.arguments;
+    requestId = 20142;
     getProduts(requestId);
   }
 

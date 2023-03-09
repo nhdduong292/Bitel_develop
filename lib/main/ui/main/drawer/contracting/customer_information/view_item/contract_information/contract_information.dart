@@ -117,7 +117,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 hint: 'Enter billing address',
                 label: AppLocalizations.of(context)!.textBillingAddress,
                 required: true,
-                textDefalut: controller.customer.address,
+                textDefault: controller.customer.address,
                 inputType: TextInputType.streetAddress,
                 width: 210),
             SizedBox(

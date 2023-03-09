@@ -45,4 +45,6 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts/id/sign";
   static final String API_CREATE_CUSTOMER =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/customers";
+  static final String API_REGISTER_FINGER =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/customers/id/register-finger";
 }

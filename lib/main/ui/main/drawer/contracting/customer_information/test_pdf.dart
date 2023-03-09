@@ -1,15 +1,19 @@
 import 'dart:async';
 import 'dart:io';
-
+import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
+import 'dart:convert';
+
+import '../../../../../networks/api_end_point.dart';
+import '../../../../../networks/api_util.dart';
 
 class PDFPreviewLogic extends GetxController {
-  var path = ''.obs;
+  var path = '';
   var data;
   var loadSuccess = false.obs;
   @override
@@ -17,9 +21,14 @@ class PDFPreviewLogic extends GetxController {
     // TODO: implement onInit
     super.onInit();
     // path = Get.arguments;
-    fromAsset('assets/demo-link.pdf', 'demo.pdf').then((value) {
+    // fromAsset('assets/demo-link.pdf', 'demo.pdf').then((value) {
+    //   // path.value = value.path;
+    //   data = value;
+    //   loadSuccess.value = true;
+    // });
+    getPDF('demo.pdf').then((value) {
       // path.value = value.path;
-      data = value;
+      path = value;
       loadSuccess.value = true;
     });
   }
@@ -35,6 +44,39 @@ class PDFPreviewLogic extends GetxController {
       var bytes = data.buffer.asUint8List();
       await file.writeAsBytes(bytes, flush: true);
       completer.complete(bytes);
+    } catch (e) {
+      throw Exception('Error parsing asset file!');
+    }
+
+    return completer.future;
+  }
+
+  Future<String> getPDF(String filename) async {
+    // To open from assets, you can copy them to the app storage folder, and the access them "locally"
+    Completer<String> completer = Completer();
+
+    var dir = await getApplicationDocumentsDirectory();
+    File file = File("${dir.path}/$filename");
+    try {
+      ApiUtil.getInstance()!.getPDF(
+        url: ApiEndPoints.API_CONTRACT_PREVIEW.replaceAll("id", "8061275"),
+        params: {"type": "MAIN"},
+        onSuccess: (response) async {
+          // print(response.data);
+          // var bytes = convertStringToUint8List(response.data);
+          Uint8List pdfBytes = base64Decode(response.data);
+          //        var data = await rootBundle.load(asset);
+          // // var bytes = data.buffer.asUint8List();
+          // var bytes = await consolidateHttpClientResponseBytes(response.data);
+          // await file.writeAsBytes(bytes, flush: true);
+          // return file;
+          // ByteData data = ByteData.view(bytes.buffer);
+
+          await file.writeAsBytes(pdfBytes, flush: true);
+          completer.complete(file.path);
+        },
+        onError: (error) {},
+      );
     } catch (e) {
       throw Exception('Error parsing asset file!');
     }
@@ -78,8 +120,9 @@ class PDFScreen extends GetView<PDFPreviewLogic> {
                         height: width * 1.1625,
                         child: (controller.loadSuccess.value)
                             ? PDFView(
-                                // filePath: controller.path.value,
-                                pdfData: controller.data, enableSwipe: true,
+                                filePath: controller.path,
+                                // pdfData: controller.data,
+                                enableSwipe: true,
                                 swipeHorizontal: true,
                                 autoSpacing: false,
                                 pageFling: true,
@@ -138,4 +181,11 @@ class PDFScreen extends GetView<PDFPreviewLogic> {
           );
         });
   }
+}
+
+Uint8List convertStringToUint8List(String str) {
+  final List<int> codeUnits = str.codeUnits;
+  final Uint8List unit8List = Uint8List.fromList(codeUnits);
+
+  return unit8List;
 }

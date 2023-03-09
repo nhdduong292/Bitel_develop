@@ -55,14 +55,14 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                           children: [
                             selectedFingerView(
                                 text: AppLocalizations.of(context)!.textLeft,
-                                value: 0,
+                                value: 1,
                                 groupValue: controller.handValue,
                                 onChange: (value) {
                                   controller.handValue.value = value;
                                 }),
                             selectedFingerView(
                                 text: AppLocalizations.of(context)!.textRight,
-                                value: 1,
+                                value: 2,
                                 groupValue: controller.handValue,
                                 onChange: (value) {
                                   controller.handValue.value = value;
@@ -109,16 +109,6 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                           children: [
                             selectedFingerView(
                                 text: AppLocalizations.of(context)!.textThumb,
-                                value: 0,
-                                groupValue: controller.fingerValue,
-                                onChange: (value) {
-                                  controller.fingerValue.value = value;
-                                }),
-                            SizedBox(
-                              height: 12,
-                            ),
-                            selectedFingerView(
-                                text: AppLocalizations.of(context)!.textIndex,
                                 value: 1,
                                 groupValue: controller.fingerValue,
                                 onChange: (value) {
@@ -128,7 +118,7 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                               height: 12,
                             ),
                             selectedFingerView(
-                                text: AppLocalizations.of(context)!.textMiddle,
+                                text: AppLocalizations.of(context)!.textIndex,
                                 value: 2,
                                 groupValue: controller.fingerValue,
                                 onChange: (value) {
@@ -138,7 +128,7 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                               height: 12,
                             ),
                             selectedFingerView(
-                                text: AppLocalizations.of(context)!.textRing,
+                                text: AppLocalizations.of(context)!.textMiddle,
                                 value: 3,
                                 groupValue: controller.fingerValue,
                                 onChange: (value) {
@@ -148,8 +138,18 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                               height: 12,
                             ),
                             selectedFingerView(
-                                text: AppLocalizations.of(context)!.textLittle,
+                                text: AppLocalizations.of(context)!.textRing,
                                 value: 4,
+                                groupValue: controller.fingerValue,
+                                onChange: (value) {
+                                  controller.fingerValue.value = value;
+                                }),
+                            SizedBox(
+                              height: 12,
+                            ),
+                            selectedFingerView(
+                                text: AppLocalizations.of(context)!.textLittle,
+                                value: 5,
                                 groupValue: controller.fingerValue,
                                 onChange: (value) {
                                   controller.fingerValue.value = value;

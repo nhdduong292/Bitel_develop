@@ -159,23 +159,32 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                 hint: AppLocalizations.of(context)!.textEnterPhoneNumber,
                 label: AppLocalizations.of(context)!.textPhoneNumber,
                 required: true,
-                textDefalut: controller.customer.telFax,
+                textDefault: controller.phone,
                 inputType: TextInputType.text,
-                width: 210),
+                width: 210,
+                onChange: (value) {
+                  controller.phone = value;
+                }),
             inputFormV3(
                 hint: AppLocalizations.of(context)!.textEnterEmail,
                 label: AppLocalizations.of(context)!.textEmail,
                 required: true,
-                textDefalut: controller.customer.email,
+                textDefault: controller.email,
                 inputType: TextInputType.text,
-                width: 210),
+                width: 210,
+                onChange: (value) {
+                  controller.email = value;
+                }),
             inputFormV3(
                 hint: AppLocalizations.of(context)!.textEnterAddress,
                 label: AppLocalizations.of(context)!.textAddressCustomerInfo,
                 required: true,
-                textDefalut: controller.customer.address,
+                // textDefalut: controller.address,
                 inputType: TextInputType.text,
-                width: 210),
+                width: 210,
+                onChange: (value) {
+                  controller.address = value;
+                }),
             SizedBox(
               height: 27,
             )

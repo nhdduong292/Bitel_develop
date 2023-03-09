@@ -178,19 +178,19 @@ class CustommerInformationPage extends GetView<CustomerInformationLogic> {
                         } else {
                           return ContractPreviewWidget(
                             callback: (value) {
-                              // Get.toNamed(RouteConfig.validateFingerprint,
-                              //     arguments: [
-                              //       value,
-                              //       controller.customer.custId,
-                              //       controller.getTypeCustomer(),
-                              //       controller.customer.idNumber
-                              //     ])?.then((value) {
-                              //   if (value != null && value) {
-                              //     controller.checkMainContract.value = false;
-                              //     controller.checkLendingContract.value = true;
-                              //   }
-                              // });
-                              Get.to(PDFScreen());
+                              Get.toNamed(RouteConfig.validateFingerprint,
+                                  arguments: [
+                                    value,
+                                    controller.customer.custId,
+                                    controller.getTypeCustomer(),
+                                    controller.customer.idNumber,
+                                    controller.contract.contractId
+                                  ])?.then((value) {
+                                if (value != null && value) {
+                                  controller.checkMainContract.value = false;
+                                  controller.checkLendingContract.value = true;
+                                }
+                              });
                             },
                           );
                         }
