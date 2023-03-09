@@ -50,7 +50,16 @@ class ApiUtil {
     if (token.isNotEmpty) {
       dio!.options.headers['Authorization'] = 'Bearer ${token}';
     }
-    dio!.get(url, queryParameters: params).then((res) {
+    dio!
+        .get(
+      url,
+      queryParameters: params,
+      options: Options(
+        responseType: ResponseType.bytes,
+        followRedirects: false,
+      ),
+    )
+        .then((res) {
       if (onSuccess != null) onSuccess(res);
     }).catchError((error) {
       if (onError != null) onError(error);

@@ -14,21 +14,20 @@ import '../../../../../networks/api_util.dart';
 
 class PDFPreviewLogic extends GetxController {
   var path = '';
-  var data;
+  Uint8List? bytesPDF;
   var loadSuccess = false.obs;
+  var type = '';
+  int contractId = 0;
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    // path = Get.arguments;
-    // fromAsset('assets/demo-link.pdf', 'demo.pdf').then((value) {
-    //   // path.value = value.path;
-    //   data = value;
-    //   loadSuccess.value = true;
-    // });
-    getPDF('demo.pdf').then((value) {
-      // path.value = value.path;
-      path = value;
+
+    var data = Get.arguments;
+    type = data[0];
+    contractId = data[1];
+    getPDF().then((value) {
+      bytesPDF = value;
       loadSuccess.value = true;
     });
   }
@@ -51,29 +50,16 @@ class PDFPreviewLogic extends GetxController {
     return completer.future;
   }
 
-  Future<String> getPDF(String filename) async {
+  Future<Uint8List> getPDF() async {
     // To open from assets, you can copy them to the app storage folder, and the access them "locally"
-    Completer<String> completer = Completer();
-
-    var dir = await getApplicationDocumentsDirectory();
-    File file = File("${dir.path}/$filename");
+    Completer<Uint8List> completer = Completer();
     try {
       ApiUtil.getInstance()!.getPDF(
-        url: ApiEndPoints.API_CONTRACT_PREVIEW.replaceAll("id", "8061275"),
-        params: {"type": "MAIN"},
+        url: ApiEndPoints.API_CONTRACT_PREVIEW
+            .replaceAll("id", contractId.toString()),
+        params: {"type": type},
         onSuccess: (response) async {
-          // print(response.data);
-          // var bytes = convertStringToUint8List(response.data);
-          Uint8List pdfBytes = base64Decode(response.data);
-          //        var data = await rootBundle.load(asset);
-          // // var bytes = data.buffer.asUint8List();
-          // var bytes = await consolidateHttpClientResponseBytes(response.data);
-          // await file.writeAsBytes(bytes, flush: true);
-          // return file;
-          // ByteData data = ByteData.view(bytes.buffer);
-
-          await file.writeAsBytes(pdfBytes, flush: true);
-          completer.complete(file.path);
+          completer.complete(response.data);
         },
         onError: (error) {},
       );
@@ -120,8 +106,8 @@ class PDFScreen extends GetView<PDFPreviewLogic> {
                         height: width * 1.1625,
                         child: (controller.loadSuccess.value)
                             ? PDFView(
-                                filePath: controller.path,
-                                // pdfData: controller.data,
+                                // filePath: controller.path,
+                                pdfData: controller.bytesPDF,
                                 enableSwipe: true,
                                 swipeHorizontal: true,
                                 autoSpacing: false,
@@ -181,11 +167,4 @@ class PDFScreen extends GetView<PDFPreviewLogic> {
           );
         });
   }
-}
-
-Uint8List convertStringToUint8List(String str) {
-  final List<int> codeUnits = str.codeUnits;
-  final Uint8List unit8List = Uint8List.fromList(codeUnits);
-
-  return unit8List;
 }
