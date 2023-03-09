@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
 import 'package:flutter/cupertino.dart';
@@ -42,17 +44,25 @@ class ClientDataLogic extends GetxController {
     print(result);
   }
 
-  void createCustomer() {
+  void createCustomer(Function(bool isSuccess) callBack) {
+
+    var rng = Random();
+    int random = rng.nextInt(99)+ 10;
+    String idNumber = "123126$random";
     Map<String, dynamic> body = {
-      "type": "",
-      "idNumber": "",
-      "lastName": "",
-      "firstName": "",
-      "nationality": "",
-      "sex": "",
-      "dateOfBirth": "",
-      "expiredDate": "",
-      "image": "Email",
+      "type": "DNI",
+      "idNumber": idNumber,
+      "name": "Duong",
+      "fullName": "Tran",
+      "nationality": "Peru",
+      "sex": "M",
+      "dateOfBirth": "2000-03-09",
+      "expiredDate": "2025-03-09",
+      "address": "string",
+      "province": "03",
+      "district": "04",
+      "precinct": "04",
+      "image": "string"
     };
     ApiUtil.getInstance()!.post(
       url: ApiEndPoints.API_CREATE_CUSTOMER,
@@ -60,11 +70,15 @@ class ClientDataLogic extends GetxController {
       onSuccess: (response) {
         if (response.isSuccess) {
           customer = CustomerModel.fromJson(response.data);
+          callBack.call(true);
         } else {
           print("error: ${response.status}");
+          callBack.call(false);
         }
       },
-      onError: (error) {},
+      onError: (error) {
+        callBack.call(false);
+      },
     );
   }
 }

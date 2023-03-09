@@ -256,7 +256,7 @@ public class SecugenFingerPrintScanner extends FingerPrintScannerBase implements
 
                 sgwsqLib.SGWSQEncode(wsqImageOut, SGWSQLib.BITRATE_5_TO_1, mRegisterImage512, 512, 512, 8, 500);
 
-                writeLogToFile("out.wsq", null, wsqImageOut);
+//                writeLogToFile("out.wsq", null, wsqImageOut);
                 String encodedBase64 = Base64.encodeToString(wsqImageOut, Base64.NO_WRAP);
 
                 FINGER_PRINT.setEncodeBase64(encodedBase64);

@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:io';
+
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/register_finger_print/register_finger_print_logic.dart';
+import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
@@ -262,7 +265,13 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                       Expanded(
                           flex: 1,
                           child: bottomButtonV2(
-                              onTap: () {},
+                              onTap: () {
+                                if(Platform.isAndroid) {
+                                  controller.getCapture();
+                                } else {
+                                  Common.showToastCenter("Chỉ hoạt động trên thiết bị Android");
+                                }
+                              },
                               text: AppLocalizations.of(context)!
                                   .textCapture
                                   .toUpperCase())),

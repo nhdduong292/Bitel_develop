@@ -28,10 +28,9 @@ class ApiUtil {
       Map<String, dynamic> params = const {},
       required Function(BaseResponse response) onSuccess,
       required Function(dynamic error) onError,
-      bool isCancel = false}) {
-  }) async{
-    final token = await SharedPreferenceUtil.getToken();
-    if (token != null) {
+      bool isCancel = false}) async{
+    String token = await SharedPreferenceUtil.getToken();
+    if (token.isNotEmpty) {
       dio!.options.headers['Authorization'] = 'Bearer ${token}';
     }
     dio!.get(url, queryParameters: params).then((res) {
@@ -41,14 +40,14 @@ class ApiUtil {
     });
   }
 
-  void getPDF({
+  Future<void> getPDF({
     required String url,
     Map<String, dynamic> params = const {},
     required Function(Response success) onSuccess,
     required Function(dynamic error) onError,
-  }) {
-    final token = SharedPreferenceUtil.getToken();
-    if (token != null) {
+  }) async {
+    String token = await SharedPreferenceUtil.getToken();
+    if (token.isNotEmpty) {
       dio!.options.headers['Authorization'] = 'Bearer ${token}';
     }
     dio!.get(url, queryParameters: params).then((res) {
@@ -58,16 +57,16 @@ class ApiUtil {
     });
   }
 
-  void put({
+  Future<void> put({
     required String url,
     Map<String, dynamic>? body,
     Map<String, dynamic> params = const {},
     String contentType = Headers.jsonContentType,
     required Function(BaseResponse response) onSuccess,
     required Function(dynamic error) onError,
-  }) {
-    final token = SharedPreferenceUtil.getToken();
-    if (token != null) {
+  }) async {
+    String token = await SharedPreferenceUtil.getToken();
+    if (token.isNotEmpty) {
       dio!.options.headers['Authorization'] = 'Bearer ${token}';
     }
     dio!
@@ -94,9 +93,11 @@ class ApiUtil {
     required Function(BaseResponse response) onSuccess,
     required Function(dynamic error) onError,
   }) async{
-    final token = await SharedPreferenceUtil.getToken();
+    String token = await SharedPreferenceUtil.getToken();
     if (!isDetect) {
-      dio!.options.headers['Authorization'] = 'Bearer ${token}';
+      if(token.isNotEmpty) {
+        dio!.options.headers['Authorization'] = 'Bearer ${token}';
+      }
     } else {
       dio!.options.headers['Authorization'] = 'Bearer AIzaSyDyzsELhb6aZYiMPL5NB3AZj8m7HUVFogo';
     }

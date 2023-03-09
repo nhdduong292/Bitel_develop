@@ -230,8 +230,8 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                       // controller.getScan();
                       _getFromGallery(context, controller);
                     } else {
-                      // callback();
-                      controller.detectID(context);
+                      callback();
+                      // controller.detectID(context);
                     }
 
                   },

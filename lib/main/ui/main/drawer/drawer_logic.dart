@@ -35,6 +35,7 @@ class DrawerLogic extends GetxController {
           break;
         case 4:
           // Get.to(DemoNativePage());
+          Get.toNamed(RouteConfig.validateFingerprint);
           break;
 
       }

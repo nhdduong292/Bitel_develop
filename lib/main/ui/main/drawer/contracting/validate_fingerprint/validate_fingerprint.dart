@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'dart:io';
+import 'dart:io';
 
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/validate_fingerprint/validate_fingerprint_logic.dart';
+import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -202,7 +204,11 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                     flex: 1,
                                     child: bottomButtonV2(
                                         onTap: () {
-                                          controller.getCapture();
+                                          if(Platform.isAndroid) {
+                                            controller.getCapture();
+                                          } else {
+                                            Common.showToastCenter("Chỉ hoạt động trên thiết bị Android");
+                                          }
                                         },
                                         text: AppLocalizations.of(context)!
                                             .textCapture
@@ -212,10 +218,23 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                     child: bottomButton(
                                         onTap: () {
                                           if (controller.type == 'LENDING') {
-                                            Get.toNamed(
-                                                RouteConfig.ftthContracting);
+                                            controller.signContract((p0) {
+                                              if(p0){
+                                                Get.toNamed(
+                                                    RouteConfig.ftthContracting);
+                                              } else {
+                                                Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
+                                              }
+                                            },);
                                           } else {
-                                            Get.back(result: true);
+                                            controller.signContract((p0) {
+                                              if(p0){
+                                                Get.back(result: true);
+                                              } else {
+                                                Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
+                                              }
+                                            },);
+
                                           }
                                         },
                                         text: AppLocalizations.of(context)!

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_map_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_successful.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_unsuccesful.dart';
@@ -149,6 +150,9 @@ class DialogSurveyMapPage extends GetWidget {
                           child: InkWell(
                             onTap: () {
                               if(controller.isConnect){
+                                Get.toNamed(RouteConfig.productPayment,
+                                    arguments:
+                                    requestId);
                               }
                             },
                             child:  Center(
