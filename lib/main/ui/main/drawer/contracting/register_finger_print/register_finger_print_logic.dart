@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:bitel_ventas/main/utils/native_util.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../../../networks/api_end_point.dart';
@@ -14,6 +16,10 @@ class RegisterFingerPrintLogic extends GetxController {
   var fingerValue = (1).obs;
   var pathFinger = AppImages.imgFingerLeft1.obs;
   int customerId = 0;
+  int indexLeft = 0;
+  List<String> listImageLeft= [];
+  int indexRight = 0;
+  List<String> listImageRight = [];
 
   String findPathFinger() {
     if (handValue.value == 1) {
@@ -48,10 +54,10 @@ class RegisterFingerPrintLogic extends GetxController {
   Future<bool> registerFinger() async {
     Completer<bool> completer = Completer();
     Map<String, dynamic> body = {
-      "left": 0,
-      "leftImage": ["string"],
-      "right": 0,
-      "rightImage": ["string"]
+      "left": indexLeft,
+      "leftImage": listImageLeft,
+      "right": indexRight,
+      "rightImage": listImageRight
     };
 
     ApiUtil.getInstance()!.put(
@@ -71,5 +77,29 @@ class RegisterFingerPrintLogic extends GetxController {
       },
     );
     return completer.future;
+  }
+
+  Future<void> getCapture() async {
+    String result = "";
+    try {
+      final value =
+      await NativeUtil.platformFinger.invokeMethod(NativeUtil.nameFinger);
+      result = value;
+    } on PlatformException catch (e) {
+      e.printInfo();
+    }
+
+    if(indexLeft > 0) {
+      listImageLeft.add(result);
+    }
+    if(indexRight > 0) {
+      listImageRight.add(result);
+    }
+    update();
+    // setCapture(result);
+  }
+
+  void setIndexLeft(int value){
+    indexLeft = value;
   }
 }

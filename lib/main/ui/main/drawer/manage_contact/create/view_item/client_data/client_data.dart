@@ -17,6 +17,7 @@ import '../../../../../../../../res/app_colors.dart';
 import '../../../../../../../router/route_config.dart';
 import '../../../../../../../utils/common_widgets.dart';
 import 'client_data_logic.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 typedef void TouchUpadte();
 
@@ -264,7 +265,16 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                     // } else {
                     //   callback();
                     // }
-                    callback();
+                    _onLoading(context);
+                    controller.createCustomer((isSuccess) {
+                      Get.back();
+                      if(isSuccess){
+                        callback();
+                      }else {
+                        Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
+                      }
+                    },);
+
                   },
                   child: Center(
                       child: Text(
@@ -303,6 +313,20 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
           ],
         ),
       ],
+    );
+  }
+
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
+      },
     );
   }
 }

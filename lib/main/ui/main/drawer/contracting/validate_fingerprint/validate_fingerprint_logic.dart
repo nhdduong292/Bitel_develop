@@ -18,6 +18,7 @@ class ValidateFingerprintLogic extends GetxController {
   String typeCustomer = '';
   String idNumber = '';
   BestFingerModel bestFinger = BestFingerModel();
+  List<String> imageBase64 = [];
 
   @override
   void onInit() {
@@ -40,14 +41,18 @@ class ValidateFingerprintLogic extends GetxController {
   Future<void> getCapture() async {
     String result = "";
     try {
-      final String value =
+      final value =
           await NativeUtil.platformFinger.invokeMethod(NativeUtil.nameFinger);
       result = value;
     } on PlatformException catch (e) {
       e.printInfo();
     }
-
-    setCapture(result);
+    if(imageBase64.isNotEmpty) {
+      imageBase64.clear();
+    }
+    imageBase64.add(result);
+    update();
+    // setCapture(result);
   }
 
   void getBestFinger() {
@@ -64,11 +69,11 @@ class ValidateFingerprintLogic extends GetxController {
     );
   }
 
-  Future<bool> signContract() async {
+  void signContract(Function(bool) isSuccess) {
     Completer<bool> completer = Completer();
     Map<String, dynamic> body = {
       "finger": bestFinger.right ?? bestFinger.left,
-      "listImage": []
+      "listImage": imageBase64
     };
     Map<String, dynamic> params = {"type": type};
     ApiUtil.getInstance()!.put(
@@ -78,16 +83,16 @@ class ValidateFingerprintLogic extends GetxController {
       params: params,
       onSuccess: (response) {
         if (response.isSuccess) {
-          completer.complete(true);
+          isSuccess.call(true);
         } else {
-          completer.complete(false);
+          isSuccess.call(false);
           print("error: ${response.status}");
         }
       },
       onError: (error) {
-        completer.complete(false);
+        isSuccess.call(false);
       },
     );
-    return completer.future;
+    // return completer.future;
   }
 }
