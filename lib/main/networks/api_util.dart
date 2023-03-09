@@ -1,4 +1,5 @@
 import 'package:bitel_ventas/main/networks/response/base_response.dart';
+import 'package:bitel_ventas/main/utils/shared_preference.dart';
 import 'package:dio/dio.dart';
 import 'api_interceptors.dart';
 
@@ -16,7 +17,7 @@ class ApiUtil {
     if (dio == null) {
       dio = Dio();
       dio!.options.connectTimeout = 60000;
-      dio!.options.receiveTimeout = 30000;
+      dio!.options.receiveTimeout = 60000;
       dio!.interceptors.add(ApiInterceptors());
     }
     cancelToken ??= CancelToken();
@@ -28,10 +29,11 @@ class ApiUtil {
     required Function(BaseResponse response) onSuccess,
     required Function(dynamic error) onError,
     bool isCancel = false
-  }) {
-    // if(isCancel) {
-    //   cancelToken!.cancel();
-    // }
+  }) async{
+    final token = await SharedPreferenceUtil.getToken();
+    if (token != null) {
+      dio!.options.headers['Authorization'] = 'Bearer ${token}';
+    }
     dio!.get(url, queryParameters: params).then((res) {
       if (onSuccess != null) onSuccess(getBaseResponse(res));
     }).catchError((error) {
@@ -45,6 +47,10 @@ class ApiUtil {
     required Function(Response success) onSuccess,
     required Function(dynamic error) onError,
   }) {
+    final token = SharedPreferenceUtil.getToken();
+    if (token != null) {
+      dio!.options.headers['Authorization'] = 'Bearer ${token}';
+    }
     dio!.get(url, queryParameters: params).then((res) {
       if (onSuccess != null) onSuccess(res);
     }).catchError((error) {
@@ -60,6 +66,10 @@ class ApiUtil {
     required Function(BaseResponse response) onSuccess,
     required Function(dynamic error) onError,
   }) {
+    final token = SharedPreferenceUtil.getToken();
+    if (token != null) {
+      dio!.options.headers['Authorization'] = 'Bearer ${token}';
+    }
     dio!
         .put(
       url,
@@ -79,10 +89,17 @@ class ApiUtil {
     required String url,
     Map<String, dynamic>? body,
     Map<String, dynamic> params = const {},
+    bool isDetect = false,
     String contentType = Headers.jsonContentType,
     required Function(BaseResponse response) onSuccess,
     required Function(dynamic error) onError,
-  }) {
+  }) async{
+    final token = await SharedPreferenceUtil.getToken();
+    if (!isDetect) {
+      dio!.options.headers['Authorization'] = 'Bearer ${token}';
+    } else {
+      dio!.options.headers['Authorization'] = 'Bearer AIzaSyDyzsELhb6aZYiMPL5NB3AZj8m7HUVFogo';
+    }
     dio!
         .post(
       url,

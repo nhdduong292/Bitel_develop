@@ -8,6 +8,8 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../../../../../res/app_colors.dart';
 import '../../../../../../../utils/common_widgets.dart';
@@ -223,11 +225,14 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                 ),
                 child: InkWell(
                   onTap: () {
-                    // if(controller.textPathScan.isEmpty) {
-                    //   controller.getScan();
-                    // } else {
-                      callback();
-                    // }
+                    if(controller.textPathScan.isEmpty) {
+                      // controller.getScan();
+                      _getFromGallery(context, controller);
+                    } else {
+                      // callback();
+                      controller.detectID(context);
+                    }
+
                   },
                   child: Center(
                       child: Text(
@@ -239,5 +244,47 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
             ]),
           );
         });
+  }
+
+  _getFromGallery(BuildContext context, DocumentScanningLogic controller) async {
+    final pickedFile =
+    await ImagePicker().pickImage(source: ImageSource.camera);
+    _cropImage(pickedFile, context, controller);
+  }
+
+  /// Crop Image
+  _cropImage(filePath, BuildContext context, DocumentScanningLogic controller) async {
+    final croppedFile = await ImageCropper().cropImage(
+      sourcePath: filePath!.path,
+      compressFormat: ImageCompressFormat.jpg,
+      compressQuality: 100,
+      uiSettings: [
+        AndroidUiSettings(
+            toolbarTitle: 'Cropper',
+            toolbarColor: Colors.deepOrange,
+            toolbarWidgetColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: false),
+        IOSUiSettings(
+          title: 'Cropper',
+        ),
+        WebUiSettings(
+          context: context,
+          presentStyle: CropperPresentStyle.dialog,
+          boundary: const CroppieBoundary(
+            width: 520,
+            height: 520,
+          ),
+          viewPort:
+          const CroppieViewPort(width: 480, height: 480, type: 'circle'),
+          enableExif: true,
+          enableZoom: true,
+          showZoomer: true,
+        ),
+      ],
+    );
+    if(croppedFile != null) {
+      controller.setPathScan(croppedFile!.path);
+    }
   }
 }

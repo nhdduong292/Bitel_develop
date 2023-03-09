@@ -13,10 +13,7 @@ class ApiInterceptors extends InterceptorsWrapper {
     final uri = options.uri;
     final data = options.data;
     // final authRepository = Get.find<AuthRepository>(tag: (AuthRepository).toString());
-    final token = await SharedPreferenceUtil.getToken();
-    if (token != null) {
-      options.headers['Authorization'] = 'Bearer ${token}';
-    }
+
     apiLogger.log(
         "\n\n--------------------------------------------------------------------------------------------------------");
     if (method == 'GET') {
@@ -25,6 +22,8 @@ class ApiInterceptors extends InterceptorsWrapper {
           printFullText: true);
     } else {
       try {
+        // options.headers["Content-Type"] = "application/json; charset=utf-8";
+        // options.headers["Accept"] = "application/json";
         apiLogger.log(
             "✈️ REQUEST[$method] => PATH: $uri \n DATA: ${jsonEncode(data)}",
             printFullText: true);

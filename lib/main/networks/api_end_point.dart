@@ -44,4 +44,6 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/customers/id/best-finger";
   static final String API_SIGN_CONTRACT =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts/id/sign";
+
+  static final String API_DETECT_ID = "https://vision.googleapis.com/v1/images:annotate";
 }

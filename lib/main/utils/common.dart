@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:io';
 import 'dart:math' as Math;
 
 import 'package:bitel_ventas/res/app_colors.dart';
@@ -121,4 +123,24 @@ class Common {
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 5);
   }
+
+  static String convertImageFileToBase64(File file) {
+    var bytes = file.readAsBytesSync();
+    var base64img = base64Encode(bytes);
+    // try {
+    //   byte[] bytes = new byte[(int) file.length()];
+    // FileInputStream fis = null;
+    // try {
+    // fis = new FileInputStream(file);
+    // //read file into bytes[]
+    // fis.read(bytes);
+    // } finally {
+    // if (fis != null) {
+    // fis.close();
+    // }
+    // }
+    // return Base64.encodeToString(bytes, Base64.NO_WRAP);
+    // } catch (Exception e) {
+    return base64img;
+    }
 }
