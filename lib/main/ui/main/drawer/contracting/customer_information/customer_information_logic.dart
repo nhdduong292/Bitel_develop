@@ -49,9 +49,6 @@ class CustomerInformationLogic extends GetxController {
     phone = customer.telFax;
     email = customer.email;
     address = customer.address;
-    // getCustomer();
-    // fromAsset('assets/demo-link.pdf', 'demo.pdf')
-    //     .then((value) => {path = value.path});
   }
 
   void getCurrentTime() {
@@ -64,6 +61,16 @@ class CustomerInformationLogic extends GetxController {
       billCycle.value = 'Ciclo 26';
     }
     signDate.value = DateFormat("yyyy-MM-ddTHH:mm:ss").format(now);
+  }
+
+  String getBillCycle(String billCycle) {
+    if (billCycle == 'Ciclo 6') {
+      return 'CYCLE6';
+    } else if (billCycle == 'Ciclo 16') {
+      return 'CYCLE16';
+    } else {
+      return 'CYCLE26';
+    }
   }
 
   String getTypeCustomer() {
@@ -102,21 +109,6 @@ class CustomerInformationLogic extends GetxController {
     return completer.future;
   }
 
-  // void getCustomer() {
-  //   ApiUtil.getInstance()!.get(
-  //     url: '${ApiEndPoints.API_CUSTOMER}/54/',
-  //     onSuccess: (response) {
-  //       if (response.isSuccess) {
-  //         customer = CustomerModel.fromJson(response.data['data']);
-  //         update();
-  //       } else {
-  //         print("error: ${response.status}");
-  //       }
-  //     },
-  //     onError: (error) {},
-  //   );
-  // }
-
   var checkOption1 = false.obs;
   var checkOption2 = false.obs;
   var checkOption3 = false.obs;
@@ -140,7 +132,7 @@ class CustomerInformationLogic extends GetxController {
       "contractType": "UNDETERMINED",
       "numOfSubscriber": 1,
       "signDate": signDate.value,
-      "billCycle": billCycle.value,
+      "billCycle": getBillCycle(billCycle.value),
       "changeNotification": "Email",
       "printBill": "Email",
       "currency": "SOL",
@@ -183,90 +175,5 @@ class CustomerInformationLogic extends GetxController {
       },
       onError: (error) {},
     );
-  }
-
-  // Future<File> loadPDF(String filename) async {
-  //   // To open from assets, you can copy them to the app storage folder, and the access them "locally"
-  //   Completer<File> completer = Completer();
-
-  //   try {
-  //     // var dir = await getApplicationDocumentsDirectory();
-  //     // print("${dir.path}/$filename");
-  //     // File file = File();
-  //     var dir = await getApplicationDocumentsDirectory();
-  //     File file = File("${dir.path}/$filename");
-  //     var data = await rootBundle.load('assets/demo_link.pdf');
-  //     var bytes = data.buffer.asUint8List();
-  //     await file.writeAsBytes(bytes, flush: true);
-
-  //     // ignore: use_build_context_synchronously
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (context) => PDFScreen(
-  //           path: file.path,
-  //         ),
-  //       ),
-  //     );
-
-  //     // ApiUtil.getInstance()!.getPDF(
-  //     //   url: ApiEndPoints.API_CONTRACT_PREVIEW.replaceAll("id", "54"),
-  //     //   params: {"type": "MAIN"},
-  //     //   onSuccess: (response) {
-  //     //     print(response.data);
-  //     //     Navigator.push(
-  //     //       context,
-  //     //       MaterialPageRoute(
-  //     //         builder: (context) => PDFScreen(
-  //     //           path: 'value.path',
-  //     //           data: convertStringToUint8List(response.data),
-  //     //         ),
-  //     //       ),
-  //     //     );
-  //     //     print('bxloc get success');
-  //     //     //        var data = await rootBundle.load(asset);
-  //     //     // // var bytes = data.buffer.asUint8List();
-  //     //     // var bytes = await consolidateHttpClientResponseBytes(response.data);
-  //     //     // await file.writeAsBytes(bytes, flush: true);
-  //     //     // return file;
-  //     //   },
-  //     //   onError: (error) {},
-  //     // );
-  //   } catch (e) {
-  //     print(e);
-  //     throw Exception('Error parsing asset file!');
-  //   }
-
-  //   return completer.future;
-  // }
-
-  // void setPath() {
-  //   fromAsset('assets/demo-link.pdf', 'demo.pdf')
-  //       .then((value) => {path.value = value.path});
-  // }
-
-  // Future<File> fromAsset(String asset, String filename) async {
-  //   // To open from assets, you can copy them to the app storage folder, and the access them "locally"
-  //   Completer<File> completer = Completer();
-
-  //   try {
-  //     var dir = await getApplicationDocumentsDirectory();
-  //     File file = File("${dir.path}/$filename");
-  //     var data = await rootBundle.load(asset);
-  //     var bytes = data.buffer.asUint8List();
-  //     await file.writeAsBytes(bytes, flush: true);
-  //     completer.complete(file);
-  //   } catch (e) {
-  //     throw Exception('Error parsing asset file!');
-  //   }
-
-  //   return completer.future;
-  // }
-
-  Uint8List convertStringToUint8List(String str) {
-    final List<int> codeUnits = str.codeUnits;
-    final Uint8List unit8List = Uint8List.fromList(codeUnits);
-
-    return unit8List;
   }
 }

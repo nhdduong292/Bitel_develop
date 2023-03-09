@@ -104,7 +104,13 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
             ),
             InkWell(
               onTap: () {
-                Get.to(PDFScreen());
+                if (controller.checkMainContract.value) {
+                  Get.to(PDFScreen(),
+                      arguments: ['MAIN', controller.contract.contractId]);
+                } else {
+                  Get.to(PDFScreen(),
+                      arguments: ['LENDING', controller.contract.contractId]);
+                }
               },
               child: Image.asset(
                 AppImages.imgDemoContract,

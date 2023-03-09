@@ -153,7 +153,18 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                             SizedBox(
                               height: 43,
                             ),
-                            SvgPicture.asset(AppImages.imgValidateFingerprint),
+                            Obx(
+                              () => SizedBox(
+                                width: 140,
+                                height: 190,
+                                child: controller.pathFinger.value != ''
+                                    ? Image.asset(
+                                        controller.pathFinger.value,
+                                        fit: BoxFit.fitHeight,
+                                      )
+                                    : null,
+                              ),
+                            ),
                             SizedBox(
                               height: 12,
                             ),
