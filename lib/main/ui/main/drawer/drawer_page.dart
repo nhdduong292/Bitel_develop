@@ -197,7 +197,7 @@ class DrawerPage extends GetView<DrawerLogic> {
                     Get.toNamed(RouteConfig.afterSale);
                   } else if (i == 2) {
                     // Get.toNamed(RouteConfig.manageWO);
-                    Get.to(() => ProductPaymentMethodPage());
+                    // Get.to(() => ProductPaymentMethodPage());
                     print("index: 4");
                   }
                 }else if(vehicle.label == AppLocalizations.of(context)!.textUtilites){

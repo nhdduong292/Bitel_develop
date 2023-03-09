@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bitel_ventas/main/utils/provider/search_request_provider.dart';
 import 'package:bitel_ventas/main/utils/shared_preference.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +39,7 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      initialRoute: SharedPreferenceUtil.getToken() == "" ? RouteConfig.login : RouteConfig.main,
+      initialRoute: checkToken() ? RouteConfig.login : RouteConfig.main,
       getPages: RouteConfig.getPages,
       locale: Get.find<SettingService>().currentLocate.value,
       supportedLocales: RouteConfig.listLanguage,
@@ -47,5 +49,15 @@ class MyApp extends StatelessWidget {
     );
   }
 
+  bool checkToken() {
+    String token = "";
+    SharedPreferenceUtil.getToken().then((value) {
+      token = value;
+    },);
+    if(token.isEmpty){
+      return true;
+    }
+    return false;
+  }
 
 }

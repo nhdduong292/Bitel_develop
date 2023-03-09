@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -65,7 +66,7 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                         left: 20,
                         child: InkWell(
                           onTap: () {
-                            Get.back();
+                            Get.toNamed(RouteConfig.listRequest);
                           },
                           child: Container(
                             width: 35,
@@ -240,7 +241,9 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                 text: AppLocalizations.of(context)!
                                     .textClose
                                     .toUpperCase(),
-                                onTap: () {})),
+                                onTap: () {
+                                  Get.toNamed(RouteConfig.listRequest);
+                                })),
                         SizedBox(
                           height: 126,
                         )

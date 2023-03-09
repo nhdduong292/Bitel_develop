@@ -92,13 +92,13 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                             ),
                           ),
                         )),
-                    Positioned(
-                        top: 50,
-                        right: 15,
-                        child: InkWell(
-                          onTap: () {},
-                          child: SvgPicture.asset(AppImages.icNotify),
-                        )),
+                    // Positioned(
+                    //     top: 50,
+                    //     right: 15,
+                    //     child: InkWell(
+                    //       onTap: () {},
+                    //       child: SvgPicture.asset(AppImages.icNotify),
+                    //     )),
                     Positioned(
                         top: 111,
                         left: 0,
@@ -127,7 +127,7 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                 const SizedBox(
                   height: 20,
                 ),
-                Expanded(
+                controller.isLoadingProduct ? LoadingCirculApi() : Expanded(
                   child: ScrollablePositionedList.builder(
                       scrollDirection: Axis.horizontal,
                       physics: const NeverScrollableScrollPhysics(),

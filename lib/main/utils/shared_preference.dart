@@ -19,7 +19,7 @@ class SharedPreferenceUtil {
     await prefs.setString(SPrefCache.KEY_TOKEN, token);
   }
 
-  static Future<String> getToken() async {
+  static Future<String> getToken()  async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(SPrefCache.KEY_TOKEN) ?? "";
   }

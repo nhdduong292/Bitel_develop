@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:bitel_ventas/main/networks/model/best_finger_model.dart';
+import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
@@ -20,7 +22,10 @@ class ValidateFingerprintLogic extends GetxController {
   String idNumber = '';
   BestFingerModel bestFinger = BestFingerModel();
   var pathFinger = ''.obs;
-  List<String> imageBase64 = [];
+  List<String> listFinger = [];
+
+
+  ValidateFingerprintLogic(this.context);
 
   @override
   void onInit() {
@@ -50,12 +55,11 @@ class ValidateFingerprintLogic extends GetxController {
     } on PlatformException catch (e) {
       e.printInfo();
     }
-    if(imageBase64.isNotEmpty) {
-      imageBase64.clear();
+    if(listFinger.isNotEmpty) {
+      listFinger.clear();
     }
-    imageBase64.add(result);
+    listFinger.add(result);
     update();
-    // setCapture(result);
   }
 
   void getBestFinger() {
@@ -69,7 +73,8 @@ class ValidateFingerprintLogic extends GetxController {
           print("error: ${response.status}");
         }
       },
-      onError: (error) {},
+      onError: (error) {
+      },
     );
   }
 
@@ -102,10 +107,11 @@ class ValidateFingerprintLogic extends GetxController {
   }
 
   void signContract(Function(bool) isSuccess) {
+    _onLoading(context);
     Completer<bool> completer = Completer();
     Map<String, dynamic> body = {
       "finger": bestFinger.right ?? bestFinger.left,
-      "listImage": imageBase64
+      "listImage": listFinger
     };
     Map<String, dynamic> params = {"type": type};
     ApiUtil.getInstance()!.put(
@@ -114,6 +120,7 @@ class ValidateFingerprintLogic extends GetxController {
       body: body,
       params: params,
       onSuccess: (response) {
+        Get.back();
         if (response.isSuccess) {
           isSuccess.call(true);
         } else {
@@ -122,9 +129,24 @@ class ValidateFingerprintLogic extends GetxController {
         }
       },
       onError: (error) {
+        Get.back();
         isSuccess.call(false);
       },
     );
     // return completer.future;
+  }
+
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
+      },
+    );
   }
 }

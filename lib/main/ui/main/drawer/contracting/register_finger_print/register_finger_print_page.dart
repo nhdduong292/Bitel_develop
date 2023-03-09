@@ -278,7 +278,13 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                       Expanded(
                           flex: 1,
                           child: bottomButton(
-                              onTap: () {},
+                              onTap: () {
+                                if(controller.listImageLeft.length == 3 || controller.listImageRight.length == 3) {
+                                  controller.registerFinger();
+                                } else {
+                                  Common.showToastCenter("Bạn phải nhập vân tay đủ 3 lần");
+                                }
+                              },
                               text: AppLocalizations.of(context)!
                                   .textRegister
                                   .toUpperCase())),
