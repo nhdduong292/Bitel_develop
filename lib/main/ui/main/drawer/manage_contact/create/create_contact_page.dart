@@ -53,9 +53,7 @@ class CreateContactPage extends GetView<CreateContactPageLogic> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                              AppLocalizations.of(context)!.textActivatePrepaid,
-                              style: AppStyles.title),
+                          Text('Escaneo de documento', style: AppStyles.title),
                           const SizedBox(height: 5),
                           Row(
                             children: [
@@ -79,7 +77,7 @@ class CreateContactPage extends GetView<CreateContactPageLogic> {
                       ),
                     ),
                     Positioned(
-                        top: 35,
+                        top: 50,
                         left: 20,
                         child: InkWell(
                           onTap: () {

@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/id_card_scanner.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
+import 'package:bitel_ventas/res/app_fonts.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:camera/camera.dart';
@@ -61,8 +62,8 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                     height: 30,
                     child: Center(
                       child: Text(
-                        'Client data',
-                        style: AppStyles.r3,
+                        'Información del cliente',
+                        style: AppStyles.r00A5B1_13_500,
                       ),
                     ),
                   ),
@@ -266,19 +267,37 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                     //   callback();
                     // }
                     _onLoading(context);
-                    controller.createCustomer((isSuccess) {
-                      Get.back();
-                      if(isSuccess){
-                        callback();
-                      }else {
-                        Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
-                      }
-                    },);
-
+                    controller.createCustomer(
+                      (isSuccess) {
+                        if (isSuccess) {
+                          Get.back();
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return SuccessDialog(
+                                height: 344,
+                                isSuccess: true,
+                                onCancel: () {
+                                  Get.back();
+                                },
+                                onOK: () {
+                                  Get.back();
+                                  callback();
+                                },
+                              );
+                            },
+                          );
+                        } else {
+                          Get.back();
+                          Common.showToastCenter(
+                              AppLocalizations.of(context)!.textErrorAPI);
+                        }
+                      },
+                    );
                   },
                   child: Center(
                       child: Text(
-                    'UPDATE',
+                    'Registrar',
                     style: AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
                   )),
                 ),
@@ -297,7 +316,14 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
             SizedBox(
               width: 17,
             ),
-            Text(lable),
+            Text(
+              lable,
+              style: TextStyle(
+                  fontFamily: AppFonts.Roboto,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 13,
+                  color: Color(0xFF6C8AA1)),
+            ),
           ],
         ),
         SizedBox(
@@ -309,7 +335,12 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
             SizedBox(
               width: 17,
             ),
-            Text(content),
+            Text(content,
+                style: TextStyle(
+                    fontFamily: AppFonts.Roboto,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 13,
+                    color: Color(0xFF2B3A4A))),
           ],
         ),
       ],
@@ -327,6 +358,107 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
           child: LoadingCirculApi(),
         );
       },
+    );
+  }
+}
+
+class SuccessDialog extends Dialog {
+  final double height;
+  final bool isSuccess;
+  var onOK;
+  var onCancel;
+
+  SuccessDialog(
+      {super.key,
+      required this.height,
+      required this.isSuccess,
+      required this.onCancel,
+      required this.onOK});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      alignment: Alignment.bottomCenter,
+      insetPadding: EdgeInsets.only(bottom: 24),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: SizedBox(
+        width: 330,
+        height: height,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 30,
+            ),
+            SvgPicture.asset(
+                isSuccess ? AppImages.imgCongratulations : AppImages.imgNotify),
+            SizedBox(
+              height: 24,
+            ),
+            Text(
+              '¡Felicidades!',
+              style: isSuccess ? AppStyles.r14 : AppStyles.r16,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 30, right: 30),
+              child: Text(
+                'El cliente se registró exitosamente',
+                style: AppStyles.r15,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            SizedBox(
+              height: 28,
+            ),
+            const DottedLine(
+              dashColor: Color(0xFFE3EAF2),
+              dashGapLength: 3,
+              dashLength: 4,
+            ),
+            SizedBox(
+              height: 22,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 30, right: 30),
+              child: Text(
+                '¿Deseas registrar tu huella para lafirma digital?',
+                style: AppStyles.r15,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(child: bottomButtonV2(text: 'No', onTap: onCancel)),
+                Expanded(
+                    child: bottomButton(text: 'Si, Continuar', onTap: onOK))
+              ],
+            ),
+            // Container(
+            //   width: double.infinity,
+            //   margin: const EdgeInsets.only(top: 27, left: 38, right: 38),
+            //   padding: const EdgeInsets.symmetric(vertical: 14),
+            //   decoration: BoxDecoration(
+            //     color: AppColors.colorButton,
+            //     borderRadius: BorderRadius.circular(24),
+            //   ),
+            //   child: InkWell(
+            //     onTap: () {
+            //       onOK();
+            //     },
+            //     child: Center(
+            //         child: Text(
+            //       '¡Muchas Gracias!'.toUpperCase(),
+            //       style: AppStyles.r5,
+            //     )),
+            //   ),
+            // ),
+          ],
+        ),
+      ),
     );
   }
 }
