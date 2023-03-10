@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bitel_ventas/main/networks/model/best_finger_model.dart';
+import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
 import 'package:flutter/cupertino.dart';
@@ -58,6 +59,7 @@ class ValidateFingerprintLogic extends GetxController {
     if(listFinger.isNotEmpty) {
       listFinger.clear();
     }
+    Common.showToastCenter("Lấy vân tay thành công!");
     listFinger.add(result);
     update();
   }

@@ -13,6 +13,8 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../../../../../res/app_colors.dart';
 import '../../../../../../../router/route_config.dart';
@@ -167,82 +169,73 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                       SizedBox(
                         height: 16,
                       ),
-                      // GestureDetector(
-                      //   onTap: () {
-                      //     controller.getScan();
-                      //   },
-                      //   child: Container(
-                      //     height: 48,
-                      //     margin: EdgeInsets.only(left: 15, right: 25),
-                      //     decoration: BoxDecoration(
-                      //       borderRadius: BorderRadius.circular(24),
-                      //       gradient: RadialGradient(
-                      //         center: const Alignment(-0.3292, 0.3296),
-                      //         radius: 1.2106,
-                      //         colors: [
-                      //           const Color(0xFF0FDDDB),
-                      //           const Color(0xFF00A5B1)
-                      //         ],
-                      //         stops: [0, 1],
-                      //       ),
-                      //     ),
-                      //     child: Row(
-                      //       children: [
-                      //         SizedBox(
-                      //           width: 18,
-                      //         ),
-                      //         Expanded(
-                      //             child:
-                      //                 Text('Photo of identity card (front)')),
-                      //         SvgPicture.asset(AppImages.icCameraRound),
-                      //         SizedBox(
-                      //           width: 8,
-                      //         )
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
-                      // SizedBox(
-                      //   height: 16,
-                      // ),
-                      // InkWell(
-                      //   onTap: () async {
-                      //     late List<CameraDescription> _cameras;
-                      //     WidgetsFlutterBinding.ensureInitialized();
-                      //
-                      //     _cameras = await availableCameras();
-                      //     Get.toNamed(RouteConfig.idCardScanner,
-                      //             arguments: _cameras)
-                      //         ?.then((result) {
-                      //       print(result);
-                      //       path.value = result;
-                      //     });
-                      //   },
-                      //   child: Stack(children: [
-                      //     Center(
-                      //         child:
-                      //             SvgPicture.asset(AppImages.icBorderIdentity)),
-                      //     controller.textPathScan.isNotEmpty
-                      //         ? Image.file(
-                      //             File(controller.textPathScan),
-                      //             width: 290,
-                      //             height: 160,
-                      //           )
-                      //         : Container(),
-                      //     // Obx(
-                      //     //   () => Visibility(
-                      //     //     visible: path.value != '',
-                      //     //     child: Center(
-                      //     //         child: Container(
-                      //     //       width: 290,
-                      //     //       height: 160,
-                      //     //       margin: EdgeInsets.all(4),
-                      //     //       child: Image.file(File(path.value)),
-                      //     //     )),
-                      //     //   ),
-                      //     // )
-                      //   ]),
-                      // ),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          height: 48,
+                          margin: EdgeInsets.only(left: 15, right: 25),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(24),
+                            gradient: RadialGradient(
+                              center: const Alignment(-0.3292, 0.3296),
+                              radius: 1.2106,
+                              colors: [
+                                const Color(0xFF0FDDDB),
+                                const Color(0xFF00A5B1)
+                              ],
+                              stops: [0, 1],
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 18,
+                              ),
+                              Expanded(
+                                  child:
+                                      Text('Photo of identity card (front)')),
+                              SvgPicture.asset(AppImages.icCameraRound),
+                              SizedBox(
+                                width: 8,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          if (controller.textPathScan.isEmpty) {
+                            // controller.getScan();
+                            // _getFromGallery(context, controller);
+                          } else {
+                            // callback();
+                            // controller.detectID(context);
+                          }
+                          _getFromGallery(context, controller);
+                        },
+                        child: Stack(children: [
+                          Center(
+                              child:
+                                  SvgPicture.asset(AppImages.icBorderIdentity)),
+                          Positioned(
+                            top: 5,
+                            right: 0,
+                            left: 0,
+                            child: controller.textPathScan.isNotEmpty
+                                ? Center(
+                                    child: Image.file(
+                                      File(controller.textPathScan),
+                                      width: 290,
+                                      height: 160,
+                                    ),
+                                  )
+                                : Container(),
+                          ),
+                        ]),
+                      ),
                       SizedBox(
                         height: 42,
                       )
@@ -359,6 +352,48 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
         );
       },
     );
+  }
+
+  _getFromGallery(BuildContext context, ClientDataLogic controller) async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    _cropImage(pickedFile, context, controller);
+  }
+
+  /// Crop Image
+  _cropImage(filePath, BuildContext context, ClientDataLogic controller) async {
+    final croppedFile = await ImageCropper().cropImage(
+      sourcePath: filePath!.path,
+      compressFormat: ImageCompressFormat.jpg,
+      compressQuality: 100,
+      uiSettings: [
+        AndroidUiSettings(
+            toolbarTitle: 'Cropper',
+            toolbarColor: Colors.deepOrange,
+            toolbarWidgetColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: false),
+        IOSUiSettings(
+          title: 'Cropper',
+        ),
+        WebUiSettings(
+          context: context,
+          presentStyle: CropperPresentStyle.dialog,
+          boundary: const CroppieBoundary(
+            width: 520,
+            height: 520,
+          ),
+          viewPort:
+              const CroppieViewPort(width: 480, height: 480, type: 'circle'),
+          enableExif: true,
+          enableZoom: true,
+          showZoomer: true,
+        ),
+      ],
+    );
+    if (croppedFile != null) {
+      controller.setPathScan(croppedFile!.path);
+    }
   }
 }
 

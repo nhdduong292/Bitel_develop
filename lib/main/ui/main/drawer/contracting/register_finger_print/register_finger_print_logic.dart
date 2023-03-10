@@ -9,9 +9,11 @@ import 'package:get/get.dart';
 
 import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
+import '../../manage_contact/create/view_item/client_data/id_card_scanner_logic.dart';
 
 class RegisterFingerPrintLogic extends GetxController {
   late BuildContext context;
+
 
   var handValue = (1).obs;
   var fingerValue = (1).obs;

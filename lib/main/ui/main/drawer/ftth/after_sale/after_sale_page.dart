@@ -20,7 +20,7 @@ class AfterSalePage extends StatelessWidget{
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         leading: Padding(
-          padding: EdgeInsets.only(left: 18, bottom: 18, top: 2),
+          padding: const EdgeInsets.only(left: 18, bottom: 18, top: 2),
           child: GestureDetector(
             child: SvgPicture.asset(AppImages.icBack),
             onTap: () {
@@ -30,7 +30,7 @@ class AfterSalePage extends StatelessWidget{
         ),
         elevation: 0.0,
         title: Container(
-          margin: EdgeInsets.only(bottom: 20),
+          margin: const EdgeInsets.only(bottom: 20),
           child: Text(AppLocalizations.of(context)!.textAfterSaleFuntion, style: AppStyles.title),
         ),
         toolbarHeight: 100,
@@ -56,7 +56,7 @@ class AfterSalePage extends StatelessWidget{
                 borderRadius: BorderRadius.circular(24),
                 boxShadow: [
                   BoxShadow(
-                    offset: Offset(0, 0),
+                    offset: const Offset(0, 0),
                     blurRadius: 1,
                     color: Colors.black.withOpacity(0.3),
                   ),
@@ -69,7 +69,7 @@ class AfterSalePage extends StatelessWidget{
                     child: SvgPicture.asset(AppImages.icSimMobile),
                     width: 35,
                     height: 35,
-                    margin: EdgeInsets.only(right: 10),
+                    margin: const EdgeInsets.only(right: 10),
                   ),
                   Expanded(
                       child: Text(
@@ -95,7 +95,7 @@ class AfterSalePage extends StatelessWidget{
                 borderRadius: BorderRadius.circular(24),
                 boxShadow: [
                   BoxShadow(
-                    offset: Offset(0, 0),
+                    offset: const Offset(0, 0),
                     blurRadius: 1,
                     color: Colors.black.withOpacity(0.3),
                   ),
@@ -108,7 +108,7 @@ class AfterSalePage extends StatelessWidget{
                     child: SvgPicture.asset(AppImages.icSimMobile),
                     width: 35,
                     height: 35,
-                    margin: EdgeInsets.only(right: 10),
+                    margin: const EdgeInsets.only(right: 10),
                   ),
                   Expanded(
                       child: Text(
@@ -134,7 +134,7 @@ class AfterSalePage extends StatelessWidget{
                 borderRadius: BorderRadius.circular(24),
                 boxShadow: [
                   BoxShadow(
-                    offset: Offset(0, 0),
+                    offset: const Offset(0, 0),
                     blurRadius: 1,
                     color: Colors.black.withOpacity(0.3),
                   ),
@@ -147,7 +147,7 @@ class AfterSalePage extends StatelessWidget{
                     child: SvgPicture.asset(AppImages.icSimMobile),
                     width: 35,
                     height: 35,
-                    margin: EdgeInsets.only(right: 10),
+                    margin: const EdgeInsets.only(right: 10),
                   ),
                   Expanded(
                       child: Text(

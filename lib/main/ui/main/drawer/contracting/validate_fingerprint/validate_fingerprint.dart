@@ -264,7 +264,7 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                       controller.signContract(
                                         (p0) {
                                           if (p0) {
-                                            Get.toNamed(
+                                            Get.offNamed(
                                                 RouteConfig.ftthContracting);
                                           } else {
                                             Common.showToastCenter(

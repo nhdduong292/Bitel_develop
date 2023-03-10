@@ -14,13 +14,13 @@ class ContractInformationLogic extends GetxController {
 
   DateTime now = DateTime.now();
 
-  Rx<String> contractLanguagetValue = 'Espanol'.obs;
+  Rx<String> contractLanguagetValue = 'SPANISH'.obs;
   final contractLanguages = [
-    'Ashaninka',
-    'Aymara',
-    'Quechua',
-    'Shipobo - konibo',
-    'Espanol'
+    'SHIPIBO_KONIBO',
+    'ASHANINKA',
+    'AYMARA',
+    'SPANISH',
+    'QUECHUA'
   ];
 
   void createContract() {

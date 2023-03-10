@@ -292,7 +292,6 @@
   "textTotalAPagar" : "Total a pagar",
   "contentRechargeDialog" : "You don’t have enough anypay in your account. Please recharge to continue perform transaction.",
   "textRecharge" : "Recharge",
-  "textCustomerInformation" : "Customer information",
   "textNationality" : "Nationality",
   "textSex" : "Sex",
   "textIssuedate" : "Issue date",
@@ -332,9 +331,7 @@
   "textOperationCode" : "Operation code:",
   "textCustomer" : "Customer:",
   "textDocIdentity" : "Doc. Identity:",
-  "textProduct" : "Product:",
   "textPromotion" : "Promotion:",
-  "textBillCycle" : "Bill cycle:",
   "textClose" : "Close",
   "textDocumentsWereSentTo" : "Documents were sent to",
   "textViewDetail" : "View detail",
@@ -367,5 +364,11 @@
   "textYourBestFingerprint" : "Your best fingerprint",
   "textErrorAPI": "Có lỗi xảy ra, vui lòng thử lại sau",
   "textSuccessAPI": "Thành công",
-  "textRequestOrderManagement": "Request & Order management"
+  "textRequestOrderManagement": "Request & Order management",
+  "textUsername": "Username",
+  "textEnterUserName": "Enter user name",
+  "textEnterPassword": "Enter password",
+  "textRememberAccount": "Remember account",
+  "textForgotYourPassword": "Forgot your password ?"
+
   }

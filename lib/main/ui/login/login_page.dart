@@ -87,8 +87,8 @@ class LoginPage extends GetWidget {
                                 ? ""
                                 : null)
                                 : null,
-                            hintText: "Enter user name",
-                            labelText: "Username",
+                            hintText: AppLocalizations.of(context)!.textEnterUserName,
+                            labelText: AppLocalizations.of(context)!.textUsername,
                             labelStyle: const TextStyle(
                                 color: AppColors.colorText1),
                             prefixIcon: Padding(
@@ -141,8 +141,8 @@ class LoginPage extends GetWidget {
                                 ? ""
                                 : null)
                                 : null,
-                            hintText: "Enter password",
-                            labelText: "Password",
+                            hintText: AppLocalizations.of(context)!.textEnterPassword,
+                            labelText: AppLocalizations.of(context)!.textPassword,
                             labelStyle: const TextStyle(
                                 color: AppColors.colorText1),
                             prefixIcon: Padding(
@@ -218,7 +218,7 @@ class LoginPage extends GetWidget {
                                     width: 10,
                                   ),
                                   Text(
-                                    "Remember account",
+                                    AppLocalizations.of(context)!.textRememberAccount,
                                     style: AppStyles.r2.copyWith(
                                         color: AppColors.colorText1),
                                   )
@@ -226,14 +226,7 @@ class LoginPage extends GetWidget {
                               ),
                             )),
                         Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 30),
-                              child: Text(
-                                "Forgot your password?",
-                                style: AppStyles.r2.copyWith(
-                                    color: AppColors.colorContent),
-                              ),
-                            ))
+                            child: SizedBox())
                       ],
                     ),
                   ),
