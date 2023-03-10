@@ -24,8 +24,7 @@ class ClientDataLogic extends GetxController {
   CustomPaint? _customPaint;
   String? _text;
   CustomerModel customerModel = CustomerModel();
-  final TextRecognizer _textRecognizer =
-      TextRecognizer(script: TextRecognitionScript.latin);
+  final TextRecognizer _textRecognizer = TextRecognizer();
 
   @override
   void onInit() {
