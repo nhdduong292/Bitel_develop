@@ -115,13 +115,13 @@ class CustomerInformationLogic extends GetxController {
   var checkOption3 = false.obs;
   var checkOption4 = false.obs;
 
-  Rx<String> contractLanguagetValue = 'Espanol'.obs;
+  Rx<String> contractLanguagetValue = 'SPANISH'.obs;
   final contractLanguages = [
-    'Ashaninka',
-    'Aymara',
-    'Quechua',
-    'Shipobo - konibo',
-    'Espanol'
+    'SHIPIBO_KONIBO',
+    'ASHANINKA',
+    'AYMARA',
+    'SPANISH',
+    'QUECHUA'
   ];
 
   void createContract(BuildContext context, Function(bool) isSuccess) {
@@ -185,15 +185,15 @@ class CustomerInformationLogic extends GetxController {
     );
   }
 
-  bool checkValidateAddInfo(){
-    if(phone.isEmpty || email.isEmpty || address.isEmpty) {
+  bool checkValidateAddInfo() {
+    if (phone.isEmpty || email.isEmpty || address.isEmpty) {
       Common.showToastCenter("Vui lòng nhập đầy đủ thông tin!");
       return true;
     }
     return false;
   }
 
-  bool checkValidateContractInfo(){
+  bool checkValidateContractInfo() {
     // if(phone.isEmpty || email.isEmpty || address.isEmpty) {
     //   Common.showToastCenter("Vui lòng nhập đầy đủ thông tin!");
     //   return true;
