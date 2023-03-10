@@ -73,6 +73,7 @@ class AppImages {
   static const icMenuUtilites = 'assets/images/ic_menu_utilites.svg';
   static const icConceptLogin = 'assets/images/ic_concept_login.png';
   static const icLogoSplash = 'assets/icons/ic_logo_splash.png';
+  static const icLogoBitel = 'assets/icons/ic_logo_bitel.svg';
   static const icLoginUser = 'assets/images/ic_login_user.svg';
   static const icLoginPass = 'assets/images/ic_login_pass.svg';
   static const icLoginShowPass = 'assets/images/ic_login_show_pass.svg';

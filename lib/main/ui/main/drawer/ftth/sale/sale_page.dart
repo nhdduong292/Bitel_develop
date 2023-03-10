@@ -1,5 +1,7 @@
 import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/sale/sale_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/utilitis/info_bussiness.dart';
+import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_images.dart';
@@ -35,7 +37,7 @@ class SalePage extends GetWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("WO management", style: AppStyles.title),
+                  Text(AppLocalizations.of(context)!.textRequestOrderManagement, style: AppStyles.title),
                   SizedBox(height: 5),
                   Row(
                     children: [
@@ -43,7 +45,7 @@ class SalePage extends GetWidget {
                       SizedBox(
                         width: 5,
                       ),
-                      Text("28/12/2020 07:30 - V1.1", style: AppStyles.b1),
+                      Text("${Common.getStringTimeToday()}", style: AppStyles.b1),
                       SizedBox(
                         width: 20,
                       ),
@@ -51,7 +53,7 @@ class SalePage extends GetWidget {
                       SizedBox(
                         width: 5,
                       ),
-                      Text("GUADALUPECC-LI4", style: AppStyles.b1)
+                      Text(InfoBusiness.getInstance()!.getUser().sub, style: AppStyles.b1)
                     ],
                   )
                 ],

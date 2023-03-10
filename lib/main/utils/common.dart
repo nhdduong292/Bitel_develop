@@ -91,6 +91,12 @@ class Common {
     return formatter.format(now);
   }
 
+  static String getStringTimeToday() {
+    var now = new DateTime.now();
+    var formatter = new DateFormat('dd/MM/yyyy hh:mm');
+    return formatter.format(now);
+  }
+
   static String getStringDateFirstDayOfMonth() {
     var now = new DateTime.now();
     var date = DateTime(now.year, now.month, 1);

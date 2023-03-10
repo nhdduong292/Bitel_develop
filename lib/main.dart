@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      initialRoute: checkToken() ? RouteConfig.login : RouteConfig.main,
+      initialRoute: Get.find<SettingService>().getToken() ? RouteConfig.main : RouteConfig.login,
       getPages: RouteConfig.getPages,
       locale: Get.find<SettingService>().currentLocate.value,
       supportedLocales: RouteConfig.listLanguage,
@@ -49,15 +49,5 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  bool checkToken() {
-    String token = "";
-    SharedPreferenceUtil.getToken().then((value) {
-      token = value;
-    },);
-    if(token.isEmpty){
-      return true;
-    }
-    return false;
-  }
 
 }

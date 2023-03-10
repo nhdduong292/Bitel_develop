@@ -57,13 +57,13 @@ class CreateRequestLogic extends GetxController {
   }
 
   void setPrecinct(AddressModel value){
-    if(value.areaCode == currentPrecinct.areaCode) return;
+    if(value.name == currentPrecinct.name) return;
     currentPrecinct = value;
     textFieldPrecinct.text = value.name;
     update();
   }
   void setDistrict(AddressModel value){
-    if(value.areaCode == currentDistrict.areaCode) return;
+    if(value.name == currentDistrict.name) return;
     currentDistrict = value;
     textFieldDistrict.text = value.name;
     textFieldPrecinct.text = "";
@@ -72,7 +72,7 @@ class CreateRequestLogic extends GetxController {
   }
 
   void setProvince(AddressModel value){
-    if(value.areaCode == currentProvince.areaCode) return;
+    if(value.name == currentProvince.name) return;
     currentProvince = value;
     textFieldProvince.text = value.name;
     textFieldDistrict.text = "";
@@ -131,7 +131,7 @@ class CreateRequestLogic extends GetxController {
       focusAddress.requestFocus();
       return true;
     }
-    if(!isCheckAgree || currentIdentity.isEmpty || currentName.isEmpty|| currentPhone.isEmpty || currentProvince.areaCode.isEmpty || currentPrecinct.areaCode.isEmpty || currentDistrict.areaCode.isEmpty || currentAddress.isEmpty){
+    if(!isCheckAgree || currentIdentity.isEmpty || currentName.isEmpty|| currentPhone.isEmpty || currentProvince.name.isEmpty || currentPrecinct.name.isEmpty || currentDistrict.name.isEmpty || currentAddress.isEmpty){
       Common.showToastCenter("Vui lòng nhập đầy đủ thông tin!");
       return true;
     }
@@ -141,12 +141,12 @@ class CreateRequestLogic extends GetxController {
   void createRequest(Function(bool isSuccess, int id) function) async {
     Map<String, dynamic> body = {
       "address": currentAddress.trim(),
-      "district": currentDistrict.areaCode.trim(),
+      "district": currentDistrict.name.trim(),
       "idNumber": currentIdentity.trim(),
       "name": currentName.trim(),
       "phone": currentPhone.trim(),
-      "precinct": currentPrecinct.areaCode.trim(),
-      "province": currentProvince.areaCode.trim(),
+      "precinct": currentPrecinct.name.trim(),
+      "province": currentProvince.name.trim(),
       "service": currentService.trim(),
       "identityType": currentIdentityType.trim()
     };

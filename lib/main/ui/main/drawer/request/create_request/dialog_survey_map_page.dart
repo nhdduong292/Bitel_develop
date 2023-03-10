@@ -150,9 +150,13 @@ class DialogSurveyMapPage extends GetWidget {
                           child: InkWell(
                             onTap: () {
                               if(controller.isConnect){
-                                Get.toNamed(RouteConfig.productPayment,
-                                    arguments:
-                                    requestId);
+                                Get.back();
+                                Timer(Duration(milliseconds: 600), () {
+                                  Get.offNamed(RouteConfig.productPayment,
+                                      arguments:
+                                      int.parse(requestId));
+                                },);
+
                               }
                             },
                             child:  Center(

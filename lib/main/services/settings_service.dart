@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:bitel_ventas/main/utils/shared_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -37,6 +38,8 @@ class SettingService extends GetxService {
 
   late SharedPreferences prefs;
 
+  final Rx<String> token = "".obs;
+
   Future<SettingService> init() async {
     prefs = await SharedPreferences.getInstance();
 
@@ -56,6 +59,8 @@ class SettingService extends GetxService {
     currentLocate.value = locale;
     Get.updateLocale(locale);
 
+    token.value = prefs.getString(SPrefCache.KEY_TOKEN) ?? "";
+
     return this;
   }
 
@@ -73,5 +78,13 @@ class SettingService extends GetxService {
     prefs.setString('languageCode', locale.languageCode);
     currentLocate.value = locale;
     Get.updateLocale(locale);
+  }
+
+  bool getToken(){
+    if(token.value.isEmpty) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

@@ -15,6 +15,9 @@ class RequestDetailModel{
   String? _district;
   String? _precinct;
   String? _address;
+  String? _provinceName;
+  String? _districtName;
+  String? _precinctName;
   CustomerModel? _customerModel;
   SubscriptionModel? _subscriptionModel;
   ContractModel? _contractModel;
@@ -33,6 +36,9 @@ class RequestDetailModel{
     _district = json['district'];
     _precinct = json['precinct'];
     _address = json['address'];
+    _provinceName = json['provinceName'];
+    _districtName = json['districtName'];
+    _precinctName = json['precinctName'];
     if(json['customer'] != null){
       _customerModel = CustomerModel.fromJson(json['customer']);
     }
@@ -137,6 +143,12 @@ class RequestDetailModel{
   int get id => _id ?? 0;
 
   String getInstalAddress(){
-    return "$address, $precinct, $district, $province";
+    return "$address, $_precinctName, $_districtName, $_provinceName";
   }
+
+  String get precinctName => _precinctName ?? "";
+
+  String get districtName => _districtName ?? "";
+
+  String get provinceName => _provinceName ?? "";
 }

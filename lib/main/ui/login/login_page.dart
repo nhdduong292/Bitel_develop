@@ -26,16 +26,12 @@ class LoginPage extends GetWidget {
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
                 children: [
                   Center(
                     child: Padding(
                       padding: const EdgeInsets.only(top: 56),
-                      child: Image.asset(
-                        AppImages.icLogoSplash,
-                        fit: BoxFit.cover,
-                        width: 155,
-                        height: 102,
+                      child: SvgPicture.asset(
+                        AppImages.icLogoBitel,
                       ),
                     ),
                   ),
@@ -46,7 +42,7 @@ class LoginPage extends GetWidget {
                           padding: const EdgeInsets.only(top: 30),
                           child: Image.asset(
                             AppImages.icConceptLogin,
-                            height: 240,
+                            // height: 240,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -55,12 +51,19 @@ class LoginPage extends GetWidget {
                       return Container();
                     }
                   }),
-                  const SizedBox(
-                    height: 100,
-                  ),
+                  KeyboardVisibilityBuilder(builder: (context, visible) {
+                    if (!visible) {
+                      return  Expanded(
+                      child: Container());
+                    } else {
+                      return Container();
+                    }
+                  }),
+                  SizedBox(height: 150,),
                   Container(
                     width: double.infinity,
-                    margin: EdgeInsets.only(top: 0, left: 20, right: 20),
+                    margin:
+                    EdgeInsets.only(top: 0, left: 20, right: 20),
                     padding: EdgeInsets.symmetric(vertical: 14),
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -78,27 +81,30 @@ class LoginPage extends GetWidget {
                           cursorColor: AppColors.colorText1,
                           decoration: InputDecoration(
                             errorText: controller.isSubmitUser
-                                ? (controller.controllerPass.value.text.length <
-                                        6
-                                    ? ""
-                                    : null)
+                                ? (controller.controllerPass.value.text
+                                .length <
+                                6
+                                ? ""
+                                : null)
                                 : null,
                             hintText: "Enter user name",
                             labelText: "Username",
-                            labelStyle:
-                                const TextStyle(color: AppColors.colorText1),
+                            labelStyle: const TextStyle(
+                                color: AppColors.colorText1),
                             prefixIcon: Padding(
                               padding: const EdgeInsets.only(
                                   left: 19, right: 10, bottom: 8),
-                              child: SvgPicture.asset(AppImages.icLoginUser),
+                              child: SvgPicture.asset(
+                                  AppImages.icLoginUser),
                             ),
                             border: const UnderlineInputBorder(
                                 borderSide: BorderSide(
-                                    width: 1, color: Colors.transparent)),
+                                    width: 1,
+                                    color: Colors.transparent)),
                             errorBorder: const UnderlineInputBorder(
                               //<-- SEE HERE
-                              borderSide:
-                                  BorderSide(width: 1, color: Colors.redAccent),
+                              borderSide: BorderSide(
+                                  width: 1, color: Colors.redAccent),
                             ),
                             focusedBorder: const UnderlineInputBorder(
                               //<-- SEE HERE
@@ -129,30 +135,33 @@ class LoginPage extends GetWidget {
                           },
                           decoration: InputDecoration(
                             errorText: controller.isSubmitPass
-                                ? (controller.controllerPass.value.text.length <
-                                        6
-                                    ? ""
-                                    : null)
+                                ? (controller.controllerPass.value.text
+                                .length <
+                                6
+                                ? ""
+                                : null)
                                 : null,
                             hintText: "Enter password",
                             labelText: "Password",
-                            labelStyle:
-                                const TextStyle(color: AppColors.colorText1),
+                            labelStyle: const TextStyle(
+                                color: AppColors.colorText1),
                             prefixIcon: Padding(
                               padding: const EdgeInsets.only(
                                   left: 19, right: 10, bottom: 8),
-                              child: SvgPicture.asset(AppImages.icLoginPass),
+                              child: SvgPicture.asset(
+                                  AppImages.icLoginPass),
                             ),
                             // filled: true,
                             // fillColor: Colors.white,
                             // border: InputBorder.none,
                             border: const UnderlineInputBorder(
                                 borderSide: BorderSide(
-                                    width: 1, color: Colors.transparent)),
+                                    width: 1,
+                                    color: Colors.transparent)),
                             errorBorder: const UnderlineInputBorder(
                               //<-- SEE HERE
-                              borderSide:
-                                  BorderSide(width: 1, color: Colors.redAccent),
+                              borderSide: BorderSide(
+                                  width: 1, color: Colors.redAccent),
                             ),
                             focusedBorder: const UnderlineInputBorder(
                               //<-- SEE HERE
@@ -165,17 +174,17 @@ class LoginPage extends GetWidget {
                             ),
                             suffixIcon: InkWell(
                               onTap: () {
-                                controller
-                                    .setShowPass(!controller.isShowPass.value);
+                                controller.setShowPass(
+                                    !controller.isShowPass.value);
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(
                                     left: 12, right: 18, top: 14),
                                 child: controller.isShowPass.value
                                     ? SvgPicture.asset(
-                                        AppImages.icLoginShowPass)
+                                    AppImages.icLoginShowPass)
                                     : SvgPicture.asset(
-                                        AppImages.icLoginOffPass),
+                                    AppImages.icLoginOffPass),
                               ),
                             ),
                             prefixIconConstraints: const BoxConstraints(
@@ -193,44 +202,45 @@ class LoginPage extends GetWidget {
                       children: [
                         Expanded(
                             child: InkWell(
-                          onTap: () {
-                            controller.setRememberAccount(
-                                !controller.isRememberAccount);
-                          },
-                          child: Row(
-                            children: [
-                              const SizedBox(
-                                width: 31,
+                              onTap: () {
+                                controller.setRememberAccount(
+                                    !controller.isRememberAccount);
+                              },
+                              child: Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 31,
+                                  ),
+                                  controller.isRememberAccount
+                                      ? iconChecked()
+                                      : iconUnchecked(),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    "Remember account",
+                                    style: AppStyles.r2.copyWith(
+                                        color: AppColors.colorText1),
+                                  )
+                                ],
                               ),
-                              controller.isRememberAccount
-                                  ? iconChecked()
-                                  : iconUnchecked(),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                "Remember account",
-                                style: AppStyles.r2
-                                    .copyWith(color: AppColors.colorText1),
-                              )
-                            ],
-                          ),
-                        )),
+                            )),
                         Expanded(
                             child: Padding(
-                          padding: const EdgeInsets.only(left: 30),
-                          child: Text(
-                            "Forgot your password?",
-                            style: AppStyles.r2
-                                .copyWith(color: AppColors.colorContent),
-                          ),
-                        ))
+                              padding: const EdgeInsets.only(left: 30),
+                              child: Text(
+                                "Forgot your password?",
+                                style: AppStyles.r2.copyWith(
+                                    color: AppColors.colorContent),
+                              ),
+                            ))
                       ],
                     ),
                   ),
                   Container(
                     width: double.infinity,
-                    margin: EdgeInsets.only(top: 30, left: 25, right: 25),
+                    margin:
+                    EdgeInsets.only(top: 30, left: 25, right: 25),
                     padding: EdgeInsets.symmetric(vertical: 14),
                     decoration: BoxDecoration(
                       color: AppColors.colorButton,
@@ -242,9 +252,11 @@ class LoginPage extends GetWidget {
                       },
                       child: Center(
                           child: Text(
-                        AppLocalizations.of(context)!.btnLogin.toUpperCase(),
-                        style: AppStyles.r5,
-                      )),
+                            AppLocalizations.of(context)!
+                                .btnLogin
+                                .toUpperCase(),
+                            style: AppStyles.r5,
+                          )),
                     ),
                   ),
                   Padding(
@@ -256,11 +268,16 @@ class LoginPage extends GetWidget {
                         children: const <TextSpan>[
                           TextSpan(
                               text: 'V 1.7.2',
-                              style: TextStyle(color: AppColors.colorContent)),
+                              style: TextStyle(
+                                  color: AppColors.colorContent)),
                         ],
                       ),
                     ),
                   )
+
+                  // const SizedBox(
+                  //   height: 100,
+                  // ),
                 ],
               ),
             ));

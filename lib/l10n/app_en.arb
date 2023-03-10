@@ -366,5 +366,6 @@
   "textDeploying": "Deploying",
   "textYourBestFingerprint" : "Your best fingerprint",
   "textErrorAPI": "Có lỗi xảy ra, vui lòng thử lại sau",
-  "textSuccessAPI": "Thành công"
+  "textSuccessAPI": "Thành công",
+  "textRequestOrderManagement": "Request & Order management"
   }
