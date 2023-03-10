@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/customer_detect_mode.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,9 +23,11 @@ class ClientDataLogic extends GetxController {
   bool _canProcess = true;
   bool _isBusy = false;
   CustomPaint? _customPaint;
+  CustomerDetectModel customerDetectModel = CustomerDetectModel();
   String? _text;
   CustomerModel customerModel = CustomerModel();
-  final TextRecognizer _textRecognizer = TextRecognizer();
+  final TextRecognizer _textRecognizer =
+      TextRecognizer(script: TextRecognitionScript.latin);
 
   @override
   void onInit() {
@@ -143,64 +146,51 @@ class ClientDataLogic extends GetxController {
   }
 
   Future<void> processImage(InputImage inputImage) async {
-    var type;
-    int idNumber;
-    var lastName;
-    var fisrtName;
-    var nationality;
-    var sex;
-    var dateOfBirth;
-    var expiredDate;
     if (!_canProcess) return;
     if (_isBusy) return;
     _isBusy = true;
     final recognizedText = await _textRecognizer.processImage(inputImage);
+
     recognizedText.blocks.map((value) {
-      var index = recognizedText.blocks.indexOf(value);
       if (value.text.contains('Apellidos')) {
-        if (index == recognizedText.blocks.length) {
-          return;
-        } else {
-          lastName = recognizedText.blocks[index + 1].text;
-        }
+        customerDetectModel.lastName =
+            getTextDetect(recognizedText, value, 'Apellidos');
       } else if (value.text.contains('Nacionalidad')) {
-        if (index == recognizedText.blocks.length) {
-          return;
-        } else {
-          nationality = recognizedText.blocks[index + 1].text;
-        }
-      } else if (value.text.contains('nacimiento')) {
-        if (index == recognizedText.blocks.length) {
-          return;
-        } else {
-          dateOfBirth = recognizedText.blocks[index + 1].text;
-        }
+        customerDetectModel.nationality =
+            getTextDetect(recognizedText, value, 'Nacionalidad');
+      } else if (value.text.contains('Emisi')) {
+        customerDetectModel.dateOfBirth =
+            getTextDetect(recognizedText, value, 'Emisi');
       } else if (value.text.contains('Sexo')) {
-        if (index == recognizedText.blocks.length) {
-          return;
-        } else {
-          sex = recognizedText.blocks[index + 1].text;
-        }
+        customerDetectModel.sex = getTextDetect(recognizedText, value, 'Sexo');
       } else if (value.text.contains('Nombres')) {
-        if (index == recognizedText.blocks.length) {
-          return;
-        } else {
-          fisrtName = recognizedText.blocks[index + 1].text;
-        }
-      } else if (value.text.contains('vencimiento')) {
-        if (index == recognizedText.blocks.length) {
-          return;
-        } else {
-          expiredDate = recognizedText.blocks[index + 1].text;
-        }
+        customerDetectModel.name =
+            getTextDetect(recognizedText, value, 'Nombres');
+      } else if (value.text.contains('Caduc')) {
+        customerDetectModel.expiredDate =
+            getTextDetect(recognizedText, value, 'Caduc');
       }
     }).toList();
+    update();
+  }
 
-    print(fisrtName);
-    print(lastName);
-    print(nationality);
-    print(dateOfBirth);
-    print(sex);
-    print(expiredDate);
+  String? getTextDetect(
+      RecognizedText recognizedText, TextBlock value, String title) {
+    var index = recognizedText.blocks.indexOf(value);
+    if (index == recognizedText.blocks.length) {
+      return null;
+    } else {
+      if (value.lines.length > 1) {
+        int indexLine =
+            value.lines.indexWhere((element) => element.text.contains(title));
+        if (indexLine < value.lines.length - 1) {
+          return value.lines[indexLine + 1].text;
+        } else {
+          return null;
+        }
+      } else {
+        return recognizedText.blocks[index + 1].text;
+      }
+    }
   }
 }

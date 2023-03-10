@@ -116,11 +116,17 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: 'Last name', content: 'Nguyen Trung'),
+                                lable: 'Last name',
+                                content:
+                                    controller.customerDetectModel.lastName ??
+                                        ''),
                           ),
                           Expanded(
                             flex: 1,
-                            child: infoClientView(lable: 'Name', content: 'Ri'),
+                            child: infoClientView(
+                                lable: 'Name',
+                                content:
+                                    controller.customerDetectModel.name ?? ''),
                           ),
                         ],
                       ),
@@ -132,12 +138,17 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: 'Nationality', content: 'Peru'),
+                                lable: 'Nationality',
+                                content: controller
+                                        .customerDetectModel.nationality ??
+                                    ''),
                           ),
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: 'Sex:', content: 'Female'),
+                                lable: 'Sex:',
+                                content:
+                                    controller.customerDetectModel.sex ?? ''),
                           ),
                         ],
                       ),
@@ -149,23 +160,21 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: 'Date of birth', content: '06/03/1990'),
+                                lable: 'Date of birth',
+                                content: controller
+                                        .customerDetectModel.dateOfBirth ??
+                                    ''),
                           ),
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: 'Expired date', content: '15/07/2022'),
+                                lable: 'Expired date',
+                                content: controller
+                                        .customerDetectModel.expiredDate ??
+                                    ''),
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 12,
-                      ),
-                      inputForm(
-                          label: 'Address',
-                          hint: 'Enter address',
-                          required: false,
-                          inputType: TextInputType.text),
                       SizedBox(
                         height: 16,
                       ),
@@ -302,39 +311,36 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
 
   Widget infoClientView({required String lable, required String content}) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 17,
-            ),
-            Text(
-              lable,
-              style: TextStyle(
-                  fontFamily: AppFonts.Roboto,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 13,
-                  color: Color(0xFF6C8AA1)),
-            ),
-          ],
+        // SizedBox(
+        //   width: 17,
+        // ),
+        Padding(
+          padding: const EdgeInsets.only(left: 15),
+          child: Text(
+            lable,
+            style: TextStyle(
+                fontFamily: AppFonts.Roboto,
+                fontWeight: FontWeight.w400,
+                fontSize: 13,
+                color: Color(0xFF6C8AA1)),
+          ),
         ),
         SizedBox(
           height: 4,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 17,
-            ),
-            Text(content,
-                style: TextStyle(
-                    fontFamily: AppFonts.Roboto,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 13,
-                    color: Color(0xFF2B3A4A))),
-          ],
+        // SizedBox(
+        //   width: 17,
+        // ),
+        Padding(
+          padding: const EdgeInsets.only(left: 15),
+          child: Text(content,
+              style: TextStyle(
+                  fontFamily: AppFonts.Roboto,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 13,
+                  color: Color(0xFF2B3A4A))),
         ),
       ],
     );
