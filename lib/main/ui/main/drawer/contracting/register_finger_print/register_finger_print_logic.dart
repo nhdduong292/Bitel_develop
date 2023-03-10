@@ -18,12 +18,14 @@ class RegisterFingerPrintLogic extends GetxController {
   var pathFinger = AppImages.imgFingerLeft1.obs;
   int customerId = 0;
   int indexLeft = 0;
-  List<String> listImageLeft= [];
+  List<String> listImageLeft = [];
   int indexRight = 0;
+  var countFinger = 3.obs;
   List<String> listImageRight = [];
 
   String findPathFinger() {
-    if (handValue.value == 1) { //todo trai
+    if (handValue.value == 1) {
+      //todo trai
       indexRight = 0;
       if (fingerValue.value == 1) {
         indexLeft = 6;
@@ -41,15 +43,15 @@ class RegisterFingerPrintLogic extends GetxController {
         indexLeft = 10;
         return AppImages.imgFingerLeft5;
       }
-
-    } else { //todo phai
+    } else {
+      //todo phai
       indexLeft = 0;
-     if (fingerValue.value == 1) {
+      if (fingerValue.value == 1) {
         indexRight = 1;
-        return AppImages.imgFingerRight2;
+        return AppImages.imgFingerRight1;
       } else if (fingerValue.value == 2) {
         indexRight = 2;
-        return AppImages.imgFingerRight3;
+        return AppImages.imgFingerRight2;
       } else if (fingerValue.value == 3) {
         indexRight = 3;
         return AppImages.imgFingerRight3;
@@ -95,24 +97,27 @@ class RegisterFingerPrintLogic extends GetxController {
     String result = "";
     try {
       final value =
-      await NativeUtil.platformFinger.invokeMethod(NativeUtil.nameFinger);
+          await NativeUtil.platformFinger.invokeMethod(NativeUtil.nameFinger);
       result = value;
     } on PlatformException catch (e) {
       e.printInfo();
     }
 
-    if(indexLeft > 0) {
+    if (indexLeft > 0) {
       listImageLeft.add(result);
-      Common.showToastCenter("Bạn đã lấy thành công lần ${listImageLeft.length}");
-    }
-    else {
+      countFinger.value--;
+      Common.showToastCenter(
+          "Bạn đã lấy thành công lần ${listImageLeft.length}");
+    } else {
       listImageRight.add(result);
-      Common.showToastCenter("Bạn đã lấy thành công lần ${listImageRight.length}");
+      countFinger.value--;
+      Common.showToastCenter(
+          "Bạn đã lấy thành công lần ${listImageRight.length}");
     }
     update();
   }
 
-  void setIndexLeft(int value){
+  void setIndexLeft(int value) {
     indexLeft = value;
   }
 }

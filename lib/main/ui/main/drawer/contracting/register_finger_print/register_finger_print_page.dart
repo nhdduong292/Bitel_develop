@@ -173,21 +173,23 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                   SizedBox(
                     height: 21,
                   ),
-                  RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                          text: AppLocalizations.of(context)!
-                              .textRegisterFingerprintWith,
-                          style: AppStyles.r405264_14_500.copyWith(
-                              fontSize: 13, fontWeight: FontWeight.w400),
-                          children: [
-                            TextSpan(
-                              text:
-                                  '3 ${AppLocalizations.of(context)!.textTimes}',
-                              style: AppStyles.r9454C9_14_500
-                                  .copyWith(fontSize: 13),
-                            ),
-                          ])),
+                  Obx(
+                    () => RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                            text: AppLocalizations.of(context)!
+                                .textRegisterFingerprintWith,
+                            style: AppStyles.r405264_14_500.copyWith(
+                                fontSize: 13, fontWeight: FontWeight.w400),
+                            children: [
+                              TextSpan(
+                                text:
+                                    '${controller.countFinger.value} ${AppLocalizations.of(context)!.textTimes}',
+                                style: AppStyles.r9454C9_14_500
+                                    .copyWith(fontSize: 13),
+                              ),
+                            ])),
+                  ),
                   SizedBox(
                     height: 21,
                   ),
@@ -245,9 +247,24 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                         ),
                         Column(
                           children: [
-                            fingerPrintView(link: AppImages.imgFingerPrint),
-                            fingerPrintView(link: AppImages.imgFingerPrint),
-                            fingerPrintView(link: AppImages.imgFingerPrint)
+                            Visibility(
+                                visible:
+                                    (controller.listImageLeft.length >= 1 ||
+                                        controller.listImageRight.length >= 1),
+                                child: fingerPrintView(
+                                    link: AppImages.imgFingerPrint)),
+                            Visibility(
+                                visible:
+                                    (controller.listImageLeft.length >= 2 ||
+                                        controller.listImageRight.length >= 2),
+                                child: fingerPrintView(
+                                    link: AppImages.imgFingerPrint)),
+                            Visibility(
+                                visible:
+                                    (controller.listImageLeft.length >= 3 ||
+                                        controller.listImageRight.length >= 3),
+                                child: fingerPrintView(
+                                    link: AppImages.imgFingerPrint)),
                           ],
                         )
                       ],
@@ -266,10 +283,11 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                           flex: 1,
                           child: bottomButtonV2(
                               onTap: () {
-                                if(Platform.isAndroid) {
+                                if (Platform.isAndroid) {
                                   controller.getCapture();
                                 } else {
-                                  Common.showToastCenter("Chỉ hoạt động trên thiết bị Android");
+                                  Common.showToastCenter(
+                                      "Chỉ hoạt động trên thiết bị Android");
                                 }
                               },
                               text: AppLocalizations.of(context)!
@@ -279,10 +297,25 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                           flex: 1,
                           child: bottomButton(
                               onTap: () {
-                                if(controller.listImageLeft.length == 3 || controller.listImageRight.length == 3) {
-                                  controller.registerFinger();
+                                if (controller.listImageLeft.length >= 3 ||
+                                    controller.listImageRight.length >= 3) {
+                                  controller.registerFinger().then((value) => {
+                                        if (value)
+                                          {
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return SuccessDialog(
+                                                  height: 299,
+                                                  isSuccess: true,
+                                                );
+                                              },
+                                            )
+                                          }
+                                      });
                                 } else {
-                                  Common.showToastCenter("Bạn phải nhập vân tay đủ 3 lần");
+                                  Common.showToastCenter(
+                                      "Bạn phải nhập vân tay đủ 3 lần");
                                 }
                               },
                               text: AppLocalizations.of(context)!
@@ -395,6 +428,79 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
           child: SvgPicture.asset(AppImages.icTickFingerPrint),
         )
       ]),
+    );
+  }
+}
+
+class SuccessDialog extends Dialog {
+  final double height;
+  final bool isSuccess;
+
+  const SuccessDialog(
+      {super.key, required this.height, required this.isSuccess});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      alignment: Alignment.bottomCenter,
+      insetPadding: EdgeInsets.only(bottom: 24),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: SizedBox(
+        width: 330,
+        height: height,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 30,
+            ),
+            SvgPicture.asset(
+                isSuccess ? AppImages.imgCongratulations : AppImages.imgNotify),
+            SizedBox(
+              height: 24,
+            ),
+            Text(
+              '¡Felicidades!',
+              style: isSuccess ? AppStyles.r14 : AppStyles.r16,
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            const DottedLine(
+              dashColor: Color(0xFFE3EAF2),
+              dashGapLength: 3,
+              dashLength: 4,
+            ),
+            SizedBox(
+              height: 22,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 30, right: 30),
+              child: Text(
+                'Tus huellas dactilares se registraron exitosamente',
+                style: AppStyles.r15,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              margin: const EdgeInsets.only(top: 27, left: 38, right: 38),
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              decoration: BoxDecoration(
+                color: AppColors.colorButton,
+                borderRadius: BorderRadius.circular(24),
+              ),
+              child: InkWell(
+                onTap: () {},
+                child: Center(
+                    child: Text(
+                  '¡Muchas Gracias!'.toUpperCase(),
+                  style: AppStyles.r5,
+                )),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

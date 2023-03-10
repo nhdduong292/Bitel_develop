@@ -1,8 +1,11 @@
 import 'dart:ui';
 
+import 'package:bitel_ventas/main/networks/model/user_model.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/utilitis/info_bussiness.dart';
 import 'package:bitel_ventas/main/utils/shared_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 extension ThemeModeExtension on ThemeMode {
@@ -60,6 +63,11 @@ class SettingService extends GetxService {
     Get.updateLocale(locale);
 
     token.value = prefs.getString(SPrefCache.KEY_TOKEN) ?? "";
+    if(token.value.isNotEmpty) {
+      Map<String, dynamic> payload = Jwt.parseJwt(token.value);
+      // Print the payload
+      InfoBusiness.getInstance()!.setUser(UserModel.fromJson(payload));
+    }
 
     return this;
   }

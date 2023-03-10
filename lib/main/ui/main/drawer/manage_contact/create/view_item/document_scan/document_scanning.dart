@@ -48,6 +48,26 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                   borderRadius: BorderRadius.circular(24.0),
                 ),
                 child: Column(children: [
+                  SizedBox(
+                    height: 8,
+                  ),
+                  SizedBox(
+                    height: 30,
+                    child: Center(
+                      child: Text(
+                        'Elegir documento',
+                        style: AppStyles.r00A5B1_13_500,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  DottedLine(
+                    dashColor: Color(0xFFE3EAF2),
+                    dashGapLength: 3,
+                    dashLength: 4,
+                  ),
                   Container(
                     margin: EdgeInsets.only(left: 15, right: 15, top: 30),
                     child: Row(
@@ -226,14 +246,13 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                 ),
                 child: InkWell(
                   onTap: () {
-                    if(controller.textPathScan.isEmpty) {
+                    if (controller.textPathScan.isEmpty) {
                       // controller.getScan();
                       _getFromGallery(context, controller);
                     } else {
                       callback();
                       // controller.detectID(context);
                     }
-
                   },
                   child: Center(
                       child: Text(
@@ -247,14 +266,16 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
         });
   }
 
-  _getFromGallery(BuildContext context, DocumentScanningLogic controller) async {
+  _getFromGallery(
+      BuildContext context, DocumentScanningLogic controller) async {
     final pickedFile =
-    await ImagePicker().pickImage(source: ImageSource.camera);
+        await ImagePicker().pickImage(source: ImageSource.camera);
     _cropImage(pickedFile, context, controller);
   }
 
   /// Crop Image
-  _cropImage(filePath, BuildContext context, DocumentScanningLogic controller) async {
+  _cropImage(
+      filePath, BuildContext context, DocumentScanningLogic controller) async {
     final croppedFile = await ImageCropper().cropImage(
       sourcePath: filePath!.path,
       compressFormat: ImageCompressFormat.jpg,
@@ -277,14 +298,14 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
             height: 520,
           ),
           viewPort:
-          const CroppieViewPort(width: 480, height: 480, type: 'circle'),
+              const CroppieViewPort(width: 480, height: 480, type: 'circle'),
           enableExif: true,
           enableZoom: true,
           showZoomer: true,
         ),
       ],
     );
-    if(croppedFile != null) {
+    if (croppedFile != null) {
       controller.setPathScan(croppedFile!.path);
     }
   }
