@@ -258,7 +258,6 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                 flex: 1,
                                 child: InkWell(
                                   onTap: () {
-                                    print('bxloc');
                                     if (controller.listFinger.isEmpty) {
                                       return;
                                     }
