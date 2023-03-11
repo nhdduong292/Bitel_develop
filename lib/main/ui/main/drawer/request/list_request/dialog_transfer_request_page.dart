@@ -153,7 +153,7 @@ class DialogTransferRequest extends GetWidget {
                 ),
                 child: InkWell(
                   onTap: () {
-                    if(controller.checkValidate()) return;
+                    if(controller.checkValidate(context)) return;
                     _onLoading(context);
                     controller.transferRequest(id, controllerTextField.text, (isSuccess) =>(isSuccess) {
                         Get.back();

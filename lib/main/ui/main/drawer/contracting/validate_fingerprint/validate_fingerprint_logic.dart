@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import '../../../../../../res/app_images.dart';
 import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ValidateFingerprintLogic extends GetxController {
   late BuildContext context;
@@ -47,7 +48,7 @@ class ValidateFingerprintLogic extends GetxController {
     update();
   }
 
-  Future<void> getCapture() async {
+  Future<void> getCapture(BuildContext context) async {
     String result = "";
     try {
       final value =
@@ -59,7 +60,7 @@ class ValidateFingerprintLogic extends GetxController {
     if(listFinger.isNotEmpty) {
       listFinger.clear();
     }
-    Common.showToastCenter("Lấy vân tay thành công!");
+    Common.showToastCenter(AppLocalizations.of(context)!.textNotifyFingerSuccess);
     listFinger.add(result);
     update();
   }

@@ -8,6 +8,7 @@ import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CreateRequestLogic extends GetxController {
   String currentService = "FTTH";
@@ -101,7 +102,7 @@ class CreateRequestLogic extends GetxController {
     update();
   }
 
-  bool checkValidateCreate(){
+  bool checkValidateCreate(BuildContext context){
     if(textFieldIdNumber.value.text.isEmpty){
       focusIdNumber.requestFocus();
       return true;
@@ -132,7 +133,7 @@ class CreateRequestLogic extends GetxController {
       return true;
     }
     if(!isCheckAgree || currentIdentity.isEmpty || currentName.isEmpty|| currentPhone.isEmpty || currentProvince.name.isEmpty || currentPrecinct.name.isEmpty || currentDistrict.name.isEmpty || currentAddress.isEmpty){
-      Common.showToastCenter("Vui lòng nhập đầy đủ thông tin!");
+      Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
       return true;
     }
     return false;

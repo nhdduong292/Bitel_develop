@@ -791,6 +791,7 @@ Widget spinnerFormV2(
     TextEditingController? controlTextField,
     TextInputAction? typeAction,
     Function(String value)? function,
+    Function(String value)? onSubmit,
     FocusNode? focusNode}) {
   return Column(
     children: [
@@ -812,6 +813,9 @@ Widget spinnerFormV2(
                         fontWeight: FontWeight.w500),
                     onChanged: (value) {
                       function!.call(value);
+                    },
+                    onSubmitted: (value) {
+                      onSubmit!.call(value);
                     },
                     decoration: InputDecoration(
                       hintText: hint,

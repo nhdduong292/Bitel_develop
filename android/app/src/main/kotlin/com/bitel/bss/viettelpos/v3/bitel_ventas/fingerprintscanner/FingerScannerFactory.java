@@ -149,7 +149,7 @@ public class FingerScannerFactory {
                         fingerPrintScannerImp = new SupremiaFingerPrintScanner(context);
 
 //                    } else if (usbDevice.getVendorId() == 4450 && (usbDevice.getProductId() == 8704 || usbDevice.getProductId() == 8707)) {
-                    } else if (usbDevice.getVendorId() == 7516 && (usbDevice.getProductId() == 28930 || usbDevice.getProductId() == 8707)) {
+                    } else if ((usbDevice.getVendorId() == 7516 || usbDevice.getVendorId() == 4450) && (usbDevice.getProductId() == 28930 || usbDevice.getProductId() == 8704 ||usbDevice.getProductId() == 8707)) {
                         fingerPrintScannerImp = new SecugenFingerPrintScanner(context);
                     } else if (UsbDeviceDataExchangeImpl.IsFutronicDevice(usbDevice.getVendorId(), usbDevice.getProductId())) {
                         fingerPrintScannerImp = new FutronicFingerPrintScanner(context);
