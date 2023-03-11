@@ -120,12 +120,12 @@ class CustomerInformationLogic extends GetxController {
   var checkOption3 = false.obs;
   var checkOption4 = false.obs;
 
-  Rx<String> contractLanguagetValue = 'espanol'.toUpperCase().obs;
+  Rx<String> contractLanguagetValue = 'SPANISH'.toUpperCase().obs;
   final contractLanguages = [
     'SHIPIBO_KONIBO',
     'ASHANINKA',
     'AYMARA',
-    'espanol'.toUpperCase(),
+    'SPANISH',
     'QUECHUA'
   ];
 
