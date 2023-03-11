@@ -169,10 +169,6 @@ class CustommerInformationPage extends GetView<CustomerInformationLogic> {
                                 index: 2,
                                 duration: const Duration(milliseconds: 200),
                               );
-                              controller
-                                  .fromAsset('assets/demo-link.pdf', 'demo.pdf')
-                                  .then((value) =>
-                                      {controller.path.value = value.path});
                             },
                           );
                         } else {

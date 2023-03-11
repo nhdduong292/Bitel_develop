@@ -257,6 +257,7 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                 flex: 1,
                                 child: InkWell(
                                   onTap: () {
+                                    print('bxloc');
                                     if (controller.listFinger.isEmpty) {
                                       return;
                                     }
@@ -265,7 +266,9 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                         (p0) {
                                           if (p0) {
                                             Get.toNamed(
-                                                RouteConfig.ftthContracting);
+                                                RouteConfig.ftthContracting,
+                                                arguments:
+                                                    controller.contractId);
                                           } else {
                                             Common.showToastCenter(
                                                 AppLocalizations.of(context)!

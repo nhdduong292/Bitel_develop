@@ -56,6 +56,14 @@ class ProductPaymentMethodLogic extends GetxController {
 
   List<ProductModel> listProduct = [];
 
+  double getTotal() {
+    if (getPlanReason().fee == null ||
+        getPlanReason().feeInstallation == null) {
+      return 0.0;
+    }
+    return getPlanReason().fee! + getPlanReason().feeInstallation!;
+  }
+
   void getProduts(int requestId) {
     ApiUtil.getInstance()!.get(
       url: '${ApiEndPoints.API_LIST_PRODUCT}/$requestId',
@@ -64,7 +72,6 @@ class ProductPaymentMethodLogic extends GetxController {
           listProduct = (response.data['data'] as List)
               .map((postJson) => ProductModel.fromJson(postJson))
               .toList();
-
         } else {
           print("error: ${response.status}");
         }

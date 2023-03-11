@@ -75,7 +75,9 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 isIcon: false,
                 width: 210),
             Obx(() => lockedBox(
-                content: controller.signDate.value,
+                content: controller.signDate.value != ''
+                    ? controller.signDate.value.substring(0, 10)
+                    : '',
                 label: AppLocalizations.of(context)!.textSignDate,
                 required: false,
                 isIcon: false,
@@ -118,7 +120,10 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 hint: 'Enter billing address',
                 label: AppLocalizations.of(context)!.textBillingAddress,
                 required: true,
-                textDefault: controller.customer.address,
+                onChange: (value) {
+                  controller.billAddress = value;
+                },
+                textDefault: controller.address,
                 inputType: TextInputType.streetAddress,
                 width: 210),
             SizedBox(
@@ -213,14 +218,17 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                     flex: 1,
                     child: bottomButton(
                         onTap: () {
-                          controller.createContract(context, (p0) {
-                            if(p0){
-                              callback();
-                            } else {
-                              Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
-                            }
-                          },);
-
+                          controller.createContract(
+                            context,
+                            (p0) {
+                              if (p0) {
+                                callback();
+                              } else {
+                                Common.showToastCenter(
+                                    AppLocalizations.of(context)!.textErrorAPI);
+                              }
+                            },
+                          );
                         },
                         text: AppLocalizations.of(context)!
                             .textContinue

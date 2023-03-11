@@ -1,8 +1,4 @@
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/cretate_contact_page_logic.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/cell_phone_email/email/cell_phone_email.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/cell_phone_email/otp/cell_phone_verify_email.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/cell_phone_sms/sms/cell_phone_sms.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/cell_phone_sms/otp/cell_phone_verify_sms.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/client_data.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/document_scanning.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';

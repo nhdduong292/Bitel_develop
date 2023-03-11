@@ -12,6 +12,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../../../../res/app_colors.dart';
 import '../../../../../../../router/route_config.dart';
+import '../../../../../../../utils/common.dart';
 import '../../../../../../../utils/common_widgets.dart';
 
 typedef void TouchContinue();
@@ -96,13 +97,17 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                 isIcon: false,
                 width: 210),
             lockedBox(
-                content: controller.customer.birthDate,
+                content: Common.fromDate(
+                    DateTime.parse(controller.customer.birthDate),
+                    'dd-MM-yyyy'),
                 label: AppLocalizations.of(context)!.textDateOfBirth,
                 required: false,
                 isIcon: false,
                 width: 210),
             lockedBox(
-                content: controller.customer.idIssueDate,
+                content: Common.fromDate(
+                    DateTime.parse(controller.customer.idIssueDate),
+                    'dd-MM-yyyy'),
                 label: AppLocalizations.of(context)!.textIssuedate,
                 required: false,
                 isIcon: false,
@@ -179,7 +184,7 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                 hint: AppLocalizations.of(context)!.textEnterAddress,
                 label: AppLocalizations.of(context)!.textAddressCustomerInfo,
                 required: true,
-                // textDefalut: controller.address,
+                textDefault: controller.address,
                 inputType: TextInputType.text,
                 width: 210,
                 onChange: (value) {
@@ -207,7 +212,7 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                     flex: 1,
                     child: bottomButton(
                         onTap: () {
-                          if(controller.checkValidateAddInfo()){
+                          if (controller.checkValidateAddInfo()) {
                             return;
                           }
                           callback();

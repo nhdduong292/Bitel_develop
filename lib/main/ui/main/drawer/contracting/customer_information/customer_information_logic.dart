@@ -15,6 +15,8 @@ import 'package:path_provider/path_provider.dart';
 import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
 
+enum BillCycle { c1, c2, c3 }
+
 class CustomerInformationLogic extends GetxController {
   late BuildContext context;
   var checkItem1 = true.obs;
@@ -34,6 +36,7 @@ class CustomerInformationLogic extends GetxController {
   String phone = '';
   String email = '';
   String address = '';
+  String billAddress = '';
   CustomerModel customer = CustomerModel();
   ContractModel contract = ContractModel();
   CustomerInformationLogic({required this.context});
@@ -62,6 +65,7 @@ class CustomerInformationLogic extends GetxController {
       billCycle.value = 'Ciclo 26';
     }
     signDate.value = DateFormat("yyyy-MM-ddTHH:mm:ss").format(now);
+    update();
   }
 
   String getBillCycle(String billCycle) {
@@ -115,12 +119,12 @@ class CustomerInformationLogic extends GetxController {
   var checkOption3 = false.obs;
   var checkOption4 = false.obs;
 
-  Rx<String> contractLanguagetValue = 'SPANISH'.obs;
+  Rx<String> contractLanguagetValue = 'espanol'.toUpperCase().obs;
   final contractLanguages = [
     'SHIPIBO_KONIBO',
     'ASHANINKA',
     'AYMARA',
-    'SPANISH',
+    'espanol'.toUpperCase(),
     'QUECHUA'
   ];
 
@@ -142,7 +146,7 @@ class CustomerInformationLogic extends GetxController {
       "province": customer.province,
       "district": customer.district,
       "precinct": customer.precinct,
-      "address": customer.address,
+      "address": billAddress,
       "phone": customer.telFax,
       "email": customer.email,
       "protectionFilter": checkOption1.value,
@@ -156,7 +160,8 @@ class CustomerInformationLogic extends GetxController {
       onSuccess: (response) {
         Get.back();
         if (response.isSuccess) {
-          contract = ContractModel.fromJson(response.data);
+          print(response.data['data']);
+          contract = ContractModel.fromJson(response.data['data']);
           isSuccess.call(true);
         } else {
           print("error: ${response.status}");

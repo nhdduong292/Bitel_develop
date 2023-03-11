@@ -8,6 +8,7 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -56,7 +57,7 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                     height: 30,
                     child: Center(
                       child: Text(
-                        'Elegir documento',
+                        AppLocalizations.of(context)!.textElegirDocumento,
                         style: AppStyles.r00A5B1_13_500,
                       ),
                     ),
@@ -90,30 +91,19 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                             width: width * 0.75,
                             child: RichText(
                               text: TextSpan(
-                                text:
-                                    'Acepto y autorizo de forma expresa e inequivoca el ',
-                                style: TextStyle(
-                                  color: AppColors.colorContent,
-                                  fontFamily: 'Roboto',
-                                  fontSize: 14,
-                                ),
+                                text: AppLocalizations.of(context)!
+                                    .textAceptoYAutorizo,
+                                style: AppStyles.r6C8AA1_13_400,
                                 children: [
                                   TextSpan(
-                                    text: 'ratamiento de mis datos sensibles',
-                                    style: TextStyle(
-                                        color: AppColors.colorContent,
-                                        fontFamily: 'Roboto',
-                                        fontSize: 14,
-                                        decoration: TextDecoration.underline,
-                                        fontWeight: FontWeight.bold),
+                                    text: AppLocalizations.of(context)!
+                                        .textTratamientoDe,
+                                    style: AppStyles.rU00A5B1_13_500,
                                   ),
                                   TextSpan(
-                                    text: 'con la recopilación de los mismos.',
-                                    style: TextStyle(
-                                      color: AppColors.colorContent,
-                                      fontFamily: 'Roboto',
-                                      fontSize: 15,
-                                    ),
+                                    text:
+                                        AppLocalizations.of(context)!.textConLa,
+                                    style: AppStyles.r6C8AA1_13_400,
                                   ),
                                 ],
                               ),
@@ -142,8 +132,8 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                             width: width * 0.75,
                             child: RichText(
                               text: TextSpan(
-                                text:
-                                    'Acepto y autorizo a BITEL para que realice el ',
+                                text: AppLocalizations.of(context)!
+                                    .textAceptoYAutorizoABitel,
                                 style: TextStyle(
                                   color: AppColors.colorContent,
                                   fontFamily: 'Roboto',

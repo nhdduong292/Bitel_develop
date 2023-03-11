@@ -199,7 +199,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                           ),
                           _paymentElement(
                               AppLocalizations.of(context)!.textTotalAPagar,
-                              'S/.79.0',
+                              'S/.${controller.getTotal()}',
                               const Color(0xFF9454C9)),
                         ],
                       ),
