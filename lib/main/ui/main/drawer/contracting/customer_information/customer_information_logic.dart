@@ -80,21 +80,22 @@ class CustomerInformationLogic extends GetxController {
   }
 
   String getTypeCustomer() {
-    var type = customer.type;
-    if (type == 1) {
-      return 'DNI';
-    } else if (type == 2) {
-      return 'CE';
-    } else if (type == 3) {
-      return 'RUC';
-    } else if (type == 4) {
-      return 'PP';
-    } else if (type == 7) {
-      return 'PTP';
-    } else if (type == 8) {
-      return 'CPP';
-    }
-    return '';
+    // var type = customer.type;
+    // if (type == 1) {
+    //   return 'DNI';
+    // } else if (type == 2) {
+    //   return 'CE';
+    // } else if (type == 3) {
+    //   return 'RUC';
+    // } else if (type == 4) {
+    //   return 'PP';
+    // } else if (type == 7) {
+    //   return 'PTP';
+    // } else if (type == 8) {
+    //   return 'CPP';
+    // }
+    // return '';
+    return customer.type;
   }
 
   Future<File> fromAsset(String asset, String filename) async {

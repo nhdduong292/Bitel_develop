@@ -3,7 +3,7 @@ class CustomerModel {
   String? _firstName;
   String? _fullName;
   String? _telFax;
-  int? _type;
+  String? _type;
   String? _idNumber;
   String? _areaCode;
   String? _province;
@@ -86,7 +86,7 @@ class CustomerModel {
 
   String get idNumber => _idNumber ?? "";
 
-  int get type => _type ?? 0;
+  String get type => _type ?? "";
 
   String get telFax => _telFax ?? "";
 

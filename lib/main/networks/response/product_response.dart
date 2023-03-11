@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:bitel_ventas/main/networks/model/product_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';

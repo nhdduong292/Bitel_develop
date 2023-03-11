@@ -166,7 +166,7 @@ class CreateRequestPage extends GetWidget{
                                     color: AppColors.colorTitle,
                                     fontWeight: FontWeight.w500),
                                 onSubmitted: (value) {
-                                  controller.searchNumberContact(value);
+                                  // controller.searchNumberContact(value);
                                 },
                                 onChanged: (value) {
                                   controller.setIdentity(value);
@@ -452,14 +452,14 @@ class CreateRequestPage extends GetWidget{
                               Get.back();
                               if (isSuccess) {
                                 showDialogAddress(
-                                    context, controller.listDistrict,
+                                    context, controller.listPrecinct,
                                     controller,
                                     2);
                               }
                             },);
                           } else {
                             showDialogAddress(
-                                context, controller.listDistrict,
+                                context, controller.listPrecinct,
                                 controller,
                                 2);
                           }

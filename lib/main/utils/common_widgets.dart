@@ -812,7 +812,9 @@ Widget spinnerFormV2(
                         color: AppColors.colorTitle,
                         fontWeight: FontWeight.w500),
                     onChanged: (value) {
-                      function!.call(value);
+                      if(function != null) {
+                        function.call(value);
+                      }
                     },
                     onSubmitted: (value) {
                       onSubmit!.call(value);

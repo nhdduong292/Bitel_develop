@@ -87,6 +87,9 @@ class DialogSurveyMapLogic extends GetxController{
   void setRadius(String value){
     currentRadius = value;
     radiusValue = double.parse(currentRadius);
+    if(radiusValue < 1) {
+      return;
+    }
     setCircle(currentPoint);
   }
 

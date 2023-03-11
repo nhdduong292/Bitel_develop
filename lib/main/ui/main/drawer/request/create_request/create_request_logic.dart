@@ -58,13 +58,13 @@ class CreateRequestLogic extends GetxController {
   }
 
   void setPrecinct(AddressModel value){
-    if(value.name == currentPrecinct.name) return;
+    // if(value.areaCode == currentPrecinct.areaCode) return;
     currentPrecinct = value;
     textFieldPrecinct.text = value.name;
     update();
   }
   void setDistrict(AddressModel value){
-    if(value.name == currentDistrict.name) return;
+    // if(value.areaCode == currentDistrict.areaCode) return;
     currentDistrict = value;
     textFieldDistrict.text = value.name;
     textFieldPrecinct.text = "";
@@ -73,7 +73,7 @@ class CreateRequestLogic extends GetxController {
   }
 
   void setProvince(AddressModel value){
-    if(value.name == currentProvince.name) return;
+    // if(value.areaCode == currentProvince.areaCode) return;
     currentProvince = value;
     textFieldProvince.text = value.name;
     textFieldDistrict.text = "";
@@ -132,7 +132,7 @@ class CreateRequestLogic extends GetxController {
       focusAddress.requestFocus();
       return true;
     }
-    if(!isCheckAgree || currentIdentity.isEmpty || currentName.isEmpty|| currentPhone.isEmpty || currentProvince.name.isEmpty || currentPrecinct.name.isEmpty || currentDistrict.name.isEmpty || currentAddress.isEmpty){
+    if(!isCheckAgree || currentIdentity.isEmpty || currentName.isEmpty|| currentPhone.isEmpty || currentProvince.areaCode.isEmpty || currentPrecinct.areaCode.isEmpty || currentDistrict.areaCode.isEmpty || currentAddress.isEmpty){
       Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
       return true;
     }
@@ -142,12 +142,12 @@ class CreateRequestLogic extends GetxController {
   void createRequest(Function(bool isSuccess, int id) function) async {
     Map<String, dynamic> body = {
       "address": currentAddress.trim(),
-      "district": currentDistrict.name.trim(),
+      "district": currentDistrict.district.trim(),
       "idNumber": currentIdentity.trim(),
       "name": currentName.trim(),
       "phone": currentPhone.trim(),
-      "precinct": currentPrecinct.name.trim(),
-      "province": currentProvince.name.trim(),
+      "precinct": currentPrecinct.precinct.trim(),
+      "province": currentProvince.province.trim(),
       "service": currentService.trim(),
       "identityType": currentIdentityType.trim()
     };
