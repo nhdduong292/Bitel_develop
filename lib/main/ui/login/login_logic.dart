@@ -1,8 +1,10 @@
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/login_model.dart';
+import 'package:bitel_ventas/main/networks/model/user_model.dart';
 import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/login/login_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/utilitis/info_bussiness.dart';
 import 'package:bitel_ventas/main/ui/main/home/home_page.dart';
 import 'package:bitel_ventas/main/ui/main/main_page.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
@@ -12,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 
 
 class LoginLogic extends GetxController{
@@ -81,6 +84,7 @@ class LoginLogic extends GetxController{
   }
 
   void login(BuildContext context) async{
+    SharedPreferenceUtil.saveToken("");
     Map<String, dynamic> body = {
       "username": controllerUser.text.trim(),
       "password": controllerPass.text.trim(),
@@ -90,6 +94,10 @@ class LoginLogic extends GetxController{
         Get.back();
         if(response.isSuccess){
           LoginModel loginModel = LoginModel.fromJson(response.data);
+          Map<String, dynamic> payload = Jwt.parseJwt(loginModel.token);
+          // Print the payload
+          InfoBusiness.getInstance()!.setUser(UserModel.fromJson(payload));
+          print(payload);
           SharedPreferenceUtil.saveToken(loginModel.token);
           Get.offAllNamed(RouteConfig.main);
         } else {

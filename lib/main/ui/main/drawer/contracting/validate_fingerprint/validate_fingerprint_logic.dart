@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bitel_ventas/main/networks/model/best_finger_model.dart';
+import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,6 +12,7 @@ import 'package:get/get.dart';
 import '../../../../../../res/app_images.dart';
 import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ValidateFingerprintLogic extends GetxController {
   late BuildContext context;
@@ -48,7 +50,7 @@ class ValidateFingerprintLogic extends GetxController {
     update();
   }
 
-  Future<void> getCapture() async {
+  Future<void> getCapture(BuildContext context) async {
     String result = "";
     try {
       final value =
@@ -60,6 +62,7 @@ class ValidateFingerprintLogic extends GetxController {
     if (listFinger.isNotEmpty) {
       listFinger.clear();
     }
+    Common.showToastCenter(AppLocalizations.of(context)!.textNotifyFingerSuccess);
     listFinger.add(result);
     update();
   }

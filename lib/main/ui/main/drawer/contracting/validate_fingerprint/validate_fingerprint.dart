@@ -218,10 +218,11 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                 child: InkWell(
                                   onTap: () {
                                     if (Platform.isAndroid) {
-                                      controller.getCapture();
+                                      controller.getCapture(context);
                                     } else {
                                       Common.showToastCenter(
-                                          "Chỉ hoạt động trên thiết bị Android");
+                                          AppLocalizations.of(context)!
+                                              .textOnlyActionAndroid);
                                     }
                                   },
                                   child: Container(

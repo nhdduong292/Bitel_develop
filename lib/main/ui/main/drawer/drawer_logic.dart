@@ -44,13 +44,13 @@ class DrawerLogic extends GetxController {
 
   List<DrawerItem> getListItem(BuildContext context) {
     return [
-      DrawerItem(
-          unselectedImg: AppImages.icMenuManageContact,
-          label: AppLocalizations.of(context)!.textManageContact,
-          selectedImg: AppImages.icActivatePrepaidSelected,
-          isSelected: false,
-          list: [AppLocalizations.of(context)!.textCreateContact,
-            AppLocalizations.of(context)!.textManageContact]),
+      // DrawerItem(
+      //     unselectedImg: AppImages.icMenuManageContact,
+      //     label: AppLocalizations.of(context)!.textManageContact,
+      //     selectedImg: AppImages.icActivatePrepaidSelected,
+      //     isSelected: false,
+      //     list: [AppLocalizations.of(context)!.textCreateContact,
+      //       AppLocalizations.of(context)!.textManageContact]),
       DrawerItem(
           unselectedImg: AppImages.icMenuFTTH,
           label: AppLocalizations.of(context)!.textFTTH,
@@ -59,7 +59,7 @@ class DrawerLogic extends GetxController {
           list: [
             AppLocalizations.of(context)!.textSale,
             AppLocalizations.of(context)!.textAfterSale,
-            AppLocalizations.of(context)!.textManageWO,
+            // AppLocalizations.of(context)!.textManageWO,
           ]),
       DrawerItem(
           unselectedImg: AppImages.icPortabilityUnselected,

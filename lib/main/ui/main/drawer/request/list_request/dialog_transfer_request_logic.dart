@@ -3,7 +3,9 @@ import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/reason_model.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DialogTransferRequestLogic extends GetxController{
   String currentReason="";
@@ -48,9 +50,9 @@ class DialogTransferRequestLogic extends GetxController{
       },);
   }
 
-  bool checkValidate(){
+  bool checkValidate(BuildContext context){
     if(currentStaffCode.isEmpty || currentReason.isEmpty){
-      Common.showToastCenter("Vui lòng nhập đầy đủ thông tin!");
+      Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
       return true;
     }
     return false;

@@ -160,7 +160,7 @@ class DialogCancelRequest extends GetWidget {
                 ),
                 child: InkWell(
                   onTap: () {
-                    if(controller.checkValidate()) return;
+                    if(controller.checkValidate(context)) return;
                     _onLoading(context);
                     controller.changeStatusRequest(id, controllerTextField.text, (isSuccess) {
                       Get.back();

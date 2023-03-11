@@ -10,6 +10,7 @@ import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
+import 'package:bitel_ventas/res/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -30,5 +31,23 @@ class DocumentScanningLogic extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+  }
+
+  void setIdentity(String value){
+    currentIdentity = value;
+    update();
+  }
+
+  String getImageIdentity(){
+    if(currentIdentity  == listIdentityNumber[0]){
+      return AppImages.imgDNI;
+    } else if(currentIdentity  == listIdentityNumber[1]){
+      return AppImages.imgCE;
+    } else if(currentIdentity  == listIdentityNumber[2]){
+      return AppImages.imgPP;
+    } else if(currentIdentity  == listIdentityNumber[3]){
+      return AppImages.imgPTP;
+    }
+    return AppImages.imgDNI;
   }
 }

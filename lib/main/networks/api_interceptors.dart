@@ -22,8 +22,6 @@ class ApiInterceptors extends InterceptorsWrapper {
           printFullText: true);
     } else {
       try {
-        // options.headers["Content-Type"] = "application/json; charset=utf-8";
-        // options.headers["Accept"] = "application/json";
         apiLogger.log(
             "✈️ REQUEST[$method] => PATH: $uri \n DATA: ${jsonEncode(data)}",
             printFullText: true);

@@ -1,3 +1,8 @@
+import 'package:bitel_ventas/main/utils/values.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+
 class RequestModel {
   int? _id;
   String? _service;
@@ -20,6 +25,9 @@ class RequestModel {
   String? _updatedDate;
   String? _createdBy;
   String? _updatedBy;
+  String? _provinceName;
+  String? _districtName;
+  String? _precinctName;
 
 
   RequestModel();
@@ -46,6 +54,10 @@ class RequestModel {
     _updatedDate = json['updatedDate'];
     _createdBy = json['createdBy'];
     _updatedBy = json['updatedBy'];
+    _provinceName = json['provinceName'];
+    _districtName = json['districtName'];
+    _precinctName = json['precinctName'];
+
   }
 
   String get updatedBy => _updatedBy ?? "";
@@ -96,7 +108,29 @@ class RequestModel {
     _teamCode = value;
   }
 
-  String get status => _status ?? "";
+  String getStatus(BuildContext context){
+
+    if(_status == null) {
+      return "";
+    } else {
+      if(_status == RequestStatus.CREATE_REQUEST){
+        return AppLocalizations.of(context)!.textCreateRequest;
+      } else if(_status == RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY){
+        return AppLocalizations.of(context)!.textCreateRequestWithout;
+      } else if(_status == RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY){
+        return AppLocalizations.of(context)!.textSurveyOfflineSuccess;
+      } else if(_status == RequestStatus.CONNECTED){
+        return AppLocalizations.of(context)!.textConnected;
+      } else if(_status == RequestStatus.DEPLOYING){
+        return AppLocalizations.of(context)!.textDeploying;
+      } else if(_status == RequestStatus.COMPLETE){
+        return AppLocalizations.of(context)!.textComplete;
+      } else if(_status == RequestStatus.CANCEL){
+        return AppLocalizations.of(context)!.textCancel;
+      }
+      return "";
+    }
+  }
 
   set status(String value) {
     _status = value;
@@ -175,6 +209,12 @@ class RequestModel {
   }
 
   String getInstalAddress(){
-    return "$address, $precinct, $district, $province";
+    return "$address, $precinctName, $districtName, $provinceName";
   }
+
+  String get precinctName => _precinctName ?? "";
+
+  String get districtName => _districtName ?? "";
+
+  String get provinceName => _provinceName ?? "";
 }

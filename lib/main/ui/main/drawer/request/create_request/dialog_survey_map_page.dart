@@ -75,6 +75,9 @@ class DialogSurveyMapPage extends GetWidget {
                     circles: controller.circles,
                     markers: controller.markers,
                     mapType: MapType.normal,
+                    onTap: (argument) {
+                      controller.setCircle(argument);
+                    },
                   ),
                 ),
                 Container(
@@ -94,7 +97,7 @@ class DialogSurveyMapPage extends GetWidget {
                               hint:
                               AppLocalizations.of(context)!.textChooseTechnology,
                               required: false,
-                              dropValue: "",
+                              dropValue: controller.currentTechnology,
                               function: (value) {
                                 controller.setTechnology(value);
                               },
@@ -120,7 +123,8 @@ class DialogSurveyMapPage extends GetWidget {
                               inputType: TextInputType.number,
                               required: false,
                               dropValue: "",
-                              function: (value) {
+                              controlTextField: controller.textFieldRadius,
+                              onSubmit: (value) {
                                 controller.setRadius(value);
                               },
                               listDrop: []))
@@ -129,40 +133,44 @@ class DialogSurveyMapPage extends GetWidget {
                 ),
                 Row(
                   children: [
-                    Expanded(
-                        flex: 1,
-                        child: Container(
-                          width: double.infinity,
-                          margin: const EdgeInsets.only(top: 30),
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          decoration: BoxDecoration(
-                            color: controller.isConnect ? AppColors.colorButton :Colors.white,
-                            borderRadius: BorderRadius.circular(24),
-                            boxShadow: [
-                              BoxShadow(
-                                offset: const Offset(0, 1),
-                                blurRadius: 2,
-                                color: Colors.black.withOpacity(0.3),
-                              ),
-                            ],
-                          ),
-
-                          child: InkWell(
-                            onTap: () {
-                              if(controller.isConnect){
-                                Get.toNamed(RouteConfig.productPayment,
-                                    arguments:
-                                    requestId);
-                              }
-                            },
-                            child:  Center(
-                                child: Text(
-                                  AppLocalizations.of(context)!.textConnect.toUpperCase(),
-                                  style: controller.isConnect ? AppStyles.r5.copyWith(fontWeight: FontWeight.w500) : AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
-                                )),
-                          ),
-                        )),
-                    const SizedBox(width: 15,),
+                    // Expanded(
+                    //     flex: 1,
+                    //     child: Container(
+                    //       width: double.infinity,
+                    //       margin: const EdgeInsets.only(top: 30),
+                    //       padding: const EdgeInsets.symmetric(vertical: 14),
+                    //       decoration: BoxDecoration(
+                    //         color: controller.isConnect ? AppColors.colorButton :Colors.white,
+                    //         borderRadius: BorderRadius.circular(24),
+                    //         boxShadow: [
+                    //           BoxShadow(
+                    //             offset: const Offset(0, 1),
+                    //             blurRadius: 2,
+                    //             color: Colors.black.withOpacity(0.3),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //
+                    //       child: InkWell(
+                    //         onTap: () {
+                    //           if(controller.isConnect){
+                    //             Get.back();
+                    //             Timer(Duration(milliseconds: 600), () {
+                    //               Get.offNamed(RouteConfig.productPayment,
+                    //                   arguments:
+                    //                   int.parse(requestId));
+                    //             },);
+                    //
+                    //           }
+                    //         },
+                    //         child:  Center(
+                    //             child: Text(
+                    //               AppLocalizations.of(context)!.textConnect.toUpperCase(),
+                    //               style: controller.isConnect ? AppStyles.r5.copyWith(fontWeight: FontWeight.w500) : AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
+                    //             )),
+                    //       ),
+                    //     )),
+                    // const SizedBox(width: 15,),
                     Expanded(
                         flex: 1,
                         child: Container(

@@ -287,7 +287,7 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                   controller.getCapture();
                                 } else {
                                   Common.showToastCenter(
-                                      "Chỉ hoạt động trên thiết bị Android");
+                                      AppLocalizations.of(context)!.textOnlyActionAndroid);
                                 }
                               },
                               text: AppLocalizations.of(context)!
@@ -314,8 +314,7 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                           }
                                       });
                                 } else {
-                                  Common.showToastCenter(
-                                      "Bạn phải nhập vân tay đủ 3 lần");
+                                  Common.showToastCenter(AppLocalizations.of(context)!.textLimitFingerRegister);
                                 }
                               },
                               text: AppLocalizations.of(context)!

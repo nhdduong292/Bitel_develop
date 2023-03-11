@@ -14,6 +14,7 @@ import 'package:path_provider/path_provider.dart';
 
 import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum BillCycle { c1, c2, c3 }
 
@@ -192,7 +193,7 @@ class CustomerInformationLogic extends GetxController {
 
   bool checkValidateAddInfo() {
     if (phone.isEmpty || email.isEmpty || address.isEmpty) {
-      Common.showToastCenter("Vui lòng nhập đầy đủ thông tin!");
+      Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
       return true;
     }
     return false;

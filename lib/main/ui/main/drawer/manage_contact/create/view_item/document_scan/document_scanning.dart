@@ -198,6 +198,9 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                         hint: '',
                         required: true,
                         dropValue: controller.currentIdentity,
+                        function: (value) {
+                          controller.setIdentity(value);
+                        },
                         listDrop: controller.listIdentityNumber),
                   ),
                   SizedBox(
@@ -218,7 +221,7 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                   SizedBox(
                     height: 12,
                   ),
-                  SvgPicture.asset(AppImages.imgIdentity),
+                  Image.asset(controller.getImageIdentity()),
                   SizedBox(
                     height: 23,
                   ),

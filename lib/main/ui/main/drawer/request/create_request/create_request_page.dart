@@ -1,6 +1,10 @@
 
+import 'dart:async';
+
 import 'package:bitel_ventas/main/networks/model/address_model.dart';
+import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/create_request_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/create_request_policy_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_map_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_map_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_successful.dart';
@@ -11,6 +15,7 @@ import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
@@ -91,6 +96,9 @@ class CreateRequestPage extends GetWidget{
                                   style: AppStyles.r2.copyWith(color: AppColors.colorText1),
                                   children: <TextSpan>[
                                     TextSpan(
+                                      recognizer: TapGestureRecognizer(
+
+                                      )..onTap = () => Get.to(CreateRequestPolicyPage()),
                                         text: AppLocalizations.of(context)!
                                             .textInfoCreateRequest2,
                                         style: const TextStyle(color: AppColors.colorUnderText, decoration: TextDecoration.underline)),
@@ -587,7 +595,7 @@ class CreateRequestPage extends GetWidget{
                         ),
                         child: InkWell(
                           onTap: () {
-                            if(controller.checkValidateCreate()) {
+                            if(controller.checkValidateCreate(context)) {
                               return;
                             }
                             _onLoading(context);
@@ -630,9 +638,15 @@ class CreateRequestPage extends GetWidget{
                     controller.createSurveyOnline((isSuccess) {
                       Get.back();
                       if(isSuccess){
+                      //   Get.back();
+                      //   DialogSurveyMapLogic surveyMapLogic = Get.find();
+                      //   surveyMapLogic.setStateConnect(true);
                         Get.back();
-                        DialogSurveyMapLogic surveyMapLogic = Get.find();
-                        surveyMapLogic.setStateConnect(true);
+                        Timer(Duration(milliseconds: 600), () {
+                          Get.offNamed(RouteConfig.productPayment,
+                              arguments:
+                              controller.requestModel.id);
+                        },);
                       }
                     },);
                } else {
@@ -640,8 +654,12 @@ class CreateRequestPage extends GetWidget{
                       Get.back();
                       if(isSuccess){
                         Get.back();
-                        DialogSurveyMapLogic surveyMapLogic = Get.find();
-                        surveyMapLogic.setStateConnect(true);
+                        // DialogSurveyMapLogic surveyMapLogic = Get.find();
+                        // surveyMapLogic.setStateConnect(true);
+                        Timer(Duration(milliseconds: 600), () {
+                          Get.offNamed(RouteConfig.listRequest,
+                              );
+                        },);
                       }
                     },);
                }
@@ -676,6 +694,7 @@ class CreateRequestPage extends GetWidget{
         builder: (context) {
           return DialogSurveyMapPage(
             onSubmit: (isSuccess){
+                Get.back();
                 if(isSuccess) {
                   showDialogSurveySuccessful(context, controller);
                 } else {

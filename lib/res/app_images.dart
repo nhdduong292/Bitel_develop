@@ -73,6 +73,7 @@ class AppImages {
   static const icMenuUtilites = 'assets/images/ic_menu_utilites.svg';
   static const icConceptLogin = 'assets/images/ic_concept_login.png';
   static const icLogoSplash = 'assets/icons/ic_logo_splash.png';
+  static const icLogoBitel = 'assets/icons/ic_logo_bitel.svg';
   static const icLoginUser = 'assets/images/ic_login_user.svg';
   static const icLoginPass = 'assets/images/ic_login_pass.svg';
   static const icLoginShowPass = 'assets/images/ic_login_show_pass.svg';
@@ -145,4 +146,8 @@ class AppImages {
   static const String imgFingerRight3 = "assets/images/img_finger_right_3.png";
   static const String imgFingerRight2 = "assets/images/img_finger_right_2.png";
   static const String imgFingerRight1 = "assets/images/img_finger_right_1.png";
+  static const String imgDNI = "assets/images/dni_example.jpg";
+  static const String imgCE = "assets/images/ce_example.jpg";
+  static const String imgPP = "assets/images/pp_example.jpg";
+  static const String imgPTP = "assets/images/ptp_example.jpg";
 }

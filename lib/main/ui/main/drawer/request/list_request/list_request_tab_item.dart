@@ -42,7 +42,7 @@ class ListRequestTabItem extends StatelessWidget{
             child: Row(
               children: [
                 Text(AppLocalizations.of(context)!.textSurveyAddress, style: AppStyles.r8.copyWith(fontWeight: FontWeight.w400, color: AppColors.colorText2.withOpacity(0.85)),),
-                Expanded(child: Text(requestModel.address!, style: AppStyles.r8.copyWith(fontWeight: FontWeight.w500, color: AppColors.colorText4),textAlign: TextAlign.right))
+                Expanded(child: Text(requestModel.getInstalAddress(), style: AppStyles.r8.copyWith(fontWeight: FontWeight.w500, color: AppColors.colorText4),textAlign: TextAlign.right))
               ],
             ),
           ),
@@ -51,7 +51,7 @@ class ListRequestTabItem extends StatelessWidget{
             child: Row(
               children: [
                 Text(AppLocalizations.of(context)!.textStatus, style: AppStyles.r8.copyWith(fontWeight: FontWeight.w400, color: AppColors.colorText2.withOpacity(0.85)),),
-                Expanded(child: Text(requestModel.status!, style: AppStyles.r8.copyWith(fontWeight: FontWeight.w500, color: AppColors.colorContent),textAlign: TextAlign.right))
+                Expanded(child: Text(requestModel.getStatus(context), style: AppStyles.r8.copyWith(fontWeight: FontWeight.w500, color: AppColors.colorContent),textAlign: TextAlign.right))
               ],
             ),
           ),
