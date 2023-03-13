@@ -155,7 +155,7 @@ class DialogTransferRequest extends GetWidget {
                   onTap: () {
                     if(controller.checkValidate(context)) return;
                     _onLoading(context);
-                    controller.transferRequest(id, controllerTextField.text, (isSuccess) =>(isSuccess) {
+                    controller.transferRequest(id, controllerTextField.text, context, (isSuccess) =>(isSuccess) {
                         Get.back();
                         if(isSuccess){
                           Timer(Duration(milliseconds: 500), () {

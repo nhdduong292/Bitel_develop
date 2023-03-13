@@ -36,7 +36,7 @@ class LoginLogic extends GetxController{
     isRememberAccount = await SharedPreferenceUtil.isRememberAccount();
     if(isRememberAccount){
       controllerUser.text = await SharedPreferenceUtil.getUserName();
-      controllerPass.text = await SharedPreferenceUtil.getUserName();
+      controllerPass.text = await SharedPreferenceUtil.getPassWord();
     }
     update();
     super.onInit();

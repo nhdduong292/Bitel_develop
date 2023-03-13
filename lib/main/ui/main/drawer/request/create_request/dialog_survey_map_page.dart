@@ -195,7 +195,6 @@ class DialogSurveyMapPage extends GetWidget {
                               }
                               _onLoading(context);
                               controller.createSurvey((isSuccess) {
-                                  Get.back();
                                   onSubmit.call(isSuccess);
                               },);
                               // onSubmit!.call();

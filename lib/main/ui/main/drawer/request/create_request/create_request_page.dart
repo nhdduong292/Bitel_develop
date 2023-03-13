@@ -657,8 +657,7 @@ class CreateRequestPage extends GetWidget{
                         // DialogSurveyMapLogic surveyMapLogic = Get.find();
                         // surveyMapLogic.setStateConnect(true);
                         Timer(Duration(milliseconds: 600), () {
-                          Get.offNamed(RouteConfig.listRequest,
-                              );
+                          Get.offNamed(RouteConfig.listRequest, arguments: 0);
                         },);
                       }
                     },);

@@ -15,6 +15,8 @@ class ListRequestLogic extends GetxController with SingleGetTickerProviderMixin{
     // TODO: implement onInit
     tabController = TabController(vsync: this, length: 7);
     super.onInit();
+    index = Get.arguments;
+    tabController!.animateTo(index, duration: Duration(milliseconds: 500));
     tabController!.addListener(() {
       print("Position: ${tabController!.index}");
       // ListRequestTabLogic listRequestTabLogic = Get.find<ListRequestTabLogic>();

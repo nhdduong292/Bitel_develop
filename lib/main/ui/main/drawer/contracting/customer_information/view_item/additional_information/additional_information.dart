@@ -98,22 +98,22 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                 required: false,
                 isIcon: false,
                 width: 210),
-            lockedBoxV1(
-                content: controller.customer.birthDate != ''
+            lockedBox(
+                content: controller.customer.birthDate.isNotEmpty
                     ? Common.fromDate(
                         DateTime.parse(controller.customer.birthDate),
                         'dd/MM/yyyy')
-                    : '',
+                    : "---",
                 label: AppLocalizations.of(context)!.textDateOfBirth,
                 required: false,
                 isIcon: false,
                 width: 210),
-            lockedBoxV1(
-                content: controller.customer.idIssueDate != ''
+            lockedBox(
+                content: controller.customer.idIssueDate.isNotEmpty
                     ? Common.fromDate(
                         DateTime.parse(controller.customer.idIssueDate),
                         'dd/MM/yyyy')
-                    : '',
+                    : "---",
                 label: AppLocalizations.of(context)!.textIssuedate,
                 required: false,
                 isIcon: false,

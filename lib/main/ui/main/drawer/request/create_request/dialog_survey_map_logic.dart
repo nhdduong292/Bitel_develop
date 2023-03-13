@@ -114,12 +114,12 @@ class DialogSurveyMapLogic extends GetxController{
   bool checkValidate(){
     int radius = int.parse(currentRadius);
     if(currentTechnology == "GPON" && (radius > 500 || radius < 1)){
-      setRadius("500");
+      // setRadius("500");
       Common.showToastCenter("Giới hạn radius là 500");
       return true;
     }
     if(currentTechnology == "AON" && (radius > 300 || radius < 1)){
-      setRadius("300");
+      // setRadius("300");
       Common.showToastCenter("Giới hạn radius là 300");
       return true;
     }
@@ -141,6 +141,7 @@ class DialogSurveyMapLogic extends GetxController{
         url: ApiEndPoints.API_SURVEY,
         body: body,
         onSuccess: (response) {
+          Get.back();
           if (response.isSuccess) {
             print("success");
             function.call(true);
@@ -150,6 +151,7 @@ class DialogSurveyMapLogic extends GetxController{
           }
         },
         onError: (error) {
+          Get.back();
           function.call(false);
         });
   }
@@ -157,6 +159,12 @@ class DialogSurveyMapLogic extends GetxController{
   void setStateConnect(bool value){
     isConnect = value;
     update();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 
 }
