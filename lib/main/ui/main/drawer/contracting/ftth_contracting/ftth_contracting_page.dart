@@ -12,6 +12,7 @@ import '../../../../../../res/app_colors.dart';
 import '../../../../../../res/app_images.dart';
 import '../../../../../../res/app_styles.dart';
 import '../../../../../utils/common.dart';
+import '../../request/list_request/list_request_page.dart';
 import 'ftth_contracting_logic.dart';
 
 class FTTHContractingPage extends GetView<FTTHContractingLogic> {
@@ -247,7 +248,8 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                     .textClose
                                     .toUpperCase(),
                                 onTap: () {
-                                  Get.offNamed(RouteConfig.listRequest, arguments: 0);
+                                  Get.until((route) =>
+                                      Get.currentRoute == '/menu/ListRequest');
                                 })),
                         SizedBox(
                           height: 126,

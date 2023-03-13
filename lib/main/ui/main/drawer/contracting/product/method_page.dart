@@ -152,7 +152,7 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                     controller.isOnMethodPage.value = false;
                     controller.isOnInvoicePage.value = true;
 
-                    controller.scrollController.scrollTo(
+                    controller.scrollController?.scrollTo(
                       index: 1,
                       duration: const Duration(milliseconds: 200),
                     );

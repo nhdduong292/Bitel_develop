@@ -25,8 +25,8 @@ class ProductPaymentMethodLogic extends GetxController {
     getProduts(requestId);
   }
 
-  final ItemScrollController scrollController = ItemScrollController();
-  final ItemPositionsListener itemPositionsListener =
+  final ItemScrollController? scrollController = ItemScrollController();
+  final ItemPositionsListener? itemPositionsListener =
       ItemPositionsListener.create();
 
   var isOnMethodPage = true.obs;

@@ -63,7 +63,7 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                         child: InkWell(
                           onTap: () {
                             if (controller
-                                    .itemPositionsListener.itemPositions.value
+                                    .itemPositionsListener?.itemPositions.value
                                     .elementAt(0)
                                     .index ==
                                 0) {
@@ -71,7 +71,7 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                             } else {
                               controller.isOnInvoicePage.value = false;
                               controller.isOnMethodPage.value = true;
-                              controller.scrollController.scrollTo(
+                              controller.scrollController?.scrollTo(
                                 index: 0,
                                 duration: const Duration(milliseconds: 200),
                               );

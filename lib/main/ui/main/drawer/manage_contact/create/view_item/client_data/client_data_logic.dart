@@ -63,7 +63,7 @@ class ClientDataLogic extends GetxController {
 
   void createCustomer(Function(bool isSuccess) callBack) {
     var rng = Random();
-    int random = rng.nextInt(99) + 10;
+    int random = rng.nextInt(89) + 10;
     String idNumber = "123126$random";
     Map<String, dynamic> body = {
       "type": "DNI",
