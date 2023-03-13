@@ -110,7 +110,7 @@ class RegisterFingerPrintLogic extends GetxController {
     } on PlatformException catch (e) {
       e.printInfo();
     }
-    if (result != "") {
+    if (result.isNotEmpty) {
       if (indexLeft > 0) {
         listImageLeft.add(result);
         countFinger.value--;

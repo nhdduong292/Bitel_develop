@@ -30,12 +30,13 @@ class ClientDataLogic extends GetxController {
   CustomerModel customerModel = CustomerModel();
   final TextRecognizer _textRecognizer =
       TextRecognizer(script: TextRecognitionScript.latin);
+  DocumentScanningLogic controller = Get.find();
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    onListenerMethod();
+    // onListenerMethod();
   }
 
   void onListenerMethod() {
@@ -152,7 +153,9 @@ class ClientDataLogic extends GetxController {
     if (_isBusy) return;
     _isBusy = true;
     final recognizedText = await _textRecognizer.processImage(inputImage);
-
+    for (var text in recognizedText.blocks) {
+      print(text.text);
+    }
     recognizedText.blocks.map((value) {
       if (value.text.contains('Apellidos')) {
         customerDetectModel.lastName =
