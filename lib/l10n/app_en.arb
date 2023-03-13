@@ -401,5 +401,13 @@
   "textNotifyFingerSuccess": "Lấy vân tay thành công!",
   "textOnlyActionAndroid": "Chỉ hoạt động trên thiết bị Android",
   "textLimitFingerRegister": "Bạn phải nhập vân tay đủ 3 lần",
+  "textLimitPhoneNumber": "Không được nhập quá 11 kí tự", 
+  "textValidateEmail": "Email không hợp lệ!", 
+  "textValidatePhoneNumber": "Số điện thoại không hợp lệ!",
+  "textSHIPIBOKONIBO": "Shipibo Konibo",
+  "textASHANINKA": "Ashaninka",
+  "textAYMARA": "Aymara",
+  "textSPANISH": "Spanish",
+  "textQUECHUA": "Quechua",
   "textNotifyFingerFail": "Lấy vân tay thất bại!"
 }

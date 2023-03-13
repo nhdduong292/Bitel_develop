@@ -11,6 +11,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../../../res/app_colors.dart';
 import '../../../../../../res/app_images.dart';
 import '../../../../../../res/app_styles.dart';
+import '../../../../../utils/common.dart';
 import 'ftth_contracting_logic.dart';
 
 class FTTHContractingPage extends GetView<FTTHContractingLogic> {
@@ -210,7 +211,12 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                         ':',
                                 richText: () {
                                   return Text(
-                                    controller.contractModel.signDate,
+                                    controller.contractModel.signDate != ''
+                                        ? Common.fromDate(
+                                            DateTime.parse(controller
+                                                .contractModel.signDate),
+                                            'dd/MM/yyyy')
+                                        : '',
                                     style: AppStyles.r415263_13_500,
                                   );
                                 }),

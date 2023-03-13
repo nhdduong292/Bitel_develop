@@ -4,16 +4,19 @@ import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
+import '../../../../../utils/common_widgets.dart';
 import '../../manage_contact/create/view_item/client_data/id_card_scanner_logic.dart';
 
 class RegisterFingerPrintLogic extends GetxController {
   late BuildContext context;
 
+  RegisterFingerPrintLogic({required this.context});
 
   var handValue = (1).obs;
   var fingerValue = (1).obs;
@@ -68,6 +71,7 @@ class RegisterFingerPrintLogic extends GetxController {
   }
 
   Future<bool> registerFinger() async {
+    _onLoading(context);
     Completer<bool> completer = Completer();
     Map<String, dynamic> body = {
       "left": indexLeft,
@@ -81,6 +85,7 @@ class RegisterFingerPrintLogic extends GetxController {
           .replaceAll('id', customerId.toString()),
       body: body,
       onSuccess: (response) {
+        Get.back();
         if (response.isSuccess) {
           completer.complete(true);
         } else {
@@ -89,6 +94,7 @@ class RegisterFingerPrintLogic extends GetxController {
         }
       },
       onError: (error) {
+        Get.back();
         completer.complete(false);
       },
     );
@@ -104,22 +110,40 @@ class RegisterFingerPrintLogic extends GetxController {
     } on PlatformException catch (e) {
       e.printInfo();
     }
-
-    if (indexLeft > 0) {
-      listImageLeft.add(result);
-      countFinger.value--;
-      Common.showToastCenter(
-          "Bạn đã lấy thành công lần ${listImageLeft.length}");
+    if (result != "") {
+      if (indexLeft > 0) {
+        listImageLeft.add(result);
+        countFinger.value--;
+        Common.showToastCenter(
+            "Bạn đã lấy thành công lần ${listImageLeft.length}");
+      } else {
+        listImageRight.add(result);
+        countFinger.value--;
+        Common.showToastCenter(
+            "Bạn đã lấy thành công lần ${listImageRight.length}");
+      }
     } else {
-      listImageRight.add(result);
-      countFinger.value--;
-      Common.showToastCenter(
-          "Bạn đã lấy thành công lần ${listImageRight.length}");
+      Common.showToastCenter("Lấy vân tay không thành công");
     }
+
     update();
   }
 
   void setIndexLeft(int value) {
     indexLeft = value;
+  }
+
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
+      },
+    );
   }
 }

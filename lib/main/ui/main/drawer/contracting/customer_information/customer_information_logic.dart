@@ -221,4 +221,16 @@ class CustomerInformationLogic extends GetxController {
       },
     );
   }
+
+  bool checkValidate() {
+    if (phone.length < 9) {
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textValidatePhoneNumber);
+      return false;
+    } else if (!Common.validateEmail(email)) {
+      Common.showToastCenter(AppLocalizations.of(context)!.textValidateEmail);
+      return false;
+    }
+    return true;
+  }
 }

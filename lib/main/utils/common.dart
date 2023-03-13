@@ -59,7 +59,8 @@ class Common {
     }
     try {
       final numberFormat = NumberFormat("#,###");
-      return numberFormat.format(double.parse(price.toString()).round()) + "${showPrefix ? " đ" : ""}";
+      return numberFormat.format(double.parse(price.toString()).round()) +
+          "${showPrefix ? " đ" : ""}";
     } catch (e) {
       return price?.toString() ?? "";
     }
@@ -120,7 +121,7 @@ class Common {
   //   Share.share(content);
   // }
 
-  static void showToastCenter(String content){
+  static void showToastCenter(String content) {
     Fluttertoast.showToast(
         msg: content,
         toastLength: Toast.LENGTH_LONG,
@@ -148,5 +149,5 @@ class Common {
     // return Base64.encodeToString(bytes, Base64.NO_WRAP);
     // } catch (Exception e) {
     return base64img;
-    }
+  }
 }

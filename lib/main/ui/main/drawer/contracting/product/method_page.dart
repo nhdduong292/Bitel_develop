@@ -2,6 +2,7 @@ import 'package:bitel_ventas/main/networks/model/plan_reason_model.dart';
 import 'package:bitel_ventas/main/networks/model/product_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_logic.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
+import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -69,7 +70,8 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                               controller.resetPlanReason();
                               if (value > -1) {
                                 controller.getPlanReasons(
-                                    controller.listProduct[value].productId!, context);
+                                    controller.listProduct[value].productId!,
+                                    context);
                               }
                             }),
                     separatorBuilder: (BuildContext context, int index) =>
@@ -198,40 +200,30 @@ Widget _itemProduct(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  product.productName ?? 'null',
-                  style: const TextStyle(
-                      fontSize: 14,
-                      fontFamily: 'Roboto',
-                      color: AppColors.colorText1,
-                      fontWeight: FontWeight.w500),
-                ),
-                Text(
-                  product.offerName ?? 'null',
-                  style: const TextStyle(
-                      fontSize: 14,
-                      fontFamily: 'Roboto',
-                      color: AppColors.colorText1,
-                      fontWeight: FontWeight.w500),
+                Text(product.productName ?? 'null',
+                    style: AppStyles.r2B3A4A_12_500),
+                SizedBox(
+                  height: 8,
                 ),
                 Text(
                   'Speed ${product.speed}',
-                  style: const TextStyle(
-                      fontSize: 14,
-                      fontFamily: 'Roboto',
-                      color: AppColors.colorText1,
-                      fontWeight: FontWeight.w500),
+                  style: AppStyles.r6C8AA1_13_400
+                      .copyWith(fontSize: 12, fontWeight: FontWeight.w500),
                 ),
               ],
             ),
           ),
-          Text(
-            product.defaultValue ?? 'null',
-            style: const TextStyle(
-                fontSize: 14,
-                fontFamily: 'Roboto',
-                color: AppColors.colorText1,
-                fontWeight: FontWeight.w500),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
+            decoration: BoxDecoration(
+              color: AppColors.colorSubContent.withOpacity(0.07),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Text(
+              '${product.defaultValue ?? 'null'}/month',
+              style: AppStyles.r9454C9_14_500
+                  .copyWith(fontWeight: FontWeight.w700, fontSize: 16),
+            ),
           ),
         ],
       ),
