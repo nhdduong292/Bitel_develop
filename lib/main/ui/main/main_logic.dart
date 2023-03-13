@@ -8,7 +8,7 @@ class MainLogic extends GetxController {
 
   @override
   void onInit() {
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
     super.onInit();
   }
 
