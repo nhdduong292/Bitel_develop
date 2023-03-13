@@ -59,9 +59,16 @@ class ValidateFingerprintLogic extends GetxController {
     if (listFinger.isNotEmpty) {
       listFinger.clear();
     }
-    Common.showToastCenter(
-        AppLocalizations.of(context)!.textNotifyFingerSuccess);
-    listFinger.add(result);
+    if(result.isNotEmpty) {
+      listFinger.add(result);
+    }
+    if(listFinger.isNotEmpty){
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotifyFingerSuccess);
+    } else {
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotifyFingerFail);
+    }
     update();
   }
 

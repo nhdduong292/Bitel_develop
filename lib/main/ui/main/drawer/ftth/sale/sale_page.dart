@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/sale/sale_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/utilitis/info_bussiness.dart';
@@ -23,7 +25,7 @@ class SalePage extends GetWidget {
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             leading: Padding(
-              padding: EdgeInsets.only(left: 18, bottom: 18, top: 2),
+              padding: const EdgeInsets.only(left: 18, bottom: 18, top: 2),
               child: GestureDetector(
                 child: SvgPicture.asset(AppImages.icBack),
                 onTap: () {
@@ -38,19 +40,19 @@ class SalePage extends GetWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(AppLocalizations.of(context)!.textRequestOrderManagement, style: AppStyles.title),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Row(
                     children: [
                       SvgPicture.asset(AppImages.icTimeBar),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       Text("${Common.getStringTimeToday()}", style: AppStyles.b1),
-                      SizedBox(
+                      const SizedBox(
                         width: 20,
                       ),
                       SvgPicture.asset(AppImages.icAccountBar),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       Text(InfoBusiness.getInstance()!.getUser().sub, style: AppStyles.b1)
@@ -86,8 +88,8 @@ class SalePage extends GetWidget {
                       itemCount:
                           controller.getListRequestManagement(context).length,
                       shrinkWrap: true,
-                      physics: ScrollPhysics(),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      physics: const ScrollPhysics(),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
                           childAspectRatio: 1.5,
                           crossAxisSpacing: 6.0,
@@ -98,6 +100,17 @@ class SalePage extends GetWidget {
                         return GestureDetector(
                           onTap: () {
                             controller.setIndexSelect(optionSale.index);
+                            Timer(Duration(milliseconds: 500), () {
+                              if(index == 0) {
+                                Get.toNamed(RouteConfig.listRequest, arguments: 0);
+                              } else if(index == 1){
+                                Get.toNamed(RouteConfig.listRequest, arguments: 3);
+                              } else if(index == 2) {
+                                Get.toNamed(RouteConfig.listRequest, arguments: 4);
+                              } else if(index == 3) {
+                                Get.toNamed(RouteConfig.listRequest, arguments: 5);
+                              }
+                            },);
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(vertical: 12),
@@ -125,7 +138,7 @@ class SalePage extends GetWidget {
                                               .withOpacity(0.5),
                                       fontWeight: FontWeight.w400),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Text(
@@ -197,7 +210,7 @@ class SalePage extends GetWidget {
                                               .withOpacity(0.5),
                                       fontWeight: FontWeight.w400),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Text(
@@ -209,7 +222,7 @@ class SalePage extends GetWidget {
                                           : AppColors.colorText5,
                                       fontWeight: FontWeight.w600),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 6,
                                 ),
                                 Row(
@@ -227,11 +240,11 @@ class SalePage extends GetWidget {
                                     ),
                                     Container(
                                       margin: index == 1
-                                          ? EdgeInsets.only(left: 8)
-                                          : EdgeInsets.only(left: 0),
+                                          ? const EdgeInsets.only(left: 8)
+                                          : const EdgeInsets.only(left: 0),
                                       padding: index == 1
-                                          ? EdgeInsets.all(2)
-                                          : EdgeInsets.all(0),
+                                          ? const EdgeInsets.all(2)
+                                          : const EdgeInsets.all(0),
                                       decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(4),
                                           color: Colors.white),
@@ -242,7 +255,7 @@ class SalePage extends GetWidget {
                                                   color: AppColors.color_83BF6E,
                                                   fontWeight: FontWeight.w600),
                                             )
-                                          : Text(""),
+                                          : const Text(""),
                                     )
                                   ],
                                 ),
@@ -266,8 +279,8 @@ class SalePage extends GetWidget {
                       itemCount:
                           controller.getListWalletControl(context).length,
                       shrinkWrap: true,
-                      physics: ScrollPhysics(),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      physics: const ScrollPhysics(),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
                           childAspectRatio: 1.2,
                           crossAxisSpacing: 6.0,
@@ -305,7 +318,7 @@ class SalePage extends GetWidget {
                                               .withOpacity(0.5),
                                       fontWeight: FontWeight.w400),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Text(
@@ -317,7 +330,7 @@ class SalePage extends GetWidget {
                                           : AppColors.colorText5,
                                       fontWeight: FontWeight.w600),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 6,
                                 ),
                                 Text(
@@ -348,8 +361,8 @@ class SalePage extends GetWidget {
                     child: GridView.builder(
                   itemCount: controller.getListOptionSale(context).length,
                   shrinkWrap: true,
-                  physics: ScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  physics: const ScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       childAspectRatio: 6,
                       crossAxisSpacing: 4.0,
@@ -364,15 +377,18 @@ class SalePage extends GetWidget {
                           Get.toNamed(RouteConfig.createRequest);
                         } else if (optionSale.title ==
                             AppLocalizations.of(context)!.textSearchRequest) {
-                          Get.toNamed(RouteConfig.listRequest);
+                          Get.toNamed(RouteConfig.listRequest, arguments: 0);
+                        } else if (optionSale.title ==
+                            AppLocalizations.of(context)!.textConnectSubscriber) {
+                          Get.toNamed(RouteConfig.listRequest, arguments: 1);
                         }
                       },
                       child: Container(
-                        margin: EdgeInsets.only(left: 16),
+                        margin: const EdgeInsets.only(left: 16),
                         child: Row(
                           children: [
                             SvgPicture.asset(optionSale.icon),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Text(

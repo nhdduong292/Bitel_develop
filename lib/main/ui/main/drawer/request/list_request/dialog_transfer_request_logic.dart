@@ -58,7 +58,7 @@ class DialogTransferRequestLogic extends GetxController{
     return false;
   }
 
-  void transferRequest(int id, String staffCode, Function(bool isSuccess) callBack) async {
+  void transferRequest(int id, String staffCode, BuildContext context, Function(bool isSuccess) callBack) async {
     Future.delayed(Duration(seconds: 1));
     Map<String, dynamic> body = {
       "staffCode": staffCode,
@@ -79,6 +79,7 @@ class DialogTransferRequestLogic extends GetxController{
         },
         onError: (error) {
           Get.back();
+          Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
           // callBack.call(false);
         });
   }
