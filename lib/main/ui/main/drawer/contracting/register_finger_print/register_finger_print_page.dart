@@ -342,6 +342,9 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                               },
                                             )
                                           }
+                                        else {
+                                            Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI)
+                                        }
                                       });
                                 } else {
                                   Common.showToastCenter(
