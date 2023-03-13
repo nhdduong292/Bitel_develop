@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/customer_detect_mode.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/document_scanning_logic.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,12 +29,13 @@ class ClientDataLogic extends GetxController {
   CustomerModel customerModel = CustomerModel();
   final TextRecognizer _textRecognizer =
       TextRecognizer(script: TextRecognitionScript.latin);
+  DocumentScanningLogic controller = Get.find();
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    onListenerMethod();
+    // onListenerMethod();
   }
 
   void onListenerMethod() {
@@ -150,7 +152,9 @@ class ClientDataLogic extends GetxController {
     if (_isBusy) return;
     _isBusy = true;
     final recognizedText = await _textRecognizer.processImage(inputImage);
-
+    for (var text in recognizedText.blocks) {
+      print(text.text);
+    }
     recognizedText.blocks.map((value) {
       if (value.text.contains('Apellidos')) {
         customerDetectModel.lastName =

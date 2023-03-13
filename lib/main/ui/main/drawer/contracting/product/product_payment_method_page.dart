@@ -127,21 +127,24 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                 const SizedBox(
                   height: 20,
                 ),
-                controller.isLoadingProduct ? LoadingCirculApi() : Expanded(
-                  child: ScrollablePositionedList.builder(
-                      scrollDirection: Axis.horizontal,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 2,
-                      itemScrollController: controller.scrollController,
-                      itemPositionsListener: controller.itemPositionsListener,
-                      itemBuilder: (context, index) {
-                        if (index == 0) {
-                          return MethodPage(controller: controller);
-                        } else {
-                          return InvoicePage(controller: controller);
-                        }
-                      }),
-                ),
+                controller.isLoadingProduct
+                    ? LoadingCirculApi()
+                    : Expanded(
+                        child: ScrollablePositionedList.builder(
+                            scrollDirection: Axis.horizontal,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: 2,
+                            itemScrollController: controller.scrollController,
+                            itemPositionsListener:
+                                controller.itemPositionsListener,
+                            itemBuilder: (context, index) {
+                              if (index == 0) {
+                                return MethodPage(controller: controller);
+                              } else {
+                                return InvoicePage(controller: controller);
+                              }
+                            }),
+                      ),
               ],
             ),
           );

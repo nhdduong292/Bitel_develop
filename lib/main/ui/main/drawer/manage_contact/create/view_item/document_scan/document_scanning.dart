@@ -16,6 +16,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../../../../../res/app_colors.dart';
 import '../../../../../../../utils/common.dart';
 import '../../../../../../../utils/common_widgets.dart';
+import '../client_data/client_data_logic.dart';
 import 'document_scanning_logic.dart';
 
 typedef void TouchScan();
@@ -30,233 +31,293 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
         init: DocumentScanningLogic(),
         builder: (controller) {
           return SingleChildScrollView(
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Container(
-                margin: EdgeInsets.only(left: 10, right: 10),
-                width: MediaQuery.of(context).size.width - 20,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFFFFFF),
-                  border: Border.all(
-                    color: const Color(0xFFE3EAF2),
-                    width: 1.0,
-                  ),
-                  boxShadow: [
-                    const BoxShadow(
-                      color: Color.fromRGBO(185, 212, 220, 0.2),
-                      offset: Offset(0, 2),
-                      blurRadius: 7.0,
-                    ),
-                  ],
-                  borderRadius: BorderRadius.circular(24.0),
-                ),
-                child: Column(children: [
-                  SizedBox(
-                    height: 8,
-                  ),
-                  SizedBox(
-                    height: 30,
-                    child: Center(
-                      child: Text(
-                        AppLocalizations.of(context)!.textElegirDocumento,
-                        style: AppStyles.r00A5B1_13_500,
+            child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 10, right: 10),
+                    width: MediaQuery.of(context).size.width - 20,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFFFFFF),
+                      border: Border.all(
+                        color: const Color(0xFFE3EAF2),
+                        width: 1.0,
                       ),
+                      boxShadow: [
+                        const BoxShadow(
+                          color: Color.fromRGBO(185, 212, 220, 0.2),
+                          offset: Offset(0, 2),
+                          blurRadius: 7.0,
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(24.0),
                     ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  DottedLine(
-                    dashColor: Color(0xFFE3EAF2),
-                    dashGapLength: 3,
-                    dashLength: 4,
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 15, right: 15, top: 30),
-                    child: InkWell(
-                      onTap: () {
-                        controller.checkOption1.value =
-                            !controller.checkOption1.value;
-                      },
-                      splashColor: Colors.black38,
-                      child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Obx(() => controller.checkOption1.value
-                                ? iconChecked()
-                                : iconUnchecked()),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            SizedBox(
-                              width: width * 0.75,
-                              child: RichText(
-                                text: TextSpan(
-                                  text: AppLocalizations.of(context)!
-                                      .textAceptoYAutorizo,
-                                  style: AppStyles.r6C8AA1_13_400,
-                                  children: [
-                                    TextSpan(
-                                      text: AppLocalizations.of(context)!
-                                          .textTratamientoDe,
-                                      style: AppStyles.rU00A5B1_13_500,
-                                    ),
-                                    TextSpan(
-                                      text: AppLocalizations.of(context)!
-                                          .textConLa,
-                                      style: AppStyles.r6C8AA1_13_400,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ]),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 15, right: 15, top: 30),
-                    child: InkWell(
-                      onTap: () {
-                        controller.checkOption2.value =
-                            !controller.checkOption2.value;
-                      },
-                      splashColor: Colors.black38,
-                      child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Obx(() => controller.checkOption2.value
-                                ? iconChecked()
-                                : iconUnchecked()),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            SizedBox(
-                              width: width * 0.75,
-                              child: RichText(
-                                text: TextSpan(
-                                  text: AppLocalizations.of(context)!
-                                      .textAceptoYAutorizoABitel,
-                                  style: TextStyle(
-                                    color: AppColors.colorContent,
-                                    fontFamily: 'Roboto',
-                                    fontSize: 14,
-                                  ),
-                                  children: [
-                                    TextSpan(
-                                      text:
-                                          'ratamiento de mis datos personales y sensibles.',
-                                      style: TextStyle(
-                                          color: AppColors.colorContent,
-                                          fontFamily: 'Roboto',
-                                          fontSize: 14,
-                                          decoration: TextDecoration.underline,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ]),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 17),
-                        child: RichText(
-                          textAlign: TextAlign.start,
-                          text: TextSpan(
-                            text: 'Type of document ',
-                            style: TextStyle(
-                              color: AppColors.colorContent,
-                              fontFamily: 'Roboto',
-                              fontSize: 14,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: '*',
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontFamily: 'Roboto',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
+                    child: Column(children: [
+                      SizedBox(
+                        height: 8,
+                      ),
+                      SizedBox(
+                        height: 30,
+                        child: Center(
+                          child: Text(
+                            AppLocalizations.of(context)!.textElegirDocumento,
+                            style: AppStyles.r00A5B1_13_500,
                           ),
                         ),
                       ),
-                    ],
+                      SizedBox(
+                        height: 5,
+                      ),
+                      DottedLine(
+                        dashColor: Color(0xFFE3EAF2),
+                        dashGapLength: 3,
+                        dashLength: 4,
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 15, right: 15, top: 30),
+                        child: InkWell(
+                          onTap: () {
+                            controller.checkOption1.value =
+                                !controller.checkOption1.value;
+                          },
+                          splashColor: Colors.black38,
+                          child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Obx(() => controller.checkOption1.value
+                                    ? iconChecked()
+                                    : iconUnchecked()),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                SizedBox(
+                                  width: width * 0.75,
+                                  child: RichText(
+                                    text: TextSpan(
+                                      text: AppLocalizations.of(context)!
+                                          .textAceptoYAutorizo,
+                                      style: AppStyles.r6C8AA1_13_400,
+                                      children: [
+                                        TextSpan(
+                                          text: AppLocalizations.of(context)!
+                                              .textTratamientoDe,
+                                          style: AppStyles.rU00A5B1_13_500,
+                                        ),
+                                        TextSpan(
+                                          text: AppLocalizations.of(context)!
+                                              .textConLa,
+                                          style: AppStyles.r6C8AA1_13_400,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ]),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 15, right: 15, top: 30),
+                        child: InkWell(
+                          onTap: () {
+                            controller.checkOption2.value =
+                                !controller.checkOption2.value;
+                          },
+                          splashColor: Colors.black38,
+                          child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Obx(() => controller.checkOption2.value
+                                    ? iconChecked()
+                                    : iconUnchecked()),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                SizedBox(
+                                  width: width * 0.75,
+                                  child: RichText(
+                                    text: TextSpan(
+                                      text: AppLocalizations.of(context)!
+                                          .textAceptoYAutorizoABitel,
+                                      style: TextStyle(
+                                        color: AppColors.colorContent,
+                                        fontFamily: 'Roboto',
+                                        fontSize: 14,
+                                      ),
+                                      children: [
+                                        TextSpan(
+                                          text:
+                                              'ratamiento de mis datos personales y sensibles.',
+                                          style: TextStyle(
+                                              color: AppColors.colorContent,
+                                              fontFamily: 'Roboto',
+                                              fontSize: 14,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ]),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 17),
+                            child: RichText(
+                              textAlign: TextAlign.start,
+                              text: TextSpan(
+                                text: 'Type of document ',
+                                style: TextStyle(
+                                  color: AppColors.colorContent,
+                                  fontFamily: 'Roboto',
+                                  fontSize: 14,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: '*',
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontFamily: 'Roboto',
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 9,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15, right: 15),
+                        child: spinnerFormV2(
+                            context: context,
+                            hint: '',
+                            required: true,
+                            dropValue: controller.currentIdentity,
+                            function: (value) {
+                              controller.setIdentity(value);
+                            },
+                            listDrop: controller.listIdentityNumber),
+                      ),
+                      SizedBox(
+                        height: 22,
+                      ),
+                      DottedLine(
+                        dashColor: Color(0xFFE3EAF2),
+                        dashGapLength: 3,
+                        dashLength: 4,
+                      ),
+                      SizedBox(
+                        height: 17,
+                      ),
+                      Text(
+                        'Next, scan its vover',
+                        style: AppStyles.r3,
+                      ),
+                      SizedBox(
+                        height: 12,
+                      ),
+                      controller.textPathScan.isNotEmpty
+                          ? Image.file(
+                              File(controller.textPathScan),
+                            )
+                          : Image.asset(controller.getImageIdentity()),
+                      SizedBox(
+                        height: 23,
+                      ),
+                    ]),
                   ),
-                  SizedBox(
-                    height: 9,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15, right: 15),
-                    child: spinnerFormV2(
-                        context: context,
-                        hint: '',
-                        required: true,
-                        dropValue: controller.currentIdentity,
-                        function: (value) {
-                          controller.setIdentity(value);
-                        },
-                        listDrop: controller.listIdentityNumber),
-                  ),
-                  SizedBox(
-                    height: 22,
-                  ),
-                  DottedLine(
-                    dashColor: Color(0xFFE3EAF2),
-                    dashGapLength: 3,
-                    dashLength: 4,
-                  ),
-                  SizedBox(
-                    height: 17,
-                  ),
-                  Text(
-                    'Next, scan its vover',
-                    style: AppStyles.r3,
-                  ),
-                  SizedBox(
-                    height: 12,
-                  ),
-                  Image.asset(controller.getImageIdentity()),
-                  SizedBox(
-                    height: 23,
+                  Obx(
+                    () => SizedBox(
+                      width: width,
+                      child: bottomButton(
+                          text: 'SCAN',
+                          onTap: () {
+                            if (controller.checkOption1.value &&
+                                controller.checkOption2.value) {
+                              // callback();
+                              if (controller.textPathScan.isNotEmpty) {
+                                callback();
+                              } else {
+                                if (controller.textPathScan.isEmpty) {
+                                  // controller.getScan();
+                                  // _getFromGallery(context, controller);
+                                } else {
+                                  // callback();
+                                  // controller.detectID(context);
+                                }
+                                _getFromGallery(context, controller);
+                              }
+                            } else {
+                              Common.showToastCenter(
+                                  "Bạn phải chấp nhận quy định");
+                            }
+                          },
+                          color: !(controller.checkOption1.value &&
+                                  controller.checkOption2.value)
+                              ? const Color(0xFF415263).withOpacity(0.2)
+                              : null),
+                    ),
                   ),
                 ]),
-              ),
-              Container(
-                width: 310,
-                margin:
-                    EdgeInsets.only(top: 30, bottom: 36, left: 16, right: 16),
-                padding: EdgeInsets.symmetric(vertical: 16),
-                decoration: BoxDecoration(
-                  color: AppColors.colorButton,
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                child: InkWell(
-                  onTap: () {
-                    if (controller.checkOption1.value &&
-                        controller.checkOption2.value) {
-                      callback();
-                    } else {
-                      Common.showToastCenter("Bạn phải chấp nhận quy định");
-                    }
-                  },
-                  child: Center(
-                      child: Text(
-                    'SCAN',
-                    style: AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
-                  )),
-                ),
-              )
-            ]),
           );
         });
+  }
+
+  _getFromGallery(
+      BuildContext context, DocumentScanningLogic controller) async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    _cropImage(pickedFile, context, controller);
+  }
+
+  /// Crop Image
+  _cropImage(
+      filePath, BuildContext context, DocumentScanningLogic controller) async {
+    if (filePath != null) {
+      final croppedFile = await ImageCropper().cropImage(
+        sourcePath: filePath.path,
+        compressFormat: ImageCompressFormat.jpg,
+        compressQuality: 100,
+        uiSettings: [
+          AndroidUiSettings(
+              toolbarTitle: 'Cropper',
+              toolbarColor: Colors.deepOrange,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false),
+          IOSUiSettings(
+            title: 'Cropper',
+          ),
+          WebUiSettings(
+            context: context,
+            presentStyle: CropperPresentStyle.dialog,
+            boundary: const CroppieBoundary(
+              width: 520,
+              height: 520,
+            ),
+            viewPort:
+                const CroppieViewPort(width: 480, height: 480, type: 'circle'),
+            enableExif: true,
+            enableZoom: true,
+            showZoomer: true,
+          ),
+        ],
+      );
+      if (croppedFile != null) {
+        controller.setPathScan(croppedFile.path);
+      }
+    }
   }
 }

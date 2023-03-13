@@ -116,17 +116,12 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: 'Last name',
-                                content:
-                                    controller.customerDetectModel.lastName ??
-                                        ''),
+                                lable: 'Last name', content: "Pham"),
                           ),
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: 'Name',
-                                content:
-                                    controller.customerDetectModel.name ?? ''),
+                                lable: 'Name', content: "Quoc Nam"),
                           ),
                         ],
                       ),
@@ -138,17 +133,11 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: 'Nationality',
-                                content: controller
-                                        .customerDetectModel.nationality ??
-                                    ''),
+                                lable: 'Nationality', content: "VIETNAMITA"),
                           ),
                           Expanded(
                             flex: 1,
-                            child: infoClientView(
-                                lable: 'Sex:',
-                                content:
-                                    controller.customerDetectModel.sex ?? ''),
+                            child: infoClientView(lable: 'Sex:', content: "M"),
                           ),
                         ],
                       ),
@@ -160,18 +149,12 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: 'Date of birth',
-                                content: controller
-                                        .customerDetectModel.dateOfBirth ??
-                                    ''),
+                                lable: 'Date of birth', content: "22 MAY 1996"),
                           ),
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: 'Expired date',
-                                content: controller
-                                        .customerDetectModel.expiredDate ??
-                                    ''),
+                                lable: 'Expired date', content: "22 MAR 2026"),
                           ),
                         ],
                       ),
