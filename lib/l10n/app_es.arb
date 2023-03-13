@@ -235,5 +235,13 @@
   "textElClienteSe": "El cliente se registró exitosamente",
   "textDeseasRegistrar": "¿Deseas registrar tu huella para la firma digital?",
   "textRegistrar": "Registrar",
-  "textSiContinuar": "Si, Continuar"
+  "textSiContinuar": "Si, Continuar",
+  "textLimitPhoneNumber": "Không được nhập quá 11 kí tự",
+  "textValidateEmail": "Email không hợp lệ!",
+  "textValidatePhoneNumber": "Số điện thoại không hợp lệ!",
+  "textSHIPIBOKONIBO": "Shipibo Konibo",
+  "textASHANINKA": "Ashaninka",
+  "textAYMARA": "Aymara",
+  "textSPANISH": "Spanish",
+  "textQUECHUA": "Quechua"
 }

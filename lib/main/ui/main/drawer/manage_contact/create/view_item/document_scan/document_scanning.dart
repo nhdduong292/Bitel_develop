@@ -14,6 +14,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../../../../../res/app_colors.dart';
+import '../../../../../../../utils/common.dart';
 import '../../../../../../../utils/common_widgets.dart';
 import 'document_scanning_logic.dart';
 
@@ -72,89 +73,91 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 15, right: 15, top: 30),
-                    child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          InkWell(
-                              onTap: () {
-                                controller.checkOption1.value =
-                                    !controller.checkOption1.value;
-                              },
-                              splashColor: Colors.black38,
-                              child: Obx(() => controller.checkOption1.value
-                                  ? iconChecked()
-                                  : iconUnchecked())),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          SizedBox(
-                            width: width * 0.75,
-                            child: RichText(
-                              text: TextSpan(
-                                text: AppLocalizations.of(context)!
-                                    .textAceptoYAutorizo,
-                                style: AppStyles.r6C8AA1_13_400,
-                                children: [
-                                  TextSpan(
-                                    text: AppLocalizations.of(context)!
-                                        .textTratamientoDe,
-                                    style: AppStyles.rU00A5B1_13_500,
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        AppLocalizations.of(context)!.textConLa,
-                                    style: AppStyles.r6C8AA1_13_400,
-                                  ),
-                                ],
+                    child: InkWell(
+                      onTap: () {
+                        controller.checkOption1.value =
+                            !controller.checkOption1.value;
+                      },
+                      splashColor: Colors.black38,
+                      child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Obx(() => controller.checkOption1.value
+                                ? iconChecked()
+                                : iconUnchecked()),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            SizedBox(
+                              width: width * 0.75,
+                              child: RichText(
+                                text: TextSpan(
+                                  text: AppLocalizations.of(context)!
+                                      .textAceptoYAutorizo,
+                                  style: AppStyles.r6C8AA1_13_400,
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!
+                                          .textTratamientoDe,
+                                      style: AppStyles.rU00A5B1_13_500,
+                                    ),
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!
+                                          .textConLa,
+                                      style: AppStyles.r6C8AA1_13_400,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        ]),
+                          ]),
+                    ),
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 15, right: 15, top: 30),
-                    child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          InkWell(
-                              onTap: () {
-                                controller.checkOption2.value =
-                                    !controller.checkOption2.value;
-                              },
-                              splashColor: Colors.black38,
-                              child: Obx(() => controller.checkOption2.value
-                                  ? iconChecked()
-                                  : iconUnchecked())),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          SizedBox(
-                            width: width * 0.75,
-                            child: RichText(
-                              text: TextSpan(
-                                text: AppLocalizations.of(context)!
-                                    .textAceptoYAutorizoABitel,
-                                style: TextStyle(
-                                  color: AppColors.colorContent,
-                                  fontFamily: 'Roboto',
-                                  fontSize: 14,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text:
-                                        'ratamiento de mis datos personales y sensibles.',
-                                    style: TextStyle(
-                                        color: AppColors.colorContent,
-                                        fontFamily: 'Roboto',
-                                        fontSize: 14,
-                                        decoration: TextDecoration.underline,
-                                        fontWeight: FontWeight.bold),
+                    child: InkWell(
+                      onTap: () {
+                        controller.checkOption2.value =
+                            !controller.checkOption2.value;
+                      },
+                      splashColor: Colors.black38,
+                      child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Obx(() => controller.checkOption2.value
+                                ? iconChecked()
+                                : iconUnchecked()),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            SizedBox(
+                              width: width * 0.75,
+                              child: RichText(
+                                text: TextSpan(
+                                  text: AppLocalizations.of(context)!
+                                      .textAceptoYAutorizoABitel,
+                                  style: TextStyle(
+                                    color: AppColors.colorContent,
+                                    fontFamily: 'Roboto',
+                                    fontSize: 14,
                                   ),
-                                ],
+                                  children: [
+                                    TextSpan(
+                                      text:
+                                          'ratamiento de mis datos personales y sensibles.',
+                                      style: TextStyle(
+                                          color: AppColors.colorContent,
+                                          fontFamily: 'Roboto',
+                                          fontSize: 14,
+                                          decoration: TextDecoration.underline,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        ]),
+                          ]),
+                    ),
                   ),
                   SizedBox(
                     height: 30,
@@ -238,7 +241,12 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                 ),
                 child: InkWell(
                   onTap: () {
-                    callback();
+                    if (controller.checkOption1.value &&
+                        controller.checkOption2.value) {
+                      callback();
+                    } else {
+                      Common.showToastCenter("Bạn phải chấp nhận quy định");
+                    }
                   },
                   child: Center(
                       child: Text(

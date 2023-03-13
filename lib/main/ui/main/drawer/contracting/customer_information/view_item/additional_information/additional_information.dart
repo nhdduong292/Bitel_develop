@@ -63,12 +63,14 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   RichText(
                     text: TextSpan(
-                        text: '${controller.getTypeCustomer()}: ',
-                        style: AppStyles.r3,
+                        text: '${controller.getTypeCustomer()} ',
+                        style: AppStyles.r9454C9_14_500.copyWith(
+                            fontSize: 13, fontWeight: FontWeight.w700),
                         children: [
                           TextSpan(
                             text: controller.customer.idNumber,
-                            style: AppStyles.r1,
+                            style: AppStyles.r2B3A4A_12_500.copyWith(
+                                fontSize: 13, fontWeight: FontWeight.w400),
                           )
                         ]),
                   )
@@ -78,36 +80,40 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
             SizedBox(
               height: 15,
             ),
-            lockedBox(
+            lockedBoxV1(
                 content: controller.customer.fullName,
                 label: AppLocalizations.of(context)!.textFullName,
                 required: false,
                 isIcon: false,
                 width: 210),
-            lockedBox(
+            lockedBoxV1(
                 content: controller.customer.nationality,
                 label: AppLocalizations.of(context)!.textNationality,
                 required: false,
                 isIcon: false,
                 width: 210),
-            lockedBox(
+            lockedBoxV1(
                 content: controller.customer.sex,
                 label: AppLocalizations.of(context)!.textSex,
                 required: false,
                 isIcon: false,
                 width: 210),
-            lockedBox(
-                content: Common.fromDate(
-                    DateTime.parse(controller.customer.birthDate),
-                    'dd-MM-yyyy'),
+            lockedBoxV1(
+                content: controller.customer.birthDate != ''
+                    ? Common.fromDate(
+                        DateTime.parse(controller.customer.birthDate),
+                        'dd/MM/yyyy')
+                    : '',
                 label: AppLocalizations.of(context)!.textDateOfBirth,
                 required: false,
                 isIcon: false,
                 width: 210),
-            lockedBox(
-                content: Common.fromDate(
-                    DateTime.parse(controller.customer.idIssueDate),
-                    'dd-MM-yyyy'),
+            lockedBoxV1(
+                content: controller.customer.idIssueDate != ''
+                    ? Common.fromDate(
+                        DateTime.parse(controller.customer.idIssueDate),
+                        'dd/MM/yyyy')
+                    : '',
                 label: AppLocalizations.of(context)!.textIssuedate,
                 required: false,
                 isIcon: false,
@@ -160,12 +166,13 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
             SizedBox(
               height: 15,
             ),
-            inputFormV3(
+            inputFormMaxLenght(
                 hint: AppLocalizations.of(context)!.textEnterPhoneNumber,
                 label: AppLocalizations.of(context)!.textPhoneNumber,
                 required: true,
+                maxLength: 11,
                 textDefault: controller.phone,
-                inputType: TextInputType.text,
+                inputType: TextInputType.number,
                 width: 210,
                 onChange: (value) {
                   controller.phone = value;
@@ -215,6 +222,9 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                           if (controller.checkValidateAddInfo()) {
                             return;
                           }
+                          if (!controller.checkValidate()) {
+                            return;
+                          }
                           callback();
                         },
                         text: AppLocalizations.of(context)!
@@ -223,6 +233,95 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
               ],
             )),
       ]),
+    );
+  }
+
+  Widget lockedBoxV1(
+      {required String label,
+      required String content,
+      required bool required,
+      required bool isIcon,
+      required double width}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Expanded(
+          child: Container(
+            margin: EdgeInsets.only(left: 20, top: 15),
+            alignment: Alignment.topLeft,
+            child: RichText(
+              text: TextSpan(
+                text: label,
+                style: AppStyles.r2B3A4A_12_500
+                    .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+                children: [
+                  TextSpan(
+                      text: required ? ' *' : '',
+                      style: TextStyle(
+                        color: AppColors.colorTextError,
+                        fontFamily: 'Roboto',
+                        fontSize: 14,
+                      )),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(left: 15, right: 15, top: 15),
+          child: Container(
+              height: 45,
+              width: width,
+              padding: EdgeInsets.only(left: 18, right: 7),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(color: Color(0xFFE3EAF2), width: 1)),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        content,
+                        style: TextStyle(
+                            fontFamily: 'Roboto',
+                            color: Color(0xFFCFCFCF),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 13),
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                      visible: isIcon,
+                      child: SvgPicture.asset(AppImages.icArrowDownLockedBox))
+                ],
+              )),
+        ),
+      ],
+    );
+  }
+}
+
+class AddressInformation extends Dialog {
+  final double height;
+  AddressInformation({
+    super.key,
+    required this.height,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      alignment: Alignment.bottomCenter,
+      insetPadding: EdgeInsets.only(bottom: 24),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: SizedBox(
+        width: 330,
+        height: height,
+        child: Column(
+          children: [],
+        ),
+      ),
     );
   }
 }

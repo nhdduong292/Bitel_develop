@@ -5,8 +5,11 @@ import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../../../../../../res/app_colors.dart';
+import '../../../../../../../../res/app_images.dart';
 import '../../../../../../../utils/common_widgets.dart';
 
 typedef void TouchUpadte();
@@ -108,7 +111,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 required: true,
                 isIcon: true,
                 width: 210),
-            spinnerFormNormalV2(
+            dropDownContactLanguages(
                 context: context,
                 label: AppLocalizations.of(context)!.textContractLanguage,
                 hint: '',
@@ -236,6 +239,103 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
               ],
             )),
       ]),
+    );
+  }
+
+  Widget dropDownContactLanguages({
+    required BuildContext context,
+    required String label,
+    required String hint,
+    required bool required,
+    required items,
+    required dropdownValue,
+    required double width,
+  }) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Expanded(
+          child: Container(
+            margin: EdgeInsets.only(left: 20, top: 15),
+            alignment: Alignment.topLeft,
+            child: RichText(
+              text: TextSpan(
+                text: label,
+                style: TextStyle(
+                  color: AppColors.colorText1,
+                  fontFamily: 'Roboto',
+                  fontSize: 14,
+                ),
+                children: [
+                  TextSpan(
+                      text: required ? ' *' : '',
+                      style: TextStyle(
+                        color: AppColors.colorTextError,
+                        fontFamily: 'Roboto',
+                        fontSize: 14,
+                      )),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Container(
+          // width: double.infinity,
+          height: 45,
+          width: width,
+          padding: EdgeInsets.only(left: 12, top: 6, bottom: 6, right: 6),
+          margin: EdgeInsets.only(left: 15, right: 15, top: 15),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(color: Color(0xFFE3EAF2))),
+          child: Obx(
+            () => DropdownButton<String>(
+              isExpanded: true,
+              underline: Container(),
+              value: dropdownValue.value,
+              onChanged: (String? value) => dropdownValue.value = value,
+              items: items.map<DropdownMenuItem<String>>((String value) {
+                if (value == "SHIPIBO_KONIBO") {
+                  return DropdownMenuItem(
+                      value: value,
+                      child: Text(
+                          AppLocalizations.of(context)!.textSHIPIBOKONIBO));
+                } else if (value == "ASHANINKA") {
+                  return DropdownMenuItem(
+                      value: value,
+                      child: Text(AppLocalizations.of(context)!.textASHANINKA));
+                } else if (value == "AYMARA") {
+                  return DropdownMenuItem(
+                      value: value,
+                      child: Text(AppLocalizations.of(context)!.textAYMARA));
+                } else if (value == "SPANISH") {
+                  return DropdownMenuItem(
+                      value: value,
+                      child: Text(AppLocalizations.of(context)!.textSPANISH));
+                } else {
+                  return DropdownMenuItem(
+                      value: value,
+                      child: Text(AppLocalizations.of(context)!.textQUECHUA));
+                }
+              }).toList(),
+              alignment: AlignmentDirectional.centerStart,
+              style: TextStyle(
+                  fontSize: 18,
+                  fontFamily: 'Roboto',
+                  color: Color(0xFF415263),
+                  fontWeight: FontWeight.w500),
+              icon: SvgPicture.asset(AppImages.icDropdownSpinner),
+              hint: Text(
+                hint,
+                style: TextStyle(
+                    fontSize: 18,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w300),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
