@@ -51,7 +51,7 @@ class DialogCancelRequestLogic extends GetxController {
   }
 
   bool checkValidate(BuildContext context){
-    if(currentNote.isEmpty || currentReason.isEmpty){
+    if(currentReason.isEmpty){
       Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
       return true;
     }

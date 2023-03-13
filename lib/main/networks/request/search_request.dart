@@ -26,14 +26,16 @@ class SearchRequest {
       return 0;
     } else if (status == RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY) {
       return 1;
-    } else if (status == RequestStatus.CONNECTED) {
+    } else if (status == RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY) {
       return 2;
-    } else if (status == RequestStatus.DEPLOYING) {
+    } else if (status == RequestStatus.CONNECTED) {
       return 3;
-    } else if (status == RequestStatus.COMPLETE) {
+    } else if (status == RequestStatus.DEPLOYING) {
       return 4;
-    } else if (status == RequestStatus.CANCEL) {
+    } else if (status == RequestStatus.COMPLETE) {
       return 5;
+    } else if (status == RequestStatus.CANCEL) {
+      return 6;
     }
     return 0;
   }
