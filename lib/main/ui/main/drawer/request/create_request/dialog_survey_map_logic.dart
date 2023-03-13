@@ -22,7 +22,7 @@ class DialogSurveyMapLogic extends GetxController{
 
   final Completer<GoogleMapController> controllerMap = Completer<GoogleMapController>();
   late CameraPosition kGooglePlex=  CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
+    target: LatLng(-12.786389, -74.975555),
     zoom: 14.4746,
   );
   bool isLocation = true;
@@ -32,6 +32,8 @@ class DialogSurveyMapLogic extends GetxController{
 //Markers set
   Set<Marker> markers = Set<Marker>();
   var currentPoint;
+
+  bool isActive = true;
 
 
   DialogSurveyMapLogic({required this.requestId});
@@ -46,9 +48,7 @@ class DialogSurveyMapLogic extends GetxController{
       long = value.longitude;
       currentPoint = LatLng(lat, long);
       print("lat: $lat long: $long");
-
       setCircle(currentPoint);
-      update();
     });
   }
 
@@ -76,6 +76,7 @@ class DialogSurveyMapLogic extends GetxController{
         radius: radiusValue,
         strokeColor: Colors.blue,
         strokeWidth: 1));
+    isActive = false;
     update();
   }
 
@@ -128,7 +129,7 @@ class DialogSurveyMapLogic extends GetxController{
 
   void createSurvey(Function(bool isSuccess) function) async{
 
-    Future.delayed(Duration(seconds: 1));
+    Future.delayed(Duration(seconds: 2));
     Map<String, dynamic> body = {
       "requestId": requestId,
       "lat": "$lat",

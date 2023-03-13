@@ -1,6 +1,6 @@
 class CustomerModel {
   int? _custId;
-  String? _firstName;
+  String? _name;
   String? _fullName;
   String? _telFax;
   String? _type;
@@ -26,7 +26,7 @@ class CustomerModel {
   CustomerModel();
   CustomerModel.fromJson(Map<String, dynamic> json) {
     _custId = json['custId'];
-    _firstName = json['firstName'];
+    _name = json['name'];
     _fullName = json['fullName'];
     _telFax = json['telFax'];
     _type = json['type'];
@@ -92,7 +92,7 @@ class CustomerModel {
 
   String get fullName => _fullName ?? "";
 
-  String get firstName => _firstName ?? "";
+  String get name => _name ?? "";
 
   int get custId => _custId ?? 0;
 

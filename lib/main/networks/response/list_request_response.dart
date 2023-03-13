@@ -1,3 +1,4 @@
+import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_model.dart';
 
 class ListRequestResponse{
@@ -5,7 +6,7 @@ class ListRequestResponse{
   int? totalPage;
   int? currentPage;
   int? pageSize;
-  List<RequestModel> list =[];
+  List<RequestDetailModel> list =[];
 
   ListRequestResponse.fromJson(Map<String, dynamic> json) {
     total = json['total'];
@@ -13,7 +14,7 @@ class ListRequestResponse{
     currentPage = json['currentPage'];
     pageSize = json['pageSize'];
     list = (json['data'] as List)
-        .map((postJson) => RequestModel.fromJson(postJson))
+        .map((postJson) => RequestDetailModel.fromJson(postJson))
         .toList();
   }
 }

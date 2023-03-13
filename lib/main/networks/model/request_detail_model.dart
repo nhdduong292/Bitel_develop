@@ -2,9 +2,13 @@ import 'package:bitel_ventas/main/networks/model/contract_model.dart';
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
 import 'package:bitel_ventas/main/networks/model/subscription_model.dart';
 import 'package:bitel_ventas/main/networks/model/work_order_model.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RequestDetailModel{
   int? _id;
+  String? _code;
   String? _service;
   String? _technology;
   String? _line;
@@ -27,6 +31,7 @@ class RequestDetailModel{
 
   RequestDetailModel.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
+    _code = json['code'];
     _service = json['service'];
     _technology = json['technology'];
     _line = json['line'];
@@ -151,4 +156,31 @@ class RequestDetailModel{
   String get districtName => _districtName ?? "";
 
   String get provinceName => _provinceName ?? "";
+
+  String get code => _code ?? "";
+
+  String getStatus(BuildContext context){
+
+    if(_status == null) {
+      return "";
+    } else {
+      if(_status == RequestStatus.CREATE_REQUEST){
+        return AppLocalizations.of(context)!.textCreateRequest;
+      } else if(_status == RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY){
+        return AppLocalizations.of(context)!.textCreateRequestWithout;
+      } else if(_status == RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY){
+        return AppLocalizations.of(context)!.textSurveyOfflineSuccess;
+      } else if(_status == RequestStatus.CONNECTED){
+        return AppLocalizations.of(context)!.textConnected;
+      } else if(_status == RequestStatus.DEPLOYING){
+        return AppLocalizations.of(context)!.textDeploying;
+      } else if(_status == RequestStatus.COMPLETE){
+        return AppLocalizations.of(context)!.textComplete;
+      } else if(_status == RequestStatus.CANCEL){
+        return AppLocalizations.of(context)!.textCancel;
+      }
+      return "";
+    }
+  }
+
 }

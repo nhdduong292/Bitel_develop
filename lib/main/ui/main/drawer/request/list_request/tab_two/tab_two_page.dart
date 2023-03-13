@@ -33,7 +33,8 @@ class TabTwoPage extends GetWidget{
                   List<String> listArgument = ["${controller.listRequest[index].id}",status];
                   Get.toNamed(RouteConfig.requestDetail, arguments: listArgument);
                 },
-                child: ListRequestTabItem(controller.listRequest[index]),
+                // child: ListRequestTabItem(controller.listRequest[index]),
+                child: Container(),
               );
             });
       },);

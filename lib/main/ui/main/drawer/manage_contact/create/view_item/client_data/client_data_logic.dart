@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/customer_detect_mode.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/document_scanning_logic.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ import '../../../../../../../utils/common_widgets.dart';
 import '../../../../../../../utils/values.dart';
 
 class ClientDataLogic extends GetxController {
+  DocumentScanningLogic logic = Get.find();
   late BuildContext context;
   String textPathScan = "";
   CustomerModel customer = CustomerModel();

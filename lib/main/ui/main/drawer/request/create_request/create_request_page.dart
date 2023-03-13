@@ -715,37 +715,31 @@ class CreateRequestPage extends GetWidget {
               if (isOnline) {
                 controller.createSurveyOnline(
                   (isSuccess) {
-                    Get.back();
                     if (isSuccess) {
                       //   Get.back();
                       //   DialogSurveyMapLogic surveyMapLogic = Get.find();
                       //   surveyMapLogic.setStateConnect(true);
+                      Get.close(3);
+                      Get.offNamed(RouteConfig.productPayment,
+                          arguments: controller.requestModel.id);
+                    } else {
                       Get.back();
-                      Timer(
-                        Duration(milliseconds: 600),
-                        () {
-                          Get.offNamed(RouteConfig.productPayment,
-                              arguments: controller.requestModel.id);
-                        },
-                      );
                     }
                   },
                 );
               } else {
                 controller.createSurveyOffline(
                   (isSuccess) {
-                    Get.back();
+
                     if (isSuccess) {
-                      Get.back();
+                      Get.close(3);
                       // DialogSurveyMapLogic surveyMapLogic = Get.find();
                       // surveyMapLogic.setStateConnect(true);
-                      Timer(
-                        Duration(milliseconds: 600),
-                        () {
-                          Get.offNamed(RouteConfig.listRequest, arguments: 0);
-                        },
-                      );
+                      Get.offNamed(RouteConfig.listRequest, arguments: 0);
+                    } else {
+                      Get.back();
                     }
+
                   },
                 );
               }
@@ -761,25 +755,18 @@ class CreateRequestPage extends GetWidget {
         context: context,
         builder: (context) {
           return DialogSurveyUnsuccessful(
-            onSubmit: () {
-              _onLoading(context);
-              controller.createSurveyOffline(
-                (isSuccess) {
-                  Timer(
-                    Duration(milliseconds: 600),
-                    () {
-                      Get.back();
-                      if (isSuccess) {
-                        Get.back();
-                        DialogSurveyMapLogic surveyMapLogic = Get.find();
-                        surveyMapLogic.setStateConnect(true);
-                      }
-                    },
-                  );
-                },
-              );
-            },
-          );
+            onSubmit: (){
+                _onLoading(context);
+                controller.createSurveyOffline((isSuccess) {
+                  if(isSuccess){
+                    Get.close(3);
+                    DialogSurveyMapLogic surveyMapLogic = Get.find();
+                    surveyMapLogic.setStateConnect(true);
+                  } else {
+                    Get.back();
+                  }
+                },);
+            },);
         });
   }
 
@@ -790,21 +777,13 @@ class CreateRequestPage extends GetWidget {
         context: context,
         builder: (context) {
           return DialogSurveyMapPage(
-            onSubmit: (isSuccess) {
-              Get.back();
-              Timer(
-                Duration(milliseconds: 600),
-                () {
-                  if (isSuccess) {
-                    showDialogSurveySuccessful(context, controller);
-                  } else {
-                    showDialogSurveyUnsuccessful(context, controller);
-                  }
-                },
-              );
-            },
-            requestId: "$id",
-          );
+            onSubmit: (isSuccess){
+                if(isSuccess) {
+                  showDialogSurveySuccessful(context, controller);
+                } else {
+                  showDialogSurveyUnsuccessful(context, controller);
+                }
+            },requestId: "$id",);
         });
   }
 

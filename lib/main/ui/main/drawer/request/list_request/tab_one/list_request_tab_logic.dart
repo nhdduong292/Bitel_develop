@@ -48,7 +48,7 @@ class ListRequestTabLogic extends GetxController{
             print("success :");
             listRequest.clear();
             ListRequestResponse listRequestResponse = ListRequestResponse.fromJson(response.data['data']);
-            listRequest.addAll(listRequestResponse.list);
+            // listRequest.addAll(listRequestResponse.list);
           } else {
             print("error: ${response.status}");
           }

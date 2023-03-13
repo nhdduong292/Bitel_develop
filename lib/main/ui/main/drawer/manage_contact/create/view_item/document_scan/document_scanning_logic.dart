@@ -27,6 +27,7 @@ class DocumentScanningLogic extends GetxController {
   String currentIdentity = "DNI";
   List<String> listIdentityNumber = ["DNI", "CE", "PP", "PTP"];
 
+
   @override
   void onInit() {
     // TODO: implement onInit

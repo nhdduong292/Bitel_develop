@@ -67,7 +67,8 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                         left: 20,
                         child: InkWell(
                           onTap: () {
-                            Get.offNamed(RouteConfig.listRequest, arguments: 0);
+                            // Get.offNamed(RouteConfig.listRequest, arguments: 0);
+                            Get.close(5);
                           },
                           child: Container(
                             width: 35,
@@ -247,7 +248,8 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                     .textClose
                                     .toUpperCase(),
                                 onTap: () {
-                                  Get.offNamed(RouteConfig.listRequest, arguments: 0);
+                                  // Get.offNamed(RouteConfig.listRequest, arguments: 0);
+                                  Get.close(5);
                                 })),
                         SizedBox(
                           height: 126,
