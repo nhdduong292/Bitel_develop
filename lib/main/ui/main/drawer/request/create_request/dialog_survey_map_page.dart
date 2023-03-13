@@ -178,7 +178,7 @@ class DialogSurveyMapPage extends GetWidget {
                           margin: const EdgeInsets.only(top: 30),
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           decoration: BoxDecoration(
-                            color: controller.isConnect ? Colors.white: AppColors.colorButton,
+                            color: controller.isActive ? Colors.white: AppColors.colorButton,
                             borderRadius: BorderRadius.circular(24),
                             boxShadow: [
                               BoxShadow(
@@ -190,7 +190,7 @@ class DialogSurveyMapPage extends GetWidget {
                           ),
                           child: InkWell(
                             onTap: () {
-                              if(controller.isConnect || controller.checkValidate()){
+                              if(controller.isActive || controller.checkValidate()){
                                 return;
                               }
                               _onLoading(context);
@@ -202,7 +202,7 @@ class DialogSurveyMapPage extends GetWidget {
                             child:  Center(
                                 child: Text(
                                   AppLocalizations.of(context)!.textSurvey.toUpperCase(),
-                                  style: controller.isConnect ? AppStyles.r1.copyWith(fontWeight: FontWeight.w500) : AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
+                                  style: controller.isActive ? AppStyles.r1.copyWith(fontWeight: FontWeight.w500) : AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
                                 )),
                           ),
                         ))

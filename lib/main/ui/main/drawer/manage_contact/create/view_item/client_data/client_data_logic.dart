@@ -18,6 +18,7 @@ import '../../../../../../../utils/common_widgets.dart';
 import '../../../../../../../utils/values.dart';
 
 class ClientDataLogic extends GetxController {
+  DocumentScanningLogic logic = Get.find();
   late BuildContext context;
   String textPathScan = "";
   CustomerModel customer = CustomerModel();

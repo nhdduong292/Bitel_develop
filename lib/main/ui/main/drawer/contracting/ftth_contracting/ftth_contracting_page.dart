@@ -68,7 +68,9 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                         left: 20,
                         child: InkWell(
                           onTap: () {
-                            Get.offNamed(RouteConfig.listRequest, arguments: 0);
+                            // Get.offNamed(RouteConfig.listRequest, arguments: 0);
+                            Get.until((route) =>
+                                Get.currentRoute == '/menu/ListRequest');
                           },
                           child: Container(
                             width: 35,

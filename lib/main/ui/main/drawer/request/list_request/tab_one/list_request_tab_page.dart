@@ -1,5 +1,6 @@
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
+import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/networks/response/list_request_response.dart';
 import 'package:bitel_ventas/main/router/route_config.dart';
@@ -63,7 +64,7 @@ class ListRequestTabState extends State<ListRequestTabPage>{
   String status;
 
   bool isLoading = false;
-  List<RequestModel> listRequest = [];
+  List<RequestDetailModel> listRequest = [];
   ListRequestLogic listRequestLogic = Get.find();
 
   ListRequestTabState(this.status);
@@ -117,7 +118,7 @@ class ListRequestTabState extends State<ListRequestTabPage>{
       "key":"",
       "page":"0",
       "pageSize":"10",
-      "sort":""
+      "sort":"createdDate"
     };
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_LIST_REQUEST,
