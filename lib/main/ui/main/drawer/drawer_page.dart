@@ -78,16 +78,6 @@ class DrawerPage extends GetView<DrawerLogic> {
                                           .listItem![index].selectedImg
                                           : controller.listItem![index]
                                           .unselectedImg),
-                                      // Image(
-                                      //   image: Svg(
-                                      //       controller.listItem![index].isSelected
-                                      //           ? controller
-                                      //           .listItem![index].selectedImg
-                                      //           : controller.listItem![index]
-                                      //           .unselectedImg),
-                                      //   width: 26,
-                                      //   height: 26,
-                                      // ),
                                       Padding(padding: EdgeInsets.only(left: 20)),
                                       Text(
                                         controller.listItem![index].label,
@@ -207,7 +197,7 @@ class DrawerPage extends GetView<DrawerLogic> {
                     Get.toNamed(RouteConfig.afterSale);
                   } else if (i == 2) {
                     // Get.toNamed(RouteConfig.manageWO);
-                    Get.to(() => ProductPaymentMethodPage());
+                    // Get.to(() => ProductPaymentMethodPage());
                     print("index: 4");
                   }
                 }else if(vehicle.label == AppLocalizations.of(context)!.textUtilites){

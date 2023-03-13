@@ -1,5 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'dart:io';
+import 'dart:io';
+
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/validate_fingerprint/validate_fingerprint_logic.dart';
+import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -19,7 +23,7 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return GetBuilder(
-        init: ValidateFingerprintLogic(),
+        init: ValidateFingerprintLogic(context),
         builder: (controller) {
           return Scaffold(
             body: Column(
@@ -38,7 +42,7 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                       width: width,
                     ),
                     Positioned(
-                      top: 40,
+                      top: 50,
                       left: 70,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +57,7 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                       ),
                     ),
                     Positioned(
-                        top: 35,
+                        top: 45,
                         left: 20,
                         child: InkWell(
                           onTap: () {
@@ -135,11 +139,12 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                     children: [
                                       RichText(
                                         text: TextSpan(
-                                            text: 'DNI: ',
+                                            text:
+                                                '${controller.typeCustomer}: ',
                                             style: AppStyles.r3,
                                             children: [
                                               TextSpan(
-                                                text: '001573053',
+                                                text: controller.idNumber,
                                                 style: AppStyles.r1,
                                               )
                                             ]),
@@ -150,7 +155,18 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                             SizedBox(
                               height: 43,
                             ),
-                            SvgPicture.asset(AppImages.imgValidateFingerprint),
+                            Obx(
+                              () => SizedBox(
+                                width: 140,
+                                height: 190,
+                                child: controller.pathFinger.value != ''
+                                    ? Image.asset(
+                                        controller.pathFinger.value,
+                                        fit: BoxFit.fitHeight,
+                                      )
+                                    : LoadingCirculApi(),
+                              ),
+                            ),
                             SizedBox(
                               height: 12,
                             ),
@@ -179,34 +195,130 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                             SizedBox(
                               height: 41,
                             ),
+                            // controller.textCapture.isNotEmpty
+                            //     ? Image.file(
+                            //         File(controller.textCapture),
+                            //         width: 80,
+                            //         height: 160,
+                            //       )
                             SvgPicture.asset(AppImages.imgHuellaDactilar),
                             SizedBox(
                               height: 22,
                             ),
                           ]),
                         ),
-                        SizedBox(
-                            width: width,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                    flex: 1,
-                                    child: bottomButtonV2(
-                                        onTap: () {},
-                                        text: AppLocalizations.of(context)!
-                                            .textCapture
-                                            .toUpperCase())),
-                                Expanded(
-                                    flex: 1,
-                                    child: bottomButton(
-                                        onTap: () {
-                                          Get.toNamed(
-                                              RouteConfig.ftthContracting);
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 20, left: 30, right: 30),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: InkWell(
+                                  onTap: () {
+                                    if (Platform.isAndroid) {
+                                      controller.getCapture(context);
+                                    } else {
+                                      Common.showToastCenter(
+                                          AppLocalizations.of(context)!
+                                              .textOnlyActionAndroid);
+                                    }
+                                  },
+                                  child: Container(
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      color: controller.listFinger.isEmpty
+                                          ? AppColors.colorButton
+                                          : Colors.white,
+                                      border:
+                                          Border.all(color: Color(0xFFE3EAF2)),
+                                    ),
+                                    child: Center(
+                                        child: Text(
+                                      AppLocalizations.of(context)!
+                                          .textCapture
+                                          .toUpperCase(),
+                                      style: TextStyle(
+                                        color: controller.listFinger.isEmpty
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    )),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: InkWell(
+                                  onTap: () {
+                                    if (controller.listFinger.isEmpty) {
+                                      return;
+                                    }
+                                    if (controller.type == 'LENDING') {
+                                      controller.signContract(
+                                        (p0) {
+                                          if (p0) {
+                                            Get.toNamed(
+                                                RouteConfig.ftthContracting,
+                                                arguments:
+                                                    controller.contractId);
+                                          } else {
+                                            Common.showToastCenter(
+                                                AppLocalizations.of(context)!
+                                                    .textErrorAPI);
+                                          }
                                         },
-                                        text: AppLocalizations.of(context)!
-                                            .textValidate)),
-                              ],
-                            )),
+                                      );
+                                    } else {
+                                      controller.signContract(
+                                        (p0) {
+                                          if (p0) {
+                                            Get.back(result: true);
+                                          } else {
+                                            Common.showToastCenter(
+                                                AppLocalizations.of(context)!
+                                                    .textErrorAPI);
+                                          }
+                                        },
+                                      );
+                                    }
+                                  },
+                                  child: Container(
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      color: controller.listFinger.isEmpty
+                                          ? Colors.white
+                                          : AppColors.colorButton,
+                                      border:
+                                          Border.all(color: Color(0xFFE3EAF2)),
+                                    ),
+                                    child: Center(
+                                        child: Text(
+                                      AppLocalizations.of(context)!
+                                          .textValidate
+                                          .toUpperCase(),
+                                      style: TextStyle(
+                                        color: controller.listFinger.isEmpty
+                                            ? Colors.black
+                                            : Colors.white,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    )),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
                         SizedBox(
                           height: 126,
                         )

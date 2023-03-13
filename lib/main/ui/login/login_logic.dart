@@ -1,11 +1,21 @@
+import 'package:bitel_ventas/main/networks/api_end_point.dart';
+import 'package:bitel_ventas/main/networks/api_util.dart';
+import 'package:bitel_ventas/main/networks/model/login_model.dart';
+import 'package:bitel_ventas/main/networks/model/user_model.dart';
 import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/login/login_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/utilitis/info_bussiness.dart';
 import 'package:bitel_ventas/main/ui/main/home/home_page.dart';
 import 'package:bitel_ventas/main/ui/main/main_page.dart';
+import 'package:bitel_ventas/main/utils/common.dart';
+import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/main/utils/shared_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:jwt_decode/jwt_decode.dart';
+
 
 class LoginLogic extends GetxController{
   TextEditingController controllerUser = TextEditingController();
@@ -26,7 +36,7 @@ class LoginLogic extends GetxController{
     isRememberAccount = await SharedPreferenceUtil.isRememberAccount();
     if(isRememberAccount){
       controllerUser.text = await SharedPreferenceUtil.getUserName();
-      controllerPass.text = await SharedPreferenceUtil.getUserName();
+      controllerPass.text = await SharedPreferenceUtil.getPassWord();
     }
     update();
     super.onInit();
@@ -51,7 +61,7 @@ class LoginLogic extends GetxController{
     update();
   }
 
-  void loginSuccess(){
+  void loginSuccess(BuildContext context){
     if(controllerUser.value.text.isEmpty){
       setStateUser(true);
       focusUser.requestFocus();
@@ -68,6 +78,49 @@ class LoginLogic extends GetxController{
       SharedPreferenceUtil.saveUserName(controllerUser.text.trim());
       SharedPreferenceUtil.savePassWord(controllerPass.text.trim());
     }
-    Get.offAllNamed(RouteConfig.main);
+    // Get.offAllNamed(RouteConfig.main);
+    _onLoading(context);
+    login(context);
+  }
+
+  void login(BuildContext context) async{
+    SharedPreferenceUtil.saveToken("");
+    Map<String, dynamic> body = {
+      "username": controllerUser.text.trim(),
+      "password": controllerPass.text.trim(),
+      "domainCode": "BCCS_CC"
+    };
+    ApiUtil.getInstance()!.post(url: ApiEndPoints.API_LOGIN, body: body, onSuccess: (response) {
+        Get.back();
+        if(response.isSuccess){
+          LoginModel loginModel = LoginModel.fromJson(response.data);
+          Map<String, dynamic> payload = Jwt.parseJwt(loginModel.token);
+          // Print the payload
+          InfoBusiness.getInstance()!.setUser(UserModel.fromJson(payload));
+          print(payload);
+          SharedPreferenceUtil.saveToken(loginModel.token);
+          Get.offAllNamed(RouteConfig.main);
+        } else {
+          Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
+        }
+
+    }, onError: (error) {
+      Get.back();
+      Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
+    },);
+  }
+
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
+      },
+    );
   }
 }

@@ -1,13 +1,21 @@
 
+import 'dart:async';
+
 import 'package:bitel_ventas/main/networks/model/address_model.dart';
+import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/create_request_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/create_request_policy_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_map_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_map_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_successful.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/dialog_address_page.dart';
+import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
@@ -28,7 +36,7 @@ class CreateRequestPage extends GetWidget{
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           leading: Padding(
-            padding: EdgeInsets.only(left: 18, bottom: 18, top: 2),
+            padding: const EdgeInsets.only(left: 18, bottom: 18, top: 2),
             child: GestureDetector(
               child: SvgPicture.asset(AppImages.icBack),
               onTap: () {
@@ -38,7 +46,7 @@ class CreateRequestPage extends GetWidget{
           ),
           elevation: 0.0,
           title: Container(
-            margin: EdgeInsets.only(bottom: 20),
+            margin: const EdgeInsets.only(bottom: 20),
             child: Text(AppLocalizations.of(context)!.textCreateNewRequest, style: AppStyles.title),
           ),
           toolbarHeight: 100,
@@ -55,14 +63,14 @@ class CreateRequestPage extends GetWidget{
             children: [
               Container(
                 width: double.infinity,
-                margin: EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 20),
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+                margin: const EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(22),
                   boxShadow: [
                     BoxShadow(
-                      offset: Offset(0, 1),
+                      offset: const Offset(0, 1),
                       blurRadius: 2,
                       color: Colors.black.withOpacity(0.3),
                     ),
@@ -71,29 +79,39 @@ class CreateRequestPage extends GetWidget{
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        iconChecked(),
-                        SizedBox(width: 14,),
-                        Expanded(
-                          flex: 1,
-                            child: RichText(
-                          text: TextSpan(
-                            text: AppLocalizations.of(context)!
-                                .textInfoCreateRequest1,
-                            style: AppStyles.r2.copyWith(color: AppColors.colorText1),
-                            children: const <TextSpan>[
-                              TextSpan(
-                                  text: 'processing of my personal and sensitive data',
-                                  style: TextStyle(color: AppColors.colorUnderText, decoration: TextDecoration.underline)),
-                              TextSpan(
-                                  text: ", with the collection of the same"
-                              )
-                            ],
+                    InkWell(
+                      onTap: () {
+                        controller.setCheckAgree(!controller.isCheckAgree);
+                      },
+                      child: Row(
+                        children: [
+                          controller.isCheckAgree ? iconOnlyRadio(0) : iconOnlyUnRadio(),
+                          const SizedBox(width: 14,),
+                          Expanded(
+                              flex: 1,
+                              child: RichText(
+                                text: TextSpan(
+                                  text: AppLocalizations.of(context)!
+                                      .textInfoCreateRequest1,
+                                  style: AppStyles.r2.copyWith(color: AppColors.colorText1),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      recognizer: TapGestureRecognizer(
 
-                          ),
-                        ))
-                      ],
+                                      )..onTap = () => Get.to(CreateRequestPolicyPage()),
+                                        text: AppLocalizations.of(context)!
+                                            .textInfoCreateRequest2,
+                                        style: const TextStyle(color: AppColors.colorUnderText, decoration: TextDecoration.underline)),
+                                    TextSpan(
+                                        text: AppLocalizations.of(context)!
+                                            .textInfoCreateRequest3
+                                    )
+                                  ],
+
+                                ),
+                              ))
+                        ],
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 16, bottom: 10),
@@ -133,12 +151,13 @@ class CreateRequestPage extends GetWidget{
                                 listDrop: controller.listIdentity
                             )
                         ),
-                        SizedBox(width: 10,),
+                        const SizedBox(width: 10,),
                         Expanded(
                             flex: 2,
                           child: Container(
-                            height: 45,
+                            margin: const EdgeInsets.only(top: 14),
                             child: TextField(
+                                maxLength: controller.getMaxLengthIdNumber(controller.currentIdentityType),
                                 controller: controller.textFieldIdNumber,
                                 keyboardType: TextInputType.number,
                                 focusNode: controller.focusIdNumber,
@@ -147,7 +166,10 @@ class CreateRequestPage extends GetWidget{
                                     color: AppColors.colorTitle,
                                     fontWeight: FontWeight.w500),
                                 onSubmitted: (value) {
-                                  controller.searchNumberContact(value);
+                                  // controller.searchNumberContact(value);
+                                },
+                                onChanged: (value) {
+                                  controller.setIdentity(value);
                                 },
                                 decoration: InputDecoration(
                                   contentPadding: const EdgeInsets.only(top: 5,left: 10, right: 10),
@@ -178,7 +200,7 @@ class CreateRequestPage extends GetWidget{
                       ],
                     ),
                     controller.isAddContact ? Container() : Container(
-                      margin: EdgeInsets.only(top: 10),
+                      margin: const EdgeInsets.only(top: 10),
                       alignment: Alignment.centerRight,
                       child: Text(style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500, color: AppColors.colorTitle,decoration: TextDecoration.underline),AppLocalizations.of(context)!
                           .textAddNewContact.toUpperCase()),
@@ -231,7 +253,6 @@ class CreateRequestPage extends GetWidget{
                           .textContactPhone, style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),),
                     ),
                     Container(
-                      height: 45,
                       child: TextField(
                           keyboardType: TextInputType.number,
                           focusNode: controller.focusPhone,
@@ -242,6 +263,7 @@ class CreateRequestPage extends GetWidget{
                           onChanged: (value) {
                             controller.setPhone(value);
                           },
+                          maxLength: 11,
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.only(top: 5,left: 10, right: 10),
                             hintText: AppLocalizations.of(context)!.textContactPhone,
@@ -275,7 +297,7 @@ class CreateRequestPage extends GetWidget{
                           child: Text( AppLocalizations.of(context)!
                               .textSurveyAddress, style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),),
                         ),
-                        SizedBox(width: 10,),
+                        const SizedBox(width: 10,),
                         InkWell(
                           child: SvgPicture.asset(AppImages.icSurveyAddress),
                           onTap: () {
@@ -296,53 +318,53 @@ class CreateRequestPage extends GetWidget{
                           _onLoading(context);
                           controller.getListProvince((isSuccess) {
                             Get.back();
+                            if(isSuccess) {
+                              showDialogAddress(
+                                  context, controller.listProvince, controller,
+                                  0);
+                            }
                           },);
+                        } else {
+                          showDialogAddress(context,controller.listProvince, controller, 0);
                         }
                       },
                       child: Container(
                         height: 45,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(24),
-                            border: Border.all(color: Color(0xFFE3EAF2))),
-                        child: DropdownButtonFormField2(
-                          autofocus: true,
-                          decoration: const InputDecoration(
-                            isDense: true,
-                            contentPadding: EdgeInsets.zero,
-                            border: InputBorder.none,
-                          ),
-                          // selectedItemHighlightColor: Colors.red,
-                          focusNode: controller.focusProvince,
-                          buttonHeight: 60,
-                          buttonPadding: const EdgeInsets.only(left: 0, right: 10),
-                          dropdownDecoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(24),
-                              border: Border.all(color: Color(0xFFE3EAF2))),
-                          isExpanded: true,
-                          // value: controller.currentProvince.name!.isNotEmpty ? controller.currentProvince.name! : null,
-                          onChanged: (value) {
-                            controller.setProvince(value!.areaCode!);
-                          },
-
-                          items: controller.listProvince.map<DropdownMenuItem<AddressModel>>((AddressModel value) {
-                            return DropdownMenuItem(value: value, child: Text(value.name!));
-                          }).toList(),
-                          style: AppStyles.r2.copyWith(
-                              color: AppColors.colorTitle, fontWeight: FontWeight.w500),
-                          icon: SvgPicture.asset(AppImages.icDropdownSpinner),
-                          hint: Text(
-                            AppLocalizations.of(context)!
-                                .hintProvince,
+                        child: TextField(
+                            controller: controller.textFieldProvince,
+                            focusNode: controller.focusProvince,
+                            enabled: false,
                             style: AppStyles.r2.copyWith(
-                                color: AppColors.colorHint1, fontWeight: FontWeight.w400),
-                          ),
-                          validator: (value) {
-                            if (value == null) {
-                              return 'Please select gender.';
-                            }
-                          },
+                                color: AppColors.colorTitle,
+                                fontWeight: FontWeight.w500),
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.only(top: 5,left: 10, right: 10),
+                              hintText: AppLocalizations.of(context)!.textProvince,
+                              hintStyle: AppStyles.r2.copyWith(
+                                  color: AppColors.colorHint1,
+                                  fontWeight: FontWeight.w400),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(24),
+                                  borderSide: const BorderSide(width: 1, color: AppColors.colorLineDash)
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(24),
+                                  borderSide: const BorderSide(width: 1, color: Colors.redAccent)
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(24),
+                                  borderSide: const BorderSide(width: 1, color: AppColors.colorLineDash)
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(24),
+                                  borderSide: const BorderSide(width: 1, color: AppColors.colorLineDash)
+                              ),
+                              suffixIcon: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: SvgPicture.asset(AppImages.icDropdownSpinner),
+                              )
 
-                        ),
+                            )),
                       ),
                     ),
 
@@ -353,52 +375,65 @@ class CreateRequestPage extends GetWidget{
                     ),
                     InkWell(
                       onTap: () {
-                        if(controller.currentProvince.isNotEmpty && controller.listDistrict.isEmpty){
-                          _onLoading(context);
-                          controller.getListDistrict(controller.currentProvince, (isSuccess) {
-                            Get.back();
-                          },);
+                        if(controller.currentProvince.areaCode.isNotEmpty){
+                          if(controller.listDistrict.isEmpty) {
+                            _onLoading(context);
+                            controller.getListDistrict(
+                              controller.currentProvince.areaCode, (isSuccess) {
+                              Get.back();
+                              if (isSuccess) {
+                                showDialogAddress(
+                                    context, controller.listDistrict,
+                                    controller,
+                                    1);
+                              }
+                            },);
+                          } else {
+                            showDialogAddress(
+                                context, controller.listDistrict, controller,
+                                1);
+                          }
+                        } else {
+                          // Get.snackbar("Thông báo", "Bạn phải chọn Province trước", snackPosition: SnackPosition.BOTTOM);
                         }
                       },
                       child: Container(
                         height: 45,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(24),
-                            border: Border.all(color: Color(0xFFE3EAF2))),
-                        child: DropdownButtonFormField2(
-                          decoration: const InputDecoration(
-                            isDense: true,
-                            contentPadding: EdgeInsets.zero,
-                            border: InputBorder.none,
-                          ),
-                          // selectedItemHighlightColor: Colors.red,
-                          buttonHeight: 60,
-                          focusNode: controller.focusDistrict,
-                          buttonPadding: const EdgeInsets.only(left: 0, right: 10),
-                          dropdownDecoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(24),
-                              border: Border.all(color: Color(0xFFE3EAF2))),
-                          isExpanded: true,
-                          // value: controller.currentDistrict.isNotEmpty ? controller.currentDistrict : null,
-                          onChanged: (value) {
-                            controller.setDistrict(value!.areaCode!);
-                          },
-                          items: controller.listDistrict.map<DropdownMenuItem<AddressModel>>((AddressModel value) {
-                            return DropdownMenuItem(value: value, child: Text(value.name!));
-                          }).toList(),
-                          style: AppStyles.r2.copyWith(
-                              color: AppColors.colorTitle, fontWeight: FontWeight.w500),
-                          icon: SvgPicture.asset(AppImages.icDropdownSpinner),
-                          hint: Text(AppLocalizations.of(context)!.hintDistrict,
+                        child: TextField(
+                            controller: controller.textFieldDistrict,
+                            focusNode: controller.focusDistrict,
+                            enabled: false,
                             style: AppStyles.r2.copyWith(
-                                color: AppColors.colorHint1, fontWeight: FontWeight.w400),
-                          ),
-                          validator: (value) {
-                            if (value == null) {
-                              return 'Please select gender.';
-                            }
-                          },
-                        ),
+                                color: AppColors.colorTitle,
+                                fontWeight: FontWeight.w500),
+                            decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.only(top: 5,left: 10, right: 10),
+                                hintText: AppLocalizations.of(context)!.hintDistrict,
+                                hintStyle: AppStyles.r2.copyWith(
+                                    color: AppColors.colorHint1,
+                                    fontWeight: FontWeight.w400),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(24),
+                                    borderSide: const BorderSide(width: 1, color: AppColors.colorLineDash)
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(24),
+                                    borderSide: const BorderSide(width: 1, color: Colors.redAccent)
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(24),
+                                    borderSide: const BorderSide(width: 1, color: AppColors.colorLineDash)
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(24),
+                                    borderSide: const BorderSide(width: 1, color: AppColors.colorLineDash)
+                                ),
+                                suffixIcon: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: SvgPicture.asset(AppImages.icDropdownSpinner),
+                                )
+
+                            )),
                       ),
                     ),
 
@@ -409,55 +444,67 @@ class CreateRequestPage extends GetWidget{
                     ),
                     InkWell(
                       onTap: () {
-                        if(controller.currentDistrict.isNotEmpty && controller.listPrecinct.isEmpty){
-                          _onLoading(context);
-                          controller.getListPrecincts(controller.currentDistrict, (isSuccess) {
-                            Get.back();
-                          },);
+                        if(controller.currentDistrict.areaCode.isNotEmpty){
+                          if(controller.listPrecinct.isEmpty) {
+                            _onLoading(context);
+                            controller.getListPrecincts(
+                              controller.currentDistrict.areaCode, (isSuccess) {
+                              Get.back();
+                              if (isSuccess) {
+                                showDialogAddress(
+                                    context, controller.listPrecinct,
+                                    controller,
+                                    2);
+                              }
+                            },);
+                          } else {
+                            showDialogAddress(
+                                context, controller.listPrecinct,
+                                controller,
+                                2);
+                          }
 
-
+                        }  else {
+                          // Get.snackbar("Thông báo", "Bạn phải chọn District trước", snackPosition: SnackPosition.BOTTOM);
                         }
                       },
-                      child:  Container(
+                      child: Container(
                         height: 45,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(24),
-                            border: Border.all(color: Color(0xFFE3EAF2))),
-                        child: DropdownButtonFormField2(
-                          decoration: const InputDecoration(
-                            isDense: true,
-                            contentPadding: EdgeInsets.zero,
-                            border: InputBorder.none,
-                          ),
-                          // selectedItemHighlightColor: Colors.red,
-                          buttonHeight: 60,
-                          focusNode: controller.focusPrecinct,
-                          buttonPadding: const EdgeInsets.only(left: 0, right: 10),
-                          dropdownDecoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(24),
-                              border: Border.all(color: Color(0xFFE3EAF2))),
-                          focusColor: Colors.redAccent,
-                          isExpanded: true,
-                          // value: controller.currentPrecinct.isNotEmpty ? controller.currentPrecinct : null,
-                          onChanged: (value) {
-                            controller.setPrecinct(value!.areaCode!);
-                          },
-                          items: controller.listPrecinct.map<DropdownMenuItem<AddressModel>>((AddressModel value) {
-                            return DropdownMenuItem(value: value, child: Text(value.name!));
-                          }).toList(),
-                          style: AppStyles.r2.copyWith(
-                              color: AppColors.colorTitle, fontWeight: FontWeight.w500),
-                          icon: SvgPicture.asset(AppImages.icDropdownSpinner),
-                          hint: Text(AppLocalizations.of(context)!.hintPrecinct,
+                        child: TextField(
+                            controller: controller.textFieldPrecinct,
+                            focusNode: controller.focusPrecinct,
+                            enabled: false,
                             style: AppStyles.r2.copyWith(
-                                color: AppColors.colorHint1, fontWeight: FontWeight.w400),
-                          ),
-                          validator: (value) {
-                            if (value == null) {
-                              return 'Please select gender.';
-                            }
-                          },
-                        ),
+                                color: AppColors.colorTitle,
+                                fontWeight: FontWeight.w500),
+                            decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.only(top: 5,left: 10, right: 10),
+                                hintText: AppLocalizations.of(context)!.hintPrecinct,
+                                hintStyle: AppStyles.r2.copyWith(
+                                    color: AppColors.colorHint1,
+                                    fontWeight: FontWeight.w400),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(24),
+                                    borderSide: const BorderSide(width: 1, color: AppColors.colorLineDash)
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(24),
+                                    borderSide: const BorderSide(width: 1, color: Colors.redAccent)
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(24),
+                                    borderSide: const BorderSide(width: 1, color: AppColors.colorLineDash)
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(24),
+                                    borderSide: const BorderSide(width: 1, color: AppColors.colorLineDash)
+                                ),
+                                suffixIcon: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: SvgPicture.asset(AppImages.icDropdownSpinner),
+                                )
+
+                            )),
                       ),
                     ),
 
@@ -474,7 +521,7 @@ class CreateRequestPage extends GetWidget{
                           style: AppStyles.r2.copyWith(
                               color: AppColors.colorTitle,
                               fontWeight: FontWeight.w500),
-                          onSubmitted: (value) {
+                          onChanged: (value) {
                             controller.setAddress(value);
                           },
                           decoration: InputDecoration(
@@ -511,14 +558,14 @@ class CreateRequestPage extends GetWidget{
                       flex: 1,
                       child: Container(
                         width: double.infinity,
-                        margin: EdgeInsets.only(top: 30, left: 25, right: 5),
-                        padding: EdgeInsets.symmetric(vertical: 14),
+                        margin: const EdgeInsets.only(top: 30, left: 25, right: 5),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(24),
                           boxShadow: [
                             BoxShadow(
-                              offset: Offset(0, 1),
+                              offset: const Offset(0, 1),
                               blurRadius: 2,
                               color: Colors.black.withOpacity(0.3),
                             ),
@@ -548,11 +595,16 @@ class CreateRequestPage extends GetWidget{
                         ),
                         child: InkWell(
                           onTap: () {
-                            controller.createRequest((isSuccess) {
+                            if(controller.checkValidateCreate(context)) {
+                              return;
+                            }
+                            _onLoading(context);
+                            controller.createRequest((isSuccess, id) {
+                              Get.back();
                               if(isSuccess){
-                                showDialogSurveyMap(context, controller);
+                                showDialogSurveyMap(context, controller, id);
                               }else {
-                                print("Có lỗi xảy ra");
+                                Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
                               }
                             },);
 
@@ -580,8 +632,36 @@ class CreateRequestPage extends GetWidget{
         context: context,
         builder: (context) {
            return DialogSurveySuccessful(
-             onSubmit: (){
-               // controller.createRequest();
+             onSubmit: (isOnline){
+               _onLoading(context);
+               if(isOnline){
+                    controller.createSurveyOnline((isSuccess) {
+                      Get.back();
+                      if(isSuccess){
+                      //   Get.back();
+                      //   DialogSurveyMapLogic surveyMapLogic = Get.find();
+                      //   surveyMapLogic.setStateConnect(true);
+                        Get.back();
+                        Timer(Duration(milliseconds: 600), () {
+                          Get.offNamed(RouteConfig.productPayment,
+                              arguments:
+                              controller.requestModel.id);
+                        },);
+                      }
+                    },);
+               } else {
+                    controller.createSurveyOffline((isSuccess) {
+                      Get.back();
+                      if(isSuccess){
+                        Get.back();
+                        // DialogSurveyMapLogic surveyMapLogic = Get.find();
+                        // surveyMapLogic.setStateConnect(true);
+                        Timer(Duration(milliseconds: 600), () {
+                          Get.offNamed(RouteConfig.listRequest, arguments: 0);
+                        },);
+                      }
+                    },);
+               }
            },);
         });
   }
@@ -593,25 +673,33 @@ class CreateRequestPage extends GetWidget{
         builder: (context) {
           return DialogSurveyUnsuccessful(
             onSubmit: (){
-                // controller.createRequest();
+                _onLoading(context);
+                controller.createSurveyOffline((isSuccess) {
+                  Get.back();
+                  if(isSuccess){
+                    Get.back();
+                    DialogSurveyMapLogic surveyMapLogic = Get.find();
+                    surveyMapLogic.setStateConnect(true);
+                  }
+                },);
             },);
         });
   }
 
-  void showDialogSurveyMap(BuildContext context, CreateRequestLogic controller){
+  void showDialogSurveyMap(BuildContext context, CreateRequestLogic controller, int id){
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (context) {
           return DialogSurveyMapPage(
-            onSubmit: (){
-                bool isOffline = false;
-                if(isOffline) {
+            onSubmit: (isSuccess){
+                Get.back();
+                if(isSuccess) {
                   showDialogSurveySuccessful(context, controller);
                 } else {
                   showDialogSurveyUnsuccessful(context, controller);
                 }
-            },);
+            },requestId: "$id",);
         });
   }
 
@@ -627,6 +715,24 @@ class CreateRequestPage extends GetWidget{
         );
       },
     );
+  }
+
+  void showDialogAddress(BuildContext context, List<AddressModel> list,CreateRequestLogic controll, int position){
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context)
+    {
+      return DialogAddressPage(list,(model) {
+        if(position == 0) {
+          controll.setProvince(model);
+        } else if(position == 1){
+          controll.setDistrict(model);
+        } else if(position == 2){
+          controll.setPrecinct(model);
+        }
+      },);
+    });
   }
 
 }

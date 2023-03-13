@@ -7,7 +7,7 @@ class HomeSaleModel{
   int kpi=0;
   int performance=0;
   int commission=0;
-  int anyPayBalance=0;
+  double anyPayBalance=0;
 
   HomeSaleModel();
 

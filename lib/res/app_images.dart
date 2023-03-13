@@ -73,6 +73,7 @@ class AppImages {
   static const icMenuUtilites = 'assets/images/ic_menu_utilites.svg';
   static const icConceptLogin = 'assets/images/ic_concept_login.png';
   static const icLogoSplash = 'assets/icons/ic_logo_splash.png';
+  static const icLogoBitel = 'assets/icons/ic_logo_bitel.svg';
   static const icLoginUser = 'assets/images/ic_login_user.svg';
   static const icLoginPass = 'assets/images/ic_login_pass.svg';
   static const icLoginShowPass = 'assets/images/ic_login_show_pass.svg';
@@ -108,6 +109,9 @@ class AppImages {
       "assets/images/ic_sale_recharge_anypay.svg";
   static const String icSaleSearchRequest =
       "assets/images/ic_sale_search_request.svg";
+  static const String imgIdentity = 'assets/images/img_identity_demo.svg';
+  static const String icCameraRound = "assets/images/ic_camera_round.svg";
+  static const String icBorderIdentity = "assets/images/ic_border_identity.svg";
   static const String icSaleClearDebt = "assets/images/ic_sale_clear_debt.svg";
   static const String icSaleCreateContact =
       "assets/images/ic_sale_create_contact.svg";
@@ -125,4 +129,25 @@ class AppImages {
       "assets/backgrounds/bg_ftth_contracting.svg";
   static const String icSuccessFtthContracting =
       "assets/images/ic_success_ftth_contracting.png";
+  static const String icSelectRadio = "assets/images/ic_select_radio.svg";
+  static const String icUnSelectRadio = "assets/images/ic_unselect_radio.svg";
+  static const String icSelectFinger = "assets/icons/ic_select_finger.svg";
+  static const String imgFingerPrint = "assets/images/img_finger_print.png";
+  static const String icTickFingerPrint =
+      "assets/icons/ic_tick_finger_print.svg";
+  static const String imgDemoContract = "assets/images/img_demo_contract.png";
+  static const String imgFingerLeft5 = "assets/images/img_finger_left_5.png";
+  static const String imgFingerLeft4 = "assets/images/img_finger_left_4.png";
+  static const String imgFingerLeft3 = "assets/images/img_finger_left_3.png";
+  static const String imgFingerLeft2 = "assets/images/img_finger_left_2.png";
+  static const String imgFingerLeft1 = "assets/images/img_finger_left_1.png";
+  static const String imgFingerRight5 = "assets/images/img_finger_right_5.png";
+  static const String imgFingerRight4 = "assets/images/img_finger_right_4.png";
+  static const String imgFingerRight3 = "assets/images/img_finger_right_3.png";
+  static const String imgFingerRight2 = "assets/images/img_finger_right_2.png";
+  static const String imgFingerRight1 = "assets/images/img_finger_right_1.png";
+  static const String imgDNI = "assets/images/dni_example.jpg";
+  static const String imgCE = "assets/images/ce_example.jpg";
+  static const String imgPP = "assets/images/pp_example.jpg";
+  static const String imgPTP = "assets/images/ptp_example.jpg";
 }

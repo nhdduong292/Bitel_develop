@@ -1,4 +1,5 @@
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/customer_information_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/test_pdf.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/view_item/contract_information/contract_information.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/view_item/contract_preview/contract_preview.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/view_item/additional_information/additional_information.dart';
@@ -25,7 +26,7 @@ class CustommerInformationPage extends GetView<CustomerInformationLogic> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return GetBuilder(
-        init: CustomerInformationLogic(),
+        init: CustomerInformationLogic(context: context),
         builder: (controller) {
           return Scaffold(
             body: Column(
@@ -44,7 +45,7 @@ class CustommerInformationPage extends GetView<CustomerInformationLogic> {
                       width: width,
                     ),
                     Positioned(
-                      top: 40,
+                      top: 50,
                       left: 70,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -57,7 +58,7 @@ class CustommerInformationPage extends GetView<CustomerInformationLogic> {
                       ),
                     ),
                     Positioned(
-                        top: 35,
+                        top: 45,
                         left: 20,
                         child: InkWell(
                           onTap: () {
@@ -144,6 +145,7 @@ class CustommerInformationPage extends GetView<CustomerInformationLogic> {
                       itemBuilder: (context, index) {
                         if (index == 0) {
                           return AdditionalInformationWidget(
+                            controller: controller,
                             callback: () {
                               controller.checkItem1.value = false;
                               controller.checkItem2.value = true;
@@ -154,10 +156,12 @@ class CustommerInformationPage extends GetView<CustomerInformationLogic> {
                                 index: 1,
                                 duration: const Duration(milliseconds: 200),
                               );
+                              controller.getCurrentTime();
                             },
                           );
                         } else if (index == 1) {
                           return ContractInformationWidget(
+                            controller: controller,
                             callback: () {
                               controller.checkItem2.value = false;
                               controller.checkItem3.value = true;
@@ -169,8 +173,20 @@ class CustommerInformationPage extends GetView<CustomerInformationLogic> {
                           );
                         } else {
                           return ContractPreviewWidget(
-                            callback: () {
-                              Get.toNamed(RouteConfig.validateFingerprint);
+                            callback: (value) {
+                              Get.toNamed(RouteConfig.validateFingerprint,
+                                  arguments: [
+                                    value,
+                                    controller.customer.custId,
+                                    controller.getTypeCustomer(),
+                                    controller.customer.idNumber,
+                                    controller.contract.contractId
+                                  ])?.then((value) {
+                                if (value != null && value) {
+                                  controller.checkMainContract.value = false;
+                                  controller.checkLendingContract.value = true;
+                                }
+                              });
                             },
                           );
                         }

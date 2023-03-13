@@ -13,6 +13,7 @@ class AppColors {
   static const Color colorButton = Color(0xFF9F5ED9);
   static const Color colorBackground = Color(0xFFFFF200);
   static const Color colorBackground1 = Color(0xFFF4F4F4);
+  static const Color colorBackground2 = Color(0xFFF7F7FA);
   static const Color colorTitle = Color(0xFF007689);
   static const Color colorContent = Color(0xFF00A5B1);
   static const Color colorSubContent = Color(0xFF29BDBE);
@@ -38,4 +39,5 @@ class AppColors {
   static const Color color_6C8AA1 = Color(0xFF6C8AA1);
   static const Color color_007689 = Color(0xFF007689);
   static const Color color_2B3A4A = Color(0xFF2B3A4A);
+  static const Color color_384858 = Color(0xFF384858);
 }

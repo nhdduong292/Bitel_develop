@@ -1,7 +1,7 @@
 import 'package:bitel_ventas/main/utils/values.dart';
 
 class SearchRequest {
-  String service = "";
+  String service = "FTTH";
   String code = "";
   String status = "";
   String province = "";
@@ -12,6 +12,7 @@ class SearchRequest {
   List<String> listStatus = [
     RequestStatus.CREATE_REQUEST,
     RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY,
+    RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY,
     RequestStatus.CONNECTED,
     RequestStatus.DEPLOYING,
     RequestStatus.COMPLETE,

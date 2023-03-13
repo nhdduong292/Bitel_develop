@@ -1,7 +1,11 @@
 import 'dart:ui';
 
+import 'package:bitel_ventas/main/networks/model/user_model.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/utilitis/info_bussiness.dart';
+import 'package:bitel_ventas/main/utils/shared_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 extension ThemeModeExtension on ThemeMode {
@@ -37,6 +41,8 @@ class SettingService extends GetxService {
 
   late SharedPreferences prefs;
 
+  final Rx<String> token = "".obs;
+
   Future<SettingService> init() async {
     prefs = await SharedPreferences.getInstance();
 
@@ -56,6 +62,13 @@ class SettingService extends GetxService {
     currentLocate.value = locale;
     Get.updateLocale(locale);
 
+    token.value = prefs.getString(SPrefCache.KEY_TOKEN) ?? "";
+    if(token.value.isNotEmpty) {
+      Map<String, dynamic> payload = Jwt.parseJwt(token.value);
+      // Print the payload
+      InfoBusiness.getInstance()!.setUser(UserModel.fromJson(payload));
+    }
+
     return this;
   }
 
@@ -73,5 +86,13 @@ class SettingService extends GetxService {
     prefs.setString('languageCode', locale.languageCode);
     currentLocate.value = locale;
     Get.updateLocale(locale);
+  }
+
+  bool getToken(){
+    if(token.value.isEmpty) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

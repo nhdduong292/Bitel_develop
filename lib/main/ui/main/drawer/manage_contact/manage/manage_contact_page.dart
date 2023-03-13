@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import '../../../../../../res/app_colors.dart';
 import '../../../../../../res/app_images.dart';
 import '../../../../../../res/app_styles.dart';
+import '../../../../../router/route_config.dart';
 import '../manage_contact_logic.dart';
 
 class ManageContactPage extends GetView<ManageContactLogic> {
@@ -85,6 +86,9 @@ class ManageContactPage extends GetView<ManageContactLogic> {
                               width: 30,
                               height: 30,
                             ),
+                            onTap: () {
+                              Get.toNamed(RouteConfig.createContact);
+                            },
                           ),
                         ),
                       ],

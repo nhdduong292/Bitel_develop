@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:bitel_ventas/main/utils/provider/search_request_provider.dart';
+import 'package:bitel_ventas/main/utils/shared_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -36,7 +39,7 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      initialRoute: RouteConfig.login,
+      initialRoute: Get.find<SettingService>().getToken() ? RouteConfig.main : RouteConfig.login,
       getPages: RouteConfig.getPages,
       locale: Get.find<SettingService>().currentLocate.value,
       supportedLocales: RouteConfig.listLanguage,
@@ -45,4 +48,6 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+
+
 }

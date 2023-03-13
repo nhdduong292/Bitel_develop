@@ -1,3 +1,4 @@
+import 'package:bitel_ventas/main/networks/model/plan_reason_model.dart';
 import 'package:bitel_ventas/main/networks/model/product_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_logic.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
@@ -22,6 +23,7 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
       width: MediaQuery.of(context).size.width,
       child: SingleChildScrollView(
           child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Container(
             margin: const EdgeInsets.only(left: 15, right: 15),
@@ -35,6 +37,7 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                   BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
                 ]),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   AppLocalizations.of(context)!.textSelectProduct,
@@ -58,7 +61,17 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                     primary: false,
                     itemBuilder: (BuildContext context, int index) =>
                         _itemProduct(
-                            controller.listProduct[index], controller, context),
+                            groupValue: controller.valueProduct,
+                            product: controller.listProduct[index],
+                            value: index,
+                            onChange: (value) {
+                              controller.valueProduct.value = value;
+                              controller.resetPlanReason();
+                              if (value > -1) {
+                                controller.getPlanReasons(
+                                    controller.listProduct[value].productId!, context);
+                              }
+                            }),
                     separatorBuilder: (BuildContext context, int index) =>
                         const Divider(
                           color: AppColors.colorLineDash,
@@ -72,68 +85,80 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
           const SizedBox(
             height: 20,
           ),
-          Container(
-            margin: const EdgeInsets.only(left: 15, right: 15),
-            padding: const EdgeInsets.only(top: 15),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                border: Border.all(color: const Color(0xFFE3EAF2)),
-                color: Colors.white,
-                boxShadow: const [
-                  BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
-                ]),
-            child: Column(
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.textSelectPaymentMethod,
-                  style: const TextStyle(
-                      color: AppColors.colorContent,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: 'Roboto'),
+          Obx(
+            () => Visibility(
+              visible: controller.valueProduct.value > -1,
+              child: Container(
+                margin: const EdgeInsets.only(left: 15, right: 15),
+                padding: const EdgeInsets.only(top: 15),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    border: Border.all(color: const Color(0xFFE3EAF2)),
+                    color: Colors.white,
+                    boxShadow: const [
+                      BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
+                    ]),
+                child: Column(
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.textSelectPaymentMethod,
+                      style: const TextStyle(
+                          color: AppColors.colorContent,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'Roboto'),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const DottedLine(
+                      dashColor: Color(0xFFE3EAF2),
+                      dashGapLength: 3,
+                      dashLength: 4,
+                    ),
+                    ListView.separated(
+                        padding: const EdgeInsets.only(top: 0),
+                        shrinkWrap: true,
+                        primary: false,
+                        itemBuilder: (BuildContext context, int index) =>
+                            _itemMethod(
+                                groupValue: controller.valueMethod,
+                                reason: controller.listPlanReason[index],
+                                value: index,
+                                onChange: (value) {
+                                  controller.valueMethod.value = value;
+                                }),
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const Divider(
+                              color: AppColors.colorLineDash,
+                              height: 1,
+                              thickness: 1,
+                            ),
+                        itemCount: controller.listPlanReason.length)
+                  ],
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
-                const DottedLine(
-                  dashColor: Color(0xFFE3EAF2),
-                  dashGapLength: 3,
-                  dashLength: 4,
-                ),
-                ListView.separated(
-                    padding: const EdgeInsets.only(top: 0),
-                    shrinkWrap: true,
-                    primary: false,
-                    itemBuilder: (BuildContext context, int index) =>
-                        _itemMethod(
-                            controller.listMethod[index], controller, context),
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const Divider(
-                          color: AppColors.colorLineDash,
-                          height: 1,
-                          thickness: 1,
-                        ),
-                    itemCount: controller.listMethod.length)
-              ],
+              ),
             ),
           ),
           Obx(
             () => bottomButton(
                 text: AppLocalizations.of(context)!.textContinue,
                 onTap: () {
-                  if (controller.isSelectedMethod.value &&
-                      controller.isSelectedProduct.value) {
+                  if (controller.valueMethod.value > -1 &&
+                      controller.valueProduct.value > -1) {
                     controller.isOnMethodPage.value = false;
                     controller.isOnInvoicePage.value = true;
+
                     controller.scrollController.scrollTo(
                       index: 1,
                       duration: const Duration(milliseconds: 200),
                     );
+                    controller.getWallet(context);
                   }
                 },
-                color: !controller.isSelectedMethod.value ||
-                        !controller.isSelectedProduct.value
+                color: !(controller.valueMethod.value > -1 &&
+                        controller.valueProduct.value > -1)
                     ? const Color(0xFF415263).withOpacity(0.2)
                     : null),
           ),
@@ -146,146 +171,143 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
   }
 }
 
-Widget _itemProduct(ProductModel product, ProductPaymentMethodLogic controller,
-    BuildContext context) {
+Widget _itemProduct(
+    {required int value,
+    required ProductModel product,
+    required RxInt groupValue,
+    required var onChange}) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
     child: InkWell(
       onTap: () {
-        controller.isSelectedProduct.value = true;
-        controller.setSelectedProduct(product);
-        for (ProductModel item in controller.listProduct) {
-          item.isSelected.value = false;
-        }
-        product.isSelected.value = true;
+        groupValue.value != value ? onChange(value) : onChange(-1);
       },
       splashColor: Colors.black38,
-      child: Expanded(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Obx(() =>
-                product.isSelected.value ? iconChecked() : iconUnchecked()),
-            const SizedBox(
-              width: 16,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Obx(() =>
+              groupValue.value == value ? iconChecked() : iconUnchecked()),
+          const SizedBox(
+            width: 16,
+          ),
+          Expanded(
+            flex: 1,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  product.productName ?? 'null',
+                  style: const TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'Roboto',
+                      color: AppColors.colorText1,
+                      fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  product.offerName ?? 'null',
+                  style: const TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'Roboto',
+                      color: AppColors.colorText1,
+                      fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  'Speed ${product.speed}',
+                  style: const TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'Roboto',
+                      color: AppColors.colorText1,
+                      fontWeight: FontWeight.w500),
+                ),
+              ],
             ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    product.name ?? 'null',
-                    style: const TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'Roboto',
-                        color: AppColors.colorText1,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  Text(
-                    product.desc ?? 'null',
-                    style: const TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'Roboto',
-                        color: AppColors.colorText1,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  Text(
-                    'Speed ${product.speed}',
-                    style: const TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'Roboto',
-                        color: AppColors.colorText1,
-                        fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-            ),
-            Text(
-              product.price ?? 'null',
-              style: const TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'Roboto',
-                  color: AppColors.colorText1,
-                  fontWeight: FontWeight.w500),
-            ),
-          ],
-        ),
+          ),
+          Text(
+            product.defaultValue ?? 'null',
+            style: const TextStyle(
+                fontSize: 14,
+                fontFamily: 'Roboto',
+                color: AppColors.colorText1,
+                fontWeight: FontWeight.w500),
+          ),
+        ],
       ),
     ),
   );
 }
 
-Widget _itemMethod(MethodModel method, ProductPaymentMethodLogic controller,
-    BuildContext context) {
+Widget _itemMethod(
+    {required int value,
+    required PlanReasonModel reason,
+    required RxInt groupValue,
+    required var onChange}) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
     child: InkWell(
       onTap: () {
-        controller.isSelectedMethod.value = true;
-        controller.setSelectedMethod(method);
-        for (MethodModel item in controller.listMethod) {
-          item.isSelected.value = false;
-        }
-        method.isSelected.value = true;
+        groupValue.value != value ? onChange(value) : onChange(-1);
       },
       splashColor: Colors.black38,
-      child: Expanded(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Obx(() =>
-                method.isSelected.value ? iconChecked() : iconUnchecked()),
-            const SizedBox(
-              width: 16,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Obx(() =>
+              groupValue.value == value ? iconChecked() : iconUnchecked()),
+          const SizedBox(
+            width: 16,
+          ),
+          Expanded(
+            flex: 1,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  reason.name ?? 'null',
+                  style: const TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'Roboto',
+                      color: AppColors.colorText1,
+                      fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  'Free installation: ${reason.feeInstallation}',
+                  style: const TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'Roboto',
+                      color: AppColors.colorText2,
+                      fontWeight: FontWeight.w400),
+                ),
+                Text(
+                  'Reason code-name: ${reason.reasonCode}',
+                  style: const TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'Roboto',
+                      color: AppColors.colorText2,
+                      fontWeight: FontWeight.w400),
+                ),
+              ],
             ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    method.name ?? 'null',
-                    style: const TextStyle(
-                        fontSize: 16,
-                        fontFamily: 'Roboto',
-                        color: AppColors.colorText1,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  Text(
-                    'Free installation: ${method.freeInstallation}',
-                    style: const TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'Roboto',
-                        color: AppColors.colorText2,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  Text(
-                    'Reason code-name: ${method.reasonCodeName}',
-                    style: const TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'Roboto',
-                        color: AppColors.colorText2,
-                        fontWeight: FontWeight.w400),
-                  ),
-                ],
-              ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
+            decoration: BoxDecoration(
+              color: AppColors.colorSubContent.withOpacity(0.07),
+              borderRadius: BorderRadius.circular(20),
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
-              decoration: BoxDecoration(
-                color: AppColors.colorSubContent.withOpacity(0.07),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Text(
-                method.price ?? 'null',
-                style: const TextStyle(
-                    fontSize: 16,
-                    fontFamily: 'Roboto',
-                    color: AppColors.colorText3,
-                    fontWeight: FontWeight.w700),
-              ),
+            child: Text(
+              reason.fee.toString(),
+              style: const TextStyle(
+                  fontSize: 16,
+                  fontFamily: 'Roboto',
+                  color: AppColors.colorText3,
+                  fontWeight: FontWeight.w700),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     ),
   );

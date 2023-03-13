@@ -1,11 +1,15 @@
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/reason_model.dart';
+import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DialogCancelRequestLogic extends GetxController {
   String currentReason = "";
+  String currentNote = "";
   List<ReasonModel> listReason = [];
   bool isLoading = false;
 
@@ -14,6 +18,11 @@ class DialogCancelRequestLogic extends GetxController {
     // TODO: implement onInit
     super.onInit();
     getListReason();
+  }
+
+  void setNote(String value){
+    currentNote = value;
+    update();
   }
 
   void getListReason(){
@@ -25,7 +34,7 @@ class DialogCancelRequestLogic extends GetxController {
         params: params,
         onSuccess: (response) {
           if(response.isSuccess){
-            List<ReasonModel> list = (response.data as List)
+            List<ReasonModel> list = (response.data['data'] as List)
                 .map((postJson) => ReasonModel.fromJson(postJson))
                 .toList();
             if(list.isNotEmpty) {
@@ -41,12 +50,18 @@ class DialogCancelRequestLogic extends GetxController {
         },);
   }
 
+  bool checkValidate(BuildContext context){
+    if(currentNote.isEmpty || currentReason.isEmpty){
+      Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
+      return true;
+    }
+    return false;
+  }
+
   void changeStatusRequest(int id, String note, Function(bool isSuccess) callBack) async {
-    isLoading = true;
-    update();
     Future.delayed(Duration(seconds: 1));
     Map<String, dynamic> body = {
-      "status": "CANCEL",
+      "status": RequestStatus.CANCEL,
       "reasonId": currentReason,
       "note": note
     };
@@ -63,14 +78,10 @@ class DialogCancelRequestLogic extends GetxController {
             print("error: ${response.status}");
             callBack.call(false);
           }
-          isLoading = false;
-          update();
         },
         onError: (error) {
-          print("error: " + error.toString());
           callBack.call(false);
-          isLoading = false;
-          update();
+          Get.back();
         });
   }
 }

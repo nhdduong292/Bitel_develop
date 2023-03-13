@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -61,11 +62,11 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                           ),
                         )),
                     Positioned(
-                        top: 35,
+                        top: 45,
                         left: 20,
                         child: InkWell(
                           onTap: () {
-                            Get.back();
+                            Get.offNamed(RouteConfig.listRequest, arguments: 0);
                           },
                           child: Container(
                             width: 35,
@@ -116,7 +117,7 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                     .textOperationCode,
                                 richText: () {
                                   return Text(
-                                    'IA-1345645646444544',
+                                    controller.contractModel.operationCode,
                                     style: AppStyles.rF76F5A_13_500,
                                   );
                                 }),
@@ -130,7 +131,7 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                     AppLocalizations.of(context)!.textCustomer,
                                 richText: () {
                                   return Text(
-                                    'ADHIN fgar',
+                                    controller.contractModel.fullNameCus,
                                     style: AppStyles.r415263_13_500,
                                   );
                                 }),
@@ -144,7 +145,7 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                     .textDocIdentity,
                                 richText: () {
                                   return Text(
-                                    'DNI-963852741',
+                                    '${controller.contractModel.identityType}-${controller.contractModel.idNumber}',
                                     style: AppStyles.r415263_13_500,
                                   );
                                 }),
@@ -158,7 +159,7 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                     AppLocalizations.of(context)!.textProduct,
                                 richText: () {
                                   return Text(
-                                    'BITELFIBRA80',
+                                    controller.contractModel.productName,
                                     style: AppStyles.r415263_13_500,
                                   );
                                 }),
@@ -172,7 +173,7 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                     AppLocalizations.of(context)!.textPromotion,
                                 richText: () {
                                   return Text(
-                                    'DScto. S/.20 el 2d0, 3er',
+                                    controller.contractModel.promotionName,
                                     style: AppStyles.r415263_13_500,
                                   );
                                 }),
@@ -187,7 +188,8 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                 richText: () {
                                   return RichText(
                                       text: TextSpan(
-                                          text: 'Ciclo 26 ',
+                                          text:
+                                              'Ciclo ${controller.contractModel.billCycleFrom.toString()} ',
                                           style: AppStyles.r415263_13_500,
                                           children: [
                                         TextSpan(
@@ -208,7 +210,7 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                         ':',
                                 richText: () {
                                   return Text(
-                                    '12/04/2022  ',
+                                    controller.contractModel.signDate,
                                     style: AppStyles.r415263_13_500,
                                   );
                                 }),
@@ -238,7 +240,9 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                 text: AppLocalizations.of(context)!
                                     .textClose
                                     .toUpperCase(),
-                                onTap: () {})),
+                                onTap: () {
+                                  Get.offNamed(RouteConfig.listRequest, arguments: 0);
+                                })),
                         SizedBox(
                           height: 126,
                         )

@@ -9,6 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class SaleLogic extends GetxController {
   HomeSaleModel homeSaleModel = HomeSaleModel();
   int indexSelect = -1;
+  bool isLoading = false;
 
   void setIndexSelect(int value){
     indexSelect = value;
@@ -21,14 +22,14 @@ class SaleLogic extends GetxController {
           AppLocalizations.of(context)!.textCreateRequest, "", "",0),
       OptionSale(AppImages.icSaleConnectSubscriber,
           AppLocalizations.of(context)!.textConnectSubscriber, "", "",0),
-      OptionSale(AppImages.icSaleRechargeAnypay,
-          AppLocalizations.of(context)!.textRechargeAnypay, "", "",0),
+      // OptionSale(AppImages.icSaleRechargeAnypay,
+      //     AppLocalizations.of(context)!.textRechargeAnypay, "", "",0),
       OptionSale(AppImages.icSaleSearchRequest,
           AppLocalizations.of(context)!.textSearchRequest, "", "",0),
-      OptionSale(AppImages.icSaleClearDebt,
-          AppLocalizations.of(context)!.textClearDebt, "", "",0),
-      OptionSale(AppImages.icSaleCreateContact,
-          AppLocalizations.of(context)!.textCreateContact, "", "",0),
+      // OptionSale(AppImages.icSaleClearDebt,
+      //     AppLocalizations.of(context)!.textClearDebt, "", "",0),
+      // OptionSale(AppImages.icSaleCreateContact,
+      //     AppLocalizations.of(context)!.textCreateContact, "", "",0),
     ];
   }
 
@@ -87,15 +88,21 @@ class SaleLogic extends GetxController {
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_HOME_SALE,
       onSuccess: (response) {
+        // Get.back();
         if (response.isSuccess) {
           print("success");
-          homeSaleModel = HomeSaleModel.fromJson(response.data);
-          update();
+          homeSaleModel = HomeSaleModel.fromJson(response.data['data']);
+
         } else {
           print("error: ${response.status}");
         }
+        isLoading = true;
+        update();
       },
-      onError: (error) {},
+      onError: (error) {
+        isLoading = true;
+        update();
+      },
     );
   }
 }

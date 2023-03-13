@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:bitel_ventas/main/ui/main/activate_prepaid_pages/find_customer_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/demo_native_page.dart';
+import 'package:bitel_ventas/main/utils/shared_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
@@ -18,6 +19,7 @@ class DrawerLogic extends GetxController {
 
 
   void logOut() {
+    SharedPreferenceUtil.clearData();
     Get.offAll(LoginPage());
   }
 
@@ -33,6 +35,7 @@ class DrawerLogic extends GetxController {
           break;
         case 4:
           // Get.to(DemoNativePage());
+          Get.toNamed(RouteConfig.validateFingerprint);
           break;
 
       }
@@ -41,13 +44,13 @@ class DrawerLogic extends GetxController {
 
   List<DrawerItem> getListItem(BuildContext context) {
     return [
-      DrawerItem(
-          unselectedImg: AppImages.icMenuManageContact,
-          label: AppLocalizations.of(context)!.textManageContact,
-          selectedImg: AppImages.icActivatePrepaidSelected,
-          isSelected: false,
-          list: [AppLocalizations.of(context)!.textCreateContact,
-            AppLocalizations.of(context)!.textManageContact]),
+      // DrawerItem(
+      //     unselectedImg: AppImages.icMenuManageContact,
+      //     label: AppLocalizations.of(context)!.textManageContact,
+      //     selectedImg: AppImages.icActivatePrepaidSelected,
+      //     isSelected: false,
+      //     list: [AppLocalizations.of(context)!.textCreateContact,
+      //       AppLocalizations.of(context)!.textManageContact]),
       DrawerItem(
           unselectedImg: AppImages.icMenuFTTH,
           label: AppLocalizations.of(context)!.textFTTH,
@@ -56,7 +59,7 @@ class DrawerLogic extends GetxController {
           list: [
             AppLocalizations.of(context)!.textSale,
             AppLocalizations.of(context)!.textAfterSale,
-            AppLocalizations.of(context)!.textManageWO,
+            // AppLocalizations.of(context)!.textManageWO,
           ]),
       DrawerItem(
           unselectedImg: AppImages.icPortabilityUnselected,

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bitel_ventas/main/custom_views/line_dash.dart';
 import 'package:bitel_ventas/main/networks/model/reason_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/dialog_cancel_request_logic.dart';
+import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_images.dart';
@@ -75,12 +76,6 @@ class DialogCancelRequest extends GetWidget {
                         )),
                     Expanded(
                         flex: 5,
-                        // child: spinnerFormV2(
-                        //     context: context,
-                        //     hint: AppLocalizations.of(context)!.hintReason,
-                        //     required: false,
-                        //     dropValue: controller.currentReason,
-                        //     listDrop: controller.listReason))
                       child: Container(
                         height: 45,
                         decoration: BoxDecoration(
@@ -144,6 +139,9 @@ class DialogCancelRequest extends GetWidget {
                             hint: AppLocalizations.of(context)!.hintNote,
                             required: false,
                             dropValue: "",
+                            function: (value) {
+                              controller.setNote(value);
+                            },
                             listDrop: [],
                             controlTextField: controllerTextField,
                             height: 150)
@@ -162,9 +160,17 @@ class DialogCancelRequest extends GetWidget {
                 ),
                 child: InkWell(
                   onTap: () {
+                    if(controller.checkValidate(context)) return;
+                    _onLoading(context);
                     controller.changeStatusRequest(id, controllerTextField.text, (isSuccess) {
+                      Get.back();
                       if(isSuccess) {
-                        Get.back();
+                        Timer(Duration(milliseconds: 500), () {
+                          Get.back();
+                          Common.showToastCenter(AppLocalizations.of(context)!.textSuccessAPI);
+                        },);
+                      } else {
+                        Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
                       }
                     },);
                     onSubmit!.call();
@@ -178,6 +184,19 @@ class DialogCancelRequest extends GetWidget {
               )
             ],
           ),
+        );
+      },
+    );
+  }
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
         );
       },
     );

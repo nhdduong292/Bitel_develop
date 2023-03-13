@@ -1,9 +1,9 @@
 import 'dart:convert';
+import 'package:bitel_ventas/main/utils/shared_preference.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Response;
 
 import '../utils/logger.dart';
-
 
 class ApiInterceptors extends InterceptorsWrapper {
   @override
@@ -13,10 +13,7 @@ class ApiInterceptors extends InterceptorsWrapper {
     final uri = options.uri;
     final data = options.data;
     // final authRepository = Get.find<AuthRepository>(tag: (AuthRepository).toString());
-    // final token = await authRepository.getToken();
-    // if (token != null) {
-    //   options.headers['Authorization'] = 'Bearer ${token.accessToken}';
-    // }
+
     apiLogger.log(
         "\n\n--------------------------------------------------------------------------------------------------------");
     if (method == 'GET') {
@@ -24,15 +21,14 @@ class ApiInterceptors extends InterceptorsWrapper {
           "✈️ REQUEST[$method] => PATH: $uri \n Token: ${options.headers}",
           printFullText: true);
     } else {
-      // try {
-      //   apiLogger.log(
-      //       "✈️ REQUEST[$method] => PATH: $uri \n Token: ${token?.accessToken} \n DATA: ${jsonEncode(data)}",
-      //       printFullText: true);
-      // } catch (e) {
-      //   apiLogger.log(
-      //       "✈️ REQUEST[$method] => PATH: $uri \n Token: ${token?.accessToken} \n DATA: $data",
-      //       printFullText: true);
-      // }
+      try {
+        apiLogger.log(
+            "✈️ REQUEST[$method] => PATH: $uri \n DATA: ${jsonEncode(data)}",
+            printFullText: true);
+      } catch (e) {
+        apiLogger.log("✈️ REQUEST[$method] => PATH: $uri \n DATA: $data",
+            printFullText: true);
+      }
     }
     super.onRequest(options, handler);
   }

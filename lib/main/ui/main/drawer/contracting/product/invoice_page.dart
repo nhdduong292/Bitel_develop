@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import '../../../../../../res/app_colors.dart';
 import '../../../../../../res/app_images.dart';
 import '../../../../../../res/app_styles.dart';
+import '../../../../../router/route_config.dart';
 import '../../../../../utils/common_widgets.dart';
 
 class InvoicePage extends GetView<ProductPaymentMethodLogic> {
@@ -51,19 +52,21 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 15, vertical: 12),
-                        child: RichText(
-                          text: TextSpan(
-                              text: 'S/522.1  ',
-                              style: AppStyles.r3
-                                  .copyWith(fontWeight: FontWeight.w700),
-                              children: [
-                                TextSpan(
-                                  text: AppLocalizations.of(context)!
-                                      .textAnyPayBalanceRemain,
-                                  style: AppStyles.r1
-                                      .copyWith(fontWeight: FontWeight.w400),
-                                )
-                              ]),
+                        child: Obx(
+                          () => RichText(
+                            text: TextSpan(
+                                text: 'S/${controller.balance} ',
+                                style: AppStyles.r3
+                                    .copyWith(fontWeight: FontWeight.w700),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!
+                                        .textAnyPayBalanceRemain,
+                                    style: AppStyles.r1
+                                        .copyWith(fontWeight: FontWeight.w400),
+                                  )
+                                ]),
+                          ),
                         ),
                       ),
                     ),
@@ -94,56 +97,50 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                       boxShadow: const [
                         BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
                       ]),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              controller.selectedProduct.name ?? 'null',
-                              style: const TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: 'Roboto',
-                                  color: AppColors.colorText1,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            Text(
-                              controller.selectedProduct.desc ?? 'null',
-                              style: const TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: 'Roboto',
-                                  color: AppColors.colorText1,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            Text(
-                              'Speed ${controller.selectedProduct.speed}',
-                              style: const TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: 'Roboto',
-                                  color: AppColors.colorText1,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                          ],
+                  child: Obx(
+                    () => Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                controller.getProduct().productName ?? 'null',
+                                style: const TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: 'Roboto',
+                                    color: AppColors.colorText1,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                              Text(
+                                'Speed ${controller.getProduct().speed ?? 'null'} Mpbs',
+                                style: const TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: 'Roboto',
+                                    color: AppColors.colorText1,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 30, vertical: 10),
-                        decoration: BoxDecoration(
-                          color: AppColors.colorSubContent.withOpacity(0.07),
-                          borderRadius: BorderRadius.circular(20),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 10),
+                          decoration: BoxDecoration(
+                            color: AppColors.colorSubContent.withOpacity(0.07),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Text(
+                            '${controller.getProduct().defaultValue ?? 'null'} /month',
+                            style: const TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'Roboto',
+                                color: AppColors.colorText3,
+                                fontWeight: FontWeight.w700),
+                          ),
                         ),
-                        child: Text(
-                          controller.selectedProduct.price ?? 'null',
-                          style: const TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Roboto',
-                              color: AppColors.colorText3,
-                              fontWeight: FontWeight.w700),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -170,47 +167,42 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                         boxShadow: const [
                           BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
                         ]),
-                    child: Column(
-                      children: [
-                        _paymentElement(
-                            AppLocalizations.of(context)!.textPrepaid1Month,
-                            'S/.79.0',
-                            const Color(0xFF415263)),
-                        const DottedLine(
-                          dashColor: Color(0xFFE3EAF2),
-                          dashGapLength: 3,
-                          dashLength: 4,
-                        ),
-                        _paymentElement(
-                            AppLocalizations.of(context)!.textInstallationFee,
-                            'S/.120.0',
-                            const Color(0xFF415263)),
-                        const DottedLine(
-                          dashColor: Color(0xFFE3EAF2),
-                          dashGapLength: 3,
-                          dashLength: 4,
-                        ),
-                        _paymentElement(AppLocalizations.of(context)!.textModem,
-                            'S/.100.0', const Color(0xFF415263)),
-                        const DottedLine(
-                          dashColor: Color(0xFFE3EAF2),
-                          dashGapLength: 3,
-                          dashLength: 4,
-                        ),
-                        _paymentElement(
-                            AppLocalizations.of(context)!.textDiscount,
-                            'S/.-220.0',
-                            const Color(0xFFD91C02)),
-                        const DottedLine(
-                          dashColor: Color(0xFFE3EAF2),
-                          dashGapLength: 3,
-                          dashLength: 4,
-                        ),
-                        _paymentElement(
-                            AppLocalizations.of(context)!.textTotalAPagar,
-                            'S/.79.0',
-                            const Color(0xFF9454C9)),
-                      ],
+                    child: Obx(
+                      () => Column(
+                        children: [
+                          _paymentElement(
+                              controller.getPlanReason().name ?? 'null',
+                              'S/.${controller.getPlanReason().fee}',
+                              const Color(0xFF415263)),
+                          const DottedLine(
+                            dashColor: Color(0xFFE3EAF2),
+                            dashGapLength: 3,
+                            dashLength: 4,
+                          ),
+                          _paymentElement(
+                              AppLocalizations.of(context)!.textInstallationFee,
+                              'S/.${controller.getPlanReason().feeInstallation}',
+                              const Color(0xFF415263)),
+                          const DottedLine(
+                            dashColor: Color(0xFFE3EAF2),
+                            dashGapLength: 3,
+                            dashLength: 4,
+                          ),
+                          _paymentElement(
+                              AppLocalizations.of(context)!.textDiscount,
+                              'S/.-0.0',
+                              const Color(0xFFD91C02)),
+                          const DottedLine(
+                            dashColor: Color(0xFFE3EAF2),
+                            dashGapLength: 3,
+                            dashLength: 4,
+                          ),
+                          _paymentElement(
+                              AppLocalizations.of(context)!.textTotalAPagar,
+                              'S/.${controller.getTotal()}',
+                              const Color(0xFF9454C9)),
+                        ],
+                      ),
                     ))
               ],
             ),
@@ -219,9 +211,26 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
             text: AppLocalizations.of(context)!.textContinue,
             onTap: () {
               if (true) {
-                showDialog(context: context, builder: (context) {
-                  return const RechargeDialog(height: 340);
-                });
+                if (controller.balance < controller.totalPayment) {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const RechargeDialog(height: 340);
+                      });
+                } else {
+                  controller.checkRegisterCustomer(context).then((value) {
+                    if (value) {
+                      Get.toNamed(RouteConfig.customerInformation, arguments: [
+                        controller.customer,
+                        controller.requestId,
+                        controller.getProduct().productId,
+                        controller.getPlanReason().id
+                      ]);
+                    } else {
+                      Get.toNamed(RouteConfig.createContact);
+                    }
+                  });
+                }
               }
             },
           ),
@@ -266,8 +275,8 @@ class RechargeDialog extends Dialog {
       alignment: Alignment.bottomCenter,
       insetPadding: const EdgeInsets.only(bottom: 24, left: 20, right: 20),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: Wrap(
-        children:[ Column(
+      child: Wrap(children: [
+        Column(
           children: [
             const SizedBox(
               height: 22,
@@ -309,13 +318,15 @@ class RechargeDialog extends Dialog {
                 Expanded(
                     child: bottomButton(
                         text: AppLocalizations.of(context)!.textRecharge,
-                        onTap: () => Get.back()))
+                        onTap: () {}))
               ],
             ),
-            const SizedBox(height: 20,)
+            const SizedBox(
+              height: 20,
+            )
           ],
-        ),]
-      ),
+        ),
+      ]),
     );
   }
 }
