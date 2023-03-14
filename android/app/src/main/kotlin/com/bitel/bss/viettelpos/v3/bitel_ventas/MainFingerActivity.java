@@ -79,32 +79,32 @@ public class MainFingerActivity extends FlutterActivity {
             }
         });
 
-        channelScan1 = new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), platformScan1);
-        channelScan1.setMethodCallHandler(new MethodChannel.MethodCallHandler() {
-            @Override
-            public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
-                if(call.method.equals(nameScan1)){
-                    onScanImage();
-                    result.success("open scan successssssssssssssss");
-                } else {
-                    result.notImplemented();
-                }
-            }
-        });
-
-        channelScan2 = new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), platformScan2);
-        channelScan2.setMethodCallHandler(new MethodChannel.MethodCallHandler() {
-            @Override
-            public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
-                if(call.method.equals(nameScan2)){
-                    positionScan = 1;
-                    onScanImage();
-                    result.success("open scan successssssssssssssss");
-                } else {
-                    result.notImplemented();
-                }
-            }
-        });
+//        channelScan1 = new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), platformScan1);
+//        channelScan1.setMethodCallHandler(new MethodChannel.MethodCallHandler() {
+//            @Override
+//            public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
+//                if(call.method.equals(nameScan1)){
+//                    onScanImage();
+//                    result.success("open scan successssssssssssssss");
+//                } else {
+//                    result.notImplemented();
+//                }
+//            }
+//        });
+//
+//        channelScan2 = new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), platformScan2);
+//        channelScan2.setMethodCallHandler(new MethodChannel.MethodCallHandler() {
+//            @Override
+//            public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
+//                if(call.method.equals(nameScan2)){
+//                    positionScan = 1;
+//                    onScanImage();
+//                    result.success("open scan successssssssssssssss");
+//                } else {
+//                    result.notImplemented();
+//                }
+//            }
+//        });
     }
     Bitmap bitmap;
     void getImageCapture(MethodChannel.Result result){

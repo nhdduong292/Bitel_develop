@@ -17,14 +17,14 @@ class DialogSurveyMapLogic extends GetxController{
   String currentRadius = "500";
   double lat = 0;
   double long = 0;
-  String requestId;
+  int requestId;
   bool isConnect = false;
   TextEditingController textFieldRadius = TextEditingController();
 
   final Completer<GoogleMapController> controllerMap = Completer<GoogleMapController>();
-  late CameraPosition kGooglePlex=  CameraPosition(
+  CameraPosition kGooglePlex=  CameraPosition(
     target: LatLng(-12.786389, -74.975555),
-    zoom: 14.4746,
+    zoom: 14,
   );
   bool isLocation = true;
   //Circle
@@ -34,7 +34,7 @@ class DialogSurveyMapLogic extends GetxController{
   Set<Marker> markers = Set<Marker>();
   var currentPoint;
 
-  bool isActive = true;
+  bool isActive = false;
 
 
   DialogSurveyMapLogic({required this.requestId});
@@ -44,13 +44,13 @@ class DialogSurveyMapLogic extends GetxController{
     // TODO: implement onInit
     super.onInit();
     textFieldRadius.text = currentRadius;
-    _getCurrentLocation().then((value) {
-      lat = value.latitude;
-      long = value.longitude;
-      currentPoint = LatLng(lat, long);
-      print("lat: $lat long: $long");
-      setCircle(currentPoint);
-    });
+    // _getCurrentLocation().then((value) {
+    //   lat = value.latitude;
+    //   long = value.longitude;
+    //   currentPoint = LatLng(lat, long);
+    //   print("lat: $lat long: $long");
+    //   setCircle(currentPoint);
+    // });
     // getLocationAddress();
   }
 
