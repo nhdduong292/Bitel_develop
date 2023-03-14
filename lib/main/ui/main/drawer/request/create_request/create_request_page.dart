@@ -671,7 +671,7 @@ class CreateRequestPage extends GetWidget {
                                   Get.back();
                                   if (isSuccess) {
                                     showDialogSurveyMap(
-                                        context, controller, id);
+                                        context, controller, id, controller.requestModel.identityType);
                                   } else {
                                     Common.showToastCenter(
                                         AppLocalizations.of(context)!
@@ -705,87 +705,91 @@ class CreateRequestPage extends GetWidget {
 
   void showDialogSurveySuccessful(
       BuildContext context, CreateRequestLogic controller) {
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return DialogSurveySuccessful(
-            onSubmit: (isOnline) {
-              _onLoading(context);
-              if (isOnline) {
-                controller.createSurveyOnline(
-                  (isSuccess) {
-                    if (isSuccess) {
-                      //   Get.back();
-                      //   DialogSurveyMapLogic surveyMapLogic = Get.find();
-                      //   surveyMapLogic.setStateConnect(true);
-                      Get.close(3);
-                      Get.toNamed(RouteConfig.productPayment,
-                          arguments: controller.requestModel.id);
-                    } else {
-                      Get.back();
-                    }
-                  },
-                );
-              } else {
-                controller.createSurveyOffline(
-                  (isSuccess) {
-
-                    if (isSuccess) {
-                      Get.close(3);
-                      // DialogSurveyMapLogic surveyMapLogic = Get.find();
-                      // surveyMapLogic.setStateConnect(true);
-                      Get.toNamed(RouteConfig.listRequest, arguments: 1);
-                    } else {
-                      Get.back();
-                    }
-
-                  },
-                );
-              }
-            },
-          );
-        });
+    // showDialog(
+    //     barrierDismissible: false,
+    //     context: context,
+    //     builder: (context) {
+    //       return DialogSurveySuccessful(
+    //         onSubmit: (isOnline) {
+    //           _onLoading(context);
+    //           if (isOnline) {
+    //             controller.createSurveyOnline(
+    //               (isSuccess) {
+    //                 if (isSuccess) {
+    //                   //   Get.back();
+    //                   //   DialogSurveyMapLogic surveyMapLogic = Get.find();
+    //                   //   surveyMapLogic.setStateConnect(true);
+    //                   Get.close(3);
+    //                   // Get.toNamed(RouteConfig.productPayment,
+    //                   //     arguments: controller.requestModel.id);
+    //                   Get.toNamed(RouteConfig.productPayment,
+    //                       arguments: [
+    //                         controller.requestModel.id,
+    //                         controller.requestModel.identityType
+    //                       ]);
+    //                 } else {
+    //                   Get.back();
+    //                 }
+    //               },
+    //             );
+    //           } else {
+    //             controller.createSurveyOffline(
+    //               (isSuccess) {
+    //
+    //                 if (isSuccess) {
+    //                   Get.close(3);
+    //                   // DialogSurveyMapLogic surveyMapLogic = Get.find();
+    //                   // surveyMapLogic.setStateConnect(true);
+    //                   Get.toNamed(RouteConfig.listRequest, arguments: 1);
+    //                 } else {
+    //                   Get.back();
+    //                 }
+    //
+    //               },
+    //             );
+    //           }
+    //         },
+    //       );
+    //     });
   }
 
   void showDialogSurveyUnsuccessful(
       BuildContext context, CreateRequestLogic controller) {
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return DialogSurveyUnsuccessful(
-            onSubmit: (){
-                _onLoading(context);
-                controller.createSurveyOffline((isSuccess) {
-                  if(isSuccess){
-                    Get.close(3);
-                    // DialogSurveyMapLogic surveyMapLogic = Get.find();
-                    // surveyMapLogic.setStateConnect(true);
-                    Get.toNamed(RouteConfig.listRequest, arguments: 1);
-                  } else {
-                    Get.back();
-                  }
-                },);
-            },);
-        });
+    // showDialog(
+    //     barrierDismissible: false,
+    //     context: context,
+    //     builder: (context) {
+    //       return DialogSurveyUnsuccessful(
+    //         onSubmit: (){
+    //             _onLoading(context);
+    //             controller.createSurveyOffline((isSuccess) {
+    //               if(isSuccess){
+    //                 Get.close(3);
+    //                 // DialogSurveyMapLogic surveyMapLogic = Get.find();
+    //                 // surveyMapLogic.setStateConnect(true);
+    //                 Get.toNamed(RouteConfig.listRequest, arguments: 1);
+    //               } else {
+    //                 Get.back();
+    //               }
+    //             },);
+    //         },);
+    //     });
   }
 
   void showDialogSurveyMap(
-      BuildContext context, CreateRequestLogic controller, int id) {
+      BuildContext context, CreateRequestLogic controller, int id, String type) {
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (context) {
           return DialogSurveyMapPage(
             onSubmit: (isSuccess){
-                Get.back();
-                if(isSuccess) {
-                  showDialogSurveySuccessful(context, controller);
-                } else {
-                  showDialogSurveyUnsuccessful(context, controller);
-                }
-            },requestId: "$id",);
+                // if(isSuccess) {
+                //   showDialogSurveySuccessful(context, controller);
+                // } else {
+                //   showDialogSurveyUnsuccessful(context, controller);
+                // }
+            },type:  type,requestId: id,);
         });
   }
 

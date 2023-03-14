@@ -5,6 +5,7 @@ import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -16,14 +17,14 @@ class DialogSurveyMapLogic extends GetxController{
   String currentRadius = "500";
   double lat = 0;
   double long = 0;
-  String requestId;
+  int requestId;
   bool isConnect = false;
   TextEditingController textFieldRadius = TextEditingController();
 
   final Completer<GoogleMapController> controllerMap = Completer<GoogleMapController>();
-  late CameraPosition kGooglePlex=  CameraPosition(
+  CameraPosition kGooglePlex=  CameraPosition(
     target: LatLng(-12.786389, -74.975555),
-    zoom: 14.4746,
+    zoom: 14,
   );
   bool isLocation = true;
   //Circle
@@ -33,7 +34,7 @@ class DialogSurveyMapLogic extends GetxController{
   Set<Marker> markers = Set<Marker>();
   var currentPoint;
 
-  bool isActive = true;
+  bool isActive = false;
 
 
   DialogSurveyMapLogic({required this.requestId});
@@ -43,13 +44,14 @@ class DialogSurveyMapLogic extends GetxController{
     // TODO: implement onInit
     super.onInit();
     textFieldRadius.text = currentRadius;
-    _getCurrentLocation().then((value) {
-      lat = value.latitude;
-      long = value.longitude;
-      currentPoint = LatLng(lat, long);
-      print("lat: $lat long: $long");
-      setCircle(currentPoint);
-    });
+    // _getCurrentLocation().then((value) {
+    //   lat = value.latitude;
+    //   long = value.longitude;
+    //   currentPoint = LatLng(lat, long);
+    //   print("lat: $lat long: $long");
+    //   setCircle(currentPoint);
+    // });
+    // getLocationAddress();
   }
 
   void setMarker(LatLng point){
@@ -119,7 +121,7 @@ class DialogSurveyMapLogic extends GetxController{
       Common.showToastCenter("Giới hạn radius là 500");
       return true;
     }
-    if(currentTechnology == "AON" && (radius > 300 || radius < 1)){
+    if(currentTechnology == "AON" && (radius > 500 || radius < 1)){
       // setRadius("300");
       Common.showToastCenter("Giới hạn radius là 500");
       return true;
@@ -166,6 +168,21 @@ class DialogSurveyMapLogic extends GetxController{
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+  }
+
+  void getLocationAddress() async {
+    // List<Location> locations = await locationFromAddress("Gronausestraat 710, es_PE");
+    List<Location> locations = await locationFromAddress("Nguy Như Kon Tum Thanh Xuân Hà Nội, vi_VN");
+    locations.forEach((element) {
+      print("addddddddddddddddd lat: ${element.latitude} long: ${element.longitude}");
+    });
+    if(locations.isNotEmpty) {
+      lat = locations[0].latitude;
+      long =  locations[0].longitude;
+      currentPoint = LatLng(lat, long);
+      print("lat: $lat long: $long");
+      setCircle(currentPoint);
+    }
   }
 
 }

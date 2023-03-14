@@ -1,4 +1,5 @@
 import 'package:bitel_ventas/main/custom_views/line_dash.dart';
+import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_succesful_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
@@ -11,15 +12,18 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:get/get.dart';
 
-class DialogSurveySuccessful extends StatelessWidget {
+class DialogSurveySuccessful extends GetWidget {
   final Function(bool isOnline)? onSubmit;
+  int id;
+  String type;
 
-  const DialogSurveySuccessful({super.key, required this.onSubmit});
+
+  DialogSurveySuccessful(this.id, this.type, this.onSubmit);
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: DialogSurveySuccessfulLogic(),
+      init: DialogSurveySuccessfulLogic(id),
       builder: (controller) {
       return Dialog(
         shape: RoundedRectangleBorder(
@@ -94,7 +98,21 @@ class DialogSurveySuccessful extends StatelessWidget {
                         child: InkWell(
                           onTap: () {
                             if(controller.isSelectOffline) {
-                              onSubmit!.call(false);
+                              _onLoading(context);
+                              controller.createSurveyOffline(
+                                    (isSuccess) {
+
+                                  if (isSuccess) {
+                                    Get.close(4);
+                                    // DialogSurveyMapLogic surveyMapLogic = Get.find();
+                                    // surveyMapLogic.setStateConnect(true);
+                                    Get.toNamed(RouteConfig.listRequest, arguments: 1);
+                                  } else {
+                                    Get.back();
+                                  }
+
+                                },
+                              );
                             }
                           },
                           child:  Center(
@@ -118,7 +136,26 @@ class DialogSurveySuccessful extends StatelessWidget {
                         child: InkWell(
                           onTap: () {
                             if(!controller.isSelectOffline) {
-                              onSubmit!.call(true);
+                              _onLoading(context);
+                              controller.createSurveyOnline(
+                                    (isSuccess) {
+                                  if (isSuccess) {
+                                    //   Get.back();
+                                    //   DialogSurveyMapLogic surveyMapLogic = Get.find();
+                                    //   surveyMapLogic.setStateConnect(true);
+                                    Get.close(4);
+                                    // Get.toNamed(RouteConfig.productPayment,
+                                    //     arguments: controller.requestModel.id);
+                                    Get.toNamed(RouteConfig.productPayment,
+                                        arguments: [
+                                          id,
+                                          type
+                                        ]);
+                                  } else {
+                                    Get.back();
+                                  }
+                                },
+                              );
                             }
                           },
                           child:  Center(
@@ -135,5 +172,18 @@ class DialogSurveySuccessful extends StatelessWidget {
         ),
       );
     },);
+  }
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
+      },
+    );
   }
 }
