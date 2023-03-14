@@ -1,3 +1,4 @@
+
 class CustomerDetectModel {
   String? type;
   int? idNumber;

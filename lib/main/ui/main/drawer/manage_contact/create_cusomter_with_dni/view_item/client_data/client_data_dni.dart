@@ -1,0 +1,545 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'package:bitel_ventas/main/utils/common.dart';
+import 'package:bitel_ventas/res/app_fonts.dart';
+import 'package:bitel_ventas/res/app_images.dart';
+import 'package:bitel_ventas/res/app_styles.dart';
+import 'package:dotted_border/dotted_border.dart';
+import 'package:dotted_line/dotted_line.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+
+import '../../../../../../../../res/app_colors.dart';
+import '../../../../../../../router/route_config.dart';
+import '../../../../../../../utils/common_widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'client_data_dni_logic.dart';
+
+typedef void TouchUpadte();
+
+class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
+  final TouchUpadte callback;
+  ClientDataDNIWidget({required this.callback});
+
+  @override
+  Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    return GetBuilder(
+        init: ClientDataDNILogic(),
+        builder: (controller) {
+          return SingleChildScrollView(
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Container(
+                margin: EdgeInsets.only(left: 10, right: 10),
+                width: MediaQuery.of(context).size.width - 20,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFFFFF),
+                  border: Border.all(
+                    color: const Color(0xFFE3EAF2),
+                    width: 1.0,
+                  ),
+                  boxShadow: [
+                    const BoxShadow(
+                      color: Color.fromRGBO(185, 212, 220, 0.2),
+                      offset: Offset(0, 2),
+                      blurRadius: 7.0,
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(24.0),
+                ),
+                child: Column(children: [
+                  SizedBox(
+                    height: 8,
+                  ),
+                  SizedBox(
+                    height: 30,
+                    child: Center(
+                      child: Text(
+                        'Información del cliente',
+                        style: AppStyles.r00A5B1_13_500,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  DottedLine(
+                    dashColor: Color(0xFFE3EAF2),
+                    dashGapLength: 3,
+                    dashLength: 4,
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  DottedBorder(
+                    borderType: BorderType.RRect,
+                    radius: Radius.circular(26),
+                    dashPattern: [2, 2],
+                    strokeWidth: 1,
+                    color: Color(0xFF9454C9),
+                    child: SizedBox(
+                      width: 197,
+                      height: 39,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  text: 'DNI: ',
+                                  style: AppStyles.r3,
+                                  children: [
+                                    TextSpan(
+                                      text: '001573053',
+                                      style: AppStyles.r1,
+                                    )
+                                  ]),
+                            )
+                          ]),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 39,
+                  ),
+                  Column(
+                    children: [
+                      textFieldClient(
+                          context: context,
+                          label: 'Last Name',
+                          hint: 'Enter name',
+                          width: 250,
+                          controller: controller.tfLastName,
+                          focusNode: controller.focusLastName,
+                          onChange: (value) {}),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      textFieldClient(
+                          context: context,
+                          label: 'Name',
+                          hint: 'Enter name',
+                          width: 250,
+                          controller: controller.tfName,
+                          focusNode: controller.focusLastName,
+                          onChange: (value) {}),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      textFieldClient(
+                          context: context,
+                          label: 'Nationality',
+                          hint: 'Enter nationality',
+                          width: 250,
+                          controller: controller.tfNationality,
+                          focusNode: controller.focusLastName,
+                          onChange: (value) {}),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                                margin: EdgeInsets.only(left: 20),
+                                alignment: Alignment.centerLeft,
+                                child: Text('Sex',
+                                    style: AppStyles.r2B3A4A_12_500.copyWith(
+                                        fontSize: 14,
+                                        color: AppColors.color_2B3A4A
+                                            .withOpacity(0.85)))),
+                          ),
+                          SizedBox(
+                            width: 250,
+                            child: spinnerFormV2(
+                                context: context,
+                                hint: '',
+                                required: true,
+                                dropValue: controller.sexValue,
+                                function: (value) {
+                                  controller.sexValue = value;
+                                },
+                                listDrop: controller.sexs),
+                          ),
+                          SizedBox(
+                            width: 23,
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      formDateView(
+                          context: context,
+                          type: 1,
+                          hint: 'Enter date',
+                          label: 'Date of birth',
+                          content: controller.dob,
+                          required: false,
+                          isIcon: true,
+                          width: 250),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      formDateView(
+                          context: context,
+                          type: 2,
+                          hint: 'Enter date',
+                          label: 'Expiration date',
+                          content: controller.exd,
+                          required: false,
+                          isIcon: true,
+                          width: 250),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      textFieldClient(
+                          context: context,
+                          label: 'Address',
+                          hint: 'Enter address',
+                          width: 250,
+                          controller: controller.tfAddress,
+                          focusNode: controller.focusLastName,
+                          onChange: (value) {}),
+                      SizedBox(
+                        height: 34,
+                      ),
+                    ],
+                  )
+                ]),
+              ),
+              Container(
+                width: 310,
+                margin:
+                    EdgeInsets.only(top: 30, bottom: 36, left: 16, right: 16),
+                padding: EdgeInsets.symmetric(vertical: 16),
+                decoration: BoxDecoration(
+                  color: AppColors.colorButton,
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: InkWell(
+                  onTap: () {
+                    // if(controller.textPathScan.isEmpty){
+                    //   Common.showToastCenter("Bạn chưa chụp ảnh thẻ");
+                    // } else {
+                    //   callback();
+                    // }
+                    _onLoading(context);
+                    controller.createCustomer(
+                      (isSuccess) {
+                        if (isSuccess) {
+                          Get.back();
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return SuccessDialog(
+                                height: 344,
+                                isSuccess: true,
+                                onCancel: () {
+                                  Get.back();
+                                },
+                                onOK: () {
+                                  Get.back();
+                                  callback();
+                                },
+                              );
+                            },
+                          );
+                        } else {
+                          Get.back();
+                          Common.showToastCenter(
+                              AppLocalizations.of(context)!.textErrorAPI);
+                        }
+                      },
+                    );
+                  },
+                  child: Center(
+                      child: Text(
+                    'Registrar',
+                    style: AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
+                  )),
+                ),
+              )
+            ]),
+          );
+        });
+  }
+
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
+      },
+    );
+  }
+
+  Widget textFieldClient(
+      {required BuildContext context,
+      required String label,
+      required double width,
+      required String hint,
+      required TextEditingController controller,
+      FocusNode? focusNode,
+      required onChange}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Expanded(
+          child: Container(
+              margin: EdgeInsets.only(left: 20),
+              alignment: Alignment.centerLeft,
+              child: Text(label,
+                  style: AppStyles.r2B3A4A_12_500.copyWith(
+                      fontSize: 14,
+                      color: AppColors.color_2B3A4A.withOpacity(0.8)))),
+        ),
+        Container(
+          width: width,
+          height: 45,
+          child: TextField(
+              controller: controller,
+              focusNode: null,
+              style: AppStyles.r2B3A4A_12_500.copyWith(
+                  fontSize: 14,
+                  color: AppColors.color_2B3A4A.withOpacity(0.85)),
+              onChanged: (value) {
+                onChange(value);
+              },
+              decoration: InputDecoration(
+                contentPadding:
+                    const EdgeInsets.only(top: 5, left: 18, right: 10),
+                hintText: hint,
+                hintStyle: AppStyles.r2.copyWith(
+                    color: AppColors.colorHint1, fontWeight: FontWeight.w400),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(24),
+                    borderSide: const BorderSide(
+                        width: 1, color: AppColors.colorLineDash)),
+                errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(24),
+                    borderSide:
+                        const BorderSide(width: 1, color: Colors.redAccent)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(24),
+                    borderSide: const BorderSide(
+                        width: 1, color: AppColors.colorLineDash)),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(24),
+                    borderSide: const BorderSide(
+                        width: 1, color: AppColors.colorLineDash)),
+              )),
+        ),
+        SizedBox(
+          width: 23,
+        ),
+      ],
+    );
+  }
+
+  Widget formDateView(
+      {required BuildContext context,
+      required String label,
+      required String hint,
+      required String content,
+      required bool required,
+      required bool isIcon,
+      required double width,
+      required int type}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Expanded(
+          child: Container(
+            margin: EdgeInsets.only(
+              left: 20,
+            ),
+            alignment: Alignment.topLeft,
+            child: RichText(
+              text: TextSpan(
+                text: label,
+                style: AppStyles.r2B3A4A_12_500.copyWith(
+                    fontSize: 14,
+                    color: AppColors.color_2B3A4A.withOpacity(0.85)),
+                children: [
+                  TextSpan(
+                      text: required ? ' *' : '',
+                      style: TextStyle(
+                        color: AppColors.colorTextError,
+                        fontFamily: 'Roboto',
+                        fontSize: 14,
+                      )),
+                ],
+              ),
+            ),
+          ),
+        ),
+        InkWell(
+          onTap: () {
+            controller.typeDate = type;
+            _selectDate(context, controller, false);
+          },
+          child: Container(
+            margin: EdgeInsets.only(
+              left: 15,
+              right: 23,
+            ),
+            child: Container(
+                height: 45,
+                width: width,
+                padding: EdgeInsets.only(left: 18, right: 16),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(24),
+                    border: Border.all(color: Color(0xFFE3EAF2), width: 1)),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          content.isNotEmpty ? content : hint,
+                          style: content.isNotEmpty
+                              ? AppStyles.r2B3A4A_12_500.copyWith(
+                                  fontSize: 14,
+                                  color:
+                                      AppColors.color_2B3A4A.withOpacity(0.85))
+                              : AppStyles.r2.copyWith(
+                                  color: AppColors.colorHint1,
+                                  fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                        visible: isIcon,
+                        child: SvgPicture.asset(AppImages.icCalendar))
+                  ],
+                )),
+          ),
+        ),
+      ],
+    );
+  }
+
+  _selectDate(
+      BuildContext context, ClientDataDNILogic control, bool from) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: control.selectDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2025),
+    );
+    if (picked != null) {
+      if (from) {
+        control.setFromDate(picked);
+      } else {
+        control.setToDate(picked);
+      }
+    }
+  }
+}
+
+class SuccessDialog extends Dialog {
+  final double height;
+  final bool isSuccess;
+  var onOK;
+  var onCancel;
+
+  SuccessDialog(
+      {super.key,
+      required this.height,
+      required this.isSuccess,
+      required this.onCancel,
+      required this.onOK});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      alignment: Alignment.bottomCenter,
+      insetPadding: EdgeInsets.only(bottom: 24),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: SizedBox(
+        width: 330,
+        height: height,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 30,
+            ),
+            SvgPicture.asset(
+                isSuccess ? AppImages.imgCongratulations : AppImages.imgNotify),
+            SizedBox(
+              height: 24,
+            ),
+            Text(
+              '¡Felicidades!',
+              style: isSuccess ? AppStyles.r14 : AppStyles.r16,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 30, right: 30),
+              child: Text(
+                'El cliente se registró exitosamente',
+                style: AppStyles.r15,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            SizedBox(
+              height: 28,
+            ),
+            const DottedLine(
+              dashColor: Color(0xFFE3EAF2),
+              dashGapLength: 3,
+              dashLength: 4,
+            ),
+            SizedBox(
+              height: 22,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 30, right: 30),
+              child: Text(
+                '¿Deseas registrar tu huella para lafirma digital?',
+                style: AppStyles.r15,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(child: bottomButtonV2(text: 'No', onTap: onCancel)),
+                Expanded(
+                    child: bottomButton(text: 'Si, Continuar', onTap: onOK))
+              ],
+            ),
+            // Container(
+            //   width: double.infinity,
+            //   margin: const EdgeInsets.only(top: 27, left: 38, right: 38),
+            //   padding: const EdgeInsets.symmetric(vertical: 14),
+            //   decoration: BoxDecoration(
+            //     color: AppColors.colorButton,
+            //     borderRadius: BorderRadius.circular(24),
+            //   ),
+            //   child: InkWell(
+            //     onTap: () {
+            //       onOK();
+            //     },
+            //     child: Center(
+            //         child: Text(
+            //       '¡Muchas Gracias!'.toUpperCase(),
+            //       style: AppStyles.r5,
+            //     )),
+            //   ),
+            // ),
+          ],
+        ),
+      ),
+    );
+  }
+}

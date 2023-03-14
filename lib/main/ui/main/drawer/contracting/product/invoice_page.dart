@@ -227,7 +227,11 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                         controller.getPlanReason().id
                       ]);
                     } else {
-                      Get.toNamed(RouteConfig.createContact);
+                      if (controller.type == 'DNI') {
+                        Get.toNamed(RouteConfig.createContactDNI);
+                      } else {
+                        Get.toNamed(RouteConfig.createContact);
+                      }
                     }
                   });
                 }
