@@ -4,15 +4,14 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.USB_PERMISSION" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
-    <uses-feature android:name="android.hardware.usb.host" />
-    <uses-feature android:name="android.hardware.telephony" android:required="false"/>
-    <uses-feature android:name="android.hardware.camera" android:required="false"/>
-    <uses-feature android:name="android.hardware.camera2.full" android:required="false"/>
-    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
-    <uses-feature android:name="android.hardware.camera.flash" android:required="false"/>
-    <uses-permission android:name="android.permission.INTERNET" />
+<!--    <uses-permission android:name="android.permission.CAMERA" />-->
+<!--    <uses-permission android:name="android.permission.FLASHLIGHT" />-->
+<!--    <uses-feature android:name="android.hardware.usb.host" />-->
+<!--    <uses-feature android:name="android.hardware.telephony" android:required="false"/>-->
+<!--    <uses-feature android:name="android.hardware.camera" android:required="false"/>-->
+<!--    <uses-feature android:name="android.hardware.camera2.full" android:required="false"/>-->
+<!--    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>-->
+<!--    <uses-feature android:name="android.hardware.camera.flash" android:required="false"/>-->
    <application
         android:label="Bitel Ventas"
         android:name="${applicationName}"
@@ -41,18 +40,18 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-       <activity
-           android:name=".camera.permission.PermissionActivity"
-           android:exported="false"
-           android:permission="com.bitel.bss.viettelpos.v3.ACCESS_ACTIVITY"
-           android:theme="@style/Transparent" />
+<!--       <activity-->
+<!--           android:name=".camera.permission.PermissionActivity"-->
+<!--           android:exported="false"-->
+<!--           android:permission="com.bitel.bss.viettelpos.v3.ACCESS_ACTIVITY"-->
+<!--           android:theme="@style/Transparent" />-->
 
-       <activity
-           android:name=".camera.camera.CameraActivity"
-           android:configChanges="keyboardHidden|orientation|screenSize"
-           android:theme="@android:style/Theme.Light.NoTitleBar">
+<!--       <activity-->
+<!--           android:name=".camera.camera.CameraActivity"-->
+<!--           android:configChanges="keyboardHidden|orientation|screenSize"-->
+<!--           android:theme="@android:style/Theme.Light.NoTitleBar">-->
 
-       </activity>
+<!--       </activity>-->
 
        <activity
            android:name="com.yalantis.ucrop.UCropActivity"

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:bitel_ventas/main/networks/model/user_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/utilitis/info_bussiness.dart';
+import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/shared_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -62,13 +63,17 @@ class SettingService extends GetxService {
     currentLocate.value = locale;
     Get.updateLocale(locale);
 
-    token.value = prefs.getString(SPrefCache.KEY_TOKEN) ?? "";
-    if(token.value.isNotEmpty) {
-      Map<String, dynamic> payload = Jwt.parseJwt(token.value);
-      // Print the payload
-      InfoBusiness.getInstance()!.setUser(UserModel.fromJson(payload));
+    int timeRefreshToken = prefs.getInt(SPrefCache.PREF_KEY_REFRESH_TOKEN) ?? DateTime.now().millisecondsSinceEpoch;
+    int timeCurrent = DateTime.now().millisecondsSinceEpoch;
+    int result = timeCurrent - timeRefreshToken;
+    if(result < Common.DAY && result > 0) {
+      token.value = prefs.getString(SPrefCache.KEY_TOKEN) ?? "";
+      if (token.value.isNotEmpty) {
+        Map<String, dynamic> payload = Jwt.parseJwt(token.value);
+        // Print the payload
+        InfoBusiness.getInstance()!.setUser(UserModel.fromJson(payload));
+      }
     }
-
     return this;
   }
 

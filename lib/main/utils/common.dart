@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
 class Common {
+  static const int DAY = 86400000;
   static DateTime? parserDate(String? date, {String? format}) {
     try {
       if (format == null) {

@@ -11,6 +11,7 @@ class SPrefCache {
   static const String PREF_KEY_REMEMBER_ACCOUNT = "pref_key_remember_account";
   static const String PREF_KEY_USER_NAME = "pref_key_user_name";
   static const String PREF_KEY_PASS_WORD = "pref_key_pass_word";
+  static const String PREF_KEY_REFRESH_TOKEN = "pref_key_refresh_token";
 }
 
 class SharedPreferenceUtil {
@@ -81,5 +82,15 @@ class SharedPreferenceUtil {
   static Future clearData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
+  }
+
+  static Future saveRefreshToken(int name) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(SPrefCache.PREF_KEY_REFRESH_TOKEN, name);
+  }
+
+  static Future<int> getRefreshToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(SPrefCache.PREF_KEY_REFRESH_TOKEN) ?? DateTime.now().millisecondsSinceEpoch;
   }
 }
