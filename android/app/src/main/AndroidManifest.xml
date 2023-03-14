@@ -64,7 +64,8 @@
             android:name="flutterEmbedding"
             android:value="2" />
        <meta-data android:name="com.google.android.geo.API_KEY"
-           android:value="AIzaSyCTgsWcVjG2g97rsaT91Rb_Ax1xR9UdUis"/>
+           android:value="AIzaSyAA8VK7gMbZYwgq4ZcRNRyWvoul_19p5ZU"/>
+<!--           android:value="AIzaSyCTgsWcVjG2g97rsaT91Rb_Ax1xR9UdUis"/>-->
 
        <provider
            android:name="androidx.core.content.FileProvider"

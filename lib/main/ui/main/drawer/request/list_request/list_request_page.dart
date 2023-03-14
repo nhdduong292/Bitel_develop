@@ -36,7 +36,7 @@ class ListRequestPage extends GetWidget {
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             leading: Padding(
-              padding: EdgeInsets.only(left: 18, bottom: 18, top: 2),
+              padding: const EdgeInsets.only(left: 18, bottom: 18, top: 2),
               child: GestureDetector(
                 child: SvgPicture.asset(AppImages.icBack),
                 onTap: () {
@@ -57,8 +57,8 @@ class ListRequestPage extends GetWidget {
               )
             ],
             title: Container(
-              margin: EdgeInsets.only(bottom: 20),
-              child: Text("List of request", style: AppStyles.title),
+              margin: const EdgeInsets.only(bottom: 20),
+              child: Text(AppLocalizations.of(context)!.textListOfRequest, style: AppStyles.title),
             ),
             toolbarHeight: 100,
             flexibleSpace: Container(
@@ -75,13 +75,14 @@ class ListRequestPage extends GetWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Container(
-                  padding: EdgeInsets.all(16),
+                  height: 55,
+                  padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(22),
                     boxShadow: [
                       BoxShadow(
-                        offset: Offset(0, 1),
+                        offset: const Offset(0, 1),
                         blurRadius: 2,
                         color: Colors.black.withOpacity(0.3),
                       ),
@@ -90,12 +91,71 @@ class ListRequestPage extends GetWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      SvgPicture.asset(AppImages.icSearch),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: SvgPicture.asset(AppImages.icSearch),
+                      ),
                       Expanded(
-                          child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text(AppLocalizations.of(context)!.textSearchCodeProvence, style: AppStyles.r2.copyWith(color: AppColors.colorText4.withOpacity(0.75)),),
-                      )),
+                      //     child: Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      //   child: Text(AppLocalizations.of(context)!.textSearchCodeProvence, style: AppStyles.r2.copyWith(color: AppColors.colorText4.withOpacity(0.75)),),
+                      // )),
+                        child:  TextField(
+                          cursorColor: AppColors.colorText1,
+                          onChanged: (value) {
+                            String key = value.trim();
+                            if(controller.index == 0) {
+                              globalKey1.currentState!.getListRequest(key);
+                            } else if(controller.index == 1){
+                              globalKey2.currentState!.getListRequest(key);
+                            } else if(controller.index == 2){
+                              globalKey3.currentState!.getListRequest(key);
+                            } else if(controller.index == 3){
+                              globalKey4.currentState!.getListRequest(key);
+                            } else if(controller.index == 4){
+                              globalKey5.currentState!.getListRequest(key);
+                            } else if(controller.index == 5){
+                              globalKey6.currentState!.getListRequest(key);
+                            } else if(controller.index == 6){
+                              globalKey7.currentState!.getListRequest(key);
+                            }
+                          },
+                          maxLines: 1,
+                          decoration: InputDecoration(
+                            // errorText: controller.isSubmitPass
+                            //     ? (controller.controllerPass.value.text
+                            //     .length <
+                            //     6
+                            //     ? ""
+                            //     : null)
+                            //     : null,
+                            hintText: AppLocalizations.of(context)!.textSearchCodeProvence,
+                            hintStyle: AppStyles.r2.copyWith(color: AppColors.colorText4.withOpacity(0.75)),
+
+                            // filled: true,
+                            // fillColor: Colors.white,
+                            // border: InputBorder.none,
+                            border: const UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: Colors.transparent)),
+                            errorBorder: const UnderlineInputBorder(
+                              //<-- SEE HERE
+                              borderSide: BorderSide(
+                                  width: 1, color: Colors.redAccent),
+                            ),
+                            focusedBorder: const UnderlineInputBorder(
+                              //<-- SEE HERE
+                              borderSide: BorderSide(
+                                  width: 1, color: Colors.transparent),
+                            ),
+                            enabledBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  width: 1, color: Colors.transparent),
+                            ),
+                          ),
+                        ),
+                      ),
                       InkWell(
                         onTap: () {
                           showDialogAdvanceSearch(context, controller);
@@ -107,14 +167,14 @@ class ListRequestPage extends GetWidget {
                 ),
                 Container(
                   height: 45,
-                  margin: EdgeInsets.only(top: 16),
-                  padding: EdgeInsets.all(5),
+                  margin: const EdgeInsets.only(top: 16),
+                  padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(22),
                     boxShadow: [
                       BoxShadow(
-                        offset: Offset(0, 0),
+                        offset: const Offset(0, 0),
                         blurRadius: 1,
                         color: Colors.black.withOpacity(0.3),
                       ),
@@ -177,7 +237,7 @@ class ListRequestPage extends GetWidget {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 17,
                 ),
                 Expanded(
@@ -189,7 +249,7 @@ class ListRequestPage extends GetWidget {
                           width: 1, color: Colors.black.withOpacity(0.3)),
                       boxShadow: [
                         BoxShadow(
-                          offset: Offset(0, 2),
+                          offset: const Offset(0, 2),
                           blurRadius: 2,
                           color: Colors.black.withOpacity(0.3),
                         ),
@@ -280,19 +340,19 @@ class ListRequestPage extends GetWidget {
                 if(controller.index == model.getPositionStatus()) {
                   controller.updateSearchRequest(model);
                   if(controller.index == 0) {
-                    globalKey1.currentState!.getListRequest();
+                    globalKey1.currentState!.getListRequest("");
                   } else if(controller.index == 1){
-                    globalKey2.currentState!.getListRequest();
+                    globalKey2.currentState!.getListRequest("");
                   } else if(controller.index == 2){
-                    globalKey3.currentState!.getListRequest();
+                    globalKey3.currentState!.getListRequest("");
                   } else if(controller.index == 3){
-                    globalKey4.currentState!.getListRequest();
+                    globalKey4.currentState!.getListRequest("");
                   } else if(controller.index == 4){
-                    globalKey5.currentState!.getListRequest();
+                    globalKey5.currentState!.getListRequest("");
                   } else if(controller.index == 5){
-                    globalKey6.currentState!.getListRequest();
+                    globalKey6.currentState!.getListRequest("");
                   } else if(controller.index == 6){
-                    globalKey7.currentState!.getListRequest();
+                    globalKey7.currentState!.getListRequest("");
                   }
                 }else {
                   controller.updateSearchRequest(model);

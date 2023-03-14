@@ -131,16 +131,13 @@ class HomePage extends GetView<HomeLogic> {
                   child: Text("Hola, Diego Guadalupe", style: AppStyles.b2),
                 ),
               ),
-              Container(
-                height: 240,
-                child: PageView.builder(
-                  controller: controller.controllerPage,
-                  // itemCount: pages.length,
-                  itemBuilder: (_, index) {
-                    return pages[index % pages.length];
-                  },
-                ),
-              ),
+              Expanded(child:  PageView.builder(
+                controller: controller.controllerPage,
+                // itemCount: pages.length,
+                itemBuilder: (_, index) {
+                  return pages[index % pages.length];
+                },
+              ),),
               const SizedBox(
                 height: 20,
               ),

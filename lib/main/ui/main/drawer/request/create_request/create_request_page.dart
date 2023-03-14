@@ -720,7 +720,7 @@ class CreateRequestPage extends GetWidget {
                       //   DialogSurveyMapLogic surveyMapLogic = Get.find();
                       //   surveyMapLogic.setStateConnect(true);
                       Get.close(3);
-                      Get.offNamed(RouteConfig.productPayment,
+                      Get.toNamed(RouteConfig.productPayment,
                           arguments: controller.requestModel.id);
                     } else {
                       Get.back();
@@ -735,7 +735,7 @@ class CreateRequestPage extends GetWidget {
                       Get.close(3);
                       // DialogSurveyMapLogic surveyMapLogic = Get.find();
                       // surveyMapLogic.setStateConnect(true);
-                      Get.offNamed(RouteConfig.listRequest, arguments: 0);
+                      Get.toNamed(RouteConfig.listRequest, arguments: 1);
                     } else {
                       Get.back();
                     }
@@ -760,8 +760,9 @@ class CreateRequestPage extends GetWidget {
                 controller.createSurveyOffline((isSuccess) {
                   if(isSuccess){
                     Get.close(3);
-                    DialogSurveyMapLogic surveyMapLogic = Get.find();
-                    surveyMapLogic.setStateConnect(true);
+                    // DialogSurveyMapLogic surveyMapLogic = Get.find();
+                    // surveyMapLogic.setStateConnect(true);
+                    Get.toNamed(RouteConfig.listRequest, arguments: 1);
                   } else {
                     Get.back();
                   }
@@ -778,6 +779,7 @@ class CreateRequestPage extends GetWidget {
         builder: (context) {
           return DialogSurveyMapPage(
             onSubmit: (isSuccess){
+                Get.back();
                 if(isSuccess) {
                   showDialogSurveySuccessful(context, controller);
                 } else {

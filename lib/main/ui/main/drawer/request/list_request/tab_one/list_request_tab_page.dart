@@ -72,7 +72,7 @@ class ListRequestTabState extends State<ListRequestTabPage>{
   void initState() {
     // TODO: implement initState
     super.initState();
-    getListRequest();
+    getListRequest("");
   }
 
   @override
@@ -102,20 +102,20 @@ class ListRequestTabState extends State<ListRequestTabPage>{
         });
   }
 
-  void getListRequest() async{
+  void getListRequest(String key) async{
     setState(() {
       isLoading = true;
     });
     Future.delayed(Duration(seconds: 1));
     Map<String, dynamic> params = {
-      "service":listRequestLogic.searchRequest.service,
-      "code":listRequestLogic.searchRequest.code,
+      "service": key.isEmpty ? listRequestLogic.searchRequest.service : "",
+      "code":key.isEmpty ?  listRequestLogic.searchRequest.code : "",
       "status":status,
-      "province":listRequestLogic.searchRequest.province,
-      "staffCode":listRequestLogic.searchRequest.staffCode,
-      "fromDate":listRequestLogic.searchRequest.fromDate,
-      "toDate":listRequestLogic.searchRequest.toDate,
-      "key":"",
+      "province":key.isEmpty ? listRequestLogic.searchRequest.province : "",
+      "staffCode":key.isEmpty ? listRequestLogic.searchRequest.staffCode : "",
+      "fromDate":key.isEmpty ? listRequestLogic.searchRequest.fromDate : "",
+      "toDate": key.isEmpty ? listRequestLogic.searchRequest.toDate : "",
+      "key":key,
       "page":"0",
       "pageSize":"10",
       "sort":"createdDate"

@@ -121,7 +121,7 @@ class DialogSurveyMapLogic extends GetxController{
     }
     if(currentTechnology == "AON" && (radius > 300 || radius < 1)){
       // setRadius("300");
-      Common.showToastCenter("Giới hạn radius là 300");
+      Common.showToastCenter("Giới hạn radius là 500");
       return true;
     }
     return false;

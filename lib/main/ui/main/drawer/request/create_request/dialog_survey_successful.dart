@@ -46,9 +46,9 @@ class DialogSurveySuccessful extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 5),
                 child: Text(AppLocalizations.of(context)!.textTitleSurveySuccessful, style: AppStyles.r6.copyWith(color: AppColors.colorSelectTab, fontWeight: FontWeight.w500),),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: const LineDash(color: AppColors.colorLineDash),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 16),
+                child: LineDash(color: AppColors.colorLineDash),
               ),
               Text(AppLocalizations.of(context)!.textContentSurveySuccessful, style: AppStyles.r6.copyWith(color: AppColors.colorText4, fontWeight: FontWeight.w500),),
               InkWell(
@@ -56,12 +56,12 @@ class DialogSurveySuccessful extends StatelessWidget {
                   controller.setSurveyOffline(!controller.isSelectOffline);
                 },
                 child: Container(
-                  margin: EdgeInsets.only(top: 12),
+                  margin: const EdgeInsets.only(top: 12),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       controller.isSelectOffline ? iconOnlyRadio(-1) : iconOnlyUnRadio(),
-                      SizedBox(width: 10,),
+                      const SizedBox(width: 10,),
                       Text(
                         AppLocalizations.of(context)!.textCreateOfflineSurvey,
                         style: AppStyles.r6.copyWith(
@@ -77,14 +77,14 @@ class DialogSurveySuccessful extends StatelessWidget {
                       flex: 1,
                       child: Container(
                         width: double.infinity,
-                        margin: EdgeInsets.only(top: 22),
-                        padding: EdgeInsets.symmetric(vertical: 14),
+                        margin: const EdgeInsets.only(top: 22),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
                         decoration: BoxDecoration(
                           color: controller.isSelectOffline ? AppColors.colorButton : Colors.white,
                           borderRadius: BorderRadius.circular(24),
                           boxShadow: [
                             BoxShadow(
-                              offset: Offset(0, 1),
+                              offset: const Offset(0, 1),
                               blurRadius: 2,
                               color: Colors.black.withOpacity(0.3),
                             ),
@@ -104,25 +104,27 @@ class DialogSurveySuccessful extends StatelessWidget {
                               )),
                         ),
                       )),
-                  SizedBox(width: 15,),
+                  const SizedBox(width: 15,),
                   Expanded(
                       flex: 1,
                       child: Container(
                         width: double.infinity,
-                        margin: EdgeInsets.only(top: 22),
-                        padding: EdgeInsets.symmetric(vertical: 14),
+                        margin: const EdgeInsets.only(top: 22),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
                         decoration: BoxDecoration(
-                          color: AppColors.colorButton,
+                          color: !controller.isSelectOffline ? AppColors.colorButton : Colors.white,
                           borderRadius: BorderRadius.circular(24),
                         ),
                         child: InkWell(
                           onTap: () {
-                            onSubmit!.call(true);
+                            if(!controller.isSelectOffline) {
+                              onSubmit!.call(true);
+                            }
                           },
                           child:  Center(
                               child: Text(
                                 AppLocalizations.of(context)!.textConnect.toUpperCase(),
-                                style: AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
+                                style: !controller.isSelectOffline ? AppStyles.r5.copyWith(fontWeight: FontWeight.w500) : AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
                               )),
                         ),
                       ))

@@ -139,7 +139,7 @@ class CreateRequestLogic extends GetxController {
     return false;
   }
 
-  void createRequest(Function(bool isSuccess, int id) function) async {
+  void createRequest(Function(bool isSuccess, int id) function) {
     Map<String, dynamic> body = {
       "address": currentAddress.trim(),
       "district": currentDistrict.district.trim(),
@@ -176,7 +176,7 @@ class CreateRequestLogic extends GetxController {
     update();
   }
 
-  void searchNumberContact(String id) async {
+  void searchNumberContact(String id) {
     Map<String, dynamic> params = {
       "phone": "",
       "identityType": currentIdentityType,
@@ -206,7 +206,7 @@ class CreateRequestLogic extends GetxController {
         });
   }
 
-  void getListProvince(Function(bool isSuccess) function) async{
+  void getListProvince(Function(bool isSuccess) function){
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_PROVINCES,
         onSuccess: (response) {
@@ -230,7 +230,7 @@ class CreateRequestLogic extends GetxController {
         });
   }
 
-  void getListPrecincts(String areaCode, Function(bool isSuccess) function) async{
+  void getListPrecincts(String areaCode, Function(bool isSuccess) function){
     Map<String, dynamic> params = {
       "areaCode":areaCode
     };
@@ -258,7 +258,7 @@ class CreateRequestLogic extends GetxController {
         });
   }
 
-  void getListDistrict(String areaCode, Function(bool isSuccess) function) async{
+  void getListDistrict(String areaCode, Function(bool isSuccess) function) {
 
     Map<String, dynamic> params = {
       "areaCode":areaCode
@@ -287,7 +287,7 @@ class CreateRequestLogic extends GetxController {
         });
   }
 
-  void createSurveyOffline(Function (bool isSuccess) callBack) async{
+  void createSurveyOffline(Function (bool isSuccess) callBack) {
     Map<String, dynamic> body = {
       "status": RequestStatus.CREATE_REQUEST,
       "reasonId": "",
@@ -311,7 +311,7 @@ class CreateRequestLogic extends GetxController {
         });
   }
 
-  void createSurveyOnline(Function(bool isSuccess) callBack) async{
+  void createSurveyOnline(Function(bool isSuccess) callBack) {
     ApiUtil.getInstance( )!.get(
         url: "${ApiEndPoints.API_SURVEY}/${requestModel.id}${ApiEndPoints.API_SURVEY_ONLINE}",
         onSuccess: (response) {
