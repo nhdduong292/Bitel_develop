@@ -303,9 +303,7 @@ Widget inputFormV3(
           height: 45,
           width: width,
           child: TextField(
-            controller: textDefault != null
-                ? TextEditingController(text: textDefault)
-                : null,
+            controller: TextEditingController(text: textDefault),
             onChanged: (value) => {onChange(value)},
             style: TextStyle(
                 fontSize: 18,

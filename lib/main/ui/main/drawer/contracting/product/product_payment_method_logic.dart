@@ -15,13 +15,16 @@ import '../../../../../networks/model/product_model.dart';
 
 class ProductPaymentMethodLogic extends GetxController {
   int requestId = 0;
+  String type = '';
   bool isLoadingProduct = true;
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    requestId = Get.arguments;
+    var data = Get.arguments;
+    requestId = data[0];
+    type = data[1];
     getProduts(requestId);
   }
 

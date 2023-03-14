@@ -58,7 +58,8 @@ class ListRequestPage extends GetWidget {
             ],
             title: Container(
               margin: const EdgeInsets.only(bottom: 20),
-              child: Text(AppLocalizations.of(context)!.textListOfRequest, style: AppStyles.title),
+              child: Text(AppLocalizations.of(context)!.textListOfRequest,
+                  style: AppStyles.title),
             ),
             toolbarHeight: 100,
             flexibleSpace: Container(
@@ -96,27 +97,27 @@ class ListRequestPage extends GetWidget {
                         child: SvgPicture.asset(AppImages.icSearch),
                       ),
                       Expanded(
-                      //     child: Padding(
-                      //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      //   child: Text(AppLocalizations.of(context)!.textSearchCodeProvence, style: AppStyles.r2.copyWith(color: AppColors.colorText4.withOpacity(0.75)),),
-                      // )),
-                        child:  TextField(
+                        //     child: Padding(
+                        //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        //   child: Text(AppLocalizations.of(context)!.textSearchCodeProvence, style: AppStyles.r2.copyWith(color: AppColors.colorText4.withOpacity(0.75)),),
+                        // )),
+                        child: TextField(
                           cursorColor: AppColors.colorText1,
                           onChanged: (value) {
                             String key = value.trim();
-                            if(controller.index == 0) {
+                            if (controller.index == 0) {
                               globalKey1.currentState!.getListRequest(key);
-                            } else if(controller.index == 1){
+                            } else if (controller.index == 1) {
                               globalKey2.currentState!.getListRequest(key);
-                            } else if(controller.index == 2){
+                            } else if (controller.index == 2) {
                               globalKey3.currentState!.getListRequest(key);
-                            } else if(controller.index == 3){
+                            } else if (controller.index == 3) {
                               globalKey4.currentState!.getListRequest(key);
-                            } else if(controller.index == 4){
+                            } else if (controller.index == 4) {
                               globalKey5.currentState!.getListRequest(key);
-                            } else if(controller.index == 5){
+                            } else if (controller.index == 5) {
                               globalKey6.currentState!.getListRequest(key);
-                            } else if(controller.index == 6){
+                            } else if (controller.index == 6) {
                               globalKey7.currentState!.getListRequest(key);
                             }
                           },
@@ -129,20 +130,21 @@ class ListRequestPage extends GetWidget {
                             //     ? ""
                             //     : null)
                             //     : null,
-                            hintText: AppLocalizations.of(context)!.textSearchCodeProvence,
-                            hintStyle: AppStyles.r2.copyWith(color: AppColors.colorText4.withOpacity(0.75)),
+                            hintText: AppLocalizations.of(context)!
+                                .textSearchCodeProvence,
+                            hintStyle: AppStyles.r2.copyWith(
+                                color: AppColors.colorText4.withOpacity(0.75)),
 
                             // filled: true,
                             // fillColor: Colors.white,
                             // border: InputBorder.none,
                             border: const UnderlineInputBorder(
                                 borderSide: BorderSide(
-                                    width: 1,
-                                    color: Colors.transparent)),
+                                    width: 1, color: Colors.transparent)),
                             errorBorder: const UnderlineInputBorder(
                               //<-- SEE HERE
-                              borderSide: BorderSide(
-                                  width: 1, color: Colors.redAccent),
+                              borderSide:
+                                  BorderSide(width: 1, color: Colors.redAccent),
                             ),
                             focusedBorder: const UnderlineInputBorder(
                               //<-- SEE HERE
@@ -198,41 +200,39 @@ class ListRequestPage extends GetWidget {
                     tabs: [
                       // first tab [you can add an icon using the icon property]
                       Tab(
-                        child: Text(AppLocalizations.of(context)!.textCreateRequest,
-                            style: AppStyles.r7)
+                          child: Text(
+                              AppLocalizations.of(context)!.textCreateRequest,
+                              style: AppStyles.r7)),
 
-                      ),
-
-                      Tab(
-                        child: Text(
-                          AppLocalizations.of(context)!.textCreateRequestWithout,
-                            style: AppStyles.r7,)
-                      ),
                       Tab(
                           child: Text(
-                            AppLocalizations.of(context)!.textSurveyOfflineSuccess,
-                            style: AppStyles.r7,)
-                      ),
+                        AppLocalizations.of(context)!.textCreateRequestWithout,
+                        style: AppStyles.r7,
+                      )),
                       Tab(
-                        child: Text(
-                          AppLocalizations.of(context)!.textConnected,
-                            style: AppStyles.r7,)
-                      ),
+                          child: Text(
+                        AppLocalizations.of(context)!.textSurveyOfflineSuccess,
+                        style: AppStyles.r7,
+                      )),
                       Tab(
-                        child: Text(
-                          AppLocalizations.of(context)!.textDeploying,
-                            style: AppStyles.r7,)
-                      ),
+                          child: Text(
+                        AppLocalizations.of(context)!.textConnected,
+                        style: AppStyles.r7,
+                      )),
                       Tab(
-                        child: Text(
-                            AppLocalizations.of(context)!.textComplete,
-                            style: AppStyles.r7)
-                      ),
+                          child: Text(
+                        AppLocalizations.of(context)!.textDeploying,
+                        style: AppStyles.r7,
+                      )),
+                      Tab(
+                          child: Text(
+                              AppLocalizations.of(context)!.textComplete,
+                              style: AppStyles.r7)),
                       Tab(
                         child: Text(
                           AppLocalizations.of(context)!.textCancel,
-                            style: AppStyles.r7,
-                            ),
+                          style: AppStyles.r7,
+                        ),
                       ),
                     ],
                   ),
@@ -259,9 +259,15 @@ class ListRequestPage extends GetWidget {
                       children: [
                         Row(
                           children: [
-                            Expanded(child: Padding(
+                            Expanded(
+                                child: Padding(
                               padding: const EdgeInsets.only(top: 20, left: 16),
-                              child: Text(AppLocalizations.of(context)!.textListOfRequest, style: AppStyles.r6.copyWith(color: AppColors.colorText1, fontWeight: FontWeight.w600),),
+                              child: Text(
+                                AppLocalizations.of(context)!.textListOfRequest,
+                                style: AppStyles.r6.copyWith(
+                                    color: AppColors.colorText1,
+                                    fontWeight: FontWeight.w600),
+                              ),
                             )),
                             InkWell(
                               onTap: () {
@@ -269,7 +275,8 @@ class ListRequestPage extends GetWidget {
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 10),
-                                child: SvgPicture.asset(AppImages.icTranferSaff),
+                                child:
+                                    SvgPicture.asset(AppImages.icTranferSaff),
                               ),
                             ),
                             InkWell(
@@ -277,23 +284,48 @@ class ListRequestPage extends GetWidget {
                                 showDialogCancelRequest(context);
                               },
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
-                                child: SvgPicture.asset(AppImages.icCancelRequest),
+                                padding: const EdgeInsets.only(
+                                    left: 16, right: 16, top: 20),
+                                child:
+                                    SvgPicture.asset(AppImages.icCancelRequest),
                               ),
                             )
                           ],
                         ),
-                        Expanded(child: TabBarView(
+                        Expanded(
+                            child: TabBarView(
                           controller: controller.tabController,
                           children: [
                             // first tab bar view widget
-                            ListRequestTabPage(status: RequestStatus.CREATE_REQUEST, key: globalKey1,),
-                            ListRequestTabPage(status:RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY, key: globalKey2,),
-                            ListRequestTabPage(status:RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY, key: globalKey3,),
-                            ListRequestTabPage(status:RequestStatus.CONNECTED, key: globalKey4,),
-                            ListRequestTabPage(status:RequestStatus.DEPLOYING, key: globalKey5,),
-                            ListRequestTabPage(status:RequestStatus.COMPLETE, key: globalKey6,),
-                            ListRequestTabPage(status:RequestStatus.CANCEL, key: globalKey7,),
+                            ListRequestTabPage(
+                              status: RequestStatus.CREATE_REQUEST,
+                              key: globalKey1,
+                            ),
+                            ListRequestTabPage(
+                              status:
+                                  RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY,
+                              key: globalKey2,
+                            ),
+                            ListRequestTabPage(
+                              status: RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY,
+                              key: globalKey3,
+                            ),
+                            ListRequestTabPage(
+                              status: RequestStatus.CONNECTED,
+                              key: globalKey4,
+                            ),
+                            ListRequestTabPage(
+                              status: RequestStatus.DEPLOYING,
+                              key: globalKey5,
+                            ),
+                            ListRequestTabPage(
+                              status: RequestStatus.COMPLETE,
+                              key: globalKey6,
+                            ),
+                            ListRequestTabPage(
+                              status: RequestStatus.CANCEL,
+                              key: globalKey7,
+                            ),
                           ],
                         )),
                       ],
@@ -330,35 +362,36 @@ class ListRequestPage extends GetWidget {
     //     });
   }
 
-  void showDialogAdvanceSearch(BuildContext context, ListRequestLogic controller) {
+  void showDialogAdvanceSearch(
+      BuildContext context, ListRequestLogic controller) {
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (context) {
           return DialogAdvancedSearchPage(
-            onSubmit: (model) {
-                if(controller.index == model.getPositionStatus()) {
+              onSubmit: (model) {
+                if (controller.index == model.getPositionStatus()) {
                   controller.updateSearchRequest(model);
-                  if(controller.index == 0) {
+                  if (controller.index == 0) {
                     globalKey1.currentState!.getListRequest("");
-                  } else if(controller.index == 1){
+                  } else if (controller.index == 1) {
                     globalKey2.currentState!.getListRequest("");
-                  } else if(controller.index == 2){
+                  } else if (controller.index == 2) {
                     globalKey3.currentState!.getListRequest("");
-                  } else if(controller.index == 3){
+                  } else if (controller.index == 3) {
                     globalKey4.currentState!.getListRequest("");
-                  } else if(controller.index == 4){
+                  } else if (controller.index == 4) {
                     globalKey5.currentState!.getListRequest("");
-                  } else if(controller.index == 5){
+                  } else if (controller.index == 5) {
                     globalKey6.currentState!.getListRequest("");
-                  } else if(controller.index == 6){
+                  } else if (controller.index == 6) {
                     globalKey7.currentState!.getListRequest("");
                   }
-                }else {
+                } else {
                   controller.updateSearchRequest(model);
                 }
-            },
-           searchRequest: controller.searchRequest);
+              },
+              searchRequest: controller.searchRequest);
         });
   }
 }
