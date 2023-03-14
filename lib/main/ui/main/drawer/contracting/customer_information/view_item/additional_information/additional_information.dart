@@ -171,7 +171,7 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                 label: AppLocalizations.of(context)!.textPhoneNumber,
                 required: true,
                 maxLength: 11,
-                textDefault: controller.phone,
+                controller: controller.phoneController,
                 inputType: TextInputType.number,
                 width: 210,
                 onChange: (value) {
@@ -181,7 +181,7 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                 hint: AppLocalizations.of(context)!.textEnterEmail,
                 label: AppLocalizations.of(context)!.textEmail,
                 required: true,
-                textDefault: controller.email,
+                controller: controller.emailController,
                 inputType: TextInputType.text,
                 width: 210,
                 onChange: (value) {
@@ -191,7 +191,7 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                 hint: AppLocalizations.of(context)!.textEnterAddress,
                 label: AppLocalizations.of(context)!.textAddressCustomerInfo,
                 required: true,
-                textDefault: controller.address,
+                controller: controller.addressController,
                 inputType: TextInputType.text,
                 width: 210,
                 onChange: (value) {

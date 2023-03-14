@@ -207,57 +207,72 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                             dropValue: controller.currentIdentity,
                             function: (value) {
                               controller.setIdentity(value);
+                              controller.logicCreateContact
+                                  .changeTypeCustomer(value);
                             },
                             listDrop: controller.listIdentityNumber),
                       ),
                       SizedBox(
                         height: 22,
                       ),
-                      DottedLine(
-                        dashColor: Color(0xFFE3EAF2),
-                        dashGapLength: 3,
-                        dashLength: 4,
-                      ),
-                      SizedBox(
-                        height: 17,
-                      ),
-                      Text(
-                        'Next, scan its vover',
-                        style: AppStyles.r3,
-                      ),
-                      SizedBox(
-                        height: 12,
-                      ),
-                      controller.textPathScan.isNotEmpty
-                          ? Image.file(
-                              File(controller.textPathScan),
-                            )
-                          : Image.asset(controller.getImageIdentity()),
-                      SizedBox(
-                        height: 23,
-                      ),
+                      Visibility(
+                        visible: !controller.isDNI(),
+                        child: Column(
+                          children: [
+                            DottedLine(
+                              dashColor: Color(0xFFE3EAF2),
+                              dashGapLength: 3,
+                              dashLength: 4,
+                            ),
+                            SizedBox(
+                              height: 17,
+                            ),
+                            Text(
+                              'Next, scan its vover',
+                              style: AppStyles.r3,
+                            ),
+                            SizedBox(
+                              height: 12,
+                            ),
+                            controller.textPathScan.isNotEmpty
+                                ? Image.file(
+                                    File(controller.textPathScan),
+                                  )
+                                : Image.asset(controller.getImageIdentity()),
+                            SizedBox(
+                              height: 23,
+                            ),
+                          ],
+                        ),
+                      )
                     ]),
                   ),
                   Obx(
                     () => SizedBox(
                       width: width,
                       child: bottomButton(
-                          text: 'SCAN',
+                          text: !controller.isDNI()
+                              ? 'SCAN'
+                              : AppLocalizations.of(context)!.textContinue,
                           onTap: () {
                             if (controller.checkOption1.value &&
                                 controller.checkOption2.value) {
                               // callback();
-                              if (controller.textPathScan.isNotEmpty) {
+                              if (controller.currentIdentity == 'DNI') {
                                 callback();
                               } else {
-                                if (controller.textPathScan.isEmpty) {
-                                  // controller.getScan();
-                                  // _getFromGallery(context, controller);
+                                if (controller.textPathScan.isNotEmpty) {
+                                  callback();
                                 } else {
-                                  // callback();
-                                  // controller.detectID(context);
+                                  if (controller.textPathScan.isEmpty) {
+                                    // controller.getScan();
+                                    // _getFromGallery(context, controller);
+                                  } else {
+                                    // callback();
+                                    // controller.detectID(context);
+                                  }
+                                  _getFromGallery(context, controller);
                                 }
-                                _getFromGallery(context, controller);
                               }
                             } else {
                               Common.showToastCenter(

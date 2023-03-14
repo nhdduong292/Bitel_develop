@@ -1,10 +1,12 @@
+import 'package:bitel_ventas/main/ui/main/drawer/contracting/register_finger_print/register_finger_print_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/cretate_contact_page_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/client_data.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data_dni/client_data_dni_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data_dni/client_data_dni.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/document_scanning.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../../../res/app_colors.dart';
@@ -165,11 +167,19 @@ class CreateContactPage extends GetView<CreateContactPageLogic> {
                               const SizedBox(
                                 width: 16,
                               ),
-                              circleMarkerView(
-                                  check: controller.checkItem3, text: '3'),
-                              const SizedBox(
-                                width: 16,
-                              ),
+                              Visibility(
+                                visible: controller.typeCustomer != 'DNI',
+                                child: Row(
+                                  children: [
+                                    circleMarkerView(
+                                        check: controller.checkItem3,
+                                        text: '3'),
+                                    const SizedBox(
+                                      width: 16,
+                                    ),
+                                  ],
+                                ),
+                              )
                             ],
                           ),
                         )),
@@ -182,7 +192,7 @@ class CreateContactPage extends GetView<CreateContactPageLogic> {
                   child: ScrollablePositionedList.builder(
                       scrollDirection: Axis.horizontal,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 6,
+                      itemCount: 4,
                       itemScrollController: _scrollController,
                       itemPositionsListener: _itemPositionsListener,
                       itemBuilder: (context, index) {
@@ -197,15 +207,30 @@ class CreateContactPage extends GetView<CreateContactPageLogic> {
                             },
                           );
                         } else if (index == 1) {
-                          return ClientDataWidget(
-                            callback: () {
-                              controller.checkItem3.value = true;
-                              _scrollController.scrollTo(
-                                index: 2,
-                                duration: const Duration(milliseconds: 200),
-                              );
-                            },
-                          );
+                          if (controller.typeCustomer == 'DNI') {
+                            return ClientDataDNIWidget(
+                              callback: () {
+                                controller.checkItem3.value = true;
+                                _scrollController.scrollTo(
+                                  index: 2,
+                                  duration: const Duration(milliseconds: 200),
+                                );
+                              },
+                            );
+                          } else {
+                            return ClientDataWidget(
+                              callback: () {
+                                controller.checkItem3.value = true;
+                                _scrollController.scrollTo(
+                                  index: 2,
+                                  duration: const Duration(milliseconds: 200),
+                                );
+                                RegisterFingerPrintLogic registerFingerLogic =
+                                    Get.find();
+                                registerFingerLogic.setupCustomer();
+                              },
+                            );
+                          }
                         } else {
                           return RegisterFingerPrintPage(
                               // callback: () {

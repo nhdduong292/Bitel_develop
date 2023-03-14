@@ -94,4 +94,19 @@ class ClientDataDNILogic extends GetxController {
       },
     );
   }
+
+  bool checkValidate() {
+    if (!tfLastName.text.isNotEmpty) {
+      return false;
+    } else if (!tfName.text.isNotEmpty) {
+      return false;
+    } else if (!tfNationality.text.isNotEmpty) {
+      return false;
+    } else if (!dob.isNotEmpty) {
+      return false;
+    } else if (!exd.isNotEmpty) {
+      return false;
+    }
+    return true;
+  }
 }

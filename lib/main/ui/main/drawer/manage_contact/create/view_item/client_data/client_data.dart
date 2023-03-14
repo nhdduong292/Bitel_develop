@@ -381,7 +381,7 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
       ],
     );
     if (croppedFile != null) {
-      controller.setPathScan(croppedFile!.path);
+      controller.setPathScan(croppedFile.path);
     }
   }
 }

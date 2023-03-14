@@ -42,6 +42,11 @@ class CustomerInformationLogic extends GetxController {
   ContractModel contract = ContractModel();
   CustomerInformationLogic({required this.context});
 
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController billAddressController = TextEditingController();
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -54,6 +59,22 @@ class CustomerInformationLogic extends GetxController {
     phone = customer.telFax;
     email = customer.email;
     address = customer.address;
+
+    phoneController.text = phone;
+    phoneController.selection =
+        TextSelection.fromPosition(TextPosition(offset: phone.length));
+
+    emailController.text = email;
+    emailController.selection =
+        TextSelection.fromPosition(TextPosition(offset: email.length));
+
+    addressController.text = address;
+    addressController.selection =
+        TextSelection.fromPosition(TextPosition(offset: address.length));
+
+    billAddressController.text = address;
+    billAddressController.selection =
+        TextSelection.fromPosition(TextPosition(offset: billAddress.length));
   }
 
   void getCurrentTime() {

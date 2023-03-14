@@ -21,7 +21,6 @@ import '../ui/main/drawer/contracting/ftth_contracting/ftth_contracting_page.dar
 import '../ui/main/drawer/contracting/register_finger_print/register_finger_print_page.dart';
 import '../ui/main/drawer/contracting/validate_fingerprint/validate_fingerprint.dart';
 import '../ui/main/drawer/manage_contact/create/create_contact_page.dart';
-import '../ui/main/drawer/manage_contact/create_cusomter_with_dni/create_contact_with_dni_page.dart';
 import '../ui/main/drawer/manage_contact/manage/manage_contact_page.dart';
 import '../ui/main/main_page.dart';
 import '../ui/main/setting/regiester_finger/register_finger_page.dart';
@@ -48,7 +47,6 @@ class RouteConfig {
   static const String validateFingerprint = "/contracting/validateFingerprint";
   static const String ftthContracting = "/contracting/ftthContracting";
   static const String registerFingerPrint = "/contracting/registerFingerPrint";
-  static const String createContactDNI = "/menu/createContactDNI";
 
   ///page
   static final List<GetPage> getPages = [
@@ -72,7 +70,6 @@ class RouteConfig {
     GetPage(name: ftthContracting, page: () => FTTHContractingPage()),
     GetPage(name: registerFingerPrint, page: () => RegisterFingerPrintPage()),
     GetPage(name: productPayment, page: () => ProductPaymentMethodPage()),
-    GetPage(name: createContactDNI, page: () => CreateContactDNIPage()),
   ];
 
   ///language

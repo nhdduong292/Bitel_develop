@@ -14,6 +14,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../../../../../res/app_colors.dart';
+import '../../../../../router/route_config.dart';
 
 typedef void TouchScan();
 
@@ -338,13 +339,28 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                                 return SuccessDialog(
                                                   height: 299,
                                                   isSuccess: true,
+                                                  onClick: () {
+                                                    Get.toNamed(
+                                                        RouteConfig
+                                                            .customerInformation,
+                                                        arguments: [
+                                                          controller
+                                                              .customerModel,
+                                                          controller.requestId,
+                                                          controller.productId,
+                                                          controller.reasonId
+                                                        ]);
+                                                  },
                                                 );
                                               },
                                             )
                                           }
-                                        else {
-                                            Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI)
-                                        }
+                                        else
+                                          {
+                                            Common.showToastCenter(
+                                                AppLocalizations.of(context)!
+                                                    .textErrorAPI)
+                                          }
                                       });
                                 } else {
                                   Common.showToastCenter(
@@ -469,9 +485,13 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
 class SuccessDialog extends Dialog {
   final double height;
   final bool isSuccess;
+  var onClick;
 
-  const SuccessDialog(
-      {super.key, required this.height, required this.isSuccess});
+  SuccessDialog(
+      {super.key,
+      required this.height,
+      required this.isSuccess,
+      required this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -524,7 +544,9 @@ class SuccessDialog extends Dialog {
                 borderRadius: BorderRadius.circular(24),
               ),
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  onClick();
+                },
                 child: Center(
                     child: Text(
                   '¡Muchas Gracias!'.toUpperCase(),

@@ -9,11 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import '../../../../../../../../res/app_colors.dart';
-import '../../../../../../../router/route_config.dart';
-import '../../../../../../../utils/common_widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../../../../../res/app_colors.dart';
+import '../../../../../../../utils/common_widgets.dart';
 import 'client_data_dni_logic.dart';
 
 typedef void TouchUpadte();
@@ -224,6 +223,10 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                     // } else {
                     //   callback();
                     // }
+                    if (!controller.checkValidate()) {
+                      Common.showToastCenter("Bạn phải nhập hết thông tin");
+                      return;
+                    }
                     _onLoading(context);
                     controller.createCustomer(
                       (isSuccess) {
