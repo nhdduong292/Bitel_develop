@@ -252,7 +252,7 @@ class CustomerInformationLogic extends GetxController {
   }
 
   bool checkValidate() {
-    if (phone.length < 9) {
+    if (phone.length <= 8) {
       Common.showToastCenter(
           AppLocalizations.of(context)!.textValidatePhoneNumber);
       return false;

@@ -96,11 +96,15 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                               text: TextSpan(
                                   text:
                                       '${controller.logicCreateContact.typeCustomer}: ',
-                                  style: AppStyles.r3,
+                                  style: AppStyles.r9454C9_14_500.copyWith(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w700),
                                   children: [
                                     TextSpan(
                                       text: controller.idNumber,
-                                      style: AppStyles.r1,
+                                      style: AppStyles.r2B3A4A_12_500.copyWith(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w400),
                                     )
                                   ]),
                             )
@@ -194,8 +198,12 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                                 width: 18,
                               ),
                               Expanded(
-                                  child: Text(AppLocalizations.of(context)!
-                                      .textPhotoOfIdentity)),
+                                  child: Text(
+                                AppLocalizations.of(context)!
+                                    .textPhotoOfIdentity,
+                                style: AppStyles.r007689_14_500
+                                    .copyWith(color: Colors.white),
+                              )),
                               SvgPicture.asset(AppImages.icCameraRound),
                               SizedBox(
                                 width: 8,

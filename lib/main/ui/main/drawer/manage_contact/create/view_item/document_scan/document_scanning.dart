@@ -134,11 +134,7 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                                     text: TextSpan(
                                       text: AppLocalizations.of(context)!
                                           .textAceptoYAutorizoABitel,
-                                      style: TextStyle(
-                                        color: AppColors.colorContent,
-                                        fontFamily: 'Roboto',
-                                        fontSize: 14,
-                                      ),
+                                      style: AppStyles.r6C8AA1_13_400,
                                       children: [
                                         TextSpan(
                                           text: AppLocalizations.of(context)!
@@ -169,7 +165,8 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                             child: RichText(
                               textAlign: TextAlign.start,
                               text: TextSpan(
-                                text: 'Type of document ',
+                                text: AppLocalizations.of(context)!
+                                    .textTypeOfDocument,
                                 style: TextStyle(
                                   color: AppColors.colorContent,
                                   fontFamily: 'Roboto',
@@ -223,7 +220,7 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                               height: 17,
                             ),
                             Text(
-                              'Next, scan its vover',
+                              AppLocalizations.of(context)!.textNextScan,
                               style: AppStyles.r3,
                             ),
                             SizedBox(
@@ -246,7 +243,9 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                     () => SizedBox(
                       width: width,
                       child: bottomButton(
-                          text: controller.isDNI() ? 'CONTINUE' : 'SCAN',
+                          text: controller.isDNI()
+                              ? AppLocalizations.of(context)!.textContinue
+                              : AppLocalizations.of(context)!.textScan,
                           onTap: () {
                             if (controller.checkOption1.value &&
                                 controller.checkOption2.value) {
@@ -268,7 +267,8 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                               }
                             } else {
                               Common.showToastCenter(
-                                  "Bạn phải chấp nhận quy định");
+                                  AppLocalizations.of(context)!
+                                      .textAcceptTheRules);
                             }
                           },
                           color: !(controller.checkOption1.value &&

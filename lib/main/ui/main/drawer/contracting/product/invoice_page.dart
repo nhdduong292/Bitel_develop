@@ -56,8 +56,8 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                           () => RichText(
                             text: TextSpan(
                                 text: 'S/${controller.balance} ',
-                                style: AppStyles.r3
-                                    .copyWith(fontWeight: FontWeight.w700),
+                                style: AppStyles.r9454C9_14_500.copyWith(
+                                    fontSize: 13, fontWeight: FontWeight.w700),
                                 children: [
                                   TextSpan(
                                     text: AppLocalizations.of(context)!
