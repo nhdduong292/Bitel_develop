@@ -1,11 +1,8 @@
 import 'dart:io';
-import 'dart:math';
-
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/customer_detect_mode.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/document_scanning_logic.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -16,6 +13,7 @@ import '../../../../../../../networks/api_util.dart';
 import '../../../../../../../utils/common.dart';
 import '../../../../../../../utils/common_widgets.dart';
 import '../../../../../../../utils/values.dart';
+import '../../cretate_contact_page_logic.dart';
 
 class ClientDataLogic extends GetxController {
   DocumentScanningLogic logic = Get.find();
@@ -31,11 +29,15 @@ class ClientDataLogic extends GetxController {
   final TextRecognizer _textRecognizer =
       TextRecognizer(script: TextRecognitionScript.latin);
 
+  CreateContactPageLogic logicCreateContact = Get.find();
+  String idNumber = '';
+
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     // onListenerMethod();
+    idNumber = logicCreateContact.idNumber;
   }
 
   void onListenerMethod() {
@@ -62,11 +64,8 @@ class ClientDataLogic extends GetxController {
   }
 
   void createCustomer(Function(bool isSuccess) callBack) {
-    var rng = Random();
-    int random = rng.nextInt(899) + 100;
-    String idNumber = "123126$random";
     Map<String, dynamic> body = {
-      "type": "DNI",
+      "type": logicCreateContact.typeCustomer,
       "idNumber": idNumber,
       "name": "Duong",
       "fullName": "Tran",

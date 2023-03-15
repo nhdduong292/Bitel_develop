@@ -36,6 +36,7 @@ class RegisterFingerPrintLogic extends GetxController {
   int requestId = 0;
   int productId = 0;
   int reasonId = 0;
+  bool isForcedTerm = false;
 
   @override
   void onInit() {
@@ -44,6 +45,7 @@ class RegisterFingerPrintLogic extends GetxController {
     requestId = logicCreateContact.requestId;
     productId = logicCreateContact.productId;
     reasonId = logicCreateContact.reasonId;
+    isForcedTerm = logicCreateContact.isForcedTerm;
   }
 
   String findPathFinger() {

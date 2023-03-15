@@ -34,6 +34,7 @@ class CustomerInformationLogic extends GetxController {
   int requestId = 0;
   int productId = 0;
   int reasonId = 0;
+  bool isForcedTerm = false;
   String phone = '';
   String email = '';
   String address = '';
@@ -56,6 +57,7 @@ class CustomerInformationLogic extends GetxController {
     requestId = data[1];
     productId = data[2];
     reasonId = data[3];
+    isForcedTerm = data[4];
     phone = customer.telFax;
     email = customer.email;
     address = customer.address;
@@ -158,9 +160,9 @@ class CustomerInformationLogic extends GetxController {
       "productId": productId,
       "reasonId": reasonId,
       "promotionId": 0,
-      "contractType": "UNDETERMINED",
+      "contractType": isForcedTerm ? "FORCED_TERM" : "UNDETERMINED",
       "numOfSubscriber": 1,
-      "signDate": signDate.value,
+      "signDate": signDate.value.trim(),
       "billCycle": getBillCycle(billCycle.value),
       "changeNotification": "Email",
       "printBill": "Email",
@@ -169,9 +171,9 @@ class CustomerInformationLogic extends GetxController {
       "province": customer.province,
       "district": customer.district,
       "precinct": customer.precinct,
-      "address": billAddress,
-      "phone": customer.telFax,
-      "email": customer.email,
+      "address": billAddress.trim(),
+      "phone": customer.telFax.trim(),
+      "email": customer.email.trim(),
       "protectionFilter": checkOption1.value,
       "receiveInfoByMail": checkOption2.value,
       "receiveFromThirdParty": checkOption3.value,
@@ -245,6 +247,10 @@ class CustomerInformationLogic extends GetxController {
 
   bool checkValidate() {
     if (phone.length < 9) {
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textValidatePhoneNumber);
+      return false;
+    } else if (!Common.validatePhone(phone)) {
       Common.showToastCenter(
           AppLocalizations.of(context)!.textValidatePhoneNumber);
       return false;

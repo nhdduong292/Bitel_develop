@@ -671,7 +671,11 @@ class CreateRequestPage extends GetWidget {
                                   Get.back();
                                   if (isSuccess) {
                                     showDialogSurveyMap(
-                                        context, controller, id, controller.requestModel.identityType);
+                                        context,
+                                        controller,
+                                        id,
+                                        controller.requestModel.identityType,
+                                        controller.requestModel.idNumber);
                                   } else {
                                     Common.showToastCenter(
                                         AppLocalizations.of(context)!
@@ -776,20 +780,24 @@ class CreateRequestPage extends GetWidget {
     //     });
   }
 
-  void showDialogSurveyMap(
-      BuildContext context, CreateRequestLogic controller, int id, String type) {
+  void showDialogSurveyMap(BuildContext context, CreateRequestLogic controller,
+      int id, String type, String idNumber) {
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (context) {
           return DialogSurveyMapPage(
-            onSubmit: (isSuccess){
-                // if(isSuccess) {
-                //   showDialogSurveySuccessful(context, controller);
-                // } else {
-                //   showDialogSurveyUnsuccessful(context, controller);
-                // }
-            },type:  type,requestId: id,);
+            onSubmit: (isSuccess) {
+              // if(isSuccess) {
+              //   showDialogSurveySuccessful(context, controller);
+              // } else {
+              //   showDialogSurveyUnsuccessful(context, controller);
+              // }
+            },
+            type: type,
+            requestId: id,
+            idNumber: idNumber,
+          );
         });
   }
 

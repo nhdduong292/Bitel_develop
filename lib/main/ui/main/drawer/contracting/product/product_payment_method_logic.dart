@@ -16,6 +16,7 @@ import '../../../../../networks/model/product_model.dart';
 class ProductPaymentMethodLogic extends GetxController {
   int requestId = 0;
   String type = '';
+  String idNumber = '';
   bool isLoadingProduct = true;
 
   @override
@@ -25,6 +26,7 @@ class ProductPaymentMethodLogic extends GetxController {
     var data = Get.arguments;
     requestId = data[0];
     type = data[1];
+    idNumber = data[2];
     getProduts(requestId);
   }
 
@@ -103,6 +105,14 @@ class ProductPaymentMethodLogic extends GetxController {
   void resetPlanReason() {
     listPlanReason.clear();
     valueMethod.value = -1;
+  }
+
+  bool isForcedTerm() {
+    if (getPlanReason().feeInstallation != null &&
+        getPlanReason().feeInstallation! > 0.0) {
+      return false;
+    }
+    return true;
   }
 
   void getPlanReasons(int id, BuildContext context) {

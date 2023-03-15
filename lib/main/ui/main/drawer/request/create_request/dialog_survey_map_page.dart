@@ -21,10 +21,12 @@ class DialogSurveyMapPage extends GetWidget {
   final Function(bool isSuccess) onSubmit;
   int requestId;
   String type;
+  String idNumber;
   DialogSurveyMapPage(
       {super.key,
       required this.onSubmit,
       required this.type,
+      required this.idNumber,
       required this.requestId});
 
   @override
@@ -268,6 +270,7 @@ class DialogSurveyMapPage extends GetWidget {
           return DialogSurveySuccessful(
             id,
             type,
+            idNumber,
             (isOnline) {},
           );
         });

@@ -68,7 +68,7 @@ class Common {
   }
 
   static bool validateEmail(String text) {
-    RegExp regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    RegExp regex = RegExp(r'^[\w-\.]+@(gmail\.com|hotmail\.com)$');
     return regex.hasMatch(text);
   }
 

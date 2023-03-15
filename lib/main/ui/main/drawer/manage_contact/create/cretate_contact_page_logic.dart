@@ -11,6 +11,8 @@ class CreateContactPageLogic extends GetxController {
   int requestId = 0;
   int productId = 0;
   int reasonId = 0;
+  String idNumber = '';
+  bool isForcedTerm = false;
 
   @override
   void onInit() {
@@ -21,6 +23,8 @@ class CreateContactPageLogic extends GetxController {
     requestId = data[1];
     productId = data[2];
     reasonId = data[3];
+    idNumber = data[4];
+    isForcedTerm = data[5];
   }
 
   void changeTypeCustomer(String type) {

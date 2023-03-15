@@ -56,7 +56,7 @@ class RequestDetailPage extends GetWidget {
           body: controller.isLoading
               ? LoadingCirculApi()
               : (controller.requestModel.id == 0
-                  ?  Center(
+                  ? Center(
                       child: Text(AppLocalizations.of(context)!.textNoData),
                     )
                   : SingleChildScrollView(
@@ -644,7 +644,9 @@ class RequestDetailPage extends GetWidget {
                                             arguments: [
                                               controller.requestModel.id,
                                               controller.requestModel
-                                                  .customerModel.type
+                                                  .customerModel.type,
+                                              controller.requestModel
+                                                  .customerModel.idNumber
                                             ]);
                                       } else if (controller.status ==
                                           RequestStatus.CONNECTED) {
