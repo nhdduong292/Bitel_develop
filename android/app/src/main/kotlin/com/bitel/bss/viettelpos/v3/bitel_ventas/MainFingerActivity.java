@@ -34,6 +34,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import io.flutter.embedding.android.FlutterActivity;
@@ -146,8 +147,10 @@ public class MainFingerActivity extends FlutterActivity {
                     if (fingerPrint != null) {
                         if (fingerPrint.getFingerPrintBmp() != null) {
                             bitmap = fingerPrint.getFingerPrintBmp();
+//                            String link = saveImageToCache(bitmap);
                             String imageBase64 = fingerPrint.getEncodeBase64();
-                            FingerModel fingerModel = new FingerModel(saveImageToCache(bitmap), imageBase64);
+//                            FingerModel fingerModel = new FingerModel(saveImageToCache(bitmap), imageBase64);
+
                             result.success(imageBase64);
                         } else {
                             result.error("UNAVAILABLE", "Finger not available.", null);

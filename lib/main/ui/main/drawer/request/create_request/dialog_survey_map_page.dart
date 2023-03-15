@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
+import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_map_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_successful.dart';
@@ -19,20 +21,14 @@ import 'package:get/get.dart';
 
 class DialogSurveyMapPage extends GetWidget {
   final Function(bool isSuccess) onSubmit;
-  int requestId;
-  String type;
-  String idNumber;
-  DialogSurveyMapPage(
-      {super.key,
-      required this.onSubmit,
-      required this.type,
-      required this.idNumber,
-      required this.requestId});
+  RequestDetailModel requestModel;
+  DialogSurveyMapPage({super.key, required this.onSubmit, required this.requestModel});
+
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: DialogSurveyMapLogic(requestId: requestId),
+      init: DialogSurveyMapLogic(requestModel: requestModel),
       builder: (controller) {
         return Dialog(
           shape: RoundedRectangleBorder(
@@ -214,11 +210,9 @@ class DialogSurveyMapPage extends GetWidget {
                                   (isSuccess) {
                                     // onSubmit.call(isSuccess);
                                     if (isSuccess) {
-                                      showDialogSurveySuccessful(
-                                          context, requestId, type);
-                                    } else {
-                                      showDialogSurveyUnsuccessful(
-                                          context, requestId);
+                                    showDialogSurveySuccessful(context);
+                                  } else {
+                                    showDialogSurveyUnsuccessful(context, requestModel.id);
                                     }
                                   },
                                 );
@@ -262,15 +256,15 @@ class DialogSurveyMapPage extends GetWidget {
     );
   }
 
-  void showDialogSurveySuccessful(BuildContext context, int id, String type) {
+  void showDialogSurveySuccessful(BuildContext context) {
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (context) {
           return DialogSurveySuccessful(
-            id,
-            type,
-            idNumber,
+            requestModel.id,
+            requestModel.customerModel.type,
+            requestModel.customerModel.idNumber,
             (isOnline) {},
           );
         });

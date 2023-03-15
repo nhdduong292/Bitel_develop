@@ -412,6 +412,7 @@
   "textNotifyFingerFail": "Fingerprint failed!",
 
    "textTimeAndVersion":"December 28, 2020 07:30 - V1.1",
+  "textValidateFromTo": "From date must be smaller than to date",
    "textIncorrectCode":"Incorrect code (1/3 tries)",
    "textCopyRight":"Copyright@Bitel: ",
    "textForcedTerm":"Forced term",

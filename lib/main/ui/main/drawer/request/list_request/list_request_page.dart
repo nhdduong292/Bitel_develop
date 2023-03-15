@@ -364,6 +364,7 @@ class ListRequestPage extends GetWidget {
 
   void showDialogAdvanceSearch(
       BuildContext context, ListRequestLogic controller) {
+    controller.searchRequest.reset();
     showDialog(
         barrierDismissible: false,
         context: context,

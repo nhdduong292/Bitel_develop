@@ -67,7 +67,7 @@ class DialogAdvancedSearchPage extends GetWidget {
                 ),
                 const LineDash(color: AppColors.colorLineDash),
                 Container(
-                  padding: EdgeInsets.only(top: 16, right: 16, left: 16),
+                  padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
                   child: Row(
                     children: [
                       Expanded(flex: 2, child: Text(
@@ -92,7 +92,7 @@ class DialogAdvancedSearchPage extends GetWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(top: 16, right: 16, left: 16),
+                  padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
                   child: Row(
                     children: [
                       Expanded(flex: 2, child:  Text(
@@ -118,7 +118,7 @@ class DialogAdvancedSearchPage extends GetWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(top: 16, right: 16, left: 16),
+                  padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
                   child: Row(
                     children: [
                       Expanded(flex: 2, child:  Text(
@@ -143,7 +143,7 @@ class DialogAdvancedSearchPage extends GetWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(top: 16, right: 16, left: 16),
+                  padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
                   child: Row(
                     children: [
                       Expanded(flex: 2, child:  Text(
@@ -167,7 +167,7 @@ class DialogAdvancedSearchPage extends GetWidget {
                               height: 45,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(24),
-                                  border: Border.all(color: Color(0xFFE3EAF2))),
+                                  border: Border.all(color: const Color(0xFFE3EAF2))),
                               child: DropdownButtonFormField2(
                                 autofocus: true,
                                 decoration: const InputDecoration(
@@ -180,7 +180,7 @@ class DialogAdvancedSearchPage extends GetWidget {
                                 buttonPadding: const EdgeInsets.only(left: 0, right: 10),
                                 dropdownDecoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(24),
-                                    border: Border.all(color: Color(0xFFE3EAF2))),
+                                    border: Border.all(color: const Color(0xFFE3EAF2))),
                                 isExpanded: true,
                                 // value: controller.currentProvince.name!.isNotEmpty ? controller.currentProvince.name! : null,
                                 onChanged: (value) {
@@ -212,7 +212,7 @@ class DialogAdvancedSearchPage extends GetWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(top: 16, right: 16, left: 16),
+                  padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
                   child: Row(
                     children: [
                       Expanded(flex: 2, child:  Text(
@@ -238,7 +238,7 @@ class DialogAdvancedSearchPage extends GetWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(top: 16, right: 16, left: 16),
+                  padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
                   child: Row(
                     children: [
                       Expanded(flex: 2, child:  Text(
@@ -261,26 +261,26 @@ class DialogAdvancedSearchPage extends GetWidget {
                                     child:  Container(
                                       decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(24),
-                                          border: Border.all(color: Color(0xFFE3EAF2))),
-                                      padding: EdgeInsets.only(top: 11,bottom: 11, left: 16, right: 16),
+                                          border: Border.all(color: const Color(0xFFE3EAF2))),
+                                      padding: const EdgeInsets.only(top: 11,bottom: 11, left: 16, right: 16),
                                       child: Text.rich(TextSpan(
-                                          style: AppStyles.r2.copyWith(color: controller.fromDate.value.isEmpty  ? AppColors.colorHint1 : AppColors.colorText1, fontWeight: FontWeight.w400),
+                                          style: AppStyles.r2.copyWith(color: controller.from.value.isEmpty  ? AppColors.colorHint1 : AppColors.colorText1, fontWeight: FontWeight.w400),
                                           children: [
                                             WidgetSpan(
-                                              child: controller.fromDate.value.isEmpty ? Padding(
+                                              child: controller.from.value.isEmpty ? Padding(
                                                 padding: const EdgeInsets.only(right: 8.0),
                                                 child: SvgPicture.asset(AppImages.icSelectDate),
                                               ) : Container(),
                                             ),
 
                                             TextSpan(
-                                              text: controller.fromDate.value.isEmpty ? AppLocalizations.of(context)!.textFrom: controller.fromDate.value,
+                                              text: controller.from.value.isEmpty ? AppLocalizations.of(context)!.textFrom: controller.from.value,
                                             )
                                           ]
                                       )),
                                     )),
                               ),
-                              SizedBox(width: 12,),
+                              const SizedBox(width: 12,),
                               Expanded(
                                 flex:1,
                                 child: InkWell(
@@ -290,20 +290,20 @@ class DialogAdvancedSearchPage extends GetWidget {
                                     child:  Container(
                                       decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(24),
-                                          border: Border.all(color: Color(0xFFE3EAF2))),
-                                      padding: EdgeInsets.only(top: 11,bottom: 11, left: 16, right: 16),
+                                          border: Border.all(color: const Color(0xFFE3EAF2))),
+                                      padding: const EdgeInsets.only(top: 11,bottom: 11, left: 16, right: 16),
                                       child: Text.rich(TextSpan(
-                                          style: AppStyles.r2.copyWith(color: controller.toDate.value.isEmpty  ? AppColors.colorHint1 : AppColors.colorText1, fontWeight: FontWeight.w400),
+                                          style: AppStyles.r2.copyWith(color: controller.to.value.isEmpty  ? AppColors.colorHint1 : AppColors.colorText1, fontWeight: FontWeight.w400),
                                           children: [
                                             WidgetSpan(
-                                              child: controller.toDate.value.isEmpty ? Padding(
+                                              child: controller.to.value.isEmpty ? Padding(
                                                 padding: const EdgeInsets.only(right: 8.0),
                                                 child: SvgPicture.asset(AppImages.icSelectDate),
                                               ) : Container(),
                                             ),
 
                                             TextSpan(
-                                              text: controller.toDate.value.isEmpty ? AppLocalizations.of(context)!.textTo: controller.toDate.value,
+                                              text: controller.to.value.isEmpty ? AppLocalizations.of(context)!.textTo: controller.to.value,
                                             )
                                           ]
                                       )),
@@ -316,16 +316,16 @@ class DialogAdvancedSearchPage extends GetWidget {
                 ),
                 Container(
                   width: double.infinity,
-                  margin: EdgeInsets.only(top: 30,bottom: 36, left: 16, right: 16),
-                  padding: EdgeInsets.symmetric(vertical: 16),
+                  margin: const EdgeInsets.only(top: 30,bottom: 36, left: 16, right: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
                   decoration: BoxDecoration(
                     color: AppColors.colorButton,
                     borderRadius: BorderRadius.circular(24),
                   ),
                   child: InkWell(
                     onTap: () {
-                      Future.delayed(Duration(milliseconds: 600));
-                      if(controller.checkValidate()) {
+                      Future.delayed(const Duration(milliseconds: 600));
+                      if(controller.checkValidate(context)) {
                         Get.back();
                         onSubmit!.call(controller.searchRequest);
                       }

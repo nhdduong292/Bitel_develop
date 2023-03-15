@@ -924,7 +924,11 @@ Widget spinnerFormV2(
                 isExpanded: true,
                 value: dropValue.isNotEmpty ? dropValue : null,
                 onChanged: (value) {
-                  function!.call(value!);
+                  if(value == "DEFAULT") {
+                    function!.call("");
+                  } else {
+                    function!.call(value!);
+                  }
                 },
 
                 items: listDrop.map<DropdownMenuItem<String>>((String value) {

@@ -39,4 +39,14 @@ class SearchRequest {
     }
     return 0;
   }
+
+  void reset(){
+    service = "FTTH";
+    code = "";
+    status = "";
+    province = "";
+    staffCode = "";
+    fromDate = "";
+    toDate = "";
+  }
 }

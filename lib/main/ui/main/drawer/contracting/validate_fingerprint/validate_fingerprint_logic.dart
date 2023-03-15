@@ -27,6 +27,7 @@ class ValidateFingerprintLogic extends GetxController {
   List<String> listFinger = [];
 
   bool isGetFingerSuccess = false;
+
   ValidateFingerprintLogic(this.context);
 
   @override
@@ -34,13 +35,13 @@ class ValidateFingerprintLogic extends GetxController {
     // TODO: implement onInit
     super.onInit();
     var data = Get.arguments;
-    type = data[0];
-    cusId = data[1];
-    typeCustomer = data[2];
-    idNumber = data[3];
-    contractId = data[4];
-
-    getBestFinger();
+    // type = data[0];
+    // cusId = data[1];
+    // typeCustomer = data[2];
+    // idNumber = data[3];
+    // contractId = data[4];
+    //
+    // getBestFinger();
   }
 
   void setCapture(String value) {
@@ -58,23 +59,21 @@ class ValidateFingerprintLogic extends GetxController {
     } on PlatformException catch (e) {
       e.printInfo();
     }
+    // List<String> list = result.split(",");
 
+    print("text Capture: ${result}");
+    if (listFinger.isNotEmpty) {
+      listFinger.clear();
+    }
     if (result.isNotEmpty) {
-      if (listFinger.isNotEmpty) {
-        listFinger.clear();
-      }
-      if (result.isNotEmpty) {
-        listFinger.add(result);
-      }
-      if (listFinger.isNotEmpty) {
-        Common.showToastCenter(
-            AppLocalizations.of(context)!.textNotifyFingerSuccess);
-      } else {
-        Common.showToastCenter(
-            AppLocalizations.of(context)!.textNotifyFingerFail);
-      }
+      listFinger.add(result);
+    }
+    if (listFinger.isNotEmpty) {
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotifyFingerSuccess);
     } else {
-      Common.showToastCenter("Lấy vân tay không thành công");
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotifyFingerFail);
     }
     update();
   }

@@ -2,6 +2,7 @@ import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/address_model.dart';
 import 'package:bitel_ventas/main/networks/model/contact_model.dart';
+import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/networks/response/search_contact_response.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
@@ -44,7 +45,7 @@ class CreateRequestLogic extends GetxController {
   FocusNode focusDistrict = FocusNode();
   FocusNode focusPrecinct = FocusNode();
   FocusNode focusAddress = FocusNode();
-  RequestModel requestModel = RequestModel();
+  RequestDetailModel requestModel = RequestDetailModel();
   @override
   void onInit() {
     // TODO: implement onInit
@@ -139,7 +140,7 @@ class CreateRequestLogic extends GetxController {
     return false;
   }
 
-  void createRequest(Function(bool isSuccess, int id) function) {
+  void createRequest(Function(bool isSuccess, RequestDetailModel model) function) {
     Map<String, dynamic> body = {
       "address": currentAddress.trim(),
       "district": currentDistrict.district.trim(),
@@ -156,17 +157,16 @@ class CreateRequestLogic extends GetxController {
         body: body,
         onSuccess: (response) {
           if (response.isSuccess) {
-            requestModel = RequestModel.fromJson(response.data['data']);
-            update();
+            requestModel = RequestDetailModel.fromJson(response.data['data']);
             print("success");
-            function.call(true,requestModel.id);
+            function.call(true,requestModel);
           } else {
             print("error: ${response.status}");
-            function.call(false,0);
+            function.call(false,requestModel);
           }
         },
         onError: (error) {
-          function.call(false,0);
+          function.call(false,requestModel);
         });
   }
 
