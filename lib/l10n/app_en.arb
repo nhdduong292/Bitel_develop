@@ -409,5 +409,6 @@
   "textAYMARA": "Aymara",
   "textSPANISH": "Spanish",
   "textQUECHUA": "Quechua",
-  "textNotifyFingerFail": "Lấy vân tay thất bại!"
+  "textNotifyFingerFail": "Lấy vân tay thất bại!",
+  "textValidateFromTo": "From date must be smaller than to date"
 }

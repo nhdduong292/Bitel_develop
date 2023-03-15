@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
+import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class DialogSurveyMapLogic extends GetxController{
   String currentRadius = "500";
   double lat = 0;
   double long = 0;
-  int requestId;
+  RequestModel requestModel;
   bool isConnect = false;
   TextEditingController textFieldRadius = TextEditingController();
 
@@ -37,7 +38,7 @@ class DialogSurveyMapLogic extends GetxController{
   bool isActive = false;
 
 
-  DialogSurveyMapLogic({required this.requestId});
+  DialogSurveyMapLogic({required this.requestModel});
 
   @override
   void onInit() {
@@ -51,7 +52,7 @@ class DialogSurveyMapLogic extends GetxController{
     //   print("lat: $lat long: $long");
     //   setCircle(currentPoint);
     // });
-    // getLocationAddress();
+    getLocationAddress();
   }
 
   void setMarker(LatLng point){
@@ -133,7 +134,7 @@ class DialogSurveyMapLogic extends GetxController{
 
     Future.delayed(Duration(seconds: 2));
     Map<String, dynamic> body = {
-      "requestId": requestId,
+      "requestId": requestModel.id,
       "lat": "$lat",
       "lng": "$long",
       "type": currentTechnology,
@@ -171,8 +172,8 @@ class DialogSurveyMapLogic extends GetxController{
   }
 
   void getLocationAddress() async {
-    // List<Location> locations = await locationFromAddress("Gronausestraat 710, es_PE");
-    List<Location> locations = await locationFromAddress("Nguy Như Kon Tum Thanh Xuân Hà Nội, vi_VN");
+    List<Location> locations = await locationFromAddress(requestModel.getInstallAddress(), localeIdentifier:  "es_PE");
+    // List<Location> locations = await locationFromAddress("Nguy Như Kon Tum Thanh Xuân Hà Nội", localeIdentifier: "vi_VN");
     locations.forEach((element) {
       print("addddddddddddddddd lat: ${element.latitude} long: ${element.longitude}");
     });

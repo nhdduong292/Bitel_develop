@@ -139,7 +139,7 @@ class CreateRequestLogic extends GetxController {
     return false;
   }
 
-  void createRequest(Function(bool isSuccess, int id) function) {
+  void createRequest(Function(bool isSuccess, RequestModel model) function) {
     Map<String, dynamic> body = {
       "address": currentAddress.trim(),
       "district": currentDistrict.district.trim(),
@@ -157,16 +157,15 @@ class CreateRequestLogic extends GetxController {
         onSuccess: (response) {
           if (response.isSuccess) {
             requestModel = RequestModel.fromJson(response.data['data']);
-            update();
             print("success");
-            function.call(true,requestModel.id);
+            function.call(true,requestModel);
           } else {
             print("error: ${response.status}");
-            function.call(false,0);
+            function.call(false,requestModel);
           }
         },
         onError: (error) {
-          function.call(false,0);
+          function.call(false,requestModel);
         });
   }
 

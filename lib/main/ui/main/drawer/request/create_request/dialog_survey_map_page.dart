@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_map_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_successful.dart';
@@ -19,9 +20,8 @@ import 'package:get/get.dart';
 
 class DialogSurveyMapPage extends GetWidget {
   final Function(bool isSuccess) onSubmit;
-  int requestId;
-  String type;
-  DialogSurveyMapPage({super.key, required this.onSubmit, required this.type, required this.requestId});
+  RequestModel requestModel;
+  DialogSurveyMapPage({super.key, required this.onSubmit, required this.requestModel});
 
 
 
@@ -30,7 +30,7 @@ class DialogSurveyMapPage extends GetWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: DialogSurveyMapLogic(requestId: requestId),
+      init: DialogSurveyMapLogic(requestModel: requestModel),
       builder: (controller) {
       return Dialog(
         shape: RoundedRectangleBorder(
@@ -198,9 +198,9 @@ class DialogSurveyMapPage extends GetWidget {
                               controller.createSurvey((isSuccess) {
                                   // onSubmit.call(isSuccess);
                                   if(isSuccess) {
-                                    showDialogSurveySuccessful(context, requestId, type);
+                                    showDialogSurveySuccessful(context, requestModel.id, requestModel.identityType);
                                   } else {
-                                    showDialogSurveyUnsuccessful(context, requestId);
+                                    showDialogSurveyUnsuccessful(context, requestModel.id);
                                   }
                               },);
                               // onSubmit!.call();
