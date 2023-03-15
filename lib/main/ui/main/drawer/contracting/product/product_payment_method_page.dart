@@ -62,6 +62,10 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                         left: 20,
                         child: InkWell(
                           onTap: () {
+                            if (controller.isLoadingProduct) {
+                              Get.back();
+                              return;
+                            }
                             if (controller
                                     .itemPositionsListener?.itemPositions.value
                                     .elementAt(0)

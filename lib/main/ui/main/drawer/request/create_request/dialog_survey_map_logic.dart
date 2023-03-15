@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:js';
 
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
@@ -13,9 +12,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uuid/uuid.dart';
 
-class DialogSurveyMapLogic extends GetxController{
+class DialogSurveyMapLogic extends GetxController {
   String currentTechnology = "GPON";
-  List<String> listTechnology = ["AON","GPON"];
+  List<String> listTechnology = ["AON", "GPON"];
   String currentRadius = "500";
   double lat = 0;
   double long = 0;
@@ -23,8 +22,9 @@ class DialogSurveyMapLogic extends GetxController{
   bool isConnect = false;
   TextEditingController textFieldRadius = TextEditingController();
 
-  final Completer<GoogleMapController> controllerMap = Completer<GoogleMapController>();
-  CameraPosition kGooglePlex=  CameraPosition(
+  final Completer<GoogleMapController> controllerMap =
+      Completer<GoogleMapController>();
+  CameraPosition kGooglePlex = CameraPosition(
     target: LatLng(-12.786389, -74.975555),
     zoom: 14,
   );
@@ -37,7 +37,6 @@ class DialogSurveyMapLogic extends GetxController{
   var currentPoint;
 
   bool isActive = false;
-
 
   DialogSurveyMapLogic({required this.requestId});
 
@@ -56,13 +55,13 @@ class DialogSurveyMapLogic extends GetxController{
     // getLocationAddress();
   }
 
-  void setMarker(LatLng point){
-      Marker marker = Marker(
-          markerId: MarkerId('marker_1'),
-          position: point,
-          onTap: () {},
-          icon: BitmapDescriptor.defaultMarker);
-      markers.add(marker);
+  void setMarker(LatLng point) {
+    Marker marker = Marker(
+        markerId: MarkerId('marker_1'),
+        position: point,
+        onTap: () {},
+        icon: BitmapDescriptor.defaultMarker);
+    markers.add(marker);
   }
 
   void setCircle(LatLng point) async {
@@ -75,7 +74,7 @@ class DialogSurveyMapLogic extends GetxController{
         CameraPosition(target: point, zoom: 14)));
     circles.add(Circle(
         circleId: CircleId('raj'),
-        center:point,
+        center: point,
         fillColor: Colors.blue.withOpacity(0.1),
         radius: radiusValue,
         strokeColor: Colors.blue,
@@ -84,55 +83,54 @@ class DialogSurveyMapLogic extends GetxController{
     update();
   }
 
-  void setTechnology(String value){
+  void setTechnology(String value) {
     currentTechnology = value;
     update();
   }
 
-  void setRadius(String value){
+  void setRadius(String value) {
     currentRadius = value;
     radiusValue = double.parse(currentRadius);
-    if(radiusValue < 1) {
+    if (radiusValue < 1) {
       return;
     }
     setCircle(currentPoint);
   }
 
-  Future<Position> _getCurrentLocation() async{
+  Future<Position> _getCurrentLocation() async {
     // bool serviceEnable = await Geolocator.isLocationServiceEnabled();
     // if(!serviceEnable){
     //   return Future.error("Location disable");
     // }
     LocationPermission permission = await Geolocator.checkPermission();
-    if(permission == LocationPermission.denied){
+    if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
-      if(permission == LocationPermission.denied){
+      if (permission == LocationPermission.denied) {
         return Future.error("Location denied");
       }
     }
-    if(permission == LocationPermission.deniedForever){
+    if (permission == LocationPermission.deniedForever) {
       return Future.error("Location deniedForever");
     }
     return await Geolocator.getCurrentPosition();
   }
 
-  bool checkValidate(){
+  bool checkValidate(BuildContext context) {
     int radius = int.parse(currentRadius);
-    if(currentTechnology == "GPON" && (radius > 500 || radius < 1)){
+    if (currentTechnology == "GPON" && (radius > 500 || radius < 1)) {
       // setRadius("500");
-      Common.showToastCenter(AppLocalizations.of(context as BuildContext)!.textRadiusLimit);
+      Common.showToastCenter(AppLocalizations.of(context)!.textRadiusLimit);
       return true;
     }
-    if(currentTechnology == "AON" && (radius > 500 || radius < 1)){
+    if (currentTechnology == "AON" && (radius > 500 || radius < 1)) {
       // setRadius("300");
-      Common.showToastCenter(AppLocalizations.of(context as BuildContext)!.textRadiusLimit);
+      Common.showToastCenter(AppLocalizations.of(context)!.textRadiusLimit);
       return true;
     }
     return false;
   }
 
-  void createSurvey(Function(bool isSuccess) function) async{
-
+  void createSurvey(Function(bool isSuccess) function) async {
     Future.delayed(Duration(seconds: 2));
     Map<String, dynamic> body = {
       "requestId": requestId,
@@ -161,7 +159,7 @@ class DialogSurveyMapLogic extends GetxController{
         });
   }
 
-  void setStateConnect(bool value){
+  void setStateConnect(bool value) {
     isConnect = value;
     update();
   }
@@ -174,17 +172,18 @@ class DialogSurveyMapLogic extends GetxController{
 
   void getLocationAddress() async {
     // List<Location> locations = await locationFromAddress("Gronausestraat 710, es_PE");
-    List<Location> locations = await locationFromAddress("Nguy Như Kon Tum Thanh Xuân Hà Nội, vi_VN");
+    List<Location> locations =
+        await locationFromAddress("Nguy Như Kon Tum Thanh Xuân Hà Nội, vi_VN");
     locations.forEach((element) {
-      print("addddddddddddddddd lat: ${element.latitude} long: ${element.longitude}");
+      print(
+          "addddddddddddddddd lat: ${element.latitude} long: ${element.longitude}");
     });
-    if(locations.isNotEmpty) {
+    if (locations.isNotEmpty) {
       lat = locations[0].latitude;
-      long =  locations[0].longitude;
+      long = locations[0].longitude;
       currentPoint = LatLng(lat, long);
       print("lat: $lat long: $long");
       setCircle(currentPoint);
     }
   }
-
 }

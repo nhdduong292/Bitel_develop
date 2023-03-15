@@ -8,6 +8,7 @@ import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../../res/app_colors.dart';
 import '../../../../../../res/app_images.dart';
@@ -51,7 +52,10 @@ class CreateContactPage extends GetView<CreateContactPageLogic> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(AppLocalizations.of(context)!.textEscanoDeDocumento, style: AppStyles.title),
+                          Text(
+                              AppLocalizations.of(context)!
+                                  .textEscanoDeDocumento,
+                              style: AppStyles.title),
                           const SizedBox(height: 5),
                           Row(
                             children: [

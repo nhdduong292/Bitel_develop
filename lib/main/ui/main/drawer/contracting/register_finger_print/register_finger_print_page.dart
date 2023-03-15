@@ -307,7 +307,9 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                               onTap: () {
                                 if (controller.listImageLeft.length == 3 ||
                                     controller.listImageRight.length == 3) {
-                                  Common.showToastCenter(AppLocalizations.of(context)!.textGetThree);
+                                  Common.showToastCenter(
+                                      AppLocalizations.of(context)!
+                                          .textGetThree);
                                   return;
                                 }
                                 if (controller.listImageLeft.length < 3 ||
@@ -315,9 +317,12 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                   if (Platform.isAndroid) {
                                     controller.getCapture();
                                   } else {
-                                    Common.showToastCenter(
-                                        AppLocalizations.of(context)!
-                                            .textOnlyActionAndroid);
+                                    controller.listImageLeft.add('');
+                                    controller.countFinger.value--;
+                                    controller.update();
+                                    // Common.showToastCenter(
+                                    //     AppLocalizations.of(context)!
+                                    //         .textOnlyActionAndroid);
                                   }
                                 }
                               },
@@ -340,7 +345,8 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                                   height: 299,
                                                   isSuccess: true,
                                                   onClick: () {
-                                                    Get.toNamed(
+                                                    Get.back();
+                                                    Get.offNamed(
                                                         RouteConfig
                                                             .customerInformation,
                                                         arguments: [

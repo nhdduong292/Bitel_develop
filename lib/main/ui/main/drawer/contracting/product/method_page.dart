@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:bitel_ventas/main/networks/model/plan_reason_model.dart';
 import 'package:bitel_ventas/main/networks/model/product_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_logic.dart';
@@ -127,6 +125,7 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                         primary: false,
                         itemBuilder: (BuildContext context, int index) =>
                             _itemMethod(
+                                context: context,
                                 groupValue: controller.valueMethod,
                                 reason: controller.listPlanReason[index],
                                 value: index,
@@ -234,7 +233,8 @@ Widget _itemProduct(
 }
 
 Widget _itemMethod(
-    {required int value,
+    {required BuildContext context,
+    required int value,
     required PlanReasonModel reason,
     required RxInt groupValue,
     required var onChange}) {
@@ -268,7 +268,7 @@ Widget _itemMethod(
                       fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  '${AppLocalizations.of(context as BuildContext)!.textFreeInstallation} ${reason.feeInstallation}',
+                  '${AppLocalizations.of(context)!.textFreeInstallation} ${reason.feeInstallation}',
                   style: const TextStyle(
                       fontSize: 14,
                       fontFamily: 'Roboto',
@@ -276,7 +276,7 @@ Widget _itemMethod(
                       fontWeight: FontWeight.w400),
                 ),
                 Text(
-                  '${AppLocalizations.of(context as BuildContext)!.textReasonCodeName} ${reason.reasonCode}',
+                  '${AppLocalizations.of(context)!.textReasonCodeName} ${reason.reasonCode}',
                   style: const TextStyle(
                       fontSize: 14,
                       fontFamily: 'Roboto',

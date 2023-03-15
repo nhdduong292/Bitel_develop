@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import '../../../../../../res/app_colors.dart';
 import '../../../../../../res/app_images.dart';
 import '../../../../../../res/app_styles.dart';
+import '../../../../../router/route_config.dart';
 import '../../../../../utils/common.dart';
 import 'ftth_contracting_logic.dart';
 
@@ -247,10 +248,14 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                     .textClose
                                     .toUpperCase(),
                                 onTap: () {
-                                  Get.until((route) {
-                                        return Get.currentRoute == RouteConfig.sale;
-                                    },);
-                                  Get.toNamed(RouteConfig.listRequest, arguments: 0);
+                                  Get.until(
+                                    (route) {
+                                      return Get.currentRoute ==
+                                          RouteConfig.sale;
+                                    },
+                                  );
+                                  Get.toNamed(RouteConfig.listRequest,
+                                      arguments: 0);
                                 })),
                         SizedBox(
                           height: 126,
