@@ -64,7 +64,7 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                     height: 30,
                     child: Center(
                       child: Text(
-                        'Información del cliente',
+                        AppLocalizations.of(context)!.textInformacionDel,
                         style: AppStyles.r00A5B1_13_500,
                       ),
                     ),
@@ -116,12 +116,12 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: 'Last name', content: "Pham"),
+                                lable: AppLocalizations.of(context)!.textLastName, content: "Pham"),
                           ),
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: 'Name', content: "Quoc Nam"),
+                                lable: AppLocalizations.of(context)!.textName, content: "Quoc Nam"),
                           ),
                         ],
                       ),
@@ -133,7 +133,7 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: 'Nationality', content: "VIETNAMITA"),
+                                lable: AppLocalizations.of(context)!.textNationality, content: "VIETNAMITA"),
                           ),
                           Expanded(
                             flex: 1,
@@ -149,12 +149,12 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: 'Date of birth', content: "22 MAY 1996"),
+                                lable: AppLocalizations.of(context)!.textDateOfBirth, content: "22 MAY 1996"),
                           ),
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: 'Expired date', content: "22 MAR 2026"),
+                                lable: AppLocalizations.of(context)!.textExpiredDate, content: "22 MAR 2026"),
                           ),
                         ],
                       ),
@@ -185,7 +185,7 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                               ),
                               Expanded(
                                   child:
-                                      Text('Photo of identity card (front)')),
+                                      Text(AppLocalizations.of(context)!.textPhotoOfIdentity)),
                               SvgPicture.asset(AppImages.icCameraRound),
                               SizedBox(
                                 width: 8,
@@ -282,7 +282,7 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                   },
                   child: Center(
                       child: Text(
-                    'Registrar',
+                    AppLocalizations.of(context)!.textRegistrar,
                     style: AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
                   )),
                 ),
@@ -419,7 +419,7 @@ class SuccessDialog extends Dialog {
               height: 24,
             ),
             Text(
-              '¡Felicidades!',
+              AppLocalizations.of(context)!.textIFelicidades,
               style: isSuccess ? AppStyles.r14 : AppStyles.r16,
             ),
             SizedBox(
@@ -428,7 +428,7 @@ class SuccessDialog extends Dialog {
             Padding(
               padding: const EdgeInsets.only(left: 30, right: 30),
               child: Text(
-                'El cliente se registró exitosamente',
+                AppLocalizations.of(context)!.textElClienteSe,
                 style: AppStyles.r15,
                 textAlign: TextAlign.center,
               ),
@@ -447,7 +447,7 @@ class SuccessDialog extends Dialog {
             Padding(
               padding: const EdgeInsets.only(left: 30, right: 30),
               child: Text(
-                '¿Deseas registrar tu huella para lafirma digital?',
+                AppLocalizations.of(context)!.textDeseasRegistrar,
                 style: AppStyles.r15,
                 textAlign: TextAlign.center,
               ),
@@ -456,9 +456,9 @@ class SuccessDialog extends Dialog {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Expanded(child: bottomButtonV2(text: 'No', onTap: onCancel)),
+                Expanded(child: bottomButtonV2(text: AppLocalizations.of(context)!.textNo, onTap: onCancel)),
                 Expanded(
-                    child: bottomButton(text: 'Si, Continuar', onTap: onOK))
+                    child: bottomButton(text: AppLocalizations.of(context)!.textSiContinuar, onTap: onOK))
               ],
             ),
             // Container(

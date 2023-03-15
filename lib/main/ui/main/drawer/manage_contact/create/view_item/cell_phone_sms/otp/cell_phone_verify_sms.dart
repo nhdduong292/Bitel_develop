@@ -13,7 +13,7 @@ import 'package:otp_text_field/style.dart';
 
 import '../../../../../../../../../res/app_colors.dart';
 import 'cell_phone_verify_sms_logic.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 typedef void TouchScan();
 
 class CellPhoneVerifySmsWidget extends GetView<CellPhoneVerifySmsWidget> {
@@ -55,7 +55,7 @@ class CellPhoneVerifySmsWidget extends GetView<CellPhoneVerifySmsWidget> {
                     height: 30,
                     child: Center(
                       child: Text(
-                        'Additional information',
+                        AppLocalizations.of(context)!.textAdditionalInformation,
                         style: AppStyles.r3,
                       ),
                     ),
@@ -74,7 +74,7 @@ class CellPhoneVerifySmsWidget extends GetView<CellPhoneVerifySmsWidget> {
                   Padding(
                     padding: const EdgeInsets.only(left: 26, right: 26),
                     child: Text(
-                      'We have sent you an SMS with a code to verify your number 098435666',
+                      AppLocalizations.of(context)!.textWehavesentv2,
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -100,7 +100,7 @@ class CellPhoneVerifySmsWidget extends GetView<CellPhoneVerifySmsWidget> {
                   SizedBox(height: 15),
                   RichText(
                       text: TextSpan(
-                          text: 'Time remaining: ',
+                          text: AppLocalizations.of(context)!.textTimeRemaining,
                           style: AppStyles.r1,
                           children: [
                         TextSpan(text: '01:30', style: AppStyles.r3)
@@ -110,10 +110,10 @@ class CellPhoneVerifySmsWidget extends GetView<CellPhoneVerifySmsWidget> {
                   ),
                   RichText(
                       text: TextSpan(
-                          text: 'Didn’t get the OTP code? ',
+                          text: AppLocalizations.of(context)!.textDidOTPCode,
                           style: AppStyles.r1,
                           children: [
-                        TextSpan(text: 'Resend code', style: AppStyles.r3)
+                        TextSpan(text: AppLocalizations.of(context)!.textResendCode, style: AppStyles.r3)
                       ])),
                   SizedBox(
                     height: 103,
@@ -135,7 +135,7 @@ class CellPhoneVerifySmsWidget extends GetView<CellPhoneVerifySmsWidget> {
                   },
                   child: Center(
                       child: Text(
-                    'validate'.toUpperCase(),
+                    AppLocalizations.of(context)!.textValidatev2.toUpperCase(),
                     style: AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
                   )),
                 ),

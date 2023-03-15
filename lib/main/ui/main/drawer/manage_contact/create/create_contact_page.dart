@@ -49,7 +49,7 @@ class CreateContactPage extends GetView<CreateContactPageLogic> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Escaneo de documento', style: AppStyles.title),
+                          Text(AppLocalizations.of(context)!.textEscanoDeDocumento, style: AppStyles.title),
                           const SizedBox(height: 5),
                           Row(
                             children: [

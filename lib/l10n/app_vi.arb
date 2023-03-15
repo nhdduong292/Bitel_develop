@@ -165,7 +165,7 @@
   "textContactList" : "Contact list",
   "textFullName" : "Full name",
   "textDateOfBirth" : "Date of birth",
-  "textTypeOfDocument" : "Type of document",
+  "textTypeOfDocument" : "Type of document ",
   "textWOManagement" : "WO Management",
   "hintWOType" : "All WO type",
   "hintISDNAccount" : "ISDN/Account",

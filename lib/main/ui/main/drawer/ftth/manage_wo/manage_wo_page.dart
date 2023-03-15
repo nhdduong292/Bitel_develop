@@ -13,6 +13,7 @@ import '../../../../../../res/app_colors.dart';
 import '../../../../../../res/app_images.dart';
 import '../../../../../../res/app_styles.dart';
 import '../../../../../utils/common_widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ManageWOPage extends GetView<ManageWOLogic> {
   @override
@@ -509,7 +510,7 @@ class DialogAdvancedSearch extends Dialog {
                         items: controller.serviceItems,
                         label: AppLocalizations.of(context)!.textService,
                         required: false,
-                        hint: 'All service',
+                        hint: AppLocalizations.of(context)!.hintTelecomService,
                         hintStyle: TextStyle(
                             fontSize: 18,
                             fontFamily: 'Roboto',
@@ -522,7 +523,7 @@ class DialogAdvancedSearch extends Dialog {
                         items: controller.listWOTypes,
                         label: AppLocalizations.of(context)!.textWOType,
                         required: false,
-                        hint: 'All WO type',
+                        hint: AppLocalizations.of(context)!.hintWOType,
                         hintStyle: TextStyle(
                             fontSize: 18,
                             fontFamily: 'Roboto',
@@ -554,7 +555,7 @@ class DialogAdvancedSearch extends Dialog {
                         items: controller.listTeams,
                         label: AppLocalizations.of(context)!.textTeam,
                         required: false,
-                        hint: 'Choose team',
+                        hint: AppLocalizations.of(context)!.hintChooseTeam,
                         hintStyle: TextStyle(
                             fontSize: 18,
                             fontFamily: 'Roboto',
@@ -567,7 +568,7 @@ class DialogAdvancedSearch extends Dialog {
                         items: controller.listTechnician,
                         label: AppLocalizations.of(context)!.textTechnician,
                         required: false,
-                        hint: 'Choose technician',
+                        hint: AppLocalizations.of(context)!.hintChooseTechnician,
                         hintStyle: TextStyle(
                             fontSize: 18,
                             fontFamily: 'Roboto',
@@ -580,7 +581,7 @@ class DialogAdvancedSearch extends Dialog {
                         items: controller.listStatus,
                         label: AppLocalizations.of(context)!.textStatus,
                         required: false,
-                        hint: 'Complete',
+                        hint: AppLocalizations.of(context)!.textComplete,
                         hintStyle: TextStyle(
                             fontSize: 18,
                             fontFamily: 'Roboto',

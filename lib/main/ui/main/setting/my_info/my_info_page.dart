@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../res/app_colors.dart';
 import '../../../../../res/app_styles.dart';
@@ -36,7 +37,7 @@ class MyInfoPage extends GetWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Configuración", style: AppStyles.title),
+                  Text(AppLocalizations.of(context)!.textConfiguracion, style: AppStyles.title),
                   SizedBox(height: 5),
                   Row(
                     children: [
@@ -67,7 +68,7 @@ class MyInfoPage extends GetWidget {
                       bottomRight: Radius.elliptical(width / 2, 20))),
             ),
           ),
-          body: Text("My Info"),
+          body: Text(AppLocalizations.of(context)!.textMyInfo),
         );
       },
     );

@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:bitel_ventas/main/networks/model/plan_reason_model.dart';
 import 'package:bitel_ventas/main/networks/model/product_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_logic.dart';
@@ -266,7 +268,7 @@ Widget _itemMethod(
                       fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  'Free installation: ${reason.feeInstallation}',
+                  '${AppLocalizations.of(context as BuildContext)!.textFreeInstallation} ${reason.feeInstallation}',
                   style: const TextStyle(
                       fontSize: 14,
                       fontFamily: 'Roboto',
@@ -274,7 +276,7 @@ Widget _itemMethod(
                       fontWeight: FontWeight.w400),
                 ),
                 Text(
-                  'Reason code-name: ${reason.reasonCode}',
+                  '${AppLocalizations.of(context as BuildContext)!.textReasonCodeName} ${reason.reasonCode}',
                   style: const TextStyle(
                       fontSize: 14,
                       fontFamily: 'Roboto',

@@ -306,7 +306,7 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                               onTap: () {
                                 if (controller.listImageLeft.length == 3 ||
                                     controller.listImageRight.length == 3) {
-                                  Common.showToastCenter("Bạn đã lấy đủ 3 lần");
+                                  Common.showToastCenter(AppLocalizations.of(context)!.textGetThree);
                                   return;
                                 }
                                 if (controller.listImageLeft.length < 3 ||
@@ -493,7 +493,7 @@ class SuccessDialog extends Dialog {
               height: 24,
             ),
             Text(
-              '¡Felicidades!',
+              AppLocalizations.of(context)!.textIFelicidades,
               style: isSuccess ? AppStyles.r14 : AppStyles.r16,
             ),
             SizedBox(
@@ -510,7 +510,7 @@ class SuccessDialog extends Dialog {
             Padding(
               padding: const EdgeInsets.only(left: 30, right: 30),
               child: Text(
-                'Tus huellas dactilares se registraron exitosamente',
+                AppLocalizations.of(context)!.textTusHuellas,
                 style: AppStyles.r15,
                 textAlign: TextAlign.center,
               ),
@@ -527,7 +527,7 @@ class SuccessDialog extends Dialog {
                 onTap: () {},
                 child: Center(
                     child: Text(
-                  '¡Muchas Gracias!'.toUpperCase(),
+                  AppLocalizations.of(context)!.textMuchasGracias.toUpperCase(),
                   style: AppStyles.r5,
                 )),
               ),

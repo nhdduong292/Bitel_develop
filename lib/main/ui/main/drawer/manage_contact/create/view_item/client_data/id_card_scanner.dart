@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image/image.dart' as Img;
 
 import 'id_card_scanner_logic.dart';
@@ -82,7 +83,7 @@ class PreviewScreen extends StatelessWidget {
     print('bxloc ok');
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Preview'),
+        title:  Text(AppLocalizations.of(context)!.textPreview),
       ),
       body: Container(
         child: Image.file(File(imagePath)),

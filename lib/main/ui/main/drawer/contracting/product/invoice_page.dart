@@ -113,7 +113,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                                     fontWeight: FontWeight.w500),
                               ),
                               Text(
-                                'Speed ${controller.getProduct().speed ?? 'null'} Mpbs',
+                                '${AppLocalizations.of(context)!.textSpeed} ${controller.getProduct().speed ?? 'null'} Mpbs',
                                 style: const TextStyle(
                                     fontSize: 14,
                                     fontFamily: 'Roboto',

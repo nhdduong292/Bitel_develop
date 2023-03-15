@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:js';
 
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
@@ -7,6 +8,7 @@ import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uuid/uuid.dart';
 
@@ -116,12 +118,12 @@ class DialogSurveyMapLogic extends GetxController{
     int radius = int.parse(currentRadius);
     if(currentTechnology == "GPON" && (radius > 500 || radius < 1)){
       // setRadius("500");
-      Common.showToastCenter("Giới hạn radius là 500");
+      Common.showToastCenter(AppLocalizations.of(context as BuildContext)!.textRadiusLimit);
       return true;
     }
     if(currentTechnology == "AON" && (radius > 300 || radius < 1)){
       // setRadius("300");
-      Common.showToastCenter("Giới hạn radius là 500");
+      Common.showToastCenter(AppLocalizations.of(context as BuildContext)!.textRadiusLimit);
       return true;
     }
     return false;

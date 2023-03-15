@@ -201,7 +201,7 @@ class DialogAdvancedSearchPage extends GetWidget {
                                 ),
                                 validator: (value) {
                                   if (value == null) {
-                                    return 'Please select gender.';
+                                    return AppLocalizations.of(context)!.textPleaseSelect;
                                   }
                                 },
 

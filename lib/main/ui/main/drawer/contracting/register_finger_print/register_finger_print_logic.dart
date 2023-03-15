@@ -6,6 +6,7 @@ import 'package:bitel_ventas/res/app_images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 
 import '../../../../../networks/api_end_point.dart';
@@ -115,15 +116,15 @@ class RegisterFingerPrintLogic extends GetxController {
         listImageLeft.add(result);
         countFinger.value--;
         Common.showToastCenter(
-            "Bạn đã lấy thành công lần ${listImageLeft.length}");
+            '${AppLocalizations.of(context)!.textGetSuccess} ${listImageLeft.length}');
       } else {
         listImageRight.add(result);
         countFinger.value--;
         Common.showToastCenter(
-            "Bạn đã lấy thành công lần ${listImageRight.length}");
+            "${AppLocalizations.of(context)!.textGetSuccess} ${listImageRight.length}");
       }
     } else {
-      Common.showToastCenter("Lấy vân tay không thành công");
+      Common.showToastCenter(AppLocalizations.of(context)!.textGetNoSuccess);
     }
 
     update();
