@@ -24,7 +24,7 @@ class StockPage extends GetWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Almacén", style: AppStyles.title),
+                  Text(AppLocalizations.of(context)!.textAlmacen, style: AppStyles.title),
                   SizedBox(height: 5),
                   Row(
                     children: [
@@ -61,7 +61,7 @@ class StockPage extends GetWidget {
                 padding:
                     EdgeInsets.only(top: 24, left: 10, right: 10, bottom: 5),
                 child: Text(
-                  "Información de almacén del código LI1CD04 ",
+                  AppLocalizations.of(context)!.textInformacion,
                   style: AppStyles.r3,
                 ),
               ),

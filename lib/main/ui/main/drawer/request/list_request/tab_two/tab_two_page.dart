@@ -6,6 +6,7 @@ import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/tab_two/ta
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TabTwoPage extends GetWidget{
   String status;
@@ -20,7 +21,7 @@ class TabTwoPage extends GetWidget{
       builder: (controller) {
         return  controller.isLoading ? LoadingCirculApi() : controller.listRequest.isEmpty ? InkWell(
           child: Center(
-            child: Text("No data"),
+            child: Text(AppLocalizations.of(context)!.textNoData),
           ),
           onTap: () {
             // Get.toNamed(RouteConfig.requestDetail);

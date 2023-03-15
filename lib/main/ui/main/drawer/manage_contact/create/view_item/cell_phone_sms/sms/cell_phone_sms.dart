@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
@@ -52,7 +52,7 @@ class CellPhoneSmsWidget extends GetView<CellPhoneSmsLogic> {
                     height: 30,
                     child: Center(
                       child: Text(
-                        'Additional information',
+                        AppLocalizations.of(context)!.textAdditionalInformation,
                         style: AppStyles.r3,
                       ),
                     ),
@@ -71,7 +71,7 @@ class CellPhoneSmsWidget extends GetView<CellPhoneSmsLogic> {
                   Padding(
                     padding: const EdgeInsets.only(left: 26, right: 26),
                     child: Text(
-                      'We will send you a verification code via SMS to validate your number',
+                      AppLocalizations.of(context)!.textWeWillSendv2,
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -79,13 +79,13 @@ class CellPhoneSmsWidget extends GetView<CellPhoneSmsLogic> {
                     height: 4,
                   ),
                   inputForm(
-                      label: 'Address',
-                      hint: 'Enter address',
+                      label: AppLocalizations.of(context)!.textAddress,
+                      hint: AppLocalizations.of(context)!.textEnterAddress,
                       required: false,
                       inputType: TextInputType.text),
                   inputForm(
-                      label: 'Operator',
-                      hint: 'Enter address',
+                      label: AppLocalizations.of(context)!.textOperator,
+                      hint: AppLocalizations.of(context)!.textEnterAddress,
                       required: false,
                       inputType: TextInputType.text),
                   SizedBox(
@@ -108,7 +108,7 @@ class CellPhoneSmsWidget extends GetView<CellPhoneSmsLogic> {
                   },
                   child: Center(
                       child: Text(
-                    'UPDATE',
+                    AppLocalizations.of(context)!.textUpdate,
                     style: AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
                   )),
                 ),

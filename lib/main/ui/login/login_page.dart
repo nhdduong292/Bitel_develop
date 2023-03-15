@@ -256,7 +256,7 @@ class LoginPage extends GetWidget {
                     padding: const EdgeInsets.only(top: 24, bottom: 12),
                     child: RichText(
                       text: TextSpan(
-                        text: 'Copyright@Bitel: '.toUpperCase(),
+                        text: AppLocalizations.of(context)!.textCopyRight.toUpperCase(),
                         style: AppStyles.r4,
                         children: const <TextSpan>[
                           TextSpan(

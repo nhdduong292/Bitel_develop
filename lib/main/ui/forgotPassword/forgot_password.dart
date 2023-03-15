@@ -64,7 +64,8 @@ class ForgotPassword extends GetView<ForgotPasswordLogic> {
                               const SizedBox(
                                 width: 5,
                               ),
-                              Text("28/12/2020 07:30 - V1.1",
+                              Text(AppLocalizations.of(context)!
+                                  .textTimeAndVersion,
                                   style: AppStyles.b1),
                             ],
                           )
@@ -228,7 +229,7 @@ class ForgotPassword extends GetView<ForgotPasswordLogic> {
           child: Column(children: [
             inputForm(
                 label: AppLocalizations.of(context)!.textOldPassword,
-                hint: 'Enter password',
+                hint: AppLocalizations.of(context)!.textEnterPassword,
                 required: false,
                 inputType: TextInputType.text)
           ]),
@@ -238,7 +239,7 @@ class ForgotPassword extends GetView<ForgotPasswordLogic> {
           child: Column(children: [
             inputFormPassword(
                 label: AppLocalizations.of(context)!.textNewPassword,
-                hint: 'Enter password',
+                hint: AppLocalizations.of(context)!.textEnterPassword,
                 required: false,
                 inputType: TextInputType.text,
                 isVisibility: false.obs)
@@ -249,7 +250,7 @@ class ForgotPassword extends GetView<ForgotPasswordLogic> {
           child: Column(children: [
             inputFormPassword(
                 label: AppLocalizations.of(context)!.textRepeatNewPassword,
-                hint: 'Enter password',
+                hint: AppLocalizations.of(context)!.textEnterPassword,
                 required: false,
                 inputType: TextInputType.text,
                 isVisibility: false.obs)
@@ -272,10 +273,10 @@ class ForgotPassword extends GetView<ForgotPasswordLogic> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              const Expanded(
+               Expanded(
                 child: TextField(
                   decoration: InputDecoration(
-                    hintText: 'Enter captcha',
+                    hintText: AppLocalizations.of(context)!.textEnterCaptcha,
                     hintStyle: TextStyle(
                         fontSize: 18,
                         fontFamily: 'Roboto',
@@ -467,7 +468,7 @@ class ForgotPassword extends GetView<ForgotPasswordLogic> {
                     width: 10,
                   ),
                   Text(
-                    'Incorrect code (1/3 tries)',
+                    AppLocalizations.of(context)!.textIncorrectCode,
                     style: AppStyles.r12,
                   )
                 ]),

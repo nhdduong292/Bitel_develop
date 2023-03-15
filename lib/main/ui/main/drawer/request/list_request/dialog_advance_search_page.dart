@@ -184,7 +184,11 @@ class DialogAdvancedSearchPage extends GetWidget {
                                 isExpanded: true,
                                 // value: controller.currentProvince.name!.isNotEmpty ? controller.currentProvince.name! : null,
                                 onChanged: (value) {
-                                  controller.setProvince(value!.areaCode!);
+                                  if(value!.name == "DEFAULT") {
+                                    controller.setProvince("");
+                                  } else {
+                                    controller.setProvince(value!.areaCode!);
+                                  }
                                 },
 
                                 items: controller.listProvince.map<DropdownMenuItem<AddressModel>>((AddressModel value) {
@@ -201,7 +205,7 @@ class DialogAdvancedSearchPage extends GetWidget {
                                 ),
                                 validator: (value) {
                                   if (value == null) {
-                                    return 'Please select gender.';
+                                    return AppLocalizations.of(context)!.textPleaseSelect;
                                   }
                                 },
 

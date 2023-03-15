@@ -3,6 +3,7 @@ import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/networks/response/list_request_response.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_tab_item.dart';
@@ -82,7 +83,7 @@ class ListRequestTabState extends State<ListRequestTabPage>{
         : listRequest.isEmpty
         ? InkWell(
       child: Center(
-        child: Text("No data"),
+        child: Text(AppLocalizations.of(context)!.textNoData),
       ),
       onTap: () {
         // Get.toNamed(RouteConfig.requestDetail);

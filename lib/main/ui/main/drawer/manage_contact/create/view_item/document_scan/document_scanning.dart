@@ -146,8 +146,8 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                                       ),
                                       children: [
                                         TextSpan(
-                                          text:
-                                              'ratamiento de mis datos personales y sensibles.',
+                                          text: AppLocalizations.of(context)!
+                                              .textTratamientoDeMisDatos,
                                           style: TextStyle(
                                               color: AppColors.colorContent,
                                               fontFamily: 'Roboto',
@@ -251,14 +251,11 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                     () => SizedBox(
                       width: width,
                       child: bottomButton(
-                          text: !controller.isDNI()
-                              ? 'SCAN'
-                              : AppLocalizations.of(context)!.textContinue,
+                          text: controller.isDNI() ? 'CONTINUE' : 'SCAN',
                           onTap: () {
                             if (controller.checkOption1.value &&
                                 controller.checkOption2.value) {
-                              // callback();
-                              if (controller.currentIdentity == 'DNI') {
+                              if (controller.isDNI()) {
                                 callback();
                               } else {
                                 if (controller.textPathScan.isNotEmpty) {

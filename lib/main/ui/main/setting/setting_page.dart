@@ -27,7 +27,7 @@ class SettingPage extends GetView<SettingLogic> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Configuración", style: AppStyles.title),
+                  Text(AppLocalizations.of(context)!.textConfiguracion, style: AppStyles.title),
                   SizedBox(height: 5),
                   Row(
                     children: [

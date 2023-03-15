@@ -88,7 +88,9 @@ class DialogAdvanceSearchLogic extends GetxController {
     // }
     int timeFrom = fromDate.millisecondsSinceEpoch;
     int timeTo = toDate.millisecondsSinceEpoch;
-    if(timeTo - timeFrom < 1) {
+    int result = timeTo - timeFrom;
+    print("time: $result");
+    if(result < 0) {
       Common.showToastCenter(AppLocalizations.of(context)!.textValidateFromTo);
       return false;
     }
@@ -105,6 +107,9 @@ class DialogAdvanceSearchLogic extends GetxController {
                 .map((postJson) => AddressModel.fromJson(postJson))
                 .toList();
             if(listProvince.isNotEmpty){
+              AddressModel defaultModel = AddressModel();
+              defaultModel.name = "DEFAULT";
+              listProvince.insert(0, defaultModel);
               update();
             }
           } else {

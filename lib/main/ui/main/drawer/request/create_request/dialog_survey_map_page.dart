@@ -32,194 +32,216 @@ class DialogSurveyMapPage extends GetWidget {
     return GetBuilder(
       init: DialogSurveyMapLogic(requestModel: requestModel),
       builder: (controller) {
-      return Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
-        elevation: 0.0,
-        backgroundColor: Colors.white,
-        child:SingleChildScrollView(
-          child:  Padding(
-            padding:
-            const EdgeInsets.only(top: 22, left: 16, right: 16, bottom: 26),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                InkWell(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Container(
-                      margin: const EdgeInsets.only(bottom: 20),
-                      alignment: Alignment.centerRight,
-                      child: SvgPicture.asset(AppImages.icClose)),
-                ),
-                Container(
-                  width: double.infinity,
-                  height: 350,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(6),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: const Offset(0, 1),
-                        blurRadius: 2,
-                        color: Colors.black.withOpacity(0.3),
-                      ),
-                    ],
-                  ),
-                  child: !controller.isLocation ? Container() : GoogleMap(
-                    onMapCreated: (GoogleMapController control) {
-                      controller.controllerMap.complete(control);
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          elevation: 0.0,
+          backgroundColor: Colors.white,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  top: 22, left: 16, right: 16, bottom: 26),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Get.back();
                     },
-                    initialCameraPosition: controller.kGooglePlex,
-                    circles: controller.circles,
-                    markers: controller.markers,
-                    mapType: MapType.normal,
-                    onTap: (argument) {
-                      controller.setCircle(argument);
-                    },
+                    child: Container(
+                        margin: const EdgeInsets.only(bottom: 20),
+                        alignment: Alignment.centerRight,
+                        child: SvgPicture.asset(AppImages.icClose)),
                   ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Row(
-                    children: [
-                      Expanded(flex: 2, child:  Text(
-                        AppLocalizations.of(context)!.textTechnology,
-                        style: AppStyles.r8.copyWith(
-                            color: AppColors.colorText1.withOpacity(0.85),
-                            fontWeight: FontWeight.w400),
-                      )),
-                      Expanded(
-                          flex: 5,
-                          child: spinnerFormV2(
-                              context: context,
-                              hint:
-                              AppLocalizations.of(context)!.textChooseTechnology,
-                              required: false,
-                              dropValue: controller.currentTechnology,
-                              function: (value) {
-                                controller.setTechnology(value);
-                              },
-                              listDrop: controller.listTechnology))
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(top: 16),
-                  child: Row(
-                    children: [
-                      Expanded(flex: 2, child:  Text(
-                        AppLocalizations.of(context)!.textRadius,
-                        style: AppStyles.r8.copyWith(
-                            color: AppColors.colorText1.withOpacity(0.85),
-                            fontWeight: FontWeight.w400),
-                      )),
-                      Expanded(
-                          flex: 5,
-                          child: spinnerFormV2(
-                              context: context,
-                              hint: controller.currentTechnology == "AON" ? AppLocalizations.of(context)!.textMaxRadius3 : AppLocalizations.of(context)!.textMaxRadius5,
-                              inputType: TextInputType.number,
-                              required: false,
-                              dropValue: "",
-                              controlTextField: controller.textFieldRadius,
-                              onSubmit: (value) {
-                                controller.setRadius(value);
-                              },
-                              listDrop: []))
-                    ],
-                  ),
-                ),
-                Row(
-                  children: [
-                    // Expanded(
-                    //     flex: 1,
-                    //     child: Container(
-                    //       width: double.infinity,
-                    //       margin: const EdgeInsets.only(top: 30),
-                    //       padding: const EdgeInsets.symmetric(vertical: 14),
-                    //       decoration: BoxDecoration(
-                    //         color: controller.isConnect ? AppColors.colorButton :Colors.white,
-                    //         borderRadius: BorderRadius.circular(24),
-                    //         boxShadow: [
-                    //           BoxShadow(
-                    //             offset: const Offset(0, 1),
-                    //             blurRadius: 2,
-                    //             color: Colors.black.withOpacity(0.3),
-                    //           ),
-                    //         ],
-                    //       ),
-                    //
-                    //       child: InkWell(
-                    //         onTap: () {
-                    //           if(controller.isConnect){
-                    //             Get.back();
-                    //             Timer(Duration(milliseconds: 600), () {
-                    //               Get.offNamed(RouteConfig.productPayment,
-                    //                   arguments:
-                    //                   int.parse(requestId));
-                    //             },);
-                    //
-                    //           }
-                    //         },
-                    //         child:  Center(
-                    //             child: Text(
-                    //               AppLocalizations.of(context)!.textConnect.toUpperCase(),
-                    //               style: controller.isConnect ? AppStyles.r5.copyWith(fontWeight: FontWeight.w500) : AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
-                    //             )),
-                    //       ),
-                    //     )),
-                    // const SizedBox(width: 15,),
-                    Expanded(
-                        flex: 1,
-                        child: Container(
-                          width: double.infinity,
-                          margin: const EdgeInsets.only(top: 30),
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          decoration: BoxDecoration(
-                            color: controller.isActive ? Colors.white: AppColors.colorButton,
-                            borderRadius: BorderRadius.circular(24),
-                            boxShadow: [
-                              BoxShadow(
-                                offset: const Offset(0, 1),
-                                blurRadius: 2,
-                                color: Colors.black.withOpacity(0.3),
-                              ),
-                            ],
+                  Container(
+                    width: double.infinity,
+                    height: 350,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(6),
+                      boxShadow: [
+                        BoxShadow(
+                          offset: const Offset(0, 1),
+                          blurRadius: 2,
+                          color: Colors.black.withOpacity(0.3),
+                        ),
+                      ],
+                    ),
+                    child: !controller.isLocation
+                        ? Container()
+                        : GoogleMap(
+                            onMapCreated: (GoogleMapController control) {
+                              controller.controllerMap.complete(control);
+                            },
+                            initialCameraPosition: controller.kGooglePlex,
+                            circles: controller.circles,
+                            markers: controller.markers,
+                            mapType: MapType.normal,
+                            onTap: (argument) {
+                              controller.setCircle(argument);
+                            },
                           ),
-                          child: InkWell(
-                            onTap: () {
-                              if(controller.isActive || controller.checkValidate()){
-                                return;
-                              }
-                              _onLoading(context);
-                              controller.createSurvey((isSuccess) {
-                                  // onSubmit.call(isSuccess);
-                                  if(isSuccess) {
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(top: 18),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            flex: 2,
+                            child: Text(
+                              AppLocalizations.of(context)!.textTechnology,
+                              style: AppStyles.r8.copyWith(
+                                  color: AppColors.colorText1.withOpacity(0.85),
+                                  fontWeight: FontWeight.w400),
+                            )),
+                        Expanded(
+                            flex: 5,
+                            child: spinnerFormV2(
+                                context: context,
+                                hint: AppLocalizations.of(context)!
+                                    .textChooseTechnology,
+                                required: false,
+                                dropValue: controller.currentTechnology,
+                                function: (value) {
+                                  controller.setTechnology(value);
+                                },
+                                listDrop: controller.listTechnology))
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            flex: 2,
+                            child: Text(
+                              AppLocalizations.of(context)!.textRadius,
+                              style: AppStyles.r8.copyWith(
+                                  color: AppColors.colorText1.withOpacity(0.85),
+                                  fontWeight: FontWeight.w400),
+                            )),
+                        Expanded(
+                            flex: 5,
+                            child: spinnerFormV2(
+                                context: context,
+                                hint: controller.currentTechnology == "AON"
+                                    ? AppLocalizations.of(context)!
+                                        .textMaxRadius3
+                                    : AppLocalizations.of(context)!
+                                        .textMaxRadius5,
+                                inputType: TextInputType.number,
+                                required: false,
+                                dropValue: "",
+                                controlTextField: controller.textFieldRadius,
+                                onSubmit: (value) {
+                                  controller.setRadius(value);
+                                },
+                                listDrop: []))
+                      ],
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      // Expanded(
+                      //     flex: 1,
+                      //     child: Container(
+                      //       width: double.infinity,
+                      //       margin: const EdgeInsets.only(top: 30),
+                      //       padding: const EdgeInsets.symmetric(vertical: 14),
+                      //       decoration: BoxDecoration(
+                      //         color: controller.isConnect ? AppColors.colorButton :Colors.white,
+                      //         borderRadius: BorderRadius.circular(24),
+                      //         boxShadow: [
+                      //           BoxShadow(
+                      //             offset: const Offset(0, 1),
+                      //             blurRadius: 2,
+                      //             color: Colors.black.withOpacity(0.3),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //
+                      //       child: InkWell(
+                      //         onTap: () {
+                      //           if(controller.isConnect){
+                      //             Get.back();
+                      //             Timer(Duration(milliseconds: 600), () {
+                      //               Get.offNamed(RouteConfig.productPayment,
+                      //                   arguments:
+                      //                   int.parse(requestId));
+                      //             },);
+                      //
+                      //           }
+                      //         },
+                      //         child:  Center(
+                      //             child: Text(
+                      //               AppLocalizations.of(context)!.textConnect.toUpperCase(),
+                      //               style: controller.isConnect ? AppStyles.r5.copyWith(fontWeight: FontWeight.w500) : AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
+                      //             )),
+                      //       ),
+                      //     )),
+                      // const SizedBox(width: 15,),
+                      Expanded(
+                          flex: 1,
+                          child: Container(
+                            width: double.infinity,
+                            margin: const EdgeInsets.only(top: 30),
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            decoration: BoxDecoration(
+                              color: controller.isActive
+                                  ? Colors.white
+                                  : AppColors.colorButton,
+                              borderRadius: BorderRadius.circular(24),
+                              boxShadow: [
+                                BoxShadow(
+                                  offset: const Offset(0, 1),
+                                  blurRadius: 2,
+                                  color: Colors.black.withOpacity(0.3),
+                                ),
+                              ],
+                            ),
+                            child: InkWell(
+                              onTap: () {
+                                if (controller.isActive ||
+                                    controller.checkValidate(context)) {
+                                  return;
+                                }
+                                _onLoading(context);
+                                controller.createSurvey(
+                                  (isSuccess) {
+                                    // onSubmit.call(isSuccess);
+                                    if (isSuccess) {
                                     showDialogSurveySuccessful(context, requestModel.id, requestModel.identityType);
                                   } else {
                                     showDialogSurveyUnsuccessful(context, requestModel.id);
-                                  }
-                              },);
-                              // onSubmit!.call();
-                            },
-                            child:  Center(
-                                child: Text(
-                                  AppLocalizations.of(context)!.textSurvey.toUpperCase(),
-                                  style: controller.isActive ? AppStyles.r1.copyWith(fontWeight: FontWeight.w500) : AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
-                                )),
-                          ),
-                        ))
-                  ],
-                ),
-              ],
+                                    }
+                                  },
+                                );
+                                // onSubmit!.call();
+                              },
+                              child: Center(
+                                  child: Text(
+                                AppLocalizations.of(context)!
+                                    .textSurvey
+                                    .toUpperCase(),
+                                style: controller.isActive
+                                    ? AppStyles.r1
+                                        .copyWith(fontWeight: FontWeight.w500)
+                                    : AppStyles.r5
+                                        .copyWith(fontWeight: FontWeight.w500),
+                              )),
+                            ),
+                          ))
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      );
-    },);
+        );
+      },
+    );
   }
 
   void _onLoading(BuildContext context) {
@@ -236,25 +258,25 @@ class DialogSurveyMapPage extends GetWidget {
     );
   }
 
-  void showDialogSurveySuccessful(BuildContext context, int id, String type){
+  void showDialogSurveySuccessful(BuildContext context, int id, String type) {
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (context) {
-          return DialogSurveySuccessful(id, type,(isOnline) {
-
-          },);
+          return DialogSurveySuccessful(
+            id,
+            type,
+            (isOnline) {},
+          );
         });
   }
 
-  void showDialogSurveyUnsuccessful(BuildContext context, int id){
+  void showDialogSurveyUnsuccessful(BuildContext context, int id) {
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (context) {
-          return DialogSurveyUnsuccessful(id, (isOnline) {
-
-          } );
+          return DialogSurveyUnsuccessful(id, (isOnline) {});
         });
   }
 }

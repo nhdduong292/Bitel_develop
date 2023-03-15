@@ -1,21 +1,14 @@
-import 'dart:io';
 import 'dart:math';
 
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/customer_detect_mode.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/document_scanning_logic.dart';
-import 'package:bitel_ventas/main/utils/native_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../../../../networks/api_end_point.dart';
 import '../../../../../../../networks/api_util.dart';
-import '../../../../../../../utils/common.dart';
-import '../../../../../../../utils/common_widgets.dart';
-import '../../../../../../../utils/values.dart';
+import '../../cretate_contact_page_logic.dart';
 
 class ClientDataDNILogic extends GetxController {
   late BuildContext context;
@@ -37,11 +30,18 @@ class ClientDataDNILogic extends GetxController {
   DateTime selectDate = DateTime.now();
   String dob = '';
   String exd = '';
+  CreateContactPageLogic logicCreateContact = Get.find();
+  int requestId = 0;
+  int productId = 0;
+  int reasonId = 0;
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    requestId = logicCreateContact.requestId;
+    productId = logicCreateContact.productId;
+    reasonId = logicCreateContact.reasonId;
   }
 
   void setToDate(DateTime picked) {
@@ -58,9 +58,14 @@ class ClientDataDNILogic extends GetxController {
     update();
   }
 
+  String isoDate(String date) {
+    DateTime dateTime = DateFormat('dd/MM/yyyy').parse(date);
+    return DateFormat('yyyy-MM-ddTHH:mm:ss').format(dateTime.toUtc());
+  }
+
   void createCustomer(Function(bool isSuccess) callBack) {
     var rng = Random();
-    int random = rng.nextInt(89) + 10;
+    int random = rng.nextInt(899) + 100;
     String idNumber = "123126$random";
     Map<String, dynamic> body = {
       "type": "DNI",
@@ -68,9 +73,9 @@ class ClientDataDNILogic extends GetxController {
       "name": tfName.text,
       "fullName": tfLastName.text,
       "nationality": tfNationality.text,
-      "sex": sexValue,
-      "dateOfBirth": dob,
-      "expiredDate": exd,
+      "sex": 'M',
+      "dateOfBirth": isoDate(dob),
+      "expiredDate": isoDate(exd),
       "address": tfAddress.text,
       "province": "03",
       "district": "04",
@@ -82,7 +87,7 @@ class ClientDataDNILogic extends GetxController {
       body: body,
       onSuccess: (response) {
         if (response.isSuccess) {
-          customerModel = CustomerModel.fromJson(response.data);
+          customerModel = CustomerModel.fromJson(response.data['data']);
           callBack.call(true);
         } else {
           print("error: ${response.status}");

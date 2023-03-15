@@ -60,7 +60,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
               height: 15,
             ),
             lockedBox(
-                content: 'Forced term',
+                content: AppLocalizations.of(context)!.textForcedTerm,
                 label: AppLocalizations.of(context)!.textContactType,
                 required: false,
                 isIcon: true,
@@ -94,13 +94,13 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                   width: 210),
             ),
             lockedBox(
-                content: 'Email',
+                content: AppLocalizations.of(context)!.textEmail,
                 label: AppLocalizations.of(context)!.textChangeNotification,
                 required: false,
                 isIcon: true,
                 width: 210),
             lockedBox(
-                content: 'Email',
+                content: AppLocalizations.of(context)!.textEmail,
                 label: AppLocalizations.of(context)!.textPrintBillDetail,
                 required: false,
                 isIcon: true,
@@ -120,7 +120,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 dropdownValue: controller.contractLanguagetValue,
                 width: 210),
             inputFormV3(
-                hint: 'Enter billing address',
+                hint: AppLocalizations.of(context)!.textEnterBilling,
                 label: AppLocalizations.of(context)!.textBillingAddress,
                 required: true,
                 onChange: (value) {

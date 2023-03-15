@@ -125,6 +125,7 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                         primary: false,
                         itemBuilder: (BuildContext context, int index) =>
                             _itemMethod(
+                                context: context,
                                 groupValue: controller.valueMethod,
                                 reason: controller.listPlanReason[index],
                                 value: index,
@@ -232,7 +233,8 @@ Widget _itemProduct(
 }
 
 Widget _itemMethod(
-    {required int value,
+    {required BuildContext context,
+    required int value,
     required PlanReasonModel reason,
     required RxInt groupValue,
     required var onChange}) {
@@ -266,7 +268,7 @@ Widget _itemMethod(
                       fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  'Free installation: ${reason.feeInstallation}',
+                  '${AppLocalizations.of(context)!.textFreeInstallation} ${reason.feeInstallation}',
                   style: const TextStyle(
                       fontSize: 14,
                       fontFamily: 'Roboto',
@@ -274,7 +276,7 @@ Widget _itemMethod(
                       fontWeight: FontWeight.w400),
                 ),
                 Text(
-                  'Reason code-name: ${reason.reasonCode}',
+                  '${AppLocalizations.of(context)!.textReasonCodeName} ${reason.reasonCode}',
                   style: const TextStyle(
                       fontSize: 14,
                       fontFamily: 'Roboto',

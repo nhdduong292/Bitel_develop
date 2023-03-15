@@ -10,6 +10,7 @@ class SearchRequest {
   String toDate = "";
 
   List<String> listStatus = [
+    "DEFAULT",
     RequestStatus.CREATE_REQUEST,
     RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY,
     RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY,

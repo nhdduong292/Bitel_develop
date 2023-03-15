@@ -56,8 +56,8 @@ class RequestDetailPage extends GetWidget {
           body: controller.isLoading
               ? LoadingCirculApi()
               : (controller.requestModel.id == 0
-                  ? const Center(
-                      child: Text("No data"),
+                  ?  Center(
+                      child: Text(AppLocalizations.of(context)!.textNoData),
                     )
                   : SingleChildScrollView(
                       child: Column(

@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../../../../res/app_colors.dart';
+import '../../../../../../../router/route_config.dart';
 import '../../../../../../../utils/common_widgets.dart';
 import 'client_data_dni_logic.dart';
 
@@ -236,14 +237,17 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                             context: context,
                             builder: (BuildContext context) {
                               return SuccessDialog(
-                                height: 344,
+                                height: 299,
                                 isSuccess: true,
-                                onCancel: () {
+                                onClick: () {
                                   Get.back();
-                                },
-                                onOK: () {
-                                  Get.back();
-                                  callback();
+                                  Get.offNamed(RouteConfig.customerInformation,
+                                      arguments: [
+                                        controller.customerModel,
+                                        controller.requestId,
+                                        controller.productId,
+                                        controller.reasonId
+                                      ]);
                                 },
                               );
                             },
@@ -449,15 +453,13 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
 class SuccessDialog extends Dialog {
   final double height;
   final bool isSuccess;
-  var onOK;
-  var onCancel;
+  var onClick;
 
   SuccessDialog(
       {super.key,
       required this.height,
       required this.isSuccess,
-      required this.onCancel,
-      required this.onOK});
+      required this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -479,22 +481,11 @@ class SuccessDialog extends Dialog {
               height: 24,
             ),
             Text(
-              '¡Felicidades!',
+              AppLocalizations.of(context)!.textIFelicidades,
               style: isSuccess ? AppStyles.r14 : AppStyles.r16,
             ),
             SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30, right: 30),
-              child: Text(
-                'El cliente se registró exitosamente',
-                style: AppStyles.r15,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            SizedBox(
-              height: 28,
+              height: 16,
             ),
             const DottedLine(
               dashColor: Color(0xFFE3EAF2),
@@ -507,39 +498,30 @@ class SuccessDialog extends Dialog {
             Padding(
               padding: const EdgeInsets.only(left: 30, right: 30),
               child: Text(
-                '¿Deseas registrar tu huella para lafirma digital?',
+                AppLocalizations.of(context)!.textTusHuellas,
                 style: AppStyles.r15,
                 textAlign: TextAlign.center,
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(child: bottomButtonV2(text: 'No', onTap: onCancel)),
-                Expanded(
-                    child: bottomButton(text: 'Si, Continuar', onTap: onOK))
-              ],
+            Container(
+              width: double.infinity,
+              margin: const EdgeInsets.only(top: 27, left: 38, right: 38),
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              decoration: BoxDecoration(
+                color: AppColors.colorButton,
+                borderRadius: BorderRadius.circular(24),
+              ),
+              child: InkWell(
+                onTap: () {
+                  onClick();
+                },
+                child: Center(
+                    child: Text(
+                  AppLocalizations.of(context)!.textMuchasGracias.toUpperCase(),
+                  style: AppStyles.r5,
+                )),
+              ),
             ),
-            // Container(
-            //   width: double.infinity,
-            //   margin: const EdgeInsets.only(top: 27, left: 38, right: 38),
-            //   padding: const EdgeInsets.symmetric(vertical: 14),
-            //   decoration: BoxDecoration(
-            //     color: AppColors.colorButton,
-            //     borderRadius: BorderRadius.circular(24),
-            //   ),
-            //   child: InkWell(
-            //     onTap: () {
-            //       onOK();
-            //     },
-            //     child: Center(
-            //         child: Text(
-            //       '¡Muchas Gracias!'.toUpperCase(),
-            //       style: AppStyles.r5,
-            //     )),
-            //   ),
-            // ),
           ],
         ),
       ),

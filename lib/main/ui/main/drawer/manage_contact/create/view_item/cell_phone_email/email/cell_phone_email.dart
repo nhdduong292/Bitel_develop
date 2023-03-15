@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 
 import '../../../../../../../../../res/app_colors.dart';
 import 'cell_phone_email_logic.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 typedef void TouchScan();
 
 class CellPhoneEmailWidget extends GetView<CellPhoneEmailWidget> {
@@ -52,7 +52,7 @@ class CellPhoneEmailWidget extends GetView<CellPhoneEmailWidget> {
                     height: 30,
                     child: Center(
                       child: Text(
-                        'Additional information',
+                        AppLocalizations.of(context)!.textAdditionalInformation,
                         style: AppStyles.r3,
                       ),
                     ),
@@ -71,7 +71,7 @@ class CellPhoneEmailWidget extends GetView<CellPhoneEmailWidget> {
                   Padding(
                     padding: const EdgeInsets.only(left: 26, right: 26),
                     child: Text(
-                      'We will send you a verification code to your email',
+                      AppLocalizations.of(context)!.textWeWillSend,
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -79,8 +79,8 @@ class CellPhoneEmailWidget extends GetView<CellPhoneEmailWidget> {
                     height: 4,
                   ),
                   inputForm(
-                      label: 'Email',
-                      hint: 'Enter email',
+                      label: AppLocalizations.of(context)!.textEmail,
+                      hint: AppLocalizations.of(context)!.textEnterEmail,
                       required: false,
                       inputType: TextInputType.text),
                   SizedBox(
@@ -103,7 +103,7 @@ class CellPhoneEmailWidget extends GetView<CellPhoneEmailWidget> {
                   },
                   child: Center(
                       child: Text(
-                    'continue'.toUpperCase(),
+                    AppLocalizations.of(context)!.textContinuev2.toUpperCase(),
                     style: AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
                   )),
                 ),
