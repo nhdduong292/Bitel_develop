@@ -81,8 +81,9 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 width: 210),
             Obx(() => lockedBox(
                 content: controller.signDate.value != ''
-                    ? controller.signDate.value.substring(0, 10)
-                    : '',
+                    ? Common.fromDate(
+                        DateTime.parse(controller.signDate.value), 'dd/MM/yyyy')
+                    : "---",
                 label: AppLocalizations.of(context)!.textSignDate,
                 required: false,
                 isIcon: false,
