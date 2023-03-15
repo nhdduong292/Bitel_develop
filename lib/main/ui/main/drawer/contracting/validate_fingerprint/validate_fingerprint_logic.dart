@@ -27,6 +27,7 @@ class ValidateFingerprintLogic extends GetxController {
   List<String> listFinger = [];
 
   bool isGetFingerSuccess = false;
+
   ValidateFingerprintLogic(this.context);
 
   @override
@@ -59,22 +60,18 @@ class ValidateFingerprintLogic extends GetxController {
       e.printInfo();
     }
 
+    if (listFinger.isNotEmpty) {
+      listFinger.clear();
+    }
     if (result.isNotEmpty) {
-      if (listFinger.isNotEmpty) {
-        listFinger.clear();
-      }
-      if (result.isNotEmpty) {
-        listFinger.add(result);
-      }
-      if (listFinger.isNotEmpty) {
-        Common.showToastCenter(
-            AppLocalizations.of(context)!.textNotifyFingerSuccess);
-      } else {
-        Common.showToastCenter(
-            AppLocalizations.of(context)!.textNotifyFingerFail);
-      }
+      listFinger.add(result);
+    }
+    if (listFinger.isNotEmpty) {
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotifyFingerSuccess);
     } else {
-      Common.showToastCenter("Lấy vân tay không thành công");
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotifyFingerFail);
     }
     update();
   }

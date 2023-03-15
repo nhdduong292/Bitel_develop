@@ -24,9 +24,6 @@ class DialogSurveyMapPage extends GetWidget {
   DialogSurveyMapPage({super.key, required this.onSubmit, required this.requestModel});
 
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
@@ -264,8 +261,9 @@ class DialogSurveyMapPage extends GetWidget {
         context: context,
         builder: (context) {
           return DialogSurveySuccessful(
-            id,
-            type,
+            requestModel.id,
+            requestModel.identityType,
+            requestModel.idNumber,
             (isOnline) {},
           );
         });

@@ -783,12 +783,12 @@ class CreateRequestPage extends GetWidget {
         context: context,
         builder: (context) {
           return DialogSurveyMapPage(
-            onSubmit: (isSuccess){
-                // if(isSuccess) {
-                //   showDialogSurveySuccessful(context, controller);
-                // } else {
-                //   showDialogSurveyUnsuccessful(context, controller);
-                // }
+            onSubmit: (isSuccess) {
+              // if(isSuccess) {
+              //   showDialogSurveySuccessful(context, controller);
+              // } else {
+              //   showDialogSurveyUnsuccessful(context, controller);
+              // }
             },requestModel: controller.requestModel,);
         });
   }

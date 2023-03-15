@@ -224,14 +224,17 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                         controller.customer,
                         controller.requestId,
                         controller.getProduct().productId,
-                        controller.getPlanReason().id
+                        controller.getPlanReason().id,
+                        controller.isForcedTerm()
                       ]);
                     } else {
                       Get.toNamed(RouteConfig.createContact, arguments: [
                         controller.type,
                         controller.requestId,
                         controller.getProduct().productId,
-                        controller.getPlanReason().id
+                        controller.getPlanReason().id,
+                        controller.idNumber,
+                        controller.isForcedTerm()
                       ]);
                     }
                   });

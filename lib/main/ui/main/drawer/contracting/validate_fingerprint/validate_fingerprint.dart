@@ -159,12 +159,21 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                               () => SizedBox(
                                 width: 140,
                                 height: 190,
+                                // child: controller.pathFinger.value != ''
+                                //     ? Image.asset(
+                                //         controller.pathFinger.value,
+                                //         fit: BoxFit.fitHeight,
+                                //       )
+                                //     : LoadingCirculApi(),
                                 child: controller.pathFinger.value != ''
                                     ? Image.asset(
                                         controller.pathFinger.value,
                                         fit: BoxFit.fitHeight,
                                       )
-                                    : LoadingCirculApi(),
+                                    : Image.asset(
+                                        AppImages.imgFingerLeft3,
+                                        fit: BoxFit.fitHeight,
+                                      ),
                               ),
                             ),
                             SizedBox(
@@ -217,17 +226,25 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                 flex: 1,
                                 child: InkWell(
                                   onTap: () {
-                                    if (controller.isGetFingerSuccess) {
-                                      if (Platform.isAndroid) {
-                                        controller.getCapture(context);
-                                      } else {
-                                        Common.showToastCenter(
-                                            AppLocalizations.of(context)!
-                                                .textOnlyActionAndroid);
-                                      }
+                                    // if (controller.isGetFingerSuccess) {
+                                    //   if (Platform.isAndroid) {
+                                    //     controller.getCapture(context);
+                                    //   } else {
+                                    //     Common.showToastCenter(
+                                    //         AppLocalizations.of(context)!
+                                    //             .textOnlyActionAndroid);
+                                    //   }
+                                    // } else {
+                                    //   Common.showToastCenter(
+                                    //       "Chờ hiển thị ngón tay cần lấy");
+                                    // }
+
+                                    if (Platform.isAndroid) {
+                                      controller.getCapture(context);
                                     } else {
                                       Common.showToastCenter(
-                                          "Chờ hiển thị ngón tay cần lấy");
+                                          AppLocalizations.of(context)!
+                                              .textOnlyActionAndroid);
                                     }
                                   },
                                   child: Container(

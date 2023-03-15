@@ -184,11 +184,7 @@ class DialogAdvancedSearchPage extends GetWidget {
                                 isExpanded: true,
                                 // value: controller.currentProvince.name!.isNotEmpty ? controller.currentProvince.name! : null,
                                 onChanged: (value) {
-                                  if(value!.name == "DEFAULT") {
-                                    controller.setProvince("");
-                                  } else {
-                                    controller.setProvince(value!.areaCode!);
-                                  }
+                                  controller.setProvince(value!.areaCode!);
                                 },
 
                                 items: controller.listProvince.map<DropdownMenuItem<AddressModel>>((AddressModel value) {

@@ -1,15 +1,14 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:bitel_ventas/main/utils/common.dart';
-import 'package:bitel_ventas/res/app_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dotted_line/dotted_line.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../../../../res/app_colors.dart';
 import '../../../../../../../router/route_config.dart';
@@ -91,7 +90,7 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                                   style: AppStyles.r3,
                                   children: [
                                     TextSpan(
-                                      text: '001573053',
+                                      text: controller.idNumber,
                                       style: AppStyles.r1,
                                     )
                                   ]),
@@ -219,13 +218,7 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                 ),
                 child: InkWell(
                   onTap: () {
-                    // if(controller.textPathScan.isEmpty){
-                    //   Common.showToastCenter("Bạn chưa chụp ảnh thẻ");
-                    // } else {
-                    //   callback();
-                    // }
                     if (!controller.checkValidate()) {
-                      Common.showToastCenter("Bạn phải nhập hết thông tin");
                       return;
                     }
                     _onLoading(context);
@@ -246,7 +239,8 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                                         controller.customerModel,
                                         controller.requestId,
                                         controller.productId,
-                                        controller.reasonId
+                                        controller.reasonId,
+                                        controller.isForcedTerm
                                       ]);
                                 },
                               );
@@ -389,6 +383,11 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
         InkWell(
           onTap: () {
             controller.typeDate = type;
+            if (type == 1) {
+              controller.setDefaultDob();
+            } else {
+              controller.setDateNow();
+            }
             _selectDate(context, controller, false);
           },
           child: Container(
@@ -437,8 +436,8 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: control.selectDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2025),
+      firstDate: DateTime(1900),
+      lastDate: DateTime(3000),
     );
     if (picked != null) {
       if (from) {
@@ -448,6 +447,99 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
       }
     }
   }
+}
+
+Widget spinnerFormV2(
+    {required BuildContext context,
+    required String hint,
+    required bool required,
+    required String dropValue,
+    required List<String> listDrop,
+    double height = 0,
+    TextInputType inputType = TextInputType.text,
+    TextEditingController? controlTextField,
+    TextInputAction? typeAction,
+    Function(String value)? function,
+    Function(String value)? onSubmit,
+    FocusNode? focusNode}) {
+  return Column(
+    children: [
+      Container(
+        height: height > 45 ? height : 45,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(color: Color(0xFFE3EAF2))),
+        child: listDrop.isEmpty
+            ? Padding(
+                padding: EdgeInsets.only(left: 12, top: 6, bottom: 6, right: 6),
+                child: TextField(
+                    controller: controlTextField,
+                    keyboardType: inputType,
+                    autofocus: required,
+                    textInputAction: typeAction,
+                    style: AppStyles.r2.copyWith(
+                        color: AppColors.colorTitle,
+                        fontWeight: FontWeight.w500),
+                    onChanged: (value) {
+                      if (function != null) {
+                        function.call(value);
+                      }
+                    },
+                    onSubmitted: (value) {
+                      onSubmit!.call(value);
+                    },
+                    decoration: InputDecoration(
+                      hintText: hint,
+                      hintStyle: AppStyles.r2.copyWith(
+                          color: AppColors.colorHint1,
+                          fontWeight: FontWeight.w400),
+                      border: InputBorder.none,
+                    )),
+              )
+            : DropdownButtonFormField2(
+                decoration: InputDecoration(
+                  isDense: true,
+                  contentPadding: EdgeInsets.zero,
+                  border: InputBorder.none,
+                ),
+                // selectedItemHighlightColor: Colors.red,
+                buttonHeight: 60,
+                focusNode: focusNode,
+                buttonPadding: const EdgeInsets.only(left: 0, right: 10),
+                dropdownDecoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(24),
+                    border: Border.all(color: Color(0xFFE3EAF2))),
+                isExpanded: true,
+                value: dropValue.isNotEmpty ? dropValue : null,
+                onChanged: (value) {
+                  function!.call(value!);
+                },
+
+                items: listDrop.map<DropdownMenuItem<String>>((String value) {
+                  if (value == 'M') {
+                    return DropdownMenuItem(value: value, child: Text('Nam'));
+                  } else {
+                    return DropdownMenuItem(value: value, child: Text('Nữ'));
+                  }
+                }).toList(),
+                style: AppStyles.r2B3A4A_12_500.copyWith(
+                    fontSize: 14,
+                    color: AppColors.color_2B3A4A.withOpacity(0.85)),
+                icon: SvgPicture.asset(AppImages.icDropdownSpinner),
+                hint: Text(
+                  hint,
+                  style: AppStyles.r2.copyWith(
+                      color: AppColors.colorHint1, fontWeight: FontWeight.w400),
+                ),
+                validator: (value) {
+                  if (value == null) {
+                    return 'Please select gender.';
+                  }
+                },
+              ),
+      ),
+    ],
+  );
 }
 
 class SuccessDialog extends Dialog {

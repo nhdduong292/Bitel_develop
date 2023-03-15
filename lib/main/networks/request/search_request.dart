@@ -10,7 +10,6 @@ class SearchRequest {
   String toDate = "";
 
   List<String> listStatus = [
-    "DEFAULT",
     RequestStatus.CREATE_REQUEST,
     RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY,
     RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY,
@@ -39,5 +38,15 @@ class SearchRequest {
       return 6;
     }
     return 0;
+  }
+
+  void reset(){
+    service = "FTTH";
+    code = "";
+    status = "";
+    province = "";
+    staffCode = "";
+    fromDate = "";
+    toDate = "";
   }
 }

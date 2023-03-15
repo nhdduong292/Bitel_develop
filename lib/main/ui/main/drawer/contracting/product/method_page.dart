@@ -145,6 +145,75 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
             ),
           ),
           Obx(
+            () => Visibility(
+              visible: controller.valueMethod.value > -1,
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 15, right: 15),
+                    padding: const EdgeInsets.only(top: 15),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color: const Color(0xFFE3EAF2)),
+                        color: Colors.white,
+                        boxShadow: const [
+                          BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
+                        ]),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Text(
+                          'Type contract',
+                          style: TextStyle(
+                              color: AppColors.colorContent,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Roboto'),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        const DottedLine(
+                          dashColor: Color(0xFFE3EAF2),
+                          dashGapLength: 3,
+                          dashLength: 4,
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15, right: 15),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  child: typeContact(
+                                      check: !controller.isForcedTerm(),
+                                      content: 'Undetermined')),
+                              Expanded(
+                                  child: typeContact(
+                                      check: controller.isForcedTerm(),
+                                      content: 'Forced term'))
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Obx(
             () => bottomButton(
                 text: AppLocalizations.of(context)!.textContinue,
                 onTap: () {
@@ -203,7 +272,7 @@ Widget _itemProduct(
               children: [
                 Text(product.productName ?? 'null',
                     style: AppStyles.r2B3A4A_12_500),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Text(
@@ -304,5 +373,21 @@ Widget _itemMethod(
         ],
       ),
     ),
+  );
+}
+
+Widget typeContact({required bool check, required String content}) {
+  return Row(
+    children: [
+      check ? iconChecked() : iconUnchecked(),
+      const SizedBox(
+        width: 13,
+      ),
+      Text(
+        content,
+        style: AppStyles.r2B3A4A_12_500
+            .copyWith(color: AppColors.color_2B3A4A.withOpacity(0.85)),
+      )
+    ],
   );
 }

@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../../../../networks/api_end_point.dart';
 import '../../../../../../../networks/api_util.dart';
+import '../../../../../../../utils/common.dart';
 import '../../cretate_contact_page_logic.dart';
 
 class ClientDataDNILogic extends GetxController {
@@ -21,8 +22,8 @@ class ClientDataDNILogic extends GetxController {
   FocusNode focusLastName = FocusNode();
   CustomerModel customerModel = CustomerModel();
 
-  String sexValue = 'Nam';
-  List<String> sexs = ['Nam', 'Nữ', 'Khác'];
+  String sexValue = 'M';
+  List<String> sexs = ['M', 'F'];
 
   var fromDate = "".obs;
   var toDate = "".obs;
@@ -34,6 +35,8 @@ class ClientDataDNILogic extends GetxController {
   int requestId = 0;
   int productId = 0;
   int reasonId = 0;
+  String idNumber = '';
+  bool isForcedTerm = false;
 
   @override
   void onInit() {
@@ -42,6 +45,17 @@ class ClientDataDNILogic extends GetxController {
     requestId = logicCreateContact.requestId;
     productId = logicCreateContact.productId;
     reasonId = logicCreateContact.reasonId;
+    idNumber = logicCreateContact.idNumber;
+    isForcedTerm = logicCreateContact.isForcedTerm;
+  }
+
+  void setDefaultDob() {
+    String birthDateString = '01/01/1990';
+    selectDate = DateFormat('dd/MM/yyyy').parse(birthDateString);
+  }
+
+  void setDateNow() {
+    selectDate = DateTime.now();
   }
 
   void setToDate(DateTime picked) {
@@ -64,16 +78,13 @@ class ClientDataDNILogic extends GetxController {
   }
 
   void createCustomer(Function(bool isSuccess) callBack) {
-    var rng = Random();
-    int random = rng.nextInt(899) + 100;
-    String idNumber = "123126$random";
     Map<String, dynamic> body = {
-      "type": "DNI",
+      "type": logicCreateContact.typeCustomer,
       "idNumber": idNumber,
       "name": tfName.text,
       "fullName": tfLastName.text,
       "nationality": tfNationality.text,
-      "sex": 'M',
+      "sex": sexValue,
       "dateOfBirth": isoDate(dob),
       "expiredDate": isoDate(exd),
       "address": tfAddress.text,
@@ -100,16 +111,62 @@ class ClientDataDNILogic extends GetxController {
     );
   }
 
+// so sanh date of birth voi expried date
+  bool compareToDate() {
+    DateFormat formatter = DateFormat("dd/MM/yyyy");
+
+    DateTime date1 = formatter.parse(dob);
+    DateTime date2 = formatter.parse(exd);
+
+    int result = date1.compareTo(date2);
+
+    if (result < 0) {
+      return false;
+    } else if (result > 0) {
+      return true;
+    } else {
+      return true;
+    }
+  }
+
+  // so sanh date of birth voi ngay hien tai
+  bool compareToDateNow() {
+    DateFormat formatter = DateFormat("dd/MM/yyyy");
+    DateTime date1 = formatter.parse(dob);
+    DateTime date2 = DateTime.now();
+
+    int result = date1.compareTo(date2);
+
+    if (result < 0) {
+      return false;
+    } else if (result > 0) {
+      return true;
+    } else {
+      return true;
+    }
+  }
+
   bool checkValidate() {
     if (!tfLastName.text.isNotEmpty) {
+      Common.showToastCenter("Bạn phải nhập hết thông tin");
       return false;
     } else if (!tfName.text.isNotEmpty) {
+      Common.showToastCenter("Bạn phải nhập hết thông tin");
       return false;
     } else if (!tfNationality.text.isNotEmpty) {
+      Common.showToastCenter("Bạn phải nhập hết thông tin");
       return false;
     } else if (!dob.isNotEmpty) {
+      Common.showToastCenter("Bạn phải nhập hết thông tin");
       return false;
     } else if (!exd.isNotEmpty) {
+      Common.showToastCenter("Bạn phải nhập hết thông tin");
+      return false;
+    } else if (compareToDateNow()) {
+      Common.showToastCenter("Ngày sinh không được lớn hơn ngày hiện tại");
+      return false;
+    } else if (compareToDate()) {
+      Common.showToastCenter("Ngày sinh phải nhỏ hơn ngày hết hạn");
       return false;
     }
     return true;

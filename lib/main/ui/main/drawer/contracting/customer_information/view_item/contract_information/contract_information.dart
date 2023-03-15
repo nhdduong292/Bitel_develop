@@ -60,7 +60,9 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
               height: 15,
             ),
             lockedBox(
-                content: AppLocalizations.of(context)!.textForcedTerm,
+                content: controller.isForcedTerm
+                    ? AppLocalizations.of(context)!.textForcedTerm
+                    : 'Undetermined',
                 label: AppLocalizations.of(context)!.textContactType,
                 required: false,
                 isIcon: true,

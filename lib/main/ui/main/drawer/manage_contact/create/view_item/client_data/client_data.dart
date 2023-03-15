@@ -94,11 +94,12 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                           children: [
                             RichText(
                               text: TextSpan(
-                                  text: 'DNI: ',
+                                  text:
+                                      '${controller.logicCreateContact.typeCustomer}: ',
                                   style: AppStyles.r3,
                                   children: [
                                     TextSpan(
-                                      text: '001573053',
+                                      text: controller.idNumber,
                                       style: AppStyles.r1,
                                     )
                                   ]),
@@ -116,12 +117,15 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: AppLocalizations.of(context)!.textLastName, content: "Pham"),
+                                lable:
+                                    AppLocalizations.of(context)!.textLastName,
+                                content: "Pham"),
                           ),
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: AppLocalizations.of(context)!.textName, content: "Quoc Nam"),
+                                lable: AppLocalizations.of(context)!.textName,
+                                content: "Quoc Nam"),
                           ),
                         ],
                       ),
@@ -133,7 +137,9 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: AppLocalizations.of(context)!.textNationality, content: "VIETNAMITA"),
+                                lable: AppLocalizations.of(context)!
+                                    .textNationality,
+                                content: "VIETNAMITA"),
                           ),
                           Expanded(
                             flex: 1,
@@ -149,12 +155,16 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: AppLocalizations.of(context)!.textDateOfBirth, content: "22 MAY 1996"),
+                                lable: AppLocalizations.of(context)!
+                                    .textDateOfBirth,
+                                content: "22 MAY 1996"),
                           ),
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: AppLocalizations.of(context)!.textExpiredDate, content: "22 MAR 2026"),
+                                lable: AppLocalizations.of(context)!
+                                    .textExpiredDate,
+                                content: "22 MAR 2026"),
                           ),
                         ],
                       ),
@@ -184,8 +194,8 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                                 width: 18,
                               ),
                               Expanded(
-                                  child:
-                                      Text(AppLocalizations.of(context)!.textPhotoOfIdentity)),
+                                  child: Text(AppLocalizations.of(context)!
+                                      .textPhotoOfIdentity)),
                               SvgPicture.asset(AppImages.icCameraRound),
                               SizedBox(
                                 width: 8,
@@ -346,7 +356,10 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
   _getFromGallery(BuildContext context, ClientDataLogic controller) async {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.camera);
-    _cropImage(pickedFile, context, controller);
+    if (pickedFile != null) {
+      // ignore: use_build_context_synchronously
+      _cropImage(pickedFile, context, controller);
+    }
   }
 
   /// Crop Image
@@ -456,9 +469,14 @@ class SuccessDialog extends Dialog {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Expanded(child: bottomButtonV2(text: AppLocalizations.of(context)!.textNo, onTap: onCancel)),
                 Expanded(
-                    child: bottomButton(text: AppLocalizations.of(context)!.textSiContinuar, onTap: onOK))
+                    child: bottomButtonV2(
+                        text: AppLocalizations.of(context)!.textNo,
+                        onTap: onCancel)),
+                Expanded(
+                    child: bottomButton(
+                        text: AppLocalizations.of(context)!.textSiContinuar,
+                        onTap: onOK))
               ],
             ),
             // Container(
