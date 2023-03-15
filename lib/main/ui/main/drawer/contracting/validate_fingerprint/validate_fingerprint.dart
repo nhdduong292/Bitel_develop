@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'dart:convert';
 import 'dart:io';
 import 'dart:io';
 
@@ -8,6 +9,7 @@ import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
@@ -204,11 +206,11 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                             SizedBox(
                               height: 41,
                             ),
-                            // controller.textCapture.isNotEmpty
-                            //     ? Image.file(
-                            //         File(controller.textCapture),
-                            //         width: 80,
-                            //         height: 160,
+                            // controller.listFinger.isNotEmpty
+                            //     ? Image.memory(
+                            //         convertBase64Image(
+                            //             controller.listFinger[0]),
+                            //         gaplessPlayback: true,
                             //       )
                             SvgPicture.asset(AppImages.imgHuellaDactilar),
                             SizedBox(
@@ -350,5 +352,9 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
             ),
           );
         });
+  }
+
+  Uint8List convertBase64Image(String base64String) {
+    return Base64Decoder().convert(base64String.split(',').last);
   }
 }

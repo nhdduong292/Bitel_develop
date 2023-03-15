@@ -28,15 +28,16 @@ class DrawerLogic extends GetxController {
     Timer(Duration(milliseconds: 300), () {
       switch (index) {
         case 3:
-          Get.to(() => FindCustomerPage());
+          // Get.to(() => FindCustomerPage());
+          Get.toNamed(RouteConfig.validateFingerprint);
           break;
         case 2:
           // Get.toNamed(RouteConfig.listRequest);
           break;
-        case 4:
-          // Get.to(DemoNativePage());
-          Get.toNamed(RouteConfig.validateFingerprint);
-          break;
+        // case 4:
+        //   // Get.to(DemoNativePage());
+        //   Get.toNamed(RouteConfig.validateFingerprint);
+        //   break;
 
       }
     });

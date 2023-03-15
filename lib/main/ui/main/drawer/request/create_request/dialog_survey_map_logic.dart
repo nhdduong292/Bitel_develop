@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
+import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
@@ -19,7 +20,7 @@ class DialogSurveyMapLogic extends GetxController {
   String currentRadius = "500";
   double lat = 0;
   double long = 0;
-  RequestModel requestModel;
+  RequestDetailModel requestModel;
   bool isConnect = false;
   TextEditingController textFieldRadius = TextEditingController();
 
@@ -172,7 +173,7 @@ class DialogSurveyMapLogic extends GetxController {
   }
 
   void getLocationAddress() async {
-    List<Location> locations = await locationFromAddress(requestModel.getInstallAddress(), localeIdentifier:  "es_PE");
+    List<Location> locations = await locationFromAddress(requestModel.getInstalAddress(), localeIdentifier:  "es_PE");
     // List<Location> locations = await locationFromAddress("Nguy Như Kon Tum Thanh Xuân Hà Nội", localeIdentifier: "vi_VN");
     locations.forEach((element) {
       print(

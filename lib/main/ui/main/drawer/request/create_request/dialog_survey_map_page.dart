@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_map_logic.dart';
@@ -20,7 +21,7 @@ import 'package:get/get.dart';
 
 class DialogSurveyMapPage extends GetWidget {
   final Function(bool isSuccess) onSubmit;
-  RequestModel requestModel;
+  RequestDetailModel requestModel;
   DialogSurveyMapPage({super.key, required this.onSubmit, required this.requestModel});
 
 
@@ -209,7 +210,7 @@ class DialogSurveyMapPage extends GetWidget {
                                   (isSuccess) {
                                     // onSubmit.call(isSuccess);
                                     if (isSuccess) {
-                                    showDialogSurveySuccessful(context, requestModel.id, requestModel.identityType);
+                                    showDialogSurveySuccessful(context);
                                   } else {
                                     showDialogSurveyUnsuccessful(context, requestModel.id);
                                     }
@@ -255,15 +256,15 @@ class DialogSurveyMapPage extends GetWidget {
     );
   }
 
-  void showDialogSurveySuccessful(BuildContext context, int id, String type) {
+  void showDialogSurveySuccessful(BuildContext context) {
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (context) {
           return DialogSurveySuccessful(
             requestModel.id,
-            requestModel.identityType,
-            requestModel.idNumber,
+            requestModel.customerModel.type,
+            requestModel.customerModel.idNumber,
             (isOnline) {},
           );
         });

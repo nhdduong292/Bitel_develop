@@ -35,13 +35,13 @@ class ValidateFingerprintLogic extends GetxController {
     // TODO: implement onInit
     super.onInit();
     var data = Get.arguments;
-    type = data[0];
-    cusId = data[1];
-    typeCustomer = data[2];
-    idNumber = data[3];
-    contractId = data[4];
-
-    getBestFinger();
+    // type = data[0];
+    // cusId = data[1];
+    // typeCustomer = data[2];
+    // idNumber = data[3];
+    // contractId = data[4];
+    //
+    // getBestFinger();
   }
 
   void setCapture(String value) {
@@ -59,7 +59,9 @@ class ValidateFingerprintLogic extends GetxController {
     } on PlatformException catch (e) {
       e.printInfo();
     }
+    // List<String> list = result.split(",");
 
+    print("text Capture: ${result}");
     if (listFinger.isNotEmpty) {
       listFinger.clear();
     }
