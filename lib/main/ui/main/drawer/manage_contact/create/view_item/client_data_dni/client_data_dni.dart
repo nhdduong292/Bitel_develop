@@ -56,7 +56,7 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                     height: 30,
                     child: Center(
                       child: Text(
-                        'Información del cliente',
+                        AppLocalizations.of(context)!.textInformacionDel,
                         style: AppStyles.r00A5B1_13_500,
                       ),
                     ),
@@ -105,7 +105,7 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                     children: [
                       textFieldClient(
                           context: context,
-                          label: 'Last Name',
+                          label: AppLocalizations.of(context)!.textLastName,
                           hint: 'Enter name',
                           width: 250,
                           controller: controller.tfLastName,
@@ -116,7 +116,7 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                       ),
                       textFieldClient(
                           context: context,
-                          label: 'Name',
+                          label: AppLocalizations.of(context)!.textName,
                           hint: 'Enter name',
                           width: 250,
                           controller: controller.tfName,
@@ -127,7 +127,7 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                       ),
                       textFieldClient(
                           context: context,
-                          label: 'Nationality',
+                          label: AppLocalizations.of(context)!.textNationality,
                           hint: 'Enter nationality',
                           width: 250,
                           controller: controller.tfNationality,
@@ -142,7 +142,8 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                             child: Container(
                                 margin: EdgeInsets.only(left: 20),
                                 alignment: Alignment.centerLeft,
-                                child: Text('Sex',
+                                child: Text(
+                                    AppLocalizations.of(context)!.textSex,
                                     style: AppStyles.r2B3A4A_12_500.copyWith(
                                         fontSize: 14,
                                         color: AppColors.color_2B3A4A
@@ -172,7 +173,7 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                           context: context,
                           type: 1,
                           hint: 'Enter date',
-                          label: 'Date of birth',
+                          label: AppLocalizations.of(context)!.textDateOfBirth,
                           content: controller.dob,
                           required: false,
                           isIcon: true,
@@ -184,7 +185,7 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                           context: context,
                           type: 2,
                           hint: 'Enter date',
-                          label: 'Expiration date',
+                          label: AppLocalizations.of(context)!.textExpiredDate,
                           content: controller.exd,
                           required: false,
                           isIcon: true,
@@ -194,7 +195,7 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                       ),
                       textFieldClient(
                           context: context,
-                          label: 'Address',
+                          label: AppLocalizations.of(context)!.textAddress,
                           hint: 'Enter address',
                           width: 250,
                           controller: controller.tfAddress,
@@ -256,7 +257,7 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                   },
                   child: Center(
                       child: Text(
-                    'Registrar',
+                    AppLocalizations.of(context)!.textRegistrar,
                     style: AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
                   )),
                 ),
@@ -517,9 +518,13 @@ Widget spinnerFormV2(
 
                 items: listDrop.map<DropdownMenuItem<String>>((String value) {
                   if (value == 'M') {
-                    return DropdownMenuItem(value: value, child: Text('Nam'));
+                    return DropdownMenuItem(
+                        value: value,
+                        child: Text(AppLocalizations.of(context)!.textMale));
                   } else {
-                    return DropdownMenuItem(value: value, child: Text('Nữ'));
+                    return DropdownMenuItem(
+                        value: value,
+                        child: Text(AppLocalizations.of(context)!.textFemale));
                   }
                 }).toList(),
                 style: AppStyles.r2B3A4A_12_500.copyWith(

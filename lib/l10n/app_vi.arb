@@ -409,5 +409,6 @@
   "textNotifyFingerSuccess": "Lấy vân tay thành công!",
   "textOnlyActionAndroid": "Chỉ hoạt động trên thiết bị Android",
   "textLimitFingerRegister": "Bạn phải nhập vân tay đủ 3 lần",
-  "textNotifyFingerFail": "Lấy vân tay thất bại!"
+  "textNotifyFingerFail": "Lấy vân tay thất bại!",
+  "textMale": "Male"
 }

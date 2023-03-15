@@ -16,8 +16,6 @@ import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-enum BillCycle { c1, c2, c3 }
-
 class CustomerInformationLogic extends GetxController {
   late BuildContext context;
   var checkItem1 = true.obs;
@@ -79,26 +77,34 @@ class CustomerInformationLogic extends GetxController {
         TextSelection.fromPosition(TextPosition(offset: billAddress.length));
   }
 
+  String getSex() {
+    if (customer.sex == 'M') {
+      return AppLocalizations.of(context)!.textMale;
+    } else {
+      return AppLocalizations.of(context)!.textFemale;
+    }
+  }
+
   void getCurrentTime() {
     DateTime now = DateTime.now();
     if (now.day >= 6 && now.day < 16) {
-      billCycle.value = 'Ciclo 6';
+      billCycle.value = 'CYCLE6';
     } else if (now.day >= 16 && now.day < 26) {
-      billCycle.value = 'Ciclo 16';
+      billCycle.value = 'CYCLE16';
     } else {
-      billCycle.value = 'Ciclo 26';
+      billCycle.value = 'CYCLE26';
     }
     signDate.value = DateFormat("yyyy-MM-ddTHH:mm:ss").format(now);
     update();
   }
 
   String getBillCycle(String billCycle) {
-    if (billCycle == 'Ciclo 6') {
-      return 'CYCLE6';
-    } else if (billCycle == 'Ciclo 16') {
-      return 'CYCLE16';
+    if (billCycle == 'CYCLE6') {
+      return '${AppLocalizations.of(context)!.textCircle} 6';
+    } else if (billCycle == 'CYCLE16') {
+      return '${AppLocalizations.of(context)!.textCircle} 16';
     } else {
-      return 'CYCLE26';
+      return '${AppLocalizations.of(context)!.textCircle} 26';
     }
   }
 
@@ -163,7 +169,7 @@ class CustomerInformationLogic extends GetxController {
       "contractType": isForcedTerm ? "FORCED_TERM" : "UNDETERMINED",
       "numOfSubscriber": 1,
       "signDate": signDate.value.trim(),
-      "billCycle": getBillCycle(billCycle.value),
+      "billCycle": billCycle.value,
       "changeNotification": "Email",
       "printBill": "Email",
       "currency": "SOL",

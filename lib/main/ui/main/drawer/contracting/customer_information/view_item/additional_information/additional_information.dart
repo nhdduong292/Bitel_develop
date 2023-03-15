@@ -93,7 +93,7 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                 isIcon: false,
                 width: 210),
             lockedBoxV1(
-                content: controller.customer.sex,
+                content: controller.getSex(),
                 label: AppLocalizations.of(context)!.textSex,
                 required: false,
                 isIcon: false,

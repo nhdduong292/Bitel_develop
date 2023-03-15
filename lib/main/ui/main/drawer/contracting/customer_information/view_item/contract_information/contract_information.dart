@@ -90,7 +90,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 width: 210)),
             Obx(
               () => lockedBox(
-                  content: controller.billCycle.value,
+                  content: controller.getBillCycle(controller.billCycle.value),
                   label: AppLocalizations.of(context)!.textBillCycle,
                   required: true,
                   isIcon: true,

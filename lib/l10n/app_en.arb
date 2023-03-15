@@ -453,6 +453,8 @@
    "textPage":"Page",
    "textMyInfo":"My Info",
    "textAlmacen":"Store",
-   "textInformacion":"Warehouse information for code LI1CD04"
+   "textInformacion":"Warehouse information for code LI1CD04",
+   "textMale": "Male",
+   "textFemale": "Female"
 
 }

@@ -453,6 +453,7 @@
    "textPage":"Página",
    "textMyInfo":"Mi información",
    "textAlmacen":"Almacén",
-   "textInformacion":"Información de almacén del código LI1CD04"
+   "textInformacion":"Información de almacén del código LI1CD04",
+  "textMale": "Male"
 
 }
