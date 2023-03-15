@@ -99,6 +99,7 @@ class LoginLogic extends GetxController{
           InfoBusiness.getInstance()!.setUser(UserModel.fromJson(payload));
           print(payload);
           SharedPreferenceUtil.saveToken(loginModel.token);
+          SharedPreferenceUtil.saveRefreshToken(DateTime.now().millisecondsSinceEpoch);
           Get.offAllNamed(RouteConfig.main);
         } else {
           Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);

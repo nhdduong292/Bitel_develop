@@ -30,7 +30,6 @@ class ClientDataLogic extends GetxController {
   CustomerModel customerModel = CustomerModel();
   final TextRecognizer _textRecognizer =
       TextRecognizer(script: TextRecognitionScript.latin);
-  DocumentScanningLogic controller = Get.find();
 
   @override
   void onInit() {
@@ -64,7 +63,7 @@ class ClientDataLogic extends GetxController {
 
   void createCustomer(Function(bool isSuccess) callBack) {
     var rng = Random();
-    int random = rng.nextInt(89) + 10;
+    int random = rng.nextInt(899) + 100;
     String idNumber = "123126$random";
     Map<String, dynamic> body = {
       "type": "DNI",
@@ -86,7 +85,9 @@ class ClientDataLogic extends GetxController {
       body: body,
       onSuccess: (response) {
         if (response.isSuccess) {
-          customer = CustomerModel.fromJson(response.data);
+          customer = CustomerModel.fromJson(response.data['data']);
+          print(customer.name);
+          print('Call api register customer');
           callBack.call(true);
         } else {
           print("error: ${response.status}");

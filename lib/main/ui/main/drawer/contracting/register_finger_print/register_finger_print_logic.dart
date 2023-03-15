@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:bitel_ventas/main/networks/model/customer_model.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/client_data_logic.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
 import 'package:bitel_ventas/res/app_images.dart';
@@ -12,6 +14,7 @@ import 'package:get/get.dart';
 import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
 import '../../../../../utils/common_widgets.dart';
+import '../../manage_contact/create/cretate_contact_page_logic.dart';
 import '../../manage_contact/create/view_item/client_data/id_card_scanner_logic.dart';
 
 class RegisterFingerPrintLogic extends GetxController {
@@ -22,12 +25,26 @@ class RegisterFingerPrintLogic extends GetxController {
   var handValue = (1).obs;
   var fingerValue = (1).obs;
   var pathFinger = AppImages.imgFingerLeft1.obs;
-  int customerId = 0;
   int indexLeft = 0;
   List<String> listImageLeft = [];
   int indexRight = 0;
   var countFinger = 3.obs;
   List<String> listImageRight = [];
+  CustomerModel customerModel = CustomerModel();
+  String testFinger = '';
+  CreateContactPageLogic logicCreateContact = Get.find();
+  int requestId = 0;
+  int productId = 0;
+  int reasonId = 0;
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    requestId = logicCreateContact.requestId;
+    productId = logicCreateContact.productId;
+    reasonId = logicCreateContact.reasonId;
+  }
 
   String findPathFinger() {
     if (handValue.value == 1) {
@@ -71,6 +88,11 @@ class RegisterFingerPrintLogic extends GetxController {
     }
   }
 
+  void setupCustomer() {
+    ClientDataLogic clientDataLogic = Get.find();
+    customerModel = clientDataLogic.customer;
+  }
+
   Future<bool> registerFinger() async {
     _onLoading(context);
     Completer<bool> completer = Completer();
@@ -83,7 +105,7 @@ class RegisterFingerPrintLogic extends GetxController {
 
     ApiUtil.getInstance()!.put(
       url: ApiEndPoints.API_REGISTER_FINGER
-          .replaceAll('id', customerId.toString()),
+          .replaceAll('id', customerModel.custId.toString()),
       body: body,
       onSuccess: (response) {
         Get.back();

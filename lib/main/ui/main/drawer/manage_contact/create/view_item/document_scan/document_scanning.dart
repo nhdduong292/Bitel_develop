@@ -174,7 +174,7 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                             child: RichText(
                               textAlign: TextAlign.start,
                               text: TextSpan(
-                                text: AppLocalizations.of(context)!.textTypeOfDocument,
+                                text: 'Type of document ',
                                 style: TextStyle(
                                   color: AppColors.colorContent,
                                   fontFamily: 'Roboto',
@@ -222,7 +222,7 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                         height: 17,
                       ),
                       Text(
-                        AppLocalizations.of(context)!.textNextScan,
+                        'Next, scan its vover',
                         style: AppStyles.r3,
                       ),
                       SizedBox(
@@ -242,7 +242,7 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                     () => SizedBox(
                       width: width,
                       child: bottomButton(
-                          text: AppLocalizations.of(context)!.textScan,
+                          text: 'SCAN',
                           onTap: () {
                             if (controller.checkOption1.value &&
                                 controller.checkOption2.value) {
@@ -261,7 +261,7 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                               }
                             } else {
                               Common.showToastCenter(
-                                  AppLocalizations.of(context)!.textAcceptTheRules);
+                                  "Bạn phải chấp nhận quy định");
                             }
                           },
                           color: !(controller.checkOption1.value &&
@@ -292,13 +292,13 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
         compressQuality: 100,
         uiSettings: [
           AndroidUiSettings(
-              toolbarTitle: AppLocalizations.of(context)!.textCropper,
+              toolbarTitle: 'Cropper',
               toolbarColor: Colors.deepOrange,
               toolbarWidgetColor: Colors.white,
               initAspectRatio: CropAspectRatioPreset.original,
               lockAspectRatio: false),
           IOSUiSettings(
-            title: AppLocalizations.of(context)!.textCropper,
+            title: 'Cropper',
           ),
           WebUiSettings(
             context: context,
@@ -308,7 +308,7 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
               height: 520,
             ),
             viewPort:
-                 CroppieViewPort(width: 480, height: 480, type: AppLocalizations.of(context)!.textCircle),
+                const CroppieViewPort(width: 480, height: 480, type: 'circle'),
             enableExif: true,
             enableZoom: true,
             showZoomer: true,

@@ -183,7 +183,7 @@ Widget inputFormMaxLenght(
     required bool required,
     required TextInputType inputType,
     int? maxLength,
-    String? textDefault,
+    required TextEditingController controller,
     required double width,
     var onChange}) {
   return Row(
@@ -221,9 +221,7 @@ Widget inputFormMaxLenght(
           height: 70,
           width: width,
           child: TextField(
-            controller: textDefault != null
-                ? TextEditingController(text: textDefault)
-                : null,
+            controller: controller,
             onChanged: (value) => {onChange(value)},
             maxLength: maxLength,
             style: TextStyle(
@@ -266,7 +264,7 @@ Widget inputFormV3(
     required String hint,
     required bool required,
     required TextInputType inputType,
-    String? textDefault,
+    required TextEditingController controller,
     required double width,
     var onChange}) {
   return Row(
@@ -303,9 +301,7 @@ Widget inputFormV3(
           height: 45,
           width: width,
           child: TextField(
-            controller: textDefault != null
-                ? TextEditingController(text: textDefault)
-                : null,
+            controller: controller,
             onChanged: (value) => {onChange(value)},
             style: TextStyle(
                 fontSize: 18,

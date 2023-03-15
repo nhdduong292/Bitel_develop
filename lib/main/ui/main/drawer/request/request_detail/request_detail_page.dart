@@ -641,8 +641,11 @@ class RequestDetailPage extends GetWidget {
                                               RequestStatus
                                                   .SURVEY_OFFLINE_SUCCESSFULLY) {
                                         Get.toNamed(RouteConfig.productPayment,
-                                            arguments:
-                                                controller.requestModel.id);
+                                            arguments: [
+                                              controller.requestModel.id,
+                                              controller.requestModel
+                                                  .customerModel.type
+                                            ]);
                                       } else if (controller.status ==
                                           RequestStatus.CONNECTED) {
                                         //todo show dialog cancel

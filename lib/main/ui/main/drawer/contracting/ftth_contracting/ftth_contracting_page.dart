@@ -247,8 +247,10 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                     .textClose
                                     .toUpperCase(),
                                 onTap: () {
-                                  Get.until((route) =>
-                                      Get.currentRoute == '/menu/ListRequest');
+                                  Get.until((route) {
+                                        return Get.currentRoute == RouteConfig.sale;
+                                    },);
+                                  Get.toNamed(RouteConfig.listRequest, arguments: 0);
                                 })),
                         SizedBox(
                           height: 126,

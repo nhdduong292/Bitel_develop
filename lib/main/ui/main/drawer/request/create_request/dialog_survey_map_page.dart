@@ -19,8 +19,9 @@ import 'package:get/get.dart';
 
 class DialogSurveyMapPage extends GetWidget {
   final Function(bool isSuccess) onSubmit;
-  String requestId;
-  DialogSurveyMapPage({super.key, required this.onSubmit, required this.requestId});
+  int requestId;
+  String type;
+  DialogSurveyMapPage({super.key, required this.onSubmit, required this.type, required this.requestId});
 
 
 
@@ -195,7 +196,12 @@ class DialogSurveyMapPage extends GetWidget {
                               }
                               _onLoading(context);
                               controller.createSurvey((isSuccess) {
-                                  onSubmit.call(isSuccess);
+                                  // onSubmit.call(isSuccess);
+                                  if(isSuccess) {
+                                    showDialogSurveySuccessful(context, requestId, type);
+                                  } else {
+                                    showDialogSurveyUnsuccessful(context, requestId);
+                                  }
                               },);
                               // onSubmit!.call();
                             },
@@ -230,27 +236,25 @@ class DialogSurveyMapPage extends GetWidget {
     );
   }
 
-  void showDialogSurveySuccessful(BuildContext context){
-    // showDialog(
-    //     barrierDismissible: false,
-    //     context: context,
-    //     builder: (context) {
-    //       return DialogSurveySuccessful(
-    //         onSubmit: (){
-    //           // controller.createRequest();
-    //         },);
-    //     });
+  void showDialogSurveySuccessful(BuildContext context, int id, String type){
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return DialogSurveySuccessful(id, type,(isOnline) {
+
+          },);
+        });
   }
 
-  void showDialogSurveyUnsuccessful(BuildContext context){
-    // showDialog(
-    //     barrierDismissible: false,
-    //     context: context,
-    //     builder: (context) {
-    //       return DialogSurveyUnsuccessful(
-    //         onSubmit: (){
-    //           // controller.createRequest();
-    //         },);
-    //     });
+  void showDialogSurveyUnsuccessful(BuildContext context, int id){
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return DialogSurveyUnsuccessful(id, (isOnline) {
+
+          } );
+        });
   }
 }

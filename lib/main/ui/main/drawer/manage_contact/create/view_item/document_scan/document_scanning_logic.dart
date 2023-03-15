@@ -7,6 +7,8 @@ import 'package:bitel_ventas/main/networks/model/customer_model.dart';
 import 'package:bitel_ventas/main/networks/request/google_detect_request.dart';
 import 'package:bitel_ventas/main/networks/request/google_detect_request.dart';
 import 'package:bitel_ventas/main/networks/request/google_detect_request.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/create_contact_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/cretate_contact_page_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/client_data_logic.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
@@ -41,6 +43,7 @@ class DocumentScanningLogic extends GetxController {
   String currentIdentity = "DNI";
   List<String> listIdentityNumber = ["DNI", "CE", "PP", "PTP"];
 
+  CreateContactPageLogic logicCreateContact = Get.find();
 
   @override
   void onInit() {
@@ -53,11 +56,20 @@ class DocumentScanningLogic extends GetxController {
     customerDetectModel.dateOfBirth = "08 MAY 1996";
     customerDetectModel.sex = "M";
     customerDetectModel.expiredDate = "22 MAR 2026";
+
+    currentIdentity = logicCreateContact.typeCustomer;
   }
 
   void setIdentity(String value) {
     currentIdentity = value;
     update();
+  }
+
+  bool isDNI() {
+    if (currentIdentity == 'DNI') {
+      return true;
+    }
+    return false;
   }
 
   String getImageIdentity() {

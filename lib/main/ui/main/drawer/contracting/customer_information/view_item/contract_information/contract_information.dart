@@ -126,7 +126,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 onChange: (value) {
                   controller.billAddress = value;
                 },
-                textDefault: controller.address,
+                controller: controller.billAddressController,
                 inputType: TextInputType.streetAddress,
                 width: 210),
             SizedBox(

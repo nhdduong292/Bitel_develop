@@ -26,6 +26,7 @@ class ValidateFingerprintLogic extends GetxController {
   var pathFinger = ''.obs;
   List<String> listFinger = [];
 
+  bool isGetFingerSuccess = false;
   ValidateFingerprintLogic(this.context);
 
   @override
@@ -57,18 +58,23 @@ class ValidateFingerprintLogic extends GetxController {
     } on PlatformException catch (e) {
       e.printInfo();
     }
-    if (listFinger.isNotEmpty) {
-      listFinger.clear();
-    }
+
     if (result.isNotEmpty) {
-      listFinger.add(result);
-    }
-    if (listFinger.isNotEmpty) {
-      Common.showToastCenter(
-          AppLocalizations.of(context)!.textNotifyFingerSuccess);
+      if (listFinger.isNotEmpty) {
+        listFinger.clear();
+      }
+      if (result.isNotEmpty) {
+        listFinger.add(result);
+      }
+      if (listFinger.isNotEmpty) {
+        Common.showToastCenter(
+            AppLocalizations.of(context)!.textNotifyFingerSuccess);
+      } else {
+        Common.showToastCenter(
+            AppLocalizations.of(context)!.textNotifyFingerFail);
+      }
     } else {
-      Common.showToastCenter(
-          AppLocalizations.of(context)!.textNotifyFingerFail);
+      Common.showToastCenter("Lấy vân tay không thành công");
     }
     update();
   }
@@ -80,6 +86,7 @@ class ValidateFingerprintLogic extends GetxController {
         if (response.isSuccess) {
           bestFinger = BestFingerModel.fromJson(response.data['data']);
           pathFinger.value = findPathFinger();
+          isGetFingerSuccess = true;
         } else {
           print("error: ${response.status}");
         }
