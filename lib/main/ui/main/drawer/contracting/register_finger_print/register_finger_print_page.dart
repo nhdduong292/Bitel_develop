@@ -335,41 +335,38 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                               onTap: () {
                                 if (controller.listImageLeft.length >= 3 ||
                                     controller.listImageRight.length >= 3) {
-                                  controller.registerFinger().then((value) => {
-                                        if (value)
-                                          {
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return SuccessDialog(
-                                                  height: 299,
-                                                  isSuccess: true,
-                                                  onClick: () {
-                                                    Get.back();
-                                                    Get.offNamed(
-                                                        RouteConfig
-                                                            .customerInformation,
-                                                        arguments: [
-                                                          controller
-                                                              .customerModel,
-                                                          controller.requestId,
-                                                          controller.productId,
-                                                          controller.reasonId,
-                                                          controller
-                                                              .isForcedTerm
-                                                        ]);
-                                                  },
-                                                );
+                                  controller.createCustomer(
+                                    (isSuccess) {
+                                      if (isSuccess) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return SuccessDialog(
+                                              height: 299,
+                                              isSuccess: true,
+                                              onClick: () {
+                                                Get.back();
+                                                Get.offNamed(
+                                                    RouteConfig
+                                                        .customerInformation,
+                                                    arguments: [
+                                                      controller.customerModel,
+                                                      controller.requestId,
+                                                      controller.productId,
+                                                      controller.reasonId,
+                                                      controller.isForcedTerm
+                                                    ]);
                                               },
-                                            )
-                                          }
-                                        else
-                                          {
-                                            Common.showToastCenter(
-                                                AppLocalizations.of(context)!
-                                                    .textErrorAPI)
-                                          }
-                                      });
+                                            );
+                                          },
+                                        );
+                                      } else {
+                                        Common.showToastCenter(
+                                            AppLocalizations.of(context)!
+                                                .textErrorAPI);
+                                      }
+                                    },
+                                  );
                                 } else {
                                   Common.showToastCenter(
                                       AppLocalizations.of(context)!

@@ -37,6 +37,7 @@ class RegisterFingerPrintLogic extends GetxController {
   int productId = 0;
   int reasonId = 0;
   bool isForcedTerm = false;
+  Map<String, dynamic> body = {};
 
   @override
   void onInit() {
@@ -90,9 +91,9 @@ class RegisterFingerPrintLogic extends GetxController {
     }
   }
 
-  void setupCustomer() {
+  void setupBodyCreateCustomer() {
     ClientDataLogic clientDataLogic = Get.find();
-    customerModel = clientDataLogic.customer;
+    body = clientDataLogic.body;
   }
 
   Future<bool> registerFinger() async {
@@ -168,6 +169,34 @@ class RegisterFingerPrintLogic extends GetxController {
           backgroundColor: Colors.transparent,
           child: LoadingCirculApi(),
         );
+      },
+    );
+  }
+
+  void createCustomer(Function(bool isSuccess) callBack) {
+    _onLoading(context);
+    body['left'] = indexLeft;
+    body['leftImage'] = listImageLeft;
+    body['right'] = indexRight;
+    body['rightImage'] = listImageRight;
+    ApiUtil.getInstance()!.post(
+      url: ApiEndPoints.API_CREATE_CUSTOMER,
+      body: body,
+      onSuccess: (response) {
+        if (response.isSuccess) {
+          Get.back();
+          customerModel = CustomerModel.fromJson(response.data['data']);
+          print(customerModel.name);
+          print('Call api register customer');
+          callBack.call(true);
+        } else {
+          print("error: ${response.status}");
+          callBack.call(false);
+        }
+      },
+      onError: (error) {
+        Get.back();
+        callBack.call(false);
       },
     );
   }

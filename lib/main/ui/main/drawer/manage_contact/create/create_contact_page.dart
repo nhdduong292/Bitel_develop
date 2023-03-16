@@ -231,7 +231,7 @@ class CreateContactPage extends GetView<CreateContactPageLogic> {
                                 );
                                 RegisterFingerPrintLogic registerFingerLogic =
                                     Get.find();
-                                registerFingerLogic.setupCustomer();
+                                registerFingerLogic.setupBodyCreateCustomer();
                               },
                             );
                           }

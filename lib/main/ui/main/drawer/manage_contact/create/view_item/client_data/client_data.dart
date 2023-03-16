@@ -269,34 +269,36 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                     // } else {
                     //   callback();
                     // }
-                    _onLoading(context);
-                    controller.createCustomer(
-                      (isSuccess) {
-                        if (isSuccess) {
-                          Get.back();
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return SuccessDialog(
-                                height: 344,
-                                isSuccess: true,
-                                onCancel: () {
-                                  Get.back();
-                                },
-                                onOK: () {
-                                  Get.back();
-                                  callback();
-                                },
-                              );
-                            },
-                          );
-                        } else {
-                          Get.back();
-                          Common.showToastCenter(
-                              AppLocalizations.of(context)!.textErrorAPI);
-                        }
-                      },
-                    );
+                    controller.createBodyCustomer();
+                    callback();
+                    // _onLoading(context);
+                    // controller.createCustomer(
+                    //   (isSuccess) {
+                    //     if (isSuccess) {
+                    //       Get.back();
+                    //       showDialog(
+                    //         context: context,
+                    //         builder: (BuildContext context) {
+                    //           return SuccessDialog(
+                    //             height: 344,
+                    //             isSuccess: true,
+                    //             onCancel: () {
+                    //               Get.back();
+                    //             },
+                    //             onOK: () {
+                    //               Get.back();
+                    //               callback();
+                    //             },
+                    //           );
+                    //         },
+                    //       );
+                    //     } else {
+                    //       Get.back();
+                    //       Common.showToastCenter(
+                    //           AppLocalizations.of(context)!.textErrorAPI);
+                    //     }
+                    //   },
+                    // );
                   },
                   child: Center(
                       child: Text(
@@ -407,108 +409,108 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
   }
 }
 
-class SuccessDialog extends Dialog {
-  final double height;
-  final bool isSuccess;
-  var onOK;
-  var onCancel;
+// class SuccessDialog extends Dialog {
+//   final double height;
+//   final bool isSuccess;
+//   var onOK;
+//   var onCancel;
 
-  SuccessDialog(
-      {super.key,
-      required this.height,
-      required this.isSuccess,
-      required this.onCancel,
-      required this.onOK});
+//   SuccessDialog(
+//       {super.key,
+//       required this.height,
+//       required this.isSuccess,
+//       required this.onCancel,
+//       required this.onOK});
 
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      alignment: Alignment.bottomCenter,
-      insetPadding: EdgeInsets.only(bottom: 24),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: SizedBox(
-        width: 330,
-        height: height,
-        child: Column(
-          children: [
-            SizedBox(
-              height: 30,
-            ),
-            SvgPicture.asset(
-                isSuccess ? AppImages.imgCongratulations : AppImages.imgNotify),
-            SizedBox(
-              height: 24,
-            ),
-            Text(
-              AppLocalizations.of(context)!.textIFelicidades,
-              style: isSuccess ? AppStyles.r14 : AppStyles.r16,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30, right: 30),
-              child: Text(
-                AppLocalizations.of(context)!.textElClienteSe,
-                style: AppStyles.r15,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            SizedBox(
-              height: 28,
-            ),
-            const DottedLine(
-              dashColor: Color(0xFFE3EAF2),
-              dashGapLength: 3,
-              dashLength: 4,
-            ),
-            SizedBox(
-              height: 22,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30, right: 30),
-              child: Text(
-                AppLocalizations.of(context)!.textDeseasRegistrar,
-                style: AppStyles.r15,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                    child: bottomButtonV2(
-                        text: AppLocalizations.of(context)!.textNo,
-                        onTap: onCancel)),
-                Expanded(
-                    child: bottomButton(
-                        text: AppLocalizations.of(context)!.textSiContinuar,
-                        onTap: onOK))
-              ],
-            ),
-            // Container(
-            //   width: double.infinity,
-            //   margin: const EdgeInsets.only(top: 27, left: 38, right: 38),
-            //   padding: const EdgeInsets.symmetric(vertical: 14),
-            //   decoration: BoxDecoration(
-            //     color: AppColors.colorButton,
-            //     borderRadius: BorderRadius.circular(24),
-            //   ),
-            //   child: InkWell(
-            //     onTap: () {
-            //       onOK();
-            //     },
-            //     child: Center(
-            //         child: Text(
-            //       '¡Muchas Gracias!'.toUpperCase(),
-            //       style: AppStyles.r5,
-            //     )),
-            //   ),
-            // ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Dialog(
+//       alignment: Alignment.bottomCenter,
+//       insetPadding: EdgeInsets.only(bottom: 24),
+//       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+//       child: SizedBox(
+//         width: 330,
+//         height: height,
+//         child: Column(
+//           children: [
+//             SizedBox(
+//               height: 30,
+//             ),
+//             SvgPicture.asset(
+//                 isSuccess ? AppImages.imgCongratulations : AppImages.imgNotify),
+//             SizedBox(
+//               height: 24,
+//             ),
+//             Text(
+//               AppLocalizations.of(context)!.textIFelicidades,
+//               style: isSuccess ? AppStyles.r14 : AppStyles.r16,
+//             ),
+//             SizedBox(
+//               height: 10,
+//             ),
+//             Padding(
+//               padding: const EdgeInsets.only(left: 30, right: 30),
+//               child: Text(
+//                 AppLocalizations.of(context)!.textElClienteSe,
+//                 style: AppStyles.r15,
+//                 textAlign: TextAlign.center,
+//               ),
+//             ),
+//             SizedBox(
+//               height: 28,
+//             ),
+//             const DottedLine(
+//               dashColor: Color(0xFFE3EAF2),
+//               dashGapLength: 3,
+//               dashLength: 4,
+//             ),
+//             SizedBox(
+//               height: 22,
+//             ),
+//             Padding(
+//               padding: const EdgeInsets.only(left: 30, right: 30),
+//               child: Text(
+//                 AppLocalizations.of(context)!.textDeseasRegistrar,
+//                 style: AppStyles.r15,
+//                 textAlign: TextAlign.center,
+//               ),
+//             ),
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               mainAxisSize: MainAxisSize.max,
+//               children: [
+//                 Expanded(
+//                     child: bottomButtonV2(
+//                         text: AppLocalizations.of(context)!.textNo,
+//                         onTap: onCancel)),
+//                 Expanded(
+//                     child: bottomButton(
+//                         text: AppLocalizations.of(context)!.textSiContinuar,
+//                         onTap: onOK))
+//               ],
+//             ),
+//             // Container(
+//             //   width: double.infinity,
+//             //   margin: const EdgeInsets.only(top: 27, left: 38, right: 38),
+//             //   padding: const EdgeInsets.symmetric(vertical: 14),
+//             //   decoration: BoxDecoration(
+//             //     color: AppColors.colorButton,
+//             //     borderRadius: BorderRadius.circular(24),
+//             //   ),
+//             //   child: InkWell(
+//             //     onTap: () {
+//             //       onOK();
+//             //     },
+//             //     child: Center(
+//             //         child: Text(
+//             //       '¡Muchas Gracias!'.toUpperCase(),
+//             //       style: AppStyles.r5,
+//             //     )),
+//             //   ),
+//             // ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

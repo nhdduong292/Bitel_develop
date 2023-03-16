@@ -31,6 +31,7 @@ class ClientDataLogic extends GetxController {
 
   CreateContactPageLogic logicCreateContact = Get.find();
   String idNumber = '';
+  Map<String, dynamic> body = {};
 
   @override
   void onInit() {
@@ -63,8 +64,8 @@ class ClientDataLogic extends GetxController {
     print(result);
   }
 
-  void createCustomer(Function(bool isSuccess) callBack) {
-    Map<String, dynamic> body = {
+  void createBodyCustomer() {
+    body = {
       "type": logicCreateContact.typeCustomer,
       "idNumber": idNumber,
       "name": "Duong",
@@ -77,26 +78,12 @@ class ClientDataLogic extends GetxController {
       "province": "03",
       "district": "04",
       "precinct": "04",
-      "image": "string"
+      "image": "string",
+      "left": null,
+      "leftImage": null,
+      "right": null,
+      "rightImage": null
     };
-    ApiUtil.getInstance()!.post(
-      url: ApiEndPoints.API_CREATE_CUSTOMER,
-      body: body,
-      onSuccess: (response) {
-        if (response.isSuccess) {
-          customer = CustomerModel.fromJson(response.data['data']);
-          print(customer.name);
-          print('Call api register customer');
-          callBack.call(true);
-        } else {
-          print("error: ${response.status}");
-          callBack.call(false);
-        }
-      },
-      onError: (error) {
-        callBack.call(false);
-      },
-    );
   }
 
   void setPathScan(String value) {

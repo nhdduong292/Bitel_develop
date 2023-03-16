@@ -423,9 +423,7 @@
   "textOnlyActionAndroid": "Chỉ hoạt động trên thiết bị Android",
   "textLimitFingerRegister": "Bạn phải nhập vân tay đủ 3 lần",
   "textNotifyFingerFail": "Lấy vân tay thất bại!",
-  "textMale": "Male"
-  "textNotifyFingerFail": "Lấy vân tay thất bại!",
-
+  "textMale": "Male",
   "textValidateFromTo": "Từ ngày phải nhỏ hơn đến ngày",
   "textTimeAndVersion":"28/12/2020 07:30 - V1.1",
   "textIncorrectCode":"Mã không chính xác (1/3 lần thử)",
