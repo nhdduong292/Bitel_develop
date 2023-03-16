@@ -91,7 +91,11 @@ class ClientDataDNILogic extends GetxController {
       "province": "03",
       "district": "04",
       "precinct": "04",
-      "image": "string"
+      "image": "string",
+      "left": null,
+      "leftImage": null,
+      "right": null,
+      "rightImage": null
     };
     ApiUtil.getInstance()!.post(
       url: ApiEndPoints.API_CREATE_CUSTOMER,
