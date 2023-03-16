@@ -35,12 +35,12 @@ class ValidateFingerprintLogic extends GetxController {
     // TODO: implement onInit
     super.onInit();
     var data = Get.arguments;
-    // type = data[0];
-    // cusId = data[1];
-    // typeCustomer = data[2];
-    // idNumber = data[3];
-    // contractId = data[4];
-    //
+    type = data[0];
+    cusId = data[1];
+    typeCustomer = data[2];
+    idNumber = data[3];
+    contractId = data[4];
+
     // getBestFinger();
   }
 
@@ -126,7 +126,8 @@ class ValidateFingerprintLogic extends GetxController {
     _onLoading(context);
     Completer<bool> completer = Completer();
     Map<String, dynamic> body = {
-      "finger": bestFinger.right ?? bestFinger.left,
+      // "finger": bestFinger.right ?? bestFinger.left,
+      "finger": 6,
       "listImage": listFinger
     };
     Map<String, dynamic> params = {"type": type};
