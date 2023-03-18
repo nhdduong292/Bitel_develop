@@ -34,19 +34,19 @@ class ListRequestTabItem extends StatelessWidget{
             child: Row(
               children: [
                 Text(AppLocalizations.of(context)!.textCustomerInformation, style: AppStyles.r8.copyWith(fontWeight: FontWeight.w400, color: AppColors.colorText2.withOpacity(0.85)),),
-                Expanded(child: Text("${requestModel.customerModel.name}, ${requestModel.customerModel.idNumber}", style: AppStyles.r8.copyWith(fontWeight: FontWeight.w500, color: AppColors.colorText4),textAlign: TextAlign.right))
+                Expanded(child: Text("${requestModel.customerModel.name}, ${requestModel.customerModel.telFax}", style: AppStyles.r8.copyWith(fontWeight: FontWeight.w500, color: AppColors.colorText4),textAlign: TextAlign.right))
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16,top: 12),
-            child: Row(
-              children: [
-                Text(AppLocalizations.of(context)!.textSurveyAddress, style: AppStyles.r8.copyWith(fontWeight: FontWeight.w400, color: AppColors.colorText2.withOpacity(0.85)),),
-                Expanded(child: Text(requestModel.getInstalAddress(), style: AppStyles.r8.copyWith(fontWeight: FontWeight.w500, color: AppColors.colorText4),textAlign: TextAlign.right))
-              ],
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 16, right: 16,top: 12),
+          //   child: Row(
+          //     children: [
+          //       Text(AppLocalizations.of(context)!.textSurveyAddress, style: AppStyles.r8.copyWith(fontWeight: FontWeight.w400, color: AppColors.colorText2.withOpacity(0.85)),),
+          //       Expanded(child: Text(requestModel.getInstalAddress(), style: AppStyles.r8.copyWith(fontWeight: FontWeight.w500, color: AppColors.colorText4),textAlign: TextAlign.right))
+          //     ],
+          //   ),
+          // ),
           Padding(
             padding: const EdgeInsets.only(left: 16, right: 16,top: 12),
             child: Row(

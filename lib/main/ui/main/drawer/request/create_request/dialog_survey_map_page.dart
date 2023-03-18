@@ -22,8 +22,9 @@ import 'package:get/get.dart';
 class DialogSurveyMapPage extends GetWidget {
   final Function(bool isSuccess) onSubmit;
   RequestDetailModel requestModel;
-  DialogSurveyMapPage({super.key, required this.onSubmit, required this.requestModel});
 
+  DialogSurveyMapPage(
+      {super.key, required this.onSubmit, required this.requestModel});
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +122,7 @@ class DialogSurveyMapPage extends GetWidget {
                                   fontWeight: FontWeight.w400),
                             )),
                         Expanded(
-                            flex: 5,
+                            flex: 4,
                             child: spinnerFormV2(
                                 context: context,
                                 hint: controller.currentTechnology == "AON"
@@ -136,7 +137,17 @@ class DialogSurveyMapPage extends GetWidget {
                                 onSubmit: (value) {
                                   controller.setRadius(value);
                                 },
-                                listDrop: []))
+                                listDrop: [])),
+                        Expanded(
+                            flex: 1,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Text("m",
+                                  style: AppStyles.r8.copyWith(
+                                      color: AppColors.colorText1
+                                          .withOpacity(0.85),
+                                      fontWeight: FontWeight.w400)),
+                            ))
                       ],
                     ),
                   ),
@@ -182,55 +193,56 @@ class DialogSurveyMapPage extends GetWidget {
                       // const SizedBox(width: 15,),
                       Expanded(
                           flex: 1,
-                          child: Container(
-                            width: double.infinity,
-                            margin: const EdgeInsets.only(top: 30),
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                            decoration: BoxDecoration(
-                              color: controller.isActive
-                                  ? Colors.white
-                                  : AppColors.colorButton,
-                              borderRadius: BorderRadius.circular(24),
-                              boxShadow: [
-                                BoxShadow(
-                                  offset: const Offset(0, 1),
-                                  blurRadius: 2,
-                                  color: Colors.black.withOpacity(0.3),
-                                ),
-                              ],
-                            ),
-                            child: InkWell(
-                              onTap: () {
-                                if (controller.isActive ||
-                                    controller.checkValidate(context)) {
-                                  return;
-                                }
-                                _onLoading(context);
-                                controller.createSurvey(
-                                  (isSuccess) {
-                                    // onSubmit.call(isSuccess);
-                                    if (isSuccess) {
+                          child: InkWell(
+                            onTap: () {
+                              if (controller.isActive ||
+                                  controller.checkValidate(context)) {
+                                return;
+                              }
+                              _onLoading(context);
+                              controller.createSurvey(
+                                    (isSuccess) {
+                                  // onSubmit.call(isSuccess);
+                                  if (isSuccess) {
                                     showDialogSurveySuccessful(context);
                                   } else {
-                                    showDialogSurveyUnsuccessful(context, requestModel.id);
-                                    }
-                                  },
-                                );
-                                // onSubmit!.call();
-                              },
+                                    showDialogSurveyUnsuccessful(
+                                        context, requestModel.id);
+                                  }
+                                },
+                              );
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              margin: const EdgeInsets.only(top: 30),
+                              padding: const EdgeInsets.symmetric(vertical: 14),
+                              decoration: BoxDecoration(
+                                color: controller.isActive
+                                    ? Colors.white
+                                    : AppColors.colorButton,
+                                borderRadius: BorderRadius.circular(24),
+                                boxShadow: [
+                                  BoxShadow(
+                                    offset: const Offset(0, 1),
+                                    blurRadius: 2,
+                                    color: Colors.black.withOpacity(0.3),
+                                  ),
+                                ],
+                              ),
                               child: Center(
                                   child: Text(
-                                AppLocalizations.of(context)!
-                                    .textSurvey
-                                    .toUpperCase(),
-                                style: controller.isActive
-                                    ? AppStyles.r1
+                                    AppLocalizations.of(context)!
+                                        .textSurvey
+                                        .toUpperCase(),
+                                    style: controller.isActive
+                                        ? AppStyles.r1
                                         .copyWith(fontWeight: FontWeight.w500)
-                                    : AppStyles.r5
+                                        : AppStyles.r5
                                         .copyWith(fontWeight: FontWeight.w500),
-                              )),
+                                  )),
                             ),
-                          ))
+                          )
+                      )
                     ],
                   ),
                 ],

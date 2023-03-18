@@ -19,6 +19,7 @@ class DialogAdvanceSearchLogic extends GetxController {
   SearchRequest searchRequest;
   TextEditingController controllerCode = TextEditingController();
   TextEditingController controllerStaffCode = TextEditingController();
+  TextEditingController controllerProvince = TextEditingController();
   DateTime fromDate = DateTime.now();
   DateTime toDate = DateTime.now();
 
@@ -36,8 +37,9 @@ class DialogAdvanceSearchLogic extends GetxController {
     controllerStaffCode.text = searchRequest.staffCode;
   }
 
-  void setProvince(String value){
-    searchRequest.province = value;
+  void setProvince(AddressModel value){
+    searchRequest.province = value.areaCode;
+    controllerProvince.text = value.name;
     update();
   }
 
@@ -106,16 +108,13 @@ class DialogAdvanceSearchLogic extends GetxController {
             listProvince = (response.data['data'] as List)
                 .map((postJson) => AddressModel.fromJson(postJson))
                 .toList();
-            if(listProvince.isNotEmpty){
-              AddressModel defaultModel = AddressModel();
-              defaultModel.name = "DEFAULT";
-              listProvince.insert(0, defaultModel);
-              update();
-            }
+            function.call(true);
+            update();
           } else {
             print("error: ${response.status}");
+            function.call(false);
           }
-          function.call(false);
+
 
         },
         onError: (error) {

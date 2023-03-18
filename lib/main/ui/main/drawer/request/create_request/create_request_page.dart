@@ -339,12 +339,12 @@ class CreateRequestPage extends GetWidget {
                           const SizedBox(
                             width: 10,
                           ),
-                          InkWell(
-                            child: SvgPicture.asset(AppImages.icSurveyAddress),
-                            onTap: () {
-                              // showDialogSurveyMap(context);
-                            },
-                          )
+                          // InkWell(
+                          //   child: SvgPicture.asset(AppImages.icSurveyAddress),
+                          //   onTap: () {
+                          //     // showDialogSurveyMap(context);
+                          //   },
+                          // )
                         ],
                       ),
                       Padding(
@@ -651,45 +651,46 @@ class CreateRequestPage extends GetWidget {
                         )),
                     Expanded(
                         flex: 1,
-                        child: Container(
-                          width: double.infinity,
-                          margin: const EdgeInsets.only(
-                              top: 30, left: 5, right: 25),
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          decoration: BoxDecoration(
-                            color: AppColors.colorButton,
-                            borderRadius: BorderRadius.circular(24),
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              if (controller.checkValidateCreate(context)) {
-                                return;
-                              }
-                              _onLoading(context);
-                              controller.createRequest(
-                                (isSuccess, model) {
-                                  Get.back();
-                                  if (isSuccess) {
-                                    showDialogSurveyMap(
-                                        context, controller);
-                                  } else {
-                                    Common.showToastCenter(
-                                        AppLocalizations.of(context)!
-                                            .textErrorAPI);
-                                  }
-                                },
-                              );
-                            },
-                            child: Center(
+                        child: InkWell(
+                          onTap: () {
+                            if (controller.checkValidateCreate(context)) {
+                              return;
+                            }
+                            _onLoading(context);
+                            controller.createRequest(
+                                  (isSuccess, model) {
+                                Get.back();
+                                if (isSuccess) {
+                                  showDialogSurveyMap(
+                                      context, controller);
+                                } else {
+                                  Common.showToastCenter(
+                                      AppLocalizations.of(context)!
+                                          .textErrorAPI);
+                                }
+                              },
+                            );
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            margin: const EdgeInsets.only(
+                                top: 30, left: 5, right: 25),
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            decoration: BoxDecoration(
+                              color: AppColors.colorButton,
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                            child:  Center(
                                 child: Text(
-                              AppLocalizations.of(context)!
-                                  .textSurvey
-                                  .toUpperCase(),
-                              style: AppStyles.r5
-                                  .copyWith(fontWeight: FontWeight.w500),
-                            )),
+                                  AppLocalizations.of(context)!
+                                      .textSurvey
+                                      .toUpperCase(),
+                                  style: AppStyles.r5
+                                      .copyWith(fontWeight: FontWeight.w500),
+                                )),
                           ),
-                        ))
+                        )
+                    )
                   ],
                 ),
                 const SizedBox(

@@ -46,13 +46,13 @@ class ListRequestPage extends GetWidget {
             ),
             elevation: 0.0,
             actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 16, bottom: 35),
-                child: GestureDetector(
+              InkWell(
+                onTap: () {
+                  Get.toNamed(RouteConfig.createRequest);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 16, bottom: 35),
                   child: SvgPicture.asset(AppImages.icCreateRequest),
-                  onTap: () {
-                    Get.toNamed(RouteConfig.createRequest);
-                  },
                 ),
               )
             ],
@@ -269,27 +269,27 @@ class ListRequestPage extends GetWidget {
                                     fontWeight: FontWeight.w600),
                               ),
                             )),
-                            InkWell(
-                              onTap: () {
-                                showDialogTransferRequest(context);
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 10),
-                                child:
-                                    SvgPicture.asset(AppImages.icTranferSaff),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                showDialogCancelRequest(context);
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 16, right: 16, top: 20),
-                                child:
-                                    SvgPicture.asset(AppImages.icCancelRequest),
-                              ),
-                            )
+                            // InkWell(
+                            //   onTap: () {
+                            //     showDialogTransferRequest(context);
+                            //   },
+                            //   child: Padding(
+                            //     padding: const EdgeInsets.only(top: 10),
+                            //     child:
+                            //         SvgPicture.asset(AppImages.icTranferSaff),
+                            //   ),
+                            // ),
+                            // InkWell(
+                            //   onTap: () {
+                            //     showDialogCancelRequest(context);
+                            //   },
+                            //   child: Padding(
+                            //     padding: const EdgeInsets.only(
+                            //         left: 16, right: 16, top: 20),
+                            //     child:
+                            //         SvgPicture.asset(AppImages.icCancelRequest),
+                            //   ),
+                            // )
                           ],
                         ),
                         Expanded(

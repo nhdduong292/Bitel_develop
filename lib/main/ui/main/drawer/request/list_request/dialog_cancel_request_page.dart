@@ -149,37 +149,37 @@ class DialogCancelRequest extends GetWidget {
                   ],
                 ),
               ),
-              Container(
-                width: double.infinity,
-                margin:
-                    EdgeInsets.only(top: 30, bottom: 36, left: 16, right: 16),
-                padding: EdgeInsets.symmetric(vertical: 16),
-                decoration: BoxDecoration(
-                  color: AppColors.colorButton,
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                child: InkWell(
-                  onTap: () {
-                    if(controller.checkValidate(context)) return;
-                    _onLoading(context);
-                    controller.changeStatusRequest(id, controllerTextField.text, (isSuccess) {
-                      Get.back();
-                      if(isSuccess) {
-                        Timer(Duration(milliseconds: 500), () {
-                          Get.back();
-                          Common.showToastCenter(AppLocalizations.of(context)!.textSuccessAPI);
-                        },);
-                      } else {
-                        Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
-                      }
-                    },);
-                    onSubmit!.call();
-                  },
+              InkWell(
+                onTap: () {
+                  if(controller.checkValidate(context)) return;
+                  _onLoading(context);
+                  controller.changeStatusRequest(id, controllerTextField.text, (isSuccess) {
+                    Get.back();
+                    if(isSuccess) {
+                      Timer(Duration(milliseconds: 500), () {
+                        Get.back();
+                        Common.showToastCenter(AppLocalizations.of(context)!.textSuccessAPI);
+                      },);
+                    } else {
+                      Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
+                    }
+                  },);
+                  onSubmit!.call();
+                },
+                child: Container(
+                  width: double.infinity,
+                  margin:
+                  EdgeInsets.only(top: 30, bottom: 36, left: 16, right: 16),
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  decoration: BoxDecoration(
+                    color: AppColors.colorButton,
+                    borderRadius: BorderRadius.circular(24),
+                  ),
                   child: Center(
                       child: Text(
-                    AppLocalizations.of(context)!.textCancel.toUpperCase(),
-                    style: AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
-                  )),
+                        AppLocalizations.of(context)!.textCancel.toUpperCase(),
+                        style: AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
+                      )),
                 ),
               )
             ],
