@@ -130,6 +130,10 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                   barrierDismissible: false,
                   context: context,
                   builder: (BuildContext context) {
+                    controller.textFieldProvince.text = '';
+                    controller.textFieldDistrict.text = '';
+                    controller.textFieldPrecinct.text = '';
+                    controller.textFieldAddress.text = '';
                     return BillAddressInformation(
                       height: 450,
                       controller: controller,

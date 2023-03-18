@@ -170,7 +170,7 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                 hint: AppLocalizations.of(context)!.textEnterPhoneNumber,
                 label: AppLocalizations.of(context)!.textPhoneNumber,
                 required: true,
-                maxLength: 11,
+                maxLength: 9,
                 controller: controller.phoneController,
                 inputType: TextInputType.number,
                 width: 210,
