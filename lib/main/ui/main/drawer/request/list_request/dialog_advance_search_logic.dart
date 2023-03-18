@@ -109,12 +109,7 @@ class DialogAdvanceSearchLogic extends GetxController {
                 .map((postJson) => AddressModel.fromJson(postJson))
                 .toList();
             function.call(true);
-            if(listProvince.isNotEmpty){
-              AddressModel defaultModel = AddressModel();
-              defaultModel.name = "DEFAULT";
-              listProvince.insert(0, defaultModel);
-              update();
-            }
+            update();
           } else {
             print("error: ${response.status}");
             function.call(false);
