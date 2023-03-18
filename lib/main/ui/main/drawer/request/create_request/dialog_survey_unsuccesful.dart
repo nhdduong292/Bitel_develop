@@ -70,7 +70,8 @@ class DialogSurveyUnsuccessful extends GetWidget {
                 child: Container(
                   margin: const EdgeInsets.only(top: 12),
                   child: Row(
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       controller.isSelectOffline ? iconOnlyRadio(-1) : iconOnlyUnRadio(),
                       const SizedBox(width: 10,),
@@ -83,26 +84,26 @@ class DialogSurveyUnsuccessful extends GetWidget {
                   ),
                 ),
               ),
-              Container(
-                width: double.infinity,
-                margin: const EdgeInsets.only(top: 15),
-                padding: const EdgeInsets.symmetric(vertical: 14),
-                decoration: BoxDecoration(
-                  color: AppColors.colorButton,
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                child: InkWell(
-                  onTap: () {
-                    _onLoading(context);
-                    controller.createSurveyOffline((isSuccess) {
-                      if(isSuccess){
-                        Get.close(4);
-                        Get.toNamed(RouteConfig.listRequest, arguments: 1);
-                      } else {
-                        Get.back();
-                      }
-                    },);
-                  },
+              InkWell(
+                onTap: () {
+                  _onLoading(context);
+                  controller.createSurveyOffline((isSuccess) {
+                    if(isSuccess){
+                      Get.close(4);
+                      Get.toNamed(RouteConfig.listRequest, arguments: 1);
+                    } else {
+                      Get.back();
+                    }
+                  },);
+                },
+                child: Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(top: 15),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  decoration: BoxDecoration(
+                    color: AppColors.colorButton,
+                    borderRadius: BorderRadius.circular(24),
+                  ),
                   child: Center(
                       child: Text(
                         AppLocalizations.of(context)!

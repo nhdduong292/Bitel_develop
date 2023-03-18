@@ -71,7 +71,8 @@ class DialogSurveySuccessful extends GetWidget {
                   child: Container(
                     margin: const EdgeInsets.only(top: 12),
                     child: Row(
-                      mainAxisSize: MainAxisSize.min,
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         controller.isSelectOffline
                             ? iconOnlyRadio(-1)
@@ -93,42 +94,42 @@ class DialogSurveySuccessful extends GetWidget {
                   children: [
                     Expanded(
                         flex: 1,
-                        child: Container(
-                          width: double.infinity,
-                          margin: const EdgeInsets.only(top: 22),
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          decoration: BoxDecoration(
-                            color: controller.isSelectOffline
-                                ? AppColors.colorButton
-                                : Colors.white,
-                            borderRadius: BorderRadius.circular(24),
-                            boxShadow: [
-                              BoxShadow(
-                                offset: const Offset(0, 1),
-                                blurRadius: 2,
-                                color: Colors.black.withOpacity(0.3),
-                              ),
-                            ],
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              if (controller.isSelectOffline) {
-                                _onLoading(context);
-                                controller.createSurveyOffline(
-                                  (isSuccess) {
-                                    if (isSuccess) {
-                                      Get.close(4);
-                                      // DialogSurveyMapLogic surveyMapLogic = Get.find();
-                                      // surveyMapLogic.setStateConnect(true);
-                                      Get.toNamed(RouteConfig.listRequest,
-                                          arguments: 1);
-                                    } else {
-                                      Get.back();
-                                    }
-                                  },
-                                );
-                              }
-                            },
+                        child: InkWell(
+                          onTap: () {
+                            if (controller.isSelectOffline) {
+                              _onLoading(context);
+                              controller.createSurveyOffline(
+                                (isSuccess) {
+                                  if (isSuccess) {
+                                    Get.close(4);
+                                    // DialogSurveyMapLogic surveyMapLogic = Get.find();
+                                    // surveyMapLogic.setStateConnect(true);
+                                    Get.toNamed(RouteConfig.listRequest,
+                                        arguments: 1);
+                                  } else {
+                                    Get.back();
+                                  }
+                                },
+                              );
+                            }
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            margin: const EdgeInsets.only(top: 22),
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            decoration: BoxDecoration(
+                              color: controller.isSelectOffline
+                                  ? AppColors.colorButton
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(24),
+                              boxShadow: [
+                                BoxShadow(
+                                  offset: const Offset(0, 1),
+                                  blurRadius: 2,
+                                  color: Colors.black.withOpacity(0.3),
+                                ),
+                              ],
+                            ),
                             child: Center(
                                 child: Text(
                               AppLocalizations.of(context)!
@@ -147,38 +148,38 @@ class DialogSurveySuccessful extends GetWidget {
                     ),
                     Expanded(
                         flex: 1,
-                        child: Container(
-                          width: double.infinity,
-                          margin: const EdgeInsets.only(top: 22),
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          decoration: BoxDecoration(
-                            color: !controller.isSelectOffline
-                                ? AppColors.colorButton
-                                : Colors.white,
-                            borderRadius: BorderRadius.circular(24),
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              if (!controller.isSelectOffline) {
-                                _onLoading(context);
-                                controller.createSurveyOnline(
-                                  (isSuccess) {
-                                    if (isSuccess) {
-                                      //   Get.back();
-                                      //   DialogSurveyMapLogic surveyMapLogic = Get.find();
-                                      //   surveyMapLogic.setStateConnect(true);
-                                      Get.close(4);
-                                      // Get.toNamed(RouteConfig.productPayment,
-                                      //     arguments: controller.requestModel.id);
-                                      Get.toNamed(RouteConfig.productPayment,
-                                          arguments: [id, type, idNumber]);
-                                    } else {
-                                      Get.back();
-                                    }
-                                  },
-                                );
-                              }
-                            },
+                        child: InkWell(
+                          onTap: () {
+                            if (!controller.isSelectOffline) {
+                              _onLoading(context);
+                              controller.createSurveyOnline(
+                                (isSuccess) {
+                                  if (isSuccess) {
+                                    //   Get.back();
+                                    //   DialogSurveyMapLogic surveyMapLogic = Get.find();
+                                    //   surveyMapLogic.setStateConnect(true);
+                                    Get.close(4);
+                                    // Get.toNamed(RouteConfig.productPayment,
+                                    //     arguments: controller.requestModel.id);
+                                    Get.toNamed(RouteConfig.productPayment,
+                                        arguments: [id, type, idNumber]);
+                                  } else {
+                                    Get.back();
+                                  }
+                                },
+                              );
+                            }
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            margin: const EdgeInsets.only(top: 22),
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            decoration: BoxDecoration(
+                              color: !controller.isSelectOffline
+                                  ? AppColors.colorButton
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(24),
+                            ),
                             child: Center(
                                 child: Text(
                               AppLocalizations.of(context)!
