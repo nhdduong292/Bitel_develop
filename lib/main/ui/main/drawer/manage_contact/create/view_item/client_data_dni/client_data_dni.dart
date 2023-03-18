@@ -86,7 +86,8 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                           children: [
                             RichText(
                               text: TextSpan(
-                                  text: 'DNI: ',
+                                  text:
+                                      '${controller.logicCreateContact.typeCustomer}: ',
                                   style: AppStyles.r9454C9_14_500.copyWith(
                                       fontSize: 13,
                                       fontWeight: FontWeight.w700),
@@ -224,6 +225,10 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                 child: InkWell(
                   onTap: () {
                     if (!controller.checkValidate()) {
+                      return;
+                    }
+                    if (controller.logicCreateContact.typeCustomer != 'DNI') {
+                      callback();
                       return;
                     }
                     _onLoading(context);

@@ -10,6 +10,7 @@ import 'package:bitel_ventas/main/networks/request/google_detect_request.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/create_contact_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/cretate_contact_page_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/client_data_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/scan_model/customer_dni_model.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
@@ -42,6 +43,7 @@ class DocumentScanningLogic extends GetxController {
 
   String currentIdentity = "DNI";
   List<String> listIdentityNumber = ["DNI", "CE", "PP", "PTP"];
+  CustomerDNIModel customerDNIModel = CustomerDNIModel();
 
   CreateContactPageLogic logicCreateContact = Get.find();
 
@@ -109,18 +111,18 @@ class DocumentScanningLogic extends GetxController {
   }
 
   void createCustomer(Function(bool isSuccess) callBack) {
-    var rng = Random();
-    int random = rng.nextInt(99) + 10;
-    String idNumber = "123126$random";
+    // var rng = Random();
+    // int random = rng.nextInt(99) + 10;
+    String idNumber = logicCreateContact.idNumber;
     Map<String, dynamic> body = {
-      "type": "DNI",
+      "type": logicCreateContact.typeCustomer,
       "idNumber": idNumber,
-      "name": "Duong",
-      "fullName": "Tran",
-      "nationality": "Peru",
-      "sex": "M",
-      "dateOfBirth": "2000-03-09",
-      "expiredDate": "2025-03-09",
+      "name": customerDNIModel.name,
+      "fullName": customerDNIModel.lastname,
+      "nationality": customerDNIModel.nationality,
+      "sex": customerDNIModel.sex,
+      "dateOfBirth": customerDNIModel.dob,
+      "expiredDate": customerDNIModel.ed,
       "address": "string",
       "province": "03",
       "district": "04",
@@ -199,49 +201,21 @@ class DocumentScanningLogic extends GetxController {
     if (_isBusy) return;
     _isBusy = true;
     final recognizedText = await _textRecognizer.processImage(inputImage);
-    for (var text in recognizedText.blocks) {
-      print(text.text);
-    }
-    recognizedText.blocks.map((value) {
-      if (value.text.contains('Apellidos')) {
-        customerDetectModel.lastName =
-            getTextDetect(recognizedText, value, 'Apellidos');
-      } else if (value.text.contains('Nacionalidad')) {
-        customerDetectModel.nationality =
-            getTextDetect(recognizedText, value, 'Nacionalidad');
-      } else if (value.text.contains('Emisi')) {
-        customerDetectModel.dateOfBirth =
-            getTextDetect(recognizedText, value, 'Emisi');
-      } else if (value.text.contains('Sexo')) {
-        customerDetectModel.sex = getTextDetect(recognizedText, value, 'Sexo');
-      } else if (value.text.contains('Nombres')) {
-        customerDetectModel.name =
-            getTextDetect(recognizedText, value, 'Nombres');
-      } else if (value.text.contains('Caduc')) {
-        customerDetectModel.expiredDate =
-            getTextDetect(recognizedText, value, 'Caduc');
-      }
-    }).toList();
-    update();
-  }
 
-  String? getTextDetect(
-      RecognizedText recognizedText, TextBlock value, String title) {
-    var index = recognizedText.blocks.indexOf(value);
-    if (index == recognizedText.blocks.length) {
-      return null;
-    } else {
-      if (value.lines.length > 1) {
-        int indexLine =
-            value.lines.indexWhere((element) => element.text.contains(title));
-        if (indexLine < value.lines.length - 1) {
-          return value.lines[indexLine + 1].text;
+    for (final textBlock in recognizedText.blocks) {
+      for (final line in textBlock.lines) {
+        if (customerDNIModel.getInformationCus(line.text) != null) {
+          for (final element in line.elements) {
+            if (customerDNIModel.getInformationCus(element.text) != null) {
+              customerDNIModel.getInformationCus((element.text))!.rect =
+                  element.boundingBox;
+            }
+          }
         } else {
-          return null;
+          customerDNIModel.findInfo(line.boundingBox, line.text);
         }
-      } else {
-        return recognizedText.blocks[index + 1].text;
       }
     }
+    update();
   }
 }

@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/document_scanning_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/scan_model/customer_dni_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,6 +23,7 @@ class ClientDataDNILogic extends GetxController {
 
   FocusNode focusLastName = FocusNode();
   CustomerModel customerModel = CustomerModel();
+  CustomerDNIModel customerDNIModel = CustomerDNIModel();
 
   String sexValue = 'M';
   List<String> sexs = ['M', 'F'];
@@ -37,6 +40,7 @@ class ClientDataDNILogic extends GetxController {
   int reasonId = 0;
   String idNumber = '';
   bool isForcedTerm = false;
+  Map<String, dynamic> body = {};
 
   @override
   void onInit() {
@@ -75,6 +79,59 @@ class ClientDataDNILogic extends GetxController {
   String isoDate(String date) {
     DateTime dateTime = DateFormat('dd/MM/yyyy').parse(date);
     return DateFormat('yyyy-MM-ddTHH:mm:ss').format(dateTime.toUtc());
+  }
+
+  void setCustomerDNIModel() {
+    DocumentScanningLogic documentScanningLogic = Get.find();
+    customerDNIModel = documentScanningLogic.customerDNIModel;
+
+    tfLastName.text = customerDNIModel.lastname.getContent();
+    tfLastName.selection = TextSelection.fromPosition(
+        TextPosition(offset: customerDNIModel.lastname.getContent().length));
+    tfName.text = customerDNIModel.name.getContent();
+    tfName.selection = TextSelection.fromPosition(
+        TextPosition(offset: customerDNIModel.name.getContent().length));
+    tfNationality.text = customerDNIModel.nationality.getContent();
+    tfNationality.selection = TextSelection.fromPosition(
+        TextPosition(offset: customerDNIModel.nationality.getContent().length));
+    if (customerDNIModel.sex.content == 'M') {
+      sexValue = 'M';
+    } else if (customerDNIModel.sex.content == 'F') {
+      sexValue = 'F';
+    }
+    final dateFormat = DateFormat('dd MM yyyy');
+    try {
+      final date = dateFormat.parse(customerDNIModel.dob.getContent());
+      dob = Common.fromDate(date, 'dd/MM/yyyy');
+    } catch (e) {
+      // nếu chuỗi không đúng định dạng, phương thức parse sẽ ném ra một ngoại lệ
+    }
+    try {
+      final date = dateFormat.parse(customerDNIModel.ed.getContent());
+      exd = Common.fromDate(date, 'dd/MM/yyyy');
+    } catch (e) {
+      // nếu chuỗi không đúng định dạng, phương thức parse sẽ ném ra một ngoại lệ
+    }
+
+    update();
+  }
+
+  void createBodyCustomer() {
+    body = {
+      "type": logicCreateContact.typeCustomer,
+      "idNumber": idNumber,
+      "name": customerDNIModel.name,
+      "fullName": customerDNIModel.lastname,
+      "nationality": customerDNIModel.nationality,
+      "sex": customerDNIModel.sex,
+      "dateOfBirth": customerDNIModel.dob,
+      "expiredDate": customerDNIModel.ed,
+      "address": "string",
+      "province": "03",
+      "district": "04",
+      "precinct": "04",
+      "image": "string"
+    };
   }
 
   void createCustomer(Function(bool isSuccess) callBack) {

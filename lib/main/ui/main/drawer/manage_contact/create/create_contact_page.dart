@@ -208,33 +208,50 @@ class CreateContactPage extends GetView<CreateContactPageLogic> {
                                 index: 1,
                                 duration: const Duration(milliseconds: 200),
                               );
+
+                              ClientDataDNILogic clientDataDNILogic =
+                                  Get.find();
+                              clientDataDNILogic.setCustomerDNIModel();
                             },
                           );
                         } else if (index == 1) {
-                          if (controller.typeCustomer == 'DNI') {
-                            return ClientDataDNIWidget(
-                              callback: () {
-                                controller.checkItem3.value = true;
-                                _scrollController.scrollTo(
-                                  index: 2,
-                                  duration: const Duration(milliseconds: 200),
-                                );
-                              },
-                            );
-                          } else {
-                            return ClientDataWidget(
-                              callback: () {
-                                controller.checkItem3.value = true;
-                                _scrollController.scrollTo(
-                                  index: 2,
-                                  duration: const Duration(milliseconds: 200),
-                                );
-                                RegisterFingerPrintLogic registerFingerLogic =
-                                    Get.find();
-                                registerFingerLogic.setupBodyCreateCustomer();
-                              },
-                            );
-                          }
+                          return ClientDataDNIWidget(
+                            callback: () {
+                              controller.checkItem3.value = true;
+                              _scrollController.scrollTo(
+                                index: 2,
+                                duration: const Duration(milliseconds: 200),
+                              );
+
+                              RegisterFingerPrintLogic registerFingerLogic =
+                                  Get.find();
+                              registerFingerLogic.setupBodyCreateCustomer();
+                            },
+                          );
+                          // if (controller.typeCustomer == 'DNI') {
+                          //   return ClientDataDNIWidget(
+                          //     callback: () {
+                          //       controller.checkItem3.value = true;
+                          //       _scrollController.scrollTo(
+                          //         index: 2,
+                          //         duration: const Duration(milliseconds: 200),
+                          //       );
+                          //     },
+                          //   );
+                          // } else {
+                          //   return ClientDataWidget(
+                          //     callback: () {
+                          //       controller.checkItem3.value = true;
+                          //       _scrollController.scrollTo(
+                          //         index: 2,
+                          //         duration: const Duration(milliseconds: 200),
+                          //       );
+                          //       RegisterFingerPrintLogic registerFingerLogic =
+                          //           Get.find();
+                          // registerFingerLogic.setupBodyCreateCustomer();
+                          //     },
+                          //   );
+                          // }
                         } else {
                           return RegisterFingerPrintPage(
                               // callback: () {

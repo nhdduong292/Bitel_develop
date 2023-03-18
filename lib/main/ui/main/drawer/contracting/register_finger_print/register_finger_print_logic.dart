@@ -16,6 +16,7 @@ import '../../../../../networks/api_util.dart';
 import '../../../../../utils/common_widgets.dart';
 import '../../manage_contact/create/cretate_contact_page_logic.dart';
 import '../../manage_contact/create/view_item/client_data/id_card_scanner_logic.dart';
+import '../../manage_contact/create/view_item/client_data_dni/client_data_dni_logic.dart';
 
 class RegisterFingerPrintLogic extends GetxController {
   late BuildContext context;
@@ -92,7 +93,7 @@ class RegisterFingerPrintLogic extends GetxController {
   }
 
   void setupBodyCreateCustomer() {
-    ClientDataLogic clientDataLogic = Get.find();
+    ClientDataDNILogic clientDataLogic = Get.find();
     body = clientDataLogic.body;
   }
 

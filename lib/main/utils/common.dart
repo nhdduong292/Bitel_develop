@@ -73,7 +73,7 @@ class Common {
   }
 
   static bool validatePhone(String text) {
-    RegExp regex = RegExp("^[0-9\-\+]{10,15}\$");
+    RegExp regex = RegExp(r'^[0-9]{9,11}$');
     return regex.hasMatch(text);
   }
 

@@ -266,6 +266,7 @@ Widget inputFormV3(
     required TextInputType inputType,
     required TextEditingController controller,
     required double width,
+    bool? isReadOnly,
     var onChange}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.end,
@@ -301,6 +302,7 @@ Widget inputFormV3(
           height: 45,
           width: width,
           child: TextField(
+            readOnly: isReadOnly ?? false,
             controller: controller,
             onChanged: (value) => {onChange(value)},
             style: TextStyle(
@@ -924,7 +926,7 @@ Widget spinnerFormV2(
                 isExpanded: true,
                 value: dropValue.isNotEmpty ? dropValue : null,
                 onChanged: (value) {
-                  if(value == "DEFAULT") {
+                  if (value == "DEFAULT") {
                     function!.call("");
                   } else {
                     function!.call(value!);

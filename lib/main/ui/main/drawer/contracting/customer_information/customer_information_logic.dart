@@ -16,6 +16,8 @@ import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../../networks/model/address_model.dart';
+
 class CustomerInformationLogic extends GetxController {
   late BuildContext context;
   var checkItem1 = true.obs;
@@ -46,6 +48,25 @@ class CustomerInformationLogic extends GetxController {
   TextEditingController addressController = TextEditingController();
   TextEditingController billAddressController = TextEditingController();
 
+  AddressModel currentProvince = AddressModel();
+  List<AddressModel> listProvince = [];
+  AddressModel currentDistrict = AddressModel();
+  List<AddressModel> listDistrict = [];
+  AddressModel currentPrecinct = AddressModel();
+  List<AddressModel> listPrecinct = [];
+  String currentAddress = "";
+  bool isAddContact = true;
+
+  TextEditingController textFieldProvince = TextEditingController();
+  TextEditingController textFieldDistrict = TextEditingController();
+  TextEditingController textFieldPrecinct = TextEditingController();
+  TextEditingController textFieldAddress = TextEditingController();
+
+  FocusNode focusProvince = FocusNode();
+  FocusNode focusDistrict = FocusNode();
+  FocusNode focusPrecinct = FocusNode();
+  FocusNode focusAddress = FocusNode();
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -58,7 +79,7 @@ class CustomerInformationLogic extends GetxController {
     isForcedTerm = data[4];
     phone = customer.telFax;
     email = customer.email;
-    address = customer.address;
+    address = customer.getInstalAddress();
 
     phoneController.text = phone;
     phoneController.selection =
@@ -68,7 +89,7 @@ class CustomerInformationLogic extends GetxController {
     emailController.selection =
         TextSelection.fromPosition(TextPosition(offset: email.length));
 
-    addressController.text = address;
+    addressController.text = customer.getInstalAddress();
     addressController.selection =
         TextSelection.fromPosition(TextPosition(offset: address.length));
 
@@ -174,10 +195,10 @@ class CustomerInformationLogic extends GetxController {
       "printBill": "Email",
       "currency": "SOL",
       "language": contractLanguagetValue.value.toUpperCase(),
-      "province": customer.province,
-      "district": customer.district,
-      "precinct": customer.precinct,
-      "address": billAddress.trim(),
+      "province": currentProvince.name,
+      "district": currentDistrict.name,
+      "precinct": currentPrecinct.name,
+      "address": currentAddress,
       "phone": customer.telFax.trim(),
       "email": customer.email.trim(),
       "protectionFilter": checkOption1.value,
@@ -252,11 +273,7 @@ class CustomerInformationLogic extends GetxController {
   }
 
   bool checkValidate() {
-    if (phone.length <= 8) {
-      Common.showToastCenter(
-          AppLocalizations.of(context)!.textValidatePhoneNumber);
-      return false;
-    } else if (!Common.validatePhone(phone)) {
+    if (!Common.validatePhone(phone)) {
       Common.showToastCenter(
           AppLocalizations.of(context)!.textValidatePhoneNumber);
       return false;
@@ -265,5 +282,110 @@ class CustomerInformationLogic extends GetxController {
       return false;
     }
     return true;
+  }
+
+  void getListProvince(Function(bool isSuccess) function) {
+    ApiUtil.getInstance()!.get(
+        url: ApiEndPoints.API_PROVINCES,
+        onSuccess: (response) {
+          if (response.isSuccess) {
+            print("success");
+            listProvince = (response.data['data'] as List)
+                .map((postJson) => AddressModel.fromJson(postJson))
+                .toList();
+            if (listProvince.isNotEmpty) {
+              update();
+            }
+            function.call(true);
+          } else {
+            print("error: ${response.status}");
+            function.call(false);
+          }
+        },
+        onError: (error) {
+          function.call(false);
+        });
+  }
+
+  void getListPrecincts(String areaCode, Function(bool isSuccess) function) {
+    Map<String, dynamic> params = {"areaCode": areaCode};
+    ApiUtil.getInstance()!.get(
+        url: ApiEndPoints.API_PRECINCTS,
+        params: params,
+        onSuccess: (response) {
+          if (response.isSuccess) {
+            print("success");
+            listPrecinct = (response.data['data'] as List)
+                .map((postJson) => AddressModel.fromJson(postJson))
+                .toList();
+            if (listPrecinct.isNotEmpty) {
+              update();
+            }
+            function.call(true);
+          } else {
+            print("error: ${response.status}");
+            function.call(false);
+          }
+        },
+        onError: (error) {
+          function.call(false);
+        });
+  }
+
+  void getListDistrict(String areaCode, Function(bool isSuccess) function) {
+    Map<String, dynamic> params = {"areaCode": areaCode};
+    ApiUtil.getInstance()!.get(
+        url: ApiEndPoints.API_DISTRICTS,
+        params: params,
+        onSuccess: (response) {
+          if (response.isSuccess) {
+            print("success");
+            listDistrict = (response.data['data'] as List)
+                .map((postJson) => AddressModel.fromJson(postJson))
+                .toList();
+            if (listDistrict.isNotEmpty) {
+              update();
+            }
+            function.call(true);
+          } else {
+            print("error: ${response.status}");
+            function.call(false);
+          }
+        },
+        onError: (error) {
+          function.call(false);
+        });
+  }
+
+  void setPrecinct(AddressModel value) {
+    // if(value.areaCode == currentPrecinct.areaCode) return;
+    currentPrecinct = value;
+    textFieldPrecinct.text = value.name;
+    update();
+  }
+
+  void setDistrict(AddressModel value) {
+    // if(value.areaCode == currentDistrict.areaCode) return;
+    currentDistrict = value;
+    textFieldDistrict.text = value.name;
+    textFieldPrecinct.text = "";
+    listPrecinct.clear();
+    update();
+  }
+
+  void setProvince(AddressModel value) {
+    // if(value.areaCode == currentProvince.areaCode) return;
+    currentProvince = value;
+    textFieldProvince.text = value.name;
+    textFieldDistrict.text = "";
+    textFieldPrecinct.text = "";
+    listDistrict.clear();
+    listPrecinct.clear();
+    update();
+  }
+
+  void setAddress(String value) {
+    currentAddress = value;
+    update();
   }
 }

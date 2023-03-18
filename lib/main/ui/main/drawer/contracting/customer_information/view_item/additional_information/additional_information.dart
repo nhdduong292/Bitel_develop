@@ -193,6 +193,7 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                 required: true,
                 controller: controller.addressController,
                 inputType: TextInputType.text,
+                isReadOnly: true,
                 width: 210,
                 onChange: (value) {
                   controller.address = value;
@@ -298,30 +299,6 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
               )),
         ),
       ],
-    );
-  }
-}
-
-class AddressInformation extends Dialog {
-  final double height;
-  AddressInformation({
-    super.key,
-    required this.height,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      alignment: Alignment.bottomCenter,
-      insetPadding: EdgeInsets.only(bottom: 24),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: SizedBox(
-        width: 330,
-        height: height,
-        child: Column(
-          children: [],
-        ),
-      ),
     );
   }
 }
