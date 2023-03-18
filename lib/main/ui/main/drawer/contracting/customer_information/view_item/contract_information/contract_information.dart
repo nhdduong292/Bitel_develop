@@ -136,9 +136,11 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                     );
                   },
                 ).then((value) {
-                  controller.address =
-                      '${controller.currentAddress}, ${controller.currentProvince.name}, ${controller.currentDistrict.name}, ${controller.currentPrecinct.name}';
-                  controller.update();
+                  if (value) {
+                    controller.address =
+                        '${controller.currentAddress}, ${controller.currentProvince.name}, ${controller.currentDistrict.name}, ${controller.currentPrecinct.name}';
+                    controller.update();
+                  }
                 });
               },
               child: lockedBox(
@@ -377,8 +379,19 @@ class BillAddressInformation extends Dialog {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              InkWell(
+                onTap: () {
+                  Get.back(result: false);
+                },
+                child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: SvgPicture.asset(AppImages.icClose),
+                    )),
+              ),
               Padding(
-                padding: const EdgeInsets.only(top: 16, bottom: 10, left: 5),
+                padding: const EdgeInsets.only(bottom: 10, left: 5),
                 child: Text(
                   AppLocalizations.of(context)!.textProvince,
                   style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
@@ -442,7 +455,7 @@ class BillAddressInformation extends Dialog {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 16, bottom: 10, left: 5),
+                padding: const EdgeInsets.only(top: 10, bottom: 10, left: 5),
                 child: Text(
                   AppLocalizations.of(context)!.textDistrict,
                   style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
@@ -511,7 +524,7 @@ class BillAddressInformation extends Dialog {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 16, bottom: 10, left: 5),
+                padding: const EdgeInsets.only(top: 10, bottom: 10, left: 5),
                 child: Text(
                   AppLocalizations.of(context)!.textPrecinct,
                   style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
@@ -580,7 +593,7 @@ class BillAddressInformation extends Dialog {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 16, bottom: 10, left: 5),
+                padding: const EdgeInsets.only(top: 10, bottom: 10, left: 5),
                 child: Text(
                   AppLocalizations.of(context)!.textAddress,
                   style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
@@ -623,11 +636,16 @@ class BillAddressInformation extends Dialog {
                     )),
               ),
               bottomButton(
-                  onTap: () {
-                    Get.back();
-                  },
-                  text:
-                      AppLocalizations.of(context)!.textContinue.toUpperCase())
+                onTap: () {
+                  if (controller.validateAddress()) {
+                    Get.back(result: true);
+                  }
+                },
+                text: AppLocalizations.of(context)!.textContinue.toUpperCase(),
+                // color: !controller.isValidateAddress
+                //     ? const Color(0xFF415263).withOpacity(0.2)
+                //     : null
+              ),
             ],
           ),
         ),

@@ -67,6 +67,8 @@ class CustomerInformationLogic extends GetxController {
   FocusNode focusPrecinct = FocusNode();
   FocusNode focusAddress = FocusNode();
 
+  bool isValidateAddress = false;
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -195,9 +197,15 @@ class CustomerInformationLogic extends GetxController {
       "printBill": "Email",
       "currency": "SOL",
       "language": contractLanguagetValue.value.toUpperCase(),
-      "province": currentProvince.province,
-      "district": currentDistrict.district,
-      "precinct": currentPrecinct.precinct,
+      "province": currentProvince.province != ''
+          ? currentProvince.province
+          : customer.province,
+      "district": currentDistrict.district != ''
+          ? currentDistrict.district
+          : customer.district,
+      "precinct": currentPrecinct.precinct != ''
+          ? currentPrecinct.precinct
+          : customer.precinct,
       "address": currentAddress,
       "phone": customer.telFax.trim(),
       "email": customer.email.trim(),
@@ -387,5 +395,16 @@ class CustomerInformationLogic extends GetxController {
   void setAddress(String value) {
     currentAddress = value;
     update();
+  }
+
+  bool validateAddress() {
+    if (textFieldDistrict.text.isNotEmpty &&
+        textFieldDistrict.text.isNotEmpty &&
+        textFieldPrecinct.text.isNotEmpty &&
+        textFieldAddress.text.isNotEmpty) {
+      return true;
+    }
+    Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
+    return false;
   }
 }
