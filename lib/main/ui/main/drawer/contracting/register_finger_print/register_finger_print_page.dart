@@ -559,12 +559,12 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
         link.isNotEmpty
             ? Image.file(
                 File(link),
-                height: 64,
+                height: 55,
                 fit: BoxFit.cover,
               )
             : SizedBox(
                 width: 50,
-                height: 64 ,
+                height: 55,
               ),
         SizedBox(
           width: 16,
