@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
+import '../../../../../utils/common.dart';
 
 class FTTHContractingLogic extends GetxController {
   late BuildContext context;
@@ -31,7 +32,9 @@ class FTTHContractingLogic extends GetxController {
           print("error: ${response.status}");
         }
       },
-      onError: (error) {},
+      onError: (error) {
+        Common.showMessageError(error['errorCode'], context);
+      },
     );
   }
 }

@@ -90,7 +90,9 @@ class ValidateFingerprintLogic extends GetxController {
           print("error: ${response.status}");
         }
       },
-      onError: (error) {},
+      onError: (error) {
+        Common.showMessageError(error['errorCode'], context);
+      },
     );
   }
 
@@ -146,6 +148,7 @@ class ValidateFingerprintLogic extends GetxController {
         }
       },
       onError: (error) {
+        Common.showMessageError(error['errorCode'], context);
         Get.back();
         isSuccess.call(false);
       },

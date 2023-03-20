@@ -121,6 +121,7 @@ class RegisterFingerPrintLogic extends GetxController {
         }
       },
       onError: (error) {
+        Common.showMessageError(error['errorCode'], context);
         Get.back();
         completer.complete(false);
       },
@@ -196,6 +197,7 @@ class RegisterFingerPrintLogic extends GetxController {
         }
       },
       onError: (error) {
+        Common.showMessageError(error['errorCode'], context);
         Get.back();
         callBack.call(false);
       },

@@ -12,6 +12,8 @@ import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CreateRequestLogic extends GetxController {
+  BuildContext context;
+
   String currentService = "FTTH";
   List<String> listService = ["FTTH", "OFFICE_WAN", "LEASED_LINE"];
   String currentIdentityType = "DNI";
@@ -27,7 +29,7 @@ class CreateRequestLogic extends GetxController {
   bool isAddContact = true;
   ContactModel contactModel = ContactModel();
   bool isLoading = false;
-  String currentName ="";
+  String currentName = "";
   String currentPhone = "";
   bool isCheckAgree = true;
 
@@ -46,6 +48,9 @@ class CreateRequestLogic extends GetxController {
   FocusNode focusPrecinct = FocusNode();
   FocusNode focusAddress = FocusNode();
   RequestDetailModel requestModel = RequestDetailModel();
+
+  CreateRequestLogic({required this.context});
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -53,18 +58,19 @@ class CreateRequestLogic extends GetxController {
     // getMaxLengthIdNumber(currentIdentityType);
   }
 
-  void setIdentityType(String value){
+  void setIdentityType(String value) {
     currentIdentityType = value;
     update();
   }
 
-  void setPrecinct(AddressModel value){
+  void setPrecinct(AddressModel value) {
     // if(value.areaCode == currentPrecinct.areaCode) return;
     currentPrecinct = value;
     textFieldPrecinct.text = value.name;
     update();
   }
-  void setDistrict(AddressModel value){
+
+  void setDistrict(AddressModel value) {
     // if(value.areaCode == currentDistrict.areaCode) return;
     currentDistrict = value;
     textFieldDistrict.text = value.name;
@@ -73,7 +79,7 @@ class CreateRequestLogic extends GetxController {
     update();
   }
 
-  void setProvince(AddressModel value){
+  void setProvince(AddressModel value) {
     // if(value.areaCode == currentProvince.areaCode) return;
     currentProvince = value;
     textFieldProvince.text = value.name;
@@ -83,36 +89,38 @@ class CreateRequestLogic extends GetxController {
     listPrecinct.clear();
     update();
   }
-  void setAddress(String value){
+
+  void setAddress(String value) {
     currentAddress = value;
     update();
   }
 
-  void setName(String value){
+  void setName(String value) {
     currentName = value;
     update();
   }
 
-  void setPhone(String value){
+  void setPhone(String value) {
     currentPhone = value;
     update();
   }
 
-  void setService(String value){
+  void setService(String value) {
     currentService = value;
     update();
   }
 
-  bool checkValidateCreate(BuildContext context){
-    if(textFieldIdNumber.value.text.isEmpty){
+  bool checkValidateCreate(BuildContext context) {
+    if (textFieldIdNumber.value.text.isEmpty) {
       focusIdNumber.requestFocus();
       return true;
     }
-    if(textFieldName.value.text.isEmpty){
+    if (textFieldName.value.text.isEmpty) {
       focusName.requestFocus();
       return true;
     }
-    if(textFieldPhone.value.text.isEmpty || textFieldPhone.value.text.length < 9) {
+    if (textFieldPhone.value.text.isEmpty ||
+        textFieldPhone.value.text.length < 9) {
       focusPhone.requestFocus();
       Common.showToastCenter("Số điện thoại ít nhất phải 9 chữ số");
       return true;
@@ -129,18 +137,26 @@ class CreateRequestLogic extends GetxController {
     //   focusPrecinct.requestFocus();
     //   return true;
     // }
-    if(textFieldAddress.value.text.isEmpty){
+    if (textFieldAddress.value.text.isEmpty) {
       focusAddress.requestFocus();
       return true;
     }
-    if(!isCheckAgree || currentIdentity.isEmpty || currentName.isEmpty|| currentPhone.isEmpty || currentProvince.areaCode.isEmpty || currentPrecinct.areaCode.isEmpty || currentDistrict.areaCode.isEmpty || currentAddress.isEmpty){
+    if (!isCheckAgree ||
+        currentIdentity.isEmpty ||
+        currentName.isEmpty ||
+        currentPhone.isEmpty ||
+        currentProvince.areaCode.isEmpty ||
+        currentPrecinct.areaCode.isEmpty ||
+        currentDistrict.areaCode.isEmpty ||
+        currentAddress.isEmpty) {
       Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
       return true;
     }
     return false;
   }
 
-  void createRequest(Function(bool isSuccess, RequestDetailModel model) function) {
+  void createRequest(
+      Function(bool isSuccess, RequestDetailModel model) function) {
     Map<String, dynamic> body = {
       "address": currentAddress.trim(),
       "district": currentDistrict.district.trim(),
@@ -159,19 +175,19 @@ class CreateRequestLogic extends GetxController {
           if (response.isSuccess) {
             requestModel = RequestDetailModel.fromJson(response.data['data']);
             print("success");
-            function.call(true,requestModel);
+            function.call(true, requestModel);
           } else {
             print("error: ${response.status}");
-            function.call(false,requestModel);
+            function.call(false, requestModel);
           }
         },
         onError: (error) {
-          function.call(false,requestModel);
+          Common.showMessageError(error['errorCode'], context);
+          function.call(false, requestModel);
         });
   }
 
-
-  void setIdentity(String value){
+  void setIdentity(String value) {
     currentIdentity = value;
     update();
   }
@@ -191,8 +207,9 @@ class CreateRequestLogic extends GetxController {
         onSuccess: (response) {
           if (response.isSuccess) {
             print("success");
-            SearchContactResponse contactResponse = SearchContactResponse.fromJson(response.data['data']);
-            if(contactResponse.list.isNotEmpty){
+            SearchContactResponse contactResponse =
+                SearchContactResponse.fromJson(response.data['data']);
+            if (contactResponse.list.isNotEmpty) {
               contactModel = contactResponse.list[0];
               print("${contactModel.toString()}");
             }
@@ -203,10 +220,11 @@ class CreateRequestLogic extends GetxController {
           }
         },
         onError: (error) {
+          Common.showMessageError(error['errorCode'], context);
         });
   }
 
-  void getListProvince(Function(bool isSuccess) function){
+  void getListProvince(Function(bool isSuccess) function) {
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_PROVINCES,
         onSuccess: (response) {
@@ -215,7 +233,7 @@ class CreateRequestLogic extends GetxController {
             listProvince = (response.data['data'] as List)
                 .map((postJson) => AddressModel.fromJson(postJson))
                 .toList();
-            if(listProvince.isNotEmpty){
+            if (listProvince.isNotEmpty) {
               update();
             }
             function.call(true);
@@ -223,17 +241,15 @@ class CreateRequestLogic extends GetxController {
             print("error: ${response.status}");
             function.call(false);
           }
-
         },
         onError: (error) {
+          Common.showMessageError(error['errorCode'], context);
           function.call(false);
         });
   }
 
-  void getListPrecincts(String areaCode, Function(bool isSuccess) function){
-    Map<String, dynamic> params = {
-      "areaCode":areaCode
-    };
+  void getListPrecincts(String areaCode, Function(bool isSuccess) function) {
+    Map<String, dynamic> params = {"areaCode": areaCode};
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_PRECINCTS,
         params: params,
@@ -243,7 +259,7 @@ class CreateRequestLogic extends GetxController {
             listPrecinct = (response.data['data'] as List)
                 .map((postJson) => AddressModel.fromJson(postJson))
                 .toList();
-            if(listPrecinct.isNotEmpty){
+            if (listPrecinct.isNotEmpty) {
               update();
             }
             function.call(true);
@@ -251,18 +267,15 @@ class CreateRequestLogic extends GetxController {
             print("error: ${response.status}");
             function.call(false);
           }
-
         },
         onError: (error) {
+          Common.showMessageError(error['errorCode'], context);
           function.call(false);
         });
   }
 
   void getListDistrict(String areaCode, Function(bool isSuccess) function) {
-
-    Map<String, dynamic> params = {
-      "areaCode":areaCode
-    };
+    Map<String, dynamic> params = {"areaCode": areaCode};
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_DISTRICTS,
         params: params,
@@ -272,7 +285,7 @@ class CreateRequestLogic extends GetxController {
             listDistrict = (response.data['data'] as List)
                 .map((postJson) => AddressModel.fromJson(postJson))
                 .toList();
-            if(listDistrict.isNotEmpty){
+            if (listDistrict.isNotEmpty) {
               update();
             }
             function.call(true);
@@ -280,21 +293,22 @@ class CreateRequestLogic extends GetxController {
             print("error: ${response.status}");
             function.call(false);
           }
-
         },
         onError: (error) {
+          Common.showMessageError(error['errorCode'], context);
           function.call(false);
         });
   }
 
-  void createSurveyOffline(Function (bool isSuccess) callBack) {
+  void createSurveyOffline(Function(bool isSuccess) callBack) {
     Map<String, dynamic> body = {
       "status": RequestStatus.CREATE_REQUEST,
       "reasonId": "",
       "note": ""
     };
-    ApiUtil.getInstance( )!.put(
-        url: "${ApiEndPoints.API_REQUEST_DETAIL}/${requestModel.id}${ApiEndPoints.API_CHANGE_STATUS_REQUEST}",
+    ApiUtil.getInstance()!.put(
+        url:
+            "${ApiEndPoints.API_REQUEST_DETAIL}/${requestModel.id}${ApiEndPoints.API_CHANGE_STATUS_REQUEST}",
         body: body,
         onSuccess: (response) {
           if (response.isSuccess) {
@@ -307,13 +321,15 @@ class CreateRequestLogic extends GetxController {
           }
         },
         onError: (error) {
+          Common.showMessageError(error['errorCode'], context);
           callBack.call(false);
         });
   }
 
   void createSurveyOnline(Function(bool isSuccess) callBack) {
-    ApiUtil.getInstance( )!.get(
-        url: "${ApiEndPoints.API_SURVEY}/${requestModel.id}${ApiEndPoints.API_SURVEY_ONLINE}",
+    ApiUtil.getInstance()!.get(
+        url:
+            "${ApiEndPoints.API_SURVEY}/${requestModel.id}${ApiEndPoints.API_SURVEY_ONLINE}",
         onSuccess: (response) {
           if (response.isSuccess) {
             print("success");
@@ -324,23 +340,23 @@ class CreateRequestLogic extends GetxController {
           }
         },
         onError: (error) {
+          Common.showMessageError(error['errorCode'], context);
           callBack.call(false);
         });
   }
 
-  void setCheckAgree(bool value){
+  void setCheckAgree(bool value) {
     isCheckAgree = value;
     update();
   }
 
-  int getMaxLengthIdNumber(String value){
-    if(value == listIdentity[0]){
+  int getMaxLengthIdNumber(String value) {
+    if (value == listIdentity[0]) {
       return 8;
-    } else if(value == listIdentity[2]){
+    } else if (value == listIdentity[2]) {
       return 15;
     } else {
       return 9;
     }
   }
-
 }

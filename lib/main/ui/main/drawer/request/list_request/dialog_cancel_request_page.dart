@@ -27,7 +27,7 @@ class DialogCancelRequest extends GetWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: DialogCancelRequestLogic(),
+      init: DialogCancelRequestLogic(context: context),
       builder: (controller) {
         return Dialog(
           shape: RoundedRectangleBorder(
@@ -75,7 +75,7 @@ class DialogCancelRequest extends GetWidget {
                               fontWeight: FontWeight.w400),
                         )),
                     Expanded(
-                        flex: 5,
+                      flex: 5,
                       child: Container(
                         height: 45,
                         decoration: BoxDecoration(
@@ -89,7 +89,8 @@ class DialogCancelRequest extends GetWidget {
                           ),
                           // selectedItemHighlightColor: Colors.red,
                           buttonHeight: 60,
-                          buttonPadding: const EdgeInsets.only(left: 0, right: 10),
+                          buttonPadding:
+                              const EdgeInsets.only(left: 0, right: 10),
                           dropdownDecoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(24),
                               border: Border.all(color: Color(0xFFE3EAF2))),
@@ -98,20 +99,26 @@ class DialogCancelRequest extends GetWidget {
                           onChanged: (value) {
                             controller.currentReason = value!.id!.toString();
                           },
-                          items: controller.listReason.map<DropdownMenuItem<ReasonModel>>((ReasonModel value) {
-                            return DropdownMenuItem(value: value, child: Text(value.content!));
+                          items: controller.listReason
+                              .map<DropdownMenuItem<ReasonModel>>(
+                                  (ReasonModel value) {
+                            return DropdownMenuItem(
+                                value: value, child: Text(value.content!));
                           }).toList(),
                           style: AppStyles.r2.copyWith(
-                              color: AppColors.colorTitle, fontWeight: FontWeight.w500),
+                              color: AppColors.colorTitle,
+                              fontWeight: FontWeight.w500),
                           icon: SvgPicture.asset(AppImages.icDropdownSpinner),
                           hint: Text(
                             AppLocalizations.of(context)!.hintReason,
                             style: AppStyles.r2.copyWith(
-                                color: AppColors.colorHint1, fontWeight: FontWeight.w400),
+                                color: AppColors.colorHint1,
+                                fontWeight: FontWeight.w400),
                           ),
                           validator: (value) {
                             if (value == null) {
-                              return AppLocalizations.of(context)!.textPleaseSelect;
+                              return AppLocalizations.of(context)!
+                                  .textPleaseSelect;
                             }
                           },
                         ),
@@ -144,32 +151,40 @@ class DialogCancelRequest extends GetWidget {
                             },
                             listDrop: [],
                             controlTextField: controllerTextField,
-                            height: 150)
-                    )
+                            height: 150))
                   ],
                 ),
               ),
               InkWell(
                 onTap: () {
-                  if(controller.checkValidate(context)) return;
+                  if (controller.checkValidate(context)) return;
                   _onLoading(context);
-                  controller.changeStatusRequest(id, controllerTextField.text, (isSuccess) {
-                    Get.back();
-                    if(isSuccess) {
-                      Timer(Duration(milliseconds: 500), () {
-                        Get.back();
-                        Common.showToastCenter(AppLocalizations.of(context)!.textSuccessAPI);
-                      },);
-                    } else {
-                      Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
-                    }
-                  },);
+                  controller.changeStatusRequest(
+                    id,
+                    controllerTextField.text,
+                    (isSuccess) {
+                      Get.back();
+                      if (isSuccess) {
+                        Timer(
+                          Duration(milliseconds: 500),
+                          () {
+                            Get.back();
+                            Common.showToastCenter(
+                                AppLocalizations.of(context)!.textSuccessAPI);
+                          },
+                        );
+                      } else {
+                        Common.showToastCenter(
+                            AppLocalizations.of(context)!.textErrorAPI);
+                      }
+                    },
+                  );
                   onSubmit!.call();
                 },
                 child: Container(
                   width: double.infinity,
                   margin:
-                  EdgeInsets.only(top: 30, bottom: 36, left: 16, right: 16),
+                      EdgeInsets.only(top: 30, bottom: 36, left: 16, right: 16),
                   padding: EdgeInsets.symmetric(vertical: 16),
                   decoration: BoxDecoration(
                     color: AppColors.colorButton,
@@ -177,9 +192,9 @@ class DialogCancelRequest extends GetWidget {
                   ),
                   child: Center(
                       child: Text(
-                        AppLocalizations.of(context)!.textCancel.toUpperCase(),
-                        style: AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
-                      )),
+                    AppLocalizations.of(context)!.textCancel.toUpperCase(),
+                    style: AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
+                  )),
                 ),
               )
             ],
@@ -188,6 +203,7 @@ class DialogCancelRequest extends GetWidget {
       },
     );
   }
+
   void _onLoading(BuildContext context) {
     showDialog(
       context: context,

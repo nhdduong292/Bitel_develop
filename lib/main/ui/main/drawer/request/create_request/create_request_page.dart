@@ -29,7 +29,7 @@ class CreateRequestPage extends GetWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return GetBuilder(
-      init: CreateRequestLogic(),
+      init: CreateRequestLogic(context: context),
       builder: (controller) {
         return Scaffold(
           appBar: AppBar(
@@ -658,11 +658,10 @@ class CreateRequestPage extends GetWidget {
                             }
                             _onLoading(context);
                             controller.createRequest(
-                                  (isSuccess, model) {
+                              (isSuccess, model) {
                                 Get.back();
                                 if (isSuccess) {
-                                  showDialogSurveyMap(
-                                      context, controller);
+                                  showDialogSurveyMap(context, controller);
                                 } else {
                                   Common.showToastCenter(
                                       AppLocalizations.of(context)!
@@ -680,17 +679,16 @@ class CreateRequestPage extends GetWidget {
                               color: AppColors.colorButton,
                               borderRadius: BorderRadius.circular(24),
                             ),
-                            child:  Center(
+                            child: Center(
                                 child: Text(
-                                  AppLocalizations.of(context)!
-                                      .textSurvey
-                                      .toUpperCase(),
-                                  style: AppStyles.r5
-                                      .copyWith(fontWeight: FontWeight.w500),
-                                )),
+                              AppLocalizations.of(context)!
+                                  .textSurvey
+                                  .toUpperCase(),
+                              style: AppStyles.r5
+                                  .copyWith(fontWeight: FontWeight.w500),
+                            )),
                           ),
-                        )
-                    )
+                        ))
                   ],
                 ),
                 const SizedBox(
@@ -790,7 +788,9 @@ class CreateRequestPage extends GetWidget {
               // } else {
               //   showDialogSurveyUnsuccessful(context, controller);
               // }
-            },requestModel: controller.requestModel,);
+            },
+            requestModel: controller.requestModel,
+          );
         });
   }
 

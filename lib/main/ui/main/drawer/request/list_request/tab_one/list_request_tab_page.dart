@@ -12,9 +12,12 @@ import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../../utils/common.dart';
+
 class ListRequestTabPage extends StatefulWidget {
   String status;
-  ListRequestTabPage({required this.status, required Key key}):super(key: key);
+  ListRequestTabPage({required this.status, required Key key})
+      : super(key: key);
 
   // @override
   // Widget build(BuildContext context) {
@@ -49,9 +52,6 @@ class ListRequestTabPage extends StatefulWidget {
   //   );
   // }
 
-
-
-
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -59,9 +59,9 @@ class ListRequestTabPage extends StatefulWidget {
   }
   // static ListRequestTabState? of(BuildContext context) =>
   //     context.findAncestorStateOfType<_ListRequestTabState>();
-
 }
-class ListRequestTabState extends State<ListRequestTabPage>{
+
+class ListRequestTabState extends State<ListRequestTabPage> {
   String status;
 
   bool isLoading = false;
@@ -81,55 +81,59 @@ class ListRequestTabState extends State<ListRequestTabPage>{
     return isLoading
         ? LoadingCirculApi()
         : listRequest.isEmpty
-        ? InkWell(
-      child: Center(
-        child: Text(AppLocalizations.of(context)!.textNoData),
-      ),
-      onTap: () {
-        // Get.toNamed(RouteConfig.requestDetail);
-      },
-    )
-        : ListView.builder(
-        itemCount: listRequest.length,
-        itemBuilder: (context, index) {
-          return InkWell(
-            onTap: () {
-              List<String> listArgument = ["${listRequest[index].id}",status];
-              Get.toNamed(RouteConfig.requestDetail, arguments: listArgument);
-            },
-            child:
-            ListRequestTabItem(listRequest[index]),
-          );
-        });
+            ? InkWell(
+                child: Center(
+                  child: Text(AppLocalizations.of(context)!.textNoData),
+                ),
+                onTap: () {
+                  // Get.toNamed(RouteConfig.requestDetail);
+                },
+              )
+            : ListView.builder(
+                itemCount: listRequest.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      List<String> listArgument = [
+                        "${listRequest[index].id}",
+                        status
+                      ];
+                      Get.toNamed(RouteConfig.requestDetail,
+                          arguments: listArgument);
+                    },
+                    child: ListRequestTabItem(listRequest[index]),
+                  );
+                });
   }
 
-  void getListRequest(String key) async{
+  void getListRequest(String key) async {
     setState(() {
       isLoading = true;
     });
     Future.delayed(Duration(seconds: 1));
     Map<String, dynamic> params = {
       "service": key.isEmpty ? listRequestLogic.searchRequest.service : "",
-      "code":key.isEmpty ?  listRequestLogic.searchRequest.code : "",
-      "status":status,
-      "province":key.isEmpty ? listRequestLogic.searchRequest.province : "",
-      "staffCode":key.isEmpty ? listRequestLogic.searchRequest.staffCode : "",
-      "fromDate":key.isEmpty ? listRequestLogic.searchRequest.fromDate : "",
+      "code": key.isEmpty ? listRequestLogic.searchRequest.code : "",
+      "status": status,
+      "province": key.isEmpty ? listRequestLogic.searchRequest.province : "",
+      "staffCode": key.isEmpty ? listRequestLogic.searchRequest.staffCode : "",
+      "fromDate": key.isEmpty ? listRequestLogic.searchRequest.fromDate : "",
       "toDate": key.isEmpty ? listRequestLogic.searchRequest.toDate : "",
-      "key":key,
-      "page":"0",
-      "pageSize":"10",
-      "sort":"createdDate"
+      "key": key,
+      "page": "0",
+      "pageSize": "10",
+      "sort": "createdDate"
     };
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_LIST_REQUEST,
         params: params,
         isCancel: true,
         onSuccess: (response) {
-          if(response.isSuccess){
+          if (response.isSuccess) {
             print("success :");
             listRequest.clear();
-            ListRequestResponse listRequestResponse = ListRequestResponse.fromJson(response.data['data']);
+            ListRequestResponse listRequestResponse =
+                ListRequestResponse.fromJson(response.data['data']);
             setState(() {
               listRequest.addAll(listRequestResponse.list);
             });
@@ -141,11 +145,10 @@ class ListRequestTabState extends State<ListRequestTabPage>{
           });
         },
         onError: (error) {
+          Common.showMessageError(error['errorCode'], context);
           setState(() {
             isLoading = false;
           });
-
         });
   }
-
 }

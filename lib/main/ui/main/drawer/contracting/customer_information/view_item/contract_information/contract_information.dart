@@ -252,8 +252,8 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                               if (p0) {
                                 callback();
                               } else {
-                                Common.showToastCenter(
-                                    AppLocalizations.of(context)!.textErrorAPI);
+                                // Common.showToastCenter(
+                                //     AppLocalizations.of(context)!.textErrorAPI);
                               }
                             },
                           );

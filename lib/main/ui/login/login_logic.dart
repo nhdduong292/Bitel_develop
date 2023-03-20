@@ -16,8 +16,7 @@ import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
-
-class LoginLogic extends GetxController{
+class LoginLogic extends GetxController {
   TextEditingController controllerUser = TextEditingController();
   TextEditingController controllerPass = TextEditingController();
   FocusNode focusUser = FocusNode();
@@ -28,13 +27,12 @@ class LoginLogic extends GetxController{
   bool isRememberAccount = false;
 
   @override
-  void onInit() async{
+  void onInit() async {
     // TODO: implement onInit
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
-      SystemUiOverlay.bottom
-    ]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.bottom]);
     isRememberAccount = await SharedPreferenceUtil.isRememberAccount();
-    if(isRememberAccount){
+    if (isRememberAccount) {
       controllerUser.text = await SharedPreferenceUtil.getUserName();
       controllerPass.text = await SharedPreferenceUtil.getPassWord();
     }
@@ -42,38 +40,39 @@ class LoginLogic extends GetxController{
     super.onInit();
   }
 
-  void setRememberAccount(bool value){
+  void setRememberAccount(bool value) {
     isRememberAccount = value;
     update();
   }
 
-  void setShowPass(bool value){
+  void setShowPass(bool value) {
     isShowPass.value = value;
     update();
   }
 
-  void setStateUser(bool value){
+  void setStateUser(bool value) {
     isSubmitUser = value;
     update();
   }
-  void setStatePass(bool value){
+
+  void setStatePass(bool value) {
     isSubmitPass = value;
     update();
   }
 
-  void loginSuccess(BuildContext context){
-    if(controllerUser.value.text.isEmpty){
+  void loginSuccess(BuildContext context) {
+    if (controllerUser.value.text.isEmpty) {
       setStateUser(true);
       focusUser.requestFocus();
       return;
     }
-    if(controllerPass.value.text.isEmpty) {
+    if (controllerPass.value.text.isEmpty) {
       setStatePass(true);
       focusPass.requestFocus();
       return;
     }
     //todo luu pass vào shareprerence
-    if(isRememberAccount){
+    if (isRememberAccount) {
       SharedPreferenceUtil.saveRememberAccount(isRememberAccount);
       SharedPreferenceUtil.saveUserName(controllerUser.text.trim());
       SharedPreferenceUtil.savePassWord(controllerPass.text.trim());
@@ -83,32 +82,37 @@ class LoginLogic extends GetxController{
     login(context);
   }
 
-  void login(BuildContext context) async{
+  void login(BuildContext context) async {
     SharedPreferenceUtil.saveToken("");
     Map<String, dynamic> body = {
       "username": controllerUser.text.trim(),
       "password": controllerPass.text.trim(),
       "domainCode": "BCCS_CC"
     };
-    ApiUtil.getInstance()!.post(url: ApiEndPoints.API_LOGIN, body: body, onSuccess: (response) {
+    ApiUtil.getInstance()!.post(
+      url: ApiEndPoints.API_LOGIN,
+      body: body,
+      onSuccess: (response) {
         Get.back();
-        if(response.isSuccess){
+        if (response.isSuccess) {
           LoginModel loginModel = LoginModel.fromJson(response.data);
           Map<String, dynamic> payload = Jwt.parseJwt(loginModel.token);
           // Print the payload
           InfoBusiness.getInstance()!.setUser(UserModel.fromJson(payload));
           print(payload);
           SharedPreferenceUtil.saveToken(loginModel.token);
-          SharedPreferenceUtil.saveRefreshToken(DateTime.now().millisecondsSinceEpoch);
+          SharedPreferenceUtil.saveRefreshToken(
+              DateTime.now().millisecondsSinceEpoch);
           Get.offAllNamed(RouteConfig.main);
         } else {
           Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
         }
-
-    }, onError: (error) {
-      Get.back();
-      Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
-    },);
+      },
+      onError: (error) {
+        Get.back();
+        Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
+      },
+    );
   }
 
   void _onLoading(BuildContext context) {

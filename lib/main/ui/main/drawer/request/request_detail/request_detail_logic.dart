@@ -8,8 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../../utils/common.dart';
+
 class RequestDetailLogic extends GetxController {
-  RequestDetailModel requestModel =  RequestDetailModel();
+  RequestDetailModel requestModel = RequestDetailModel();
   bool isLoading = true;
   String currentId = "";
   String status = "";
@@ -19,7 +21,6 @@ class RequestDetailLogic extends GetxController {
   String textConnect = "";
 
   BuildContext context;
-
 
   RequestDetailLogic(this.context);
 
@@ -51,35 +52,31 @@ class RequestDetailLogic extends GetxController {
           update();
         },
         onError: (error) {
+          Common.showMessageError(error['errorCode'], context);
           isLoading = false;
           update();
         });
   }
 
-  bool checkShowBtnConnect(String status){
-    if(status == RequestStatus.CREATE_REQUEST) {
+  bool checkShowBtnConnect(String status) {
+    if (status == RequestStatus.CREATE_REQUEST) {
       return false;
-    } else if(status == RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY) {
+    } else if (status == RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY) {
       textConnect = AppLocalizations.of(context)!.textConnect;
       return true;
-    }
-    else if(status == RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY) {
+    } else if (status == RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY) {
       textConnect = AppLocalizations.of(context)!.textConnect;
       return true;
-    }
-    else if(status == RequestStatus.CONNECTED) {
+    } else if (status == RequestStatus.CONNECTED) {
       textConnect = AppLocalizations.of(context)!.textCancel;
       return true;
-    }
-    else if(status == RequestStatus.DEPLOYING) {
+    } else if (status == RequestStatus.DEPLOYING) {
       textConnect = AppLocalizations.of(context)!.textClose;
       return true;
-    }
-    else if(status == RequestStatus.COMPLETE) {
+    } else if (status == RequestStatus.COMPLETE) {
       textConnect = AppLocalizations.of(context)!.textClose;
       return true;
-    }
-    else if(status == RequestStatus.CANCEL) {
+    } else if (status == RequestStatus.CANCEL) {
       textConnect = AppLocalizations.of(context)!.textClose;
       return true;
     }
@@ -87,40 +84,35 @@ class RequestDetailLogic extends GetxController {
     return false;
   }
 
-  bool checkShowBtnCancelTransfer(String status){
-    if(status == RequestStatus.CREATE_REQUEST) {
+  bool checkShowBtnCancelTransfer(String status) {
+    if (status == RequestStatus.CREATE_REQUEST) {
       return true;
-    } else if(status == RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY) {
+    } else if (status == RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY) {
       return true;
-    }
-    else if(status == RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY) {
+    } else if (status == RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY) {
       return true;
-    }
-    else if(status == RequestStatus.CONNECTED) {
+    } else if (status == RequestStatus.CONNECTED) {
       return false;
-    }
-    else if(status == RequestStatus.DEPLOYING) {
+    } else if (status == RequestStatus.DEPLOYING) {
       return false;
-    }
-    else if(status == RequestStatus.COMPLETE) {
+    } else if (status == RequestStatus.COMPLETE) {
       return false;
-    }
-    else if(status == RequestStatus.CANCEL) {
+    } else if (status == RequestStatus.CANCEL) {
       return false;
     }
     return false;
   }
 
-  void onClickBtnConnect(){
-    if(status == RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY || status == RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY) {
+  void onClickBtnConnect() {
+    if (status == RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY ||
+        status == RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY) {
       Get.toNamed(RouteConfig.productPayment);
-    }
-    else if(status == RequestStatus.CONNECTED) {
+    } else if (status == RequestStatus.CONNECTED) {
       //todo show dialog cancel
-    }
-    else if(status == RequestStatus.DEPLOYING || status == RequestStatus.COMPLETE || status == RequestStatus.CANCEL) {
-        Get.back();
+    } else if (status == RequestStatus.DEPLOYING ||
+        status == RequestStatus.COMPLETE ||
+        status == RequestStatus.CANCEL) {
+      Get.back();
     }
   }
-
 }

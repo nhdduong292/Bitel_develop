@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bitel_ventas/main/networks/response/base_response.dart';
 import 'package:bitel_ventas/main/utils/shared_preference.dart';
 import 'package:dio/dio.dart';
@@ -28,7 +30,7 @@ class ApiUtil {
       Map<String, dynamic> params = const {},
       required Function(BaseResponse response) onSuccess,
       required Function(dynamic error) onError,
-      bool isCancel = false}) async{
+      bool isCancel = false}) async {
     String token = await SharedPreferenceUtil.getToken();
     if (token.isNotEmpty) {
       dio!.options.headers['Authorization'] = 'Bearer ${token}';
@@ -36,7 +38,7 @@ class ApiUtil {
     dio!.get(url, queryParameters: params).then((res) {
       if (onSuccess != null) onSuccess(getBaseResponse(res));
     }).catchError((error) {
-      if (onError != null) onError(error);
+      if (onError != null) onError(error.response?.data);
     });
   }
 
@@ -62,7 +64,7 @@ class ApiUtil {
         .then((res) {
       if (onSuccess != null) onSuccess(res);
     }).catchError((error) {
-      if (onError != null) onError(error);
+      if (onError != null) onError(error.response?.data);
     });
   }
 
@@ -89,7 +91,7 @@ class ApiUtil {
         .then((res) {
       if (onSuccess != null) onSuccess(getBaseResponse(res));
     }).catchError((error) {
-      if (onError != null) onError(error);
+      if (onError != null) onError(error.response?.data);
     });
   }
 
@@ -101,14 +103,15 @@ class ApiUtil {
     String contentType = Headers.jsonContentType,
     required Function(BaseResponse response) onSuccess,
     required Function(dynamic error) onError,
-  }) async{
+  }) async {
     String token = await SharedPreferenceUtil.getToken();
     if (!isDetect) {
-      if(token.isNotEmpty) {
+      if (token.isNotEmpty) {
         dio!.options.headers['Authorization'] = 'Bearer ${token}';
       }
     } else {
-      dio!.options.headers['Authorization'] = 'Bearer AIzaSyDyzsELhb6aZYiMPL5NB3AZj8m7HUVFogo';
+      dio!.options.headers['Authorization'] =
+          'Bearer AIzaSyDyzsELhb6aZYiMPL5NB3AZj8m7HUVFogo';
     }
     dio!
         .post(
@@ -121,7 +124,7 @@ class ApiUtil {
         .then((res) {
       if (onSuccess != null) onSuccess(getBaseResponse(res));
     }).catchError((error) {
-      if (onError != null) onError(error);
+      if (onError != null) onError(error.response?.data);
     });
   }
 
