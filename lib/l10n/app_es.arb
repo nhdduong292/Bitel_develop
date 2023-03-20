@@ -476,6 +476,9 @@
    "textE018": "Sub_adsl_ll is not exist",
    "textE019": "Contracts can only be created when status of request is CREATE_REQUEST_WITHOUT_SURVEY or SURVEY_OFFLINE_SUCCESSFULLY",
    "textE020": "Get the best finger error",
-   "textE021": "Service type is required"
+   "textE021": "Service type is required",
+   "textEnterName": "Enter name",
+   "textEnterNationality": "Enter Nationality",
+   "textEnterDate": "Enter date"
 
 }

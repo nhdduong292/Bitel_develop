@@ -68,19 +68,19 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 label: AppLocalizations.of(context)!.textContactType,
                 required: false,
                 isIcon: true,
-                width: 210),
+                width: width * 0.55),
             lockedBox(
                 content: '123456/XXXXXX',
                 label: AppLocalizations.of(context)!.textContractNumber,
                 required: false,
                 isIcon: false,
-                width: 210),
+                width: width * 0.55),
             lockedBox(
                 content: '1',
                 label: AppLocalizations.of(context)!.textQuantitySubscriber,
                 required: true,
                 isIcon: false,
-                width: 210),
+                width: width * 0.55),
             Obx(() => lockedBox(
                 content: controller.signDate.value != ''
                     ? Common.fromDate(
@@ -89,33 +89,33 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 label: AppLocalizations.of(context)!.textSignDate,
                 required: false,
                 isIcon: false,
-                width: 210)),
+                width: width * 0.55)),
             Obx(
               () => lockedBox(
                   content: controller.getBillCycle(controller.billCycle.value),
                   label: AppLocalizations.of(context)!.textBillCycle,
                   required: true,
                   isIcon: true,
-                  width: 210),
+                  width: width * 0.55),
             ),
             lockedBox(
                 content: AppLocalizations.of(context)!.textEmail,
                 label: AppLocalizations.of(context)!.textChangeNotification,
                 required: false,
                 isIcon: true,
-                width: 210),
+                width: width * 0.55),
             lockedBox(
                 content: AppLocalizations.of(context)!.textEmail,
                 label: AppLocalizations.of(context)!.textPrintBillDetail,
                 required: false,
                 isIcon: true,
-                width: 210),
+                width: width * 0.55),
             lockedBox(
                 content: 'SOL',
                 label: AppLocalizations.of(context)!.textCurrency,
                 required: true,
                 isIcon: true,
-                width: 210),
+                width: width * 0.55),
             dropDownContactLanguages(
                 context: context,
                 label: AppLocalizations.of(context)!.textContractLanguage,
@@ -123,7 +123,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 required: false,
                 items: controller.contractLanguages,
                 dropdownValue: controller.contractLanguagetValue,
-                width: 210),
+                width: width * 0.55),
             InkWell(
               onTap: () {
                 showDialog(
@@ -152,7 +152,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                   label: AppLocalizations.of(context)!.textBillingAddress,
                   required: true,
                   isIcon: false,
-                  width: 210),
+                  width: width * 0.55),
             ),
             SizedBox(
               height: 27,
@@ -431,7 +431,7 @@ class BillAddressInformation extends Dialog {
                       decoration: InputDecoration(
                           contentPadding: const EdgeInsets.only(
                               top: 5, left: 10, right: 10),
-                          hintText: AppLocalizations.of(context)!.textProvince,
+                          hintText: AppLocalizations.of(context)!.hintProvince,
                           hintStyle: AppStyles.r2.copyWith(
                               color: AppColors.colorHint1,
                               fontWeight: FontWeight.w400),

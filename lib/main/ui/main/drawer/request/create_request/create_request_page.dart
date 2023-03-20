@@ -386,7 +386,7 @@ class CreateRequestPage extends GetWidget {
                                   contentPadding: const EdgeInsets.only(
                                       top: 5, left: 10, right: 10),
                                   hintText: AppLocalizations.of(context)!
-                                      .textProvince,
+                                      .hintProvince,
                                   hintStyle: AppStyles.r2.copyWith(
                                       color: AppColors.colorHint1,
                                       fontWeight: FontWeight.w400),
