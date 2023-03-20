@@ -76,8 +76,7 @@ class ListRequestPage extends GetWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Container(
-                  height: 55,
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(22),
@@ -101,59 +100,65 @@ class ListRequestPage extends GetWidget {
                         //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         //   child: Text(AppLocalizations.of(context)!.textSearchCodeProvence, style: AppStyles.r2.copyWith(color: AppColors.colorText4.withOpacity(0.75)),),
                         // )),
-                        child: TextField(
-                          cursorColor: AppColors.colorText1,
-                          onChanged: (value) {
-                            String key = value.trim();
-                            if (controller.index == 0) {
-                              globalKey1.currentState!.getListRequest(key);
-                            } else if (controller.index == 1) {
-                              globalKey2.currentState!.getListRequest(key);
-                            } else if (controller.index == 2) {
-                              globalKey3.currentState!.getListRequest(key);
-                            } else if (controller.index == 3) {
-                              globalKey4.currentState!.getListRequest(key);
-                            } else if (controller.index == 4) {
-                              globalKey5.currentState!.getListRequest(key);
-                            } else if (controller.index == 5) {
-                              globalKey6.currentState!.getListRequest(key);
-                            } else if (controller.index == 6) {
-                              globalKey7.currentState!.getListRequest(key);
-                            }
-                          },
-                          maxLines: 1,
-                          decoration: InputDecoration(
-                            // errorText: controller.isSubmitPass
-                            //     ? (controller.controllerPass.value.text
-                            //     .length <
-                            //     6
-                            //     ? ""
-                            //     : null)
-                            //     : null,
-                            hintText: AppLocalizations.of(context)!
-                                .textSearchCodeProvence,
-                            hintStyle: AppStyles.r2.copyWith(
-                                color: AppColors.colorText4.withOpacity(0.75)),
+                        child: Container(
+                          width: width*.06,
+                          height: 42,
+                          child: TextFormField(
+                            cursorColor: AppColors.colorText1,
+                            onChanged: (value) {
+                              String key = value.trim();
+                              if (controller.index == 0) {
+                                globalKey1.currentState!.getListRequest(key);
+                              } else if (controller.index == 1) {
+                                globalKey2.currentState!.getListRequest(key);
+                              } else if (controller.index == 2) {
+                                globalKey3.currentState!.getListRequest(key);
+                              } else if (controller.index == 3) {
+                                globalKey4.currentState!.getListRequest(key);
+                              } else if (controller.index == 4) {
+                                globalKey5.currentState!.getListRequest(key);
+                              } else if (controller.index == 5) {
+                                globalKey6.currentState!.getListRequest(key);
+                              } else if (controller.index == 6) {
+                                globalKey7.currentState!.getListRequest(key);
+                              }
+                            },
+                            textAlignVertical: TextAlignVertical.center,
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: InputDecoration(
+                              isDense: true,
+                              // errorText: controller.isSubmitPass
+                              //     ? (controller.controllerPass.value.text
+                              //     .length <
+                              //     6
+                              //     ? ""
+                              //     : null)
+                              //     : null,
+                              hintText: AppLocalizations.of(context)!
+                                  .textSearchCodeProvence,
+                              hintStyle: AppStyles.r2.copyWith(
+                                  color: AppColors.colorText4.withOpacity(0.75)),
 
-                            // filled: true,
-                            // fillColor: Colors.white,
-                            // border: InputBorder.none,
-                            border: const UnderlineInputBorder(
+                              // filled: true,
+                              // fillColor: Colors.white,
+                              // border: InputBorder.none,
+                              border: const UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: 1, color: Colors.transparent)),
+                              errorBorder: const UnderlineInputBorder(
+                                //<-- SEE HERE
+                                borderSide:
+                                    BorderSide(width: 1, color: Colors.redAccent),
+                              ),
+                              focusedBorder: const UnderlineInputBorder(
+                                //<-- SEE HERE
                                 borderSide: BorderSide(
-                                    width: 1, color: Colors.transparent)),
-                            errorBorder: const UnderlineInputBorder(
-                              //<-- SEE HERE
-                              borderSide:
-                                  BorderSide(width: 1, color: Colors.redAccent),
-                            ),
-                            focusedBorder: const UnderlineInputBorder(
-                              //<-- SEE HERE
-                              borderSide: BorderSide(
-                                  width: 1, color: Colors.transparent),
-                            ),
-                            enabledBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 1, color: Colors.transparent),
+                                    width: 1, color: Colors.transparent),
+                              ),
+                              enabledBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 1, color: Colors.transparent),
+                              ),
                             ),
                           ),
                         ),

@@ -81,6 +81,7 @@ class DialogSurveySuccessful extends GetWidget {
                           width: 10,
                         ),
                         Text(
+                          overflow: TextOverflow.ellipsis,
                           AppLocalizations.of(context)!.textCreateOfflineSurvey,
                           style: AppStyles.r6.copyWith(
                               color: AppColors.colorText4,

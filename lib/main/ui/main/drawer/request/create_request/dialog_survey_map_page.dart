@@ -36,6 +36,7 @@ class DialogSurveyMapPage extends GetWidget {
             borderRadius: BorderRadius.circular(15),
           ),
           elevation: 0.0,
+          insetPadding: EdgeInsets.all(10),
           backgroundColor: Colors.white,
           child: SingleChildScrollView(
             child: Padding(
@@ -70,13 +71,13 @@ class DialogSurveyMapPage extends GetWidget {
                     child: !controller.isLocation
                         ? Container()
                         : GoogleMap(
+                            mapType: MapType.normal,
                             onMapCreated: (GoogleMapController control) {
                               controller.controllerMap.complete(control);
                             },
                             initialCameraPosition: controller.kGooglePlex,
                             circles: controller.circles,
                             markers: controller.markers,
-                            mapType: MapType.normal,
                             onTap: (argument) {
                               controller.setCircle(argument);
                             },

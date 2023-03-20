@@ -24,11 +24,12 @@ class DialogSurveyMapLogic extends GetxController {
   bool isConnect = false;
   TextEditingController textFieldRadius = TextEditingController();
 
-  final Completer<GoogleMapController> controllerMap =
+  Completer<GoogleMapController> controllerMap =
       Completer<GoogleMapController>();
   CameraPosition kGooglePlex = CameraPosition(
-    target: LatLng(-12.786389, -74.975555),
-    zoom: 14,
+    // target: LatLng(-12.786389, -74.975555),
+    target: LatLng(-12.060391, -77.099104),
+    zoom: 14.4746,
   );
   bool isLocation = true;
   //Circle
@@ -71,9 +72,9 @@ class DialogSurveyMapLogic extends GetxController {
     lat = point.latitude;
     long = point.longitude;
     setMarker(point);
-    final GoogleMapController controller = await controllerMap.future;
+    GoogleMapController controller = await controllerMap.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(target: point, zoom: 14)));
+        CameraPosition(target: point, zoom: 14.4746)));
     circles.add(Circle(
         circleId: CircleId('raj'),
         center: point,
@@ -173,8 +174,10 @@ class DialogSurveyMapLogic extends GetxController {
   }
 
   void getLocationAddress() async {
-    List<Location> locations = await locationFromAddress(requestModel.getInstalAddress(), localeIdentifier:  "es_PE");
-    // List<Location> locations = await locationFromAddress("Nguy Như Kon Tum Thanh Xuân Hà Nội", localeIdentifier: "vi_VN");
+    // print("Address surveyyyyyyyyyy: ${requestModel.getInstalAddress()}");
+    // List<Location> locations = await locationFromAddress(requestModel.getInstalAddress(), localeIdentifier:  "es_PE");
+    List<Location> locations = await locationFromAddress("Jr. Camana 547, La Perla, Peru", localeIdentifier:  "es_PE");
+    // List<Location> locations = await locationFromAddress("Nguy Như Kon Tum Thanh Xuân Hà Nội", localeIdentifier: "vi");
     locations.forEach((element) {
       print(
           "addddddddddddddddd lat: ${element.latitude} long: ${element.longitude}");

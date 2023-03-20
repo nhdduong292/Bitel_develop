@@ -76,6 +76,7 @@ class DialogSurveyUnsuccessful extends GetWidget {
                       controller.isSelectOffline ? iconOnlyRadio(-1) : iconOnlyUnRadio(),
                       const SizedBox(width: 10,),
                       Text(
+                        overflow: TextOverflow.ellipsis,
                         AppLocalizations.of(context)!.textCreateOfflineSurvey,
                         style: AppStyles.r6.copyWith(
                             color: AppColors.colorText4, fontWeight: FontWeight.w500),

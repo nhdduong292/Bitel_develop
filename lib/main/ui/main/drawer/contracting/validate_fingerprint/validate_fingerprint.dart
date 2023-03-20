@@ -206,13 +206,9 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                             SizedBox(
                               height: 41,
                             ),
-                            // controller.listFinger.isNotEmpty
-                            //     ? Image.memory(
-                            //         convertBase64Image(
-                            //             controller.listFinger[0]),
-                            //         gaplessPlayback: true,
-                            //       )
-                            SvgPicture.asset(AppImages.imgHuellaDactilar),
+                            controller.textCapture.isNotEmpty
+                                ? Image.file(File(controller.textCapture))
+                             : SvgPicture.asset(AppImages.imgHuellaDactilar),
                             SizedBox(
                               height: 22,
                             ),

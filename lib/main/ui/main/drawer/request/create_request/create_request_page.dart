@@ -296,7 +296,8 @@ class CreateRequestPage extends GetWidget {
                             onChanged: (value) {
                               controller.setPhone(value);
                             },
-                            maxLength: 11,
+
+                            maxLength: 9,
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.only(
                                   top: 5, left: 10, right: 10),

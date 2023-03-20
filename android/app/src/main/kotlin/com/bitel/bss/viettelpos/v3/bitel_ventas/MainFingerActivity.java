@@ -120,7 +120,7 @@ public class MainFingerActivity extends FlutterActivity {
 
         if (FingerScannerFactory.fingerPrintScannerImp == null) {
             Log.d(TAG,"fingerPrintScannerImp == null");
-            showDialog("Error","Your device is not compatible with this version. Please, use Android 6.123 or lower.","","Cancel");
+            showDialog("Error","Your device is not compatible with this version. Please, use Android 6 or lower.","","Cancel");
             result.error("UNAVAILABLE", "Finger not available.", null);
         } else if (FingerScannerFactory.fingerPrintScannerImp instanceof EmptyFingerPrintScanner) {
             Log.d(TAG,"fingerPrintScannerImp instanceof EmptyFingerPrintScanner");
@@ -130,7 +130,7 @@ public class MainFingerActivity extends FlutterActivity {
                 showDialog("Error","Can\\'t find usb fingerprint scanner. Please go back one step and plugin the device","","Cancel");
             } else {
                 Log.d(TAG,"fingerPrintScannerImp instanceof EmptyFingerPrintScanner DEVICE");
-                showDialog("Error","Your device is not compatible with this version. Please, use Android 6.1 or lower.","","Cancel");
+                showDialog("Error","Your device is not compatible with this version. Please, use Android 6 or lower.","","Cancel");
             }
             result.error("UNAVAILABLE", "Finger not available.", null);
         } else {
@@ -147,11 +147,11 @@ public class MainFingerActivity extends FlutterActivity {
                     if (fingerPrint != null) {
                         if (fingerPrint.getFingerPrintBmp() != null) {
                             bitmap = fingerPrint.getFingerPrintBmp();
-//                            String link = saveImageToCache(bitmap);
+                            String link = saveImageToCache(bitmap);
                             String imageBase64 = fingerPrint.getEncodeBase64();
-//                            FingerModel fingerModel = new FingerModel(saveImageToCache(bitmap), imageBase64);
+                            FingerModel fingerModel = new FingerModel(link, imageBase64);
 
-                            result.success(imageBase64);
+                            result.success(fingerModel.toString());
                         } else {
                             result.error("UNAVAILABLE", "Finger not available.", null);
                         }

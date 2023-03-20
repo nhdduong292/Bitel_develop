@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:bitel_ventas/main/networks/model/best_finger_model.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
@@ -40,8 +41,6 @@ class ValidateFingerprintLogic extends GetxController {
     typeCustomer = data[2];
     idNumber = data[3];
     contractId = data[4];
-
-    // getBestFinger();
   }
 
   void setCapture(String value) {
@@ -51,6 +50,7 @@ class ValidateFingerprintLogic extends GetxController {
   }
 
   Future<void> getCapture(BuildContext context) async {
+    textCapture = "";
     String result = "";
     try {
       final value =
@@ -59,14 +59,16 @@ class ValidateFingerprintLogic extends GetxController {
     } on PlatformException catch (e) {
       e.printInfo();
     }
-    // List<String> list = result.split(",");
-
     print("text Capture: ${result}");
+    final body = json.decode(result);
+    textCapture = body["pathImage"];
+    String imageBase64 = body["imageBase64"];
+
     if (listFinger.isNotEmpty) {
       listFinger.clear();
     }
-    if (result.isNotEmpty) {
-      listFinger.add(result);
+    if (imageBase64.isNotEmpty) {
+      listFinger.add(imageBase64);
     }
     if (listFinger.isNotEmpty) {
       Common.showToastCenter(
