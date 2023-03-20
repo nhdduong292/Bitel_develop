@@ -7,11 +7,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class DialogTransferRequestLogic extends GetxController{
-  String currentReason="";
+class DialogTransferRequestLogic extends GetxController {
+  BuildContext context;
+  String currentReason = "";
   String currentStaffCode = "";
   List<ReasonModel> listReason = [];
   bool isLoading = false;
+
+  DialogTransferRequestLogic({required this.context});
 
   @override
   void onInit() {
@@ -20,12 +23,12 @@ class DialogTransferRequestLogic extends GetxController{
     getListReason();
   }
 
-  void setStaffCode(String value){
+  void setStaffCode(String value) {
     currentStaffCode = value;
     update();
   }
 
-  void getListReason(){
+  void getListReason() {
     Map<String, dynamic> params = {
       "type": Reason.REASON_REQUEST,
     };
@@ -33,32 +36,32 @@ class DialogTransferRequestLogic extends GetxController{
       url: "${ApiEndPoints.API_REASONS}",
       params: params,
       onSuccess: (response) {
-        if(response.isSuccess){
+        if (response.isSuccess) {
           List<ReasonModel> list = (response.data['data'] as List)
               .map((postJson) => ReasonModel.fromJson(postJson))
               .toList();
-          if(list.isNotEmpty) {
+          if (list.isNotEmpty) {
             listReason.addAll(list);
             update();
           }
-        }else {
-
-        }
+        } else {}
       },
       onError: (error) {
-
-      },);
+        Common.showMessageError(error['errorCode'], context);
+      },
+    );
   }
 
-  bool checkValidate(BuildContext context){
-    if(currentStaffCode.isEmpty || currentReason.isEmpty){
+  bool checkValidate(BuildContext context) {
+    if (currentStaffCode.isEmpty || currentReason.isEmpty) {
       Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
       return true;
     }
     return false;
   }
 
-  void transferRequest(int id, String staffCode, BuildContext context, Function(bool isSuccess) callBack) async {
+  void transferRequest(int id, String staffCode, BuildContext context,
+      Function(bool isSuccess) callBack) async {
     Future.delayed(Duration(seconds: 1));
     Map<String, dynamic> body = {
       "staffCode": staffCode,
@@ -66,7 +69,8 @@ class DialogTransferRequestLogic extends GetxController{
     };
     print("staffCode: $staffCode");
     ApiUtil.getInstance()!.put(
-        url: "${ApiEndPoints.API_REQUEST_DETAIL}/$id${ApiEndPoints.API_TRANSFER_REQUEST}",
+        url:
+            "${ApiEndPoints.API_REQUEST_DETAIL}/$id${ApiEndPoints.API_TRANSFER_REQUEST}",
         body: body,
         onSuccess: (response) {
           if (response.isSuccess) {
@@ -79,7 +83,7 @@ class DialogTransferRequestLogic extends GetxController{
         },
         onError: (error) {
           Get.back();
-          Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
+          Common.showMessageError(error['errorCode'], context);
           // callBack.call(false);
         });
   }

@@ -10,6 +10,8 @@ import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DialogAdvanceSearchLogic extends GetxController {
+  BuildContext context;
+
   var from = "".obs;
   var to = "".obs;
   DateTime selectDate = DateTime.now();
@@ -23,13 +25,12 @@ class DialogAdvanceSearchLogic extends GetxController {
   DateTime fromDate = DateTime.now();
   DateTime toDate = DateTime.now();
 
-
-  DialogAdvanceSearchLogic(this.searchRequest){
-    if(searchRequest.fromDate.isNotEmpty) {
+  DialogAdvanceSearchLogic(this.context, this.searchRequest) {
+    if (searchRequest.fromDate.isNotEmpty) {
       fromDate = DateTime.parse(searchRequest.fromDate);
       from.value = "${fromDate.day}/${fromDate.month}";
     }
-    if(searchRequest.toDate.isNotEmpty) {
+    if (searchRequest.toDate.isNotEmpty) {
       toDate = DateTime.parse(searchRequest.toDate);
       to.value = "${toDate.day}/${toDate.month}";
     }
@@ -37,13 +38,13 @@ class DialogAdvanceSearchLogic extends GetxController {
     controllerStaffCode.text = searchRequest.staffCode;
   }
 
-  void setProvince(AddressModel value){
+  void setProvince(AddressModel value) {
     searchRequest.province = value.areaCode;
     controllerProvince.text = value.name;
     update();
   }
 
-  void setStaffCode(String value){
+  void setStaffCode(String value) {
     searchRequest.staffCode = value;
     update();
   }
@@ -66,22 +67,22 @@ class DialogAdvanceSearchLogic extends GetxController {
     update();
   }
 
-  void setStatus(String value){
+  void setStatus(String value) {
     searchRequest.status = value;
     update();
   }
 
-  void setService(String value){
+  void setService(String value) {
     searchRequest.service = value;
     update();
   }
 
-  void setRequestCode(String value){
+  void setRequestCode(String value) {
     searchRequest.code = value;
     update();
   }
 
-  bool checkValidate(BuildContext context){
+  bool checkValidate(BuildContext context) {
     // if(currentService.isEmpty){
     //   return false;
     // }
@@ -92,14 +93,14 @@ class DialogAdvanceSearchLogic extends GetxController {
     int timeTo = toDate.millisecondsSinceEpoch;
     int result = timeTo - timeFrom;
     print("time: $result");
-    if(result < 0) {
+    if (result < 0) {
       Common.showToastCenter(AppLocalizations.of(context)!.textValidateFromTo);
       return false;
     }
     return true;
   }
 
-  void getListProvince(Function(bool isSuccess) function) async{
+  void getListProvince(Function(bool isSuccess) function) async {
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_PROVINCES,
         onSuccess: (response) {
@@ -114,10 +115,9 @@ class DialogAdvanceSearchLogic extends GetxController {
             print("error: ${response.status}");
             function.call(false);
           }
-
-
         },
         onError: (error) {
+          Common.showMessageError(error['errorCode'], context);
           function.call(false);
         });
   }

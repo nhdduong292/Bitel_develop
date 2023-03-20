@@ -18,7 +18,7 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return GetBuilder(
-        init: ProductPaymentMethodLogic(),
+        init: ProductPaymentMethodLogic(context: context),
         builder: (controller) {
           return Scaffold(
             backgroundColor: Colors.white,

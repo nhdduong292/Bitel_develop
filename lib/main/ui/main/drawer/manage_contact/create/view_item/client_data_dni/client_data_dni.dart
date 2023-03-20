@@ -111,8 +111,8 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                       textFieldClient(
                           context: context,
                           label: AppLocalizations.of(context)!.textLastName,
-                          hint: 'Enter name',
-                          width: 250,
+                          hint: AppLocalizations.of(context)!.textEnterName,
+                          width: width * 0.55,
                           controller: controller.tfLastName,
                           focusNode: controller.focusLastName,
                           onChange: (value) {}),
@@ -122,8 +122,8 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                       textFieldClient(
                           context: context,
                           label: AppLocalizations.of(context)!.textName,
-                          hint: 'Enter name',
-                          width: 250,
+                          hint: AppLocalizations.of(context)!.textEnterName,
+                          width: width * 0.55,
                           controller: controller.tfName,
                           focusNode: controller.focusLastName,
                           onChange: (value) {}),
@@ -133,8 +133,9 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                       textFieldClient(
                           context: context,
                           label: AppLocalizations.of(context)!.textNationality,
-                          hint: 'Enter nationality',
-                          width: 250,
+                          hint: AppLocalizations.of(context)!
+                              .textEnterNationality,
+                          width: width * 0.55,
                           controller: controller.tfNationality,
                           focusNode: controller.focusLastName,
                           onChange: (value) {}),
@@ -155,7 +156,7 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                                             .withOpacity(0.85)))),
                           ),
                           SizedBox(
-                            width: 250,
+                            width: width * 0.55,
                             child: spinnerFormV2(
                                 context: context,
                                 hint: '',
@@ -177,32 +178,32 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                       formDateView(
                           context: context,
                           type: 1,
-                          hint: 'Enter date',
+                          hint: AppLocalizations.of(context)!.textEnterDate,
                           label: AppLocalizations.of(context)!.textDateOfBirth,
                           content: controller.dob,
                           required: false,
                           isIcon: true,
-                          width: 250),
+                          width: width * 0.55),
                       SizedBox(
                         height: 16,
                       ),
                       formDateView(
                           context: context,
                           type: 2,
-                          hint: 'Enter date',
+                          hint: AppLocalizations.of(context)!.textEnterDate,
                           label: AppLocalizations.of(context)!.textExpiredDate,
                           content: controller.exd,
                           required: false,
                           isIcon: true,
-                          width: 250),
+                          width: width * 0.55),
                       SizedBox(
                         height: 16,
                       ),
                       textFieldClient(
                           context: context,
                           label: AppLocalizations.of(context)!.textAddress,
-                          hint: 'Enter address',
-                          width: 250,
+                          hint: AppLocalizations.of(context)!.textEnterAddress,
+                          width: width * 0.55,
                           controller: controller.tfAddress,
                           focusNode: controller.focusLastName,
                           onChange: (value) {}),

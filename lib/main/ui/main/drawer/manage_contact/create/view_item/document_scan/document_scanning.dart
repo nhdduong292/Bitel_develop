@@ -207,28 +207,35 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                       SizedBox(
                         height: 22,
                       ),
-                      DottedLine(
-                        dashColor: Color(0xFFE3EAF2),
-                        dashGapLength: 3,
-                        dashLength: 4,
-                      ),
-                      SizedBox(
-                        height: 17,
-                      ),
-                      Text(
-                        AppLocalizations.of(context)!.textNextScan,
-                        style: AppStyles.r3,
-                      ),
-                      SizedBox(
-                        height: 12,
-                      ),
-                      controller.textPathScan.isNotEmpty
-                          ? Image.file(
-                              File(controller.textPathScan),
+                      Visibility(
+                        visible: !controller.isDNI(),
+                        child: Column(
+                          children: [
+                            DottedLine(
+                              dashColor: Color(0xFFE3EAF2),
+                              dashGapLength: 3,
+                              dashLength: 4,
+                            ),
+                            SizedBox(
+                              height: 17,
+                            ),
+                            Text(
+                              AppLocalizations.of(context)!.textNextScan,
+                              style: AppStyles.r3,
+                            ),
+                            SizedBox(
+                              height: 12,
+                            ),
+                            controller.textPathScan.isNotEmpty
+                                ? Image.file(
+                                    File(controller.textPathScan),
+                                  )
+                                : Image.asset(controller.getImageIdentity()),
+                            SizedBox(
+                              height: 23,
                             )
-                          : Image.asset(controller.getImageIdentity()),
-                      SizedBox(
-                        height: 23,
+                          ],
+                        ),
                       )
                     ]),
                   ),
@@ -236,7 +243,7 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                     () => SizedBox(
                       width: width,
                       child: bottomButton(
-                          text: controller.textPathScan.isNotEmpty
+                          text: controller.isDNI()
                               ? AppLocalizations.of(context)!.textContinue
                               : AppLocalizations.of(context)!.textScan,
                           onTap: () {
@@ -253,27 +260,27 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                                   // controller.detectID(context);
                                 }
 
-                                uploadImage(context, controller);
+                                // uploadImage(context, controller);
                                 // _getFromGallery(context, controller);
                               }
-                              // if (controller.isDNI()) {
-                              //   callback();
-                              // } else {
-                              //   if (controller.textPathScan.isNotEmpty) {
-                              //     callback();
-                              //   } else {
-                              //     if (controller.textPathScan.isEmpty) {
-                              //       // controller.getScan();
-                              //       // _getFromGallery(context, controller);
-                              //     } else {
-                              //       // callback();
-                              //       // controller.detectID(context);
-                              //     }
+                              if (controller.isDNI()) {
+                                callback();
+                              } else {
+                                if (controller.textPathScan.isNotEmpty) {
+                                  callback();
+                                } else {
+                                  if (controller.textPathScan.isEmpty) {
+                                    // controller.getScan();
+                                    // _getFromGallery(context, controller);
+                                  } else {
+                                    // callback();
+                                    // controller.detectID(context);
+                                  }
 
-                              //     uploadImage(context, controller);
-                              //     // _getFromGallery(context, controller);
-                              //   }
-                              // }
+                                  uploadImage(context, controller);
+                                  // _getFromGallery(context, controller);
+                                }
+                              }
                             } else {
                               Common.showToastCenter(
                                   AppLocalizations.of(context)!

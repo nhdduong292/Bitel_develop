@@ -15,6 +15,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uuid/uuid.dart';
 
 class DialogSurveyMapLogic extends GetxController {
+  BuildContext context;
+
   String currentTechnology = "GPON";
   List<String> listTechnology = ["AON", "GPON"];
   String currentRadius = "500";
@@ -41,7 +43,7 @@ class DialogSurveyMapLogic extends GetxController {
 
   bool isActive = false;
 
-  DialogSurveyMapLogic({required this.requestModel});
+  DialogSurveyMapLogic({required this.context, required this.requestModel});
 
   @override
   void onInit() {
@@ -157,6 +159,7 @@ class DialogSurveyMapLogic extends GetxController {
           }
         },
         onError: (error) {
+          Common.showMessageError(error['errorCode'], context);
           Get.back();
           function.call(false);
         });
@@ -174,10 +177,10 @@ class DialogSurveyMapLogic extends GetxController {
   }
 
   void getLocationAddress() async {
-    // print("Address surveyyyyyyyyyy: ${requestModel.getInstalAddress()}");
-    // List<Location> locations = await locationFromAddress(requestModel.getInstalAddress(), localeIdentifier:  "es_PE");
-    List<Location> locations = await locationFromAddress("Jr. Camana 547, La Perla, Peru", localeIdentifier:  "es_PE");
-    // List<Location> locations = await locationFromAddress("Nguy Như Kon Tum Thanh Xuân Hà Nội", localeIdentifier: "vi");
+    List<Location> locations = await locationFromAddress(
+        requestModel.getInstalAddress(),
+        localeIdentifier: "es_PE");
+    // List<Location> locations = await locationFromAddress("Nguy Như Kon Tum Thanh Xuân Hà Nội", localeIdentifier: "vi_VN");
     locations.forEach((element) {
       print(
           "addddddddddddddddd lat: ${element.latitude} long: ${element.longitude}");

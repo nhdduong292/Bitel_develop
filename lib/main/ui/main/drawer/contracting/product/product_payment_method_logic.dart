@@ -12,12 +12,16 @@ import '../../../../../networks/model/customer_model.dart';
 import '../../../../../networks/model/method_model.dart';
 import '../../../../../networks/model/plan_reason_model.dart';
 import '../../../../../networks/model/product_model.dart';
+import '../../../../../utils/common.dart';
 
 class ProductPaymentMethodLogic extends GetxController {
   int requestId = 0;
   String type = '';
   String idNumber = '';
   bool isLoadingProduct = true;
+  BuildContext context;
+
+  ProductPaymentMethodLogic({required this.context});
 
   @override
   void onInit() {
@@ -82,6 +86,7 @@ class ProductPaymentMethodLogic extends GetxController {
         update();
       },
       onError: (error) {
+        Common.showMessageError(error['errorCode'], context);
         isLoadingProduct = false;
         update();
       },
@@ -131,6 +136,7 @@ class ProductPaymentMethodLogic extends GetxController {
         }
       },
       onError: (error) {
+        Common.showMessageError(error['errorCode'], context);
         Get.back();
       },
     );
@@ -149,6 +155,7 @@ class ProductPaymentMethodLogic extends GetxController {
         }
       },
       onError: (error) {
+        Common.showMessageError(error['errorCode'], context);
         Get.back();
       },
     );
@@ -169,6 +176,7 @@ class ProductPaymentMethodLogic extends GetxController {
         }
       },
       onError: (error) {
+        // Common.showMessageError(error['errorCode'], context);
         Get.back();
         completer.complete(false);
       },

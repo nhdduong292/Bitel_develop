@@ -6,7 +6,9 @@ import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_reque
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TabTwoLogic extends GetxController{
+import '../../../../../../utils/common.dart';
+
+class TabTwoLogic extends GetxController {
   ListRequestLogic listRequestLogic = Get.find();
   List<RequestModel> listRequest = [];
   bool isLoading = false;
@@ -22,31 +24,32 @@ class TabTwoLogic extends GetxController{
     getListRequest(status);
   }
 
-  void getListRequest(String status) async{
+  void getListRequest(String status) async {
     isLoading = true;
     update();
     Future.delayed(Duration(seconds: 1));
     Map<String, dynamic> params = {
-      "service":listRequestLogic.searchRequest.service,
-      "code":listRequestLogic.searchRequest.code,
-      "status":status,
-      "province":listRequestLogic.searchRequest.province,
-      "staffCode":listRequestLogic.searchRequest.staffCode,
-      "fromDate":listRequestLogic.searchRequest.fromDate,
-      "toDate":listRequestLogic.searchRequest.toDate,
-      "key":"",
-      "page":"0",
-      "pageSize":"10",
-      "sort":""
+      "service": listRequestLogic.searchRequest.service,
+      "code": listRequestLogic.searchRequest.code,
+      "status": status,
+      "province": listRequestLogic.searchRequest.province,
+      "staffCode": listRequestLogic.searchRequest.staffCode,
+      "fromDate": listRequestLogic.searchRequest.fromDate,
+      "toDate": listRequestLogic.searchRequest.toDate,
+      "key": "",
+      "page": "0",
+      "pageSize": "10",
+      "sort": ""
     };
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_LIST_REQUEST,
         params: params,
         onSuccess: (response) {
-          if(response.isSuccess){
+          if (response.isSuccess) {
             print("success :");
             listRequest.clear();
-            ListRequestResponse listRequestResponse = ListRequestResponse.fromJson(response.data['data']);
+            ListRequestResponse listRequestResponse =
+                ListRequestResponse.fromJson(response.data['data']);
             // listRequest.addAll(listRequestResponse.list);
           } else {
             print("error: ${response.status}");
@@ -55,6 +58,7 @@ class TabTwoLogic extends GetxController{
           update();
         },
         onError: (error) {
+          Common.showMessageError(error['errorCode'], context);
           isLoading = false;
           update();
         });

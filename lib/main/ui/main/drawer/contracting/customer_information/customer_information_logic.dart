@@ -229,6 +229,7 @@ class CustomerInformationLogic extends GetxController {
         }
       },
       onError: (error) {
+        Common.showMessageError(error['errorCode'], context);
         isSuccess.call(false);
         Get.back();
       },
@@ -246,7 +247,9 @@ class CustomerInformationLogic extends GetxController {
           print("error: ${response.status}");
         }
       },
-      onError: (error) {},
+      onError: (error) {
+        Common.showMessageError(error['errorCode'], context);
+      },
     );
   }
 
@@ -311,6 +314,7 @@ class CustomerInformationLogic extends GetxController {
           }
         },
         onError: (error) {
+          Common.showMessageError(error['errorCode'], context);
           function.call(false);
         });
   }
@@ -336,6 +340,7 @@ class CustomerInformationLogic extends GetxController {
           }
         },
         onError: (error) {
+          Common.showMessageError(error['errorCode'], context);
           function.call(false);
         });
   }
@@ -361,6 +366,7 @@ class CustomerInformationLogic extends GetxController {
           }
         },
         onError: (error) {
+          Common.showMessageError(error['errorCode'], context);
           function.call(false);
         });
   }

@@ -21,13 +21,12 @@ class DialogTransferRequest extends GetWidget {
   int id;
   final Function? onSubmit;
   TextEditingController controllerTextField = TextEditingController();
-  DialogTransferRequest({super.key, required this.id ,this.onSubmit});
-
+  DialogTransferRequest({super.key, required this.id, this.onSubmit});
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: DialogTransferRequestLogic(),
+      init: DialogTransferRequestLogic(context: context),
       builder: (controller) {
         return Dialog(
           shape: RoundedRectangleBorder(
@@ -43,7 +42,8 @@ class DialogTransferRequest extends GetWidget {
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
                 child: Stack(
                   children: [
-                    Center(child: Text(
+                    Center(
+                        child: Text(
                       AppLocalizations.of(context)!.textTransferRequest,
                       style: AppStyles.r6.copyWith(
                           color: AppColors.colorText1,
@@ -65,18 +65,19 @@ class DialogTransferRequest extends GetWidget {
                 padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
                 child: Row(
                   children: [
-                    Expanded(flex: 2, child: Text(
-                      AppLocalizations.of(context)!.textStaffCode,
-                      style: AppStyles.r8.copyWith(
-                          color: AppColors.colorText1.withOpacity(0.85),
-                          fontWeight: FontWeight.w400),
-                    )),
+                    Expanded(
+                        flex: 2,
+                        child: Text(
+                          AppLocalizations.of(context)!.textStaffCode,
+                          style: AppStyles.r8.copyWith(
+                              color: AppColors.colorText1.withOpacity(0.85),
+                              fontWeight: FontWeight.w400),
+                        )),
                     Expanded(
                         flex: 5,
                         child: spinnerFormV2(
                             context: context,
-                            hint:
-                                AppLocalizations.of(context)!.hintStaffCode,
+                            hint: AppLocalizations.of(context)!.hintStaffCode,
                             required: false,
                             dropValue: "",
                             function: (value) {
@@ -91,77 +92,98 @@ class DialogTransferRequest extends GetWidget {
                 padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
                 child: Row(
                   children: [
-                    Expanded(flex: 2, child:  Text(
-                      AppLocalizations.of(context)!.textReason,
-                      style: AppStyles.r8.copyWith(
-                          color: AppColors.colorText1.withOpacity(0.85),
-                          fontWeight: FontWeight.w400),
-                    )),
                     Expanded(
-                        flex: 5,
-                        child:  Container(
-                          height: 45,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(24),
-                              border: Border.all(color: const Color(0xFFE3EAF2))),
-                          child: DropdownButtonFormField2(
-                            decoration: const InputDecoration(
-                              isDense: true,
-                              contentPadding: EdgeInsets.zero,
-                              border: InputBorder.none,
-                            ),
-                            // selectedItemHighlightColor: Colors.red,
-                            buttonHeight: 60,
-                            buttonPadding: const EdgeInsets.only(left: 0, right: 10),
-                            dropdownDecoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(24),
-                                border: Border.all(color: const Color(0xFFE3EAF2))),
-                            isExpanded: true,
-                            // value: controller.currentReason.isNotEmpty ? controller.currentReason : null,
-                            onChanged: (value) {
-                              controller.currentReason = value!.id!.toString();
-                            },
-                            items: controller.listReason.map<DropdownMenuItem<ReasonModel>>((ReasonModel value) {
-                              return DropdownMenuItem(value: value, child: Text(value.content!));
-                            }).toList(),
-                            style: AppStyles.r2.copyWith(
-                                color: AppColors.colorTitle, fontWeight: FontWeight.w500),
-                            icon: SvgPicture.asset(AppImages.icDropdownSpinner),
-                            hint: Text(
-                              AppLocalizations.of(context)!.hintReason,
-                              style: AppStyles.r2.copyWith(
-                                  color: AppColors.colorHint1, fontWeight: FontWeight.w400),
-                            ),
-                            validator: (value) {
-                              if (value == null) {
-                                return AppLocalizations.of(context)!.textPleaseSelect;
-                              }
-                            },
+                        flex: 2,
+                        child: Text(
+                          AppLocalizations.of(context)!.textReason,
+                          style: AppStyles.r8.copyWith(
+                              color: AppColors.colorText1.withOpacity(0.85),
+                              fontWeight: FontWeight.w400),
+                        )),
+                    Expanded(
+                      flex: 5,
+                      child: Container(
+                        height: 45,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(24),
+                            border: Border.all(color: const Color(0xFFE3EAF2))),
+                        child: DropdownButtonFormField2(
+                          decoration: const InputDecoration(
+                            isDense: true,
+                            contentPadding: EdgeInsets.zero,
+                            border: InputBorder.none,
                           ),
+                          // selectedItemHighlightColor: Colors.red,
+                          buttonHeight: 60,
+                          buttonPadding:
+                              const EdgeInsets.only(left: 0, right: 10),
+                          dropdownDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(24),
+                              border:
+                                  Border.all(color: const Color(0xFFE3EAF2))),
+                          isExpanded: true,
+                          // value: controller.currentReason.isNotEmpty ? controller.currentReason : null,
+                          onChanged: (value) {
+                            controller.currentReason = value!.id!.toString();
+                          },
+                          items: controller.listReason
+                              .map<DropdownMenuItem<ReasonModel>>(
+                                  (ReasonModel value) {
+                            return DropdownMenuItem(
+                                value: value, child: Text(value.content!));
+                          }).toList(),
+                          style: AppStyles.r2.copyWith(
+                              color: AppColors.colorTitle,
+                              fontWeight: FontWeight.w500),
+                          icon: SvgPicture.asset(AppImages.icDropdownSpinner),
+                          hint: Text(
+                            AppLocalizations.of(context)!.hintReason,
+                            style: AppStyles.r2.copyWith(
+                                color: AppColors.colorHint1,
+                                fontWeight: FontWeight.w400),
+                          ),
+                          validator: (value) {
+                            if (value == null) {
+                              return AppLocalizations.of(context)!
+                                  .textPleaseSelect;
+                            }
+                          },
                         ),
+                      ),
                     )
                   ],
                 ),
               ),
               InkWell(
                 onTap: () {
-                  if(controller.checkValidate(context)) return;
+                  if (controller.checkValidate(context)) return;
                   _onLoading(context);
-                  controller.transferRequest(id, controllerTextField.text, context, (isSuccess) =>(isSuccess) {
-                    Get.back();
-                    if(isSuccess){
-                      Timer(Duration(milliseconds: 500), () {
-                        Get.back();
-                        Common.showToastCenter(AppLocalizations.of(context)!.textSuccessAPI);
-                      },);
-                    } else {
-                      Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
-                    }
-                  }, );
+                  controller.transferRequest(
+                    id,
+                    controllerTextField.text,
+                    context,
+                    (isSuccess) => (isSuccess) {
+                      Get.back();
+                      if (isSuccess) {
+                        Timer(
+                          Duration(milliseconds: 500),
+                          () {
+                            Get.back();
+                            Common.showToastCenter(
+                                AppLocalizations.of(context)!.textSuccessAPI);
+                          },
+                        );
+                      } else {
+                        Common.showToastCenter(
+                            AppLocalizations.of(context)!.textErrorAPI);
+                      }
+                    },
+                  );
                 },
                 child: Container(
                   width: double.infinity,
-                  margin: const EdgeInsets.only(top: 30,bottom: 36, left: 16, right: 16),
+                  margin: const EdgeInsets.only(
+                      top: 30, bottom: 36, left: 16, right: 16),
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   decoration: BoxDecoration(
                     color: AppColors.colorButton,
@@ -169,9 +191,9 @@ class DialogTransferRequest extends GetWidget {
                   ),
                   child: Center(
                       child: Text(
-                        AppLocalizations.of(context)!.textTransfer.toUpperCase(),
-                        style: AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
-                      )),
+                    AppLocalizations.of(context)!.textTransfer.toUpperCase(),
+                    style: AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
+                  )),
                 ),
               )
             ],

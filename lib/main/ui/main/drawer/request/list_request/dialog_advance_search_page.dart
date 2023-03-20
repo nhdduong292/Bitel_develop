@@ -32,7 +32,7 @@ class DialogAdvancedSearchPage extends GetWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: DialogAdvanceSearchLogic(searchRequest),
+      init: DialogAdvanceSearchLogic(context, searchRequest),
       builder: (controller) {
         return Dialog(
             shape: RoundedRectangleBorder(
@@ -418,10 +418,10 @@ class DialogAdvancedSearchPage extends GetWidget {
                       ),
                       child: Center(
                           child: Text(
-                            AppLocalizations.of(context)!.textSearch.toUpperCase(),
-                            style:
+                        AppLocalizations.of(context)!.textSearch.toUpperCase(),
+                        style:
                             AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
-                          )),
+                      )),
                     ),
                   )
                 ],

@@ -29,7 +29,7 @@ class DialogSurveyMapPage extends GetWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: DialogSurveyMapLogic(requestModel: requestModel),
+      init: DialogSurveyMapLogic(context: context, requestModel: requestModel),
       builder: (controller) {
         return Dialog(
           shape: RoundedRectangleBorder(
@@ -202,7 +202,7 @@ class DialogSurveyMapPage extends GetWidget {
                               }
                               _onLoading(context);
                               controller.createSurvey(
-                                    (isSuccess) {
+                                (isSuccess) {
                                   // onSubmit.call(isSuccess);
                                   if (isSuccess) {
                                     showDialogSurveySuccessful(context);
@@ -232,18 +232,17 @@ class DialogSurveyMapPage extends GetWidget {
                               ),
                               child: Center(
                                   child: Text(
-                                    AppLocalizations.of(context)!
-                                        .textSurvey
-                                        .toUpperCase(),
-                                    style: controller.isActive
-                                        ? AppStyles.r1
+                                AppLocalizations.of(context)!
+                                    .textSurvey
+                                    .toUpperCase(),
+                                style: controller.isActive
+                                    ? AppStyles.r1
                                         .copyWith(fontWeight: FontWeight.w500)
-                                        : AppStyles.r5
+                                    : AppStyles.r5
                                         .copyWith(fontWeight: FontWeight.w500),
-                                  )),
+                              )),
                             ),
-                          )
-                      )
+                          ))
                     ],
                   ),
                 ],

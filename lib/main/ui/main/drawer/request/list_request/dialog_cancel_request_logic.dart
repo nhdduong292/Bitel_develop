@@ -8,10 +8,13 @@ import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DialogCancelRequestLogic extends GetxController {
+  BuildContext context;
   String currentReason = "";
   String currentNote = "";
   List<ReasonModel> listReason = [];
   bool isLoading = false;
+
+  DialogCancelRequestLogic({required this.context});
 
   @override
   void onInit() {
@@ -20,45 +23,45 @@ class DialogCancelRequestLogic extends GetxController {
     getListReason();
   }
 
-  void setNote(String value){
+  void setNote(String value) {
     currentNote = value;
     update();
   }
 
-  void getListReason(){
+  void getListReason() {
     Map<String, dynamic> params = {
       "type": Reason.REASON_REQUEST,
     };
     ApiUtil.getInstance()!.get(
-        url: "${ApiEndPoints.API_REASONS}",
-        params: params,
-        onSuccess: (response) {
-          if(response.isSuccess){
-            List<ReasonModel> list = (response.data['data'] as List)
-                .map((postJson) => ReasonModel.fromJson(postJson))
-                .toList();
-            if(list.isNotEmpty) {
-              listReason.addAll(list);
-              update();
-            }
-          }else {
-
+      url: "${ApiEndPoints.API_REASONS}",
+      params: params,
+      onSuccess: (response) {
+        if (response.isSuccess) {
+          List<ReasonModel> list = (response.data['data'] as List)
+              .map((postJson) => ReasonModel.fromJson(postJson))
+              .toList();
+          if (list.isNotEmpty) {
+            listReason.addAll(list);
+            update();
           }
-        },
-        onError: (error) {
-
-        },);
+        } else {}
+      },
+      onError: (error) {
+        Common.showMessageError(error['errorCode'], context);
+      },
+    );
   }
 
-  bool checkValidate(BuildContext context){
-    if(currentReason.isEmpty){
+  bool checkValidate(BuildContext context) {
+    if (currentReason.isEmpty) {
       Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
       return true;
     }
     return false;
   }
 
-  void changeStatusRequest(int id, String note, Function(bool isSuccess) callBack) async {
+  void changeStatusRequest(
+      int id, String note, Function(bool isSuccess) callBack) async {
     Future.delayed(Duration(seconds: 1));
     Map<String, dynamic> body = {
       "status": RequestStatus.CANCEL,
@@ -67,7 +70,8 @@ class DialogCancelRequestLogic extends GetxController {
     };
     print("note: $note");
     ApiUtil.getInstance()!.put(
-        url: "${ApiEndPoints.API_REQUEST_DETAIL}/$id${ApiEndPoints.API_CHANGE_STATUS_REQUEST}",
+        url:
+            "${ApiEndPoints.API_REQUEST_DETAIL}/$id${ApiEndPoints.API_CHANGE_STATUS_REQUEST}",
         body: body,
         onSuccess: (response) {
           if (response.isSuccess) {
@@ -80,6 +84,7 @@ class DialogCancelRequestLogic extends GetxController {
           }
         },
         onError: (error) {
+          Common.showMessageError(error['errorCode'], context);
           callBack.call(false);
           Get.back();
         });

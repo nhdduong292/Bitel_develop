@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../../../../networks/api_end_point.dart';
 import '../../../../../../../networks/api_util.dart';
+import '../../../../../../../utils/common.dart';
 
 class ContractInformationLogic extends GetxController {
   late BuildContext context;
@@ -57,7 +58,9 @@ class ContractInformationLogic extends GetxController {
           print("error: ${response.status}");
         }
       },
-      onError: (error) {},
+      onError: (error) {
+        Common.showMessageError(error['errorCode'], context);
+      },
     );
   }
 }
