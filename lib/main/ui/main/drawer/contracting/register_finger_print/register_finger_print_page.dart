@@ -237,7 +237,7 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                     height: 25,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 57, right: 57),
+                    padding: const EdgeInsets.only(left: 57, right: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -274,19 +274,64 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                     (controller.listImageLeft.length >= 1 ||
                                         controller.listImageRight.length >= 1),
                                 child: fingerPrintView(
-                                    link: AppImages.imgFingerPrint)),
+                                    link: controller.listPathFinger.isNotEmpty
+                                        ? controller.listPathFinger[0]
+                                        : '',
+                                    value: 0,
+                                    onDelete: (value) {
+                                      if (controller.indexLeft != 0) {
+                                        controller.listImageLeft
+                                            .removeAt(value);
+                                      } else {
+                                        controller.listImageRight
+                                            .removeAt(value);
+                                      }
+                                      controller.listPathFinger.removeAt(value);
+                                      controller.countFinger.value++;
+                                      controller.update();
+                                    })),
                             Visibility(
                                 visible:
                                     (controller.listImageLeft.length >= 2 ||
                                         controller.listImageRight.length >= 2),
                                 child: fingerPrintView(
-                                    link: AppImages.imgFingerPrint)),
+                                    link: controller.listPathFinger.length == 2
+                                        ? controller.listPathFinger[1]
+                                        : '',
+                                    value: 1,
+                                    onDelete: (value) {
+                                      if (controller.indexLeft != 0) {
+                                        controller.listImageLeft
+                                            .removeAt(value);
+                                      } else {
+                                        controller.listImageRight
+                                            .removeAt(value);
+                                      }
+                                      controller.listPathFinger.removeAt(value);
+                                      controller.countFinger.value++;
+                                      controller.update();
+                                    })),
                             Visibility(
                                 visible:
                                     (controller.listImageLeft.length >= 3 ||
                                         controller.listImageRight.length >= 3),
                                 child: fingerPrintView(
-                                    link: AppImages.imgFingerPrint)),
+                                    link: controller.listPathFinger.length == 3
+                                        ? controller.listPathFinger[2]
+                                        : '',
+                                    value: 2,
+                                    onDelete: (value) {
+                                      if (controller.indexLeft != 0) {
+                                        controller.listImageLeft
+                                            .removeAt(value);
+                                      } else {
+                                        controller.listImageRight
+                                            .removeAt(value);
+                                      }
+                                      controller.listPathFinger.removeAt(value);
+                                      controller.countFinger.value++;
+                                      controller.update();
+                                    })),
                           ],
                         )
                       ],
@@ -303,7 +348,10 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                     children: [
                       Expanded(
                           flex: 1,
-                          child: bottomButtonV2(
+                          child: bottomButton(
+                              isRegister:
+                                  !(controller.listImageLeft.length == 3 ||
+                                      controller.listImageRight.length == 3),
                               onTap: () {
                                 if (controller.listImageLeft.length == 3 ||
                                     controller.listImageRight.length == 3) {
@@ -317,6 +365,8 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                   if (Platform.isAndroid) {
                                     controller.getCapture();
                                   } else {
+                                    controller.indexLeft = 2;
+                                    controller.listPathFinger.add('');
                                     controller.listImageLeft.add('');
                                     controller.countFinger.value--;
                                     controller.update();
@@ -332,6 +382,9 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                       Expanded(
                           flex: 1,
                           child: bottomButton(
+                              isRegister:
+                                  controller.listImageLeft.length == 3 ||
+                                      controller.listImageRight.length == 3,
                               onTap: () {
                                 if (controller.listImageLeft.length >= 3 ||
                                     controller.listImageRight.length >= 3) {
@@ -384,6 +437,37 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
             ]),
           );
         });
+  }
+
+  Widget bottomButton(
+      {required String text, required onTap, required isRegister}) {
+    return Container(
+      margin: EdgeInsets.only(left: 15, top: 24, right: 15, bottom: 10),
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          height: 50,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(25),
+              color: isRegister ? AppColors.colorText3 : Colors.white,
+              border: isRegister ? null : Border.all(color: Color(0xFFE3EAF2)),
+              boxShadow: [
+                BoxShadow(
+                    color: isRegister ? Color(0xFFB3BBC5) : Colors.transparent,
+                    blurRadius: 5),
+              ]),
+          child: Center(
+              child: Text(
+            text.toUpperCase(),
+            style: TextStyle(
+              color: isRegister ? Colors.white : Colors.black,
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+            ),
+          )),
+        ),
+      ),
+    );
   }
 
   Widget infoClientView({required String lable, required String content}) {
@@ -468,20 +552,38 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
     );
   }
 
-  Widget fingerPrintView({required String link}) {
+  Widget fingerPrintView(
+      {required String link, required int value, required onDelete}) {
     return SizedBox(
       child: Row(children: [
-        Image.asset(
-          link,
-          height: 64,
-          fit: BoxFit.cover,
-        ),
+        link.isNotEmpty
+            ? Image.file(
+                File(link),
+                height: 64,
+                fit: BoxFit.cover,
+              )
+            : SizedBox(
+                width: 50,
+                height: 64 ,
+              ),
         SizedBox(
           width: 16,
         ),
         Center(
           child: SvgPicture.asset(AppImages.icTickFingerPrint),
-        )
+        ),
+        InkWell(
+          onTap: () {
+            onDelete(value);
+          },
+          child: Padding(
+            padding:
+                const EdgeInsets.only(left: 14, top: 10, right: 10, bottom: 10),
+            child: Center(
+              child: SvgPicture.asset(AppImages.icDelete),
+            ),
+          ),
+        ),
       ]),
     );
   }

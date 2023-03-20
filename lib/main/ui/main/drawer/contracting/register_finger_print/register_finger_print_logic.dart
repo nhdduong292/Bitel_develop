@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/client_data_logic.dart';
@@ -39,6 +40,9 @@ class RegisterFingerPrintLogic extends GetxController {
   int reasonId = 0;
   bool isForcedTerm = false;
   Map<String, dynamic> body = {};
+
+  String textCapture = "";
+  List<String> listPathFinger = [];
 
   @override
   void onInit() {
@@ -138,14 +142,20 @@ class RegisterFingerPrintLogic extends GetxController {
     } on PlatformException catch (e) {
       e.printInfo();
     }
-    if (result.isNotEmpty) {
+    print("text Capture: ${result}");
+    final body = json.decode(result);
+    textCapture = body["pathImage"];
+    String imageBase64 = body["imageBase64"];
+    if (imageBase64.isNotEmpty) {
       if (indexLeft > 0) {
-        listImageLeft.add(result);
+        listImageLeft.add(imageBase64);
+        listPathFinger.add(textCapture);
         countFinger.value--;
         Common.showToastCenter(
             '${AppLocalizations.of(context)!.textGetSuccess} ${listImageLeft.length}');
       } else {
-        listImageRight.add(result);
+        listImageRight.add(imageBase64);
+        listPathFinger.add(textCapture);
         countFinger.value--;
         Common.showToastCenter(
             "${AppLocalizations.of(context)!.textGetSuccess} ${listImageRight.length}");
@@ -197,7 +207,7 @@ class RegisterFingerPrintLogic extends GetxController {
         }
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
+        // Common.showMessageError(error['errorCode'], context);
         Get.back();
         callBack.call(false);
       },
