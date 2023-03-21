@@ -495,9 +495,13 @@
    "textEnterNationality": "Nhập quốc gia",
    "textEnterDate": "Nhập ngày",
    "textTypecontract": "Loại hợp đồng",
+<<<<<<< HEAD
    "textUndetermined": "Không xác định",
    "textEnterAllInfo": "Bạn phải nhập hết thông tin",
    "textToastValidateDob": "Ngày sinh không được lớn hơn ngày hiện tại",
    "textToastValidateExd": "Ngày sinh phải nhỏ hơn ngày hết hạn"
+=======
+   "textUndetermined": "Không xác định"
+>>>>>>> 40b8bb01f1f563bfe1d99f3667b7bae21ec38864
 
 }
