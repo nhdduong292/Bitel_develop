@@ -481,7 +481,11 @@
   "textUndetermined": "Undetermined",
   "textEnterName": "Enter name",
   "textEnterNationality": "Enter Nationality",
-  "textEnterDate": "Enter date",
+   "textEnterDate": "Enter date",
+    "textEnterAllInfo": "Bạn phải nhập hết thông tin",
+   "textToastValidateDob": "Ngày sinh không được lớn hơn ngày hiện tại",
+   "textToastValidateExd": "Ngày sinh phải nhỏ hơn ngày hết hạn",
+
   "textFTTHAccount": "FTTH Account",
   "textTypeOfService": "Type of service",
   "textNumber": "Number",

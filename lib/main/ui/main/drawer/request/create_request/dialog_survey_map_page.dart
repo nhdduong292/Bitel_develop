@@ -277,6 +277,9 @@ class DialogSurveyMapPage extends GetWidget {
             requestModel.id,
             requestModel.customerModel.type,
             requestModel.customerModel.idNumber,
+            requestModel.province,
+            requestModel.district,
+            requestModel.precinct,
             (isOnline) {},
           );
         });
