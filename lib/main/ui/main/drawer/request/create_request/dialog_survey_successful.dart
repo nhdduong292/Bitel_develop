@@ -61,6 +61,7 @@ class DialogSurveySuccessful extends GetWidget {
                 ),
                 Text(
                   AppLocalizations.of(context)!.textContentSurveySuccessful,
+                  textAlign: TextAlign.center,
                   style: AppStyles.r6.copyWith(
                       color: AppColors.colorText4, fontWeight: FontWeight.w500),
                 ),

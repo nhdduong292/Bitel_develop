@@ -26,6 +26,7 @@ class ListRequestPage extends GetWidget {
   GlobalKey<ListRequestTabState> globalKey5 = GlobalKey();
   GlobalKey<ListRequestTabState> globalKey6 = GlobalKey();
   GlobalKey<ListRequestTabState> globalKey7 = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -76,7 +77,8 @@ class ListRequestPage extends GetWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(22),
@@ -101,7 +103,7 @@ class ListRequestPage extends GetWidget {
                         //   child: Text(AppLocalizations.of(context)!.textSearchCodeProvence, style: AppStyles.r2.copyWith(color: AppColors.colorText4.withOpacity(0.75)),),
                         // )),
                         child: Container(
-                          width: width*.06,
+                          width: width * .06,
                           height: 42,
                           child: TextFormField(
                             cursorColor: AppColors.colorText1,
@@ -137,7 +139,8 @@ class ListRequestPage extends GetWidget {
                               hintText: AppLocalizations.of(context)!
                                   .textSearchCodeProvence,
                               hintStyle: AppStyles.r2.copyWith(
-                                  color: AppColors.colorText4.withOpacity(0.75)),
+                                  color:
+                                      AppColors.colorText4.withOpacity(0.75)),
 
                               // filled: true,
                               // fillColor: Colors.white,
@@ -147,8 +150,8 @@ class ListRequestPage extends GetWidget {
                                       width: 1, color: Colors.transparent)),
                               errorBorder: const UnderlineInputBorder(
                                 //<-- SEE HERE
-                                borderSide:
-                                    BorderSide(width: 1, color: Colors.redAccent),
+                                borderSide: BorderSide(
+                                    width: 1, color: Colors.redAccent),
                               ),
                               focusedBorder: const UnderlineInputBorder(
                                 //<-- SEE HERE
@@ -304,31 +307,38 @@ class ListRequestPage extends GetWidget {
                             // first tab bar view widget
                             ListRequestTabPage(
                               status: RequestStatus.CREATE_REQUEST,
+                              listRequestLogic: controller,
                               key: globalKey1,
                             ),
                             ListRequestTabPage(
                               status:
                                   RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY,
+                              listRequestLogic: controller,
                               key: globalKey2,
                             ),
                             ListRequestTabPage(
                               status: RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY,
+                              listRequestLogic: controller,
                               key: globalKey3,
                             ),
                             ListRequestTabPage(
                               status: RequestStatus.CONNECTED,
+                              listRequestLogic: controller,
                               key: globalKey4,
                             ),
                             ListRequestTabPage(
                               status: RequestStatus.DEPLOYING,
+                              listRequestLogic: controller,
                               key: globalKey5,
                             ),
                             ListRequestTabPage(
                               status: RequestStatus.COMPLETE,
+                              listRequestLogic: controller,
                               key: globalKey6,
                             ),
                             ListRequestTabPage(
                               status: RequestStatus.CANCEL,
+                              listRequestLogic: controller,
                               key: globalKey7,
                             ),
                           ],
@@ -376,8 +386,8 @@ class ListRequestPage extends GetWidget {
         builder: (context) {
           return DialogAdvancedSearchPage(
               onSubmit: (model) {
-                if (controller.index == model.getPositionStatus()) {
-                  controller.updateSearchRequest(model);
+                if (controller.index == model.getPositionStatus(context)) {
+                  controller.updateSearchRequest(model, context);
                   if (controller.index == 0) {
                     globalKey1.currentState!.getListRequest("");
                   } else if (controller.index == 1) {
@@ -394,7 +404,7 @@ class ListRequestPage extends GetWidget {
                     globalKey7.currentState!.getListRequest("");
                   }
                 } else {
-                  controller.updateSearchRequest(model);
+                  controller.updateSearchRequest(model, context);
                 }
               },
               searchRequest: controller.searchRequest);

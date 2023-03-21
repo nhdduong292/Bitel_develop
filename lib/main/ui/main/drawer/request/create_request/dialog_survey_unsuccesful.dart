@@ -60,6 +60,7 @@ class DialogSurveyUnsuccessful extends GetWidget {
               ),
               Text(
                 AppLocalizations.of(context)!.textContentSurveyUnsuccessful,
+                textAlign: TextAlign.center,
                 style: AppStyles.r6.copyWith(
                     color: AppColors.colorText4, fontWeight: FontWeight.w500),
               ),

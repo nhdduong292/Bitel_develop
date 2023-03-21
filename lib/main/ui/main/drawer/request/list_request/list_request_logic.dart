@@ -52,8 +52,8 @@ class ListRequestLogic extends GetxController with SingleGetTickerProviderMixin{
     return"";
   }
 
-  void updateSearchRequest(SearchRequest model){
-    index = model.getPositionStatus();
+  void updateSearchRequest(SearchRequest model, BuildContext context){
+    index = model.getPositionStatus(context);
     tabController!.animateTo(index, duration: Duration(milliseconds: 500));
     searchRequest = model;
     update();
