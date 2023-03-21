@@ -13,6 +13,9 @@ class CreateContactPageLogic extends GetxController {
   int reasonId = 0;
   String idNumber = '';
   bool isForcedTerm = false;
+  String province = '';
+  String district = '';
+  String precinct = '';
 
   @override
   void onInit() {
@@ -25,6 +28,9 @@ class CreateContactPageLogic extends GetxController {
     reasonId = data[3];
     idNumber = data[4];
     isForcedTerm = data[5];
+    province = data[6];
+    district = data[7];
+    precinct = data[8];
   }
 
   void changeTypeCustomer(String type) {

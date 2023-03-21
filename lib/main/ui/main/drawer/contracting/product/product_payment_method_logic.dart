@@ -21,6 +21,10 @@ class ProductPaymentMethodLogic extends GetxController {
   bool isLoadingProduct = true;
   BuildContext context;
 
+  String province = '';
+  String district = '';
+  String precinct = '';
+
   ProductPaymentMethodLogic({required this.context});
 
   @override
@@ -31,6 +35,9 @@ class ProductPaymentMethodLogic extends GetxController {
     requestId = data[0];
     type = data[1];
     idNumber = data[2];
+    province = data[3];
+    district = data[4];
+    precinct = data[5];
     getProduts(requestId);
   }
 
