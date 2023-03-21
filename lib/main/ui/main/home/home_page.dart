@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../../res/app_colors.dart';
@@ -31,7 +32,7 @@ class HomePage extends GetView<HomeLogic> {
               child: Container(
                 child: Center(
                     child: Text(
-                  "Page $index",
+                  "${AppLocalizations.of(context)!.textPage} $index",
                   style: TextStyle(color: Colors.indigo),
                 )),
               ),
@@ -131,16 +132,13 @@ class HomePage extends GetView<HomeLogic> {
                   child: Text("Hola, Diego Guadalupe", style: AppStyles.b2),
                 ),
               ),
-              Container(
-                height: 240,
-                child: PageView.builder(
-                  controller: controller.controllerPage,
-                  // itemCount: pages.length,
-                  itemBuilder: (_, index) {
-                    return pages[index % pages.length];
-                  },
-                ),
-              ),
+              Expanded(child:  PageView.builder(
+                controller: controller.controllerPage,
+                // itemCount: pages.length,
+                itemBuilder: (_, index) {
+                  return pages[index % pages.length];
+                },
+              ),),
               const SizedBox(
                 height: 20,
               ),

@@ -29,7 +29,7 @@ class CreateRequestPage extends GetWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return GetBuilder(
-      init: CreateRequestLogic(),
+      init: CreateRequestLogic(context: context),
       builder: (controller) {
         return Scaffold(
           appBar: AppBar(
@@ -296,7 +296,8 @@ class CreateRequestPage extends GetWidget {
                             onChanged: (value) {
                               controller.setPhone(value);
                             },
-                            maxLength: 11,
+
+                            maxLength: 9,
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.only(
                                   top: 5, left: 10, right: 10),
@@ -339,12 +340,12 @@ class CreateRequestPage extends GetWidget {
                           const SizedBox(
                             width: 10,
                           ),
-                          InkWell(
-                            child: SvgPicture.asset(AppImages.icSurveyAddress),
-                            onTap: () {
-                              // showDialogSurveyMap(context);
-                            },
-                          )
+                          // InkWell(
+                          //   child: SvgPicture.asset(AppImages.icSurveyAddress),
+                          //   onTap: () {
+                          //     // showDialogSurveyMap(context);
+                          //   },
+                          // )
                         ],
                       ),
                       Padding(
@@ -386,7 +387,7 @@ class CreateRequestPage extends GetWidget {
                                   contentPadding: const EdgeInsets.only(
                                       top: 5, left: 10, right: 10),
                                   hintText: AppLocalizations.of(context)!
-                                      .textProvince,
+                                      .hintProvince,
                                   hintStyle: AppStyles.r2.copyWith(
                                       color: AppColors.colorHint1,
                                       fontWeight: FontWeight.w400),
@@ -651,35 +652,34 @@ class CreateRequestPage extends GetWidget {
                         )),
                     Expanded(
                         flex: 1,
-                        child: Container(
-                          width: double.infinity,
-                          margin: const EdgeInsets.only(
-                              top: 30, left: 5, right: 25),
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          decoration: BoxDecoration(
-                            color: AppColors.colorButton,
-                            borderRadius: BorderRadius.circular(24),
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              if (controller.checkValidateCreate(context)) {
-                                return;
-                              }
-                              _onLoading(context);
-                              controller.createRequest(
-                                (isSuccess, id) {
-                                  Get.back();
-                                  if (isSuccess) {
-                                    showDialogSurveyMap(
-                                        context, controller, id);
-                                  } else {
-                                    Common.showToastCenter(
-                                        AppLocalizations.of(context)!
-                                            .textErrorAPI);
-                                  }
-                                },
-                              );
-                            },
+                        child: InkWell(
+                          onTap: () {
+                            if (controller.checkValidateCreate(context)) {
+                              return;
+                            }
+                            _onLoading(context);
+                            controller.createRequest(
+                              (isSuccess, model) {
+                                Get.back();
+                                if (isSuccess) {
+                                  showDialogSurveyMap(context, controller);
+                                } else {
+                                  Common.showToastCenter(
+                                      AppLocalizations.of(context)!
+                                          .textErrorAPI);
+                                }
+                              },
+                            );
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            margin: const EdgeInsets.only(
+                                top: 30, left: 5, right: 25),
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            decoration: BoxDecoration(
+                              color: AppColors.colorButton,
+                              borderRadius: BorderRadius.circular(24),
+                            ),
                             child: Center(
                                 child: Text(
                               AppLocalizations.of(context)!
@@ -705,105 +705,92 @@ class CreateRequestPage extends GetWidget {
 
   void showDialogSurveySuccessful(
       BuildContext context, CreateRequestLogic controller) {
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return DialogSurveySuccessful(
-            onSubmit: (isOnline) {
-              _onLoading(context);
-              if (isOnline) {
-                controller.createSurveyOnline(
-                  (isSuccess) {
-                    Get.back();
-                    if (isSuccess) {
-                      //   Get.back();
-                      //   DialogSurveyMapLogic surveyMapLogic = Get.find();
-                      //   surveyMapLogic.setStateConnect(true);
-                      Get.back();
-                      Timer(
-                        Duration(milliseconds: 600),
-                        () {
-                          Get.offNamed(RouteConfig.productPayment,
-                              arguments: controller.requestModel.id);
-                        },
-                      );
-                    }
-                  },
-                );
-              } else {
-                controller.createSurveyOffline(
-                  (isSuccess) {
-                    Get.back();
-                    if (isSuccess) {
-                      Get.back();
-                      // DialogSurveyMapLogic surveyMapLogic = Get.find();
-                      // surveyMapLogic.setStateConnect(true);
-                      Timer(
-                        Duration(milliseconds: 600),
-                        () {
-                          Get.offNamed(RouteConfig.listRequest, arguments: 0);
-                        },
-                      );
-                    }
-                  },
-                );
-              }
-            },
-          );
-        });
+    // showDialog(
+    //     barrierDismissible: false,
+    //     context: context,
+    //     builder: (context) {
+    //       return DialogSurveySuccessful(
+    //         onSubmit: (isOnline) {
+    //           _onLoading(context);
+    //           if (isOnline) {
+    //             controller.createSurveyOnline(
+    //               (isSuccess) {
+    //                 if (isSuccess) {
+    //                   //   Get.back();
+    //                   //   DialogSurveyMapLogic surveyMapLogic = Get.find();
+    //                   //   surveyMapLogic.setStateConnect(true);
+    //                   Get.close(3);
+    //                   // Get.toNamed(RouteConfig.productPayment,
+    //                   //     arguments: controller.requestModel.id);
+    //                   Get.toNamed(RouteConfig.productPayment,
+    //                       arguments: [
+    //                         controller.requestModel.id,
+    //                         controller.requestModel.identityType
+    //                       ]);
+    //                 } else {
+    //                   Get.back();
+    //                 }
+    //               },
+    //             );
+    //           } else {
+    //             controller.createSurveyOffline(
+    //               (isSuccess) {
+    //
+    //                 if (isSuccess) {
+    //                   Get.close(3);
+    //                   // DialogSurveyMapLogic surveyMapLogic = Get.find();
+    //                   // surveyMapLogic.setStateConnect(true);
+    //                   Get.toNamed(RouteConfig.listRequest, arguments: 1);
+    //                 } else {
+    //                   Get.back();
+    //                 }
+    //
+    //               },
+    //             );
+    //           }
+    //         },
+    //       );
+    //     });
   }
 
   void showDialogSurveyUnsuccessful(
       BuildContext context, CreateRequestLogic controller) {
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return DialogSurveyUnsuccessful(
-            onSubmit: () {
-              _onLoading(context);
-              controller.createSurveyOffline(
-                (isSuccess) {
-                  Timer(
-                    Duration(milliseconds: 600),
-                    () {
-                      Get.back();
-                      if (isSuccess) {
-                        Get.back();
-                        DialogSurveyMapLogic surveyMapLogic = Get.find();
-                        surveyMapLogic.setStateConnect(true);
-                      }
-                    },
-                  );
-                },
-              );
-            },
-          );
-        });
+    // showDialog(
+    //     barrierDismissible: false,
+    //     context: context,
+    //     builder: (context) {
+    //       return DialogSurveyUnsuccessful(
+    //         onSubmit: (){
+    //             _onLoading(context);
+    //             controller.createSurveyOffline((isSuccess) {
+    //               if(isSuccess){
+    //                 Get.close(3);
+    //                 // DialogSurveyMapLogic surveyMapLogic = Get.find();
+    //                 // surveyMapLogic.setStateConnect(true);
+    //                 Get.toNamed(RouteConfig.listRequest, arguments: 1);
+    //               } else {
+    //                 Get.back();
+    //               }
+    //             },);
+    //         },);
+    //     });
   }
 
   void showDialogSurveyMap(
-      BuildContext context, CreateRequestLogic controller, int id) {
+      BuildContext context, CreateRequestLogic controller) {
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (context) {
           return DialogSurveyMapPage(
             onSubmit: (isSuccess) {
-              Get.back();
-              Timer(
-                Duration(milliseconds: 600),
-                () {
-                  if (isSuccess) {
-                    showDialogSurveySuccessful(context, controller);
-                  } else {
-                    showDialogSurveyUnsuccessful(context, controller);
-                  }
-                },
-              );
+              // if(isSuccess) {
+              //   showDialogSurveySuccessful(context, controller);
+              // } else {
+              //   showDialogSurveyUnsuccessful(context, controller);
+              // }
             },
-            requestId: "$id",
+            requestModel: controller.requestModel,
           );
         });
   }

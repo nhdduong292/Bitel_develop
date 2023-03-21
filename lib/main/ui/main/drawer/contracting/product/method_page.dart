@@ -2,6 +2,7 @@ import 'package:bitel_ventas/main/networks/model/plan_reason_model.dart';
 import 'package:bitel_ventas/main/networks/model/product_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_logic.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
+import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -69,7 +70,8 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                               controller.resetPlanReason();
                               if (value > -1) {
                                 controller.getPlanReasons(
-                                    controller.listProduct[value].productId!, context);
+                                    controller.listProduct[value].productId!,
+                                    context);
                               }
                             }),
                     separatorBuilder: (BuildContext context, int index) =>
@@ -123,6 +125,7 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                         primary: false,
                         itemBuilder: (BuildContext context, int index) =>
                             _itemMethod(
+                                context: context,
                                 groupValue: controller.valueMethod,
                                 reason: controller.listPlanReason[index],
                                 value: index,
@@ -142,6 +145,78 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
             ),
           ),
           Obx(
+            () => Visibility(
+              visible: controller.valueMethod.value > -1,
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 15, right: 15),
+                    padding: const EdgeInsets.only(top: 15),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color: const Color(0xFFE3EAF2)),
+                        color: Colors.white,
+                        boxShadow: const [
+                          BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
+                        ]),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.textTypecontract,
+                          // ignore: prefer_const_constructors
+                          style: TextStyle(
+                              color: AppColors.colorContent,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Roboto'),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        const DottedLine(
+                          dashColor: Color(0xFFE3EAF2),
+                          dashGapLength: 3,
+                          dashLength: 4,
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15, right: 15),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  child: typeContact(
+                                      check: !controller.isForcedTerm(),
+                                      content: AppLocalizations.of(context)!
+                                          .textUndetermined)),
+                              Expanded(
+                                  child: typeContact(
+                                      check: controller.isForcedTerm(),
+                                      content: AppLocalizations.of(context)!
+                                          .textForcedTerm))
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Obx(
             () => bottomButton(
                 text: AppLocalizations.of(context)!.textContinue,
                 onTap: () {
@@ -150,7 +225,7 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                     controller.isOnMethodPage.value = false;
                     controller.isOnInvoicePage.value = true;
 
-                    controller.scrollController.scrollTo(
+                    controller.scrollController?.scrollTo(
                       index: 1,
                       duration: const Duration(milliseconds: 200),
                     );
@@ -198,40 +273,30 @@ Widget _itemProduct(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  product.productName ?? 'null',
-                  style: const TextStyle(
-                      fontSize: 14,
-                      fontFamily: 'Roboto',
-                      color: AppColors.colorText1,
-                      fontWeight: FontWeight.w500),
-                ),
-                Text(
-                  product.offerName ?? 'null',
-                  style: const TextStyle(
-                      fontSize: 14,
-                      fontFamily: 'Roboto',
-                      color: AppColors.colorText1,
-                      fontWeight: FontWeight.w500),
+                Text(product.productName ?? 'null',
+                    style: AppStyles.r2B3A4A_12_500),
+                const SizedBox(
+                  height: 8,
                 ),
                 Text(
                   'Speed ${product.speed}',
-                  style: const TextStyle(
-                      fontSize: 14,
-                      fontFamily: 'Roboto',
-                      color: AppColors.colorText1,
-                      fontWeight: FontWeight.w500),
+                  style: AppStyles.r6C8AA1_13_400
+                      .copyWith(fontSize: 12, fontWeight: FontWeight.w500),
                 ),
               ],
             ),
           ),
-          Text(
-            product.defaultValue ?? 'null',
-            style: const TextStyle(
-                fontSize: 14,
-                fontFamily: 'Roboto',
-                color: AppColors.colorText1,
-                fontWeight: FontWeight.w500),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
+            decoration: BoxDecoration(
+              color: AppColors.colorSubContent.withOpacity(0.07),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Text(
+              '${product.defaultValue ?? 'null'}/month',
+              style: AppStyles.r9454C9_14_500
+                  .copyWith(fontWeight: FontWeight.w700, fontSize: 16),
+            ),
           ),
         ],
       ),
@@ -240,7 +305,8 @@ Widget _itemProduct(
 }
 
 Widget _itemMethod(
-    {required int value,
+    {required BuildContext context,
+    required int value,
     required PlanReasonModel reason,
     required RxInt groupValue,
     required var onChange}) {
@@ -274,7 +340,7 @@ Widget _itemMethod(
                       fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  'Free installation: ${reason.feeInstallation}',
+                  '${AppLocalizations.of(context)!.textFreeInstallation} ${reason.feeInstallation}',
                   style: const TextStyle(
                       fontSize: 14,
                       fontFamily: 'Roboto',
@@ -282,7 +348,7 @@ Widget _itemMethod(
                       fontWeight: FontWeight.w400),
                 ),
                 Text(
-                  'Reason code-name: ${reason.reasonCode}',
+                  '${AppLocalizations.of(context)!.textReasonCodeName} ${reason.reasonCode}',
                   style: const TextStyle(
                       fontSize: 14,
                       fontFamily: 'Roboto',
@@ -310,5 +376,21 @@ Widget _itemMethod(
         ],
       ),
     ),
+  );
+}
+
+Widget typeContact({required bool check, required String content}) {
+  return Row(
+    children: [
+      check ? iconChecked() : iconUnchecked(),
+      const SizedBox(
+        width: 13,
+      ),
+      Text(
+        content,
+        style: AppStyles.r2B3A4A_12_500
+            .copyWith(color: AppColors.color_2B3A4A.withOpacity(0.85)),
+      )
+    ],
   );
 }

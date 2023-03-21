@@ -3,15 +3,21 @@ import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/home_sale_model.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../../../utils/common.dart';
 
 class SaleLogic extends GetxController {
   HomeSaleModel homeSaleModel = HomeSaleModel();
   int indexSelect = -1;
   bool isLoading = false;
+  BuildContext context;
 
-  void setIndexSelect(int value){
+  SaleLogic({required this.context});
+
+  void setIndexSelect(int value) {
     indexSelect = value;
     update();
   }
@@ -19,30 +25,30 @@ class SaleLogic extends GetxController {
   List<OptionSale> getListOptionSale(BuildContext context) {
     return [
       OptionSale(AppImages.icSaleCreateRequest,
-          AppLocalizations.of(context)!.textCreateRequest, "", "",0),
+          AppLocalizations.of(context)!.textCreateRequest, "", "", 0),
       OptionSale(AppImages.icSaleConnectSubscriber,
-          AppLocalizations.of(context)!.textConnectSubscriber, "", "",0),
-      // OptionSale(AppImages.icSaleRechargeAnypay,
-      //     AppLocalizations.of(context)!.textRechargeAnypay, "", "",0),
+          AppLocalizations.of(context)!.textConnectSubscriber, "", "", 0),
+      OptionSale(AppImages.icSaleRechargeAnypay,
+          AppLocalizations.of(context)!.textRechargeAnypay, "", "",0),
       OptionSale(AppImages.icSaleSearchRequest,
-          AppLocalizations.of(context)!.textSearchRequest, "", "",0),
-      // OptionSale(AppImages.icSaleClearDebt,
-      //     AppLocalizations.of(context)!.textClearDebt, "", "",0),
-      // OptionSale(AppImages.icSaleCreateContact,
-      //     AppLocalizations.of(context)!.textCreateContact, "", "",0),
+          AppLocalizations.of(context)!.textSearchRequest, "", "", 0),
+      OptionSale(AppImages.icSaleClearDebt,
+          AppLocalizations.of(context)!.textClearDebt, "", "",0),
+      OptionSale(AppImages.icSaleCreateContact,
+          AppLocalizations.of(context)!.textCreateContact, "", "",0),
     ];
   }
 
   List<OptionSale> getListRequestManagement(BuildContext context) {
     return [
       OptionSale("", AppLocalizations.of(context)!.textWaitingSurvey,
-          "${homeSaleModel.waitingOfflineSurvey}", "",1),
+          "${homeSaleModel.waitingOfflineSurvey}", "", 1),
       OptionSale("", AppLocalizations.of(context)!.textWaitingConnect,
-          "${homeSaleModel.waitingConnection}", "",2),
+          "${homeSaleModel.waitingConnection}", "", 2),
       OptionSale("", AppLocalizations.of(context)!.textWaitingDeployment,
-          "${homeSaleModel.waitingDeployment}", "",3),
+          "${homeSaleModel.waitingDeployment}", "", 3),
       OptionSale("", AppLocalizations.of(context)!.textWaitingInstallation,
-          "${homeSaleModel.completeInstallation}", "",4),
+          "${homeSaleModel.completeInstallation}", "", 4),
     ];
   }
 
@@ -52,21 +58,23 @@ class SaleLogic extends GetxController {
           "",
           AppLocalizations.of(context)!.textKPI,
           "${homeSaleModel.kpi}",
-          AppLocalizations.of(context)!.textContractMonth,5),
+          AppLocalizations.of(context)!.textContractMonth,
+          5),
       OptionSale(
           "",
           AppLocalizations.of(context)!.textPerformance,
           "${homeSaleModel.performance}",
-          AppLocalizations.of(context)!.textContract,6),
+          AppLocalizations.of(context)!.textContract,
+          6),
       OptionSale("", AppLocalizations.of(context)!.textCommission,
-          "${homeSaleModel.commission}", "S",7),
+          "${homeSaleModel.commission}", "S", 7),
     ];
   }
 
   List<OptionSale> getListWalletControl(BuildContext context) {
     return [
       OptionSale("", AppLocalizations.of(context)!.textAnyPay,
-          "${homeSaleModel.anyPayBalance}", "S",8),
+          "${homeSaleModel.anyPayBalance}", "S", 8),
     ];
   }
 
@@ -77,11 +85,11 @@ class SaleLogic extends GetxController {
     getHomeSale();
   }
 
-  double getPerformanceKPI(){
-    if(homeSaleModel.performance  == 0|| homeSaleModel.kpi == 0){
+  double getPerformanceKPI() {
+    if (homeSaleModel.performance == 0 || homeSaleModel.kpi == 0) {
       return 0;
     }
-    return (homeSaleModel.performance/homeSaleModel.kpi)*100;
+    return (homeSaleModel.performance / homeSaleModel.kpi) * 100;
   }
 
   void getHomeSale() {
@@ -92,7 +100,6 @@ class SaleLogic extends GetxController {
         if (response.isSuccess) {
           print("success");
           homeSaleModel = HomeSaleModel.fromJson(response.data['data']);
-
         } else {
           print("error: ${response.status}");
         }
@@ -100,6 +107,7 @@ class SaleLogic extends GetxController {
         update();
       },
       onError: (error) {
+        Common.showMessageError(error['errorCode'], context);
         isLoading = true;
         update();
       },

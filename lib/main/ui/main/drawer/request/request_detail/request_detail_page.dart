@@ -56,8 +56,8 @@ class RequestDetailPage extends GetWidget {
           body: controller.isLoading
               ? LoadingCirculApi()
               : (controller.requestModel.id == 0
-                  ? const Center(
-                      child: Text("No data"),
+                  ? Center(
+                      child: Text(AppLocalizations.of(context)!.textNoData),
                     )
                   : SingleChildScrollView(
                       child: Column(
@@ -622,41 +622,46 @@ class RequestDetailPage extends GetWidget {
                             ),
                           ),
                           controller.isShowBtnConnect
-                              ? Container(
-                                  width: double.infinity,
-                                  margin: const EdgeInsets.only(
-                                      top: 30, left: 15, right: 15),
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 14),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.colorButton,
-                                    borderRadius: BorderRadius.circular(24),
-                                  ),
-                                  child: InkWell(
-                                    onTap: () {
-                                      if (controller.status ==
-                                              RequestStatus
-                                                  .CREATE_REQUEST_WITHOUT_SURVEY ||
-                                          controller.status ==
-                                              RequestStatus
-                                                  .SURVEY_OFFLINE_SUCCESSFULLY) {
-                                        Get.toNamed(RouteConfig.productPayment,
-                                            arguments:
-                                                controller.requestModel.id);
-                                      } else if (controller.status ==
-                                          RequestStatus.CONNECTED) {
-                                        //todo show dialog cancel
-                                        showDialogCancelRequest(context,
-                                            controller.requestModel.id);
-                                      } else if (controller.status ==
-                                              RequestStatus.DEPLOYING ||
-                                          controller.status ==
-                                              RequestStatus.COMPLETE ||
-                                          controller.status ==
-                                              RequestStatus.CANCEL) {
-                                        Get.back();
-                                      }
-                                    },
+                              ? InkWell(
+                                  onTap: () {
+                                    if (controller.status ==
+                                            RequestStatus
+                                                .CREATE_REQUEST_WITHOUT_SURVEY ||
+                                        controller.status ==
+                                            RequestStatus
+                                                .SURVEY_OFFLINE_SUCCESSFULLY) {
+                                      Get.toNamed(RouteConfig.productPayment,
+                                          arguments: [
+                                            controller.requestModel.id,
+                                            controller.requestModel
+                                                .customerModel.type,
+                                            controller.requestModel
+                                                .customerModel.idNumber
+                                          ]);
+                                    } else if (controller.status ==
+                                        RequestStatus.CONNECTED) {
+                                      //todo show dialog cancel
+                                      showDialogCancelRequest(
+                                          context, controller.requestModel.id);
+                                    } else if (controller.status ==
+                                            RequestStatus.DEPLOYING ||
+                                        controller.status ==
+                                            RequestStatus.COMPLETE ||
+                                        controller.status ==
+                                            RequestStatus.CANCEL) {
+                                      Get.back();
+                                    }
+                                  },
+                                  child: Container(
+                                    width: double.infinity,
+                                    margin: const EdgeInsets.only(
+                                        top: 30, left: 15, right: 15),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 14),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.colorButton,
+                                      borderRadius: BorderRadius.circular(24),
+                                    ),
                                     child: Center(
                                         child: Text(
                                       controller.textConnect.toUpperCase(),
@@ -671,30 +676,30 @@ class RequestDetailPage extends GetWidget {
                                   children: [
                                     Expanded(
                                         flex: 1,
-                                        child: Container(
-                                          width: double.infinity,
-                                          margin: const EdgeInsets.only(
-                                              top: 30, left: 25, right: 15),
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 14),
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(24),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                offset: const Offset(0, 1),
-                                                blurRadius: 2,
-                                                color: Colors.black
-                                                    .withOpacity(0.3),
-                                              ),
-                                            ],
-                                          ),
-                                          child: InkWell(
-                                            onTap: () {
-                                              showDialogCancelRequest(context,
-                                                  controller.requestModel.id);
-                                            },
+                                        child: InkWell(
+                                          onTap: () {
+                                            showDialogCancelRequest(context,
+                                                controller.requestModel.id);
+                                          },
+                                          child: Container(
+                                            width: double.infinity,
+                                            margin: const EdgeInsets.only(
+                                                top: 30, left: 25, right: 15),
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 14),
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(24),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  offset: const Offset(0, 1),
+                                                  blurRadius: 2,
+                                                  color: Colors.black
+                                                      .withOpacity(0.3),
+                                                ),
+                                              ],
+                                            ),
                                             child: Center(
                                                 child: Text(
                                               AppLocalizations.of(context)!
@@ -707,22 +712,22 @@ class RequestDetailPage extends GetWidget {
                                         )),
                                     Expanded(
                                         flex: 1,
-                                        child: Container(
-                                          width: double.infinity,
-                                          margin: const EdgeInsets.only(
-                                              top: 30, left: 15, right: 25),
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 14),
-                                          decoration: BoxDecoration(
-                                            color: AppColors.colorButton,
-                                            borderRadius:
-                                                BorderRadius.circular(24),
-                                          ),
-                                          child: InkWell(
-                                            onTap: () {
-                                              showDialogTransferRequest(context,
-                                                  controller.requestModel.id);
-                                            },
+                                        child: InkWell(
+                                          onTap: () {
+                                            showDialogTransferRequest(context,
+                                                controller.requestModel.id);
+                                          },
+                                          child: Container(
+                                            width: double.infinity,
+                                            margin: const EdgeInsets.only(
+                                                top: 30, left: 15, right: 25),
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 14),
+                                            decoration: BoxDecoration(
+                                              color: AppColors.colorButton,
+                                              borderRadius:
+                                                  BorderRadius.circular(24),
+                                            ),
                                             child: Center(
                                                 child: Text(
                                               AppLocalizations.of(context)!

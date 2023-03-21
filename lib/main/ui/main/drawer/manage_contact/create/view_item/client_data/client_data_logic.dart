@@ -1,10 +1,8 @@
 import 'dart:io';
-import 'dart:math';
-
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/customer_detect_mode.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/document_scanning_logic.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -15,8 +13,10 @@ import '../../../../../../../networks/api_util.dart';
 import '../../../../../../../utils/common.dart';
 import '../../../../../../../utils/common_widgets.dart';
 import '../../../../../../../utils/values.dart';
+import '../../cretate_contact_page_logic.dart';
 
 class ClientDataLogic extends GetxController {
+  DocumentScanningLogic logic = Get.find();
   late BuildContext context;
   String textPathScan = "";
   CustomerModel customer = CustomerModel();
@@ -29,11 +29,16 @@ class ClientDataLogic extends GetxController {
   final TextRecognizer _textRecognizer =
       TextRecognizer(script: TextRecognitionScript.latin);
 
+  CreateContactPageLogic logicCreateContact = Get.find();
+  String idNumber = '';
+  Map<String, dynamic> body = {};
+
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    onListenerMethod();
+    // onListenerMethod();
+    idNumber = logicCreateContact.idNumber;
   }
 
   void onListenerMethod() {
@@ -59,12 +64,9 @@ class ClientDataLogic extends GetxController {
     print(result);
   }
 
-  void createCustomer(Function(bool isSuccess) callBack) {
-    var rng = Random();
-    int random = rng.nextInt(99) + 10;
-    String idNumber = "123126$random";
-    Map<String, dynamic> body = {
-      "type": "DNI",
+  void createBodyCustomer() {
+    body = {
+      "type": logicCreateContact.typeCustomer,
       "idNumber": idNumber,
       "name": "Duong",
       "fullName": "Tran",
@@ -76,24 +78,12 @@ class ClientDataLogic extends GetxController {
       "province": "03",
       "district": "04",
       "precinct": "04",
-      "image": "string"
+      "image": "string",
+      "left": null,
+      "leftImage": null,
+      "right": null,
+      "rightImage": null
     };
-    ApiUtil.getInstance()!.post(
-      url: ApiEndPoints.API_CREATE_CUSTOMER,
-      body: body,
-      onSuccess: (response) {
-        if (response.isSuccess) {
-          customer = CustomerModel.fromJson(response.data);
-          callBack.call(true);
-        } else {
-          print("error: ${response.status}");
-          callBack.call(false);
-        }
-      },
-      onError: (error) {
-        callBack.call(false);
-      },
-    );
   }
 
   void setPathScan(String value) {
@@ -126,6 +116,7 @@ class ClientDataLogic extends GetxController {
         Get.back();
       },
       onError: (error) {
+        Common.showMessageError(error['errorCode'], context);
         Get.back();
       },
     );
@@ -150,7 +141,9 @@ class ClientDataLogic extends GetxController {
     if (_isBusy) return;
     _isBusy = true;
     final recognizedText = await _textRecognizer.processImage(inputImage);
-
+    for (var text in recognizedText.blocks) {
+      print(text.text);
+    }
     recognizedText.blocks.map((value) {
       if (value.text.contains('Apellidos')) {
         customerDetectModel.lastName =

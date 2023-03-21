@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'dart:convert';
 import 'dart:io';
 import 'dart:io';
 
@@ -8,6 +9,7 @@ import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
@@ -159,12 +161,21 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                               () => SizedBox(
                                 width: 140,
                                 height: 190,
+                                // child: controller.pathFinger.value != ''
+                                //     ? Image.asset(
+                                //         controller.pathFinger.value,
+                                //         fit: BoxFit.fitHeight,
+                                //       )
+                                //     : LoadingCirculApi(),
                                 child: controller.pathFinger.value != ''
                                     ? Image.asset(
                                         controller.pathFinger.value,
                                         fit: BoxFit.fitHeight,
                                       )
-                                    : LoadingCirculApi(),
+                                    : Image.asset(
+                                        AppImages.imgFingerLeft3,
+                                        fit: BoxFit.fitHeight,
+                                      ),
                               ),
                             ),
                             SizedBox(
@@ -195,13 +206,13 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                             SizedBox(
                               height: 41,
                             ),
-                            // controller.textCapture.isNotEmpty
-                            //     ? Image.file(
-                            //         File(controller.textCapture),
-                            //         width: 80,
-                            //         height: 160,
-                            //       )
-                            SvgPicture.asset(AppImages.imgHuellaDactilar),
+                            controller.textCapture.isNotEmpty
+                                ? Image.file(
+                                    File(controller.textCapture),
+                                    width: 58,
+                                    height: 77,
+                                  )
+                                : SvgPicture.asset(AppImages.imgHuellaDactilar),
                             SizedBox(
                               height: 22,
                             ),
@@ -217,6 +228,19 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                 flex: 1,
                                 child: InkWell(
                                   onTap: () {
+                                    // if (controller.isGetFingerSuccess) {
+                                    //   if (Platform.isAndroid) {
+                                    //     controller.getCapture(context);
+                                    //   } else {
+                                    //     Common.showToastCenter(
+                                    //         AppLocalizations.of(context)!
+                                    //             .textOnlyActionAndroid);
+                                    //   }
+                                    // } else {
+                                    //   Common.showToastCenter(
+                                    //       "Chờ hiển thị ngón tay cần lấy");
+                                    // }
+
                                     if (Platform.isAndroid) {
                                       controller.getCapture(context);
                                     } else {
@@ -328,5 +352,9 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
             ),
           );
         });
+  }
+
+  Uint8List convertBase64Image(String base64String) {
+    return Base64Decoder().convert(base64String.split(',').last);
   }
 }

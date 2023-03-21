@@ -18,7 +18,7 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return GetBuilder(
-        init: ProductPaymentMethodLogic(),
+        init: ProductPaymentMethodLogic(context: context),
         builder: (controller) {
           return Scaffold(
             backgroundColor: Colors.white,
@@ -62,8 +62,12 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                         left: 20,
                         child: InkWell(
                           onTap: () {
+                            if (controller.isLoadingProduct) {
+                              Get.back();
+                              return;
+                            }
                             if (controller
-                                    .itemPositionsListener.itemPositions.value
+                                    .itemPositionsListener?.itemPositions.value
                                     .elementAt(0)
                                     .index ==
                                 0) {
@@ -71,7 +75,7 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                             } else {
                               controller.isOnInvoicePage.value = false;
                               controller.isOnMethodPage.value = true;
-                              controller.scrollController.scrollTo(
+                              controller.scrollController?.scrollTo(
                                 index: 0,
                                 duration: const Duration(milliseconds: 200),
                               );
@@ -127,21 +131,24 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                 const SizedBox(
                   height: 20,
                 ),
-                controller.isLoadingProduct ? LoadingCirculApi() : Expanded(
-                  child: ScrollablePositionedList.builder(
-                      scrollDirection: Axis.horizontal,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 2,
-                      itemScrollController: controller.scrollController,
-                      itemPositionsListener: controller.itemPositionsListener,
-                      itemBuilder: (context, index) {
-                        if (index == 0) {
-                          return MethodPage(controller: controller);
-                        } else {
-                          return InvoicePage(controller: controller);
-                        }
-                      }),
-                ),
+                controller.isLoadingProduct
+                    ? LoadingCirculApi()
+                    : Expanded(
+                        child: ScrollablePositionedList.builder(
+                            scrollDirection: Axis.horizontal,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: 2,
+                            itemScrollController: controller.scrollController,
+                            itemPositionsListener:
+                                controller.itemPositionsListener,
+                            itemBuilder: (context, index) {
+                              if (index == 0) {
+                                return MethodPage(controller: controller);
+                              } else {
+                                return InvoicePage(controller: controller);
+                              }
+                            }),
+                      ),
               ],
             ),
           );

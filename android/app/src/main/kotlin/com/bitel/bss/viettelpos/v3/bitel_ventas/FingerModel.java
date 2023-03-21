@@ -8,4 +8,11 @@ public class FingerModel {
         this.pathImage = pathImage;
         this.imageBase64 = imageBase64;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "\"pathImage\":" + "\"" + pathImage + "\"" +
+                ", \"imageBase64\":" + "\"" + imageBase64 + "\"" + '}';
+    }
 }

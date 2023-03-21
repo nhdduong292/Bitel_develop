@@ -1,16 +1,16 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 import '../../../../../../res/app_colors.dart';
 import '../../../../../../res/app_images.dart';
 import '../../../../../../res/app_styles.dart';
+import '../../../../../router/route_config.dart';
+import '../../../../../utils/common.dart';
 import 'ftth_contracting_logic.dart';
 
 class FTTHContractingPage extends GetView<FTTHContractingLogic> {
@@ -66,7 +66,12 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                         left: 20,
                         child: InkWell(
                           onTap: () {
-                            Get.offNamed(RouteConfig.listRequest, arguments: 0);
+                            Get.until(
+                              (route) {
+                                return Get.currentRoute == RouteConfig.sale;
+                              },
+                            );
+                            Get.toNamed(RouteConfig.listRequest, arguments: 0);
                           },
                           child: Container(
                             width: 35,
@@ -188,15 +193,10 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                 richText: () {
                                   return RichText(
                                       text: TextSpan(
-                                          text:
-                                              'Ciclo ${controller.contractModel.billCycleFrom.toString()} ',
-                                          style: AppStyles.r415263_13_500,
-                                          children: [
-                                        TextSpan(
-                                            text: AppLocalizations.of(context)!
-                                                .textViewDetail,
-                                            style: AppStyles.rU00A5B1_13_500)
-                                      ]));
+                                    text:
+                                        '${AppLocalizations.of(context)!.textCiclo} ${controller.contractModel.billCycleFrom.toString()} ',
+                                    style: AppStyles.r415263_13_500,
+                                  ));
                                 }),
                             DottedLine(
                               dashColor: Color(0xFFE3EAF2),
@@ -210,7 +210,12 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                         ':',
                                 richText: () {
                                   return Text(
-                                    controller.contractModel.signDate,
+                                    controller.contractModel.signDate != ''
+                                        ? Common.fromDate(
+                                            DateTime.parse(controller
+                                                .contractModel.signDate),
+                                            'dd/MM/yyyy')
+                                        : '',
                                     style: AppStyles.r415263_13_500,
                                   );
                                 }),
@@ -241,7 +246,14 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                     .textClose
                                     .toUpperCase(),
                                 onTap: () {
-                                  Get.offNamed(RouteConfig.listRequest, arguments: 0);
+                                  Get.until(
+                                    (route) {
+                                      return Get.currentRoute ==
+                                          RouteConfig.sale;
+                                    },
+                                  );
+                                  Get.toNamed(RouteConfig.listRequest,
+                                      arguments: 0);
                                 })),
                         SizedBox(
                           height: 126,

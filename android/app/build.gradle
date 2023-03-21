@@ -50,7 +50,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.bitel.bss.viettelpos.v4"
+        applicationId "com.bitel.bss.viettelpos.v3"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdkVersion 21
@@ -61,6 +61,7 @@ android {
 //        multiDexEnabled true
 //        ndk.abiFilters 'armeabi-v7a','arm64-v8a','x86','x86_64'
 //        vectorDrawables.useSupportLibrary = true
+        //sha 98:2C:28:12:EA:C5:95:DE:E7:08:EA:9B:06:4F:4F:72:2E:BD:69:85
     }
 
     signingConfigs {

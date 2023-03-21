@@ -1,4 +1,5 @@
 import 'package:bitel_ventas/main/custom_views/line_dash.dart';
+import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_unsuccessfull_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
@@ -11,15 +12,17 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:get/get.dart';
 
-class DialogSurveyUnsuccessful extends StatelessWidget {
+class DialogSurveyUnsuccessful extends GetWidget {
   final Function? onSubmit;
+  int id;
 
-  const DialogSurveyUnsuccessful({super.key, this.onSubmit});
+
+  DialogSurveyUnsuccessful(this.id, this.onSubmit, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: DialogSurveyUnsuccessfullLogic(),
+      init: DialogSurveyUnsuccessfullLogic(id),
       builder: (controller) {
       return Dialog(
         shape: RoundedRectangleBorder(
@@ -51,9 +54,9 @@ class DialogSurveyUnsuccessful extends StatelessWidget {
                       fontWeight: FontWeight.w500),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: const LineDash(color: AppColors.colorLineDash),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 16),
+                child: LineDash(color: AppColors.colorLineDash),
               ),
               Text(
                 AppLocalizations.of(context)!.textContentSurveyUnsuccessful,
@@ -65,13 +68,15 @@ class DialogSurveyUnsuccessful extends StatelessWidget {
                   controller.setSurveyOffline(!controller.isSelectOffline);
                 },
                 child: Container(
-                  margin: EdgeInsets.only(top: 12),
+                  margin: const EdgeInsets.only(top: 12),
                   child: Row(
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       controller.isSelectOffline ? iconOnlyRadio(-1) : iconOnlyUnRadio(),
-                      SizedBox(width: 10,),
+                      const SizedBox(width: 10,),
                       Text(
+                        overflow: TextOverflow.ellipsis,
                         AppLocalizations.of(context)!.textCreateOfflineSurvey,
                         style: AppStyles.r6.copyWith(
                             color: AppColors.colorText4, fontWeight: FontWeight.w500),
@@ -80,18 +85,26 @@ class DialogSurveyUnsuccessful extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                width: double.infinity,
-                margin: EdgeInsets.only(top: 15),
-                padding: EdgeInsets.symmetric(vertical: 14),
-                decoration: BoxDecoration(
-                  color: AppColors.colorButton,
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                child: InkWell(
-                  onTap: () {
-                    onSubmit!.call();
-                  },
+              InkWell(
+                onTap: () {
+                  _onLoading(context);
+                  controller.createSurveyOffline((isSuccess) {
+                    if(isSuccess){
+                      Get.close(4);
+                      Get.toNamed(RouteConfig.listRequest, arguments: 1);
+                    } else {
+                      Get.back();
+                    }
+                  },);
+                },
+                child: Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(top: 15),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  decoration: BoxDecoration(
+                    color: AppColors.colorButton,
+                    borderRadius: BorderRadius.circular(24),
+                  ),
                   child: Center(
                       child: Text(
                         AppLocalizations.of(context)!
@@ -107,5 +120,18 @@ class DialogSurveyUnsuccessful extends StatelessWidget {
         ),
       );
     },);
+  }
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
+      },
+    );
   }
 }

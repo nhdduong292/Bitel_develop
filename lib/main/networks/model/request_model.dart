@@ -208,8 +208,8 @@ class RequestModel {
     _id = value;
   }
 
-  String getInstalAddress(){
-    return "$address, $precinctName, $districtName, $provinceName";
+  String getInstallAddress(){
+    return "$address $precinctName $districtName $provinceName";
   }
 
   String get precinctName => _precinctName ?? "";

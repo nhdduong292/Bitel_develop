@@ -1,11 +1,14 @@
+import 'package:bitel_ventas/main/ui/main/drawer/contracting/register_finger_print/register_finger_print_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/cretate_contact_page_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/client_data.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data_dni/client_data_dni_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data_dni/client_data_dni.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/document_scanning.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../../res/app_colors.dart';
 import '../../../../../../res/app_images.dart';
@@ -49,7 +52,10 @@ class CreateContactPage extends GetView<CreateContactPageLogic> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Escaneo de documento', style: AppStyles.title),
+                          Text(
+                              AppLocalizations.of(context)!
+                                  .textEscanoDeDocumento,
+                              style: AppStyles.title),
                           const SizedBox(height: 5),
                           Row(
                             children: [
@@ -165,11 +171,19 @@ class CreateContactPage extends GetView<CreateContactPageLogic> {
                               const SizedBox(
                                 width: 16,
                               ),
-                              circleMarkerView(
-                                  check: controller.checkItem3, text: '3'),
-                              const SizedBox(
-                                width: 16,
-                              ),
+                              Visibility(
+                                visible: controller.typeCustomer != 'DNI',
+                                child: Row(
+                                  children: [
+                                    circleMarkerView(
+                                        check: controller.checkItem3,
+                                        text: '3'),
+                                    const SizedBox(
+                                      width: 16,
+                                    ),
+                                  ],
+                                ),
+                              )
                             ],
                           ),
                         )),
@@ -182,7 +196,7 @@ class CreateContactPage extends GetView<CreateContactPageLogic> {
                   child: ScrollablePositionedList.builder(
                       scrollDirection: Axis.horizontal,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 6,
+                      itemCount: 4,
                       itemScrollController: _scrollController,
                       itemPositionsListener: _itemPositionsListener,
                       itemBuilder: (context, index) {
@@ -194,18 +208,50 @@ class CreateContactPage extends GetView<CreateContactPageLogic> {
                                 index: 1,
                                 duration: const Duration(milliseconds: 200),
                               );
+
+                              ClientDataDNILogic clientDataDNILogic =
+                                  Get.find();
+                              clientDataDNILogic.setCustomerDNIModel();
                             },
                           );
                         } else if (index == 1) {
-                          return ClientDataWidget(
+                          return ClientDataDNIWidget(
                             callback: () {
                               controller.checkItem3.value = true;
                               _scrollController.scrollTo(
                                 index: 2,
                                 duration: const Duration(milliseconds: 200),
                               );
+
+                              RegisterFingerPrintLogic registerFingerLogic =
+                                  Get.find();
+                              registerFingerLogic.setupBodyCreateCustomer();
                             },
                           );
+                          // if (controller.typeCustomer == 'DNI') {
+                          //   return ClientDataDNIWidget(
+                          //     callback: () {
+                          //       controller.checkItem3.value = true;
+                          //       _scrollController.scrollTo(
+                          //         index: 2,
+                          //         duration: const Duration(milliseconds: 200),
+                          //       );
+                          //     },
+                          //   );
+                          // } else {
+                          //   return ClientDataWidget(
+                          //     callback: () {
+                          //       controller.checkItem3.value = true;
+                          //       _scrollController.scrollTo(
+                          //         index: 2,
+                          //         duration: const Duration(milliseconds: 200),
+                          //       );
+                          //       RegisterFingerPrintLogic registerFingerLogic =
+                          //           Get.find();
+                          // registerFingerLogic.setupBodyCreateCustomer();
+                          //     },
+                          //   );
+                          // }
                         } else {
                           return RegisterFingerPrintPage(
                               // callback: () {

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:bitel_ventas/main/networks/model/best_finger_model.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
@@ -26,6 +27,8 @@ class ValidateFingerprintLogic extends GetxController {
   var pathFinger = ''.obs;
   List<String> listFinger = [];
 
+  bool isGetFingerSuccess = false;
+
   ValidateFingerprintLogic(this.context);
 
   @override
@@ -38,7 +41,6 @@ class ValidateFingerprintLogic extends GetxController {
     typeCustomer = data[2];
     idNumber = data[3];
     contractId = data[4];
-    getBestFinger();
   }
 
   void setCapture(String value) {
@@ -48,6 +50,7 @@ class ValidateFingerprintLogic extends GetxController {
   }
 
   Future<void> getCapture(BuildContext context) async {
+    textCapture = "";
     String result = "";
     try {
       final value =
@@ -56,13 +59,18 @@ class ValidateFingerprintLogic extends GetxController {
     } on PlatformException catch (e) {
       e.printInfo();
     }
+    print("text Capture: ${result}");
+    final body = json.decode(result);
+    textCapture = body["pathImage"];
+    String imageBase64 = body["imageBase64"];
+
     if (listFinger.isNotEmpty) {
       listFinger.clear();
     }
-    if(result.isNotEmpty) {
-      listFinger.add(result);
+    if (imageBase64.isNotEmpty) {
+      listFinger.add(imageBase64);
     }
-    if(listFinger.isNotEmpty){
+    if (listFinger.isNotEmpty) {
       Common.showToastCenter(
           AppLocalizations.of(context)!.textNotifyFingerSuccess);
     } else {
@@ -79,11 +87,14 @@ class ValidateFingerprintLogic extends GetxController {
         if (response.isSuccess) {
           bestFinger = BestFingerModel.fromJson(response.data['data']);
           pathFinger.value = findPathFinger();
+          isGetFingerSuccess = true;
         } else {
           print("error: ${response.status}");
         }
       },
-      onError: (error) {},
+      onError: (error) {
+        Common.showMessageError(error['errorCode'], context);
+      },
     );
   }
 
@@ -95,7 +106,7 @@ class ValidateFingerprintLogic extends GetxController {
         return AppImages.imgFingerLeft2;
       } else if (bestFinger.left == 8) {
         return AppImages.imgFingerLeft3;
-      } else if (bestFinger.left == 4) {
+      } else if (bestFinger.left == 9) {
         return AppImages.imgFingerLeft4;
       } else {
         return AppImages.imgFingerLeft5;
@@ -119,7 +130,8 @@ class ValidateFingerprintLogic extends GetxController {
     _onLoading(context);
     Completer<bool> completer = Completer();
     Map<String, dynamic> body = {
-      "finger": bestFinger.right ?? bestFinger.left,
+      // "finger": bestFinger.right ?? bestFinger.left,
+      "finger": 6,
       "listImage": listFinger
     };
     Map<String, dynamic> params = {"type": type};
@@ -138,6 +150,7 @@ class ValidateFingerprintLogic extends GetxController {
         }
       },
       onError: (error) {
+        Common.showMessageError(error['errorCode'], context);
         Get.back();
         isSuccess.call(false);
       },

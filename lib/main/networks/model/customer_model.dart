@@ -1,6 +1,6 @@
 class CustomerModel {
   int? _custId;
-  String? _firstName;
+  String? _name;
   String? _fullName;
   String? _telFax;
   String? _type;
@@ -22,11 +22,14 @@ class CustomerModel {
   String? _idIssueDate;
   String? _idExpireDate;
   String? _notes;
+  String? _provinceName;
+  String? _districtName;
+  String? _precinctName;
 
   CustomerModel();
   CustomerModel.fromJson(Map<String, dynamic> json) {
     _custId = json['custId'];
-    _firstName = json['firstName'];
+    _name = json['name'];
     _fullName = json['fullName'];
     _telFax = json['telFax'];
     _type = json['type'];
@@ -48,6 +51,9 @@ class CustomerModel {
     _idIssueDate = json['idIssueDate'];
     _idExpireDate = json['idExpireDate'];
     _notes = json['notes'];
+    _provinceName = json['provinceName'];
+    _districtName = json['districtName'];
+    _precinctName = json['precinctName'];
   }
 
   String get notes => _notes ?? "";
@@ -92,11 +98,17 @@ class CustomerModel {
 
   String get fullName => _fullName ?? "";
 
-  String get firstName => _firstName ?? "";
+  String get name => _name ?? "";
+
+  String get provinceName => _provinceName ?? "";
+
+  String get districtName => _districtName ?? "";
+
+  String get precinctName => _precinctName ?? "";
 
   int get custId => _custId ?? 0;
 
-  String getInstalAddress(){
-    return "$address, $precinct, $district, $province";
+  String getInstalAddress() {
+    return "$address, $precinctName, $districtName, $provinceName";
   }
 }

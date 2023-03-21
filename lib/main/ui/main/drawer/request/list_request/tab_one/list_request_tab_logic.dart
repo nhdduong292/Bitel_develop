@@ -6,13 +6,16 @@ import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_reque
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ListRequestTabLogic extends GetxController{
+import '../../../../../../utils/common.dart';
+
+class ListRequestTabLogic extends GetxController {
+  BuildContext context;
   ListRequestLogic listRequestLogic = Get.find();
   List<RequestModel> listRequest = [];
   bool isLoading = false;
   String status;
 
-  ListRequestTabLogic(this.status);
+  ListRequestTabLogic(this.context, this.status);
 
   @override
   void onInit() {
@@ -22,33 +25,34 @@ class ListRequestTabLogic extends GetxController{
     getListRequest(status);
   }
 
-  void getListRequest(String status) async{
+  void getListRequest(String status) async {
     isLoading = true;
     update();
     Future.delayed(Duration(seconds: 1));
     Map<String, dynamic> params = {
-      "service":listRequestLogic.searchRequest.service,
-      "code":listRequestLogic.searchRequest.code,
-      "status":status,
-      "province":listRequestLogic.searchRequest.province,
-      "staffCode":listRequestLogic.searchRequest.staffCode,
-      "fromDate":listRequestLogic.searchRequest.fromDate,
-      "toDate":listRequestLogic.searchRequest.toDate,
-      "key":"",
-      "page":"0",
-      "pageSize":"10",
-      "sort":"createdDate"
+      "service": listRequestLogic.searchRequest.service,
+      "code": listRequestLogic.searchRequest.code,
+      "status": status,
+      "province": listRequestLogic.searchRequest.province,
+      "staffCode": listRequestLogic.searchRequest.staffCode,
+      "fromDate": listRequestLogic.searchRequest.fromDate,
+      "toDate": listRequestLogic.searchRequest.toDate,
+      "key": "",
+      "page": "0",
+      "pageSize": "10",
+      "sort": "createdDate"
     };
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_LIST_REQUEST,
         params: params,
         isCancel: true,
         onSuccess: (response) {
-          if(response.isSuccess){
+          if (response.isSuccess) {
             print("success :");
             listRequest.clear();
-            ListRequestResponse listRequestResponse = ListRequestResponse.fromJson(response.data['data']);
-            listRequest.addAll(listRequestResponse.list);
+            ListRequestResponse listRequestResponse =
+                ListRequestResponse.fromJson(response.data['data']);
+            // listRequest.addAll(listRequestResponse.list);
           } else {
             print("error: ${response.status}");
           }
@@ -56,6 +60,7 @@ class ListRequestTabLogic extends GetxController{
           update();
         },
         onError: (error) {
+          Common.showMessageError(error['errorCode'], context);
           isLoading = false;
           update();
         });

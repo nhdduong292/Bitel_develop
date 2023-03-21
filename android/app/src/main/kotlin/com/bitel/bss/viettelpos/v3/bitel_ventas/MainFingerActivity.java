@@ -34,6 +34,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import io.flutter.embedding.android.FlutterActivity;
@@ -79,32 +80,32 @@ public class MainFingerActivity extends FlutterActivity {
             }
         });
 
-        channelScan1 = new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), platformScan1);
-        channelScan1.setMethodCallHandler(new MethodChannel.MethodCallHandler() {
-            @Override
-            public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
-                if(call.method.equals(nameScan1)){
-                    onScanImage();
-                    result.success("open scan successssssssssssssss");
-                } else {
-                    result.notImplemented();
-                }
-            }
-        });
-
-        channelScan2 = new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), platformScan2);
-        channelScan2.setMethodCallHandler(new MethodChannel.MethodCallHandler() {
-            @Override
-            public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
-                if(call.method.equals(nameScan2)){
-                    positionScan = 1;
-                    onScanImage();
-                    result.success("open scan successssssssssssssss");
-                } else {
-                    result.notImplemented();
-                }
-            }
-        });
+//        channelScan1 = new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), platformScan1);
+//        channelScan1.setMethodCallHandler(new MethodChannel.MethodCallHandler() {
+//            @Override
+//            public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
+//                if(call.method.equals(nameScan1)){
+//                    onScanImage();
+//                    result.success("open scan successssssssssssssss");
+//                } else {
+//                    result.notImplemented();
+//                }
+//            }
+//        });
+//
+//        channelScan2 = new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), platformScan2);
+//        channelScan2.setMethodCallHandler(new MethodChannel.MethodCallHandler() {
+//            @Override
+//            public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
+//                if(call.method.equals(nameScan2)){
+//                    positionScan = 1;
+//                    onScanImage();
+//                    result.success("open scan successssssssssssssss");
+//                } else {
+//                    result.notImplemented();
+//                }
+//            }
+//        });
     }
     Bitmap bitmap;
     void getImageCapture(MethodChannel.Result result){
@@ -119,7 +120,7 @@ public class MainFingerActivity extends FlutterActivity {
 
         if (FingerScannerFactory.fingerPrintScannerImp == null) {
             Log.d(TAG,"fingerPrintScannerImp == null");
-            showDialog("Error","Your device is not compatible with this version. Please, use Android 6.123 or lower.","","Cancel");
+            showDialog("Error","Your device is not compatible with this version. Please, use Android 6 or lower.","","Cancel");
             result.error("UNAVAILABLE", "Finger not available.", null);
         } else if (FingerScannerFactory.fingerPrintScannerImp instanceof EmptyFingerPrintScanner) {
             Log.d(TAG,"fingerPrintScannerImp instanceof EmptyFingerPrintScanner");
@@ -129,7 +130,7 @@ public class MainFingerActivity extends FlutterActivity {
                 showDialog("Error","Can\\'t find usb fingerprint scanner. Please go back one step and plugin the device","","Cancel");
             } else {
                 Log.d(TAG,"fingerPrintScannerImp instanceof EmptyFingerPrintScanner DEVICE");
-                showDialog("Error","Your device is not compatible with this version. Please, use Android 6.1 or lower.","","Cancel");
+                showDialog("Error","Your device is not compatible with this version. Please, use Android 6 or lower.","","Cancel");
             }
             result.error("UNAVAILABLE", "Finger not available.", null);
         } else {
@@ -146,9 +147,11 @@ public class MainFingerActivity extends FlutterActivity {
                     if (fingerPrint != null) {
                         if (fingerPrint.getFingerPrintBmp() != null) {
                             bitmap = fingerPrint.getFingerPrintBmp();
+                            String link = saveImageToCache(bitmap);
                             String imageBase64 = fingerPrint.getEncodeBase64();
-                            FingerModel fingerModel = new FingerModel(saveImageToCache(bitmap), imageBase64);
-                            result.success(imageBase64);
+                            FingerModel fingerModel = new FingerModel(link, imageBase64);
+
+                            result.success(fingerModel.toString());
                         } else {
                             result.error("UNAVAILABLE", "Finger not available.", null);
                         }

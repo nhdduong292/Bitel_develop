@@ -14,6 +14,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../../../../../res/app_colors.dart';
+import '../../../../../router/route_config.dart';
 
 typedef void TouchScan();
 
@@ -24,7 +25,7 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
     double height = MediaQuery.of(context).size.height;
     final TouchScan callback;
     return GetBuilder(
-        init: RegisterFingerPrintLogic(),
+        init: RegisterFingerPrintLogic(context: context),
         builder: (controller) {
           return SingleChildScrollView(
             child:
@@ -61,14 +62,20 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                 value: 1,
                                 groupValue: controller.handValue,
                                 onChange: (value) {
-                                  controller.handValue.value = value;
+                                  if (controller.listImageLeft.isEmpty &&
+                                      controller.listImageRight.isEmpty) {
+                                    controller.handValue.value = value;
+                                  }
                                 }),
                             selectedFingerView(
                                 text: AppLocalizations.of(context)!.textRight,
                                 value: 2,
                                 groupValue: controller.handValue,
                                 onChange: (value) {
-                                  controller.handValue.value = value;
+                                  if (controller.listImageLeft.isEmpty &&
+                                      controller.listImageRight.isEmpty) {
+                                    controller.handValue.value = value;
+                                  }
                                 }),
                           ],
                         ),
@@ -115,7 +122,10 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                 value: 1,
                                 groupValue: controller.fingerValue,
                                 onChange: (value) {
-                                  controller.fingerValue.value = value;
+                                  if (controller.listImageLeft.isEmpty &&
+                                      controller.listImageRight.isEmpty) {
+                                    controller.fingerValue.value = value;
+                                  }
                                 }),
                             SizedBox(
                               height: 12,
@@ -125,7 +135,10 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                 value: 2,
                                 groupValue: controller.fingerValue,
                                 onChange: (value) {
-                                  controller.fingerValue.value = value;
+                                  if (controller.listImageLeft.isEmpty &&
+                                      controller.listImageRight.isEmpty) {
+                                    controller.fingerValue.value = value;
+                                  }
                                 }),
                             SizedBox(
                               height: 12,
@@ -135,7 +148,10 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                 value: 3,
                                 groupValue: controller.fingerValue,
                                 onChange: (value) {
-                                  controller.fingerValue.value = value;
+                                  if (controller.listImageLeft.isEmpty &&
+                                      controller.listImageRight.isEmpty) {
+                                    controller.fingerValue.value = value;
+                                  }
                                 }),
                             SizedBox(
                               height: 12,
@@ -145,7 +161,10 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                 value: 4,
                                 groupValue: controller.fingerValue,
                                 onChange: (value) {
-                                  controller.fingerValue.value = value;
+                                  if (controller.listImageLeft.isEmpty &&
+                                      controller.listImageRight.isEmpty) {
+                                    controller.fingerValue.value = value;
+                                  }
                                 }),
                             SizedBox(
                               height: 12,
@@ -155,7 +174,10 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                 value: 5,
                                 groupValue: controller.fingerValue,
                                 onChange: (value) {
-                                  controller.fingerValue.value = value;
+                                  if (controller.listImageLeft.isEmpty &&
+                                      controller.listImageRight.isEmpty) {
+                                    controller.fingerValue.value = value;
+                                  }
                                 }),
                           ],
                         )
@@ -215,7 +237,7 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                     height: 25,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 57, right: 57),
+                    padding: const EdgeInsets.only(left: 57, right: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -252,19 +274,64 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                     (controller.listImageLeft.length >= 1 ||
                                         controller.listImageRight.length >= 1),
                                 child: fingerPrintView(
-                                    link: AppImages.imgFingerPrint)),
+                                    link: controller.listPathFinger.isNotEmpty
+                                        ? controller.listPathFinger[0]
+                                        : '',
+                                    value: 0,
+                                    onDelete: (value) {
+                                      if (controller.indexLeft != 0) {
+                                        controller.listImageLeft
+                                            .removeAt(value);
+                                      } else {
+                                        controller.listImageRight
+                                            .removeAt(value);
+                                      }
+                                      controller.listPathFinger.removeAt(value);
+                                      controller.countFinger.value++;
+                                      controller.update();
+                                    })),
                             Visibility(
                                 visible:
                                     (controller.listImageLeft.length >= 2 ||
                                         controller.listImageRight.length >= 2),
                                 child: fingerPrintView(
-                                    link: AppImages.imgFingerPrint)),
+                                    link: controller.listPathFinger.length == 2
+                                        ? controller.listPathFinger[1]
+                                        : '',
+                                    value: 1,
+                                    onDelete: (value) {
+                                      if (controller.indexLeft != 0) {
+                                        controller.listImageLeft
+                                            .removeAt(value);
+                                      } else {
+                                        controller.listImageRight
+                                            .removeAt(value);
+                                      }
+                                      controller.listPathFinger.removeAt(value);
+                                      controller.countFinger.value++;
+                                      controller.update();
+                                    })),
                             Visibility(
                                 visible:
                                     (controller.listImageLeft.length >= 3 ||
                                         controller.listImageRight.length >= 3),
                                 child: fingerPrintView(
-                                    link: AppImages.imgFingerPrint)),
+                                    link: controller.listPathFinger.length == 3
+                                        ? controller.listPathFinger[2]
+                                        : '',
+                                    value: 2,
+                                    onDelete: (value) {
+                                      if (controller.indexLeft != 0) {
+                                        controller.listImageLeft
+                                            .removeAt(value);
+                                      } else {
+                                        controller.listImageRight
+                                            .removeAt(value);
+                                      }
+                                      controller.listPathFinger.removeAt(value);
+                                      controller.countFinger.value++;
+                                      controller.update();
+                                    })),
                           ],
                         )
                       ],
@@ -281,13 +348,32 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                     children: [
                       Expanded(
                           flex: 1,
-                          child: bottomButtonV2(
+                          child: bottomButton(
+                              isRegister:
+                                  !(controller.listImageLeft.length == 3 ||
+                                      controller.listImageRight.length == 3),
                               onTap: () {
-                                if (Platform.isAndroid) {
-                                  controller.getCapture();
-                                } else {
+                                if (controller.listImageLeft.length == 3 ||
+                                    controller.listImageRight.length == 3) {
                                   Common.showToastCenter(
-                                      AppLocalizations.of(context)!.textOnlyActionAndroid);
+                                      AppLocalizations.of(context)!
+                                          .textGetThree);
+                                  return;
+                                }
+                                if (controller.listImageLeft.length < 3 ||
+                                    controller.listImageRight.length < 3) {
+                                  if (Platform.isAndroid) {
+                                    controller.getCapture();
+                                  } else {
+                                    controller.indexLeft = 2;
+                                    controller.listPathFinger.add('');
+                                    controller.listImageLeft.add('');
+                                    controller.countFinger.value--;
+                                    controller.update();
+                                    // Common.showToastCenter(
+                                    //     AppLocalizations.of(context)!
+                                    //         .textOnlyActionAndroid);
+                                  }
                                 }
                               },
                               text: AppLocalizations.of(context)!
@@ -296,25 +382,48 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                       Expanded(
                           flex: 1,
                           child: bottomButton(
+                              isRegister:
+                                  controller.listImageLeft.length == 3 ||
+                                      controller.listImageRight.length == 3,
                               onTap: () {
                                 if (controller.listImageLeft.length >= 3 ||
                                     controller.listImageRight.length >= 3) {
-                                  controller.registerFinger().then((value) => {
-                                        if (value)
-                                          {
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return SuccessDialog(
-                                                  height: 299,
-                                                  isSuccess: true,
-                                                );
+                                  controller.createCustomer(
+                                    (isSuccess) {
+                                      if (isSuccess) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return SuccessDialog(
+                                              height: 299,
+                                              isSuccess: true,
+                                              onClick: () {
+                                                Get.back();
+                                                Get.offNamed(
+                                                    RouteConfig
+                                                        .customerInformation,
+                                                    arguments: [
+                                                      controller.customerModel,
+                                                      controller.requestId,
+                                                      controller.productId,
+                                                      controller.reasonId,
+                                                      controller.isForcedTerm
+                                                    ]);
                                               },
-                                            )
-                                          }
-                                      });
+                                            );
+                                          },
+                                        );
+                                      } else {
+                                        Common.showToastCenter(
+                                            AppLocalizations.of(context)!
+                                                .textErrorAPI);
+                                      }
+                                    },
+                                  );
                                 } else {
-                                  Common.showToastCenter(AppLocalizations.of(context)!.textLimitFingerRegister);
+                                  Common.showToastCenter(
+                                      AppLocalizations.of(context)!
+                                          .textLimitFingerRegister);
                                 }
                               },
                               text: AppLocalizations.of(context)!
@@ -328,6 +437,37 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
             ]),
           );
         });
+  }
+
+  Widget bottomButton(
+      {required String text, required onTap, required isRegister}) {
+    return Container(
+      margin: EdgeInsets.only(left: 15, top: 24, right: 15, bottom: 10),
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          height: 50,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(25),
+              color: isRegister ? AppColors.colorText3 : Colors.white,
+              border: isRegister ? null : Border.all(color: Color(0xFFE3EAF2)),
+              boxShadow: [
+                BoxShadow(
+                    color: isRegister ? Color(0xFFB3BBC5) : Colors.transparent,
+                    blurRadius: 5),
+              ]),
+          child: Center(
+              child: Text(
+            text.toUpperCase(),
+            style: TextStyle(
+              color: isRegister ? Colors.white : Colors.black,
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+            ),
+          )),
+        ),
+      ),
+    );
   }
 
   Widget infoClientView({required String lable, required String content}) {
@@ -412,20 +552,38 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
     );
   }
 
-  Widget fingerPrintView({required String link}) {
+  Widget fingerPrintView(
+      {required String link, required int value, required onDelete}) {
     return SizedBox(
       child: Row(children: [
-        Image.asset(
-          link,
-          height: 64,
-          fit: BoxFit.cover,
-        ),
+        link.isNotEmpty
+            ? Image.file(
+                File(link),
+                height: 55,
+                fit: BoxFit.cover,
+              )
+            : SizedBox(
+                width: 50,
+                height: 55,
+              ),
         SizedBox(
           width: 16,
         ),
         Center(
           child: SvgPicture.asset(AppImages.icTickFingerPrint),
-        )
+        ),
+        InkWell(
+          onTap: () {
+            onDelete(value);
+          },
+          child: Padding(
+            padding:
+                const EdgeInsets.only(left: 14, top: 10, right: 10, bottom: 10),
+            child: Center(
+              child: SvgPicture.asset(AppImages.icDelete),
+            ),
+          ),
+        ),
       ]),
     );
   }
@@ -434,9 +592,13 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
 class SuccessDialog extends Dialog {
   final double height;
   final bool isSuccess;
+  var onClick;
 
-  const SuccessDialog(
-      {super.key, required this.height, required this.isSuccess});
+  SuccessDialog(
+      {super.key,
+      required this.height,
+      required this.isSuccess,
+      required this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -458,7 +620,7 @@ class SuccessDialog extends Dialog {
               height: 24,
             ),
             Text(
-              '¡Felicidades!',
+              AppLocalizations.of(context)!.textIFelicidades,
               style: isSuccess ? AppStyles.r14 : AppStyles.r16,
             ),
             SizedBox(
@@ -475,7 +637,7 @@ class SuccessDialog extends Dialog {
             Padding(
               padding: const EdgeInsets.only(left: 30, right: 30),
               child: Text(
-                'Tus huellas dactilares se registraron exitosamente',
+                AppLocalizations.of(context)!.textTusHuellas,
                 style: AppStyles.r15,
                 textAlign: TextAlign.center,
               ),
@@ -489,10 +651,12 @@ class SuccessDialog extends Dialog {
                 borderRadius: BorderRadius.circular(24),
               ),
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  onClick();
+                },
                 child: Center(
                     child: Text(
-                  '¡Muchas Gracias!'.toUpperCase(),
+                  AppLocalizations.of(context)!.textMuchasGracias.toUpperCase(),
                   style: AppStyles.r5,
                 )),
               ),

@@ -12,22 +12,30 @@ import '../../../../../networks/model/customer_model.dart';
 import '../../../../../networks/model/method_model.dart';
 import '../../../../../networks/model/plan_reason_model.dart';
 import '../../../../../networks/model/product_model.dart';
+import '../../../../../utils/common.dart';
 
 class ProductPaymentMethodLogic extends GetxController {
   int requestId = 0;
+  String type = '';
+  String idNumber = '';
   bool isLoadingProduct = true;
+  BuildContext context;
+
+  ProductPaymentMethodLogic({required this.context});
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    requestId = Get.arguments;
-    // requestId = 20142;
+    var data = Get.arguments;
+    requestId = data[0];
+    type = data[1];
+    idNumber = data[2];
     getProduts(requestId);
   }
 
-  final ItemScrollController scrollController = ItemScrollController();
-  final ItemPositionsListener itemPositionsListener =
+  final ItemScrollController? scrollController = ItemScrollController();
+  final ItemPositionsListener? itemPositionsListener =
       ItemPositionsListener.create();
 
   var isOnMethodPage = true.obs;
@@ -78,6 +86,7 @@ class ProductPaymentMethodLogic extends GetxController {
         update();
       },
       onError: (error) {
+        Common.showMessageError(error['errorCode'], context);
         isLoadingProduct = false;
         update();
       },
@@ -103,6 +112,14 @@ class ProductPaymentMethodLogic extends GetxController {
     valueMethod.value = -1;
   }
 
+  bool isForcedTerm() {
+    if (getPlanReason().feeInstallation != null &&
+        getPlanReason().feeInstallation! > 0.0) {
+      return false;
+    }
+    return true;
+  }
+
   void getPlanReasons(int id, BuildContext context) {
     _onLoading(context);
     ApiUtil.getInstance()!.get(
@@ -119,6 +136,7 @@ class ProductPaymentMethodLogic extends GetxController {
         }
       },
       onError: (error) {
+        Common.showMessageError(error['errorCode'], context);
         Get.back();
       },
     );
@@ -137,6 +155,7 @@ class ProductPaymentMethodLogic extends GetxController {
         }
       },
       onError: (error) {
+        Common.showMessageError(error['errorCode'], context);
         Get.back();
       },
     );
@@ -157,6 +176,7 @@ class ProductPaymentMethodLogic extends GetxController {
         }
       },
       onError: (error) {
+        // Common.showMessageError(error['errorCode'], context);
         Get.back();
         completer.complete(false);
       },

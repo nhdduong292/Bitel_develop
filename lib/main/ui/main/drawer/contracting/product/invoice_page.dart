@@ -56,8 +56,8 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                           () => RichText(
                             text: TextSpan(
                                 text: 'S/${controller.balance} ',
-                                style: AppStyles.r3
-                                    .copyWith(fontWeight: FontWeight.w700),
+                                style: AppStyles.r9454C9_14_500.copyWith(
+                                    fontSize: 13, fontWeight: FontWeight.w700),
                                 children: [
                                   TextSpan(
                                     text: AppLocalizations.of(context)!
@@ -113,7 +113,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                                     fontWeight: FontWeight.w500),
                               ),
                               Text(
-                                'Speed ${controller.getProduct().speed ?? 'null'} Mpbs',
+                                '${AppLocalizations.of(context)!.textSpeed} ${controller.getProduct().speed ?? 'null'} Mpbs',
                                 style: const TextStyle(
                                     fontSize: 14,
                                     fontFamily: 'Roboto',
@@ -224,10 +224,18 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                         controller.customer,
                         controller.requestId,
                         controller.getProduct().productId,
-                        controller.getPlanReason().id
+                        controller.getPlanReason().id,
+                        controller.isForcedTerm()
                       ]);
                     } else {
-                      Get.toNamed(RouteConfig.createContact);
+                      Get.toNamed(RouteConfig.createContact, arguments: [
+                        controller.type,
+                        controller.requestId,
+                        controller.getProduct().productId,
+                        controller.getPlanReason().id,
+                        controller.idNumber,
+                        controller.isForcedTerm()
+                      ]);
                     }
                   });
                 }

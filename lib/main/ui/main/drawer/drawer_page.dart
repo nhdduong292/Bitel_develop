@@ -66,7 +66,7 @@ class DrawerPage extends GetView<DrawerLogic> {
                             return InkWell(
                               splashColor: Colors.black54,
                               onTap: () {
-                                controller.onItemClick(index: index);
+                                controller.onItemClick(index: index, context: context);
                               },
                               child: Container(
                                 padding: EdgeInsets.symmetric(vertical: 20),

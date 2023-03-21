@@ -24,7 +24,7 @@ class ReportPage extends GetWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Reporte de ventas", style: AppStyles.title),
+                  Text(AppLocalizations.of(context)!.textReporteDeVentas, style: AppStyles.title),
                   SizedBox(height: 5),
                   Row(
                     children: [

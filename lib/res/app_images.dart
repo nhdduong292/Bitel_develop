@@ -150,4 +150,6 @@ class AppImages {
   static const String imgCE = "assets/images/ce_example.jpg";
   static const String imgPP = "assets/images/pp_example.jpg";
   static const String imgPTP = "assets/images/ptp_example.jpg";
+  static const String icCalendar = "assets/icons/ic_calendar.svg";
+  static const String icDelete = "assets/icons/ic_delete.svg";
 }

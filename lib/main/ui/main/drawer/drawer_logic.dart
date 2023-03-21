@@ -2,8 +2,11 @@
 
 import 'dart:async';
 
+import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/ui/main/activate_prepaid_pages/find_customer_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/demo_native_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/create_request_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_map_page.dart';
 import 'package:bitel_ventas/main/utils/shared_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -23,20 +26,22 @@ class DrawerLogic extends GetxController {
     Get.offAll(LoginPage());
   }
 
-  void onItemClick({required int index}) {
+  void onItemClick({required int index, required BuildContext context}) {
     listItem![index].isSelected = true;
     Timer(Duration(milliseconds: 300), () {
       switch (index) {
         case 3:
-          Get.to(() => FindCustomerPage());
+          // Get.to(() => FindCustomerPage());
+          Get.toNamed(RouteConfig.validateFingerprint);
+        // showDialogSurveyMap(context);
           break;
         case 2:
           // Get.toNamed(RouteConfig.listRequest);
           break;
-        case 4:
-          // Get.to(DemoNativePage());
-          Get.toNamed(RouteConfig.validateFingerprint);
-          break;
+        // case 4:
+        //   // Get.to(DemoNativePage());
+        //   Get.toNamed(RouteConfig.validateFingerprint);
+        //   break;
 
       }
     });
@@ -88,6 +93,23 @@ class DrawerLogic extends GetxController {
             AppLocalizations.of(context)!.textChangeLanguage,
           ])
     ];
+  }
+
+  void showDialogSurveyMap(
+      BuildContext context) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return DialogSurveyMapPage(
+            onSubmit: (isSuccess) {
+              // if(isSuccess) {
+              //   showDialogSurveySuccessful(context, controller);
+              // } else {
+              //   showDialogSurveyUnsuccessful(context, controller);
+              // }
+            },requestModel: RequestDetailModel(),);
+        });
   }
 }
 

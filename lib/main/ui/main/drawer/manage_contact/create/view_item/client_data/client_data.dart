@@ -64,7 +64,7 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                     height: 30,
                     child: Center(
                       child: Text(
-                        'Información del cliente',
+                        AppLocalizations.of(context)!.textInformacionDel,
                         style: AppStyles.r00A5B1_13_500,
                       ),
                     ),
@@ -94,12 +94,17 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                           children: [
                             RichText(
                               text: TextSpan(
-                                  text: 'DNI: ',
-                                  style: AppStyles.r3,
+                                  text:
+                                      '${controller.logicCreateContact.typeCustomer}: ',
+                                  style: AppStyles.r9454C9_14_500.copyWith(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w700),
                                   children: [
                                     TextSpan(
-                                      text: '001573053',
-                                      style: AppStyles.r1,
+                                      text: controller.idNumber,
+                                      style: AppStyles.r2B3A4A_12_500.copyWith(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w400),
                                     )
                                   ]),
                             )
@@ -116,17 +121,15 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: 'Last name',
-                                content:
-                                    controller.customerDetectModel.lastName ??
-                                        ''),
+                                lable:
+                                    AppLocalizations.of(context)!.textLastName,
+                                content: "Pham"),
                           ),
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: 'Name',
-                                content:
-                                    controller.customerDetectModel.name ?? ''),
+                                lable: AppLocalizations.of(context)!.textName,
+                                content: "Quoc Nam"),
                           ),
                         ],
                       ),
@@ -138,17 +141,13 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: 'Nationality',
-                                content: controller
-                                        .customerDetectModel.nationality ??
-                                    ''),
+                                lable: AppLocalizations.of(context)!
+                                    .textNationality,
+                                content: "VIETNAMITA"),
                           ),
                           Expanded(
                             flex: 1,
-                            child: infoClientView(
-                                lable: 'Sex:',
-                                content:
-                                    controller.customerDetectModel.sex ?? ''),
+                            child: infoClientView(lable: 'Sex:', content: "M"),
                           ),
                         ],
                       ),
@@ -160,18 +159,16 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: 'Date of birth',
-                                content: controller
-                                        .customerDetectModel.dateOfBirth ??
-                                    ''),
+                                lable: AppLocalizations.of(context)!
+                                    .textDateOfBirth,
+                                content: "22 MAY 1996"),
                           ),
                           Expanded(
                             flex: 1,
                             child: infoClientView(
-                                lable: 'Expired date',
-                                content: controller
-                                        .customerDetectModel.expiredDate ??
-                                    ''),
+                                lable: AppLocalizations.of(context)!
+                                    .textExpiredDate,
+                                content: "22 MAR 2026"),
                           ),
                         ],
                       ),
@@ -201,8 +198,12 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                                 width: 18,
                               ),
                               Expanded(
-                                  child:
-                                      Text('Photo of identity card (front)')),
+                                  child: Text(
+                                AppLocalizations.of(context)!
+                                    .textPhotoOfIdentity,
+                                style: AppStyles.r007689_14_500
+                                    .copyWith(color: Colors.white),
+                              )),
                               SvgPicture.asset(AppImages.icCameraRound),
                               SizedBox(
                                 width: 8,
@@ -268,38 +269,40 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                     // } else {
                     //   callback();
                     // }
-                    _onLoading(context);
-                    controller.createCustomer(
-                      (isSuccess) {
-                        if (isSuccess) {
-                          Get.back();
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return SuccessDialog(
-                                height: 344,
-                                isSuccess: true,
-                                onCancel: () {
-                                  Get.back();
-                                },
-                                onOK: () {
-                                  Get.back();
-                                  callback();
-                                },
-                              );
-                            },
-                          );
-                        } else {
-                          Get.back();
-                          Common.showToastCenter(
-                              AppLocalizations.of(context)!.textErrorAPI);
-                        }
-                      },
-                    );
+                    controller.createBodyCustomer();
+                    callback();
+                    // _onLoading(context);
+                    // controller.createCustomer(
+                    //   (isSuccess) {
+                    //     if (isSuccess) {
+                    //       Get.back();
+                    //       showDialog(
+                    //         context: context,
+                    //         builder: (BuildContext context) {
+                    //           return SuccessDialog(
+                    //             height: 344,
+                    //             isSuccess: true,
+                    //             onCancel: () {
+                    //               Get.back();
+                    //             },
+                    //             onOK: () {
+                    //               Get.back();
+                    //               callback();
+                    //             },
+                    //           );
+                    //         },
+                    //       );
+                    //     } else {
+                    //       Get.back();
+                    //       Common.showToastCenter(
+                    //           AppLocalizations.of(context)!.textErrorAPI);
+                    //     }
+                    //   },
+                    // );
                   },
                   child: Center(
                       child: Text(
-                    'Registrar',
+                    AppLocalizations.of(context)!.textRegistrar,
                     style: AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
                   )),
                 ),
@@ -363,7 +366,10 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
   _getFromGallery(BuildContext context, ClientDataLogic controller) async {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.camera);
-    _cropImage(pickedFile, context, controller);
+    if (pickedFile != null) {
+      // ignore: use_build_context_synchronously
+      _cropImage(pickedFile, context, controller);
+    }
   }
 
   /// Crop Image
@@ -398,108 +404,113 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
       ],
     );
     if (croppedFile != null) {
-      controller.setPathScan(croppedFile!.path);
+      controller.setPathScan(croppedFile.path);
     }
   }
 }
 
-class SuccessDialog extends Dialog {
-  final double height;
-  final bool isSuccess;
-  var onOK;
-  var onCancel;
+// class SuccessDialog extends Dialog {
+//   final double height;
+//   final bool isSuccess;
+//   var onOK;
+//   var onCancel;
 
-  SuccessDialog(
-      {super.key,
-      required this.height,
-      required this.isSuccess,
-      required this.onCancel,
-      required this.onOK});
+//   SuccessDialog(
+//       {super.key,
+//       required this.height,
+//       required this.isSuccess,
+//       required this.onCancel,
+//       required this.onOK});
 
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      alignment: Alignment.bottomCenter,
-      insetPadding: EdgeInsets.only(bottom: 24),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: SizedBox(
-        width: 330,
-        height: height,
-        child: Column(
-          children: [
-            SizedBox(
-              height: 30,
-            ),
-            SvgPicture.asset(
-                isSuccess ? AppImages.imgCongratulations : AppImages.imgNotify),
-            SizedBox(
-              height: 24,
-            ),
-            Text(
-              '¡Felicidades!',
-              style: isSuccess ? AppStyles.r14 : AppStyles.r16,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30, right: 30),
-              child: Text(
-                'El cliente se registró exitosamente',
-                style: AppStyles.r15,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            SizedBox(
-              height: 28,
-            ),
-            const DottedLine(
-              dashColor: Color(0xFFE3EAF2),
-              dashGapLength: 3,
-              dashLength: 4,
-            ),
-            SizedBox(
-              height: 22,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30, right: 30),
-              child: Text(
-                '¿Deseas registrar tu huella para lafirma digital?',
-                style: AppStyles.r15,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(child: bottomButtonV2(text: 'No', onTap: onCancel)),
-                Expanded(
-                    child: bottomButton(text: 'Si, Continuar', onTap: onOK))
-              ],
-            ),
-            // Container(
-            //   width: double.infinity,
-            //   margin: const EdgeInsets.only(top: 27, left: 38, right: 38),
-            //   padding: const EdgeInsets.symmetric(vertical: 14),
-            //   decoration: BoxDecoration(
-            //     color: AppColors.colorButton,
-            //     borderRadius: BorderRadius.circular(24),
-            //   ),
-            //   child: InkWell(
-            //     onTap: () {
-            //       onOK();
-            //     },
-            //     child: Center(
-            //         child: Text(
-            //       '¡Muchas Gracias!'.toUpperCase(),
-            //       style: AppStyles.r5,
-            //     )),
-            //   ),
-            // ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Dialog(
+//       alignment: Alignment.bottomCenter,
+//       insetPadding: EdgeInsets.only(bottom: 24),
+//       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+//       child: SizedBox(
+//         width: 330,
+//         height: height,
+//         child: Column(
+//           children: [
+//             SizedBox(
+//               height: 30,
+//             ),
+//             SvgPicture.asset(
+//                 isSuccess ? AppImages.imgCongratulations : AppImages.imgNotify),
+//             SizedBox(
+//               height: 24,
+//             ),
+//             Text(
+//               AppLocalizations.of(context)!.textIFelicidades,
+//               style: isSuccess ? AppStyles.r14 : AppStyles.r16,
+//             ),
+//             SizedBox(
+//               height: 10,
+//             ),
+//             Padding(
+//               padding: const EdgeInsets.only(left: 30, right: 30),
+//               child: Text(
+//                 AppLocalizations.of(context)!.textElClienteSe,
+//                 style: AppStyles.r15,
+//                 textAlign: TextAlign.center,
+//               ),
+//             ),
+//             SizedBox(
+//               height: 28,
+//             ),
+//             const DottedLine(
+//               dashColor: Color(0xFFE3EAF2),
+//               dashGapLength: 3,
+//               dashLength: 4,
+//             ),
+//             SizedBox(
+//               height: 22,
+//             ),
+//             Padding(
+//               padding: const EdgeInsets.only(left: 30, right: 30),
+//               child: Text(
+//                 AppLocalizations.of(context)!.textDeseasRegistrar,
+//                 style: AppStyles.r15,
+//                 textAlign: TextAlign.center,
+//               ),
+//             ),
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               mainAxisSize: MainAxisSize.max,
+//               children: [
+//                 Expanded(
+//                     child: bottomButtonV2(
+//                         text: AppLocalizations.of(context)!.textNo,
+//                         onTap: onCancel)),
+//                 Expanded(
+//                     child: bottomButton(
+//                         text: AppLocalizations.of(context)!.textSiContinuar,
+//                         onTap: onOK))
+//               ],
+//             ),
+//             // Container(
+//             //   width: double.infinity,
+//             //   margin: const EdgeInsets.only(top: 27, left: 38, right: 38),
+//             //   padding: const EdgeInsets.symmetric(vertical: 14),
+//             //   decoration: BoxDecoration(
+//             //     color: AppColors.colorButton,
+//             //     borderRadius: BorderRadius.circular(24),
+//             //   ),
+//             //   child: InkWell(
+//             //     onTap: () {
+//             //       onOK();
+//             //     },
+//             //     child: Center(
+//             //         child: Text(
+//             //       '¡Muchas Gracias!'.toUpperCase(),
+//             //       style: AppStyles.r5,
+//             //     )),
+//             //   ),
+//             // ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

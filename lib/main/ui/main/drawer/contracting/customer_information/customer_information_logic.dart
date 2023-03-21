@@ -16,7 +16,7 @@ import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-enum BillCycle { c1, c2, c3 }
+import '../../../../../networks/model/address_model.dart';
 
 class CustomerInformationLogic extends GetxController {
   late BuildContext context;
@@ -34,6 +34,7 @@ class CustomerInformationLogic extends GetxController {
   int requestId = 0;
   int productId = 0;
   int reasonId = 0;
+  bool isForcedTerm = false;
   String phone = '';
   String email = '';
   String address = '';
@@ -41,6 +42,32 @@ class CustomerInformationLogic extends GetxController {
   CustomerModel customer = CustomerModel();
   ContractModel contract = ContractModel();
   CustomerInformationLogic({required this.context});
+
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController billAddressController = TextEditingController();
+
+  AddressModel currentProvince = AddressModel();
+  List<AddressModel> listProvince = [];
+  AddressModel currentDistrict = AddressModel();
+  List<AddressModel> listDistrict = [];
+  AddressModel currentPrecinct = AddressModel();
+  List<AddressModel> listPrecinct = [];
+  String currentAddress = "";
+  bool isAddContact = true;
+
+  TextEditingController textFieldProvince = TextEditingController();
+  TextEditingController textFieldDistrict = TextEditingController();
+  TextEditingController textFieldPrecinct = TextEditingController();
+  TextEditingController textFieldAddress = TextEditingController();
+
+  FocusNode focusProvince = FocusNode();
+  FocusNode focusDistrict = FocusNode();
+  FocusNode focusPrecinct = FocusNode();
+  FocusNode focusAddress = FocusNode();
+
+  bool isValidateAddress = false;
 
   @override
   void onInit() {
@@ -51,31 +78,56 @@ class CustomerInformationLogic extends GetxController {
     requestId = data[1];
     productId = data[2];
     reasonId = data[3];
+    isForcedTerm = data[4];
     phone = customer.telFax;
     email = customer.email;
-    address = customer.address;
+    address = customer.getInstalAddress();
+
+    phoneController.text = phone;
+    phoneController.selection =
+        TextSelection.fromPosition(TextPosition(offset: phone.length));
+
+    emailController.text = email;
+    emailController.selection =
+        TextSelection.fromPosition(TextPosition(offset: email.length));
+
+    addressController.text = customer.getInstalAddress();
+    addressController.selection =
+        TextSelection.fromPosition(TextPosition(offset: address.length));
+
+    billAddressController.text = address;
+    billAddressController.selection =
+        TextSelection.fromPosition(TextPosition(offset: billAddress.length));
+  }
+
+  String getSex() {
+    if (customer.sex == 'M') {
+      return AppLocalizations.of(context)!.textMale;
+    } else {
+      return AppLocalizations.of(context)!.textFemale;
+    }
   }
 
   void getCurrentTime() {
     DateTime now = DateTime.now();
     if (now.day >= 6 && now.day < 16) {
-      billCycle.value = 'Ciclo 6';
+      billCycle.value = 'CYCLE6';
     } else if (now.day >= 16 && now.day < 26) {
-      billCycle.value = 'Ciclo 16';
+      billCycle.value = 'CYCLE16';
     } else {
-      billCycle.value = 'Ciclo 26';
+      billCycle.value = 'CYCLE26';
     }
     signDate.value = DateFormat("yyyy-MM-ddTHH:mm:ss").format(now);
     update();
   }
 
   String getBillCycle(String billCycle) {
-    if (billCycle == 'Ciclo 6') {
-      return 'CYCLE6';
-    } else if (billCycle == 'Ciclo 16') {
-      return 'CYCLE16';
+    if (billCycle == 'CYCLE6') {
+      return '${AppLocalizations.of(context)!.textCircle} 6';
+    } else if (billCycle == 'CYCLE16') {
+      return '${AppLocalizations.of(context)!.textCircle} 16';
     } else {
-      return 'CYCLE26';
+      return '${AppLocalizations.of(context)!.textCircle} 26';
     }
   }
 
@@ -137,20 +189,26 @@ class CustomerInformationLogic extends GetxController {
       "productId": productId,
       "reasonId": reasonId,
       "promotionId": 0,
-      "contractType": "UNDETERMINED",
+      "contractType": isForcedTerm ? "FORCED_TERM" : "UNDETERMINED",
       "numOfSubscriber": 1,
-      "signDate": signDate.value,
-      "billCycle": getBillCycle(billCycle.value),
+      "signDate": signDate.value.trim(),
+      "billCycle": billCycle.value,
       "changeNotification": "Email",
       "printBill": "Email",
       "currency": "SOL",
       "language": contractLanguagetValue.value.toUpperCase(),
-      "province": customer.province,
-      "district": customer.district,
-      "precinct": customer.precinct,
-      "address": billAddress,
-      "phone": customer.telFax,
-      "email": customer.email,
+      "province": currentProvince.province != ''
+          ? currentProvince.province
+          : customer.province,
+      "district": currentDistrict.district != ''
+          ? currentDistrict.district
+          : customer.district,
+      "precinct": currentPrecinct.precinct != ''
+          ? currentPrecinct.precinct
+          : customer.precinct,
+      "address": currentAddress,
+      "phone": customer.telFax.trim(),
+      "email": customer.email.trim(),
       "protectionFilter": checkOption1.value,
       "receiveInfoByMail": checkOption2.value,
       "receiveFromThirdParty": checkOption3.value,
@@ -171,6 +229,7 @@ class CustomerInformationLogic extends GetxController {
         }
       },
       onError: (error) {
+        Common.showMessageError(error['errorCode'], context);
         isSuccess.call(false);
         Get.back();
       },
@@ -188,7 +247,9 @@ class CustomerInformationLogic extends GetxController {
           print("error: ${response.status}");
         }
       },
-      onError: (error) {},
+      onError: (error) {
+        Common.showMessageError(error['errorCode'], context);
+      },
     );
   }
 
@@ -220,5 +281,136 @@ class CustomerInformationLogic extends GetxController {
         );
       },
     );
+  }
+
+  bool checkValidate() {
+    if (!Common.validatePhone(phone)) {
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textValidatePhoneNumber);
+      return false;
+    } else if (!Common.validateEmail(email)) {
+      Common.showToastCenter(AppLocalizations.of(context)!.textValidateEmail);
+      return false;
+    }
+    return true;
+  }
+
+  void getListProvince(Function(bool isSuccess) function) {
+    ApiUtil.getInstance()!.get(
+        url: ApiEndPoints.API_PROVINCES,
+        onSuccess: (response) {
+          if (response.isSuccess) {
+            print("success");
+            listProvince = (response.data['data'] as List)
+                .map((postJson) => AddressModel.fromJson(postJson))
+                .toList();
+            if (listProvince.isNotEmpty) {
+              update();
+            }
+            function.call(true);
+          } else {
+            print("error: ${response.status}");
+            function.call(false);
+          }
+        },
+        onError: (error) {
+          Common.showMessageError(error['errorCode'], context);
+          function.call(false);
+        });
+  }
+
+  void getListPrecincts(String areaCode, Function(bool isSuccess) function) {
+    Map<String, dynamic> params = {"areaCode": areaCode};
+    ApiUtil.getInstance()!.get(
+        url: ApiEndPoints.API_PRECINCTS,
+        params: params,
+        onSuccess: (response) {
+          if (response.isSuccess) {
+            print("success");
+            listPrecinct = (response.data['data'] as List)
+                .map((postJson) => AddressModel.fromJson(postJson))
+                .toList();
+            if (listPrecinct.isNotEmpty) {
+              update();
+            }
+            function.call(true);
+          } else {
+            print("error: ${response.status}");
+            function.call(false);
+          }
+        },
+        onError: (error) {
+          Common.showMessageError(error['errorCode'], context);
+          function.call(false);
+        });
+  }
+
+  void getListDistrict(String areaCode, Function(bool isSuccess) function) {
+    Map<String, dynamic> params = {"areaCode": areaCode};
+    ApiUtil.getInstance()!.get(
+        url: ApiEndPoints.API_DISTRICTS,
+        params: params,
+        onSuccess: (response) {
+          if (response.isSuccess) {
+            print("success");
+            listDistrict = (response.data['data'] as List)
+                .map((postJson) => AddressModel.fromJson(postJson))
+                .toList();
+            if (listDistrict.isNotEmpty) {
+              update();
+            }
+            function.call(true);
+          } else {
+            print("error: ${response.status}");
+            function.call(false);
+          }
+        },
+        onError: (error) {
+          Common.showMessageError(error['errorCode'], context);
+          function.call(false);
+        });
+  }
+
+  void setPrecinct(AddressModel value) {
+    // if(value.areaCode == currentPrecinct.areaCode) return;
+    currentPrecinct = value;
+    textFieldPrecinct.text = value.name;
+    update();
+  }
+
+  void setDistrict(AddressModel value) {
+    // if(value.areaCode == currentDistrict.areaCode) return;
+    currentDistrict = value;
+    textFieldDistrict.text = value.name;
+    textFieldPrecinct.text = "";
+    listPrecinct.clear();
+    update();
+  }
+
+  void setProvince(AddressModel value) {
+    // if(value.areaCode == currentProvince.areaCode) return;
+    currentProvince = value;
+    textFieldProvince.text = value.name;
+    textFieldDistrict.text = "";
+    textFieldPrecinct.text = "";
+    listDistrict.clear();
+    listPrecinct.clear();
+    update();
+  }
+
+  void setAddress(String value) {
+    currentAddress = value;
+    update();
+  }
+
+  bool validateAddress() {
+    if (textFieldDistrict.text.isNotEmpty &&
+        textFieldDistrict.text.isNotEmpty &&
+        textFieldPrecinct.text.isNotEmpty &&
+        textFieldAddress.text.isNotEmpty) {
+      return true;
+    }
+    Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
+    return false;
   }
 }
