@@ -414,21 +414,26 @@ class SalePage extends GetWidget {
                                     arguments: 1);
                               }
                             },
-                            child: Container(
-                              margin: const EdgeInsets.only(left: 16),
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset(optionSale.icon),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    optionSale.title,
-                                    style: AppStyles.r7.copyWith(
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.black),
-                                  ),
-                                ],
+                            child: InkWell(
+                              onTap: () {
+                                Get.toNamed(RouteConfig.clearDebt);
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.only(left: 16),
+                                child: Row(
+                                  children: [
+                                    SvgPicture.asset(optionSale.icon),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      optionSale.title,
+                                      style: AppStyles.r7.copyWith(
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.black),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           );
