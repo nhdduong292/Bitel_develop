@@ -454,7 +454,8 @@
    "textMyInfo":"Mi información",
    "textAlmacen":"Almacén",
    "textInformacion":"Información de almacén del código LI1CD04",
-  "textMale": "Male",
+  "textMale": "Masculino",
+    "textFemale": "Femenino",
    "textE000": "BAD_CREDENTIALS",
    "textE001": "Not found identify number",
    "textE002": "Validation failed",
@@ -477,8 +478,9 @@
    "textE019": "Contracts can only be created when status of request is CREATE_REQUEST_WITHOUT_SURVEY or SURVEY_OFFLINE_SUCCESSFULLY",
    "textE020": "Get the best finger error",
    "textE021": "Service type is required",
+    "textTypecontract": "Tipo de contrato",
+   "textUndetermined": "Undetermined",
    "textEnterName": "Enter name",
    "textEnterNationality": "Enter Nationality",
    "textEnterDate": "Enter date"
-
 }

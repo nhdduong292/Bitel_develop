@@ -467,6 +467,8 @@
   "textPage":"Trang",
   "textAlmacen":"Cửa hàng",
   "textInformacion":"Thông tin kho hàng mã LI1CD04",
+  "textMale": "Nam",
+   "textFemale": "Nữ",
    "textE000": "BAD_CREDENTIALS",
    "textE001": "Not found identify number",
    "textE002": "Validation failed",
@@ -491,6 +493,8 @@
    "textE021": "Service type is required",
    "textEnterName": "Nhập tên",
    "textEnterNationality": "Nhập quốc gia",
-   "textEnterDate": "Nhập ngày"
+   "textEnterDate": "Nhập ngày",
+   "textTypecontract": "Loại hợp đồng",
+   "textUndetermined": "Không xác định",
 
 }
