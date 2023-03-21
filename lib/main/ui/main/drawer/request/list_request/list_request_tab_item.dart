@@ -59,8 +59,10 @@ class ListRequestTabItem extends StatelessWidget{
           Padding(
             padding: const EdgeInsets.only(left: 16, right: 16,top: 12),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(AppLocalizations.of(context)!.textInstallationAddress, style: AppStyles.r8.copyWith(fontWeight: FontWeight.w400, color: AppColors.colorText2.withOpacity(0.85)),),
+                Text(AppLocalizations.of(context)!.textInstallationAddress,style: AppStyles.r8.copyWith(fontWeight: FontWeight.w400, color: AppColors.colorText2.withOpacity(0.85)),),
+                SizedBox(width: 8,),
                 Expanded(child: Text(requestModel.getInstalAddress(), style: AppStyles.r8.copyWith(fontWeight: FontWeight.w500, color: AppColors.colorText4),textAlign: TextAlign.right))
               ],
             ),
