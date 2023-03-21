@@ -5,6 +5,7 @@ import 'package:bitel_ventas/main/ui/login/login_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/clear_debt_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_search_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/manage_wo/manage_wo_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/id_card_scanner.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/sale/sale_page.dart';
@@ -49,6 +50,7 @@ class RouteConfig {
   static const String ftthContracting = "/contracting/ftthContracting";
   static const String registerFingerPrint = "/contracting/registerFingerPrint";
   static const String clearDebt = "/sale/clearDebt";
+  static const String afterSaleSearch = "/menu/afterSale/search";
 
   ///page
   static final List<GetPage> getPages = [
@@ -73,6 +75,7 @@ class RouteConfig {
     GetPage(name: registerFingerPrint, page: () => RegisterFingerPrintPage()),
     GetPage(name: productPayment, page: () => ProductPaymentMethodPage()),
     GetPage(name: clearDebt, page: () => ClearDebtPage()),
+    GetPage(name: afterSaleSearch, page: () => AfterSaleSearchPage("")),
   ];
 
   ///language
