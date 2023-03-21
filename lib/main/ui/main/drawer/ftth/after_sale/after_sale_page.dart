@@ -1,3 +1,5 @@
+import 'package:bitel_ventas/main/router/route_config.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_search_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/request_detail/request_detail_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
@@ -81,7 +83,7 @@ class AfterSalePage extends StatelessWidget{
               ),
             ),
             onTap: () {
-
+              Get.to(AfterSaleSearchPage(AppLocalizations.of(context)!.textChangePlan));
             },
           ),
           GestureDetector(
@@ -113,14 +115,14 @@ class AfterSalePage extends StatelessWidget{
                   Expanded(
                       child: Text(
                         AppLocalizations.of(context)!.textTransferService,
-                        style: AppStyles.r1,
+                        style: AppStyles.r1.copyWith(fontWeight: FontWeight.w400),
                       )),
                   SvgPicture.asset(AppImages.icOvalArrowRight)
                 ],
               ),
             ),
             onTap: () {
-
+              Get.to(AfterSaleSearchPage(AppLocalizations.of(context)!.textTransferService));
             },
           ),
           GestureDetector(
@@ -159,7 +161,7 @@ class AfterSalePage extends StatelessWidget{
               ),
             ),
             onTap: () {
-
+                Get.to(AfterSaleSearchPage(AppLocalizations.of(context)!.textCancelService));
             },
           ),
         ],
