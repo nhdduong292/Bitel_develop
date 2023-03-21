@@ -166,8 +166,9 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Text(
-                          'Type contract',
+                        Text(
+                          AppLocalizations.of(context)!.textTypecontract,
+                          // ignore: prefer_const_constructors
                           style: TextStyle(
                               color: AppColors.colorContent,
                               fontSize: 15,
@@ -192,11 +193,13 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                               Expanded(
                                   child: typeContact(
                                       check: !controller.isForcedTerm(),
-                                      content: 'Undetermined')),
+                                      content: AppLocalizations.of(context)!
+                                          .textUndetermined)),
                               Expanded(
                                   child: typeContact(
                                       check: controller.isForcedTerm(),
-                                      content: 'Forced term'))
+                                      content: AppLocalizations.of(context)!
+                                          .textForcedTerm))
                             ],
                           ),
                         ),

@@ -67,13 +67,11 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                         child: InkWell(
                           onTap: () {
                             Get.until(
-                                  (route) {
-                                return Get.currentRoute ==
-                                    RouteConfig.sale;
+                              (route) {
+                                return Get.currentRoute == RouteConfig.sale;
                               },
                             );
-                            Get.toNamed(RouteConfig.listRequest,
-                                arguments: 0);
+                            Get.toNamed(RouteConfig.listRequest, arguments: 0);
                           },
                           child: Container(
                             width: 35,
@@ -195,15 +193,10 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                 richText: () {
                                   return RichText(
                                       text: TextSpan(
-                                          text:
-                                              '${AppLocalizations.of(context)!.textCiclo} ${controller.contractModel.billCycleFrom.toString()} ',
-                                          style: AppStyles.r415263_13_500,
-                                          children: [
-                                        TextSpan(
-                                            text: AppLocalizations.of(context)!
-                                                .textViewDetail,
-                                            style: AppStyles.rU00A5B1_13_500)
-                                      ]));
+                                    text:
+                                        '${AppLocalizations.of(context)!.textCiclo} ${controller.contractModel.billCycleFrom.toString()} ',
+                                    style: AppStyles.r415263_13_500,
+                                  ));
                                 }),
                             DottedLine(
                               dashColor: Color(0xFFE3EAF2),
