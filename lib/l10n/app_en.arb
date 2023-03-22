@@ -497,5 +497,6 @@
   "textTitleAnypay2": "en las siguientes entidades financieras:",
   "textCancelled": "Cancelled",
   "textBankCode": "Bank code",
-  "textOrderDate": "Order date"
+  "textOrderDate": "Order date",
+  "textCopy": "Copy"
 }

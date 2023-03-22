@@ -79,9 +79,9 @@ class BuyAnyPayPage extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(24),
                 border: Border.all(width: 1, color: AppColors.colorLineDash),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
-                    offset: const Offset(0, 0),
+                    offset: Offset(0, 0),
                     blurRadius: 1,
                     color: AppColors.colorLineDash,
                   ),
@@ -119,9 +119,9 @@ class BuyAnyPayPage extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(24),
                 border: Border.all(width: 1, color: AppColors.colorLineDash),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
-                    offset: const Offset(0, 0),
+                    offset: Offset(0, 0),
                     blurRadius: 1,
                     color: AppColors.colorLineDash,
                   ),
@@ -158,9 +158,9 @@ class BuyAnyPayPage extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(24),
                 border: Border.all(width: 1, color: AppColors.colorLineDash),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
-                    offset: const Offset(0, 0),
+                    offset: Offset(0, 0),
                     blurRadius: 1,
                     color: AppColors.colorLineDash,
                   ),
@@ -181,19 +181,20 @@ class BuyAnyPayPage extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   Container(
-                    height: 80,
                     margin: EdgeInsets.only(top: 20),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(child: SvgPicture.asset(AppImages.icAnypayBBVA)),
-                        VerticalDivider(
-                          color: AppColors.colorLineDash,
+                    child: IntrinsicHeight(
+                      child:  Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(child: SvgPicture.asset(AppImages.icAnypayBBVA)),
+                          VerticalDivider(
+                            color: AppColors.colorLineDash,
 
-                        ),
-                        Expanded(child: SvgPicture.asset(AppImages.icAnypayBCP))
-                      ],
-                    ),
+                          ),
+                          Expanded(child: SvgPicture.asset(AppImages.icAnypayBCP))
+                        ],
+                      ),
+                    )
                   )
                 ],
               ),
