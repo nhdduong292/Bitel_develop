@@ -11,6 +11,8 @@ import '../../../../../../utils/common_widgets.dart';
 class SearchClearDebtLogic extends GetxController {
   late BuildContext context;
   var balance = (0.0).obs;
+
+  final FocusScopeNode focusScopeNode = FocusScopeNode();
   ClearDebtLogic clearDebtLogic = Get.find();
 
   SearchClearDebtLogic({required this.context});

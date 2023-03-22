@@ -10,6 +10,8 @@ class ClearDebtLogic extends GetxController with SingleGetTickerProviderMixin {
   TabController? tabController;
   int index = 0;
 
+  double balance = 0.0;
+
   ClearDebtLogic({required this.context});
 
   @override
@@ -33,7 +35,8 @@ class ClearDebtLogic extends GetxController with SingleGetTickerProviderMixin {
 
   void nextPage(int value) {
     index = value;
-    tabController!.animateTo(index, duration: Duration(milliseconds: 500));
+    tabController!
+        .animateTo(index, duration: const Duration(milliseconds: 500));
     update();
   }
 }

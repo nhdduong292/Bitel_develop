@@ -1,5 +1,6 @@
 import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/clear_debt_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/view_item/clear_debt_detail/clear_debt_detail_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/view_item/otp_clear_debt/otp_clear_debt_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/view_item/search/search_clear_debt_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -44,26 +45,9 @@ class ClearDebtPage extends GetView<ClearDebtLogic> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Clear debt', style: AppStyles.title),
+                          Text(AppLocalizations.of(context)!.textClearDebt,
+                              style: AppStyles.title),
                           const SizedBox(height: 5),
-                          Row(
-                            children: [
-                              SvgPicture.asset(AppImages.icTimeBar),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text("28/12/2020 07:30 - V1.1",
-                                  style: AppStyles.b1),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              SvgPicture.asset(AppImages.icAccountBar),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text("GUADALUPECC-LI4", style: AppStyles.b1)
-                            ],
-                          )
                         ],
                       ),
                     ),
@@ -145,10 +129,8 @@ class ClearDebtPage extends GetView<ClearDebtLogic> {
                       SearchClearDebtPage(
                         callback: () {},
                       ),
-                      ClearDebtDetailPage(
-                        callback: () {},
-                      ),
-                      ChooseServicePage()
+                      ClearDebtDetailPage(),
+                      OTPClearDebtPage()
                     ])),
               ],
             ),

@@ -483,8 +483,21 @@
   "textEnterNationality": "Enter Nationality",
   "textEnterDate": "Enter date",
   "textFTTHAccount": "FTTH Account",
-  "textTypeOfService": "Type of service",
   "textNumber": "Number",
   "textIDType": "ID type",
-  "textIDNumber": "ID number"
+  "textIDNumber": "ID number",
+  "textClearDebt": "Clear debt",
+  "textAnypayBalance": "Anypay balance",
+  "textTypeOfService": "Type of service",
+  "textPlan": "Plan:",
+  "textCondition": "Condition",
+  "textReceiptNumber": "Receipt number",
+  "textVence": "Vence:",
+  "textTotalAmout": "Total amout:",
+  "textItHasBeenSentTo": "It has been sent to the agent’s number by SMS",
+  "textIfYouDoNotRecive": "If you do not recive the SMS, ",
+  "textClickOn": "click on",
+  "textOnceTheRemainingTimes": " once the Remaining time has expired. If the problem persists, the customer will need to go to a CAB",
+  "textThankYou": "Thank You"
+
 }
