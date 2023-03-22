@@ -229,7 +229,7 @@ class CustomerInformationLogic extends GetxController {
         }
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
+        Common.showMessageError(error['errorCode'] ?? "", context);
         isSuccess.call(false);
         Get.back();
       },

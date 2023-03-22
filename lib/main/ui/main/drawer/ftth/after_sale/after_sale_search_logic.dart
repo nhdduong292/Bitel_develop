@@ -33,4 +33,15 @@ class AfterSaleSearchLogic extends GetxController with SingleGetTickerProviderMi
         tabController!.animateTo(index, duration: Duration(milliseconds: 500));
         update();
     }
+
+    Future<bool> onWillPop() async {
+      if (index == 0) {
+        Get.back();
+      } else {
+        isTabTwo.value = false;
+        isTabOne.value = true;
+        nextPage(0);
+      }
+      return false; //<-- SEE HERE
+    }
 }

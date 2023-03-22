@@ -636,7 +636,10 @@ class RequestDetailPage extends GetWidget {
                                             controller.requestModel
                                                 .customerModel.type,
                                             controller.requestModel
-                                                .customerModel.idNumber
+                                                .customerModel.idNumber,
+                                            controller.requestModel.province,
+                                            controller.requestModel.district,
+                                            controller.requestModel.precinct
                                           ]);
                                     } else if (controller.status ==
                                         RequestStatus.CONNECTED) {

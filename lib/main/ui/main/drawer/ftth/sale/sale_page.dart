@@ -121,6 +121,9 @@ class SalePage extends GetWidget {
                                       } else if (index == 3) {
                                         Get.toNamed(RouteConfig.listRequest,
                                             arguments: 5);
+                                      } else if (index == 4) {
+                                        Get.toNamed(RouteConfig.listRequest,
+                                            arguments: 6);
                                       }
                                     },
                                   );
@@ -415,6 +418,10 @@ class SalePage extends GetWidget {
                               } else if (optionSale.title ==
                                   AppLocalizations.of(context)!.textClearDebt) {
                                 Get.toNamed(RouteConfig.clearDebt);
+                              } else if (optionSale.title ==
+                                  AppLocalizations.of(context)!
+                                      .textRechargeAnypay) {
+                                Get.toNamed(RouteConfig.buyAnyPay);
                               }
                             },
                             child: Container(
