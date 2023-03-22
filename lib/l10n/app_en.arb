@@ -80,7 +80,7 @@
   "textAfterSale": "After sale",
   "textManageWO": "Manage WO",
   "textMobile": "Mobile",
-  "textBuyAnypay": "Buy anypay",
+  "textBuyAnypay": "Buy Anypay",
   "textClearDebt": "Clear debt",
   "textUtilites": "Utilites",
   "textChangeLanguage": "Change language",
@@ -269,7 +269,7 @@
   "textWaitingSurvey": "Waiting survey",
   "textWaitingConnect": "Waiting connect",
   "textWaitingDeployment": "Waiting deployment",
-  "textWaitingInstallation": "Waiting installation",
+  "textWaitingInstallation": "Complete installation",
   "textKPICommission": "KPI & Commission",
   "textKPI": "KPI",
   "textContractMonth": "Contract/month",
@@ -490,5 +490,12 @@
   "textTypeOfService": "Type of service",
   "textNumber": "Number",
   "textIDType": "ID type",
-  "textIDNumber": "ID number"
+  "textIDNumber": "ID number",
+  "textCreateOrder": "Create order",
+  "textOrderManagement": "Order management",
+  "textTitleAnypay1": "Paga tu código de banco ",
+  "textTitleAnypay2": "en las siguientes entidades financieras:",
+  "textCancelled": "Cancelled",
+  "textBankCode": "Bank code",
+  "textOrderDate": "Order date"
 }

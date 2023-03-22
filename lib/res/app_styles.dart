@@ -242,4 +242,15 @@ class AppStyles {
       color: AppColors.colorText1.withOpacity(0.85),
       fontWeight: FontWeight.w500);
 
+  static final TextStyle r415263_14_600 = TextStyle(
+      fontFamily: AppFonts.Barlow,
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+      color: AppColors.color_415263);
+
+  static final TextStyle r415263_14_400 = TextStyle(
+      fontFamily: AppFonts.Barlow,
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      color: AppColors.color_415263);
 }
