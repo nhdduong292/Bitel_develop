@@ -11,6 +11,7 @@ import 'dart:convert';
 
 import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
+import '../../../../../utils/common_widgets.dart';
 
 class PDFPreviewLogic extends GetxController {
   var path = '';
@@ -26,10 +27,7 @@ class PDFPreviewLogic extends GetxController {
     var data = Get.arguments;
     type = data[0];
     contractId = data[1];
-    getPDF().then((value) {
-      bytesPDF = value;
-      loadSuccess.value = true;
-    });
+    getPDF();
   }
 
   Future<Uint8List> fromAsset(String asset, String filename) async {
@@ -50,24 +48,25 @@ class PDFPreviewLogic extends GetxController {
     return completer.future;
   }
 
-  Future<Uint8List> getPDF() async {
+  getPDF() async {
     // To open from assets, you can copy them to the app storage folder, and the access them "locally"
-    Completer<Uint8List> completer = Completer();
+
     try {
       ApiUtil.getInstance()!.getPDF(
         url: ApiEndPoints.API_CONTRACT_PREVIEW
             .replaceAll("id", contractId.toString()),
         params: {"type": type},
         onSuccess: (response) async {
-          completer.complete(response.data);
+          bytesPDF = response.data;
+          loadSuccess.value = true;
         },
-        onError: (error) {},
+        onError: (error) {
+          loadSuccess.value = true;
+        },
       );
     } catch (e) {
       throw Exception('Error parsing asset file!');
     }
-
-    return completer.future;
   }
 }
 
@@ -101,54 +100,56 @@ class PDFScreen extends GetView<PDFPreviewLogic> {
                 Column(
                   children: [
                     Obx(
-                      () => SizedBox(
-                        width: width,
-                        height: width * 1.1625,
-                        child: (controller.loadSuccess.value)
-                            ? PDFView(
-                                // filePath: controller.path,
-                                pdfData: controller.bytesPDF,
-                                enableSwipe: true,
-                                swipeHorizontal: true,
-                                autoSpacing: false,
-                                pageFling: true,
-                                pageSnap: true,
-                                defaultPage: currentPage.value,
-                                fitPolicy: FitPolicy.BOTH,
-                                preventLinkNavigation:
-                                    false, // if set to true the link is handled in flutter
-                                onRender: (_pages) {
-                                  if (_pages != null) {
-                                    pages.value = _pages;
-                                    isReady.value = true;
-                                  }
-                                },
-                                onError: (error) {
-                                  errorMessage.value = error.toString();
+                      () => Expanded(
+                        child: SizedBox(
+                          // width: width,
+                          // height: width * 1.5,
+                          child: (controller.loadSuccess.value)
+                              ? PDFView(
+                                  // filePath: controller.path,
+                                  pdfData: controller.bytesPDF,
+                                  enableSwipe: true,
+                                  swipeHorizontal: true,
+                                  autoSpacing: false,
+                                  pageFling: true,
+                                  pageSnap: true,
+                                  defaultPage: currentPage.value,
+                                  fitPolicy: FitPolicy.BOTH,
+                                  preventLinkNavigation:
+                                      false, // if set to true the link is handled in flutter
+                                  onRender: (_pages) {
+                                    if (_pages != null) {
+                                      pages.value = _pages;
+                                      isReady.value = true;
+                                    }
+                                  },
+                                  onError: (error) {
+                                    errorMessage.value = error.toString();
 
-                                  print(error.toString());
-                                },
-                                onPageError: (page, error) {
-                                  errorMessage.value =
-                                      '$page: ${error.toString()}';
+                                    print(error.toString());
+                                  },
+                                  onPageError: (page, error) {
+                                    errorMessage.value =
+                                        '$page: ${error.toString()}';
 
-                                  print('$page: ${error.toString()}');
-                                },
-                                onViewCreated:
-                                    (PDFViewController pdfViewController) {
-                                  _controller.complete(pdfViewController);
-                                },
-                                onLinkHandler: (String? uri) {
-                                  print('goto uri: $uri');
-                                },
-                                onPageChanged: (int? page, int? total) {
-                                  print('page change: $page/$total');
-                                  if (page != null) {
-                                    currentPage.value = page;
-                                  }
-                                },
-                              )
-                            : null,
+                                    print('$page: ${error.toString()}');
+                                  },
+                                  onViewCreated:
+                                      (PDFViewController pdfViewController) {
+                                    _controller.complete(pdfViewController);
+                                  },
+                                  onLinkHandler: (String? uri) {
+                                    print('goto uri: $uri');
+                                  },
+                                  onPageChanged: (int? page, int? total) {
+                                    print('page change: $page/$total');
+                                    if (page != null) {
+                                      currentPage.value = page;
+                                    }
+                                  },
+                                )
+                              : LoadingCirculApi(),
+                        ),
                       ),
                     ),
                   ],
