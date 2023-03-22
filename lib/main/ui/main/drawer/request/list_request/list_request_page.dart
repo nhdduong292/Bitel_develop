@@ -19,13 +19,7 @@ import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ListRequestPage extends GetWidget {
-  GlobalKey<ListRequestTabState> globalKey1 = GlobalKey();
-  GlobalKey<ListRequestTabState> globalKey2 = GlobalKey();
-  GlobalKey<ListRequestTabState> globalKey3 = GlobalKey();
-  GlobalKey<ListRequestTabState> globalKey4 = GlobalKey();
-  GlobalKey<ListRequestTabState> globalKey5 = GlobalKey();
-  GlobalKey<ListRequestTabState> globalKey6 = GlobalKey();
-  GlobalKey<ListRequestTabState> globalKey7 = GlobalKey();
+
 
   @override
   Widget build(BuildContext context) {
@@ -109,21 +103,7 @@ class ListRequestPage extends GetWidget {
                             cursorColor: AppColors.colorText1,
                             onChanged: (value) {
                               String key = value.trim();
-                              if (controller.index == 0) {
-                                globalKey1.currentState!.getListRequest(key);
-                              } else if (controller.index == 1) {
-                                globalKey2.currentState!.getListRequest(key);
-                              } else if (controller.index == 2) {
-                                globalKey3.currentState!.getListRequest(key);
-                              } else if (controller.index == 3) {
-                                globalKey4.currentState!.getListRequest(key);
-                              } else if (controller.index == 4) {
-                                globalKey5.currentState!.getListRequest(key);
-                              } else if (controller.index == 5) {
-                                globalKey6.currentState!.getListRequest(key);
-                              } else if (controller.index == 6) {
-                                globalKey7.currentState!.getListRequest(key);
-                              }
+                              controller.onSearchChanged(key);
                             },
                             textAlignVertical: TextAlignVertical.center,
                             keyboardType: TextInputType.emailAddress,
@@ -308,38 +288,38 @@ class ListRequestPage extends GetWidget {
                             ListRequestTabPage(
                               status: RequestStatus.CREATE_REQUEST,
                               listRequestLogic: controller,
-                              key: globalKey1,
+                              key: controller.globalKey1,
                             ),
                             ListRequestTabPage(
                               status:
                                   RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY,
                               listRequestLogic: controller,
-                              key: globalKey2,
+                              key: controller.globalKey2,
                             ),
                             ListRequestTabPage(
                               status: RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY,
                               listRequestLogic: controller,
-                              key: globalKey3,
+                              key: controller.globalKey3,
                             ),
                             ListRequestTabPage(
                               status: RequestStatus.CONNECTED,
                               listRequestLogic: controller,
-                              key: globalKey4,
+                              key: controller.globalKey4,
                             ),
                             ListRequestTabPage(
                               status: RequestStatus.DEPLOYING,
                               listRequestLogic: controller,
-                              key: globalKey5,
+                              key: controller.globalKey5,
                             ),
                             ListRequestTabPage(
                               status: RequestStatus.COMPLETE,
                               listRequestLogic: controller,
-                              key: globalKey6,
+                              key: controller.globalKey6,
                             ),
                             ListRequestTabPage(
                               status: RequestStatus.CANCEL,
                               listRequestLogic: controller,
-                              key: globalKey7,
+                              key: controller.globalKey7,
                             ),
                           ],
                         )),
@@ -389,19 +369,19 @@ class ListRequestPage extends GetWidget {
                 if (controller.index == model.getPositionStatus(context)) {
                   controller.updateSearchRequest(model, context);
                   if (controller.index == 0) {
-                    globalKey1.currentState!.getListRequest("");
+                    controller.globalKey1.currentState!.getListRequest("");
                   } else if (controller.index == 1) {
-                    globalKey2.currentState!.getListRequest("");
+                    controller.globalKey2.currentState!.getListRequest("");
                   } else if (controller.index == 2) {
-                    globalKey3.currentState!.getListRequest("");
+                    controller.globalKey3.currentState!.getListRequest("");
                   } else if (controller.index == 3) {
-                    globalKey4.currentState!.getListRequest("");
+                    controller.globalKey4.currentState!.getListRequest("");
                   } else if (controller.index == 4) {
-                    globalKey5.currentState!.getListRequest("");
+                    controller.globalKey5.currentState!.getListRequest("");
                   } else if (controller.index == 5) {
-                    globalKey6.currentState!.getListRequest("");
+                    controller.globalKey6.currentState!.getListRequest("");
                   } else if (controller.index == 6) {
-                    globalKey7.currentState!.getListRequest("");
+                    controller.globalKey7.currentState!.getListRequest("");
                   }
                 } else {
                   controller.updateSearchRequest(model, context);
