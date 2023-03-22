@@ -1,6 +1,6 @@
 import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/clear_debt_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/view_item/clear_debt_detail/clear_debt_detail_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/view_item/search/search_clear_debt_page.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/cretate_contact_page_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,21 +9,17 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../../res/app_colors.dart';
 import '../../../../../../res/app_images.dart';
 import '../../../../../../res/app_styles.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../../utils/common_widgets.dart';
+import '../ftth/after_sale/choose_service/choose_service_page.dart';
 
 class ClearDebtPage extends GetView<ClearDebtLogic> {
-  final ItemScrollController _scrollController = ItemScrollController();
-  final ItemPositionsListener _itemPositionsListener =
-      ItemPositionsListener.create();
-
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return GetBuilder(
-        init: ClearDebtLogic(),
+        init: ClearDebtLogic(context: context),
         builder: (controller) {
           return Scaffold(
             body: Column(
@@ -76,57 +72,16 @@ class ClearDebtPage extends GetView<ClearDebtLogic> {
                         left: 20,
                         child: InkWell(
                           onTap: () {
-                            if (_itemPositionsListener.itemPositions.value
-                                    .elementAt(0)
-                                    .index ==
-                                1) {
-                              controller.checkItem2.value = false;
-                              _scrollController.scrollTo(
-                                index: 0,
-                                duration: const Duration(milliseconds: 200),
-                              );
+                            if (controller.index == 1) {
+                              controller.isTabTwo.value = false;
+                              controller.isTabOne.value = true;
+                              controller.nextPage(0);
                               return;
-                            } else if (_itemPositionsListener
-                                    .itemPositions.value
-                                    .elementAt(0)
-                                    .index ==
-                                2) {
-                              controller.checkItem3.value = false;
-                              _scrollController.scrollTo(
-                                index: 1,
-                                duration: const Duration(milliseconds: 200),
-                              );
-                              return;
-                            } else if (_itemPositionsListener
-                                    .itemPositions.value
-                                    .elementAt(0)
-                                    .index ==
-                                3) {
-                              _scrollController.scrollTo(
-                                index: 2,
-                                duration: const Duration(milliseconds: 200),
-                              );
-                              return;
-                            } else if (_itemPositionsListener
-                                    .itemPositions.value
-                                    .elementAt(0)
-                                    .index ==
-                                4) {
-                              controller.checkItem4.value = false;
-                              _scrollController.scrollTo(
-                                index: 3,
-                                duration: const Duration(milliseconds: 200),
-                              );
-                              return;
-                            } else if (_itemPositionsListener
-                                    .itemPositions.value
-                                    .elementAt(0)
-                                    .index ==
-                                5) {
-                              _scrollController.scrollTo(
-                                index: 4,
-                                duration: const Duration(milliseconds: 200),
-                              );
+                            } else if (controller.index == 2) {
+                              controller.isTabTwo.value = true;
+                              controller.isTabOne.value = false;
+                              controller.isTabThree.value = false;
+                              controller.nextPage(1);
                               return;
                             }
                             Get.back();
@@ -155,19 +110,20 @@ class ClearDebtPage extends GetView<ClearDebtLogic> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              circleMarkerView(check: true.obs, text: '1'),
+                              circleMarkerView(
+                                  check: controller.isTabOne, text: '1'),
                               const SizedBox(
                                 width: 16,
                               ),
                               circleMarkerView(
-                                  check: controller.checkItem2, text: '2'),
+                                  check: controller.isTabTwo, text: '2'),
                               const SizedBox(
                                 width: 16,
                               ),
                               Row(
                                 children: [
                                   circleMarkerView(
-                                      check: controller.checkItem3, text: '3'),
+                                      check: controller.isTabThree, text: '3'),
                                   const SizedBox(
                                     width: 16,
                                   ),
@@ -182,28 +138,18 @@ class ClearDebtPage extends GetView<ClearDebtLogic> {
                   height: 7,
                 ),
                 Expanded(
-                  child: ScrollablePositionedList.builder(
-                      scrollDirection: Axis.horizontal,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 3,
-                      itemScrollController: _scrollController,
-                      itemPositionsListener: _itemPositionsListener,
-                      itemBuilder: (context, index) {
-                        if (index == 0) {
-                          return SearchClearDebtPage(
-                            callback: () {},
-                          );
-                        } else if (index == 1) {
-                          return SearchClearDebtPage(
-                            callback: () {},
-                          );
-                        } else {
-                          return SearchClearDebtPage(
-                            callback: () {},
-                          );
-                        }
-                      }),
-                ),
+                    child: TabBarView(
+                        controller: controller.tabController,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: [
+                      SearchClearDebtPage(
+                        callback: () {},
+                      ),
+                      ClearDebtDetailPage(
+                        callback: () {},
+                      ),
+                      ChooseServicePage()
+                    ])),
               ],
             ),
           );

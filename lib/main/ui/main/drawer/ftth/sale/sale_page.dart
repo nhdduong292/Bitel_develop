@@ -412,28 +412,26 @@ class SalePage extends GetWidget {
                                       .textConnectSubscriber) {
                                 Get.toNamed(RouteConfig.listRequest,
                                     arguments: 1);
+                              } else if (optionSale.title ==
+                                  AppLocalizations.of(context)!.textClearDebt) {
+                                Get.toNamed(RouteConfig.clearDebt);
                               }
                             },
-                            child: InkWell(
-                              onTap: () {
-                                Get.toNamed(RouteConfig.clearDebt);
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.only(left: 16),
-                                child: Row(
-                                  children: [
-                                    SvgPicture.asset(optionSale.icon),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      optionSale.title,
-                                      style: AppStyles.r7.copyWith(
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.black),
-                                    ),
-                                  ],
-                                ),
+                            child: Container(
+                              margin: const EdgeInsets.only(left: 16),
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(optionSale.icon),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    optionSale.title,
+                                    style: AppStyles.r7.copyWith(
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black),
+                                  ),
+                                ],
                               ),
                             ),
                           );

@@ -11,7 +11,6 @@ class FindServiceLogic extends GetxController {
   TextEditingController textFieldEnter = TextEditingController();
   String currentEnter = "";
 
-
   FindServiceLogic(this.context);
 
   @override
@@ -28,7 +27,7 @@ class FindServiceLogic extends GetxController {
     update();
   }
 
-  void setIdentity(String value){
+  void setIdentity(String value) {
     currentIdentityType = value;
     update();
   }
@@ -38,9 +37,9 @@ class FindServiceLogic extends GetxController {
     update();
   }
 
-  void setEnter(String value){
+  void setEnter(String value) {
     currentEnter = value;
-    if(currentEnter.isNotEmpty){
+    if (currentEnter.isNotEmpty) {
       setActiveButton(false);
     } else {
       setActiveButton(true);

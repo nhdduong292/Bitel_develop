@@ -107,7 +107,7 @@ class AfterSaleSearchPage extends GetWidget {
               ),
               Expanded(child: TabBarView(
                   controller: controller.tabController,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   children: [FindServicePage(), ChooseServicePage()]))
             ],
           ),
