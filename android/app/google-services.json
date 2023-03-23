@@ -29,6 +29,13 @@
             {
               "client_id": "687680612219-khh93cjdllur7tm8rt5lbj6nvf8dfdj4.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "687680612219-6kfbnjg7p9cq81d7frsl684e10topkpn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bitel.bss.viettelpos.v3.bitelVentas"
+              }
             }
           ]
         }

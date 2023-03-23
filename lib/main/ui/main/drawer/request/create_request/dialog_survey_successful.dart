@@ -65,6 +65,7 @@ class DialogSurveySuccessful extends GetWidget {
                 ),
                 Text(
                   AppLocalizations.of(context)!.textContentSurveySuccessful,
+                  textAlign: TextAlign.center,
                   style: AppStyles.r6.copyWith(
                       color: AppColors.colorText4, fontWeight: FontWeight.w500),
                 ),
@@ -78,19 +79,22 @@ class DialogSurveySuccessful extends GetWidget {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        controller.isSelectOffline
+                        Expanded(
+                            flex: 1,
+                            child: controller.isSelectOffline
                             ? iconOnlyRadio(-1)
-                            : iconOnlyUnRadio(),
-                        const SizedBox(
-                          width: 10,
+                            : iconOnlyUnRadio()
                         ),
-                        Text(
-                          overflow: TextOverflow.ellipsis,
-                          AppLocalizations.of(context)!.textCreateOfflineSurvey,
-                          style: AppStyles.r6.copyWith(
-                              color: AppColors.colorText4,
-                              fontWeight: FontWeight.w500),
-                        )
+
+                       Expanded(
+                         flex: 4,
+                           child:  Text(
+                         AppLocalizations.of(context)!.textCreateOfflineSurvey,
+                         textAlign: TextAlign.left,
+                         style: AppStyles.r6.copyWith(
+                             color: AppColors.colorText4,
+                             fontWeight: FontWeight.w500),
+                       )),
                       ],
                     ),
                   ),

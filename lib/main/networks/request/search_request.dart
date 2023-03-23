@@ -1,4 +1,6 @@
 import 'package:bitel_ventas/main/utils/values.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchRequest {
   String service = "FTTH";
@@ -9,38 +11,40 @@ class SearchRequest {
   String fromDate = "";
   String toDate = "";
 
-  List<String> listStatus = [
-    RequestStatus.CREATE_REQUEST,
-    RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY,
-    RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY,
-    RequestStatus.CONNECTED,
-    RequestStatus.DEPLOYING,
-    RequestStatus.COMPLETE,
-    RequestStatus.CANCEL
-  ];
+  List<String> listStatus(BuildContext context) {
+    return [
+      AppLocalizations.of(context)!.textCreateRequest,
+      AppLocalizations.of(context)!.textCreateRequestWithout,
+      AppLocalizations.of(context)!.textSurveyOfflineSuccess,
+      AppLocalizations.of(context)!.textConnected,
+      AppLocalizations.of(context)!.textDeploying,
+      AppLocalizations.of(context)!.textComplete,
+      AppLocalizations.of(context)!.textCancel
+    ];
+  }
 
   SearchRequest();
 
-  int getPositionStatus() {
-    if (status == RequestStatus.CREATE_REQUEST) {
+  int getPositionStatus(BuildContext context) {
+    if (status == AppLocalizations.of(context)!.textCreateRequest) {
       return 0;
-    } else if (status == RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY) {
+    } else if (status == AppLocalizations.of(context)!.textCreateRequestWithout) {
       return 1;
-    } else if (status == RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY) {
+    } else if (status == AppLocalizations.of(context)!.textSurveyOfflineSuccess) {
       return 2;
-    } else if (status == RequestStatus.CONNECTED) {
+    } else if (status == AppLocalizations.of(context)!.textConnected) {
       return 3;
-    } else if (status == RequestStatus.DEPLOYING) {
+    } else if (status == AppLocalizations.of(context)!.textDeploying) {
       return 4;
-    } else if (status == RequestStatus.COMPLETE) {
+    } else if (status == AppLocalizations.of(context)!.textComplete) {
       return 5;
-    } else if (status == RequestStatus.CANCEL) {
+    } else if (status == AppLocalizations.of(context)!.textCancel) {
       return 6;
     }
     return 0;
   }
 
-  void reset(){
+  void reset() {
     service = "FTTH";
     code = "";
     status = "";
@@ -48,5 +52,28 @@ class SearchRequest {
     staffCode = "";
     fromDate = "";
     toDate = "";
+  }
+
+  String getStatus(BuildContext context) {
+    if (status == null) {
+      return "";
+    } else {
+      if (status == AppLocalizations.of(context)!.textCreateRequest) {
+        return RequestStatus.CREATE_REQUEST;
+      } else if (status == AppLocalizations.of(context)!.textCreateRequestWithout) {
+        return RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY;
+      } else if (status == AppLocalizations.of(context)!.textSurveyOfflineSuccess) {
+        return RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY;
+      } else if (status == AppLocalizations.of(context)!.textConnected) {
+        return RequestStatus.CONNECTED;
+      } else if (status == AppLocalizations.of(context)!.textDeploying) {
+        return RequestStatus.DEPLOYING;
+      } else if (status == AppLocalizations.of(context)!.textComplete) {
+        return RequestStatus.COMPLETE;
+      } else if (status == AppLocalizations.of(context)!.textCancel) {
+        return RequestStatus.CANCEL;
+      }
+      return "";
+    }
   }
 }
