@@ -19,13 +19,8 @@ import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ListRequestPage extends GetWidget {
-  GlobalKey<ListRequestTabState> globalKey1 = GlobalKey();
-  GlobalKey<ListRequestTabState> globalKey2 = GlobalKey();
-  GlobalKey<ListRequestTabState> globalKey3 = GlobalKey();
-  GlobalKey<ListRequestTabState> globalKey4 = GlobalKey();
-  GlobalKey<ListRequestTabState> globalKey5 = GlobalKey();
-  GlobalKey<ListRequestTabState> globalKey6 = GlobalKey();
-  GlobalKey<ListRequestTabState> globalKey7 = GlobalKey();
+
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -76,7 +71,8 @@ class ListRequestPage extends GetWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(22),
@@ -101,27 +97,13 @@ class ListRequestPage extends GetWidget {
                         //   child: Text(AppLocalizations.of(context)!.textSearchCodeProvence, style: AppStyles.r2.copyWith(color: AppColors.colorText4.withOpacity(0.75)),),
                         // )),
                         child: Container(
-                          width: width*.06,
+                          width: width * .06,
                           height: 42,
                           child: TextFormField(
                             cursorColor: AppColors.colorText1,
                             onChanged: (value) {
                               String key = value.trim();
-                              if (controller.index == 0) {
-                                globalKey1.currentState!.getListRequest(key);
-                              } else if (controller.index == 1) {
-                                globalKey2.currentState!.getListRequest(key);
-                              } else if (controller.index == 2) {
-                                globalKey3.currentState!.getListRequest(key);
-                              } else if (controller.index == 3) {
-                                globalKey4.currentState!.getListRequest(key);
-                              } else if (controller.index == 4) {
-                                globalKey5.currentState!.getListRequest(key);
-                              } else if (controller.index == 5) {
-                                globalKey6.currentState!.getListRequest(key);
-                              } else if (controller.index == 6) {
-                                globalKey7.currentState!.getListRequest(key);
-                              }
+                              controller.onSearchChanged(key);
                             },
                             textAlignVertical: TextAlignVertical.center,
                             keyboardType: TextInputType.emailAddress,
@@ -137,7 +119,8 @@ class ListRequestPage extends GetWidget {
                               hintText: AppLocalizations.of(context)!
                                   .textSearchCodeProvence,
                               hintStyle: AppStyles.r2.copyWith(
-                                  color: AppColors.colorText4.withOpacity(0.75)),
+                                  color:
+                                      AppColors.colorText4.withOpacity(0.75)),
 
                               // filled: true,
                               // fillColor: Colors.white,
@@ -147,8 +130,8 @@ class ListRequestPage extends GetWidget {
                                       width: 1, color: Colors.transparent)),
                               errorBorder: const UnderlineInputBorder(
                                 //<-- SEE HERE
-                                borderSide:
-                                    BorderSide(width: 1, color: Colors.redAccent),
+                                borderSide: BorderSide(
+                                    width: 1, color: Colors.redAccent),
                               ),
                               focusedBorder: const UnderlineInputBorder(
                                 //<-- SEE HERE
@@ -304,32 +287,39 @@ class ListRequestPage extends GetWidget {
                             // first tab bar view widget
                             ListRequestTabPage(
                               status: RequestStatus.CREATE_REQUEST,
-                              key: globalKey1,
+                              listRequestLogic: controller,
+                              key: controller.globalKey1,
                             ),
                             ListRequestTabPage(
                               status:
                                   RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY,
-                              key: globalKey2,
+                              listRequestLogic: controller,
+                              key: controller.globalKey2,
                             ),
                             ListRequestTabPage(
                               status: RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY,
-                              key: globalKey3,
+                              listRequestLogic: controller,
+                              key: controller.globalKey3,
                             ),
                             ListRequestTabPage(
                               status: RequestStatus.CONNECTED,
-                              key: globalKey4,
+                              listRequestLogic: controller,
+                              key: controller.globalKey4,
                             ),
                             ListRequestTabPage(
                               status: RequestStatus.DEPLOYING,
-                              key: globalKey5,
+                              listRequestLogic: controller,
+                              key: controller.globalKey5,
                             ),
                             ListRequestTabPage(
                               status: RequestStatus.COMPLETE,
-                              key: globalKey6,
+                              listRequestLogic: controller,
+                              key: controller.globalKey6,
                             ),
                             ListRequestTabPage(
                               status: RequestStatus.CANCEL,
-                              key: globalKey7,
+                              listRequestLogic: controller,
+                              key: controller.globalKey7,
                             ),
                           ],
                         )),
@@ -376,25 +366,25 @@ class ListRequestPage extends GetWidget {
         builder: (context) {
           return DialogAdvancedSearchPage(
               onSubmit: (model) {
-                if (controller.index == model.getPositionStatus()) {
-                  controller.updateSearchRequest(model);
+                if (controller.index == model.getPositionStatus(context)) {
+                  controller.updateSearchRequest(model, context);
                   if (controller.index == 0) {
-                    globalKey1.currentState!.getListRequest("");
+                    controller.globalKey1.currentState!.getListRequest("");
                   } else if (controller.index == 1) {
-                    globalKey2.currentState!.getListRequest("");
+                    controller.globalKey2.currentState!.getListRequest("");
                   } else if (controller.index == 2) {
-                    globalKey3.currentState!.getListRequest("");
+                    controller.globalKey3.currentState!.getListRequest("");
                   } else if (controller.index == 3) {
-                    globalKey4.currentState!.getListRequest("");
+                    controller.globalKey4.currentState!.getListRequest("");
                   } else if (controller.index == 4) {
-                    globalKey5.currentState!.getListRequest("");
+                    controller.globalKey5.currentState!.getListRequest("");
                   } else if (controller.index == 5) {
-                    globalKey6.currentState!.getListRequest("");
+                    controller.globalKey6.currentState!.getListRequest("");
                   } else if (controller.index == 6) {
-                    globalKey7.currentState!.getListRequest("");
+                    controller.globalKey7.currentState!.getListRequest("");
                   }
                 } else {
-                  controller.updateSearchRequest(model);
+                  controller.updateSearchRequest(model, context);
                 }
               },
               searchRequest: controller.searchRequest);

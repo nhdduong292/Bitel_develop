@@ -36,7 +36,7 @@ class DrawerLogic extends GetxController {
         // showDialogSurveyMap(context);
           break;
         case 2:
-          // Get.toNamed(RouteConfig.listRequest);
+          Get.toNamed(RouteConfig.buyAnyPay);
           break;
         // case 4:
         //   // Get.to(DemoNativePage());

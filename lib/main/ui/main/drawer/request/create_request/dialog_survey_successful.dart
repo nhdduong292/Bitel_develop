@@ -17,8 +17,12 @@ class DialogSurveySuccessful extends GetWidget {
   int id;
   String type;
   String idNumber;
+  String province;
+  String district;
+  String precinct;
 
-  DialogSurveySuccessful(this.id, this.type, this.idNumber, this.onSubmit);
+  DialogSurveySuccessful(this.id, this.type, this.idNumber, this.province,
+      this.district, this.precinct, this.onSubmit);
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +65,7 @@ class DialogSurveySuccessful extends GetWidget {
                 ),
                 Text(
                   AppLocalizations.of(context)!.textContentSurveySuccessful,
+                  textAlign: TextAlign.center,
                   style: AppStyles.r6.copyWith(
                       color: AppColors.colorText4, fontWeight: FontWeight.w500),
                 ),
@@ -166,7 +171,14 @@ class DialogSurveySuccessful extends GetWidget {
                                     // Get.toNamed(RouteConfig.productPayment,
                                     //     arguments: controller.requestModel.id);
                                     Get.toNamed(RouteConfig.productPayment,
-                                        arguments: [id, type, idNumber]);
+                                        arguments: [
+                                          id,
+                                          type,
+                                          idNumber,
+                                          province,
+                                          district,
+                                          precinct
+                                        ]);
                                   } else {
                                     Get.back();
                                   }

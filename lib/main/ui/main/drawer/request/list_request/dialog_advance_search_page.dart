@@ -148,7 +148,7 @@ class DialogAdvancedSearchPage extends GetWidget {
                                 function: (value) {
                                   controller.setStatus(value);
                                 },
-                                listDrop: controller.searchRequest.listStatus))
+                                listDrop: controller.searchRequest.listStatus(context)))
                       ],
                     ),
                   ),

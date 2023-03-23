@@ -12,6 +12,7 @@ import '../../../../../../../networks/api_end_point.dart';
 import '../../../../../../../networks/api_util.dart';
 import '../../../../../../../utils/common.dart';
 import '../../cretate_contact_page_logic.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ClientDataDNILogic extends GetxController {
   late BuildContext context;
@@ -39,6 +40,9 @@ class ClientDataDNILogic extends GetxController {
   int productId = 0;
   int reasonId = 0;
   String idNumber = '';
+  String province = '';
+  String district = '';
+  String precinct = '';
   bool isForcedTerm = false;
   Map<String, dynamic> body = {};
 
@@ -51,6 +55,9 @@ class ClientDataDNILogic extends GetxController {
     reasonId = logicCreateContact.reasonId;
     idNumber = logicCreateContact.idNumber;
     isForcedTerm = logicCreateContact.isForcedTerm;
+    province = logicCreateContact.province;
+    district = logicCreateContact.district;
+    precinct = logicCreateContact.precinct;
   }
 
   void setDefaultDob() {
@@ -127,9 +134,9 @@ class ClientDataDNILogic extends GetxController {
       "dateOfBirth": customerDNIModel.dob,
       "expiredDate": customerDNIModel.ed,
       "address": "string",
-      "province": "03",
-      "district": "04",
-      "precinct": "04",
+      "province": province,
+      "district": district,
+      "precinct": precinct,
       "image": "string"
     };
   }
@@ -139,15 +146,15 @@ class ClientDataDNILogic extends GetxController {
       "type": logicCreateContact.typeCustomer,
       "idNumber": idNumber,
       "name": tfName.text,
-      "fullName": tfLastName.text,
+      "fullName": '${tfLastName.text} ${tfName.text}',
       "nationality": tfNationality.text,
       "sex": sexValue,
       "dateOfBirth": isoDate(dob),
       "expiredDate": isoDate(exd),
       "address": tfAddress.text,
-      "province": "03",
-      "district": "04",
-      "precinct": "04",
+      "province": province,
+      "district": district,
+      "precinct": precinct,
       "image": "string",
       "left": null,
       "leftImage": null,
@@ -167,8 +174,12 @@ class ClientDataDNILogic extends GetxController {
         }
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
         callBack.call(false);
+        if (error != null) {
+          if (error['errorCode'] != null) {
+            Common.showMessageError(error['errorCode'], context);
+          }
+        }
       },
     );
   }
@@ -210,25 +221,27 @@ class ClientDataDNILogic extends GetxController {
 
   bool checkValidate() {
     if (!tfLastName.text.isNotEmpty) {
-      Common.showToastCenter("Bạn phải nhập hết thông tin");
+      Common.showToastCenter(AppLocalizations.of(context)!.textEnterAllInfo);
       return false;
     } else if (!tfName.text.isNotEmpty) {
-      Common.showToastCenter("Bạn phải nhập hết thông tin");
+      Common.showToastCenter(AppLocalizations.of(context)!.textEnterAllInfo);
       return false;
     } else if (!tfNationality.text.isNotEmpty) {
-      Common.showToastCenter("Bạn phải nhập hết thông tin");
+      Common.showToastCenter(AppLocalizations.of(context)!.textEnterAllInfo);
       return false;
     } else if (!dob.isNotEmpty) {
-      Common.showToastCenter("Bạn phải nhập hết thông tin");
+      Common.showToastCenter(AppLocalizations.of(context)!.textEnterAllInfo);
       return false;
     } else if (!exd.isNotEmpty) {
-      Common.showToastCenter("Bạn phải nhập hết thông tin");
+      Common.showToastCenter(AppLocalizations.of(context)!.textEnterAllInfo);
       return false;
     } else if (compareToDateNow()) {
-      Common.showToastCenter("Ngày sinh không được lớn hơn ngày hiện tại");
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textToastValidateDob);
       return false;
     } else if (compareToDate()) {
-      Common.showToastCenter("Ngày sinh phải nhỏ hơn ngày hết hạn");
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textToastValidateExd);
       return false;
     }
     return true;

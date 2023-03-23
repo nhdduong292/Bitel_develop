@@ -21,6 +21,10 @@ class ProductPaymentMethodLogic extends GetxController {
   bool isLoadingProduct = true;
   BuildContext context;
 
+  String province = '';
+  String district = '';
+  String precinct = '';
+
   ProductPaymentMethodLogic({required this.context});
 
   @override
@@ -31,6 +35,9 @@ class ProductPaymentMethodLogic extends GetxController {
     requestId = data[0];
     type = data[1];
     idNumber = data[2];
+    province = data[3];
+    district = data[4];
+    precinct = data[5];
     getProduts(requestId);
   }
 
@@ -86,9 +93,13 @@ class ProductPaymentMethodLogic extends GetxController {
         update();
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
         isLoadingProduct = false;
         update();
+        if (error != null) {
+          if (error['errorCode'] != null) {
+            Common.showMessageError(error['errorCode'], context);
+          }
+        }
       },
     );
   }
@@ -136,8 +147,12 @@ class ProductPaymentMethodLogic extends GetxController {
         }
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
         Get.back();
+        if (error != null) {
+          if (error['errorCode'] != null) {
+            Common.showMessageError(error['errorCode'], context);
+          }
+        }
       },
     );
   }
@@ -155,8 +170,12 @@ class ProductPaymentMethodLogic extends GetxController {
         }
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
         Get.back();
+        if (error != null) {
+          if (error['errorCode'] != null) {
+            Common.showMessageError(error['errorCode'], context);
+          }
+        }
       },
     );
   }
@@ -176,9 +195,17 @@ class ProductPaymentMethodLogic extends GetxController {
         }
       },
       onError: (error) {
-        // Common.showMessageError(error['errorCode'], context);
         Get.back();
-        completer.complete(false);
+
+        if (error != null) {
+          if (error['errorCode'] != null) {
+            Common.showMessageError(error['errorCode'], context);
+            //neu tra ve code E012 la chua dang ky khach hang
+            if (error['errorCode'] == 'E012') {
+              completer.complete(false);
+            }
+          }
+        }
       },
     );
     return completer.future;

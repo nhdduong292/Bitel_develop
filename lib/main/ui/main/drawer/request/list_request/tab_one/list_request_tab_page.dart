@@ -16,7 +16,8 @@ import '../../../../../../utils/common.dart';
 
 class ListRequestTabPage extends StatefulWidget {
   String status;
-  ListRequestTabPage({required this.status, required Key key})
+  ListRequestLogic listRequestLogic;
+  ListRequestTabPage({required this.status,required this.listRequestLogic, required Key key})
       : super(key: key);
 
   // @override
@@ -55,7 +56,7 @@ class ListRequestTabPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return ListRequestTabState(status);
+    return ListRequestTabState(status, listRequestLogic);
   }
   // static ListRequestTabState? of(BuildContext context) =>
   //     context.findAncestorStateOfType<_ListRequestTabState>();
@@ -66,9 +67,9 @@ class ListRequestTabState extends State<ListRequestTabPage> {
 
   bool isLoading = false;
   List<RequestDetailModel> listRequest = [];
-  ListRequestLogic listRequestLogic = Get.find();
+  ListRequestLogic listRequestLogic;
 
-  ListRequestTabState(this.status);
+  ListRequestTabState(this.status, this.listRequestLogic);
   @override
   void initState() {
     // TODO: implement initState
@@ -127,7 +128,7 @@ class ListRequestTabState extends State<ListRequestTabPage> {
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_LIST_REQUEST,
         params: params,
-        isCancel: true,
+        isCancel: false,
         onSuccess: (response) {
           if (response.isSuccess) {
             print("success :");
@@ -145,10 +146,21 @@ class ListRequestTabState extends State<ListRequestTabPage> {
           });
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
           setState(() {
             isLoading = false;
           });
+          if (error != null) {
+            if (error['errorCode'] != null) {
+              Common.showMessageError(error['errorCode'], context);
+            }
+          }
         });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    // ApiUtil.getInstance()!.cancelToken!.cancel();
+    super.dispose();
   }
 }

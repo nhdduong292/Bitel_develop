@@ -60,9 +60,13 @@ class ListRequestTabLogic extends GetxController {
           update();
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
           isLoading = false;
           update();
+          if (error != null) {
+            if (error['errorCode'] != null) {
+              Common.showMessageError(error['errorCode'], context);
+            }
+          }
         });
   }
 }

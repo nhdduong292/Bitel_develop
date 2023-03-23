@@ -117,8 +117,12 @@ class DialogAdvanceSearchLogic extends GetxController {
           }
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
           function.call(false);
+          if (error != null) {
+            if (error['errorCode'] != null) {
+              Common.showMessageError(error['errorCode'], context);
+            }
+          }
         });
   }
 }

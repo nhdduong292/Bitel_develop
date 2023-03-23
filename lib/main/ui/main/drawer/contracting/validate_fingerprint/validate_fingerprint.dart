@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'dart:convert';
 import 'dart:io';
-import 'dart:io';
 
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/validate_fingerprint/validate_fingerprint_logic.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
@@ -143,11 +142,19 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                         text: TextSpan(
                                             text:
                                                 '${controller.typeCustomer}: ',
-                                            style: AppStyles.r3,
+                                            style: AppStyles.r9454C9_14_500
+                                                .copyWith(
+                                                    fontSize: 13,
+                                                    fontWeight:
+                                                        FontWeight.w700),
                                             children: [
                                               TextSpan(
                                                 text: controller.idNumber,
-                                                style: AppStyles.r1,
+                                                style: AppStyles.r2B3A4A_12_500
+                                                    .copyWith(
+                                                        fontSize: 13,
+                                                        fontWeight:
+                                                            FontWeight.w400),
                                               )
                                             ]),
                                       )

@@ -29,13 +29,13 @@ class SaleLogic extends GetxController {
       OptionSale(AppImages.icSaleConnectSubscriber,
           AppLocalizations.of(context)!.textConnectSubscriber, "", "", 0),
       OptionSale(AppImages.icSaleRechargeAnypay,
-          AppLocalizations.of(context)!.textRechargeAnypay, "", "",0),
+          AppLocalizations.of(context)!.textRechargeAnypay, "", "", 0),
       OptionSale(AppImages.icSaleSearchRequest,
           AppLocalizations.of(context)!.textSearchRequest, "", "", 0),
       OptionSale(AppImages.icSaleClearDebt,
-          AppLocalizations.of(context)!.textClearDebt, "", "",0),
+          AppLocalizations.of(context)!.textClearDebt, "", "", 0),
       OptionSale(AppImages.icSaleCreateContact,
-          AppLocalizations.of(context)!.textCreateContact, "", "",0),
+          AppLocalizations.of(context)!.textCreateContact, "", "", 0),
     ];
   }
 
@@ -49,6 +49,8 @@ class SaleLogic extends GetxController {
           "${homeSaleModel.waitingDeployment}", "", 3),
       OptionSale("", AppLocalizations.of(context)!.textWaitingInstallation,
           "${homeSaleModel.completeInstallation}", "", 4),
+      OptionSale("", AppLocalizations.of(context)!.textCancelled,
+          "${homeSaleModel.cancelled}", "", 5),
     ];
   }
 
@@ -59,22 +61,22 @@ class SaleLogic extends GetxController {
           AppLocalizations.of(context)!.textKPI,
           "${homeSaleModel.kpi}",
           AppLocalizations.of(context)!.textContractMonth,
-          5),
+          6),
       OptionSale(
           "",
           AppLocalizations.of(context)!.textPerformance,
           "${homeSaleModel.performance}",
           AppLocalizations.of(context)!.textContract,
-          6),
+          7),
       OptionSale("", AppLocalizations.of(context)!.textCommission,
-          "${homeSaleModel.commission}", "S", 7),
+          "${homeSaleModel.commission}", "S", 8),
     ];
   }
 
   List<OptionSale> getListWalletControl(BuildContext context) {
     return [
       OptionSale("", AppLocalizations.of(context)!.textAnyPay,
-          "${homeSaleModel.anyPayBalance}", "S", 8),
+          "${homeSaleModel.anyPayBalance}", "S", 9),
     ];
   }
 
@@ -107,9 +109,13 @@ class SaleLogic extends GetxController {
         update();
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
         isLoading = true;
         update();
+        if (error != null) {
+          if (error['errorCode'] != null) {
+            Common.showMessageError(error['errorCode'], context);
+          }
+        }
       },
     );
   }

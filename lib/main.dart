@@ -1,13 +1,17 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:bitel_ventas/main/utils/provider/search_request_provider.dart';
 import 'package:bitel_ventas/main/utils/shared_preference.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 
+import 'firebase_options.dart';
 import 'main/router/route_config.dart';
 import 'main/services/settings_service.dart';
 
@@ -16,6 +20,17 @@ Future<void> main() async {
 
   /// AWAIT SERVICES INITIALIZATION.
   await initServices();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  FlutterError.onError = (errorDetails) {
+    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+  };
+  // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
   runApp(const MyApp());
 }
 

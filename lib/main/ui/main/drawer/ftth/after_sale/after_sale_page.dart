@@ -56,11 +56,12 @@ class AfterSalePage extends StatelessWidget{
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(24),
+                border: Border.all(width: 1, color: AppColors.colorLineDash),
                 boxShadow: [
                   BoxShadow(
                     offset: const Offset(0, 0),
                     blurRadius: 1,
-                    color: Colors.black.withOpacity(0.3),
+                    color: AppColors.colorLineDash,
                   ),
                 ],
               ),
@@ -68,7 +69,7 @@ class AfterSalePage extends StatelessWidget{
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Container(
-                    child: SvgPicture.asset(AppImages.icSimMobile),
+                    child: SvgPicture.asset(AppImages.icChangePlan),
                     width: 35,
                     height: 35,
                     margin: const EdgeInsets.only(right: 10),
@@ -95,11 +96,12 @@ class AfterSalePage extends StatelessWidget{
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(24),
+                border: Border.all(width: 1, color: AppColors.colorLineDash),
                 boxShadow: [
                   BoxShadow(
                     offset: const Offset(0, 0),
                     blurRadius: 1,
-                    color: Colors.black.withOpacity(0.3),
+                    color: AppColors.colorLineDash,
                   ),
                 ],
               ),
@@ -107,7 +109,7 @@ class AfterSalePage extends StatelessWidget{
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Container(
-                    child: SvgPicture.asset(AppImages.icSimMobile),
+                    child: SvgPicture.asset(AppImages.icTransferService),
                     width: 35,
                     height: 35,
                     margin: const EdgeInsets.only(right: 10),
@@ -134,11 +136,12 @@ class AfterSalePage extends StatelessWidget{
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(24),
+                border: Border.all(width: 1, color: AppColors.colorLineDash),
                 boxShadow: [
                   BoxShadow(
                     offset: const Offset(0, 0),
                     blurRadius: 1,
-                    color: Colors.black.withOpacity(0.3),
+                    color: AppColors.colorLineDash,
                   ),
                 ],
               ),
@@ -146,7 +149,7 @@ class AfterSalePage extends StatelessWidget{
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Container(
-                    child: SvgPicture.asset(AppImages.icSimMobile),
+                    child: SvgPicture.asset(AppImages.icCancelService),
                     width: 35,
                     height: 35,
                     margin: const EdgeInsets.only(right: 10),
