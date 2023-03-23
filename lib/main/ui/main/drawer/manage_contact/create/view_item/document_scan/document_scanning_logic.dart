@@ -142,8 +142,12 @@ class DocumentScanningLogic extends GetxController {
         }
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
         callBack.call(false);
+        if (error != null) {
+          if (error['errorCode'] != null) {
+            Common.showMessageError(error['errorCode'], context);
+          }
+        }
       },
     );
   }
@@ -178,8 +182,12 @@ class DocumentScanningLogic extends GetxController {
         Get.back();
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
         Get.back();
+        if (error != null) {
+          if (error['errorCode'] != null) {
+            Common.showMessageError(error['errorCode'], context);
+          }
+        }
       },
     );
   }

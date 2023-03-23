@@ -116,8 +116,12 @@ class ClientDataLogic extends GetxController {
         Get.back();
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
         Get.back();
+        if (error != null) {
+          if (error['errorCode'] != null) {
+            Common.showMessageError(error['errorCode'], context);
+          }
+        }
       },
     );
   }

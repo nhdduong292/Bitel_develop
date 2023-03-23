@@ -47,7 +47,11 @@ class DialogTransferRequestLogic extends GetxController {
         } else {}
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
+        if (error != null) {
+          if (error['errorCode'] != null) {
+            Common.showMessageError(error['errorCode'], context);
+          }
+        }
       },
     );
   }
@@ -83,7 +87,11 @@ class DialogTransferRequestLogic extends GetxController {
         },
         onError: (error) {
           Get.back();
-          Common.showMessageError(error['errorCode'], context);
+          if (error != null) {
+            if (error['errorCode'] != null) {
+              Common.showMessageError(error['errorCode'], context);
+            }
+          }
           // callBack.call(false);
         });
   }

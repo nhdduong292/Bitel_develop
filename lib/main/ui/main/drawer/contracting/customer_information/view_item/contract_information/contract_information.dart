@@ -130,10 +130,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                   barrierDismissible: false,
                   context: context,
                   builder: (BuildContext context) {
-                    controller.textFieldProvince.text = '';
-                    controller.textFieldDistrict.text = '';
-                    controller.textFieldPrecinct.text = '';
-                    controller.textFieldAddress.text = '';
+                    controller.resetBillAdress();
                     return BillAddressInformation(
                       height: 450,
                       controller: controller,
@@ -141,14 +138,14 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                   },
                 ).then((value) {
                   if (value) {
-                    controller.address =
-                        '${controller.currentAddress}, ${controller.currentProvince.name}, ${controller.currentDistrict.name}, ${controller.currentPrecinct.name}';
+                    controller.billAddress =
+                        '${controller.billAddressSelect}, ${controller.billProvince.name}, ${controller.billDistrict.name}, ${controller.billPrecinct.name}';
                     controller.update();
                   }
                 });
               },
               child: lockedBox(
-                  content: controller.address,
+                  content: controller.billAddress,
                   label: AppLocalizations.of(context)!.textBillingAddress,
                   required: true,
                   isIcon: false,
@@ -467,11 +464,11 @@ class BillAddressInformation extends Dialog {
               ),
               InkWell(
                 onTap: () {
-                  if (controller.currentProvince.areaCode.isNotEmpty) {
+                  if (controller.textFieldProvince.text.isNotEmpty) {
                     if (controller.listDistrict.isEmpty) {
                       _onLoading(context);
                       controller.getListDistrict(
-                        controller.currentProvince.areaCode,
+                        controller.billProvince.areaCode,
                         (isSuccess) {
                           Get.back();
                           if (isSuccess) {
@@ -536,11 +533,11 @@ class BillAddressInformation extends Dialog {
               ),
               InkWell(
                 onTap: () {
-                  if (controller.currentDistrict.areaCode.isNotEmpty) {
+                  if (controller.textFieldDistrict.text.isNotEmpty) {
                     if (controller.listPrecinct.isEmpty) {
                       _onLoading(context);
                       controller.getListPrecincts(
-                        controller.currentDistrict.areaCode,
+                        controller.billDistrict.areaCode,
                         (isSuccess) {
                           Get.back();
                           if (isSuccess) {
@@ -612,7 +609,7 @@ class BillAddressInformation extends Dialog {
                         color: AppColors.colorTitle,
                         fontWeight: FontWeight.w500),
                     onChanged: (value) {
-                      controller.setAddress(value);
+                      controller.setBillAddress(value);
                     },
                     decoration: InputDecoration(
                       contentPadding:
@@ -681,11 +678,11 @@ class BillAddressInformation extends Dialog {
             list,
             (model) {
               if (position == 0) {
-                controll.setProvince(model);
+                controll.setBillProvince(model);
               } else if (position == 1) {
-                controll.setDistrict(model);
+                controll.setBillDistrict(model);
               } else if (position == 2) {
-                controll.setPrecinct(model);
+                controll.setBillPrecinct(model);
               }
             },
           );
