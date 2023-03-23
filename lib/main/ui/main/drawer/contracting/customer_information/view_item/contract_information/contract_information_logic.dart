@@ -59,7 +59,11 @@ class ContractInformationLogic extends GetxController {
         }
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
+        if (error != null) {
+          if (error['errorCode'] != null) {
+            Common.showMessageError(error['errorCode'], context);
+          }
+        }
       },
     );
   }

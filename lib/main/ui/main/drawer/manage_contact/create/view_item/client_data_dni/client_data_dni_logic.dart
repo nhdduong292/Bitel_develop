@@ -174,8 +174,12 @@ class ClientDataDNILogic extends GetxController {
         }
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
         callBack.call(false);
+        if (error != null) {
+          if (error['errorCode'] != null) {
+            Common.showMessageError(error['errorCode'], context);
+          }
+        }
       },
     );
   }

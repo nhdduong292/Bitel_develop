@@ -182,8 +182,12 @@ class CreateRequestLogic extends GetxController {
           }
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
           function.call(false, requestModel);
+          if (error != null) {
+            if (error['errorCode'] != null) {
+              Common.showMessageError(error['errorCode'], context);
+            }
+          }
         });
   }
 
@@ -220,7 +224,11 @@ class CreateRequestLogic extends GetxController {
           }
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
+          if (error != null) {
+            if (error['errorCode'] != null) {
+              Common.showMessageError(error['errorCode'], context);
+            }
+          }
         });
   }
 
@@ -243,8 +251,12 @@ class CreateRequestLogic extends GetxController {
           }
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
           function.call(false);
+          if (error != null) {
+            if (error['errorCode'] != null) {
+              Common.showMessageError(error['errorCode'], context);
+            }
+          }
         });
   }
 
@@ -269,8 +281,12 @@ class CreateRequestLogic extends GetxController {
           }
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
           function.call(false);
+          if (error != null) {
+            if (error['errorCode'] != null) {
+              Common.showMessageError(error['errorCode'], context);
+            }
+          }
         });
   }
 
@@ -295,8 +311,12 @@ class CreateRequestLogic extends GetxController {
           }
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
           function.call(false);
+          if (error != null) {
+            if (error['errorCode'] != null) {
+              Common.showMessageError(error['errorCode'], context);
+            }
+          }
         });
   }
 
@@ -321,8 +341,12 @@ class CreateRequestLogic extends GetxController {
           }
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
           callBack.call(false);
+          if (error != null) {
+            if (error['errorCode'] != null) {
+              Common.showMessageError(error['errorCode'], context);
+            }
+          }
         });
   }
 
@@ -340,8 +364,12 @@ class CreateRequestLogic extends GetxController {
           }
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
           callBack.call(false);
+          if (error != null) {
+            if (error['errorCode'] != null) {
+              Common.showMessageError(error['errorCode'], context);
+            }
+          }
         });
   }
 

@@ -225,7 +225,7 @@ Widget inputFormMaxLenght(
             onChanged: (value) => {onChange(value)},
             maxLength: maxLength,
             style: TextStyle(
-                fontSize: 18,
+                fontSize: 13,
                 fontFamily: 'Roboto',
                 color: Color(0xFF415263),
                 fontWeight: FontWeight.w500),
@@ -234,7 +234,7 @@ Widget inputFormMaxLenght(
               contentPadding: EdgeInsets.symmetric(horizontal: 15),
               hintText: hint,
               hintStyle: TextStyle(
-                  fontSize: 18,
+                  fontSize: 13,
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.w300),
               enabledBorder: OutlineInputBorder(
@@ -306,7 +306,7 @@ Widget inputFormV3(
             controller: controller,
             onChanged: (value) => {onChange(value)},
             style: TextStyle(
-                fontSize: 18,
+                fontSize: 13,
                 fontFamily: 'Roboto',
                 color: Color(0xFF415263),
                 fontWeight: FontWeight.w500),
@@ -315,7 +315,7 @@ Widget inputFormV3(
               contentPadding: EdgeInsets.symmetric(horizontal: 15),
               hintText: hint,
               hintStyle: TextStyle(
-                  fontSize: 18,
+                  fontSize: 13,
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.w300),
               enabledBorder: OutlineInputBorder(

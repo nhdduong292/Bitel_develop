@@ -125,9 +125,13 @@ class RegisterFingerPrintLogic extends GetxController {
         }
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
         Get.back();
         completer.complete(false);
+        if (error != null) {
+          if (error['errorCode'] != null) {
+            Common.showMessageError(error['errorCode'], context);
+          }
+        }
       },
     );
     return completer.future;
@@ -207,9 +211,13 @@ class RegisterFingerPrintLogic extends GetxController {
         }
       },
       onError: (error) {
-        // Common.showMessageError(error['errorCode'], context);
         Get.back();
         callBack.call(false);
+        if (error != null) {
+          if (error['errorCode'] != null) {
+            Common.showMessageError(error['errorCode'], context);
+          }
+        }
       },
     );
   }

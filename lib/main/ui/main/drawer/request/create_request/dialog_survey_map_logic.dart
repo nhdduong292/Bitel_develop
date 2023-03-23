@@ -159,9 +159,13 @@ class DialogSurveyMapLogic extends GetxController {
           }
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
           Get.back();
           function.call(false);
+          if (error != null) {
+            if (error['errorCode'] != null) {
+              Common.showMessageError(error['errorCode'], context);
+            }
+          }
         });
   }
 

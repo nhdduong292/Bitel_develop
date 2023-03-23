@@ -47,7 +47,11 @@ class DialogCancelRequestLogic extends GetxController {
         } else {}
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
+        if (error != null) {
+          if (error['errorCode'] != null) {
+            Common.showMessageError(error['errorCode'], context);
+          }
+        }
       },
     );
   }
@@ -84,9 +88,13 @@ class DialogCancelRequestLogic extends GetxController {
           }
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
           callBack.call(false);
           Get.back();
+          if (error != null) {
+            if (error['errorCode'] != null) {
+              Common.showMessageError(error['errorCode'], context);
+            }
+          }
         });
   }
 }
