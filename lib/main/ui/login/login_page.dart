@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:bitel_ventas/main/services/settings_service.dart';
 import 'package:bitel_ventas/main/ui/login/login_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
@@ -19,7 +22,7 @@ class LoginPage extends GetWidget {
         return Scaffold(
             resizeToAvoidBottomInset: false,
             body: Container(
-              constraints: BoxConstraints.expand(),
+              constraints: const BoxConstraints.expand(),
               decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage(AppImages.bgLogin), fit: BoxFit.cover),
@@ -63,8 +66,8 @@ class LoginPage extends GetWidget {
                   Container(
                     width: double.infinity,
                     margin:
-                    EdgeInsets.only(top: 0, left: 20, right: 20),
-                    padding: EdgeInsets.symmetric(vertical: 14),
+                    const EdgeInsets.only(top: 0, left: 20, right: 20),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(24),
@@ -225,7 +228,7 @@ class LoginPage extends GetWidget {
                                 ],
                               ),
                             )),
-                        Expanded(
+                        const Expanded(
                             child: SizedBox())
                       ],
                     ),
@@ -233,8 +236,8 @@ class LoginPage extends GetWidget {
                   Container(
                     width: double.infinity,
                     margin:
-                    EdgeInsets.only(top: 30, left: 25, right: 25),
-                    padding: EdgeInsets.symmetric(vertical: 14),
+                    const EdgeInsets.only(top: 30, left: 25, right: 25),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
                     decoration: BoxDecoration(
                       color: AppColors.colorButton,
                       borderRadius: BorderRadius.circular(24),
@@ -258,10 +261,10 @@ class LoginPage extends GetWidget {
                       text: TextSpan(
                         text: AppLocalizations.of(context)!.textCopyRight.toUpperCase(),
                         style: AppStyles.r4,
-                        children: const <TextSpan>[
+                        children: <TextSpan>[
                           TextSpan(
-                              text: 'V 1.7.2',
-                              style: TextStyle(
+                              text: Get.find<SettingService>().version.value,
+                              style: const TextStyle(
                                   color: AppColors.colorContent)),
                         ],
                       ),

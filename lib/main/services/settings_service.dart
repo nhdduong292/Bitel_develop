@@ -43,10 +43,10 @@ class SettingService extends GetxService {
   late SharedPreferences prefs;
 
   final Rx<String> token = "".obs;
+  Rx<String> version = "1.0.0".obs;
 
   Future<SettingService> init() async {
     prefs = await SharedPreferences.getInstance();
-
     ///ThemeMode
     String themeModeCode = prefs.getString("themeModeCode") ?? ThemeMode.system.code;
     final themeMode = ThemeModeExtension.fromCode(themeModeCode);
@@ -62,6 +62,7 @@ class SettingService extends GetxService {
     var locale = Locale.fromSubtags(languageCode: languageCode);
     currentLocate.value = locale;
     Get.updateLocale(locale);
+    // version.value = packageInfo.version;
 
     int timeRefreshToken = prefs.getInt(SPrefCache.PREF_KEY_REFRESH_TOKEN) ?? DateTime.now().millisecondsSinceEpoch;
     int timeCurrent = DateTime.now().millisecondsSinceEpoch;
