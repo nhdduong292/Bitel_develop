@@ -6,6 +6,7 @@ import 'package:bitel_ventas/main/networks/model/customer_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -218,8 +219,10 @@ class CustomerInformationLogic extends GetxController {
         isSuccess.call(false);
         Get.back();
         if (error != null) {
-          if (error['errorCode'] != null) {
-            Common.showMessageError(error['errorCode'], context);
+          if (error is DioError && error.response!.data['errorCode'] != null) {
+            Common.showMessageError(error.response!.data['errorCode'], context);
+          } else {
+            Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
           }
         }
       },
@@ -295,10 +298,12 @@ class CustomerInformationLogic extends GetxController {
         onError: (error) {
           function.call(false);
           if (error != null) {
-            if (error['errorCode'] != null) {
-              Common.showMessageError(error['errorCode'], context);
-            }
+          if (error is DioError && error.response!.data['errorCode'] != null) {
+            Common.showMessageError(error.response!.data['errorCode'], context);
+          } else {
+            Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
           }
+        }
         });
   }
 
@@ -325,8 +330,13 @@ class CustomerInformationLogic extends GetxController {
         onError: (error) {
           function.call(false);
           if (error != null) {
-            if (error['errorCode'] != null) {
-              Common.showMessageError(error['errorCode'], context);
+            if (error is DioError &&
+                error.response!.data['errorCode'] != null) {
+              Common.showMessageError(
+                  error.response!.data['errorCode'], context);
+            } else {
+              Common.showToastCenter(
+                  AppLocalizations.of(context)!.textErrorAPI);
             }
           }
         });
@@ -355,10 +365,12 @@ class CustomerInformationLogic extends GetxController {
         onError: (error) {
           function.call(false);
           if (error != null) {
-            if (error['errorCode'] != null) {
-              Common.showMessageError(error['errorCode'], context);
-            }
+          if (error is DioError && error.response!.data['errorCode'] != null) {
+            Common.showMessageError(error.response!.data['errorCode'], context);
+          } else {
+            Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
           }
+        }
         });
   }
 
@@ -517,8 +529,10 @@ class CustomerInformationLogic extends GetxController {
         Get.back();
         callBack.call(false);
         if (error != null) {
-          if (error['errorCode'] != null) {
-            Common.showMessageError(error['errorCode'], context);
+          if (error is DioError && error.response!.data['errorCode'] != null) {
+            Common.showMessageError(error.response!.data['errorCode'], context);
+          } else {
+            Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
           }
         }
       },
