@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/document_scanning_logic.dart';
@@ -26,6 +24,8 @@ class ClientDataDNILogic extends GetxController {
   FocusNode focusLastName = FocusNode();
   CustomerModel customerModel = CustomerModel();
   CustomerDNIModel customerDNIModel = CustomerDNIModel();
+
+  ClientDataDNILogic({required this.context});
 
   String sexValue = 'M';
   List<String> sexs = ['M', 'F'];
@@ -222,19 +222,24 @@ class ClientDataDNILogic extends GetxController {
 
   bool checkValidate() {
     if (!tfLastName.text.isNotEmpty) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textEnterAllInfo);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotEmptyLastName);
       return false;
     } else if (!tfName.text.isNotEmpty) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textEnterAllInfo);
+      Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyName);
       return false;
     } else if (!tfNationality.text.isNotEmpty) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textEnterAllInfo);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotEmptyNationality);
       return false;
     } else if (!dob.isNotEmpty) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textEnterAllInfo);
+      Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyDob);
       return false;
     } else if (!exd.isNotEmpty) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textEnterAllInfo);
+      Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyExd);
+      return false;
+    } else if (!tfAddress.text.isNotEmpty) {
+      Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyAddress);
       return false;
     } else if (compareToDateNow()) {
       Common.showToastCenter(

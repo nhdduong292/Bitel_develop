@@ -500,6 +500,11 @@
   "textNotEmptyDistrict": "Quận không được để trống",
   "textNotEmptyPrecinct": "Khu vực không được để trống",
   "textCancelRequestSuccessfully": "Cancel request successfully",
-  "textCaptureFingerprintSuccessfully": "Capture fingerprint successfully"
+  "textCaptureFingerprintSuccessfully": "Capture fingerprint successfully",
+  "textNotEmptyLastName": "Họ không được để trống",
+  "textNotEmptyName": "Tên không được để trống",
+  "textNotEmptyNationality": "Quốc gia không được để trống",
+  "textNotEmptyDob": "Ngày sinh không được để trống",
+  "textNotEmptyExd": "Ngày hết hạn không được để trống"
 
 }
