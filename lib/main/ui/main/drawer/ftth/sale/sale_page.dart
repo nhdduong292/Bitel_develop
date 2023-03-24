@@ -117,7 +117,7 @@ class SalePage extends GetWidget {
                                             arguments: 2);
                                       } else if (index == 2) {
                                         Get.toNamed(RouteConfig.listRequest,
-                                            arguments: 4);
+                                            arguments: 3);
                                       } else if (index == 3) {
                                         Get.toNamed(RouteConfig.listRequest,
                                             arguments: 5);

@@ -41,7 +41,7 @@ class ApiUtil {
     dio!.get(url, queryParameters: params, cancelToken: isCancel ? cancelToken : null).then((res) {
       if (onSuccess != null) onSuccess(getBaseResponse(res));
     }).catchError((error) {
-      if (onError != null) onError(error.response?.data);
+      onError(error);
     });
   }
 

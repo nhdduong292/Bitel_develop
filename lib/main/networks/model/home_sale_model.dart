@@ -1,5 +1,5 @@
 class HomeSaleModel{
-  int waitingOfflineSurvey = 0;
+  String waitingOfflineSurvey = "";
   int cancelled =0;
   int waitingDeployment=0;
   int waitingConnection=0;
