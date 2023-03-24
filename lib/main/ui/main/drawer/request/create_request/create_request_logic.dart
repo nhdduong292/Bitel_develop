@@ -7,6 +7,7 @@ import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/networks/response/search_contact_response.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -122,7 +123,7 @@ class CreateRequestLogic extends GetxController {
     if (textFieldPhone.value.text.isEmpty ||
         textFieldPhone.value.text.length < 9) {
       focusPhone.requestFocus();
-      Common.showToastCenter("Số điện thoại ít nhất phải 9 chữ số");
+      Common.showToastCenter(AppLocalizations.of(context)!.textPhoneMin9Number);
       return true;
     }
     // if(currentProvince.isEmpty){
@@ -137,18 +138,30 @@ class CreateRequestLogic extends GetxController {
     //   focusPrecinct.requestFocus();
     //   return true;
     // }
+    if (currentProvince.province.isEmpty) {
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotEmptyProvince);
+      return true;
+    }
+
+    if (currentDistrict.district.isEmpty) {
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotEmptyDistrict);
+      return true;
+    }
+
+    if (currentPrecinct.precinct.isEmpty) {
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotEmptyPrecinct);
+      return true;
+    }
+
     if (textFieldAddress.value.text.isEmpty) {
       focusAddress.requestFocus();
       return true;
     }
-    if (!isCheckAgree ||
-        currentIdentity.isEmpty ||
-        currentName.isEmpty ||
-        currentPhone.isEmpty ||
-        currentProvince.areaCode.isEmpty ||
-        currentPrecinct.areaCode.isEmpty ||
-        currentDistrict.areaCode.isEmpty ||
-        currentAddress.isEmpty) {
+
+    if (!isCheckAgree) {
       Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
       return true;
     }
@@ -184,8 +197,13 @@ class CreateRequestLogic extends GetxController {
         onError: (error) {
           function.call(false, requestModel);
           if (error != null) {
-            if (error['errorCode'] != null) {
-              Common.showMessageError(error['errorCode'], context);
+            if (error is DioError &&
+                error.response!.data['errorCode'] != null) {
+              Common.showMessageError(
+                  error.response!.data['errorCode'], context);
+            } else {
+              Common.showToastCenter(
+                  AppLocalizations.of(context)!.textErrorAPI);
             }
           }
         });
@@ -225,8 +243,13 @@ class CreateRequestLogic extends GetxController {
         },
         onError: (error) {
           if (error != null) {
-            if (error['errorCode'] != null) {
-              Common.showMessageError(error['errorCode'], context);
+            if (error is DioError &&
+                error.response!.data['errorCode'] != null) {
+              Common.showMessageError(
+                  error.response!.data['errorCode'], context);
+            } else {
+              Common.showToastCenter(
+                  AppLocalizations.of(context)!.textErrorAPI);
             }
           }
         });
@@ -253,8 +276,13 @@ class CreateRequestLogic extends GetxController {
         onError: (error) {
           function.call(false);
           if (error != null) {
-            if (error['errorCode'] != null) {
-              Common.showMessageError(error['errorCode'], context);
+            if (error is DioError &&
+                error.response!.data['errorCode'] != null) {
+              Common.showMessageError(
+                  error.response!.data['errorCode'], context);
+            } else {
+              Common.showToastCenter(
+                  AppLocalizations.of(context)!.textErrorAPI);
             }
           }
         });
@@ -283,8 +311,13 @@ class CreateRequestLogic extends GetxController {
         onError: (error) {
           function.call(false);
           if (error != null) {
-            if (error['errorCode'] != null) {
-              Common.showMessageError(error['errorCode'], context);
+            if (error is DioError &&
+                error.response!.data['errorCode'] != null) {
+              Common.showMessageError(
+                  error.response!.data['errorCode'], context);
+            } else {
+              Common.showToastCenter(
+                  AppLocalizations.of(context)!.textErrorAPI);
             }
           }
         });
@@ -313,8 +346,13 @@ class CreateRequestLogic extends GetxController {
         onError: (error) {
           function.call(false);
           if (error != null) {
-            if (error['errorCode'] != null) {
-              Common.showMessageError(error['errorCode'], context);
+            if (error is DioError &&
+                error.response!.data['errorCode'] != null) {
+              Common.showMessageError(
+                  error.response!.data['errorCode'], context);
+            } else {
+              Common.showToastCenter(
+                  AppLocalizations.of(context)!.textErrorAPI);
             }
           }
         });
@@ -343,8 +381,13 @@ class CreateRequestLogic extends GetxController {
         onError: (error) {
           callBack.call(false);
           if (error != null) {
-            if (error['errorCode'] != null) {
-              Common.showMessageError(error['errorCode'], context);
+            if (error is DioError &&
+                error.response!.data['errorCode'] != null) {
+              Common.showMessageError(
+                  error.response!.data['errorCode'], context);
+            } else {
+              Common.showToastCenter(
+                  AppLocalizations.of(context)!.textErrorAPI);
             }
           }
         });
@@ -366,8 +409,13 @@ class CreateRequestLogic extends GetxController {
         onError: (error) {
           callBack.call(false);
           if (error != null) {
-            if (error['errorCode'] != null) {
-              Common.showMessageError(error['errorCode'], context);
+            if (error is DioError &&
+                error.response!.data['errorCode'] != null) {
+              Common.showMessageError(
+                  error.response!.data['errorCode'], context);
+            } else {
+              Common.showToastCenter(
+                  AppLocalizations.of(context)!.textErrorAPI);
             }
           }
         });

@@ -3,8 +3,10 @@ import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/networks/response/list_request_response.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_logic.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../../utils/common.dart';
 
@@ -63,8 +65,13 @@ class ListRequestTabLogic extends GetxController {
           isLoading = false;
           update();
           if (error != null) {
-            if (error['errorCode'] != null) {
-              Common.showMessageError(error['errorCode'], context);
+            if (error is DioError &&
+                error.response!.data['errorCode'] != null) {
+              Common.showMessageError(
+                  error.response!.data['errorCode'], context);
+            } else {
+              Common.showToastCenter(
+                  AppLocalizations.of(context)!.textErrorAPI);
             }
           }
         });

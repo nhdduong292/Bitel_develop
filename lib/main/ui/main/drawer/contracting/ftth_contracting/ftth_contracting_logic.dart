@@ -1,23 +1,27 @@
 import 'package:bitel_ventas/main/networks/model/contract_model.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
 import '../../../../../utils/common.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FTTHContractingLogic extends GetxController {
   late BuildContext context;
 
   int contractId = 0;
+  String email = '';
   ContractModel contractModel = ContractModel();
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-
-    contractId = Get.arguments;
+    var data = Get.arguments;
+    contractId = data[0];
+    email = data[1];
     getContract();
   }
 
@@ -34,8 +38,10 @@ class FTTHContractingLogic extends GetxController {
       },
       onError: (error) {
         if (error != null) {
-          if (error['errorCode'] != null) {
-            Common.showMessageError(error['errorCode'], context);
+          if (error is DioError && error.response!.data['errorCode'] != null) {
+            Common.showMessageError(error.response!.data['errorCode'], context);
+          } else {
+            Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
           }
         }
       },

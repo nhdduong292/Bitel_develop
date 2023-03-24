@@ -38,7 +38,10 @@ class ApiUtil {
     // if(isCancel) {
     //   dio!.options.
     // }
-    dio!.get(url, queryParameters: params, cancelToken: isCancel ? cancelToken : null).then((res) {
+    dio!
+        .get(url,
+            queryParameters: params, cancelToken: isCancel ? cancelToken : null)
+        .then((res) {
       if (onSuccess != null) onSuccess(getBaseResponse(res));
     }).catchError((error) {
       onError(error);
@@ -67,7 +70,7 @@ class ApiUtil {
         .then((res) {
       if (onSuccess != null) onSuccess(res);
     }).catchError((error) {
-      if (onError != null) onError(error.response?.data);
+      if (onError != null) onError(error);
     });
   }
 
@@ -94,7 +97,7 @@ class ApiUtil {
         .then((res) {
       if (onSuccess != null) onSuccess(getBaseResponse(res));
     }).catchError((error) {
-      if (onError != null) onError(error.response?.data);
+      if (onError != null) onError(error);
     });
   }
 
@@ -127,7 +130,7 @@ class ApiUtil {
         .then((res) {
       if (onSuccess != null) onSuccess(getBaseResponse(res));
     }).catchError((error) {
-      if (onError != null) onError(error.response?.data);
+      if (onError != null) onError(error);
     });
   }
 

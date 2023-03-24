@@ -279,7 +279,7 @@ Widget _itemProduct(
                   height: 8,
                 ),
                 Text(
-                  'Speed ${product.speed}',
+                  'Speed ${product.speed} Mpbs',
                   style: AppStyles.r6C8AA1_13_400
                       .copyWith(fontSize: 12, fontWeight: FontWeight.w500),
                 ),

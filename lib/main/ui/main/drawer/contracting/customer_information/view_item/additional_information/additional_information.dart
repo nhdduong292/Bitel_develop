@@ -240,11 +240,6 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                     if (!controller.checkValidate()) {
                       return;
                     }
-                    controller.billProvince = controller.currentProvince;
-                    controller.billDistrict = controller.currentDistrict;
-                    controller.billPrecinct = controller.currentDistrict;
-                    controller.billAddressSelect = controller.currentAddress;
-                    controller.billAddress = controller.address;
                     callback();
                   },
                   text:
@@ -267,6 +262,12 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                         flex: 1,
                         child: bottomButton(
                             onTap: () {
+                              if (!controller.isActiveUpdate) {
+                                return;
+                              }
+                              if (controller.checkValidateAddInfo()) {
+                                return;
+                              }
                               if (!controller.checkValidate()) {
                                 return;
                               }
@@ -337,7 +338,7 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                         content,
                         style: TextStyle(
                             fontFamily: 'Roboto',
-                            color: Color(0xFFCFCFCF),
+                            color: Color(0xFF415263),
                             fontWeight: FontWeight.w500,
                             fontSize: 13),
                       ),

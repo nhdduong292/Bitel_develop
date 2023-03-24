@@ -216,8 +216,8 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                             controller.textCapture.isNotEmpty
                                 ? Image.file(
                                     File(controller.textCapture),
-                                    width: 58,
-                                    height: 77,
+                                    width: 65,
+                                    height: 85,
                                   )
                                 : SvgPicture.asset(AppImages.imgHuellaDactilar),
                             SizedBox(
@@ -298,8 +298,10 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                           if (p0) {
                                             Get.toNamed(
                                                 RouteConfig.ftthContracting,
-                                                arguments:
-                                                    controller.contractId);
+                                                arguments: [
+                                                  controller.contractId,
+                                                  controller.email
+                                                ]);
                                           } else {
                                             Common.showToastCenter(
                                                 AppLocalizations.of(context)!

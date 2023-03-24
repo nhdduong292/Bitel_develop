@@ -2,8 +2,11 @@ import 'dart:async';
 
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
+import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/networks/response/product_response.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/request_detail/request_detail_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -13,17 +16,20 @@ import '../../../../../networks/model/method_model.dart';
 import '../../../../../networks/model/plan_reason_model.dart';
 import '../../../../../networks/model/product_model.dart';
 import '../../../../../utils/common.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductPaymentMethodLogic extends GetxController {
-  int requestId = 0;
-  String type = '';
-  String idNumber = '';
+  // int requestId = 0;
+  // String type = '';
+  // String idNumber = '';
   bool isLoadingProduct = true;
   BuildContext context;
 
-  String province = '';
-  String district = '';
-  String precinct = '';
+  // String province = '';
+  // String district = '';
+  // String precinct = '';
+
+  RequestDetailModel requestModel = RequestDetailModel();
 
   ProductPaymentMethodLogic({required this.context});
 
@@ -32,13 +38,14 @@ class ProductPaymentMethodLogic extends GetxController {
     // TODO: implement onInit
     super.onInit();
     var data = Get.arguments;
-    requestId = data[0];
-    type = data[1];
-    idNumber = data[2];
-    province = data[3];
-    district = data[4];
-    precinct = data[5];
-    getProduts(requestId);
+    // requestId = data[0];
+    // type = data[0];
+    // idNumber = data[2];
+    // province = data[3];
+    // district = data[4];
+    // precinct = data[5];
+    requestModel = data[0];
+    getProduts(requestModel.id);
   }
 
   final ItemScrollController? scrollController = ItemScrollController();
@@ -96,8 +103,10 @@ class ProductPaymentMethodLogic extends GetxController {
         isLoadingProduct = false;
         update();
         if (error != null) {
-          if (error['errorCode'] != null) {
-            Common.showMessageError(error['errorCode'], context);
+          if (error is DioError && error.response!.data['errorCode'] != null) {
+            Common.showMessageError(error.response!.data['errorCode'], context);
+          } else {
+            Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
           }
         }
       },
@@ -149,8 +158,10 @@ class ProductPaymentMethodLogic extends GetxController {
       onError: (error) {
         Get.back();
         if (error != null) {
-          if (error['errorCode'] != null) {
-            Common.showMessageError(error['errorCode'], context);
+          if (error is DioError && error.response!.data['errorCode'] != null) {
+            Common.showMessageError(error.response!.data['errorCode'], context);
+          } else {
+            Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
           }
         }
       },
@@ -172,8 +183,10 @@ class ProductPaymentMethodLogic extends GetxController {
       onError: (error) {
         Get.back();
         if (error != null) {
-          if (error['errorCode'] != null) {
-            Common.showMessageError(error['errorCode'], context);
+          if (error is DioError && error.response!.data['errorCode'] != null) {
+            Common.showMessageError(error.response!.data['errorCode'], context);
+          } else {
+            Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
           }
         }
       },
@@ -184,7 +197,7 @@ class ProductPaymentMethodLogic extends GetxController {
     _onLoading(context);
     Completer<bool> completer = Completer();
     ApiUtil.getInstance()!.get(
-      url: '${ApiEndPoints.API_CUSTOMER}/$requestId/',
+      url: '${ApiEndPoints.API_CUSTOMER}/${requestModel.id}/',
       onSuccess: (response) {
         Get.back();
         if (response.isSuccess) {
@@ -198,12 +211,17 @@ class ProductPaymentMethodLogic extends GetxController {
         Get.back();
 
         if (error != null) {
-          if (error['errorCode'] != null) {
-            Common.showMessageError(error['errorCode'], context);
+          if (error is DioError && error.response!.data['errorCode'] != null) {
+            Common.showMessageError(error.response!.data['errorCode'], context);
             //neu tra ve code E012 la chua dang ky khach hang
-            if (error['errorCode'] == 'E012') {
+            if (error.response!.data['errorCode'] == 'E012') {
               completer.complete(false);
+            } else {
+              Common.showMessageError(
+                  error.response!.data['errorCode'], context);
             }
+          } else {
+            Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
           }
         }
       },

@@ -3,6 +3,7 @@ import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/reason_model.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -48,8 +49,10 @@ class DialogTransferRequestLogic extends GetxController {
       },
       onError: (error) {
         if (error != null) {
-          if (error['errorCode'] != null) {
-            Common.showMessageError(error['errorCode'], context);
+          if (error is DioError && error.response!.data['errorCode'] != null) {
+            Common.showMessageError(error.response!.data['errorCode'], context);
+          } else {
+            Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
           }
         }
       },
@@ -88,8 +91,13 @@ class DialogTransferRequestLogic extends GetxController {
         onError: (error) {
           Get.back();
           if (error != null) {
-            if (error['errorCode'] != null) {
-              Common.showMessageError(error['errorCode'], context);
+            if (error is DioError &&
+                error.response!.data['errorCode'] != null) {
+              Common.showMessageError(
+                  error.response!.data['errorCode'], context);
+            } else {
+              Common.showToastCenter(
+                  AppLocalizations.of(context)!.textErrorAPI);
             }
           }
           // callBack.call(false);

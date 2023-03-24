@@ -180,7 +180,8 @@ class CustommerInformationPage extends GetView<CustomerInformationLogic> {
                                     controller.customer.custId,
                                     controller.getTypeCustomer(),
                                     controller.customer.idNumber,
-                                    controller.contract.contractId
+                                    controller.contract.contractId,
+                                    controller.emailController.text
                                   ])?.then((value) {
                                 if (value != null && value) {
                                   controller.checkMainContract.value = false;

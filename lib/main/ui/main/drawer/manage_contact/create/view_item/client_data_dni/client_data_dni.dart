@@ -25,7 +25,7 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     return GetBuilder(
-        init: ClientDataDNILogic(),
+        init: ClientDataDNILogic(context: context),
         builder: (controller) {
           return SingleChildScrollView(
             child:
@@ -248,7 +248,7 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                                   Get.offNamed(RouteConfig.customerInformation,
                                       arguments: [
                                         controller.customerModel,
-                                        controller.requestId,
+                                        controller.requestModel,
                                         controller.productId,
                                         controller.reasonId,
                                         controller.isForcedTerm
