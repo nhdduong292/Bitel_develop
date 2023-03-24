@@ -42,6 +42,7 @@ class DialogSurveyMapLogic extends GetxController {
   var currentPoint;
 
   bool isActive = false;
+  Timer? _debounce;
 
   DialogSurveyMapLogic({required this.context, required this.requestModel});
 
@@ -94,12 +95,16 @@ class DialogSurveyMapLogic extends GetxController {
   }
 
   void setRadius(String value) {
-    currentRadius = value;
-    radiusValue = double.parse(currentRadius);
-    if (radiusValue < 1) {
-      return;
-    }
-    setCircle(currentPoint);
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      currentRadius = value;
+      radiusValue = double.parse(currentRadius);
+      if (radiusValue < 1) {
+        return;
+      }
+      setCircle(currentPoint);
+    });
+
   }
 
   Future<Position> _getCurrentLocation() async {
@@ -197,4 +202,5 @@ class DialogSurveyMapLogic extends GetxController {
       setCircle(currentPoint);
     }
   }
+
 }
