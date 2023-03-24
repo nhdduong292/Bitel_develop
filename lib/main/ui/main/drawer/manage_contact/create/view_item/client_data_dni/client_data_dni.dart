@@ -248,7 +248,7 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                                   Get.offNamed(RouteConfig.customerInformation,
                                       arguments: [
                                         controller.customerModel,
-                                        controller.requestId,
+                                        controller.requestModel,
                                         controller.productId,
                                         controller.reasonId,
                                         controller.isForcedTerm

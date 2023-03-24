@@ -23,6 +23,7 @@ class ValidateFingerprintLogic extends GetxController {
   int contractId = 0;
   String typeCustomer = '';
   String idNumber = '';
+  String email = '';
   BestFingerModel bestFinger = BestFingerModel();
   var pathFinger = ''.obs;
   List<String> listFinger = [];
@@ -41,6 +42,7 @@ class ValidateFingerprintLogic extends GetxController {
     typeCustomer = data[2];
     idNumber = data[3];
     contractId = data[4];
+    email = data[5];
   }
 
   void setCapture(String value) {
@@ -72,7 +74,7 @@ class ValidateFingerprintLogic extends GetxController {
     }
     if (listFinger.isNotEmpty) {
       Common.showToastCenter(
-          AppLocalizations.of(context)!.textNotifyFingerSuccess);
+          AppLocalizations.of(context)!.textCaptureFingerprintSuccessfully);
     } else {
       Common.showToastCenter(
           AppLocalizations.of(context)!.textNotifyFingerFail);

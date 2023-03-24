@@ -12,22 +12,19 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../../networks/model/request_detail_model.dart';
+
 class DialogSurveySuccessful extends GetWidget {
   final Function(bool isOnline)? onSubmit;
-  int id;
-  String type;
-  String idNumber;
-  String province;
-  String district;
-  String precinct;
 
-  DialogSurveySuccessful(this.id, this.type, this.idNumber, this.province,
-      this.district, this.precinct, this.onSubmit);
+  RequestDetailModel requestModel;
+
+  DialogSurveySuccessful(this.requestModel, this.onSubmit);
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: DialogSurveySuccessfulLogic(id),
+      init: DialogSurveySuccessfulLogic(requestModel.id),
       builder: (controller) {
         return Dialog(
           shape: RoundedRectangleBorder(
@@ -81,19 +78,18 @@ class DialogSurveySuccessful extends GetWidget {
                         Expanded(
                             flex: 1,
                             child: controller.isSelectOffline
-                            ? iconOnlyRadio(-1)
-                            : iconOnlyUnRadio()
-                        ),
-
-                       Expanded(
-                         flex: 4,
-                           child:  Text(
-                         AppLocalizations.of(context)!.textCreateOfflineSurvey,
-                         textAlign: TextAlign.left,
-                         style: AppStyles.r6.copyWith(
-                             color: AppColors.colorText4,
-                             fontWeight: FontWeight.w500),
-                       )),
+                                ? iconOnlyRadio(-1)
+                                : iconOnlyUnRadio()),
+                        Expanded(
+                            flex: 4,
+                            child: Text(
+                              AppLocalizations.of(context)!
+                                  .textCreateOfflineSurvey,
+                              textAlign: TextAlign.left,
+                              style: AppStyles.r6.copyWith(
+                                  color: AppColors.colorText4,
+                                  fontWeight: FontWeight.w500),
+                            )),
                       ],
                     ),
                   ),
@@ -170,14 +166,7 @@ class DialogSurveySuccessful extends GetWidget {
                                     // Get.toNamed(RouteConfig.productPayment,
                                     //     arguments: controller.requestModel.id);
                                     Get.toNamed(RouteConfig.productPayment,
-                                        arguments: [
-                                          id,
-                                          type,
-                                          idNumber,
-                                          province,
-                                          district,
-                                          precinct
-                                        ]);
+                                        arguments: [requestModel]);
                                   } else {
                                     Get.back();
                                   }

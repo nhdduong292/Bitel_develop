@@ -122,7 +122,7 @@ class CreateRequestLogic extends GetxController {
     if (textFieldPhone.value.text.isEmpty ||
         textFieldPhone.value.text.length < 9) {
       focusPhone.requestFocus();
-      Common.showToastCenter("Số điện thoại ít nhất phải 9 chữ số");
+      Common.showToastCenter(AppLocalizations.of(context)!.textPhoneMin9Number);
       return true;
     }
     // if(currentProvince.isEmpty){
@@ -137,18 +137,30 @@ class CreateRequestLogic extends GetxController {
     //   focusPrecinct.requestFocus();
     //   return true;
     // }
+    if (currentProvince.province.isEmpty) {
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotEmptyProvince);
+      return true;
+    }
+
+    if (currentDistrict.district.isEmpty) {
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotEmptyDistrict);
+      return true;
+    }
+
+    if (currentPrecinct.precinct.isEmpty) {
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotEmptyPrecinct);
+      return true;
+    }
+
     if (textFieldAddress.value.text.isEmpty) {
       focusAddress.requestFocus();
       return true;
     }
-    if (!isCheckAgree ||
-        currentIdentity.isEmpty ||
-        currentName.isEmpty ||
-        currentPhone.isEmpty ||
-        currentProvince.areaCode.isEmpty ||
-        currentPrecinct.areaCode.isEmpty ||
-        currentDistrict.areaCode.isEmpty ||
-        currentAddress.isEmpty) {
+
+    if (!isCheckAgree) {
       Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
       return true;
     }

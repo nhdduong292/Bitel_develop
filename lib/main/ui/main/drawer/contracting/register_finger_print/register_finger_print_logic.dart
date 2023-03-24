@@ -48,7 +48,7 @@ class RegisterFingerPrintLogic extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    requestId = logicCreateContact.requestId;
+    requestId = logicCreateContact.requestModel.id;
     productId = logicCreateContact.productId;
     reasonId = logicCreateContact.reasonId;
     isForcedTerm = logicCreateContact.isForcedTerm;

@@ -278,13 +278,25 @@ class CreateRequestPage extends GetWidget {
                             )),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 16, bottom: 10),
-                        child: Text(
-                          AppLocalizations.of(context)!.textContactPhone,
-                          style: AppStyles.r1
-                              .copyWith(fontWeight: FontWeight.w500),
-                        ),
-                      ),
+                          padding: const EdgeInsets.only(top: 16, bottom: 10),
+                          child: RichText(
+                            text: TextSpan(
+                                text: AppLocalizations.of(context)!
+                                    .textContactPhone,
+                                style: AppStyles.r1
+                                    .copyWith(fontWeight: FontWeight.w500),
+                                // ignore: prefer_const_literals_to_create_immutables
+                                children: [
+                                  const TextSpan(
+                                    text: ' *',
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontFamily: 'Roboto',
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ]),
+                          )),
                       Container(
                         child: TextField(
                             keyboardType: TextInputType.number,
@@ -296,7 +308,6 @@ class CreateRequestPage extends GetWidget {
                             onChanged: (value) {
                               controller.setPhone(value);
                             },
-
                             maxLength: 9,
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.only(

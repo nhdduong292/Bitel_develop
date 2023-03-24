@@ -38,7 +38,7 @@ class ClientDataLogic extends GetxController {
     // TODO: implement onInit
     super.onInit();
     // onListenerMethod();
-    idNumber = logicCreateContact.idNumber;
+    idNumber = logicCreateContact.requestModel.customerModel.idNumber;
   }
 
   void onListenerMethod() {
