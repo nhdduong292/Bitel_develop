@@ -1,3 +1,4 @@
+import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/create_order/view_item/transaction_detail/transaction_detail_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/create_order/view_item/transaction_information/transaction_information_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/clear_debt_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/view_item/clear_debt_detail/clear_debt_detail_page.dart';
@@ -126,8 +127,8 @@ class CreateOrderPage extends GetView<CreateOrderLogic> {
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
                       TransactionInformationPage(),
-                      TransactionInformationPage(),
-                      TransactionInformationPage() 
+                      TransactionDetailPage(),
+                      TransactionInformationPage()
                     ])),
               ],
             ),
