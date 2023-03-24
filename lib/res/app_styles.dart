@@ -242,4 +242,37 @@ class AppStyles {
       color: AppColors.colorText1.withOpacity(0.85),
       fontWeight: FontWeight.w500);
 
+  static final TextStyle r415263_14_600 = TextStyle(
+      fontFamily: AppFonts.Barlow,
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+      color: AppColors.color_415263);
+
+  static final TextStyle r415263_14_400 = TextStyle(
+      fontFamily: AppFonts.Barlow,
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      color: AppColors.color_415263);
+  static final TextStyle bText1_14_500 = TextStyle(
+      fontFamily: AppFonts.Barlow,
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
+      color: AppColors.colorText1);
+
+  static final TextStyle bText1_13_300 = TextStyle(
+      fontFamily: AppFonts.Barlow,
+      fontSize: 13,
+      fontWeight: FontWeight.w300,
+      color: AppColors.colorText1);
+  static final TextStyle bContent_17_700 = TextStyle(
+      fontFamily: AppFonts.Barlow,
+      fontSize: 17,
+      fontWeight: FontWeight.w700,
+      color: AppColors.colorContent);
+
+  static final TextStyle bContent_10_400 = TextStyle(
+      fontFamily: AppFonts.Barlow,
+      fontSize: 10,
+      fontWeight: FontWeight.w400,
+      color: AppColors.colorContent);
 }

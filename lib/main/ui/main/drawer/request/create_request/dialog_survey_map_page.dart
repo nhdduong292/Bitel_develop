@@ -135,7 +135,7 @@ class DialogSurveyMapPage extends GetWidget {
                                 required: false,
                                 dropValue: "",
                                 controlTextField: controller.textFieldRadius,
-                                onSubmit: (value) {
+                                function: (value) {
                                   controller.setRadius(value);
                                 },
                                 listDrop: [])),

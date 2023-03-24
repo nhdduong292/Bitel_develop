@@ -2,6 +2,9 @@ import 'dart:ui';
 
 import 'package:bitel_ventas/main/ui/login/login_binding.dart';
 import 'package:bitel_ventas/main/ui/login/login_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/buy_anypay_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/create_order/create_oder_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/order_management/order_management_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_search_page.dart';
@@ -43,12 +46,15 @@ class RouteConfig {
   static const String idCardScanner = "/createManage/idCardScanner";
   static const String afterSale = "/menu/ftth/aftersale";
   static const String sale = "/menu/ftth/sale";
-  static const String productPayment = "/menu/ftth/contract/productandpayment";
-  static const String customerInformation = "/contracting/customerInformation";
-  static const String validateFingerprint = "/contracting/validateFingerprint";
-  static const String ftthContracting = "/contracting/ftthContracting";
-  static const String registerFingerPrint = "/contracting/registerFingerPrint";
+  static const String productPayment = "/menu/contract/productandpayment";
+  static const String customerInformation = "/menu/contracting/customerInformation";
+  static const String validateFingerprint = "/menu/contracting/validateFingerprint";
+  static const String ftthContracting = "/menu/contracting/ftthContracting";
+  static const String registerFingerPrint = "/menu/contracting/registerFingerPrint";
   static const String afterSaleSearch = "/menu/afterSale/search";
+  static const String buyAnyPay = "/menu/buyAnyPay";
+  static const String createOrder = "/menu/buyAnyPay/createOrder";
+  static const String orderManagement = "/menu/buyAnyPay/orderManagement";
 
   ///page
   static final List<GetPage> getPages = [
@@ -73,6 +79,9 @@ class RouteConfig {
     GetPage(name: registerFingerPrint, page: () => RegisterFingerPrintPage()),
     GetPage(name: productPayment, page: () => ProductPaymentMethodPage()),
     GetPage(name: afterSaleSearch, page: () => AfterSaleSearchPage("")),
+    GetPage(name: buyAnyPay, page: () => BuyAnyPayPage()),
+    GetPage(name: createOrder, page: () => CreateOrderPage()),
+    GetPage(name: orderManagement, page: () => OrderManagementPage()),
   ];
 
   ///language

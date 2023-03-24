@@ -2,6 +2,7 @@ import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/home_sale_model.dart';
 import 'package:bitel_ventas/res/app_images.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
@@ -49,6 +50,8 @@ class SaleLogic extends GetxController {
           "${homeSaleModel.waitingDeployment}", "", 3),
       OptionSale("", AppLocalizations.of(context)!.textWaitingInstallation,
           "${homeSaleModel.completeInstallation}", "", 4),
+      OptionSale("", AppLocalizations.of(context)!.textCancelled,
+          "${homeSaleModel.cancelled}", "", 5),
     ];
   }
 
@@ -59,22 +62,22 @@ class SaleLogic extends GetxController {
           AppLocalizations.of(context)!.textKPI,
           "${homeSaleModel.kpi}",
           AppLocalizations.of(context)!.textContractMonth,
-          5),
+          6),
       OptionSale(
           "",
           AppLocalizations.of(context)!.textPerformance,
           "${homeSaleModel.performance}",
           AppLocalizations.of(context)!.textContract,
-          6),
+          7),
       OptionSale("", AppLocalizations.of(context)!.textCommission,
-          "${homeSaleModel.commission}", "S", 7),
+          "${homeSaleModel.commission}", "S", 8),
     ];
   }
 
   List<OptionSale> getListWalletControl(BuildContext context) {
     return [
       OptionSale("", AppLocalizations.of(context)!.textAnyPay,
-          "${homeSaleModel.anyPayBalance}", "S", 8),
+          "${homeSaleModel.anyPayBalance}", "S", 9),
     ];
   }
 
@@ -110,8 +113,10 @@ class SaleLogic extends GetxController {
         isLoading = true;
         update();
         if (error != null) {
-          if (error['errorCode'] != null) {
-            Common.showMessageError(error['errorCode'], context);
+          if (error is DioError && error.response!.data['errorCode'] != null) {
+            Common.showMessageError(error.response!.data['errorCode'], context);
+          } else {
+            print("Error: "+error.toString());
           }
         }
       },

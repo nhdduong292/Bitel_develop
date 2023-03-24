@@ -22,7 +22,7 @@ class AfterSaleSearchPage extends GetWidget {
     return GetBuilder(
       init: AfterSaleSearchLogic(title, context),
       builder: (controller) {
-        return Scaffold(
+        return WillPopScope(onWillPop: controller.onWillPop, child: Scaffold(
           backgroundColor: Colors.white,
           body: Column(
             mainAxisSize: MainAxisSize.max,
@@ -111,8 +111,10 @@ class AfterSaleSearchPage extends GetWidget {
                   children: [FindServicePage(), ChooseServicePage()]))
             ],
           ),
-        );
+        ));
       },
     );
   }
+
+
 }

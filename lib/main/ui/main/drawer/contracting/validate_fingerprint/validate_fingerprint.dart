@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'dart:convert';
 import 'dart:io';
-import 'dart:io';
 
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/validate_fingerprint/validate_fingerprint_logic.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
