@@ -117,10 +117,10 @@ class RequestDetailPage extends GetWidget {
                                     Expanded(
                                       child: Text(
                                         controller.requestModel.customerModel
-                                                .idNumber.isEmpty
+                                                .telFax.isEmpty
                                             ? "---"
                                             : controller.requestModel
-                                                .customerModel.fullName,
+                                                .customerModel.telFax,
                                         textAlign: TextAlign.right,
                                         style: AppStyles.r415263_13_500,
                                       ),
@@ -147,12 +147,7 @@ class RequestDetailPage extends GetWidget {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        controller.requestModel.customerModel
-                                                    .custId <
-                                                1
-                                            ? "---"
-                                            : controller.requestModel
-                                                .customerModel.fullName,
+                                        '${controller.requestModel.customerModel.type} - ${controller.requestModel.customerModel.idNumber.isEmpty ? "---" : controller.requestModel.customerModel.idNumber}',
                                         textAlign: TextAlign.right,
                                         style: AppStyles.rU00A5B1_13_500,
                                       ),

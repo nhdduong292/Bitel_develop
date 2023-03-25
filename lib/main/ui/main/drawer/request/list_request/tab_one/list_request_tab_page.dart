@@ -76,7 +76,7 @@ class ListRequestTabState extends State<ListRequestTabPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getListRequest("");
+    getListRequest(listRequestLogic.keySearch);
   }
 
   @override
