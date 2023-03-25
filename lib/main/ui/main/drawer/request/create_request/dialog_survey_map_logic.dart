@@ -59,7 +59,8 @@ class DialogSurveyMapLogic extends GetxController {
     //   print("lat: $lat long: $long");
     //   setCircle(currentPoint);
     // });
-    getLocationAddress();
+    _getCurrentLocation();
+    // getLocationAddress();
   }
 
   void setMarker(LatLng point) {
