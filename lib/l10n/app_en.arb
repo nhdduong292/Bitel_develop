@@ -108,7 +108,7 @@
   "textChooseService": "Choose service",
   "textIdentityNumber": "Identity number",
   "hintIdentityNumber": "Enter identity number",
-  "textContactPerson": "Contact person*",
+  "textContactPerson": "Contact person",
   "hintContactPerson": "Enter Contact person",
   "textContactPhone": "Contact phone",
   "hintContactPhone": "Enter Contact phone",
@@ -517,6 +517,7 @@
   "textNotEmptyName": "Firstname is required",
   "textNotEmptyNationality": "Nationality is required",
   "textNotEmptyDob": "Birthday is required",
-  "textNotEmptyExd": "Expired is required"
+  "textNotEmptyExd": "Expired is required",
+  "textUpdateSuccess": "Update successfully"
 
 }

@@ -231,10 +231,23 @@ class CreateRequestPage extends GetWidget {
                             ),
                       Padding(
                         padding: const EdgeInsets.only(top: 16, bottom: 10),
-                        child: Text(
-                          AppLocalizations.of(context)!.textContactPerson,
-                          style: AppStyles.r1
-                              .copyWith(fontWeight: FontWeight.w500),
+                        child: RichText(
+                          text: TextSpan(
+                              text: AppLocalizations.of(context)!
+                                  .textContactPerson,
+                              style: AppStyles.r1
+                                  .copyWith(fontWeight: FontWeight.w500),
+                              // ignore: prefer_const_literals_to_create_immutables
+                              children: [
+                                const TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontFamily: 'Roboto',
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ]),
                         ),
                       ),
                       Container(
