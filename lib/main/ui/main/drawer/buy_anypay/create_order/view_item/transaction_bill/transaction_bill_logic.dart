@@ -6,7 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../../../utils/common.dart';
 
-class TransactionDetailLogic extends GetxController {
+class TransactionBillLogic extends GetxController {
   BuildContext context;
 
   bool isCheckBox = false;
@@ -14,7 +14,7 @@ class TransactionDetailLogic extends GetxController {
 
   double amountToBuy = 0.0;
 
-  TransactionDetailLogic({required this.context});
+  TransactionBillLogic({required this.context});
 
   @override
   void onInit() {

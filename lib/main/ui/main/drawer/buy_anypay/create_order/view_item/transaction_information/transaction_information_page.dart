@@ -244,8 +244,18 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                         child: bottomButton(
                             text: AppLocalizations.of(context)!.textContinue,
                             onTap: () {
-                              if (!controller.validateEmail()) {
-                                return;
+                              if (controller.isActiveButton) {
+                                if (!controller.validateEmail()) {
+                                  return;
+                                }
+                                controller.setAmountToBuy();
+
+                                controller.createOrderLogic.isTabOne.value =
+                                    false;
+                                controller.createOrderLogic.isTabTwo.value =
+                                    true;
+
+                                controller.createOrderLogic.nextPage(1);
                               }
                             },
                             color: controller.isActiveButton

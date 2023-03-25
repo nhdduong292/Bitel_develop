@@ -1,3 +1,4 @@
+import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/create_order/create_order_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/clear_debt_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,7 @@ class TransactionInformationLogic extends GetxController {
 
   bool isActiveButton = false;
   String? errorTextAmount;
+  CreateOrderLogic createOrderLogic = Get.find();
 
   TransactionInformationLogic({required this.context});
 
@@ -39,6 +41,11 @@ class TransactionInformationLogic extends GetxController {
 
     isActiveButton = true;
     update();
+  }
+
+  void setAmountToBuy() {
+    var amount = textAmountController.text.replaceAll(',', '.');
+    createOrderLogic.amountToBuy = double.parse(amount);
   }
 
   bool validateEmail() {

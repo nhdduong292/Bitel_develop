@@ -153,10 +153,13 @@ class AppImages {
   static const String icCalendar = "assets/icons/ic_calendar.svg";
   static const String icDelete = "assets/icons/ic_delete.svg";
   static const String icChangePlan = "assets/images/ic_change_plan.svg";
-  static const String icTransferService = "assets/images/ic_transfer_service.svg";
+  static const String icTransferService =
+      "assets/images/ic_transfer_service.svg";
   static const String icCancelService = "assets/images/ic_cancel_service.svg";
   static const String icCreateOrder = "assets/images/ic_create_order.svg";
-  static const String icOrderManagement = "assets/images/ic_order_management.svg";
+  static const String icOrderManagement =
+      "assets/images/ic_order_management.svg";
   static const String icAnypayBBVA = "assets/images/ic_anypay_bbva.svg";
   static const String icAnypayBCP = "assets/images/ic_anypay_bcp.svg";
+  static const String icDocument = "assets/icons/ic_document.svg";
 }

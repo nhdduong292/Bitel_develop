@@ -1,3 +1,4 @@
+import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/create_order/view_item/transaction_bill/transaction_bill_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/create_order/view_item/transaction_detail/transaction_detail_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/create_order/view_item/transaction_information/transaction_information_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/clear_debt_logic.dart';
@@ -12,7 +13,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../../res/app_colors.dart';
 import '../../../../../../res/app_images.dart';
 import '../../../../../../res/app_styles.dart';
+import '../../../../../utils/common.dart';
 import '../../../../../utils/common_widgets.dart';
+import '../../utilitis/info_bussiness.dart';
 import 'create_order_logic.dart';
 
 class CreateOrderPage extends GetView<CreateOrderLogic> {
@@ -46,9 +49,27 @@ class CreateOrderPage extends GetView<CreateOrderLogic> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(AppLocalizations.of(context)!.textClearDebt,
-                              style: AppStyles.title),
+                          Text('Create order', style: AppStyles.title),
                           const SizedBox(height: 5),
+                          Row(
+                            children: [
+                              SvgPicture.asset(AppImages.icTimeBar),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(Common.getStringTimeToday(),
+                                  style: AppStyles.b1),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              SvgPicture.asset(AppImages.icAccountBar),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(InfoBusiness.getInstance()!.getUser().sub,
+                                  style: AppStyles.b1)
+                            ],
+                          )
                         ],
                       ),
                     ),
@@ -128,7 +149,7 @@ class CreateOrderPage extends GetView<CreateOrderLogic> {
                         children: [
                       TransactionInformationPage(),
                       TransactionDetailPage(),
-                      TransactionInformationPage()
+                      TransactionBillPage()
                     ])),
               ],
             ),

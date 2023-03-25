@@ -2,6 +2,7 @@
 // ;
 import 'dart:ffi';
 
+import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/create_order/view_item/transaction_detail/transaction_detail_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/create_order/view_item/transaction_information/transaction_information_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/clear_debt_logic.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -17,129 +18,302 @@ import '../../../../../../../../res/app_images.dart';
 import '../../../../../../../../res/app_styles.dart';
 import '../../../../../../../utils/common_widgets.dart';
 
-class TransactionDetailPage extends GetView<TransactionInformationLogic> {
+class TransactionDetailPage extends GetView<TransactionDetailLogic> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     return GetBuilder(
-        init: TransactionInformationLogic(context: context),
+        init: TransactionDetailLogic(context: context),
         builder: (controller) {
-          return FocusScope(
-            node: controller.focusScopeNode,
-            child: GestureDetector(
-              onTap: () {
-                FocusScope.of(context).requestFocus(FocusNode());
-              },
-              child: SingleChildScrollView(
-                child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(left: 10, right: 10),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFFFFFFF),
-                          border: Border.all(
-                            color: const Color(0xFFE3EAF2),
-                            width: 1.0,
+          return SingleChildScrollView(
+            child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 10, right: 10),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFFFFFF),
+                      border: Border.all(
+                        color: const Color(0xFFE3EAF2),
+                        width: 1.0,
+                      ),
+                      boxShadow: [
+                        const BoxShadow(
+                          color: Color.fromRGBO(185, 212, 220, 0.2),
+                          offset: Offset(0, 2),
+                          blurRadius: 7.0,
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(24.0),
+                    ),
+                    child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 8,
                           ),
-                          boxShadow: [
-                            const BoxShadow(
-                              color: Color.fromRGBO(185, 212, 220, 0.2),
-                              offset: Offset(0, 2),
-                              blurRadius: 7.0,
+                          SizedBox(
+                            height: 30,
+                            child: Center(
+                              child: Text(
+                                'Transaction information',
+                                style: AppStyles.r00A5B1_13_500,
+                              ),
                             ),
-                          ],
-                          borderRadius: BorderRadius.circular(24.0),
-                        ),
-                        child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              DottedLine(
-                                dashColor: Color(0xFFE3EAF2),
-                                dashGapLength: 3,
-                                dashLength: 4,
-                              ),
-                            ]),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          DottedLine(
+                            dashColor: Color(0xFFE3EAF2),
+                            dashGapLength: 3,
+                            dashLength: 4,
+                          ),
+                          _itemInfor(
+                              title: 'Code:',
+                              content: 'Li1DL01',
+                              isColor: false),
+                          DottedLine(
+                            dashColor: Color(0xFFE3EAF2),
+                            dashGapLength: 3,
+                            dashLength: 4,
+                          ),
+                          _itemInfor(
+                              title: 'ID number',
+                              content: '19283737',
+                              isColor: false),
+                          DottedLine(
+                            dashColor: Color(0xFFE3EAF2),
+                            dashGapLength: 3,
+                            dashLength: 4,
+                          ),
+                          _itemInfor(
+                              title: 'Name:',
+                              content: 'BIHUTEL SAC',
+                              isColor: false),
+                          DottedLine(
+                            dashColor: Color(0xFFE3EAF2),
+                            dashGapLength: 3,
+                            dashLength: 4,
+                          ),
+                          _itemInfor(
+                              title: 'Amount (1)',
+                              content: 'S/${controller.amountToBuy}',
+                              isColor: true),
+                          DottedLine(
+                            dashColor: Color(0xFFE3EAF2),
+                            dashGapLength: 3,
+                            dashLength: 4,
+                          ),
+                          _itemInfor(
+                              title: 'Discount (2)',
+                              content:
+                                  'S/${(controller.amountToBuy * 0.05).toStringAsFixed(2)}',
+                              isColor: true),
+                          DottedLine(
+                            dashColor: Color(0xFFE3EAF2),
+                            dashGapLength: 3,
+                            dashLength: 4,
+                          ),
+                          _itemInfor(
+                              title: 'Total a pay (1-2)',
+                              content:
+                                  'S/${(controller.amountToBuy * 0.95).toStringAsFixed(2)}',
+                              isColor: true)
+                        ]),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 10, right: 10),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFFFFFF),
+                      border: Border.all(
+                        color: const Color(0xFFE3EAF2),
+                        width: 1.0,
                       ),
-                      SizedBox(
-                        width: width,
-                        child: bottomButton(
-                            text: AppLocalizations.of(context)!.textContinue,
+                      boxShadow: [
+                        const BoxShadow(
+                          color: Color.fromRGBO(185, 212, 220, 0.2),
+                          offset: Offset(0, 2),
+                          blurRadius: 7.0,
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(24.0),
+                    ),
+                    child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 8,
+                          ),
+                          SizedBox(
+                            height: 30,
+                            child: Center(
+                              child: Text(
+                                'Legal conditions',
+                                style: AppStyles.r00A5B1_13_500,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          DottedLine(
+                            dashColor: Color(0xFFE3EAF2),
+                            dashGapLength: 3,
+                            dashLength: 4,
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          InkWell(
                             onTap: () {
-                              if (!controller.validateEmail()) {
-                                return;
-                              }
+                              controller.isCheckBox = !controller.isCheckBox;
+                              controller.update();
                             },
-                            color: controller.isActiveButton
-                                ? null
-                                : const Color(0xFF415263).withOpacity(0.2)),
-                      ),
-                      GestureDetector(
-                        child: Container(
-                          width: double.infinity,
-                          margin: const EdgeInsets.only(
-                              top: 24, left: 10, right: 10),
-                          padding: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(24),
-                            border: Border.all(
-                                width: 1, color: AppColors.colorLineDash),
-                            boxShadow: [
-                              BoxShadow(
-                                offset: const Offset(0, 0),
-                                blurRadius: 1,
-                                color: AppColors.colorLineDash,
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            children: [
-                              RichText(
-                                text: TextSpan(
-                                    text: AppLocalizations.of(context)!
-                                        .textTitleAnypay1,
-                                    style: AppStyles.r415263_14_600,
-                                    children: [
-                                      TextSpan(
-                                          text: AppLocalizations.of(context)!
-                                              .textTitleAnypay2,
-                                          style: AppStyles.r415263_14_400)
-                                    ]),
-                                textAlign: TextAlign.center,
-                              ),
-                              Container(
-                                height: 80,
-                                margin: EdgeInsets.only(top: 20),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(
-                                        child: SvgPicture.asset(
-                                            AppImages.icAnypayBBVA)),
-                                    VerticalDivider(
-                                      color: AppColors.colorLineDash,
-                                    ),
-                                    Expanded(
-                                        child: SvgPicture.asset(
-                                            AppImages.icAnypayBCP))
-                                  ],
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                SizedBox(
+                                  width: 17,
                                 ),
-                              )
-                            ],
+                                controller.isCheckBox
+                                    ? iconChecked()
+                                    : iconUnchecked(),
+                                SizedBox(
+                                  width: 6,
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    'I have read and accept the terms, conditions and restrictions',
+                                    style: AppStyles.r6C8AA1_13_400,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 17,
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                        onTap: () {},
+                          SizedBox(
+                            height: 15,
+                          ),
+                        ]),
+                  ),
+                  SizedBox(
+                    width: width,
+                    child: bottomButton(
+                        text: 'buy',
+                        onTap: () {
+                          if (controller.isCheckBox) {
+                            controller.createOrderLogic.isTabThree.value = true;
+                            controller.createOrderLogic.isTabTwo.value = false;
+
+                            controller.createOrderLogic.nextPage(2);
+                          }
+                        },
+                        color: controller.isCheckBox
+                            ? null
+                            : const Color(0xFF415263).withOpacity(0.2)),
+                  ),
+                  GestureDetector(
+                    child: Container(
+                      width: double.infinity,
+                      margin:
+                          const EdgeInsets.only(top: 24, left: 10, right: 10),
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(24),
+                        border: Border.all(
+                            width: 1, color: AppColors.colorLineDash),
+                        boxShadow: [
+                          BoxShadow(
+                            offset: const Offset(0, 0),
+                            blurRadius: 1,
+                            color: AppColors.colorLineDash,
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        height: 30,
-                      )
-                    ]),
-              ),
-            ),
+                      child: Column(
+                        children: [
+                          RichText(
+                            text: TextSpan(
+                                text: AppLocalizations.of(context)!
+                                    .textTitleAnypay1,
+                                style: AppStyles.r415263_14_600,
+                                children: [
+                                  TextSpan(
+                                      text: AppLocalizations.of(context)!
+                                          .textTitleAnypay2,
+                                      style: AppStyles.r415263_14_400)
+                                ]),
+                            textAlign: TextAlign.center,
+                          ),
+                          Container(
+                            height: 80,
+                            margin: EdgeInsets.only(top: 20),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                    child: SvgPicture.asset(
+                                        AppImages.icAnypayBBVA)),
+                                VerticalDivider(
+                                  color: AppColors.colorLineDash,
+                                ),
+                                Expanded(
+                                    child:
+                                        SvgPicture.asset(AppImages.icAnypayBCP))
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    onTap: () {},
+                  ),
+                  SizedBox(
+                    height: 30,
+                  )
+                ]),
           );
         });
+  }
+
+  Widget _itemInfor(
+      {required String title, required String content, required bool isColor}) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 12, bottom: 12),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: EdgeInsets.only(left: 25),
+              child: Text(
+                title,
+                style: AppStyles.r6C8AA1_13_400,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Text(
+              content,
+              style: isColor
+                  ? AppStyles.r9454C9_14_500
+                      .copyWith(fontSize: 13, fontWeight: FontWeight.w700)
+                  : AppStyles.r2B3A4A_12_500.copyWith(fontSize: 13),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

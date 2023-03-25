@@ -10,6 +10,8 @@ class CreateOrderLogic extends GetxController
   TabController? tabController;
   int index = 0;
 
+  double amountToBuy = 0.0;
+
   CreateOrderLogic({required this.context});
 
   @override
