@@ -212,7 +212,6 @@ class ProductPaymentMethodLogic extends GetxController {
 
         if (error != null) {
           if (error is DioError && error.response!.data['errorCode'] != null) {
-            Common.showMessageError(error.response!.data['errorCode'], context);
             //neu tra ve code E012 la chua dang ky khach hang
             if (error.response!.data['errorCode'] == 'E012') {
               completer.complete(false);
