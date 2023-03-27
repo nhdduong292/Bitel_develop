@@ -96,13 +96,7 @@ class ValidateFingerprintLogic extends GetxController {
         }
       },
       onError: (error) {
-        if (error != null) {
-          if (error is DioError && error.response!.data['errorCode'] != null) {
-            Common.showMessageError(error.response!.data['errorCode'], context);
-          } else {
-            Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
-          }
-        }
+        Common.showMessageError(error, context);
       },
     );
   }
@@ -161,13 +155,7 @@ class ValidateFingerprintLogic extends GetxController {
       onError: (error) {
         Get.back();
         isSuccess.call(false);
-        if (error != null) {
-          if (error is DioError && error.response!.data['errorCode'] != null) {
-            Common.showMessageError(error.response!.data['errorCode'], context);
-          } else {
-            Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
-          }
-        }
+        Common.showMessageError(error, context);
       },
     );
     // return completer.future;

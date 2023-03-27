@@ -102,13 +102,7 @@ class ProductPaymentMethodLogic extends GetxController {
       onError: (error) {
         isLoadingProduct = false;
         update();
-        if (error != null) {
-          if (error is DioError && error.response!.data['errorCode'] != null) {
-            Common.showMessageError(error.response!.data['errorCode'], context);
-          } else {
-            Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
-          }
-        }
+        Common.showMessageError(error, context);
       },
     );
   }
@@ -157,13 +151,7 @@ class ProductPaymentMethodLogic extends GetxController {
       },
       onError: (error) {
         Get.back();
-        if (error != null) {
-          if (error is DioError && error.response!.data['errorCode'] != null) {
-            Common.showMessageError(error.response!.data['errorCode'], context);
-          } else {
-            Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
-          }
-        }
+        Common.showMessageError(error, context);
       },
     );
   }
@@ -182,13 +170,7 @@ class ProductPaymentMethodLogic extends GetxController {
       },
       onError: (error) {
         Get.back();
-        if (error != null) {
-          if (error is DioError && error.response!.data['errorCode'] != null) {
-            Common.showMessageError(error.response!.data['errorCode'], context);
-          } else {
-            Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
-          }
-        }
+        Common.showMessageError(error, context);
       },
     );
   }
@@ -210,18 +192,23 @@ class ProductPaymentMethodLogic extends GetxController {
       onError: (error) {
         Get.back();
 
-        if (error != null) {
-          if (error is DioError && error.response!.data['errorCode'] != null) {
-            //neu tra ve code E012 la chua dang ky khach hang
-            if (error.response!.data['errorCode'] == 'E012') {
-              completer.complete(false);
+        try {
+          if (error != null) {
+            if (error is DioError &&
+                error.response!.data['errorCode'] != null) {
+              //neu tra ve code E012 la chua dang ky khach hang
+              if (error.response!.data['errorCode'] == 'E012') {
+                completer.complete(false);
+              } else {
+                Common.showMessageError(error, context);
+              }
             } else {
-              Common.showMessageError(
-                  error.response!.data['errorCode'], context);
+              Common.showToastCenter(
+                  AppLocalizations.of(context)!.textErrorAPI);
             }
-          } else {
-            Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
           }
+        } catch (e) {
+          Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
         }
       },
     );

@@ -48,13 +48,7 @@ class DialogCancelRequestLogic extends GetxController {
         } else {}
       },
       onError: (error) {
-        if (error != null) {
-          if (error is DioError && error.response!.data['errorCode'] != null) {
-            Common.showMessageError(error.response!.data['errorCode'], context);
-          } else {
-            Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
-          }
-        }
+        Common.showMessageError(error, context);
       },
     );
   }
@@ -93,16 +87,7 @@ class DialogCancelRequestLogic extends GetxController {
         onError: (error) {
           callBack.call(false);
           Get.back();
-          if (error != null) {
-            if (error is DioError &&
-                error.response!.data['errorCode'] != null) {
-              Common.showMessageError(
-                  error.response!.data['errorCode'], context);
-            } else {
-              Common.showToastCenter(
-                  AppLocalizations.of(context)!.textErrorAPI);
-            }
-          }
+          Common.showMessageError(error, context);
         });
   }
 }

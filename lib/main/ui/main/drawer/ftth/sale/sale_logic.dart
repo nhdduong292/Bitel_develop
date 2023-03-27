@@ -112,13 +112,7 @@ class SaleLogic extends GetxController {
       onError: (error) {
         isLoading = true;
         update();
-        if (error != null) {
-          if (error is DioError && error.response!.data != null && error.response!.data['errorCode'] != null) {
-            Common.showMessageError(error.response!.data['errorCode'], context);
-          } else {
-            Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
-          }
-        }
+        Common.showMessageError(error, context);
       },
     );
   }
