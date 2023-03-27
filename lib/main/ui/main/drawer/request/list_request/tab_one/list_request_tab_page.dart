@@ -151,16 +151,7 @@ class ListRequestTabState extends State<ListRequestTabPage> {
           setState(() {
             isLoading = false;
           });
-          if (error != null) {
-            if (error is DioError &&
-                error.response!.data['errorCode'] != null) {
-              Common.showMessageError(
-                  error.response!.data['errorCode'], context);
-            } else {
-              Common.showToastCenter(
-                  AppLocalizations.of(context)!.textErrorAPI);
-            }
-          }
+          Common.showMessageError(error, context);
         });
   }
 
