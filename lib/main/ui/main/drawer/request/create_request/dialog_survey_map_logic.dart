@@ -35,14 +35,16 @@ class DialogSurveyMapLogic extends GetxController {
     zoom: 14.4746,
   );
   bool isLocation = true;
+
   //Circle
   Set<Circle> circles = Set<Circle>();
   var radiusValue = 500.0;
+
 //Markers set
   Set<Marker> markers = Set<Marker>();
   var currentPoint;
 
-  bool isActive = false;
+  bool isActive = true;
   Timer? _debounce;
 
   DialogSurveyMapLogic({required this.context, required this.requestModel});
@@ -59,8 +61,12 @@ class DialogSurveyMapLogic extends GetxController {
     //   print("lat: $lat long: $long");
     //   setCircle(currentPoint);
     // });
-    _getCurrentLocation();
-    // getLocationAddress();
+
+    _getCurrentLocation().then(
+      (value) {
+        getLocationAddress();
+      },
+    );
   }
 
   void setMarker(LatLng point) {
@@ -106,7 +112,7 @@ class DialogSurveyMapLogic extends GetxController {
           return;
         }
         setCircle(currentPoint);
-      }catch(e){
+      } catch (e) {
         print(e.toString());
       }
     });
@@ -187,20 +193,24 @@ class DialogSurveyMapLogic extends GetxController {
   }
 
   void getLocationAddress() async {
-    List<Location> locations = await locationFromAddress(
-        requestModel.getInstalAddress(),
-        localeIdentifier: "es_PE");
-    // List<Location> locations = await locationFromAddress("Nguy Như Kon Tum Thanh Xuân Hà Nội", localeIdentifier: "vi_VN");
-    locations.forEach((element) {
-      print(
-          "addddddddddddddddd lat: ${element.latitude} long: ${element.longitude}");
-    });
-    if (locations.isNotEmpty) {
-      lat = locations[0].latitude;
-      long = locations[0].longitude;
-      currentPoint = LatLng(lat, long);
-      print("lat: $lat long: $long");
-      setCircle(currentPoint);
+    try {
+      List<Location> locations = await locationFromAddress(
+          requestModel.getInstalAddress(),
+          localeIdentifier: "es_PE");
+      // List<Location> locations = await locationFromAddress("Nguy Như Kon Tum Thanh Xuân Hà Nội", localeIdentifier: "vi_VN");
+      locations.forEach((element) {
+        print(
+            "addddddddddddddddd lat: ${element.latitude} long: ${element.longitude}");
+      });
+      if (locations.isNotEmpty) {
+        lat = locations[0].latitude;
+        long = locations[0].longitude;
+        currentPoint = LatLng(lat, long);
+        print("lat: $lat long: $long");
+        setCircle(currentPoint);
+      }
+    } catch (e) {
+      Common.showToastCenter(e.toString());
     }
   }
 }

@@ -35,7 +35,7 @@ class DrawerLogic extends GetxController {
           // Get.to(() => FindCustomerPage());
           // Get.toNamed(RouteConfig.validateFingerprint);
           showDialogSurveyMap(context);
-          Get.to(DemoGoogleMap());
+          // Get.to(DemoGoogleMap());
           break;
         case 2:
           Get.toNamed(RouteConfig.buyAnyPay);

@@ -394,6 +394,7 @@ class CreateRequestPage extends GetWidget {
                       ),
                       InkWell(
                         onTap: () {
+                          FocusScope.of(context).unfocus();
                           if (controller.listProvince.isEmpty) {
                             _onLoading(context);
                             controller.getListProvince(
@@ -475,6 +476,7 @@ class CreateRequestPage extends GetWidget {
                       ),
                       InkWell(
                         onTap: () {
+                          FocusScope.of(context).unfocus();
                           if (controller.currentProvince.areaCode.isNotEmpty) {
                             if (controller.listDistrict.isEmpty) {
                               _onLoading(context);
@@ -561,6 +563,7 @@ class CreateRequestPage extends GetWidget {
                       ),
                       InkWell(
                         onTap: () {
+                          FocusScope.of(context).unfocus();
                           if (controller.currentDistrict.areaCode.isNotEmpty) {
                             if (controller.listPrecinct.isEmpty) {
                               _onLoading(context);
