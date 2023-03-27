@@ -442,6 +442,7 @@ class DialogAdvancedSearchPage extends GetWidget {
       firstDate: DateTime(2000),
       lastDate: DateTime(2025),
     );
+    if(picked == null) return;
     if (from) {
       control.setFromDate(picked!);
     } else {

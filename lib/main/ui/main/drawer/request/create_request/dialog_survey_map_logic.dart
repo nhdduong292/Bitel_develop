@@ -98,12 +98,16 @@ class DialogSurveyMapLogic extends GetxController {
   void setRadius(String value) {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
     _debounce = Timer(const Duration(milliseconds: 500), () {
-      currentRadius = value;
-      radiusValue = double.parse(currentRadius);
-      if (radiusValue < 1) {
-        return;
+      try {
+        currentRadius = value;
+        radiusValue = double.parse(currentRadius);
+        if (radiusValue < 1) {
+          return;
+        }
+        setCircle(currentPoint);
+      }catch(e){
+        print(e.toString());
       }
-      setCircle(currentPoint);
     });
   }
 

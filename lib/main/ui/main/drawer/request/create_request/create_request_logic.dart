@@ -277,7 +277,7 @@ class CreateRequestLogic extends GetxController {
         onError: (error) {
           function.call(false);
           if (error != null) {
-            if (error is DioError &&
+            if (error is DioError && error.response!.data != null &&
                 error.response!.data['errorCode'] != null) {
               Common.showMessageError(
                   error.response!.data['errorCode'], context);
