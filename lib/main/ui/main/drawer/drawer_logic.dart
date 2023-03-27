@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/ui/main/activate_prepaid_pages/find_customer_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/demo_google_map.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/demo_native_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/create_request_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_map_page.dart';
@@ -34,14 +35,15 @@ class DrawerLogic extends GetxController {
           // Get.to(() => FindCustomerPage());
           // Get.toNamed(RouteConfig.validateFingerprint);
           showDialogSurveyMap(context);
+          Get.to(DemoGoogleMap());
           break;
         case 2:
           Get.toNamed(RouteConfig.buyAnyPay);
           break;
-        // case 4:
-        //   // Get.to(DemoNativePage());
-        //   Get.toNamed(RouteConfig.validateFingerprint);
-        //   break;
+        case 4:
+          // Get.to(DemoNativePage());
+          // Get.toNamed(RouteConfig.validateFingerprint);
+          break;
 
       }
     });
