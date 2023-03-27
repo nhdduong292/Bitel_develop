@@ -273,7 +273,9 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                               }
                               controller.updateCustomer((isSuccess) {
                                 if (isSuccess) {
-                                  Common.showToastCenter('Update thanh cong');
+                                  Common.showToastCenter(
+                                      AppLocalizations.of(context)!
+                                          .textUpdateSuccess);
                                 } else {}
                               });
                             },

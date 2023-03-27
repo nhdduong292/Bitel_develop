@@ -148,7 +148,8 @@ class DialogAdvancedSearchPage extends GetWidget {
                                 function: (value) {
                                   controller.setStatus(value);
                                 },
-                                listDrop: controller.searchRequest.listStatus(context)))
+                                listDrop: controller.searchRequest
+                                    .listStatus(context)))
                       ],
                     ),
                   ),
@@ -307,37 +308,38 @@ class DialogAdvancedSearchPage extends GetWidget {
                                             bottom: 11,
                                             left: 16,
                                             right: 16),
-                                        child: Text.rich(TextSpan(
-                                            style: AppStyles.r2.copyWith(
-                                                color: controller
-                                                        .from.value.isEmpty
-                                                    ? AppColors.colorHint1
-                                                    : AppColors.colorText1,
-                                                fontWeight: FontWeight.w400),
-                                            children: [
-                                              WidgetSpan(
-                                                child: controller
-                                                        .from.value.isEmpty
-                                                    ? Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                right: 8.0),
-                                                        child: SvgPicture.asset(
-                                                            AppImages
-                                                                .icSelectDate),
-                                                      )
-                                                    : Container(),
+                                        child: Row(
+                                          children: [
+                                            Visibility(
+                                              visible:
+                                                  controller.from.value.isEmpty,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 8.0),
+                                                child: SvgPicture.asset(
+                                                    AppImages.icSelectDate),
                                               ),
-                                              TextSpan(
-                                                text: controller
-                                                        .from.value.isEmpty
-                                                    ? AppLocalizations.of(
-                                                            context)!
-                                                        .textFrom
-                                                    : controller.from.value,
-                                              )
-                                            ])),
+                                            ),
+                                            Text.rich(TextSpan(
+                                                style: AppStyles.r2.copyWith(
+                                                    color: controller
+                                                            .from.value.isEmpty
+                                                        ? AppColors.colorHint1
+                                                        : AppColors.colorText1,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                                children: [
+                                                  TextSpan(
+                                                    text: controller
+                                                            .from.value.isEmpty
+                                                        ? AppLocalizations.of(
+                                                                context)!
+                                                            .textFrom
+                                                        : controller.from.value,
+                                                  )
+                                                ])),
+                                          ],
+                                        ),
                                       )),
                                 ),
                                 const SizedBox(
@@ -361,37 +363,38 @@ class DialogAdvancedSearchPage extends GetWidget {
                                             bottom: 11,
                                             left: 16,
                                             right: 16),
-                                        child: Text.rich(TextSpan(
-                                            style: AppStyles.r2.copyWith(
-                                                color:
-                                                    controller.to.value.isEmpty
+                                        child: Row(
+                                          children: [
+                                            Visibility(
+                                              visible:
+                                                  controller.to.value.isEmpty,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 8.0),
+                                                child: SvgPicture.asset(
+                                                    AppImages.icSelectDate),
+                                              ),
+                                            ),
+                                            Text.rich(TextSpan(
+                                                style: AppStyles.r2.copyWith(
+                                                    color: controller
+                                                            .to.value.isEmpty
                                                         ? AppColors.colorHint1
                                                         : AppColors.colorText1,
-                                                fontWeight: FontWeight.w400),
-                                            children: [
-                                              WidgetSpan(
-                                                child: controller
-                                                        .to.value.isEmpty
-                                                    ? Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                right: 8.0),
-                                                        child: SvgPicture.asset(
-                                                            AppImages
-                                                                .icSelectDate),
-                                                      )
-                                                    : Container(),
-                                              ),
-                                              TextSpan(
-                                                text:
-                                                    controller.to.value.isEmpty
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                                children: [
+                                                  TextSpan(
+                                                    text: controller
+                                                            .to.value.isEmpty
                                                         ? AppLocalizations.of(
                                                                 context)!
                                                             .textTo
                                                         : controller.to.value,
-                                              )
-                                            ])),
+                                                  )
+                                                ])),
+                                          ],
+                                        ),
                                       )),
                                 )
                               ],
@@ -439,6 +442,7 @@ class DialogAdvancedSearchPage extends GetWidget {
       firstDate: DateTime(2000),
       lastDate: DateTime(2025),
     );
+    if(picked == null) return;
     if (from) {
       control.setFromDate(picked!);
     } else {

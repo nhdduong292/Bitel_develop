@@ -53,7 +53,7 @@ class DialogAdvanceSearchLogic extends GetxController {
   void setToDate(DateTime picked) {
     // print("Date: "+picked.toString());
     toDate = picked;
-    to.value = "${picked.day}/${picked.month}";
+    to.value = "${picked.day}/${picked.month}/${picked.year}";
     searchRequest.toDate = picked.toIso8601String();
     update();
   }
@@ -62,7 +62,7 @@ class DialogAdvanceSearchLogic extends GetxController {
     // print("Date: "+picked.toString());
     // print("Date: "+picked.toIso8601String());
     fromDate = picked;
-    from.value = "${picked.day}/${picked.month}";
+    from.value = "${picked.day}/${picked.month}/${picked.year}";
     searchRequest.fromDate = picked.toIso8601String();
     // DateTime pi = DateTime.parse(picked.toIso8601String());
     update();
@@ -119,16 +119,7 @@ class DialogAdvanceSearchLogic extends GetxController {
         },
         onError: (error) {
           function.call(false);
-          if (error != null) {
-            if (error is DioError &&
-                error.response!.data['errorCode'] != null) {
-              Common.showMessageError(
-                  error.response!.data['errorCode'], context);
-            } else {
-              Common.showToastCenter(
-                  AppLocalizations.of(context)!.textErrorAPI);
-            }
-          }
+          Common.showMessageError(error, context);
         });
   }
 }

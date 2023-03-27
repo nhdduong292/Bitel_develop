@@ -109,18 +109,18 @@
   "textChooseService":"Elegir Servicio",
   "textIdentityNumber":"Número de documento",
   "hintIdentityNumber":"Ingresar Número de documento",
-  "textContactPerson":"Número de contacto*",
+  "textContactPerson":"Número de contacto",
   "hintContactPerson":"Ingresar Persona de contacto",
   "textContactPhone":"Número de contacto",
   "hintContactPhone":"Ingresar Número de contacto",
   "textSurveyAddress":"Dirección de encuesta",
-  "textProvince":"Provincia*",
+  "textProvince":"Provincia",
   "hintProvince":"Elegir Provincia",
-  "textDistrict":"Distrito*",
+  "textDistrict":"Distrito",
   "hintDistrict":"Elegir Distrito",
-  "textPrecinct":"Recinto*",
+  "textPrecinct":"Recinto",
   "hintPrecinct":"Elegir Recinto",
-  "textAddress":"Dirección*",
+  "textAddress":"Dirección",
   "hintAddress":"Elegir Dirección",
   "textCancel": "Cancelar",
   "textSurvey": "Encuesta",
@@ -501,5 +501,7 @@
   "textNotEmptyName": "Tên không được để trống",
   "textNotEmptyNationality": "Quốc gia không được để trống",
   "textNotEmptyDob": "Ngày sinh không được để trống",
-  "textNotEmptyExd": "Ngày hết hạn không được để trống"
+  "textNotEmptyExd": "Ngày hết hạn không được để trống",
+  "textUpdateSuccess": "Update successfully"
+  
 }
