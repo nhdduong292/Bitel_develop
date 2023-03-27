@@ -58,7 +58,8 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                             height: 30,
                             child: Center(
                               child: Text(
-                                'Transaction information',
+                                AppLocalizations.of(context)!
+                                    .textTransactionInformation,
                                 style: AppStyles.r00A5B1_13_500,
                               ),
                             ),
@@ -72,7 +73,7 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                             dashLength: 4,
                           ),
                           _itemInfor(
-                              title: 'Code:',
+                              title: AppLocalizations.of(context)!.textCode,
                               content: 'Li1DL01',
                               isColor: false),
                           DottedLine(
@@ -81,7 +82,7 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                             dashLength: 4,
                           ),
                           _itemInfor(
-                              title: 'ID number',
+                              title: AppLocalizations.of(context)!.textIDNumber,
                               content: '19283737',
                               isColor: false),
                           DottedLine(
@@ -90,7 +91,7 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                             dashLength: 4,
                           ),
                           _itemInfor(
-                              title: 'Name:',
+                              title: AppLocalizations.of(context)!.textName,
                               content: 'BIHUTEL SAC',
                               isColor: false),
                           DottedLine(
@@ -99,7 +100,8 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                             dashLength: 4,
                           ),
                           _itemInfor(
-                              title: 'Amount (1)',
+                              title:
+                                  '${AppLocalizations.of(context)!.textAmount} (1)',
                               content: 'S/${controller.amountToBuy}',
                               isColor: true),
                           DottedLine(
@@ -108,7 +110,8 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                             dashLength: 4,
                           ),
                           _itemInfor(
-                              title: 'Discount (2)',
+                              title:
+                                  '${AppLocalizations.of(context)!.textDiscount} (2)',
                               content:
                                   'S/${(controller.amountToBuy * 0.05).toStringAsFixed(2)}',
                               isColor: true),
@@ -118,7 +121,8 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                             dashLength: 4,
                           ),
                           _itemInfor(
-                              title: 'Total a pay (1-2)',
+                              title:
+                                  '${AppLocalizations.of(context)!.textTotalAPagar} (1-2)',
                               content:
                                   'S/${(controller.amountToBuy * 0.95).toStringAsFixed(2)}',
                               isColor: true)
@@ -155,7 +159,8 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                             height: 30,
                             child: Center(
                               child: Text(
-                                'Legal conditions',
+                                AppLocalizations.of(context)!
+                                    .textLegalConditions,
                                 style: AppStyles.r00A5B1_13_500,
                               ),
                             ),
@@ -190,7 +195,8 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    'I have read and accept the terms, conditions and restrictions',
+                                    AppLocalizations.of(context)!
+                                        .textIHaveReadAndAcceptTheTerms,
                                     style: AppStyles.r6C8AA1_13_400,
                                   ),
                                 ),
@@ -208,7 +214,7 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                   SizedBox(
                     width: width,
                     child: bottomButton(
-                        text: 'buy',
+                        text: AppLocalizations.of(context)!.textBuy,
                         onTap: () {
                           if (controller.isCheckBox) {
                             controller.createOrderLogic.isTabThree.value = true;

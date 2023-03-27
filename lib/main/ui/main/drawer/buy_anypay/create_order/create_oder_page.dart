@@ -49,7 +49,8 @@ class CreateOrderPage extends GetView<CreateOrderLogic> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Create order', style: AppStyles.title),
+                          Text(AppLocalizations.of(context)!.textCreateOrder,
+                              style: AppStyles.title),
                           const SizedBox(height: 5),
                           Row(
                             children: [

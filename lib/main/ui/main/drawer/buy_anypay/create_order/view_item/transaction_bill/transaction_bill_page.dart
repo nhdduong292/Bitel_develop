@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously
 // ;
 import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/create_order/view_item/transaction_bill/transaction_bill_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/clear_debt_logic.dart';
@@ -57,7 +57,8 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                             height: 30,
                             child: Center(
                               child: Text(
-                                'Operation completed successfully!',
+                                AppLocalizations.of(context)!
+                                    .textOperationCompleted,
                                 style: AppStyles.r00A5B1_13_500,
                               ),
                             ),
@@ -105,7 +106,8 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'Bank code',
+                                            AppLocalizations.of(context)!
+                                                .textBankCode,
                                             style: AppStyles.r6C8AA1_13_400,
                                           ),
                                           SizedBox(
@@ -124,7 +126,8 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                                         await Clipboard.setData(ClipboardData(
                                             text: "00105182879881"));
                                         Common.showToastCenter(
-                                            'Copy thành công!');
+                                            AppLocalizations.of(context)!
+                                                .textCopySuccess);
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(
@@ -144,7 +147,8 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                                               width: 5,
                                             ),
                                             Text(
-                                              'Copy',
+                                              AppLocalizations.of(context)!
+                                                  .textCopy,
                                               style: AppStyles.r5,
                                             ),
                                             SizedBox(
@@ -169,7 +173,7 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                             dashLength: 4,
                           ),
                           _itemInfor(
-                              title: 'Code:',
+                              title: AppLocalizations.of(context)!.textCode,
                               content: 'Li1DL01',
                               isColor: false),
                           DottedLine(
@@ -178,7 +182,7 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                             dashLength: 4,
                           ),
                           _itemInfor(
-                              title: 'ID number',
+                              title: AppLocalizations.of(context)!.textIDNumber,
                               content: '19283737',
                               isColor: false),
                           DottedLine(
@@ -187,7 +191,7 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                             dashLength: 4,
                           ),
                           _itemInfor(
-                              title: 'Name:',
+                              title: AppLocalizations.of(context)!.textName,
                               content: 'BIHUTEL SAC',
                               isColor: false),
                           DottedLine(
@@ -196,7 +200,8 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                             dashLength: 4,
                           ),
                           _itemInfor(
-                              title: 'Amount (1)',
+                              title:
+                                  '${AppLocalizations.of(context)!.textAmount} (1)',
                               content: 'S/${controller.amountToBuy}',
                               isColor: true),
                           DottedLine(
@@ -205,7 +210,8 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                             dashLength: 4,
                           ),
                           _itemInfor(
-                              title: 'Discount (2)',
+                              title:
+                                  '${AppLocalizations.of(context)!.textDiscount} (2)',
                               content:
                                   'S/${(controller.amountToBuy * 0.05).toStringAsFixed(2)}',
                               isColor: true),
@@ -215,7 +221,8 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                             dashLength: 4,
                           ),
                           _itemInfor(
-                              title: 'Total a pay (1-2)',
+                              title:
+                                  '${AppLocalizations.of(context)!.textTotalAPagar} (1-2)',
                               content:
                                   'S/${(controller.amountToBuy * 0.95).toStringAsFixed(2)}',
                               isColor: true),
@@ -225,7 +232,8 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                             dashLength: 4,
                           ),
                           _itemInfor(
-                              title: 'Date and hour:',
+                              title:
+                                  AppLocalizations.of(context)!.textDateAndHour,
                               content: '24/05/2018 17:50:50',
                               isColor: false)
                         ]),
@@ -233,7 +241,7 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                   SizedBox(
                     width: width,
                     child: bottomButton(
-                      text: 'Ir al home',
+                      text: AppLocalizations.of(context)!.textIrAlHome,
                       onTap: () {},
                     ),
                   ),

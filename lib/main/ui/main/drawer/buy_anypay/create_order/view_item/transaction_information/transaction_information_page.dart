@@ -65,7 +65,8 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                 height: 30,
                                 child: Center(
                                   child: Text(
-                                    'Transaction information',
+                                    AppLocalizations.of(context)!
+                                        .textTransactionInformation,
                                     style: AppStyles.r00A5B1_13_500,
                                   ),
                                 ),
@@ -82,28 +83,30 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                 height: 16,
                               ),
                               itemTextFieldLock(
-                                title: 'Code',
+                                title: AppLocalizations.of(context)!.textCode,
                                 content: 'LI1DL01',
                               ),
                               SizedBox(
                                 height: 12,
                               ),
                               itemTextFieldLock(
-                                title: 'ID number',
+                                title:
+                                    AppLocalizations.of(context)!.textIDNumber,
                                 content: '19283737',
                               ),
                               SizedBox(
                                 height: 12,
                               ),
                               itemTextFieldLock(
-                                title: 'Name',
+                                title: AppLocalizations.of(context)!.textName,
                                 content: 'RUC 2019283737',
                               ),
                               SizedBox(
                                 height: 12,
                               ),
                               itemTextFieldLock(
-                                  title: 'Current anypay',
+                                  title: AppLocalizations.of(context)!
+                                      .textCurrentAnypay,
                                   content: '990.1',
                                   textColor: AppColors.color_9454C9),
                               Padding(
@@ -117,7 +120,8 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                     ),
                                     RichText(
                                         text: TextSpan(
-                                            text: 'Amount to buy ',
+                                            text: AppLocalizations.of(context)!
+                                                .textAmountToBuy,
                                             style: AppStyles.r2B3A4A_12_500
                                                 .copyWith(
                                                     fontSize: 13,
@@ -125,11 +129,12 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                                         FontWeight.w400),
                                             children: [
                                           TextSpan(
-                                              text: '*',
+                                              text: ' *',
                                               style: AppStyles.rF76F5A_13_500)
                                         ])),
                                     Text(
-                                      'The minimum is 100 and the maximum is 10000',
+                                      AppLocalizations.of(context)!
+                                          .textTheMinimumIs100,
                                       style: AppStyles.r2B3A4A_12_500.copyWith(
                                           color: AppColors.color_2B3A4A
                                               .withOpacity(0.65),
@@ -142,7 +147,8 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                         controller:
                                             controller.textAmountController,
                                         context: context,
-                                        hint: 'Enter the amount',
+                                        hint: AppLocalizations.of(context)!
+                                            .textEnterTheAmount,
                                         type: TextInputType.numberWithOptions(
                                           decimal: true,
                                         ),
@@ -162,7 +168,9 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                     SizedBox(
                                       height: 14,
                                     ),
-                                    Text('Sent to email',
+                                    Text(
+                                        AppLocalizations.of(context)!
+                                            .textCreateOrder,
                                         style: AppStyles.r2B3A4A_12_500
                                             .copyWith(
                                                 fontSize: 13,
@@ -174,7 +182,8 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                         controller:
                                             controller.textEmailController,
                                         context: context,
-                                        hint: 'Enter the email',
+                                        hint: AppLocalizations.of(context)!
+                                            .textSendToEmail,
                                         type: TextInputType.text,
                                         onChange: () {
                                           controller.checkValidate();

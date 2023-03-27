@@ -483,6 +483,31 @@
    "textUndetermined": "Không xác định",
    "textEnterAllInfo": "Bạn phải nhập hết thông tin",
    "textToastValidateDob": "Ngày sinh không được lớn hơn ngày hiện tại",
-   "textToastValidateExd": "Ngày sinh phải nhỏ hơn ngày hết hạn"
+   "textToastValidateExd": "Ngày sinh phải nhỏ hơn ngày hết hạn",
+
+   "textCreateOrder": "Create order",
+  "textOrderManagement": "Order management",
+  "textTitleAnypay1": "Paga tu código de banco ",
+  "textTitleAnypay2": "en las siguientes entidades financieras:",
+  "textCancelled": "Cancelled",
+  "textBankCode": "Bank code",
+  "textOrderDate": "Order date",
+  "textTransactionInformation": "Transaction information",
+  "textCode": "Code",
+  "textCurrentAnypay": "Current anypay",
+  "textAmountToBuy": "Amount to buy",
+  "textTheMinimumIs100": "The minimum is 100 and the maximum is 10000",
+  "textEnterTheAmount": "Enter the amount",
+  "textLegalConditions": "Legal conditions",
+  "textIHaveReadAndAcceptTheTerms": "I have read and accept the terms, conditions and restrictions",
+  "textBuy": "Buy",
+  "textOperationCompleted": "Operation completed successfully!",
+  "textDateAndHour": "Date and hour",
+  "textIrAlHome": "Ir al home",
+ "textSendToEmail": "Send to email",
+ "textAmount": "Amount",
+  "textTotalAPay": "Total a pay",
+  "textCopy": "Copy",
+  "textCopySuccess": "Copy successfully!"
 
 }
