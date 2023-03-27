@@ -527,6 +527,16 @@
   "textNotEmptyNationality": "Quốc gia không được để trống",
   "textNotEmptyDob": "Ngày sinh không được để trống",
   "textNotEmptyExd": "Ngày hết hạn không được để trống",
-  "textUpdateSuccess": "Update successfully"
+  "textUpdateSuccess": "Update successfully",
+  "textIngresaUnCodigo": "Ingresa un código",
+  "textNew": "New",
+  "textAll": "All",
+  "textPaid": "Paid",
+  "textSold": "Sold",
+  "textCanceled": "Canceled",
+  "textConfirm": "Confirm",
+  "textAreYouSureToCancel": "Are you sure to cancel buy anypay ",
+  "textCancelBuyAnyPaySuccess": "Cancel buy anypay successfully",
+    "textInvalidDate": "Invalid date"
   
 }

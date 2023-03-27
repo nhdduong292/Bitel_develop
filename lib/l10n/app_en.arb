@@ -547,6 +547,17 @@
   "textNotEmptyNationality": "Nationality is required",
   "textNotEmptyDob": "Birthday is required",
   "textNotEmptyExd": "Expired is required",
-  "textUpdateSuccess": "Update successfully"
+  "textUpdateSuccess": "Update successfully",
+  "textIngresaUnCodigo": "Ingresa un código",
+  "textNew": "New",
+  "textAll": "All",
+  "textPaid": "Paid",
+  "textSold": "Sold",
+  "textCanceled": "Canceled",
+  "textConfirm": "Confirm",
+  "textAreYouSureToCancel": "Are you sure to cancel buy anypay ",
+  "textCancelBuyAnyPaySuccess": "Cancel buy anypay successfully",
+  "textInvalidDate": "Invalid date"
+
 
 }
