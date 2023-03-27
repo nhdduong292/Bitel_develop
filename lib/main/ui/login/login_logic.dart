@@ -87,7 +87,7 @@ class LoginLogic extends GetxController {
     Map<String, dynamic> body = {
       "username": controllerUser.text.trim(),
       "password": controllerPass.text.trim(),
-      "domainCode": "BCCS_CC"
+      "domainCode": "MBCCS_FTTH"
     };
     ApiUtil.getInstance()!.post(
       url: ApiEndPoints.API_LOGIN,

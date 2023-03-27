@@ -244,6 +244,8 @@ class LoginPage extends GetWidget {
                     ),
                     child: InkWell(
                       onTap: () {
+                        FocusScope.of(context).unfocus();
+                        Future.delayed(Duration(milliseconds: 1000));
                         controller.loginSuccess(context);
                       },
                       child: Center(

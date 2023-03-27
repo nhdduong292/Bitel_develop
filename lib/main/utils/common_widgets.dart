@@ -900,7 +900,9 @@ Widget spinnerFormV2(
                       }
                     },
                     onSubmitted: (value) {
-                      onSubmit!.call(value);
+                      if(onSubmit != null) {
+                        onSubmit.call(value);
+                      }
                     },
                     decoration: InputDecoration(
                       hintText: hint,

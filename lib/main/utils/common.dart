@@ -216,7 +216,7 @@ class Common {
         showToastCenter(AppLocalizations.of(context)!.textE021);
       }
     } catch (e) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
+      Common.showToastCenter(e.toString());
     }
   }
 }
