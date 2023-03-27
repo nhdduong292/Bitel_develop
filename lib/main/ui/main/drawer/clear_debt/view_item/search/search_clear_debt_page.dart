@@ -27,7 +27,7 @@ class SearchClearDebtPage extends GetView<SearchClearDebtLogic> {
         builder: (controller) {
           return FocusScope(
             node: controller.focusScopeNode,
-            child: InkWell(
+            child: GestureDetector(
               onTap: () {
                 FocusScope.of(context).requestFocus(FocusNode());
               },

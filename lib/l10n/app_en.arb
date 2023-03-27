@@ -527,7 +527,7 @@
   "textAmount": "Amount",
   "textTotalAPay": "Total a pay",
   "textCopy": "Copy",
-  "textCopySuccess": "Copy successfully!"
+  "textCopySuccess": "Copy successfully!",
    "textEnterAllInfo": "Bạn phải nhập hết thông tin",
    "textToastValidateDob": "Date of birth must not be greater than current date",
    "textToastValidateExd": "Date of birth must be before expiration date",

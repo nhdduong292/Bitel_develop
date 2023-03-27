@@ -28,7 +28,7 @@ class OTPClearDebtPage extends GetView<OTPClearDebtLogic> {
     return GetBuilder(
         init: OTPClearDebtLogic(),
         builder: (controller) {
-          return InkWell(
+          return GestureDetector(
             onTap: () {
               FocusScope.of(context).requestFocus(FocusNode());
             },
