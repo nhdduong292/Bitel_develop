@@ -30,7 +30,7 @@ class TransactionInformationLogic extends GetxController {
     var amount = textAmountController.text.replaceAll(',', '.');
     if (!(double.parse(amount) >= 100 && double.parse(amount) <= 10000)) {
       isActiveButton = false;
-      errorTextAmount = 'The minimum is 100 and the maximum is 10000';
+      errorTextAmount = AppLocalizations.of(context)!.textTheMinimumIs100;
       update();
       return;
     } else if (textCaptchaController.text.isEmpty) {

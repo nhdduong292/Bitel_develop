@@ -170,7 +170,7 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                     ),
                                     Text(
                                         AppLocalizations.of(context)!
-                                            .textCreateOrder,
+                                            .textSendToEmail,
                                         style: AppStyles.r2B3A4A_12_500
                                             .copyWith(
                                                 fontSize: 13,
@@ -183,7 +183,7 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                             controller.textEmailController,
                                         context: context,
                                         hint: AppLocalizations.of(context)!
-                                            .textSendToEmail,
+                                            .textEnterEmail,
                                         type: TextInputType.text,
                                         onChange: () {
                                           controller.checkValidate();
@@ -360,7 +360,8 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                 border: Border.all(width: 1, color: Color(0xFFE3EAF2)),
                 borderRadius: BorderRadius.circular(24)),
             child: Padding(
-              padding: const EdgeInsets.only(left: 21, top: 13, bottom: 13),
+              padding: const EdgeInsets.only(
+                  left: 21, top: 13, bottom: 13, right: 21),
               child: Text(
                 content,
                 style: textColor == null
