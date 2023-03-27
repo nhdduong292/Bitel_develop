@@ -228,4 +228,22 @@ class ProductPaymentMethodLogic extends GetxController {
       },
     );
   }
+
+  Future<bool> onWillPop() async {
+    if (isLoadingProduct) {
+      Get.back();
+      return false;
+    }
+    if (itemPositionsListener?.itemPositions.value.elementAt(0).index == 0) {
+      Get.back();
+    } else {
+      isOnInvoicePage.value = false;
+      isOnMethodPage.value = true;
+      scrollController?.scrollTo(
+        index: 0,
+        duration: const Duration(milliseconds: 200),
+      );
+    }
+    return false; //<-- SEE HERE
+  }
 }

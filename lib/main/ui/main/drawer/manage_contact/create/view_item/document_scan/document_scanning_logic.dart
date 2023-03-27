@@ -43,7 +43,8 @@ class DocumentScanningLogic extends GetxController {
       TextRecognizer(script: TextRecognitionScript.latin);
 
   String currentIdentity = "DNI";
-  List<String> listIdentityNumber = ["DNI", "CE", "PP", "PTP"];
+  // List<String> listIdentityNumber = ["DNI", "CE", "PP", "PTP"];
+  List<String> listIdentityNumber = ["DNI"];
   CustomerDNIModel customerDNIModel = CustomerDNIModel();
 
   CreateContactPageLogic logicCreateContact = Get.find();

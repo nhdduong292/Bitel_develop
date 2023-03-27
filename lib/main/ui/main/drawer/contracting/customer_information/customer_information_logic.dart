@@ -13,6 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
@@ -25,7 +26,7 @@ class CustomerInformationLogic extends GetxController {
   var checkItem1 = true.obs;
   var checkItem2 = false.obs;
   var checkItem3 = false.obs;
-  var titleScreen = 'Customer information'.obs;
+  var titleScreen = ''.obs;
   var isUpdate = false.obs;
   var signDate = ''.obs;
   var path = ''.obs;
@@ -77,6 +78,12 @@ class CustomerInformationLogic extends GetxController {
 
   RequestDetailModel requestModel = RequestDetailModel();
 
+  final ItemScrollController scrollController = ItemScrollController();
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
+
+  final FocusScopeNode focusScopeNode = FocusScopeNode();
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -100,6 +107,13 @@ class CustomerInformationLogic extends GetxController {
     emailController.text = email;
     emailController.selection =
         TextSelection.fromPosition(TextPosition(offset: email.length));
+  }
+
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+    titleScreen.value = AppLocalizations.of(context)!.textCustomerInformation;
   }
 
   String getSex() {
@@ -504,5 +518,29 @@ class CustomerInformationLogic extends GetxController {
         Common.showMessageError(error, context);
       },
     );
+  }
+
+  Future<bool> onWillPop() async {
+    if (itemPositionsListener.itemPositions.value.elementAt(0).index == 1) {
+      checkItem1.value = true;
+      checkItem2.value = false;
+      titleScreen.value = AppLocalizations.of(context)!.textCustomerInformation;
+      scrollController.scrollTo(
+        index: 0,
+        duration: const Duration(milliseconds: 200),
+      );
+      return false;
+    } else if (itemPositionsListener.itemPositions.value.elementAt(0).index ==
+        2) {
+      checkItem2.value = true;
+      checkItem3.value = false;
+      scrollController.scrollTo(
+        index: 1,
+        duration: const Duration(milliseconds: 200),
+      );
+      return false;
+    }
+    Get.back();
+    return false; //<-- SEE HERE
   }
 }

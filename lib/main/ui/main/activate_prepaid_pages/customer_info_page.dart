@@ -156,7 +156,7 @@ class CustomerInfoPage extends GetView<ActivatePrepaidLogic> {
                                       AppLocalizations.of(context)!
                                           .textCustomerInfo,
                                       style: TextStyle(
-                                          fontFamily: 'Roboto',
+                                          fontFamily: 'Barlow',
                                           fontSize: 15.5,
                                           color: AppColors.colorContent,
                                           fontWeight: FontWeight.w500),
@@ -196,7 +196,7 @@ class CustomerInfoPage extends GetView<ActivatePrepaidLogic> {
                                         .textSendDocuments,
                                     style: TextStyle(
                                       color: AppColors.colorText1,
-                                      fontFamily: 'Roboto',
+                                      fontFamily: 'Barlow',
                                       fontSize: 15,
                                     ),
                                   ),
@@ -219,7 +219,7 @@ class CustomerInfoPage extends GetView<ActivatePrepaidLogic> {
                                       textStyle: const TextStyle(
                                           fontSize: 15,
                                           color: AppColors.colorText2,
-                                          fontFamily: "Roboto"),
+                                          fontFamily: "Barlow"),
                                       itemBuilder: (item) => RadioButtonBuilder(
                                         item,
                                       ),
@@ -243,7 +243,7 @@ class CustomerInfoPage extends GetView<ActivatePrepaidLogic> {
                         right: 30,
                         child: InkWell(
                           splashColor: Colors.black38,
-                            onTap: () => controller.gotoNextStep(step: 3),
+                          onTap: () => controller.gotoNextStep(step: 3),
                           child: Container(
                             height: 50,
                             decoration: BoxDecoration(

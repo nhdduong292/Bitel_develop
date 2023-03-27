@@ -46,7 +46,7 @@ Widget inputForm(
                   text: label,
                   style: TextStyle(
                       color: AppColors.colorText1,
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Barlow',
                       fontSize: 14,
                       fontWeight: FontWeight.w500),
                   children: [
@@ -54,7 +54,7 @@ Widget inputForm(
                         text: required ? ' *' : '',
                         style: TextStyle(
                           color: AppColors.colorTextError,
-                          fontFamily: 'Roboto',
+                          fontFamily: 'Barlow',
                           fontSize: 14,
                         )),
                   ],
@@ -69,7 +69,7 @@ Widget inputForm(
           child: TextField(
             style: TextStyle(
                 fontSize: 18,
-                fontFamily: 'Roboto',
+                fontFamily: 'Barlow',
                 color: Color(0xFF415263),
                 fontWeight: FontWeight.w500),
             keyboardType: inputType,
@@ -78,7 +78,7 @@ Widget inputForm(
               hintText: hint,
               hintStyle: TextStyle(
                   fontSize: 18,
-                  fontFamily: 'Roboto',
+                  fontFamily: 'Barlow',
                   fontWeight: FontWeight.w300),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(24),
@@ -120,7 +120,7 @@ Widget inputFormV2(
               text: label,
               style: TextStyle(
                 color: AppColors.colorText1,
-                fontFamily: 'Roboto',
+                fontFamily: 'Barlow',
                 fontSize: 14,
               ),
               children: [
@@ -128,7 +128,7 @@ Widget inputFormV2(
                     text: required ? ' *' : '',
                     style: TextStyle(
                       color: AppColors.colorTextError,
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Barlow',
                       fontSize: 14,
                     )),
               ],
@@ -144,7 +144,7 @@ Widget inputFormV2(
           child: TextField(
             style: TextStyle(
                 fontSize: 18,
-                fontFamily: 'Roboto',
+                fontFamily: 'Barlow',
                 color: Color(0xFF415263),
                 fontWeight: FontWeight.w500),
             keyboardType: inputType,
@@ -153,7 +153,7 @@ Widget inputFormV2(
               hintText: hint,
               hintStyle: TextStyle(
                   fontSize: 18,
-                  fontFamily: 'Roboto',
+                  fontFamily: 'Barlow',
                   fontWeight: FontWeight.w300),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(24),
@@ -199,7 +199,7 @@ Widget inputFormMaxLenght(
               text: label,
               style: TextStyle(
                 color: AppColors.colorText1,
-                fontFamily: 'Roboto',
+                fontFamily: 'Barlow',
                 fontSize: 14,
               ),
               children: [
@@ -207,7 +207,7 @@ Widget inputFormMaxLenght(
                     text: required ? ' *' : '',
                     style: TextStyle(
                       color: AppColors.colorTextError,
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Barlow',
                       fontSize: 14,
                     )),
               ],
@@ -226,7 +226,7 @@ Widget inputFormMaxLenght(
             maxLength: maxLength,
             style: TextStyle(
                 fontSize: 13,
-                fontFamily: 'Roboto',
+                fontFamily: 'Barlow',
                 color: Color(0xFF415263),
                 fontWeight: FontWeight.w500),
             keyboardType: inputType,
@@ -235,7 +235,7 @@ Widget inputFormMaxLenght(
               hintText: hint,
               hintStyle: TextStyle(
                   fontSize: 13,
-                  fontFamily: 'Roboto',
+                  fontFamily: 'Barlow',
                   fontWeight: FontWeight.w300),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(24),
@@ -280,7 +280,7 @@ Widget inputFormV3(
               text: label,
               style: TextStyle(
                 color: AppColors.colorText1,
-                fontFamily: 'Roboto',
+                fontFamily: 'Barlow',
                 fontSize: 14,
               ),
               children: [
@@ -288,7 +288,7 @@ Widget inputFormV3(
                     text: required ? ' *' : '',
                     style: TextStyle(
                       color: AppColors.colorTextError,
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Barlow',
                       fontSize: 14,
                     )),
               ],
@@ -307,7 +307,7 @@ Widget inputFormV3(
             onChanged: (value) => {onChange(value)},
             style: TextStyle(
                 fontSize: 13,
-                fontFamily: 'Roboto',
+                fontFamily: 'Barlow',
                 color: Color(0xFF415263),
                 fontWeight: FontWeight.w500),
             keyboardType: inputType,
@@ -316,7 +316,7 @@ Widget inputFormV3(
               hintText: hint,
               hintStyle: TextStyle(
                   fontSize: 13,
-                  fontFamily: 'Roboto',
+                  fontFamily: 'Barlow',
                   fontWeight: FontWeight.w300),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(24),
@@ -360,7 +360,7 @@ Widget spinnerForm(
                   text: label,
                   style: TextStyle(
                     color: AppColors.colorText1,
-                    fontFamily: 'Roboto',
+                    fontFamily: 'Barlow',
                     fontSize: 14,
                   ),
                   children: [
@@ -368,7 +368,7 @@ Widget spinnerForm(
                         text: required ? ' *' : '',
                         style: TextStyle(
                           color: AppColors.colorTextError,
-                          fontFamily: 'Roboto',
+                          fontFamily: 'Barlow',
                           fontSize: 14,
                         )),
                   ],
@@ -402,7 +402,7 @@ Widget spinnerForm(
                   alignment: AlignmentDirectional.centerStart,
                   style: TextStyle(
                       fontSize: 18,
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Barlow',
                       color: Color(0xFF415263),
                       fontWeight: FontWeight.w500),
                   icon: SvgPicture.asset(AppImages.icDropdownSpinner),
@@ -410,7 +410,7 @@ Widget spinnerForm(
                     hint,
                     style: TextStyle(
                         fontSize: 18,
-                        fontFamily: 'Roboto',
+                        fontFamily: 'Barlow',
                         fontWeight: FontWeight.w300),
                   ),
                 )
@@ -425,7 +425,7 @@ Widget spinnerForm(
                   alignment: AlignmentDirectional.centerStart,
                   style: TextStyle(
                       fontSize: 18,
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Barlow',
                       color: Color(0xFF415263),
                       fontWeight: FontWeight.w500),
                   icon: SvgPicture.asset(AppImages.icDropdownSpinner),
@@ -433,7 +433,7 @@ Widget spinnerForm(
                     hint,
                     style: TextStyle(
                         fontSize: 18,
-                        fontFamily: 'Roboto',
+                        fontFamily: 'Barlow',
                         fontWeight: FontWeight.w300),
                   ),
                 ),
@@ -476,7 +476,7 @@ Widget spinnerFormNormalV2({
               text: label,
               style: TextStyle(
                 color: AppColors.colorText1,
-                fontFamily: 'Roboto',
+                fontFamily: 'Barlow',
                 fontSize: 14,
               ),
               children: [
@@ -484,7 +484,7 @@ Widget spinnerFormNormalV2({
                     text: required ? ' *' : '',
                     style: TextStyle(
                       color: AppColors.colorTextError,
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Barlow',
                       fontSize: 14,
                     )),
               ],
@@ -513,7 +513,7 @@ Widget spinnerFormNormalV2({
             alignment: AlignmentDirectional.centerStart,
             style: TextStyle(
                 fontSize: 18,
-                fontFamily: 'Roboto',
+                fontFamily: 'Barlow',
                 color: Color(0xFF415263),
                 fontWeight: FontWeight.w500),
             icon: SvgPicture.asset(AppImages.icDropdownSpinner),
@@ -521,7 +521,7 @@ Widget spinnerFormNormalV2({
               hint,
               style: TextStyle(
                   fontSize: 18,
-                  fontFamily: 'Roboto',
+                  fontFamily: 'Barlow',
                   fontWeight: FontWeight.w300),
             ),
           ),
@@ -549,7 +549,7 @@ Widget spinnerFormNormal(
                   text: label,
                   style: TextStyle(
                     color: AppColors.colorText1,
-                    fontFamily: 'Roboto',
+                    fontFamily: 'Barlow',
                     fontSize: 14,
                   ),
                   children: [
@@ -557,7 +557,7 @@ Widget spinnerFormNormal(
                         text: required ? ' *' : '',
                         style: TextStyle(
                           color: AppColors.colorTextError,
-                          fontFamily: 'Roboto',
+                          fontFamily: 'Barlow',
                           fontSize: 14,
                         )),
                   ],
@@ -585,7 +585,7 @@ Widget spinnerFormNormal(
             alignment: AlignmentDirectional.centerStart,
             style: TextStyle(
                 fontSize: 18,
-                fontFamily: 'Roboto',
+                fontFamily: 'Barlow',
                 color: Color(0xFF415263),
                 fontWeight: FontWeight.w500),
             icon: SvgPicture.asset(AppImages.icDropdownSpinner),
@@ -593,7 +593,7 @@ Widget spinnerFormNormal(
               hint,
               style: TextStyle(
                   fontSize: 18,
-                  fontFamily: 'Roboto',
+                  fontFamily: 'Barlow',
                   fontWeight: FontWeight.w300),
             ),
           ),
@@ -622,7 +622,7 @@ Widget notifyCoverageLocation({bool? coverage, required BuildContext context}) {
               color: (coverage != null && coverage) || coverage == null
                   ? AppColors.colorContent
                   : AppColors.colorTextError,
-              fontFamily: 'Roboto',
+              fontFamily: 'Barlow',
               fontSize: 14),
           children: [
             TextSpan(
@@ -633,7 +633,7 @@ Widget notifyCoverageLocation({bool? coverage, required BuildContext context}) {
                   color: (coverage != null && coverage) || coverage == null
                       ? AppColors.colorContent
                       : AppColors.colorTextError,
-                  fontFamily: 'Roboto',
+                  fontFamily: 'Barlow',
                   fontSize: 14,
                   fontWeight: FontWeight.bold),
             ),
@@ -695,7 +695,7 @@ Widget inputFormPassword(
             text: label,
             style: TextStyle(
               color: AppColors.colorText1,
-              fontFamily: 'Roboto',
+              fontFamily: 'Barlow',
               fontSize: 14,
             ),
             children: [
@@ -703,7 +703,7 @@ Widget inputFormPassword(
                   text: required ? ' *' : '',
                   style: TextStyle(
                     color: AppColors.colorTextError,
-                    fontFamily: 'Roboto',
+                    fontFamily: 'Barlow',
                     fontSize: 14,
                   )),
             ],
@@ -718,7 +718,7 @@ Widget inputFormPassword(
                 textAlignVertical: TextAlignVertical.bottom,
                 style: TextStyle(
                     fontSize: 18,
-                    fontFamily: 'Roboto',
+                    fontFamily: 'Barlow',
                     color: Color(0xFF415263),
                     fontWeight: FontWeight.w500),
                 keyboardType: inputType,
@@ -737,7 +737,7 @@ Widget inputFormPassword(
                   ),
                   hintStyle: TextStyle(
                       fontSize: 18,
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Barlow',
                       fontWeight: FontWeight.w300),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(24),
@@ -978,7 +978,7 @@ Widget multiSelectDropdownForm(
               text: label,
               style: TextStyle(
                 color: AppColors.colorText1,
-                fontFamily: 'Roboto',
+                fontFamily: 'Barlow',
                 fontSize: 14,
               ),
               children: [
@@ -986,7 +986,7 @@ Widget multiSelectDropdownForm(
                     text: required ? ' *' : '',
                     style: TextStyle(
                       color: AppColors.colorTextError,
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Barlow',
                       fontSize: 14,
                     )),
               ],
@@ -1032,7 +1032,7 @@ Widget multiSelectDropdownForm(
                           selectedItems.join(', '),
                           style: const TextStyle(
                             fontSize: 18,
-                            fontFamily: 'Roboto',
+                            fontFamily: 'Barlow',
                             color: Color(0xFF415263),
                             fontWeight: FontWeight.w500,
                             overflow: TextOverflow.ellipsis,
@@ -1169,7 +1169,7 @@ Widget lockedBox(
               text: label,
               style: TextStyle(
                 color: AppColors.colorText1,
-                fontFamily: 'Roboto',
+                fontFamily: 'Barlow',
                 fontSize: 14,
               ),
               children: [
@@ -1177,7 +1177,7 @@ Widget lockedBox(
                     text: required ? ' *' : '',
                     style: TextStyle(
                       color: AppColors.colorTextError,
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Barlow',
                       fontSize: 14,
                     )),
               ],
@@ -1202,7 +1202,7 @@ Widget lockedBox(
                     child: Text(
                       content,
                       style: TextStyle(
-                          fontFamily: 'Roboto',
+                          fontFamily: 'Barlow',
                           color: Color(0xFFCFCFCF),
                           fontWeight: FontWeight.w500,
                           fontSize: 13),

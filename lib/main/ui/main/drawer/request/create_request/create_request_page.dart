@@ -243,7 +243,7 @@ class CreateRequestPage extends GetWidget {
                                   text: ' *',
                                   style: TextStyle(
                                       color: Colors.red,
-                                      fontFamily: 'Roboto',
+                                      fontFamily: 'Barlow',
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -304,7 +304,7 @@ class CreateRequestPage extends GetWidget {
                                     text: ' *',
                                     style: TextStyle(
                                         color: Colors.red,
-                                        fontFamily: 'Roboto',
+                                        fontFamily: 'Barlow',
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -385,7 +385,7 @@ class CreateRequestPage extends GetWidget {
                                   text: ' *',
                                   style: TextStyle(
                                       color: Colors.red,
-                                      fontFamily: 'Roboto',
+                                      fontFamily: 'Barlow',
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -467,7 +467,7 @@ class CreateRequestPage extends GetWidget {
                                   text: ' *',
                                   style: TextStyle(
                                       color: Colors.red,
-                                      fontFamily: 'Roboto',
+                                      fontFamily: 'Barlow',
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -554,7 +554,7 @@ class CreateRequestPage extends GetWidget {
                                   text: ' *',
                                   style: TextStyle(
                                       color: Colors.red,
-                                      fontFamily: 'Roboto',
+                                      fontFamily: 'Barlow',
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -641,7 +641,7 @@ class CreateRequestPage extends GetWidget {
                                   text: ' *',
                                   style: TextStyle(
                                       color: Colors.red,
-                                      fontFamily: 'Roboto',
+                                      fontFamily: 'Barlow',
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold),
                                 ),
