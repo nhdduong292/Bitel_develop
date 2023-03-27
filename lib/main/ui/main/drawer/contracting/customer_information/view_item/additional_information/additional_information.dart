@@ -28,266 +28,281 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
 
-    return SingleChildScrollView(
-      child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              margin: EdgeInsets.only(left: 10, right: 10),
-              width: MediaQuery.of(context).size.width - 20,
-              decoration: BoxDecoration(
-                color: const Color(0xFFFFFFFF),
-                border: Border.all(
-                  color: const Color(0xFFE3EAF2),
-                  width: 1.0,
-                ),
-                boxShadow: [
-                  const BoxShadow(
-                    color: Color.fromRGBO(185, 212, 220, 0.2),
-                    offset: Offset(0, 2),
-                    blurRadius: 7.0,
+    return FocusScope(
+      node: controller.focusScopeNode,
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: SingleChildScrollView(
+          child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  width: MediaQuery.of(context).size.width - 20,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFFFFF),
+                    border: Border.all(
+                      color: const Color(0xFFE3EAF2),
+                      width: 1.0,
+                    ),
+                    boxShadow: [
+                      const BoxShadow(
+                        color: Color.fromRGBO(185, 212, 220, 0.2),
+                        offset: Offset(0, 2),
+                        blurRadius: 7.0,
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(24.0),
                   ),
-                ],
-                borderRadius: BorderRadius.circular(24.0),
-              ),
-              child: Column(mainAxisSize: MainAxisSize.max, children: [
+                  child: Column(mainAxisSize: MainAxisSize.max, children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    DottedBorder(
+                      borderType: BorderType.RRect,
+                      radius: Radius.circular(26),
+                      dashPattern: [2, 2],
+                      strokeWidth: 1,
+                      color: Color(0xFF9454C9),
+                      child: SizedBox(
+                        width: 234,
+                        height: 41,
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              RichText(
+                                text: TextSpan(
+                                    text: '${controller.getTypeCustomer()} ',
+                                    style: AppStyles.r9454C9_14_500.copyWith(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w700),
+                                    children: [
+                                      TextSpan(
+                                        text: controller.customer.idNumber,
+                                        style: AppStyles.r2B3A4A_12_500
+                                            .copyWith(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w400),
+                                      )
+                                    ]),
+                              )
+                            ]),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    lockedBoxV1(
+                        content: controller.customer.fullName,
+                        label: AppLocalizations.of(context)!.textFullName,
+                        required: false,
+                        isIcon: false,
+                        width: 210),
+                    lockedBoxV1(
+                        content: controller.customer.nationality,
+                        label: AppLocalizations.of(context)!.textNationality,
+                        required: false,
+                        isIcon: false,
+                        width: 210),
+                    lockedBoxV1(
+                        content: controller.getSex(),
+                        label: AppLocalizations.of(context)!.textSex,
+                        required: false,
+                        isIcon: false,
+                        width: 210),
+                    lockedBoxV1(
+                        content: controller.customer.birthDate.isNotEmpty
+                            ? Common.fromDate(
+                                DateTime.parse(controller.customer.birthDate),
+                                'dd/MM/yyyy')
+                            : "---",
+                        label: AppLocalizations.of(context)!.textDateOfBirth,
+                        required: false,
+                        isIcon: false,
+                        width: 210),
+                    lockedBoxV1(
+                        content: controller.customer.idIssueDate.isNotEmpty
+                            ? Common.fromDate(
+                                DateTime.parse(controller.customer.idIssueDate),
+                                'dd/MM/yyyy')
+                            : "---",
+                        label: AppLocalizations.of(context)!.textIssuedate,
+                        required: false,
+                        isIcon: false,
+                        width: 210),
+                    SizedBox(
+                      height: 27,
+                    )
+                  ]),
+                ),
                 SizedBox(
                   height: 20,
                 ),
-                DottedBorder(
-                  borderType: BorderType.RRect,
-                  radius: Radius.circular(26),
-                  dashPattern: [2, 2],
-                  strokeWidth: 1,
-                  color: Color(0xFF9454C9),
-                  child: SizedBox(
-                    width: 234,
-                    height: 41,
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          RichText(
-                            text: TextSpan(
-                                text: '${controller.getTypeCustomer()} ',
-                                style: AppStyles.r9454C9_14_500.copyWith(
-                                    fontSize: 13, fontWeight: FontWeight.w700),
-                                children: [
-                                  TextSpan(
-                                    text: controller.customer.idNumber,
-                                    style: AppStyles.r2B3A4A_12_500.copyWith(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w400),
-                                  )
-                                ]),
-                          )
-                        ]),
+                Container(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  width: MediaQuery.of(context).size.width - 20,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFFFFF),
+                    border: Border.all(
+                      color: const Color(0xFFE3EAF2),
+                      width: 1.0,
+                    ),
+                    boxShadow: [
+                      const BoxShadow(
+                        color: Color.fromRGBO(185, 212, 220, 0.2),
+                        offset: Offset(0, 2),
+                        blurRadius: 7.0,
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(24.0),
                   ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                lockedBoxV1(
-                    content: controller.customer.fullName,
-                    label: AppLocalizations.of(context)!.textFullName,
-                    required: false,
-                    isIcon: false,
-                    width: 210),
-                lockedBoxV1(
-                    content: controller.customer.nationality,
-                    label: AppLocalizations.of(context)!.textNationality,
-                    required: false,
-                    isIcon: false,
-                    width: 210),
-                lockedBoxV1(
-                    content: controller.getSex(),
-                    label: AppLocalizations.of(context)!.textSex,
-                    required: false,
-                    isIcon: false,
-                    width: 210),
-                lockedBoxV1(
-                    content: controller.customer.birthDate.isNotEmpty
-                        ? Common.fromDate(
-                            DateTime.parse(controller.customer.birthDate),
-                            'dd/MM/yyyy')
-                        : "---",
-                    label: AppLocalizations.of(context)!.textDateOfBirth,
-                    required: false,
-                    isIcon: false,
-                    width: 210),
-                lockedBoxV1(
-                    content: controller.customer.idIssueDate.isNotEmpty
-                        ? Common.fromDate(
-                            DateTime.parse(controller.customer.idIssueDate),
-                            'dd/MM/yyyy')
-                        : "---",
-                    label: AppLocalizations.of(context)!.textIssuedate,
-                    required: false,
-                    isIcon: false,
-                    width: 210),
-                SizedBox(
-                  height: 27,
-                )
-              ]),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 10, right: 10),
-              width: MediaQuery.of(context).size.width - 20,
-              decoration: BoxDecoration(
-                color: const Color(0xFFFFFFFF),
-                border: Border.all(
-                  color: const Color(0xFFE3EAF2),
-                  width: 1.0,
-                ),
-                boxShadow: [
-                  const BoxShadow(
-                    color: Color.fromRGBO(185, 212, 220, 0.2),
-                    offset: Offset(0, 2),
-                    blurRadius: 7.0,
-                  ),
-                ],
-                borderRadius: BorderRadius.circular(24.0),
-              ),
-              child: Column(mainAxisSize: MainAxisSize.max, children: [
-                SizedBox(
-                  height: 52,
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 18),
-                      child: Text(
-                        AppLocalizations.of(context)!.textAdditionalInformation,
-                        style: AppStyles.r00A5B1_15d5_500,
+                  child: Column(mainAxisSize: MainAxisSize.max, children: [
+                    SizedBox(
+                      height: 52,
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 18),
+                          child: Text(
+                            AppLocalizations.of(context)!
+                                .textAdditionalInformation,
+                            style: AppStyles.r00A5B1_15d5_500,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                DottedLine(
-                  dashColor: Color(0xFFE3EAF2),
-                  dashGapLength: 3,
-                  dashLength: 4,
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                inputFormMaxLenght(
-                    hint: AppLocalizations.of(context)!.textEnterPhoneNumber,
-                    label: AppLocalizations.of(context)!.textPhoneNumber,
-                    required: true,
-                    maxLength: 9,
-                    controller: controller.phoneController,
-                    inputType: TextInputType.number,
-                    width: 210,
-                    onChange: (value) {
-                      controller.phone = value;
-                      controller.checkChangeAdditionalInformation();
-                    }),
-                inputFormV3(
-                    hint: AppLocalizations.of(context)!.textEnterEmail,
-                    label: AppLocalizations.of(context)!.textEmail,
-                    required: true,
-                    controller: controller.emailController,
-                    inputType: TextInputType.text,
-                    width: 210,
-                    onChange: (value) {
-                      controller.email = value;
-                      controller.checkChangeAdditionalInformation();
-                    }),
-                InkWell(
-                  onTap: () {
-                    showDialog(
-                      barrierDismissible: false,
-                      context: context,
-                      builder: (BuildContext context) {
-                        controller.resetAdress();
-                        return BillAddressInformation(
-                          height: 450,
-                          controller: controller,
-                        );
+                    DottedLine(
+                      dashColor: Color(0xFFE3EAF2),
+                      dashGapLength: 3,
+                      dashLength: 4,
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    inputFormMaxLenght(
+                        hint:
+                            AppLocalizations.of(context)!.textEnterPhoneNumber,
+                        label: AppLocalizations.of(context)!.textPhoneNumber,
+                        required: true,
+                        maxLength: 9,
+                        controller: controller.phoneController,
+                        inputType: TextInputType.number,
+                        width: 210,
+                        onChange: (value) {
+                          controller.phone = value;
+                          controller.checkChangeAdditionalInformation();
+                        }),
+                    inputFormV3(
+                        hint: AppLocalizations.of(context)!.textEnterEmail,
+                        label: AppLocalizations.of(context)!.textEmail,
+                        required: true,
+                        controller: controller.emailController,
+                        inputType: TextInputType.text,
+                        width: 210,
+                        onChange: (value) {
+                          controller.email = value;
+                          controller.checkChangeAdditionalInformation();
+                        }),
+                    InkWell(
+                      onTap: () {
+                        showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (BuildContext context) {
+                            controller.resetAdress();
+                            return BillAddressInformation(
+                              height: 450,
+                              controller: controller,
+                            );
+                          },
+                        ).then((value) {
+                          controller.checkChangeAdditionalInformation();
+                          if (value) {
+                            controller.address =
+                                '${controller.currentAddress}, ${controller.currentProvince.name}, ${controller.currentDistrict.name}, ${controller.currentPrecinct.name}';
+                            controller.update();
+                          }
+                        });
                       },
-                    ).then((value) {
-                      controller.checkChangeAdditionalInformation();
-                      if (value) {
-                        controller.address =
-                            '${controller.currentAddress}, ${controller.currentProvince.name}, ${controller.currentDistrict.name}, ${controller.currentPrecinct.name}';
-                        controller.update();
-                      }
-                    });
-                  },
-                  child: lockedBox(
-                      content: controller.address,
-                      label:
-                          AppLocalizations.of(context)!.textAddressCustomerInfo,
-                      required: true,
-                      isIcon: false,
-                      width: 210),
+                      child: lockedBox(
+                          content: controller.address,
+                          label: AppLocalizations.of(context)!
+                              .textAddressCustomerInfo,
+                          required: true,
+                          isIcon: false,
+                          width: 210),
+                    ),
+                    SizedBox(
+                      height: 27,
+                    )
+                  ]),
                 ),
                 SizedBox(
-                  height: 27,
-                )
+                  width: width,
+                  child: bottomButton(
+                      onTap: () {
+                        if (controller.checkValidateAddInfo()) {
+                          return;
+                        }
+                        if (!controller.checkValidate()) {
+                          return;
+                        }
+                        FocusScope.of(context).requestFocus(FocusNode());
+                        callback();
+                      },
+                      text: AppLocalizations.of(context)!
+                          .textContinue
+                          .toUpperCase()),
+                ),
+                SizedBox(
+                    width: width,
+                    child: Row(
+                      children: [
+                        Expanded(
+                            flex: 1,
+                            child: bottomButtonV2(
+                                onTap: () {
+                                  Get.back();
+                                },
+                                text: AppLocalizations.of(context)!
+                                    .textCancel
+                                    .toUpperCase())),
+                        Expanded(
+                            flex: 1,
+                            child: bottomButton(
+                                onTap: () {
+                                  if (!controller.isActiveUpdate) {
+                                    return;
+                                  }
+                                  if (controller.checkValidateAddInfo()) {
+                                    return;
+                                  }
+                                  if (!controller.checkValidate()) {
+                                    return;
+                                  }
+                                  controller.updateCustomer((isSuccess) {
+                                    if (isSuccess) {
+                                      Common.showToastCenter(
+                                          AppLocalizations.of(context)!
+                                              .textUpdateSuccess);
+                                    } else {}
+                                  });
+                                },
+                                text: AppLocalizations.of(context)!
+                                    .textUpdate
+                                    .toUpperCase(),
+                                color: controller.isActiveUpdate
+                                    ? null
+                                    : const Color(0xFF415263)
+                                        .withOpacity(0.2))),
+                      ],
+                    )),
               ]),
-            ),
-            SizedBox(
-              width: width,
-              child: bottomButton(
-                  onTap: () {
-                    if (controller.checkValidateAddInfo()) {
-                      return;
-                    }
-                    if (!controller.checkValidate()) {
-                      return;
-                    }
-                    callback();
-                  },
-                  text:
-                      AppLocalizations.of(context)!.textContinue.toUpperCase()),
-            ),
-            SizedBox(
-                width: width,
-                child: Row(
-                  children: [
-                    Expanded(
-                        flex: 1,
-                        child: bottomButtonV2(
-                            onTap: () {
-                              Get.back();
-                            },
-                            text: AppLocalizations.of(context)!
-                                .textCancel
-                                .toUpperCase())),
-                    Expanded(
-                        flex: 1,
-                        child: bottomButton(
-                            onTap: () {
-                              if (!controller.isActiveUpdate) {
-                                return;
-                              }
-                              if (controller.checkValidateAddInfo()) {
-                                return;
-                              }
-                              if (!controller.checkValidate()) {
-                                return;
-                              }
-                              controller.updateCustomer((isSuccess) {
-                                if (isSuccess) {
-                                  Common.showToastCenter(
-                                      AppLocalizations.of(context)!
-                                          .textUpdateSuccess);
-                                } else {}
-                              });
-                            },
-                            text: AppLocalizations.of(context)!
-                                .textUpdate
-                                .toUpperCase(),
-                            color: controller.isActiveUpdate
-                                ? null
-                                : const Color(0xFF415263).withOpacity(0.2))),
-                  ],
-                )),
-          ]),
+        ),
+      ),
     );
   }
 
@@ -314,7 +329,7 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                       text: required ? ' *' : '',
                       style: TextStyle(
                         color: AppColors.colorTextError,
-                        fontFamily: 'Roboto',
+                        fontFamily: 'Barlow',
                         fontSize: 14,
                       )),
                 ],
@@ -339,7 +354,7 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                       child: Text(
                         content,
                         style: TextStyle(
-                            fontFamily: 'Roboto',
+                            fontFamily: 'Barlow',
                             color: Color(0xFF415263),
                             fontWeight: FontWeight.w500,
                             fontSize: 13),
@@ -374,7 +389,7 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                 text: label,
                 style: TextStyle(
                   color: AppColors.colorText1,
-                  fontFamily: 'Roboto',
+                  fontFamily: 'Barlow',
                   fontSize: 14,
                 ),
                 children: [
@@ -382,7 +397,7 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                       text: required ? ' *' : '',
                       style: TextStyle(
                         color: AppColors.colorTextError,
-                        fontFamily: 'Roboto',
+                        fontFamily: 'Barlow',
                         fontSize: 14,
                       )),
                 ],
@@ -407,7 +422,7 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                       child: Text(
                         content,
                         style: TextStyle(
-                            fontFamily: 'Roboto',
+                            fontFamily: 'Barlow',
                             color: Color(0xFF415263),
                             fontWeight: FontWeight.w500,
                             fontSize: 13),

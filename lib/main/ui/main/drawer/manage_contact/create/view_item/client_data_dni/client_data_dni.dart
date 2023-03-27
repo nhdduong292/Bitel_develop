@@ -27,252 +27,283 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
     return GetBuilder(
         init: ClientDataDNILogic(context: context),
         builder: (controller) {
-          return SingleChildScrollView(
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Container(
-                margin: EdgeInsets.only(left: 10, right: 10),
-                width: MediaQuery.of(context).size.width - 20,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFFFFFF),
-                  border: Border.all(
-                    color: const Color(0xFFE3EAF2),
-                    width: 1.0,
-                  ),
-                  boxShadow: [
-                    const BoxShadow(
-                      color: Color.fromRGBO(185, 212, 220, 0.2),
-                      offset: Offset(0, 2),
-                      blurRadius: 7.0,
-                    ),
-                  ],
-                  borderRadius: BorderRadius.circular(24.0),
-                ),
-                child: Column(children: [
-                  SizedBox(
-                    height: 8,
-                  ),
-                  SizedBox(
-                    height: 30,
-                    child: Center(
-                      child: Text(
-                        AppLocalizations.of(context)!.textInformacionDel,
-                        style: AppStyles.r00A5B1_13_500,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  DottedLine(
-                    dashColor: Color(0xFFE3EAF2),
-                    dashGapLength: 3,
-                    dashLength: 4,
-                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  DottedBorder(
-                    borderType: BorderType.RRect,
-                    radius: Radius.circular(26),
-                    dashPattern: [2, 2],
-                    strokeWidth: 1,
-                    color: Color(0xFF9454C9),
-                    child: SizedBox(
-                      width: 197,
-                      height: 39,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                  text:
-                                      '${controller.logicCreateContact.typeCustomer}: ',
-                                  style: AppStyles.r9454C9_14_500.copyWith(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w700),
+          return FocusScope(
+            node: controller.focusScopeNode,
+            child: GestureDetector(
+              onTap: () {
+                FocusScope.of(context).requestFocus(FocusNode());
+              },
+              child: SingleChildScrollView(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(left: 10, right: 10),
+                        width: MediaQuery.of(context).size.width - 20,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFFFFFFF),
+                          border: Border.all(
+                            color: const Color(0xFFE3EAF2),
+                            width: 1.0,
+                          ),
+                          boxShadow: [
+                            const BoxShadow(
+                              color: Color.fromRGBO(185, 212, 220, 0.2),
+                              offset: Offset(0, 2),
+                              blurRadius: 7.0,
+                            ),
+                          ],
+                          borderRadius: BorderRadius.circular(24.0),
+                        ),
+                        child: Column(children: [
+                          SizedBox(
+                            height: 8,
+                          ),
+                          SizedBox(
+                            height: 30,
+                            child: Center(
+                              child: Text(
+                                AppLocalizations.of(context)!
+                                    .textInformacionDel,
+                                style: AppStyles.r00A5B1_13_500,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          DottedLine(
+                            dashColor: Color(0xFFE3EAF2),
+                            dashGapLength: 3,
+                            dashLength: 4,
+                          ),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          DottedBorder(
+                            borderType: BorderType.RRect,
+                            radius: Radius.circular(26),
+                            dashPattern: [2, 2],
+                            strokeWidth: 1,
+                            color: Color(0xFF9454C9),
+                            child: SizedBox(
+                              width: 197,
+                              height: 39,
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    TextSpan(
-                                      text: controller.idNumber,
-                                      style: AppStyles.r2B3A4A_12_500.copyWith(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w400),
+                                    RichText(
+                                      text: TextSpan(
+                                          text:
+                                              '${controller.logicCreateContact.typeCustomer}: ',
+                                          style: AppStyles.r9454C9_14_500
+                                              .copyWith(
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.w700),
+                                          children: [
+                                            TextSpan(
+                                              text: controller.idNumber,
+                                              style: AppStyles.r2B3A4A_12_500
+                                                  .copyWith(
+                                                      fontSize: 13,
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                            )
+                                          ]),
                                     )
                                   ]),
-                            )
-                          ]),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 39,
-                  ),
-                  Column(
-                    children: [
-                      textFieldClient(
-                          context: context,
-                          label: AppLocalizations.of(context)!.textLastName,
-                          hint: AppLocalizations.of(context)!.textEnterName,
-                          width: width * 0.55,
-                          controller: controller.tfLastName,
-                          focusNode: controller.focusLastName,
-                          onChange: (value) {}),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      textFieldClient(
-                          context: context,
-                          label: AppLocalizations.of(context)!.textName,
-                          hint: AppLocalizations.of(context)!.textEnterName,
-                          width: width * 0.55,
-                          controller: controller.tfName,
-                          focusNode: controller.focusLastName,
-                          onChange: (value) {}),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      textFieldClient(
-                          context: context,
-                          label: AppLocalizations.of(context)!.textNationality,
-                          hint: AppLocalizations.of(context)!
-                              .textEnterNationality,
-                          width: width * 0.55,
-                          controller: controller.tfNationality,
-                          focusNode: controller.focusLastName,
-                          onChange: (value) {}),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Container(
-                                margin: EdgeInsets.only(left: 20),
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                    AppLocalizations.of(context)!.textSex,
-                                    style: AppStyles.r2B3A4A_12_500.copyWith(
-                                        fontSize: 14,
-                                        color: AppColors.color_2B3A4A
-                                            .withOpacity(0.85)))),
+                            ),
                           ),
                           SizedBox(
-                            width: width * 0.55,
-                            child: spinnerFormV2(
-                                context: context,
-                                hint: '',
-                                required: true,
-                                dropValue: controller.sexValue,
-                                function: (value) {
-                                  controller.sexValue = value;
-                                },
-                                listDrop: controller.sexs),
+                            height: 39,
                           ),
-                          SizedBox(
-                            width: 23,
+                          Column(
+                            children: [
+                              textFieldClient(
+                                  context: context,
+                                  label: AppLocalizations.of(context)!
+                                      .textLastName,
+                                  hint: AppLocalizations.of(context)!
+                                      .textEnterName,
+                                  width: width * 0.55,
+                                  controller: controller.tfLastName,
+                                  focusNode: controller.focusLastName,
+                                  onChange: (value) {}),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              textFieldClient(
+                                  context: context,
+                                  label: AppLocalizations.of(context)!.textName,
+                                  hint: AppLocalizations.of(context)!
+                                      .textEnterName,
+                                  width: width * 0.55,
+                                  controller: controller.tfName,
+                                  focusNode: controller.focusLastName,
+                                  onChange: (value) {}),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              textFieldClient(
+                                  context: context,
+                                  label: AppLocalizations.of(context)!
+                                      .textNationality,
+                                  hint: AppLocalizations.of(context)!
+                                      .textEnterNationality,
+                                  width: width * 0.55,
+                                  controller: controller.tfNationality,
+                                  focusNode: controller.focusLastName,
+                                  onChange: (value) {}),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                        margin: EdgeInsets.only(left: 20),
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                            AppLocalizations.of(context)!
+                                                .textSex,
+                                            style: AppStyles.r2B3A4A_12_500
+                                                .copyWith(
+                                                    fontSize: 14,
+                                                    color: AppColors
+                                                        .color_2B3A4A
+                                                        .withOpacity(0.85)))),
+                                  ),
+                                  SizedBox(
+                                    width: width * 0.55,
+                                    child: spinnerFormV2(
+                                        context: context,
+                                        hint: '',
+                                        required: true,
+                                        dropValue: controller.sexValue,
+                                        function: (value) {
+                                          controller.sexValue = value;
+                                        },
+                                        listDrop: controller.sexs),
+                                  ),
+                                  SizedBox(
+                                    width: 23,
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              formDateView(
+                                  context: context,
+                                  type: 1,
+                                  hint: AppLocalizations.of(context)!
+                                      .textEnterDate,
+                                  label: AppLocalizations.of(context)!
+                                      .textDateOfBirth,
+                                  content: controller.dob,
+                                  required: false,
+                                  isIcon: true,
+                                  width: width * 0.55),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              formDateView(
+                                  context: context,
+                                  type: 2,
+                                  hint: AppLocalizations.of(context)!
+                                      .textEnterDate,
+                                  label: AppLocalizations.of(context)!
+                                      .textExpiredDate,
+                                  content: controller.exd,
+                                  required: false,
+                                  isIcon: true,
+                                  width: width * 0.55),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              textFieldClient(
+                                  context: context,
+                                  label:
+                                      AppLocalizations.of(context)!.textAddress,
+                                  hint: AppLocalizations.of(context)!
+                                      .textEnterAddress,
+                                  width: width * 0.55,
+                                  controller: controller.tfAddress,
+                                  focusNode: controller.focusLastName,
+                                  onChange: (value) {}),
+                              SizedBox(
+                                height: 34,
+                              ),
+                            ],
                           )
-                        ],
+                        ]),
                       ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      formDateView(
-                          context: context,
-                          type: 1,
-                          hint: AppLocalizations.of(context)!.textEnterDate,
-                          label: AppLocalizations.of(context)!.textDateOfBirth,
-                          content: controller.dob,
-                          required: false,
-                          isIcon: true,
-                          width: width * 0.55),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      formDateView(
-                          context: context,
-                          type: 2,
-                          hint: AppLocalizations.of(context)!.textEnterDate,
-                          label: AppLocalizations.of(context)!.textExpiredDate,
-                          content: controller.exd,
-                          required: false,
-                          isIcon: true,
-                          width: width * 0.55),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      textFieldClient(
-                          context: context,
-                          label: AppLocalizations.of(context)!.textAddress,
-                          hint: AppLocalizations.of(context)!.textEnterAddress,
-                          width: width * 0.55,
-                          controller: controller.tfAddress,
-                          focusNode: controller.focusLastName,
-                          onChange: (value) {}),
-                      SizedBox(
-                        height: 34,
-                      ),
-                    ],
-                  )
-                ]),
-              ),
-              Container(
-                width: 310,
-                margin:
-                    EdgeInsets.only(top: 30, bottom: 36, left: 16, right: 16),
-                padding: EdgeInsets.symmetric(vertical: 16),
-                decoration: BoxDecoration(
-                  color: AppColors.colorButton,
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                child: InkWell(
-                  onTap: () {
-                    if (!controller.checkValidate()) {
-                      return;
-                    }
-                    if (controller.logicCreateContact.typeCustomer != 'DNI') {
-                      callback();
-                      return;
-                    }
-                    _onLoading(context);
-                    controller.createCustomer(
-                      (isSuccess) {
-                        if (isSuccess) {
-                          Get.back();
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return SuccessDialog(
-                                height: 299,
-                                isSuccess: true,
-                                onClick: () {
+                      Container(
+                        width: 310,
+                        margin: EdgeInsets.only(
+                            top: 30, bottom: 36, left: 16, right: 16),
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        decoration: BoxDecoration(
+                          color: AppColors.colorButton,
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: InkWell(
+                          onTap: () {
+                            FocusScope.of(context).requestFocus(FocusNode());
+                            if (!controller.checkValidate()) {
+                              return;
+                            }
+                            if (controller.logicCreateContact.typeCustomer !=
+                                'DNI') {
+                              callback();
+                              return;
+                            }
+                            _onLoading(context);
+                            controller.createCustomer(
+                              (isSuccess) {
+                                if (isSuccess) {
                                   Get.back();
-                                  Get.offNamed(RouteConfig.customerInformation,
-                                      arguments: [
-                                        controller.customerModel,
-                                        controller.requestModel,
-                                        controller.productId,
-                                        controller.reasonId,
-                                        controller.isForcedTerm
-                                      ]);
-                                },
-                              );
-                            },
-                          );
-                        } else {
-                          Get.back();
-                          Common.showToastCenter(
-                              AppLocalizations.of(context)!.textErrorAPI);
-                        }
-                      },
-                    );
-                  },
-                  child: Center(
-                      child: Text(
-                    AppLocalizations.of(context)!.textRegistrar,
-                    style: AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
-                  )),
-                ),
-              )
-            ]),
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return SuccessDialog(
+                                        height: 299,
+                                        isSuccess: true,
+                                        onClick: () {
+                                          Get.back();
+                                          Get.offNamed(
+                                              RouteConfig.customerInformation,
+                                              arguments: [
+                                                controller.customerModel,
+                                                controller.requestModel,
+                                                controller.productId,
+                                                controller.reasonId,
+                                                controller.isForcedTerm
+                                              ]);
+                                        },
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  Get.back();
+                                  Common.showToastCenter(
+                                      AppLocalizations.of(context)!
+                                          .textErrorAPI);
+                                }
+                              },
+                            );
+                          },
+                          child: Center(
+                              child: Text(
+                            AppLocalizations.of(context)!.textRegistrar,
+                            style: AppStyles.r5
+                                .copyWith(fontWeight: FontWeight.w500),
+                          )),
+                        ),
+                      )
+                    ]),
+              ),
+            ),
           );
         });
   }
@@ -383,7 +414,7 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                       text: required ? ' *' : '',
                       style: TextStyle(
                         color: AppColors.colorTextError,
-                        fontFamily: 'Roboto',
+                        fontFamily: 'Barlow',
                         fontSize: 14,
                       )),
                 ],

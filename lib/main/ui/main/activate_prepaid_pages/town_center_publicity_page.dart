@@ -156,7 +156,7 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                                   AppLocalizations.of(context)!
                                       .textTownCenterAndPublicity,
                                   style: TextStyle(
-                                      fontFamily: 'Roboto',
+                                      fontFamily: 'Barlow',
                                       fontSize: 15.5,
                                       color: AppColors.colorContent,
                                       fontWeight: FontWeight.w500),
@@ -213,7 +213,7 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                                               .textCheckBoxTownCenterPublicity1,
                                           style: TextStyle(
                                               color: Color(0xFF4B5765),
-                                              fontFamily: 'Roboto',
+                                              fontFamily: 'Barlow',
                                               fontSize: 14,
                                               fontWeight: FontWeight.bold),
                                           children: [
@@ -223,7 +223,7 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                                                   .textCheckBoxTownCenterPublicity1sub,
                                               style: TextStyle(
                                                 color: AppColors.colorText2,
-                                                fontFamily: 'Roboto',
+                                                fontFamily: 'Barlow',
                                                 fontSize: 14,
                                                   fontWeight: FontWeight.normal
                                               ),
@@ -262,7 +262,7 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                                               .textCheckBoxTownCenterPublicity2,
                                           style: TextStyle(
                                               color: Color(0xFF4B5765),
-                                              fontFamily: 'Roboto',
+                                              fontFamily: 'Barlow',
                                               fontSize: 14,
                                               fontWeight: FontWeight.bold),
                                           children: [
@@ -272,7 +272,7 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                                                   .textCheckBoxTownCenterPublicity2sub,
                                               style: TextStyle(
                                                   color: AppColors.colorText2,
-                                                  fontFamily: 'Roboto',
+                                                  fontFamily: 'Barlow',
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.normal
                                               ),
@@ -304,7 +304,7 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                                   AppLocalizations.of(context)!
                                       .textAdvertisingProtectionFilter,
                                   style: TextStyle(
-                                      fontFamily: 'Roboto',
+                                      fontFamily: 'Barlow',
                                       fontSize: 15.5,
                                       color: AppColors.colorContent,
                                       fontWeight: FontWeight.w500),
@@ -344,7 +344,7 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                                               .textCheckBoxTownCenterPublicity3,
                                           style: TextStyle(
                                             color: AppColors.colorContent,
-                                            fontFamily: 'Roboto',
+                                            fontFamily: 'Barlow',
                                             fontSize: 14,
                                           ),
                                           children: [
@@ -354,7 +354,7 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                                                   .textCheckBoxTownCenterPublicity3sub,
                                               style: TextStyle(
                                                   color: AppColors.colorContent,
-                                                  fontFamily: 'Roboto',
+                                                  fontFamily: 'Barlow',
                                                   fontSize: 14,
                                                   decoration:
                                                       TextDecoration.underline,
@@ -394,7 +394,7 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                                               .textCheckBoxTownCenterPublicity3,
                                           style: TextStyle(
                                             color: AppColors.colorContent,
-                                            fontFamily: 'Roboto',
+                                            fontFamily: 'Barlow',
                                             fontSize: 14,
                                           ),
                                           children: [
@@ -404,7 +404,7 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                                                   .textCheckBoxTownCenterPublicity4sub,
                                               style: TextStyle(
                                                   color: AppColors.colorContent,
-                                                  fontFamily: 'Roboto',
+                                                  fontFamily: 'Barlow',
                                                   fontSize: 14,
                                                   decoration:
                                                   TextDecoration.underline,
@@ -444,7 +444,7 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                                               .textCheckBoxTownCenterPublicity5,
                                           style: TextStyle(
                                             color: AppColors.colorContent,
-                                            fontFamily: 'Roboto',
+                                            fontFamily: 'Barlow',
                                             fontSize: 14,
                                           ),
                                           children: [
@@ -454,7 +454,7 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                                                   .textCheckBoxTownCenterPublicity5sub,
                                               style: TextStyle(
                                                   color: AppColors.colorContent,
-                                                  fontFamily: 'Roboto',
+                                                  fontFamily: 'Barlow',
                                                   fontSize: 14,
                                                   decoration:
                                                   TextDecoration.underline,

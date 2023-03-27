@@ -75,191 +75,200 @@ class WODetailPage extends GetView<ManageWOLogic> {
                     ],
                   ),
                   expandableV1(
-                      label: AppLocalizations.of(context)!.textCustomerInfo,
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 15),
-                            child: Row(
-                              children: [
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    AppLocalizations.of(context)!.textCustomerName,
-                                    style: const TextStyle(
-                                        color: AppColors.colorText2,
-                                        fontSize: 15,
-                                        fontFamily: 'Roboto'),
-                                  ),
-                                ),
-                                Text(
-                                  wo.customerName,
+                    label: AppLocalizations.of(context)!.textCustomerInfo,
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 15),
+                          child: Row(
+                            children: [
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  AppLocalizations.of(context)!
+                                      .textCustomerName,
                                   style: const TextStyle(
-                                      color: Color(0xFF415263),
+                                      color: AppColors.colorText2,
                                       fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: 'Roboto'),
+                                      fontFamily: 'Barlow'),
                                 ),
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                              ],
-                            ),
+                              ),
+                              Text(
+                                wo.customerName,
+                                style: const TextStyle(
+                                    color: Color(0xFF415263),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'Barlow'),
+                              ),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                            ],
                           ),
-                          const DottedLine(
-                            dashColor: Color(0xFFE3EAF2),
-                            dashGapLength: 3,
-                            dashLength: 4,
-                          ),
-                          Container(
-                            margin: const EdgeInsets.symmetric(vertical: 15),
-                            child: Row(
-                              children: [
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    AppLocalizations.of(context)!.textCustomerPhoneNumber,
-                                    style: const TextStyle(
-                                        color: AppColors.colorText2,
-                                        fontSize: 15,
-                                        fontFamily: 'Roboto'),
-                                  ),
-                                ),
-                                Text(
-                                  wo.phoneNumber,
+                        ),
+                        const DottedLine(
+                          dashColor: Color(0xFFE3EAF2),
+                          dashGapLength: 3,
+                          dashLength: 4,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(vertical: 15),
+                          child: Row(
+                            children: [
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  AppLocalizations.of(context)!
+                                      .textCustomerPhoneNumber,
                                   style: const TextStyle(
-                                      color: Color(0xFF415263),
+                                      color: AppColors.colorText2,
                                       fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: 'Roboto'),
+                                      fontFamily: 'Barlow'),
                                 ),
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                              ],
-                            ),
+                              ),
+                              Text(
+                                wo.phoneNumber,
+                                style: const TextStyle(
+                                    color: Color(0xFF415263),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'Barlow'),
+                              ),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                            ],
                           ),
-                          const DottedLine(
-                            dashColor: Color(0xFFE3EAF2),
-                            dashGapLength: 3,
-                            dashLength: 4,
-                          ),
-                          Container(
-                            margin: const EdgeInsets.symmetric(vertical: 15),
-                            child: Row(
-                              children: [
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    AppLocalizations.of(context)!.textAddress,
-                                    style: const TextStyle(
-                                        color: AppColors.colorText2,
-                                        fontSize: 15,
-                                        fontFamily: 'Roboto'),
-                                  ),
-                                ),
-                                Text(
-                                  wo.address,
+                        ),
+                        const DottedLine(
+                          dashColor: Color(0xFFE3EAF2),
+                          dashGapLength: 3,
+                          dashLength: 4,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(vertical: 15),
+                          child: Row(
+                            children: [
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  AppLocalizations.of(context)!.textAddress,
                                   style: const TextStyle(
-                                      color: Color(0xFF415263),
+                                      color: AppColors.colorText2,
                                       fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: 'Roboto'),
+                                      fontFamily: 'Barlow'),
                                 ),
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                              ],
-                            ),
+                              ),
+                              Text(
+                                wo.address,
+                                style: const TextStyle(
+                                    color: Color(0xFF415263),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'Barlow'),
+                              ),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                            ],
                           ),
-                          const DottedLine(
-                            dashColor: Color(0xFFE3EAF2),
-                            dashGapLength: 3,
-                            dashLength: 4,
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(top: 15),
-                            child: Row(
-                              children: [
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    wo.type == 'Survey'
-                                    ? AppLocalizations.of(context)!.textLine
-                                    : AppLocalizations.of(context)!.textAccount,
-                                    style: const TextStyle(
-                                        color: AppColors.colorText2,
-                                        fontSize: 15,
-                                        fontFamily: 'Roboto'),
-                                  ),
-                                ),
-                                Text(
-                                  wo.type == 'Survey' ? wo.line : wo.account,
+                        ),
+                        const DottedLine(
+                          dashColor: Color(0xFFE3EAF2),
+                          dashGapLength: 3,
+                          dashLength: 4,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 15),
+                          child: Row(
+                            children: [
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  wo.type == 'Survey'
+                                      ? AppLocalizations.of(context)!.textLine
+                                      : AppLocalizations.of(context)!
+                                          .textAccount,
                                   style: const TextStyle(
-                                      color: AppColors.colorText3,
+                                      color: AppColors.colorText2,
                                       fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: 'Roboto'),
+                                      fontFamily: 'Barlow'),
                                 ),
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                              ],
-                            ),
+                              ),
+                              Text(
+                                wo.type == 'Survey' ? wo.line : wo.account,
+                                style: const TextStyle(
+                                    color: AppColors.colorText3,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'Barlow'),
+                              ),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                     ),
+                        ),
+                      ],
+                    ),
+                  ),
                   expandableV1(
-                      label: AppLocalizations.of(context)!.textWOInformation,
-                      child: const SizedBox(
-                        height: 200,
-                        width: double.infinity,
-                      ),
-                     ),
+                    label: AppLocalizations.of(context)!.textWOInformation,
+                    child: const SizedBox(
+                      height: 200,
+                      width: double.infinity,
+                    ),
+                  ),
                   expandableV1(
-                      label: AppLocalizations.of(context)!.textStaffInfo,
-                      child: const SizedBox(
-                        height: 200,
-                        width: double.infinity,
-                      ),
-                      ),
+                    label: AppLocalizations.of(context)!.textStaffInfo,
+                    child: const SizedBox(
+                      height: 200,
+                      width: double.infinity,
+                    ),
+                  ),
                   expandableV1(
-                      label: AppLocalizations.of(context)!
-                          .textInfrastructureInformation,
-                      child: const SizedBox(
-                        height: 200,
-                        width: double.infinity,
-                      ),
-                     ),
+                    label: AppLocalizations.of(context)!
+                        .textInfrastructureInformation,
+                    child: const SizedBox(
+                      height: 200,
+                      width: double.infinity,
+                    ),
+                  ),
                   expandableV1(
-                      label: AppLocalizations.of(context)!
-                          .textMaterialsGoodsInformation,
-                      child: const SizedBox(
-                        height: 200,
-                        width: double.infinity,
-                      ),
-                     ),
+                    label: AppLocalizations.of(context)!
+                        .textMaterialsGoodsInformation,
+                    child: const SizedBox(
+                      height: 200,
+                      width: double.infinity,
+                    ),
+                  ),
                   expandableV1(
-                      label: AppLocalizations.of(context)!.textAcceptanceRecord,
-                      child: const SizedBox(
-                        height: 200,
-                        width: double.infinity,
-                      ),
-                      ),
+                    label: AppLocalizations.of(context)!.textAcceptanceRecord,
+                    child: const SizedBox(
+                      height: 200,
+                      width: double.infinity,
+                    ),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Expanded(child: bottomButtonV2(text: AppLocalizations.of(context)!.textCancel, onTap: (){})),
-                      Expanded(child: bottomButton(text: AppLocalizations.of(context)!.textSave, onTap: (){}))
+                      Expanded(
+                          child: bottomButtonV2(
+                              text: AppLocalizations.of(context)!.textCancel,
+                              onTap: () {})),
+                      Expanded(
+                          child: bottomButton(
+                              text: AppLocalizations.of(context)!.textSave,
+                              onTap: () {}))
                     ],
                   )
                 ],

@@ -285,7 +285,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 text: label,
                 style: TextStyle(
                   color: AppColors.colorText1,
-                  fontFamily: 'Roboto',
+                  fontFamily: 'Barlow',
                   fontSize: 14,
                 ),
                 children: [
@@ -293,7 +293,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                       text: required ? ' *' : '',
                       style: TextStyle(
                         color: AppColors.colorTextError,
-                        fontFamily: 'Roboto',
+                        fontFamily: 'Barlow',
                         fontSize: 14,
                       )),
                 ],
@@ -343,7 +343,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
               alignment: AlignmentDirectional.centerStart,
               style: TextStyle(
                   fontSize: 18,
-                  fontFamily: 'Roboto',
+                  fontFamily: 'Barlow',
                   color: Color(0xFF415263),
                   fontWeight: FontWeight.w500),
               icon: SvgPicture.asset(AppImages.icDropdownSpinner),
@@ -351,7 +351,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 hint,
                 style: TextStyle(
                     fontSize: 18,
-                    fontFamily: 'Roboto',
+                    fontFamily: 'Barlow',
                     fontWeight: FontWeight.w300),
               ),
             ),
@@ -384,7 +384,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                       text: required ? ' *' : '',
                       style: TextStyle(
                         color: AppColors.colorTextError,
-                        fontFamily: 'Roboto',
+                        fontFamily: 'Barlow',
                         fontSize: 14,
                       )),
                 ],
@@ -409,7 +409,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                       child: Text(
                         content,
                         style: TextStyle(
-                            fontFamily: 'Roboto',
+                            fontFamily: 'Barlow',
                             color: Color(0xFF415263),
                             fontWeight: FontWeight.w500,
                             fontSize: 13),

@@ -54,7 +54,8 @@ class IdCardScannerLogic extends GetxController {
           (image.height - 1150) ~/ 2; // Tọa độ y của góc trái trên của vùng cắt
       int width = 1900; // Chiều rộng của vùng cắt
       int height = 1150; // Chiều cao của vùng cắt
-      Img.Image cropImage = Img.copyCrop(image, x: x, y: y, width: width, height: height);
+      Img.Image cropImage =
+          Img.copyCrop(image, x: x, y: y, width: width, height: height);
       File(file.path).writeAsBytesSync(Img.encodeJpg(cropImage));
       imageFile = file;
       if (file != null) {

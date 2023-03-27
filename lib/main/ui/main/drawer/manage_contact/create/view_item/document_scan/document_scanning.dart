@@ -139,13 +139,7 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                                         TextSpan(
                                           text: AppLocalizations.of(context)!
                                               .textTratamientoDeMisDatos,
-                                          style: TextStyle(
-                                              color: AppColors.colorContent,
-                                              fontFamily: 'Roboto',
-                                              fontSize: 14,
-                                              decoration:
-                                                  TextDecoration.underline,
-                                              fontWeight: FontWeight.bold),
+                                          style: AppStyles.rU00A5B1_13_500,
                                         ),
                                       ],
                                     ),
@@ -169,7 +163,7 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                                     .textTypeOfDocument,
                                 style: TextStyle(
                                   color: AppColors.colorContent,
-                                  fontFamily: 'Roboto',
+                                  fontFamily: 'Barlow',
                                   fontSize: 14,
                                 ),
                                 children: [
@@ -177,7 +171,7 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                                     text: '*',
                                     style: TextStyle(
                                         color: Colors.red,
-                                        fontFamily: 'Roboto',
+                                        fontFamily: 'Barlow',
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold),
                                   ),

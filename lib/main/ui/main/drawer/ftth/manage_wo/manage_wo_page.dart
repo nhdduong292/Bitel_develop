@@ -100,7 +100,7 @@ class ManageWOPage extends GetView<ManageWOLogic> {
                             AppLocalizations.of(context)!.textSearch,
                             style: TextStyle(
                                 fontSize: 18,
-                                fontFamily: 'Roboto',
+                                fontFamily: 'Barlow',
                                 color: AppColors.colorText1,
                                 fontWeight: FontWeight.w600),
                           ),
@@ -166,7 +166,7 @@ class ManageWOPage extends GetView<ManageWOLogic> {
                                 color: AppColors.colorTitle,
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600,
-                                fontFamily: 'Roboto')),
+                                fontFamily: 'Barlow')),
                       ),
                       SizedBox(
                         height: 5,
@@ -209,7 +209,7 @@ class ManageWOPage extends GetView<ManageWOLogic> {
                     color: AppColors.colorSelectTab,
                   ),
                   labelStyle: TextStyle(
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Barlow',
                       fontWeight: FontWeight.w500,
                       fontSize: 15),
                 ),
@@ -261,7 +261,7 @@ Widget tabBarView({
                   AppLocalizations.of(context)!.textWOList,
                   style: TextStyle(
                       fontSize: 18,
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Barlow',
                       color: Color(0xFF2B3A4A),
                       fontWeight: FontWeight.w500),
                 ),
@@ -325,7 +325,7 @@ Widget _woItem({required WorkOrder wo, required BuildContext context}) {
                 style: TextStyle(
                     color: AppColors.colorText2,
                     fontSize: 15,
-                    fontFamily: 'Roboto'),
+                    fontFamily: 'Barlow'),
               ),
             ),
             Text(
@@ -334,7 +334,7 @@ Widget _woItem({required WorkOrder wo, required BuildContext context}) {
                   color: Color(0xFF415263),
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
-                  fontFamily: 'Roboto'),
+                  fontFamily: 'Barlow'),
             ),
             SizedBox(
               width: 25,
@@ -355,7 +355,7 @@ Widget _woItem({required WorkOrder wo, required BuildContext context}) {
                 style: TextStyle(
                     color: AppColors.colorText2,
                     fontSize: 15,
-                    fontFamily: 'Roboto'),
+                    fontFamily: 'Barlow'),
               ),
             ),
             Text(
@@ -364,7 +364,7 @@ Widget _woItem({required WorkOrder wo, required BuildContext context}) {
                   color: Color(0xFF415263),
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
-                  fontFamily: 'Roboto'),
+                  fontFamily: 'Barlow'),
             ),
             SizedBox(
               width: 25,
@@ -385,7 +385,7 @@ Widget _woItem({required WorkOrder wo, required BuildContext context}) {
                 style: TextStyle(
                     color: AppColors.colorText2,
                     fontSize: 15,
-                    fontFamily: 'Roboto'),
+                    fontFamily: 'Barlow'),
               ),
             ),
             Text(
@@ -394,7 +394,7 @@ Widget _woItem({required WorkOrder wo, required BuildContext context}) {
                   color: Color(0xFF415263),
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
-                  fontFamily: 'Roboto'),
+                  fontFamily: 'Barlow'),
             ),
             SizedBox(
               width: 25,
@@ -415,7 +415,7 @@ Widget _woItem({required WorkOrder wo, required BuildContext context}) {
                 style: TextStyle(
                     color: AppColors.colorText2,
                     fontSize: 15,
-                    fontFamily: 'Roboto'),
+                    fontFamily: 'Barlow'),
               ),
             ),
             Text(
@@ -426,7 +426,7 @@ Widget _woItem({required WorkOrder wo, required BuildContext context}) {
                   color: AppColors.colorContent,
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
-                  fontFamily: 'Roboto'),
+                  fontFamily: 'Barlow'),
             ),
             SizedBox(
               width: 25,
@@ -447,7 +447,7 @@ Widget _woItem({required WorkOrder wo, required BuildContext context}) {
                 style: TextStyle(
                     color: AppColors.colorText2,
                     fontSize: 15,
-                    fontFamily: 'Roboto'),
+                    fontFamily: 'Barlow'),
               ),
             ),
             Text(
@@ -456,7 +456,7 @@ Widget _woItem({required WorkOrder wo, required BuildContext context}) {
                   color: Color(0xFF415263),
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
-                  fontFamily: 'Roboto'),
+                  fontFamily: 'Barlow'),
             ),
             SizedBox(
               width: 25,
@@ -495,7 +495,7 @@ class DialogAdvancedSearch extends Dialog {
                     Text(AppLocalizations.of(context)!.textAdvancedSearch,
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontFamily: 'Roboto',
+                            fontFamily: 'Barlow',
                             fontSize: 18)),
                     SizedBox(
                       height: 20,
@@ -513,7 +513,7 @@ class DialogAdvancedSearch extends Dialog {
                         hint: AppLocalizations.of(context)!.hintTelecomService,
                         hintStyle: TextStyle(
                             fontSize: 18,
-                            fontFamily: 'Roboto',
+                            fontFamily: 'Barlow',
                             color: Color(0xFF415263),
                             fontWeight: FontWeight.w500),
                         width: width * 0.52,
@@ -526,7 +526,7 @@ class DialogAdvancedSearch extends Dialog {
                         hint: AppLocalizations.of(context)!.hintWOType,
                         hintStyle: TextStyle(
                             fontSize: 18,
-                            fontFamily: 'Roboto',
+                            fontFamily: 'Barlow',
                             color: Color(0xFF415263),
                             fontWeight: FontWeight.w500),
                         width: width * 0.52,
@@ -558,7 +558,7 @@ class DialogAdvancedSearch extends Dialog {
                         hint: AppLocalizations.of(context)!.hintChooseTeam,
                         hintStyle: TextStyle(
                             fontSize: 18,
-                            fontFamily: 'Roboto',
+                            fontFamily: 'Barlow',
                             color: Color(0xFF415263),
                             fontWeight: FontWeight.w300),
                         width: width * 0.52,
@@ -571,7 +571,7 @@ class DialogAdvancedSearch extends Dialog {
                         hint: AppLocalizations.of(context)!.hintChooseTechnician,
                         hintStyle: TextStyle(
                             fontSize: 18,
-                            fontFamily: 'Roboto',
+                            fontFamily: 'Barlow',
                             color: Color(0xFF415263),
                             fontWeight: FontWeight.w300),
                         width: width * 0.52,
@@ -584,7 +584,7 @@ class DialogAdvancedSearch extends Dialog {
                         hint: AppLocalizations.of(context)!.textComplete,
                         hintStyle: TextStyle(
                             fontSize: 18,
-                            fontFamily: 'Roboto',
+                            fontFamily: 'Barlow',
                             color: Color(0xFF415263),
                             fontWeight: FontWeight.w500),
                         width: width * 0.52,

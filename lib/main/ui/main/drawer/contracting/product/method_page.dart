@@ -46,7 +46,7 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                       color: AppColors.colorContent,
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
-                      fontFamily: 'Roboto'),
+                      fontFamily: 'Barlow'),
                 ),
                 const SizedBox(
                   height: 15,
@@ -109,7 +109,7 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                           color: AppColors.colorContent,
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
-                          fontFamily: 'Roboto'),
+                          fontFamily: 'Barlow'),
                     ),
                     const SizedBox(
                       height: 15,
@@ -173,7 +173,7 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                               color: AppColors.colorContent,
                               fontSize: 15,
                               fontWeight: FontWeight.w500,
-                              fontFamily: 'Roboto'),
+                              fontFamily: 'Barlow'),
                         ),
                         const SizedBox(
                           height: 15,
@@ -335,7 +335,7 @@ Widget _itemMethod(
                   reason.name ?? 'null',
                   style: const TextStyle(
                       fontSize: 16,
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Barlow',
                       color: AppColors.colorText1,
                       fontWeight: FontWeight.w500),
                 ),
@@ -343,7 +343,7 @@ Widget _itemMethod(
                   '${AppLocalizations.of(context)!.textFreeInstallation} ${reason.feeInstallation}',
                   style: const TextStyle(
                       fontSize: 14,
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Barlow',
                       color: AppColors.colorText2,
                       fontWeight: FontWeight.w400),
                 ),
@@ -351,7 +351,7 @@ Widget _itemMethod(
                   '${AppLocalizations.of(context)!.textReasonCodeName} ${reason.reasonCode}',
                   style: const TextStyle(
                       fontSize: 14,
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Barlow',
                       color: AppColors.colorText2,
                       fontWeight: FontWeight.w400),
                 ),
@@ -368,7 +368,7 @@ Widget _itemMethod(
               reason.fee.toString(),
               style: const TextStyle(
                   fontSize: 16,
-                  fontFamily: 'Roboto',
+                  fontFamily: 'Barlow',
                   color: AppColors.colorText3,
                   fontWeight: FontWeight.w700),
             ),

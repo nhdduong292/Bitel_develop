@@ -124,7 +124,7 @@ class ManageContactPage extends GetView<ManageContactLogic> {
                                   autocorrect: true,
                                   style: TextStyle(
                                       fontSize: 18,
-                                      fontFamily: 'Roboto',
+                                      fontFamily: 'Barlow',
                                       color: Color(0xFF415263),
                                       fontWeight: FontWeight.w500),
                                   decoration: InputDecoration(
@@ -132,7 +132,7 @@ class ManageContactPage extends GetView<ManageContactLogic> {
                                         ?.textSearch,
                                     hintStyle: TextStyle(
                                         fontSize: 18,
-                                        fontFamily: 'Roboto',
+                                        fontFamily: 'Barlow',
                                         fontWeight: FontWeight.w300),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
@@ -182,7 +182,7 @@ class ManageContactPage extends GetView<ManageContactLogic> {
                                     .textIdentifyNumber,
                                 style: TextStyle(
                                     color: AppColors.colorText1,
-                                    fontFamily: 'Roboto',
+                                    fontFamily: 'Barlow',
                                     fontSize: 15,
                                     fontWeight: FontWeight.w500),
                               ),
@@ -217,7 +217,7 @@ class ManageContactPage extends GetView<ManageContactLogic> {
                                             AlignmentDirectional.centerStart,
                                         style: TextStyle(
                                             fontSize: 18,
-                                            fontFamily: 'Roboto',
+                                            fontFamily: 'Barlow',
                                             color: Color(0xFF007689),
                                             fontWeight: FontWeight.w500),
                                         icon: SvgPicture.asset(
@@ -233,7 +233,7 @@ class ManageContactPage extends GetView<ManageContactLogic> {
                                           TextAlignVertical.bottom,
                                       style: TextStyle(
                                           fontSize: 18,
-                                          fontFamily: 'Roboto',
+                                          fontFamily: 'Barlow',
                                           color: Color(0xFF415263),
                                           fontWeight: FontWeight.w500),
                                       keyboardType: TextInputType.number,
@@ -242,7 +242,7 @@ class ManageContactPage extends GetView<ManageContactLogic> {
                                             .hintIdentifyNumber,
                                         hintStyle: TextStyle(
                                             fontSize: 18,
-                                            fontFamily: 'Roboto',
+                                            fontFamily: 'Barlow',
                                             fontWeight: FontWeight.w300),
                                         enabledBorder: OutlineInputBorder(
                                           borderRadius:
@@ -336,7 +336,7 @@ class ManageContactPage extends GetView<ManageContactLogic> {
                                         .textContactList,
                                     style: TextStyle(
                                         fontSize: 18,
-                                        fontFamily: 'Roboto',
+                                        fontFamily: 'Barlow',
                                         color: Color(0xFF2B3A4A),
                                         fontWeight: FontWeight.w500),
                                   ),
@@ -401,7 +401,7 @@ Widget _contactItem({required Contact contact, required BuildContext context}) {
               style: TextStyle(
                   color: AppColors.colorText2,
                   fontSize: 15,
-                  fontFamily: 'Roboto'),
+                  fontFamily: 'Barlow'),
             ),
           ),
           Text(
@@ -410,7 +410,7 @@ Widget _contactItem({required Contact contact, required BuildContext context}) {
                 color: Color(0xFF415263),
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
-                fontFamily: 'Roboto'),
+                fontFamily: 'Barlow'),
           ),
           SizedBox(
             width: 25,
@@ -431,7 +431,7 @@ Widget _contactItem({required Contact contact, required BuildContext context}) {
               style: TextStyle(
                   color: AppColors.colorText2,
                   fontSize: 15,
-                  fontFamily: 'Roboto'),
+                  fontFamily: 'Barlow'),
             ),
           ),
           Text(
@@ -440,7 +440,7 @@ Widget _contactItem({required Contact contact, required BuildContext context}) {
                 color: Color(0xFF415263),
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
-                fontFamily: 'Roboto'),
+                fontFamily: 'Barlow'),
           ),
           SizedBox(
             width: 25,
@@ -461,7 +461,7 @@ Widget _contactItem({required Contact contact, required BuildContext context}) {
               style: TextStyle(
                   color: AppColors.colorText2,
                   fontSize: 15,
-                  fontFamily: 'Roboto'),
+                  fontFamily: 'Barlow'),
             ),
           ),
           Text(
@@ -470,7 +470,7 @@ Widget _contactItem({required Contact contact, required BuildContext context}) {
                 color: Color(0xFF415263),
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
-                fontFamily: 'Roboto'),
+                fontFamily: 'Barlow'),
           ),
           SizedBox(
             width: 25,
@@ -491,7 +491,7 @@ Widget _contactItem({required Contact contact, required BuildContext context}) {
               style: TextStyle(
                   color: AppColors.colorText2,
                   fontSize: 15,
-                  fontFamily: 'Roboto'),
+                  fontFamily: 'Barlow'),
             ),
           ),
           Text(
@@ -500,7 +500,7 @@ Widget _contactItem({required Contact contact, required BuildContext context}) {
                 color: AppColors.colorContent,
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
-                fontFamily: 'Roboto'),
+                fontFamily: 'Barlow'),
           ),
           SizedBox(
             width: 25,

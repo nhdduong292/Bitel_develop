@@ -80,7 +80,7 @@ class RequestDetailPage extends GetWidget {
                                       style: const TextStyle(
                                           color: AppColors.colorText2,
                                           fontSize: 15,
-                                          fontFamily: 'Roboto'),
+                                          fontFamily: 'Barlow'),
                                     ),
                                     Expanded(
                                       child: Text(
@@ -112,7 +112,7 @@ class RequestDetailPage extends GetWidget {
                                       style: const TextStyle(
                                           color: AppColors.colorText2,
                                           fontSize: 15,
-                                          fontFamily: 'Roboto'),
+                                          fontFamily: 'Barlow'),
                                     ),
                                     Expanded(
                                       child: Text(
@@ -143,7 +143,7 @@ class RequestDetailPage extends GetWidget {
                                       style: const TextStyle(
                                           color: AppColors.colorText2,
                                           fontSize: 15,
-                                          fontFamily: 'Roboto'),
+                                          fontFamily: 'Barlow'),
                                     ),
                                     Expanded(
                                       child: Text(
@@ -171,7 +171,7 @@ class RequestDetailPage extends GetWidget {
                                       style: const TextStyle(
                                           color: AppColors.colorText2,
                                           fontSize: 15,
-                                          fontFamily: 'Roboto'),
+                                          fontFamily: 'Barlow'),
                                     ),
                                     Expanded(
                                       child: Text(
@@ -207,7 +207,7 @@ class RequestDetailPage extends GetWidget {
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,
-                                            fontFamily: 'Roboto'),
+                                            fontFamily: 'Barlow'),
                                       ),
                                       Expanded(
                                         child: Text(
@@ -237,7 +237,7 @@ class RequestDetailPage extends GetWidget {
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,
-                                            fontFamily: 'Roboto'),
+                                            fontFamily: 'Barlow'),
                                       ),
                                       Expanded(
                                         child: Text(
@@ -268,7 +268,7 @@ class RequestDetailPage extends GetWidget {
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,
-                                            fontFamily: 'Roboto'),
+                                            fontFamily: 'Barlow'),
                                       ),
                                       Expanded(
                                         child: Text(
@@ -300,7 +300,7 @@ class RequestDetailPage extends GetWidget {
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,
-                                            fontFamily: 'Roboto'),
+                                            fontFamily: 'Barlow'),
                                       ),
                                       Expanded(
                                         child: Text(
@@ -337,7 +337,7 @@ class RequestDetailPage extends GetWidget {
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,
-                                            fontFamily: 'Roboto'),
+                                            fontFamily: 'Barlow'),
                                       ),
                                       Expanded(
                                         child: Text(
@@ -369,7 +369,7 @@ class RequestDetailPage extends GetWidget {
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,
-                                            fontFamily: 'Roboto'),
+                                            fontFamily: 'Barlow'),
                                       ),
                                       Expanded(
                                         child: Text(
@@ -401,7 +401,7 @@ class RequestDetailPage extends GetWidget {
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,
-                                            fontFamily: 'Roboto'),
+                                            fontFamily: 'Barlow'),
                                       ),
                                       Expanded(
                                         child: Text(
@@ -433,7 +433,7 @@ class RequestDetailPage extends GetWidget {
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,
-                                            fontFamily: 'Roboto'),
+                                            fontFamily: 'Barlow'),
                                       ),
                                       Expanded(
                                         child: Text(
@@ -468,7 +468,7 @@ class RequestDetailPage extends GetWidget {
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,
-                                            fontFamily: 'Roboto'),
+                                            fontFamily: 'Barlow'),
                                       ),
                                       Expanded(
                                         child: Text(
@@ -500,7 +500,7 @@ class RequestDetailPage extends GetWidget {
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,
-                                            fontFamily: 'Roboto'),
+                                            fontFamily: 'Barlow'),
                                       ),
                                       Expanded(
                                         child: Text(
@@ -534,7 +534,7 @@ class RequestDetailPage extends GetWidget {
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,
-                                            fontFamily: 'Roboto'),
+                                            fontFamily: 'Barlow'),
                                       ),
                                       Expanded(
                                         child: Text(
@@ -564,7 +564,7 @@ class RequestDetailPage extends GetWidget {
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,
-                                            fontFamily: 'Roboto'),
+                                            fontFamily: 'Barlow'),
                                       ),
                                       Expanded(
                                         child: Text(

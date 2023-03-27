@@ -279,7 +279,7 @@ class ForgotPassword extends GetView<ForgotPasswordLogic> {
                     hintText: AppLocalizations.of(context)!.textEnterCaptcha,
                     hintStyle: TextStyle(
                         fontSize: 18,
-                        fontFamily: 'Roboto',
+                        fontFamily: 'Barlow',
                         fontWeight: FontWeight.w300),
                     border: InputBorder.none,
                   ),

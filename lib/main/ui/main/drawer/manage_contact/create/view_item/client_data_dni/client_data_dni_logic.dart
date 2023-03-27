@@ -48,6 +48,8 @@ class ClientDataDNILogic extends GetxController {
   bool isForcedTerm = false;
   Map<String, dynamic> body = {};
 
+  final FocusScopeNode focusScopeNode = FocusScopeNode();
+
   @override
   void onInit() {
     // TODO: implement onInit
