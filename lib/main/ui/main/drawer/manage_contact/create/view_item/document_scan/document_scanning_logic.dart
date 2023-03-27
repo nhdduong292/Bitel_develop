@@ -16,12 +16,13 @@ import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:bitel_ventas/res/app_images.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../../../networks/request/google_detect_request.dart';
 import '../client_data/customer_detect_mode.dart';
 
@@ -52,13 +53,6 @@ class DocumentScanningLogic extends GetxController {
     // TODO: implement onInit
     super.onInit();
     onListenerMethod();
-    customerDetectModel.lastName = "Pham";
-    customerDetectModel.fullName = "Quoc Nam";
-    customerDetectModel.nationality = "VIETNAMITA";
-    customerDetectModel.dateOfBirth = "08 MAY 1996";
-    customerDetectModel.sex = "M";
-    customerDetectModel.expiredDate = "22 MAR 2026";
-
     currentIdentity = logicCreateContact.typeCustomer;
   }
 
@@ -91,7 +85,6 @@ class DocumentScanningLogic extends GetxController {
     NativeUtil.platformScan2.setMethodCallHandler((call) async {
       if (call.method == NativeUtil.nameScan2) {
         String link = call.arguments;
-        print("Linkkkkkkkkkkkkkkkkkkk222: $link");
         textPathScan = link;
         update();
       }
@@ -108,44 +101,6 @@ class DocumentScanningLogic extends GetxController {
       e.printInfo();
     }
     print(result);
-  }
-
-  void createCustomer(Function(bool isSuccess) callBack) {
-    // var rng = Random();
-    // int random = rng.nextInt(99) + 10;
-    String idNumber = logicCreateContact.idNumber;
-    Map<String, dynamic> body = {
-      "type": logicCreateContact.typeCustomer,
-      "idNumber": idNumber,
-      "name": customerDNIModel.name,
-      "fullName": customerDNIModel.lastname,
-      "nationality": customerDNIModel.nationality,
-      "sex": customerDNIModel.sex,
-      "dateOfBirth": customerDNIModel.dob,
-      "expiredDate": customerDNIModel.ed,
-      "address": "string",
-      "province": "03",
-      "district": "04",
-      "precinct": "04",
-      "image": "string"
-    };
-    ApiUtil.getInstance()!.post(
-      url: ApiEndPoints.API_CREATE_CUSTOMER,
-      body: body,
-      onSuccess: (response) {
-        if (response.isSuccess) {
-          customer = CustomerModel.fromJson(response.data);
-          callBack.call(true);
-        } else {
-          print("error: ${response.status}");
-          callBack.call(false);
-        }
-      },
-      onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
-        callBack.call(false);
-      },
-    );
   }
 
   void setPathScan(String value) {
@@ -178,8 +133,8 @@ class DocumentScanningLogic extends GetxController {
         Get.back();
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
         Get.back();
+        Common.showMessageError(error, context);
       },
     );
   }

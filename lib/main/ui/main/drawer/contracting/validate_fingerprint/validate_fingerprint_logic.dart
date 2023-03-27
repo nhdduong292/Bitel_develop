@@ -5,6 +5,7 @@ import 'package:bitel_ventas/main/networks/model/best_finger_model.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,6 +24,7 @@ class ValidateFingerprintLogic extends GetxController {
   int contractId = 0;
   String typeCustomer = '';
   String idNumber = '';
+  String email = '';
   BestFingerModel bestFinger = BestFingerModel();
   var pathFinger = ''.obs;
   List<String> listFinger = [];
@@ -41,6 +43,7 @@ class ValidateFingerprintLogic extends GetxController {
     typeCustomer = data[2];
     idNumber = data[3];
     contractId = data[4];
+    email = data[5];
   }
 
   void setCapture(String value) {
@@ -72,7 +75,7 @@ class ValidateFingerprintLogic extends GetxController {
     }
     if (listFinger.isNotEmpty) {
       Common.showToastCenter(
-          AppLocalizations.of(context)!.textNotifyFingerSuccess);
+          AppLocalizations.of(context)!.textCaptureFingerprintSuccessfully);
     } else {
       Common.showToastCenter(
           AppLocalizations.of(context)!.textNotifyFingerFail);
@@ -93,7 +96,7 @@ class ValidateFingerprintLogic extends GetxController {
         }
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
+        Common.showMessageError(error, context);
       },
     );
   }
@@ -150,9 +153,9 @@ class ValidateFingerprintLogic extends GetxController {
         }
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
         Get.back();
         isSuccess.call(false);
+        Common.showMessageError(error, context);
       },
     );
     // return completer.future;

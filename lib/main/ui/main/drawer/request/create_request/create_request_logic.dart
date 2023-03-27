@@ -7,6 +7,7 @@ import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/networks/response/search_contact_response.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -122,7 +123,7 @@ class CreateRequestLogic extends GetxController {
     if (textFieldPhone.value.text.isEmpty ||
         textFieldPhone.value.text.length < 9) {
       focusPhone.requestFocus();
-      Common.showToastCenter("Số điện thoại ít nhất phải 9 chữ số");
+      Common.showToastCenter(AppLocalizations.of(context)!.textPhoneMin9Number);
       return true;
     }
     // if(currentProvince.isEmpty){
@@ -137,18 +138,31 @@ class CreateRequestLogic extends GetxController {
     //   focusPrecinct.requestFocus();
     //   return true;
     // }
-    if (textFieldAddress.value.text.isEmpty) {
-      focusAddress.requestFocus();
+    if (currentProvince.province.isEmpty) {
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotEmptyProvince);
       return true;
     }
-    if (!isCheckAgree ||
-        currentIdentity.isEmpty ||
-        currentName.isEmpty ||
-        currentPhone.isEmpty ||
-        currentProvince.areaCode.isEmpty ||
-        currentPrecinct.areaCode.isEmpty ||
-        currentDistrict.areaCode.isEmpty ||
-        currentAddress.isEmpty) {
+
+    if (currentDistrict.district.isEmpty) {
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotEmptyDistrict);
+      return true;
+    }
+
+    if (currentPrecinct.precinct.isEmpty) {
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotEmptyPrecinct);
+      return true;
+    }
+
+    if (textFieldAddress.value.text.isEmpty) {
+      focusAddress.requestFocus();
+      Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyAddress);
+      return true;
+    }
+
+    if (!isCheckAgree) {
       Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
       return true;
     }
@@ -182,8 +196,8 @@ class CreateRequestLogic extends GetxController {
           }
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
           function.call(false, requestModel);
+          Common.showMessageError(error, context);
         });
   }
 
@@ -220,7 +234,7 @@ class CreateRequestLogic extends GetxController {
           }
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
+          Common.showMessageError(error, context);
         });
   }
 
@@ -243,8 +257,8 @@ class CreateRequestLogic extends GetxController {
           }
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
           function.call(false);
+          Common.showMessageError(error, context);
         });
   }
 
@@ -269,8 +283,8 @@ class CreateRequestLogic extends GetxController {
           }
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
           function.call(false);
+          Common.showMessageError(error, context);
         });
   }
 
@@ -295,8 +309,8 @@ class CreateRequestLogic extends GetxController {
           }
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
           function.call(false);
+          Common.showMessageError(error, context);
         });
   }
 
@@ -321,8 +335,8 @@ class CreateRequestLogic extends GetxController {
           }
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
           callBack.call(false);
+          Common.showMessageError(error, context);
         });
   }
 
@@ -340,8 +354,8 @@ class CreateRequestLogic extends GetxController {
           }
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
           callBack.call(false);
+          Common.showMessageError(error, context);
         });
   }
 

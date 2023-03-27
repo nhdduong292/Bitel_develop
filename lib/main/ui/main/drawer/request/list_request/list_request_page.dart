@@ -19,8 +19,6 @@ import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ListRequestPage extends GetWidget {
-
-
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -103,6 +101,7 @@ class ListRequestPage extends GetWidget {
                             cursorColor: AppColors.colorText1,
                             onChanged: (value) {
                               String key = value.trim();
+                              controller.keySearch = key;
                               controller.onSearchChanged(key);
                             },
                             textAlignVertical: TextAlignVertical.center,

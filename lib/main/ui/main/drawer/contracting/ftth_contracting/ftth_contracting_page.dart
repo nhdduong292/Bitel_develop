@@ -61,33 +61,6 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                             ],
                           ),
                         )),
-                    Positioned(
-                        top: 45,
-                        left: 20,
-                        child: InkWell(
-                          onTap: () {
-                            Get.until(
-                              (route) {
-                                return Get.currentRoute == RouteConfig.sale;
-                              },
-                            );
-                            Get.toNamed(RouteConfig.listRequest, arguments: 0);
-                          },
-                          child: Container(
-                            width: 35,
-                            height: 35,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(13)),
-                            child: const Center(
-                              child: Icon(
-                                Icons.arrow_back_ios_new,
-                                size: 15,
-                                color: AppColors.colorTitle,
-                              ),
-                            ),
-                          ),
-                        )),
                   ],
                 ),
                 const SizedBox(
@@ -232,7 +205,7 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                           height: 7,
                         ),
                         Text(
-                          'dguadalupe@gmail.com',
+                          controller.email,
                           style: AppStyles.r00A5B1_13_500,
                         ),
                         SizedBox(

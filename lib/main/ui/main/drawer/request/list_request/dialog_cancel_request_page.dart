@@ -169,8 +169,8 @@ class DialogCancelRequest extends GetWidget {
                           Duration(milliseconds: 500),
                           () {
                             Get.back();
-                            Common.showToastCenter(
-                                AppLocalizations.of(context)!.textSuccessAPI);
+                            Common.showToastCenter(AppLocalizations.of(context)!
+                                .textCancelRequestSuccessfully);
                           },
                         );
                       } else {

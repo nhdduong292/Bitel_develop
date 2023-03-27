@@ -5,6 +5,7 @@ import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/address_model.dart';
 import 'package:bitel_ventas/main/networks/request/search_request.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -52,7 +53,7 @@ class DialogAdvanceSearchLogic extends GetxController {
   void setToDate(DateTime picked) {
     // print("Date: "+picked.toString());
     toDate = picked;
-    to.value = "${picked.day}/${picked.month}";
+    to.value = "${picked.day}/${picked.month}/${picked.year}";
     searchRequest.toDate = picked.toIso8601String();
     update();
   }
@@ -61,7 +62,7 @@ class DialogAdvanceSearchLogic extends GetxController {
     // print("Date: "+picked.toString());
     // print("Date: "+picked.toIso8601String());
     fromDate = picked;
-    from.value = "${picked.day}/${picked.month}";
+    from.value = "${picked.day}/${picked.month}/${picked.year}";
     searchRequest.fromDate = picked.toIso8601String();
     // DateTime pi = DateTime.parse(picked.toIso8601String());
     update();
@@ -117,8 +118,8 @@ class DialogAdvanceSearchLogic extends GetxController {
           }
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
           function.call(false);
+          Common.showMessageError(error, context);
         });
   }
 }

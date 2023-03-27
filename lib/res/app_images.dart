@@ -162,4 +162,6 @@ class AppImages {
   static const String icAnypayBBVA = "assets/images/ic_anypay_bbva.svg";
   static const String icAnypayBCP = "assets/images/ic_anypay_bcp.svg";
   static const String icDocument = "assets/icons/ic_document.svg";
+  static const String icDeleteOrder = "assets/images/ic_delete_order.svg";
+  static const String icCopyOrder = "assets/images/ic_copy.svg";
 }

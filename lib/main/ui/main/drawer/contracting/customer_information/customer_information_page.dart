@@ -1,5 +1,5 @@
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/customer_information_logic.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/test_pdf.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/pdf_preview_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/view_item/contract_information/contract_information.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/view_item/contract_preview/contract_preview.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/view_item/additional_information/additional_information.dart';
@@ -180,7 +180,8 @@ class CustommerInformationPage extends GetView<CustomerInformationLogic> {
                                     controller.customer.custId,
                                     controller.getTypeCustomer(),
                                     controller.customer.idNumber,
-                                    controller.contract.contractId
+                                    controller.contract.contractId,
+                                    controller.emailController.text
                                   ])?.then((value) {
                                 if (value != null && value) {
                                   controller.checkMainContract.value = false;

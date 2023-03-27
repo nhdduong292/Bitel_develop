@@ -47,11 +47,14 @@ class RouteConfig {
   static const String idCardScanner = "/createManage/idCardScanner";
   static const String afterSale = "/menu/ftth/aftersale";
   static const String sale = "/menu/ftth/sale";
-  static const String productPayment = "/menu/ftth/contract/productandpayment";
-  static const String customerInformation = "/contracting/customerInformation";
-  static const String validateFingerprint = "/contracting/validateFingerprint";
-  static const String ftthContracting = "/contracting/ftthContracting";
-  static const String registerFingerPrint = "/contracting/registerFingerPrint";
+  static const String productPayment = "/menu/contract/productandpayment";
+  static const String customerInformation =
+      "/menu/contracting/customerInformation";
+  static const String validateFingerprint =
+      "/menu/contracting/validateFingerprint";
+  static const String ftthContracting = "/menu/contracting/ftthContracting";
+  static const String registerFingerPrint =
+      "/menu/contracting/registerFingerPrint";
   static const String clearDebt = "/sale/clearDebt";
   static const String afterSaleSearch = "/menu/afterSale/search";
   static const String buyAnyPay = "/menu/buyAnyPay";

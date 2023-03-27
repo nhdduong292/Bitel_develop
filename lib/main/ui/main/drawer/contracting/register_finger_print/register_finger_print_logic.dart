@@ -6,6 +6,7 @@ import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
 import 'package:bitel_ventas/res/app_images.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -48,7 +49,7 @@ class RegisterFingerPrintLogic extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    requestId = logicCreateContact.requestId;
+    requestId = logicCreateContact.requestModel.id;
     productId = logicCreateContact.productId;
     reasonId = logicCreateContact.reasonId;
     isForcedTerm = logicCreateContact.isForcedTerm;
@@ -125,9 +126,9 @@ class RegisterFingerPrintLogic extends GetxController {
         }
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
         Get.back();
         completer.complete(false);
+        Common.showMessageError(error, context);
       },
     );
     return completer.future;
@@ -207,9 +208,9 @@ class RegisterFingerPrintLogic extends GetxController {
         }
       },
       onError: (error) {
-        // Common.showMessageError(error['errorCode'], context);
         Get.back();
         callBack.call(false);
+        Common.showMessageError(error, context);
       },
     );
   }

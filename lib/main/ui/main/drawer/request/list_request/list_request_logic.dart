@@ -9,7 +9,8 @@ import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ListRequestLogic extends GetxController with SingleGetTickerProviderMixin{
+class ListRequestLogic extends GetxController
+    with SingleGetTickerProviderMixin {
   TabController? tabController;
   SearchRequest searchRequest = SearchRequest();
   int index = 0;
@@ -21,6 +22,8 @@ class ListRequestLogic extends GetxController with SingleGetTickerProviderMixin{
   GlobalKey<ListRequestTabState> globalKey5 = GlobalKey();
   GlobalKey<ListRequestTabState> globalKey6 = GlobalKey();
   GlobalKey<ListRequestTabState> globalKey7 = GlobalKey();
+
+  String keySearch = '';
   @override
   void onInit() {
     // TODO: implement onInit
@@ -28,42 +31,39 @@ class ListRequestLogic extends GetxController with SingleGetTickerProviderMixin{
     super.onInit();
     index = Get.arguments;
     tabController!.animateTo(index, duration: Duration(milliseconds: 500));
-    tabController!.addListener(() {
-      index = tabController!.index;
-      update();
-      // print("Position: ${tabController!.index}");
-      // ListRequestTabLogic listRequestTabLogic = Get.find<ListRequestTabLogic>();
-      // String status = getStatus(tabController!.index);
-      // print("Status: $status");
-      // listRequestTabLogic.getListRequest(status);
-    },);
+    tabController!.addListener(
+      () {
+        index = tabController!.index;
+        update();
+        // print("Position: ${tabController!.index}");
+        // ListRequestTabLogic listRequestTabLogic = Get.find<ListRequestTabLogic>();
+        // String status = getStatus(tabController!.index);
+        // print("Status: $status");
+        // listRequestTabLogic.getListRequest(status);
+      },
+    );
   }
 
-  String getStatus(int index){
-    if(index == 0) {
+  String getStatus(int index) {
+    if (index == 0) {
       return RequestStatus.CREATE_REQUEST;
-    } else if(index == 1){
+    } else if (index == 1) {
       return RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY;
-    }
-    else if(index == 2){
+    } else if (index == 2) {
       return RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY;
-    }
-    else if(index == 3){
+    } else if (index == 3) {
       return RequestStatus.CONNECTED;
-    }
-    else if(index == 4){
+    } else if (index == 4) {
       return RequestStatus.DEPLOYING;
-    }
-    else if(index == 5){
+    } else if (index == 5) {
       return RequestStatus.COMPLETE;
-    }
-    else if(index == 6){
+    } else if (index == 6) {
       return RequestStatus.CANCEL;
     }
-    return"";
+    return "";
   }
 
-  void updateSearchRequest(SearchRequest model, BuildContext context){
+  void updateSearchRequest(SearchRequest model, BuildContext context) {
     index = model.getPositionStatus(context);
     tabController!.animateTo(index, duration: Duration(milliseconds: 500));
     searchRequest = model;
@@ -98,5 +98,4 @@ class ListRequestLogic extends GetxController with SingleGetTickerProviderMixin{
     _debounce?.cancel();
     super.dispose();
   }
-
 }

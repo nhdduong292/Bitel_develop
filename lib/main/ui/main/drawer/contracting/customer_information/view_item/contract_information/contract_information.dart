@@ -61,7 +61,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
             SizedBox(
               height: 15,
             ),
-            lockedBox(
+            lockedBoxV1(
                 content: controller.isForcedTerm
                     ? AppLocalizations.of(context)!.textForcedTerm
                     : 'Undetermined',
@@ -69,19 +69,19 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 required: false,
                 isIcon: true,
                 width: width * 0.55),
-            lockedBox(
+            lockedBoxV1(
                 content: '123456/XXXXXX',
                 label: AppLocalizations.of(context)!.textContractNumber,
                 required: false,
                 isIcon: false,
                 width: width * 0.55),
-            lockedBox(
+            lockedBoxV1(
                 content: '1',
                 label: AppLocalizations.of(context)!.textQuantitySubscriber,
                 required: true,
                 isIcon: false,
                 width: width * 0.55),
-            Obx(() => lockedBox(
+            Obx(() => lockedBoxV1(
                 content: controller.signDate.value != ''
                     ? Common.fromDate(
                         DateTime.parse(controller.signDate.value), 'dd/MM/yyyy')
@@ -91,26 +91,26 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 isIcon: false,
                 width: width * 0.55)),
             Obx(
-              () => lockedBox(
+              () => lockedBoxV1(
                   content: controller.getBillCycle(controller.billCycle.value),
                   label: AppLocalizations.of(context)!.textBillCycle,
                   required: true,
                   isIcon: true,
                   width: width * 0.55),
             ),
-            lockedBox(
+            lockedBoxV1(
                 content: AppLocalizations.of(context)!.textEmail,
                 label: AppLocalizations.of(context)!.textChangeNotification,
                 required: false,
                 isIcon: true,
                 width: width * 0.55),
-            lockedBox(
+            lockedBoxV1(
                 content: AppLocalizations.of(context)!.textEmail,
                 label: AppLocalizations.of(context)!.textPrintBillDetail,
                 required: false,
                 isIcon: true,
                 width: width * 0.55),
-            lockedBox(
+            lockedBoxV1(
                 content: 'SOL',
                 label: AppLocalizations.of(context)!.textCurrency,
                 required: true,
@@ -130,10 +130,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                   barrierDismissible: false,
                   context: context,
                   builder: (BuildContext context) {
-                    controller.textFieldProvince.text = '';
-                    controller.textFieldDistrict.text = '';
-                    controller.textFieldPrecinct.text = '';
-                    controller.textFieldAddress.text = '';
+                    controller.resetBillAdress();
                     return BillAddressInformation(
                       height: 450,
                       controller: controller,
@@ -141,14 +138,14 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                   },
                 ).then((value) {
                   if (value) {
-                    controller.address =
-                        '${controller.currentAddress}, ${controller.currentProvince.name}, ${controller.currentDistrict.name}, ${controller.currentPrecinct.name}';
+                    controller.billAddress =
+                        '${controller.billAddressSelect}, ${controller.billProvince.name}, ${controller.billDistrict.name}, ${controller.billPrecinct.name}';
                     controller.update();
                   }
                 });
               },
-              child: lockedBox(
-                  content: controller.address,
+              child: lockedBoxV1(
+                  content: controller.billAddress,
                   label: AppLocalizations.of(context)!.textBillingAddress,
                   required: true,
                   isIcon: false,
@@ -221,7 +218,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
             customRadioMutiple(
                 width: width,
                 text: AppLocalizations.of(context)!
-                    .textIAcceptToReceiveInformatioin,
+                    .textIAcceptToReceiveAdvertisingBitel,
                 check: controller.checkOption4,
                 changeValue: (value) {
                   controller.checkOption4.value = value;
@@ -363,6 +360,71 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
       ],
     );
   }
+
+  Widget lockedBoxV1(
+      {required String label,
+      required String content,
+      required bool required,
+      required bool isIcon,
+      required double width}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Expanded(
+          child: Container(
+            margin: EdgeInsets.only(left: 20, top: 15),
+            alignment: Alignment.topLeft,
+            child: RichText(
+              text: TextSpan(
+                text: label,
+                style: AppStyles.r2B3A4A_12_500
+                    .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+                children: [
+                  TextSpan(
+                      text: required ? ' *' : '',
+                      style: TextStyle(
+                        color: AppColors.colorTextError,
+                        fontFamily: 'Roboto',
+                        fontSize: 14,
+                      )),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(left: 15, right: 15, top: 15),
+          child: Container(
+              height: 45,
+              width: width,
+              padding: EdgeInsets.only(left: 18, right: 7),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(color: Color(0xFFE3EAF2), width: 1)),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        content,
+                        style: TextStyle(
+                            fontFamily: 'Roboto',
+                            color: Color(0xFF415263),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 13),
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                      visible: isIcon,
+                      child: SvgPicture.asset(AppImages.icArrowDownLockedBox))
+                ],
+              )),
+        ),
+      ],
+    );
+  }
 }
 
 class BillAddressInformation extends Dialog {
@@ -467,11 +529,11 @@ class BillAddressInformation extends Dialog {
               ),
               InkWell(
                 onTap: () {
-                  if (controller.currentProvince.areaCode.isNotEmpty) {
+                  if (controller.textFieldProvince.text.isNotEmpty) {
                     if (controller.listDistrict.isEmpty) {
                       _onLoading(context);
                       controller.getListDistrict(
-                        controller.currentProvince.areaCode,
+                        controller.billProvince.areaCode,
                         (isSuccess) {
                           Get.back();
                           if (isSuccess) {
@@ -536,11 +598,11 @@ class BillAddressInformation extends Dialog {
               ),
               InkWell(
                 onTap: () {
-                  if (controller.currentDistrict.areaCode.isNotEmpty) {
+                  if (controller.textFieldDistrict.text.isNotEmpty) {
                     if (controller.listPrecinct.isEmpty) {
                       _onLoading(context);
                       controller.getListPrecincts(
-                        controller.currentDistrict.areaCode,
+                        controller.billDistrict.areaCode,
                         (isSuccess) {
                           Get.back();
                           if (isSuccess) {
@@ -612,7 +674,7 @@ class BillAddressInformation extends Dialog {
                         color: AppColors.colorTitle,
                         fontWeight: FontWeight.w500),
                     onChanged: (value) {
-                      controller.setAddress(value);
+                      controller.setBillAddress(value);
                     },
                     decoration: InputDecoration(
                       contentPadding:
@@ -681,11 +743,11 @@ class BillAddressInformation extends Dialog {
             list,
             (model) {
               if (position == 0) {
-                controll.setProvince(model);
+                controll.setBillProvince(model);
               } else if (position == 1) {
-                controll.setDistrict(model);
+                controll.setBillDistrict(model);
               } else if (position == 2) {
-                controll.setPrecinct(model);
+                controll.setBillPrecinct(model);
               }
             },
           );

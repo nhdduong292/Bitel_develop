@@ -3,8 +3,10 @@ import 'dart:io';
 
 import 'package:bitel_ventas/main/networks/model/contract_model.dart';
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
+import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -31,7 +33,6 @@ class CustomerInformationLogic extends GetxController {
   var checkMainContract = true.obs;
   var checkLendingContract = false.obs;
   var billCycle = ''.obs;
-  int requestId = 0;
   int productId = 0;
   int reasonId = 0;
   bool isForcedTerm = false;
@@ -45,8 +46,6 @@ class CustomerInformationLogic extends GetxController {
 
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
-  TextEditingController billAddressController = TextEditingController();
 
   AddressModel currentProvince = AddressModel();
   List<AddressModel> listProvince = [];
@@ -54,6 +53,12 @@ class CustomerInformationLogic extends GetxController {
   List<AddressModel> listDistrict = [];
   AddressModel currentPrecinct = AddressModel();
   List<AddressModel> listPrecinct = [];
+
+  AddressModel billProvince = AddressModel();
+  AddressModel billDistrict = AddressModel();
+  AddressModel billPrecinct = AddressModel();
+  String billAddressSelect = "";
+
   String currentAddress = "";
   bool isAddContact = true;
 
@@ -68,6 +73,9 @@ class CustomerInformationLogic extends GetxController {
   FocusNode focusAddress = FocusNode();
 
   bool isValidateAddress = false;
+  bool isActiveUpdate = false;
+
+  RequestDetailModel requestModel = RequestDetailModel();
 
   @override
   void onInit() {
@@ -75,13 +83,15 @@ class CustomerInformationLogic extends GetxController {
     super.onInit();
     var data = Get.arguments;
     customer = data[0];
-    requestId = data[1];
+    requestModel = data[1];
     productId = data[2];
     reasonId = data[3];
     isForcedTerm = data[4];
     phone = customer.telFax;
     email = customer.email;
     address = customer.getInstalAddress();
+
+    billAddress = requestModel.getInstalAddress();
 
     phoneController.text = phone;
     phoneController.selection =
@@ -90,22 +100,15 @@ class CustomerInformationLogic extends GetxController {
     emailController.text = email;
     emailController.selection =
         TextSelection.fromPosition(TextPosition(offset: email.length));
-
-    addressController.text = customer.getInstalAddress();
-    addressController.selection =
-        TextSelection.fromPosition(TextPosition(offset: address.length));
-
-    billAddressController.text = address;
-    billAddressController.selection =
-        TextSelection.fromPosition(TextPosition(offset: billAddress.length));
   }
 
   String getSex() {
     if (customer.sex == 'M') {
       return AppLocalizations.of(context)!.textMale;
-    } else {
+    } else if (customer.sex == 'F') {
       return AppLocalizations.of(context)!.textFemale;
     }
+    return '';
   }
 
   void getCurrentTime() {
@@ -150,24 +153,6 @@ class CustomerInformationLogic extends GetxController {
     return customer.type;
   }
 
-  Future<File> fromAsset(String asset, String filename) async {
-    // To open from assets, you can copy them to the app storage folder, and the access them "locally"
-    Completer<File> completer = Completer();
-
-    try {
-      var dir = await getApplicationDocumentsDirectory();
-      File file = File("${dir.path}/$filename");
-      var data = await rootBundle.load(asset);
-      var bytes = data.buffer.asUint8List();
-      await file.writeAsBytes(bytes, flush: true);
-      completer.complete(file);
-    } catch (e) {
-      throw Exception('Error parsing asset file!');
-    }
-
-    return completer.future;
-  }
-
   var checkOption1 = false.obs;
   var checkOption2 = false.obs;
   var checkOption3 = false.obs;
@@ -185,7 +170,7 @@ class CustomerInformationLogic extends GetxController {
   void createContract(BuildContext context, Function(bool) isSuccess) {
     _onLoading(context);
     Map<String, dynamic> body = {
-      "requestId": requestId,
+      "requestId": requestModel.id,
       "productId": productId,
       "reasonId": reasonId,
       "promotionId": 0,
@@ -197,16 +182,18 @@ class CustomerInformationLogic extends GetxController {
       "printBill": "Email",
       "currency": "SOL",
       "language": contractLanguagetValue.value.toUpperCase(),
-      "province": currentProvince.province != ''
-          ? currentProvince.province
-          : customer.province,
-      "district": currentDistrict.district != ''
-          ? currentDistrict.district
-          : customer.district,
-      "precinct": currentPrecinct.precinct != ''
-          ? currentPrecinct.precinct
-          : customer.precinct,
-      "address": currentAddress,
+      "province": billProvince.province.isNotEmpty
+          ? billProvince.province
+          : requestModel.province,
+      "district": billDistrict.district.isNotEmpty
+          ? billDistrict.district
+          : requestModel.district,
+      "precinct": billPrecinct.precinct.isNotEmpty
+          ? billPrecinct.precinct
+          : requestModel.precinct,
+      "address": billAddressSelect.isNotEmpty
+          ? billAddressSelect
+          : requestModel.address,
       "phone": customer.telFax.trim(),
       "email": customer.email.trim(),
       "protectionFilter": checkOption1.value,
@@ -229,33 +216,22 @@ class CustomerInformationLogic extends GetxController {
         }
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'] ?? "", context);
         isSuccess.call(false);
         Get.back();
-      },
-    );
-  }
-
-  void contractPreview(String type) {
-    ApiUtil.getInstance()!.get(
-      url: ApiEndPoints.API_CONTRACT_PREVIEW.replaceAll("id", "54"),
-      params: {"type": type},
-      onSuccess: (response) {
-        if (response.isSuccess) {
-          print('bxloc get success');
-        } else {
-          print("error: ${response.status}");
-        }
-      },
-      onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
+        Common.showMessageError(error, context);
       },
     );
   }
 
   bool checkValidateAddInfo() {
-    if (phone.isEmpty || email.isEmpty || address.isEmpty) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
+    if (phone.isEmpty) {
+      Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyPhone);
+      return true;
+    } else if (email.isEmpty) {
+      Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyEmail);
+      return true;
+    } else if (address.isEmpty) {
+      Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyAddress);
       return true;
     }
     return false;
@@ -314,8 +290,8 @@ class CustomerInformationLogic extends GetxController {
           }
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
           function.call(false);
+          Common.showMessageError(error, context);
         });
   }
 
@@ -340,8 +316,8 @@ class CustomerInformationLogic extends GetxController {
           }
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
           function.call(false);
+          Common.showMessageError(error, context);
         });
   }
 
@@ -366,8 +342,8 @@ class CustomerInformationLogic extends GetxController {
           }
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
           function.call(false);
+          Common.showMessageError(error, context);
         });
   }
 
@@ -403,6 +379,38 @@ class CustomerInformationLogic extends GetxController {
     update();
   }
 
+  void setBillPrecinct(AddressModel value) {
+    // if(value.areaCode == currentPrecinct.areaCode) return;
+    billPrecinct = value;
+    textFieldPrecinct.text = value.name;
+    update();
+  }
+
+  void setBillDistrict(AddressModel value) {
+    // if(value.areaCode == currentDistrict.areaCode) return;
+    billDistrict = value;
+    textFieldDistrict.text = value.name;
+    textFieldPrecinct.text = "";
+    listPrecinct.clear();
+    update();
+  }
+
+  void setBillProvince(AddressModel value) {
+    // if(value.areaCode == currentProvince.areaCode) return;
+    billProvince = value;
+    textFieldProvince.text = value.name;
+    textFieldDistrict.text = "";
+    textFieldPrecinct.text = "";
+    listDistrict.clear();
+    listPrecinct.clear();
+    update();
+  }
+
+  void setBillAddress(String value) {
+    billAddressSelect = value;
+    update();
+  }
+
   bool validateAddress() {
     if (textFieldDistrict.text.isNotEmpty &&
         textFieldDistrict.text.isNotEmpty &&
@@ -412,5 +420,89 @@ class CustomerInformationLogic extends GetxController {
     }
     Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
     return false;
+  }
+
+  void checkChangeAdditionalInformation() {
+    if (phoneController.text != customer.telFax) {
+      isActiveUpdate = true;
+    } else if (emailController.text != customer.email) {
+      isActiveUpdate = true;
+    } else if (currentProvince.province != customer.province) {
+      isActiveUpdate = true;
+    } else if (currentDistrict.district != customer.district) {
+      isActiveUpdate = true;
+    } else if (currentPrecinct.precinct != customer.precinct) {
+      isActiveUpdate = true;
+    } else if (currentAddress != customer.address) {
+      isActiveUpdate = true;
+    } else {
+      isActiveUpdate = false;
+    }
+    update();
+    return;
+  }
+
+  void resetAdress() {
+    textFieldProvince.text = '';
+    textFieldDistrict.text = '';
+    textFieldPrecinct.text = '';
+    textFieldAddress.text = '';
+    listProvince.clear();
+    listDistrict.clear();
+    listPrecinct.clear();
+  }
+
+  void resetBillAdress() {
+    textFieldProvince.text = '';
+    textFieldDistrict.text = '';
+    textFieldPrecinct.text = '';
+    textFieldAddress.text = '';
+    listProvince.clear();
+    listDistrict.clear();
+    listPrecinct.clear();
+  }
+
+  void updateCustomer(Function(bool isSuccess) callBack) {
+    _onLoading(context);
+    Map<String, dynamic> body = {
+      "type": customer.type,
+      "idNumber": customer.idNumber,
+      "name": customer.name,
+      "fullName": customer.fullName,
+      "nationality": customer.nationality,
+      "sex": customer.sex,
+      "dateOfBirth": customer.birthDate,
+      "expiredDate": customer.idExpireDate,
+      "address": currentAddress,
+      "province": currentProvince.province,
+      "district": currentDistrict.district,
+      "precinct": currentPrecinct.precinct,
+      "phone": phoneController.text,
+      "email": emailController.text,
+      "image": "string",
+      "left": null,
+      "leftImage": null,
+      "right": null,
+      "rightImage": null
+    };
+    ApiUtil.getInstance()!.put(
+      url: '${ApiEndPoints.API_CREATE_CUSTOMER}/${customer.custId}',
+      body: body,
+      onSuccess: (response) {
+        if (response.isSuccess) {
+          customer = CustomerModel.fromJson(response.data['data']);
+          callBack.call(true);
+          Get.back();
+        } else {
+          callBack.call(false);
+          Get.back();
+        }
+      },
+      onError: (error) {
+        Get.back();
+        callBack.call(false);
+        Common.showMessageError(error, context);
+      },
+    );
   }
 }

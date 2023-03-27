@@ -4,6 +4,7 @@ import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -52,9 +53,9 @@ class RequestDetailLogic extends GetxController {
           update();
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
           isLoading = false;
           update();
+          Common.showMessageError(error, context);
         });
   }
 

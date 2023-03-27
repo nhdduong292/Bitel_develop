@@ -86,9 +86,9 @@ class OrderManagementPage extends GetWidget {
                         borderRadius: BorderRadius.circular(24),
                         border: Border.all(
                             width: 1, color: AppColors.colorLineDash),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
-                            offset: const Offset(0, 0),
+                            offset: Offset(0, 0),
                             blurRadius: 1,
                             color: AppColors.colorLineDash,
                           ),
@@ -296,9 +296,9 @@ class OrderManagementPage extends GetWidget {
                         borderRadius: BorderRadius.circular(24),
                         border: Border.all(
                             width: 1, color: AppColors.colorLineDash),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
-                            offset: const Offset(0, 0),
+                            offset: Offset(0, 0),
                             blurRadius: 1,
                             color: AppColors.colorLineDash,
                           ),
@@ -309,16 +309,16 @@ class OrderManagementPage extends GetWidget {
                           shrinkWrap: true,
                           primary: false,
                           itemBuilder: (context, index) {
-                            _itemOrderSearch();
+                            return _itemOrderSearch();
                           },
                           separatorBuilder: (context, index) {
-                            return Divider(
+                            return const Divider(
                               color: AppColors.colorLineDash,
                               height: 1,
                               thickness: 1,
                             );
                           },
-                          itemCount: 2),
+                          itemCount: 5),
                     ),
                     onTap: () {},
                   ),
@@ -326,16 +326,16 @@ class OrderManagementPage extends GetWidget {
                     child: Container(
                       width: double.infinity,
                       margin:
-                          const EdgeInsets.only(top: 50, left: 10, right: 10),
+                          const EdgeInsets.only(top: 50, left: 10, right: 10, bottom: 50),
                       padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(24),
                         border: Border.all(
                             width: 1, color: AppColors.colorLineDash),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
-                            offset: const Offset(0, 0),
+                            offset: Offset(0, 0),
                             blurRadius: 1,
                             color: AppColors.colorLineDash,
                           ),
@@ -357,22 +357,23 @@ class OrderManagementPage extends GetWidget {
                             textAlign: TextAlign.center,
                           ),
                           Container(
-                            height: 80,
-                            margin: EdgeInsets.only(top: 20),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                    child: SvgPicture.asset(
-                                        AppImages.icAnypayBBVA)),
-                                VerticalDivider(
-                                  color: AppColors.colorLineDash,
-                                ),
-                                Expanded(
-                                    child:
-                                        SvgPicture.asset(AppImages.icAnypayBCP))
-                              ],
-                            ),
+                            margin: const EdgeInsets.only(top: 20),
+                            child: IntrinsicHeight(
+                              child:  Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                      child: SvgPicture.asset(
+                                          AppImages.icAnypayBBVA)),
+                                  const VerticalDivider(
+                                    color: AppColors.colorLineDash,
+                                  ),
+                                  Expanded(
+                                      child:
+                                      SvgPicture.asset(AppImages.icAnypayBCP))
+                                ],
+                              ),
+                            )
                           )
                         ],
                       ),
@@ -406,7 +407,70 @@ class _itemOrderSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text("HHHHHHHHH", style: TextStyle(color: Colors.black),),
+      padding: EdgeInsets.only(top: 8, bottom: 12),
+      child: IntrinsicHeight(
+        child: Row(
+          children: [
+            Expanded(child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                      Expanded(child: Text("1321321321546 123123 123 123 123 12 3", style: AppStyles.bContent_17_700, maxLines: 1, overflow: TextOverflow.ellipsis),),
+                      Container(
+                        margin: EdgeInsets.only(left: 8,right: 10),
+                        padding: EdgeInsets.only(left: 8, right: 8, top: 3, bottom: 3),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(9),
+                          border: Border.all(
+                              width: 1, color: AppColors.colorContent),
+
+                        ),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(AppImages.icCopyOrder),
+                            SizedBox(width: 5,),
+                            Text(AppLocalizations.of(context)!.textCopy, style: AppStyles.bContent_10_400,)
+                          ],
+                        ),
+                      )
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Text("data 1321345646", style: AppStyles.bText1_14_500, maxLines: 1, overflow: TextOverflow.ellipsis),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Text("data 1321345646 23423 4234 234 23423423423 4234 23", style: AppStyles.bText1_13_300, maxLines: 1, overflow: TextOverflow.ellipsis),
+                )
+              ],
+            )),
+            Container(
+              padding: const EdgeInsets.only(left: 20,right: 20, bottom: 2),
+              margin: EdgeInsets.only(right: 9),
+              decoration: BoxDecoration(
+                color: AppColors.colorBackground3,
+                borderRadius: BorderRadius.circular(9),
+
+              ),
+              child: Text(
+                "New",
+                style: AppStyles.rText1_13_500.copyWith(color: Colors.white),
+              ),
+            ),
+            const VerticalDivider(
+              color: AppColors.colorLineDash,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SvgPicture.asset(AppImages.icDeleteOrder),
+            ),
+          ],
+        ),
+      )
     );
   }
 }

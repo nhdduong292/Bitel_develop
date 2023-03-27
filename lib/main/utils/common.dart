@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math' as Math;
 
 import 'package:bitel_ventas/res/app_colors.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
@@ -153,51 +154,69 @@ class Common {
     return base64img;
   }
 
-  static void showMessageError(String errorCode, BuildContext context) {
-    if (errorCode == 'E000') {
-      showToastCenter(AppLocalizations.of(context)!.textE000);
-    } else if (errorCode == 'E001') {
-      showToastCenter(AppLocalizations.of(context)!.textE001);
-    } else if (errorCode == 'E002') {
-      showToastCenter(AppLocalizations.of(context)!.textE002);
-    } else if (errorCode == 'E003') {
-      showToastCenter(AppLocalizations.of(context)!.textE003);
-    } else if (errorCode == 'E004') {
-      showToastCenter(AppLocalizations.of(context)!.textE004);
-    } else if (errorCode == 'E005') {
-      showToastCenter(AppLocalizations.of(context)!.textE005);
-    } else if (errorCode == 'E006') {
-      showToastCenter(AppLocalizations.of(context)!.textE006);
-    } else if (errorCode == 'E007') {
-      showToastCenter(AppLocalizations.of(context)!.textE007);
-    } else if (errorCode == 'E008') {
-      showToastCenter(AppLocalizations.of(context)!.textE008);
-    } else if (errorCode == 'E009') {
-      showToastCenter(AppLocalizations.of(context)!.textE009);
-    } else if (errorCode == 'E010') {
-      showToastCenter(AppLocalizations.of(context)!.textE010);
-    } else if (errorCode == 'E011') {
-      showToastCenter(AppLocalizations.of(context)!.textE011);
-    } else if (errorCode == 'E012') {
-      showToastCenter(AppLocalizations.of(context)!.textE012);
-    } else if (errorCode == 'E013') {
-      showToastCenter(AppLocalizations.of(context)!.textE013);
-    } else if (errorCode == 'E014') {
-      showToastCenter(AppLocalizations.of(context)!.textE014);
-    } else if (errorCode == 'E015') {
-      showToastCenter(AppLocalizations.of(context)!.textE015);
-    } else if (errorCode == 'E016') {
-      showToastCenter(AppLocalizations.of(context)!.textE016);
-    } else if (errorCode == 'E017') {
-      showToastCenter(AppLocalizations.of(context)!.textE017);
-    } else if (errorCode == 'E018') {
-      showToastCenter(AppLocalizations.of(context)!.textE018);
-    } else if (errorCode == 'E019') {
-      showToastCenter(AppLocalizations.of(context)!.textE019);
-    } else if (errorCode == 'E020') {
-      showToastCenter(AppLocalizations.of(context)!.textE020);
-    } else if (errorCode == 'E021') {
-      showToastCenter(AppLocalizations.of(context)!.textE021);
+  static void showMessageError(var error, BuildContext context) {
+    try {
+      if (error != null) {
+        if (error is! DioError) {
+          Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
+          return;
+        }
+      } else {
+        Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
+        return;
+      }
+      if (error.response!.data['errorCode'] == null) {
+        Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
+        return;
+      }
+      String errorCode = error.response!.data['errorCode'];
+      if (errorCode == 'E000') {
+        showToastCenter(AppLocalizations.of(context)!.textE000);
+      } else if (errorCode == 'E001') {
+        showToastCenter(AppLocalizations.of(context)!.textE001);
+      } else if (errorCode == 'E002') {
+        showToastCenter(AppLocalizations.of(context)!.textE002);
+      } else if (errorCode == 'E003') {
+        showToastCenter(AppLocalizations.of(context)!.textE003);
+      } else if (errorCode == 'E004') {
+        showToastCenter(AppLocalizations.of(context)!.textE004);
+      } else if (errorCode == 'E005') {
+        showToastCenter(AppLocalizations.of(context)!.textE005);
+      } else if (errorCode == 'E006') {
+        showToastCenter(AppLocalizations.of(context)!.textE006);
+      } else if (errorCode == 'E007') {
+        showToastCenter(AppLocalizations.of(context)!.textE007);
+      } else if (errorCode == 'E008') {
+        showToastCenter(AppLocalizations.of(context)!.textE008);
+      } else if (errorCode == 'E009') {
+        showToastCenter(AppLocalizations.of(context)!.textE009);
+      } else if (errorCode == 'E010') {
+        showToastCenter(AppLocalizations.of(context)!.textE010);
+      } else if (errorCode == 'E011') {
+        showToastCenter(AppLocalizations.of(context)!.textE011);
+      } else if (errorCode == 'E012') {
+        showToastCenter(AppLocalizations.of(context)!.textE012);
+      } else if (errorCode == 'E013') {
+        showToastCenter(AppLocalizations.of(context)!.textE013);
+      } else if (errorCode == 'E014') {
+        showToastCenter(AppLocalizations.of(context)!.textE014);
+      } else if (errorCode == 'E015') {
+        showToastCenter(AppLocalizations.of(context)!.textE015);
+      } else if (errorCode == 'E016') {
+        showToastCenter(AppLocalizations.of(context)!.textE016);
+      } else if (errorCode == 'E017') {
+        showToastCenter(AppLocalizations.of(context)!.textE017);
+      } else if (errorCode == 'E018') {
+        showToastCenter(AppLocalizations.of(context)!.textE018);
+      } else if (errorCode == 'E019') {
+        showToastCenter(AppLocalizations.of(context)!.textE019);
+      } else if (errorCode == 'E020') {
+        showToastCenter(AppLocalizations.of(context)!.textE020);
+      } else if (errorCode == 'E021') {
+        showToastCenter(AppLocalizations.of(context)!.textE021);
+      }
+    } catch (e) {
+      Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
     }
   }
 

@@ -48,9 +48,9 @@ class HomePage extends GetView<HomeLogic> {
               constraints: BoxConstraints.expand(),
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage(AppImages.bgHome),
-                    fit: BoxFit.cover),
-              ),),
+                    image: AssetImage(AppImages.bgHome), fit: BoxFit.cover),
+              ),
+            ),
             toolbarHeight: 280,
             leading: GestureDetector(
               child: Stack(
@@ -132,13 +132,15 @@ class HomePage extends GetView<HomeLogic> {
                   child: Text("Hola, Diego Guadalupe", style: AppStyles.b2),
                 ),
               ),
-              Expanded(child:  PageView.builder(
-                controller: controller.controllerPage,
-                // itemCount: pages.length,
-                itemBuilder: (_, index) {
-                  return pages[index % pages.length];
-                },
-              ),),
+              Expanded(
+                child: PageView.builder(
+                  controller: controller.controllerPage,
+                  // itemCount: pages.length,
+                  itemBuilder: (_, index) {
+                    return pages[index % pages.length];
+                  },
+                ),
+              ),
               const SizedBox(
                 height: 20,
               ),

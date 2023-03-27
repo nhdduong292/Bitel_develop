@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -5,6 +6,7 @@ import 'package:intl/intl.dart';
 import '../../../../../../../networks/api_end_point.dart';
 import '../../../../../../../networks/api_util.dart';
 import '../../../../../../../utils/common.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ContractInformationLogic extends GetxController {
   late BuildContext context;
@@ -59,7 +61,7 @@ class ContractInformationLogic extends GetxController {
         }
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
+        Common.showMessageError(error, context);
       },
     );
   }

@@ -3,6 +3,7 @@ import 'package:bitel_ventas/main/networks/model/customer_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/customer_detect_mode.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/document_scanning_logic.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -14,6 +15,7 @@ import '../../../../../../../utils/common.dart';
 import '../../../../../../../utils/common_widgets.dart';
 import '../../../../../../../utils/values.dart';
 import '../../cretate_contact_page_logic.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ClientDataLogic extends GetxController {
   DocumentScanningLogic logic = Get.find();
@@ -38,7 +40,7 @@ class ClientDataLogic extends GetxController {
     // TODO: implement onInit
     super.onInit();
     // onListenerMethod();
-    idNumber = logicCreateContact.idNumber;
+    idNumber = logicCreateContact.requestModel.customerModel.idNumber;
   }
 
   void onListenerMethod() {
@@ -116,8 +118,8 @@ class ClientDataLogic extends GetxController {
         Get.back();
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
         Get.back();
+        Common.showMessageError(error, context);
       },
     );
   }

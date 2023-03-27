@@ -1,8 +1,8 @@
-import 'dart:math';
-
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
+import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/document_scanning_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/scan_model/customer_dni_model.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,6 +26,8 @@ class ClientDataDNILogic extends GetxController {
   CustomerModel customerModel = CustomerModel();
   CustomerDNIModel customerDNIModel = CustomerDNIModel();
 
+  ClientDataDNILogic({required this.context});
+
   String sexValue = 'M';
   List<String> sexs = ['M', 'F'];
 
@@ -36,7 +38,7 @@ class ClientDataDNILogic extends GetxController {
   String dob = '';
   String exd = '';
   CreateContactPageLogic logicCreateContact = Get.find();
-  int requestId = 0;
+  RequestDetailModel requestModel = RequestDetailModel();
   int productId = 0;
   int reasonId = 0;
   String idNumber = '';
@@ -50,14 +52,14 @@ class ClientDataDNILogic extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    requestId = logicCreateContact.requestId;
+    requestModel = logicCreateContact.requestModel;
     productId = logicCreateContact.productId;
     reasonId = logicCreateContact.reasonId;
-    idNumber = logicCreateContact.idNumber;
+    idNumber = logicCreateContact.requestModel.customerModel.idNumber;
     isForcedTerm = logicCreateContact.isForcedTerm;
-    province = logicCreateContact.province;
-    district = logicCreateContact.district;
-    precinct = logicCreateContact.precinct;
+    province = logicCreateContact.requestModel.province;
+    district = logicCreateContact.requestModel.district;
+    precinct = logicCreateContact.requestModel.precinct;
   }
 
   void setDefaultDob() {
@@ -127,17 +129,17 @@ class ClientDataDNILogic extends GetxController {
     body = {
       "type": logicCreateContact.typeCustomer,
       "idNumber": idNumber,
-      "name": customerDNIModel.name,
-      "fullName": customerDNIModel.lastname,
-      "nationality": customerDNIModel.nationality,
-      "sex": customerDNIModel.sex,
-      "dateOfBirth": customerDNIModel.dob,
-      "expiredDate": customerDNIModel.ed,
-      "address": "string",
+      "name": tfName.text,
+      "fullName": '${tfLastName.text} ${tfName.text}',
+      "nationality": tfNationality.text,
+      "sex": sexValue,
+      "dateOfBirth": isoDate(dob),
+      "expiredDate": isoDate(exd),
+      "address": tfAddress.text,
       "province": province,
       "district": district,
       "precinct": precinct,
-      "image": "string"
+      "image": "string",
     };
   }
 
@@ -174,8 +176,8 @@ class ClientDataDNILogic extends GetxController {
         }
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
         callBack.call(false);
+        Common.showMessageError(error, context);
       },
     );
   }
@@ -217,19 +219,24 @@ class ClientDataDNILogic extends GetxController {
 
   bool checkValidate() {
     if (!tfLastName.text.isNotEmpty) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textEnterAllInfo);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotEmptyLastName);
       return false;
     } else if (!tfName.text.isNotEmpty) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textEnterAllInfo);
+      Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyName);
       return false;
     } else if (!tfNationality.text.isNotEmpty) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textEnterAllInfo);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotEmptyNationality);
       return false;
     } else if (!dob.isNotEmpty) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textEnterAllInfo);
+      Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyDob);
       return false;
     } else if (!exd.isNotEmpty) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textEnterAllInfo);
+      Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyExd);
+      return false;
+    } else if (!tfAddress.text.isNotEmpty) {
+      Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyAddress);
       return false;
     } else if (compareToDateNow()) {
       Common.showToastCenter(

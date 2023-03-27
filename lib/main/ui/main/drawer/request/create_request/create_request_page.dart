@@ -231,10 +231,23 @@ class CreateRequestPage extends GetWidget {
                             ),
                       Padding(
                         padding: const EdgeInsets.only(top: 16, bottom: 10),
-                        child: Text(
-                          AppLocalizations.of(context)!.textContactPerson,
-                          style: AppStyles.r1
-                              .copyWith(fontWeight: FontWeight.w500),
+                        child: RichText(
+                          text: TextSpan(
+                              text: AppLocalizations.of(context)!
+                                  .textContactPerson,
+                              style: AppStyles.r1
+                                  .copyWith(fontWeight: FontWeight.w500),
+                              // ignore: prefer_const_literals_to_create_immutables
+                              children: [
+                                const TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontFamily: 'Roboto',
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ]),
                         ),
                       ),
                       Container(
@@ -278,13 +291,25 @@ class CreateRequestPage extends GetWidget {
                             )),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 16, bottom: 10),
-                        child: Text(
-                          AppLocalizations.of(context)!.textContactPhone,
-                          style: AppStyles.r1
-                              .copyWith(fontWeight: FontWeight.w500),
-                        ),
-                      ),
+                          padding: const EdgeInsets.only(top: 16, bottom: 10),
+                          child: RichText(
+                            text: TextSpan(
+                                text: AppLocalizations.of(context)!
+                                    .textContactPhone,
+                                style: AppStyles.r1
+                                    .copyWith(fontWeight: FontWeight.w500),
+                                // ignore: prefer_const_literals_to_create_immutables
+                                children: [
+                                  const TextSpan(
+                                    text: ' *',
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontFamily: 'Roboto',
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ]),
+                          )),
                       Container(
                         child: TextField(
                             keyboardType: TextInputType.number,
@@ -296,13 +321,12 @@ class CreateRequestPage extends GetWidget {
                             onChanged: (value) {
                               controller.setPhone(value);
                             },
-
                             maxLength: 9,
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.only(
                                   top: 5, left: 10, right: 10),
                               hintText: AppLocalizations.of(context)!
-                                  .textContactPhone,
+                                  .hintContactPhone,
                               hintStyle: AppStyles.r2.copyWith(
                                   color: AppColors.colorHint1,
                                   fontWeight: FontWeight.w400),
@@ -350,10 +374,22 @@ class CreateRequestPage extends GetWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 16, bottom: 10),
-                        child: Text(
-                          AppLocalizations.of(context)!.textProvince,
-                          style: AppStyles.r1
-                              .copyWith(fontWeight: FontWeight.w500),
+                        child: RichText(
+                          text: TextSpan(
+                              text: AppLocalizations.of(context)!.textProvince,
+                              style: AppStyles.r1
+                                  .copyWith(fontWeight: FontWeight.w500),
+                              // ignore: prefer_const_literals_to_create_immutables
+                              children: [
+                                const TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontFamily: 'Roboto',
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ]),
                         ),
                       ),
                       InkWell(
@@ -419,10 +455,22 @@ class CreateRequestPage extends GetWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 16, bottom: 10),
-                        child: Text(
-                          AppLocalizations.of(context)!.textDistrict,
-                          style: AppStyles.r1
-                              .copyWith(fontWeight: FontWeight.w500),
+                        child: RichText(
+                          text: TextSpan(
+                              text: AppLocalizations.of(context)!.textDistrict,
+                              style: AppStyles.r1
+                                  .copyWith(fontWeight: FontWeight.w500),
+                              // ignore: prefer_const_literals_to_create_immutables
+                              children: [
+                                const TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontFamily: 'Roboto',
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ]),
                         ),
                       ),
                       InkWell(
@@ -493,10 +541,22 @@ class CreateRequestPage extends GetWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 16, bottom: 10),
-                        child: Text(
-                          AppLocalizations.of(context)!.textPrecinct,
-                          style: AppStyles.r1
-                              .copyWith(fontWeight: FontWeight.w500),
+                        child: RichText(
+                          text: TextSpan(
+                              text: AppLocalizations.of(context)!.textPrecinct,
+                              style: AppStyles.r1
+                                  .copyWith(fontWeight: FontWeight.w500),
+                              // ignore: prefer_const_literals_to_create_immutables
+                              children: [
+                                const TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontFamily: 'Roboto',
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ]),
                         ),
                       ),
                       InkWell(
@@ -567,10 +627,22 @@ class CreateRequestPage extends GetWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 16, bottom: 10),
-                        child: Text(
-                          AppLocalizations.of(context)!.textAddress,
-                          style: AppStyles.r1
-                              .copyWith(fontWeight: FontWeight.w500),
+                        child: RichText(
+                          text: TextSpan(
+                              text: AppLocalizations.of(context)!.textAddress,
+                              style: AppStyles.r1
+                                  .copyWith(fontWeight: FontWeight.w500),
+                              // ignore: prefer_const_literals_to_create_immutables
+                              children: [
+                                const TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontFamily: 'Roboto',
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ]),
                         ),
                       ),
                       Container(

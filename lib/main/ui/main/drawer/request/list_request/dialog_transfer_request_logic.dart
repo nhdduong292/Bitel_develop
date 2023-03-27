@@ -3,6 +3,7 @@ import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/reason_model.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -47,7 +48,7 @@ class DialogTransferRequestLogic extends GetxController {
         } else {}
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
+        Common.showMessageError(error, context);
       },
     );
   }
@@ -83,7 +84,7 @@ class DialogTransferRequestLogic extends GetxController {
         },
         onError: (error) {
           Get.back();
-          Common.showMessageError(error['errorCode'], context);
+          Common.showMessageError(error, context);
           // callBack.call(false);
         });
   }

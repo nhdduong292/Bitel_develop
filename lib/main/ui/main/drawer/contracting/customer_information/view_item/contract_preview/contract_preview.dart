@@ -19,7 +19,8 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 
 import '../../../../../../../../../res/app_colors.dart';
-import '../../test_pdf.dart';
+import '../../pdf_preview_logic.dart';
+import '../../pdf_preview_page.dart';
 
 typedef void TouchRegister(String type);
 
@@ -105,10 +106,10 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
             InkWell(
               onTap: () {
                 if (controller.checkMainContract.value) {
-                  Get.to(PDFScreen(),
+                  Get.to(PDFPreviewPage(),
                       arguments: ['MAIN', controller.contract.contractId]);
                 } else {
-                  Get.to(PDFScreen(),
+                  Get.to(PDFPreviewPage(),
                       arguments: ['LENDING', controller.contract.contractId]);
                 }
               },

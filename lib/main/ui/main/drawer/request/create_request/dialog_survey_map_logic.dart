@@ -6,6 +6,7 @@ import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -42,6 +43,7 @@ class DialogSurveyMapLogic extends GetxController {
   var currentPoint;
 
   bool isActive = false;
+  Timer? _debounce;
 
   DialogSurveyMapLogic({required this.context, required this.requestModel});
 
@@ -57,7 +59,8 @@ class DialogSurveyMapLogic extends GetxController {
     //   print("lat: $lat long: $long");
     //   setCircle(currentPoint);
     // });
-    getLocationAddress();
+    _getCurrentLocation();
+    // getLocationAddress();
   }
 
   void setMarker(LatLng point) {
@@ -94,12 +97,19 @@ class DialogSurveyMapLogic extends GetxController {
   }
 
   void setRadius(String value) {
-    currentRadius = value;
-    radiusValue = double.parse(currentRadius);
-    if (radiusValue < 1) {
-      return;
-    }
-    setCircle(currentPoint);
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      try {
+        currentRadius = value;
+        radiusValue = double.parse(currentRadius);
+        if (radiusValue < 1) {
+          return;
+        }
+        setCircle(currentPoint);
+      }catch(e){
+        print(e.toString());
+      }
+    });
   }
 
   Future<Position> _getCurrentLocation() async {
@@ -159,9 +169,9 @@ class DialogSurveyMapLogic extends GetxController {
           }
         },
         onError: (error) {
-          Common.showMessageError(error['errorCode'], context);
           Get.back();
           function.call(false);
+          Common.showMessageError(error, context);
         });
   }
 

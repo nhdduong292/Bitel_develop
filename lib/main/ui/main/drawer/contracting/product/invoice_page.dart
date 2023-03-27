@@ -198,7 +198,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                             dashLength: 4,
                           ),
                           _paymentElement(
-                              AppLocalizations.of(context)!.textTotalAPagar,
+                              AppLocalizations.of(context)!.textTotalAmount,
                               'S/.${controller.getTotal()}',
                               const Color(0xFF9454C9)),
                         ],
@@ -222,22 +222,17 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                     if (value) {
                       Get.toNamed(RouteConfig.customerInformation, arguments: [
                         controller.customer,
-                        controller.requestId,
+                        controller.requestModel,
                         controller.getProduct().productId,
                         controller.getPlanReason().id,
                         controller.isForcedTerm(),
                       ]);
                     } else {
                       Get.toNamed(RouteConfig.createContact, arguments: [
-                        controller.type,
-                        controller.requestId,
+                        controller.requestModel,
                         controller.getProduct().productId,
                         controller.getPlanReason().id,
-                        controller.idNumber,
                         controller.isForcedTerm(),
-                        controller.province,
-                        controller.district,
-                        controller.precinct
                       ]);
                     }
                   });

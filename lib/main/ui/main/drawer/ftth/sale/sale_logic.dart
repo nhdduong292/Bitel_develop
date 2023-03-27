@@ -2,6 +2,7 @@ import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/home_sale_model.dart';
 import 'package:bitel_ventas/res/app_images.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
@@ -29,13 +30,13 @@ class SaleLogic extends GetxController {
       OptionSale(AppImages.icSaleConnectSubscriber,
           AppLocalizations.of(context)!.textConnectSubscriber, "", "", 0),
       OptionSale(AppImages.icSaleRechargeAnypay,
-          AppLocalizations.of(context)!.textRechargeAnypay, "", "",0),
+          AppLocalizations.of(context)!.textRechargeAnypay, "", "", 0),
       OptionSale(AppImages.icSaleSearchRequest,
           AppLocalizations.of(context)!.textSearchRequest, "", "", 0),
       OptionSale(AppImages.icSaleClearDebt,
-          AppLocalizations.of(context)!.textClearDebt, "", "",0),
+          AppLocalizations.of(context)!.textClearDebt, "", "", 0),
       OptionSale(AppImages.icSaleCreateContact,
-          AppLocalizations.of(context)!.textCreateContact, "", "",0),
+          AppLocalizations.of(context)!.textCreateContact, "", "", 0),
     ];
   }
 
@@ -109,9 +110,9 @@ class SaleLogic extends GetxController {
         update();
       },
       onError: (error) {
-        Common.showMessageError(error['errorCode'], context);
         isLoading = true;
         update();
+        Common.showMessageError(error, context);
       },
     );
   }

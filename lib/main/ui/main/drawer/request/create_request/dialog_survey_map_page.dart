@@ -135,7 +135,7 @@ class DialogSurveyMapPage extends GetWidget {
                                 required: false,
                                 dropValue: "",
                                 controlTextField: controller.textFieldRadius,
-                                onSubmit: (value) {
+                                function: (value) {
                                   controller.setRadius(value);
                                 },
                                 listDrop: [])),
@@ -274,12 +274,7 @@ class DialogSurveyMapPage extends GetWidget {
         context: context,
         builder: (context) {
           return DialogSurveySuccessful(
-            requestModel.id,
-            requestModel.customerModel.type,
-            requestModel.customerModel.idNumber,
-            requestModel.province,
-            requestModel.district,
-            requestModel.precinct,
+            requestModel,
             (isOnline) {},
           );
         });
