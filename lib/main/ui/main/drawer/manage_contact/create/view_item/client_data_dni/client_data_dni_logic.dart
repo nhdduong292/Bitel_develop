@@ -24,7 +24,7 @@ class ClientDataDNILogic extends GetxController {
 
   FocusNode focusLastName = FocusNode();
   CustomerModel customerModel = CustomerModel();
-  CustomerDNIModel customerDNIModel = CustomerDNIModel();
+  // CustomerDNIModel customerDNIModel = CustomerDNIModel();
 
   ClientDataDNILogic({required this.context});
 
@@ -92,10 +92,21 @@ class ClientDataDNILogic extends GetxController {
     return DateFormat('yyyy-MM-ddTHH:mm:ss').format(dateTime.toUtc());
   }
 
+  void reset() {
+    tfLastName.text = '';
+    tfName.text = '';
+    tfNationality.text = '';
+    sexValue = 'M';
+    dob = '';
+    exd = '';
+    tfAddress.text = '';
+  }
+
   void setCustomerDNIModel() {
     DocumentScanningLogic documentScanningLogic = Get.find();
-    customerDNIModel = documentScanningLogic.customerDNIModel;
-
+    var customerDNIModel = documentScanningLogic.customerScanModel
+        .getCustomerScan(documentScanningLogic.currentIdentity);
+    idNumber = customerDNIModel.number.getContent();
     tfLastName.text = customerDNIModel.lastname.getContent();
     tfLastName.selection = TextSelection.fromPosition(
         TextPosition(offset: customerDNIModel.lastname.getContent().length));
@@ -116,13 +127,16 @@ class ClientDataDNILogic extends GetxController {
       dob = Common.fromDate(date, 'dd/MM/yyyy');
     } catch (e) {
       // nếu chuỗi không đúng định dạng, phương thức parse sẽ ném ra một ngoại lệ
+      dob = '';
     }
     try {
       final date = dateFormat.parse(customerDNIModel.ed.getContent());
       exd = Common.fromDate(date, 'dd/MM/yyyy');
     } catch (e) {
       // nếu chuỗi không đúng định dạng, phương thức parse sẽ ném ra một ngoại lệ
+      exd = '';
     }
+    tfAddress.text = '';
 
     update();
   }

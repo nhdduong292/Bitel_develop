@@ -173,16 +173,23 @@ class CreateContactPage extends GetView<CreateContactPageLogic> {
                         itemBuilder: (context, index) {
                           if (index == 0) {
                             return DocumentScanningWidget(
-                              callback: () {
+                              callback: (value) {
                                 controller.checkItem2.value = true;
-                                controller.scrollController.scrollTo(
-                                  index: 1,
-                                  duration: const Duration(milliseconds: 200),
-                                );
+                                controller.scrollController
+                                    .scrollTo(
+                                      index: 1,
+                                      duration:
+                                          const Duration(milliseconds: 200),
+                                    )
+                                    .then((value) => null);
 
                                 ClientDataDNILogic clientDataDNILogic =
                                     Get.find();
-                                clientDataDNILogic.setCustomerDNIModel();
+                                if (value) {
+                                  clientDataDNILogic.reset();
+                                } else {
+                                  clientDataDNILogic.setCustomerDNIModel();
+                                }
                               },
                             );
                           } else if (index == 1) {

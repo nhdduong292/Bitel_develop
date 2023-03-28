@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'item_infor.dart';
 
 class CustomerDNIModel {
+  InformationCus number = InformationCus(type: 'khong co');
   InformationCus lastname = InformationCus(type: 'rimer');
   InformationCus name = InformationCus(type: 'nombres');
   InformationCus nationality = InformationCus(type: 'acionalid');
