@@ -62,7 +62,7 @@ class LoginPage extends GetWidget {
                       return Container();
                     }
                   }),
-                  // SizedBox(height: 150,),
+                  const SizedBox(height: 50,),
                   Container(
                     width: double.infinity,
                     margin:
