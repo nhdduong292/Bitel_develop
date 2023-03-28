@@ -102,7 +102,16 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                                                   fontWeight: FontWeight.w700),
                                           children: [
                                             TextSpan(
-                                              text: controller.idNumber,
+                                              text: controller
+                                                          .logicCreateContact
+                                                          .typeCustomer ==
+                                                      'DNI'
+                                                  ? controller
+                                                      .logicCreateContact
+                                                      .requestModel
+                                                      .customerModel
+                                                      .idNumber
+                                                  : controller.idNumber,
                                               style: AppStyles.r2B3A4A_12_500
                                                   .copyWith(
                                                       fontSize: 13,

@@ -6,6 +6,7 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -14,11 +15,11 @@ import '../../../../../../../utils/common.dart';
 import '../../../../../../../utils/common_widgets.dart';
 import 'document_scanning_logic.dart';
 
-typedef void TouchScan();
+typedef void TouchScan(bool isDNI);
 
 class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
   final TouchScan callback;
-  DocumentScanningWidget({required this.callback});
+  DocumentScanningWidget({required this.callback(value)});
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -220,11 +221,17 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                             SizedBox(
                               height: 12,
                             ),
-                            controller.textPathScan.isNotEmpty
-                                ? Image.file(
-                                    File(controller.textPathScan),
-                                  )
-                                : Image.asset(controller.getImageIdentity()),
+                            InkWell(
+                              onTap: () {
+                                // controller.reset();
+                                uploadImage(context, controller);
+                              },
+                              child: controller.textPathScan.isNotEmpty
+                                  ? Image.file(
+                                      File(controller.textPathScan),
+                                    )
+                                  : Image.asset(controller.getImageIdentity()),
+                            ),
                             SizedBox(
                               height: 23,
                             )
@@ -244,7 +251,8 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                             if (controller.checkOption1.value &&
                                 controller.checkOption2.value) {
                               if (controller.textPathScan.isNotEmpty) {
-                                callback();
+                                controller.reset();
+                                callback(false);
                               } else {
                                 if (controller.textPathScan.isEmpty) {
                                   // controller.getScan();
@@ -258,10 +266,15 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                                 // _getFromGallery(context, controller);
                               }
                               if (controller.isDNI()) {
-                                callback();
+                                controller.reset();
+                                callback(true);
                               } else {
                                 if (controller.textPathScan.isNotEmpty) {
-                                  callback();
+                                  controller.reset();
+                                  controller
+                                      .processImage(InputImage.fromFilePath(
+                                          File(controller.textPathScan).path))
+                                      .then((value) => {callback(false)});
                                 } else {
                                   if (controller.textPathScan.isEmpty) {
                                     // controller.getScan();

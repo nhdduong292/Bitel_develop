@@ -11,6 +11,8 @@ import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/create_co
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/cretate_contact_page_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/client_data_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/scan_model/customer_dni_model.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/scan_model/customer_ce_model.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/scan_model/customer_scan_model.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
@@ -32,20 +34,17 @@ class DocumentScanningLogic extends GetxController {
   var checkOption2 = false.obs;
 
   String textPathScan = "";
-  CustomerModel customer = CustomerModel();
   bool _canProcess = true;
   bool _isBusy = false;
   CustomPaint? _customPaint;
   CustomerDetectModel customerDetectModel = CustomerDetectModel();
-  String? _text;
   CustomerModel customerModel = CustomerModel();
   final TextRecognizer _textRecognizer =
       TextRecognizer(script: TextRecognitionScript.latin);
 
   String currentIdentity = "DNI";
-  // List<String> listIdentityNumber = ["DNI", "CE", "PP", "PTP"];
-  List<String> listIdentityNumber = ["DNI"];
-  CustomerDNIModel customerDNIModel = CustomerDNIModel();
+  List<String> listIdentityNumber = ["DNI", "CE", "PP", "PTP"];
+  CustomerScanModel customerScanModel = CustomerScanModel();
 
   CreateContactPageLogic logicCreateContact = Get.find();
 
@@ -106,8 +105,6 @@ class DocumentScanningLogic extends GetxController {
 
   void setPathScan(String value) {
     textPathScan = value;
-    processImage(InputImage.fromFilePath(File(value).path))
-        .then((value) => {print('da xong')});
     update();
   }
 
@@ -140,6 +137,10 @@ class DocumentScanningLogic extends GetxController {
     );
   }
 
+  void reset() {
+    customerScanModel = CustomerScanModel();
+  }
+
   void _onLoading(BuildContext context) {
     showDialog(
       context: context,
@@ -155,22 +156,34 @@ class DocumentScanningLogic extends GetxController {
   }
 
   Future<void> processImage(InputImage inputImage) async {
-    if (!_canProcess) return;
-    if (_isBusy) return;
-    _isBusy = true;
     final recognizedText = await _textRecognizer.processImage(inputImage);
 
     for (final textBlock in recognizedText.blocks) {
       for (final line in textBlock.lines) {
-        if (customerDNIModel.getInformationCus(line.text) != null) {
+        print(line.text);
+        if (customerScanModel
+                .getCustomerScan(currentIdentity)
+                .getInformationCus(line.text) !=
+            null) {
           for (final element in line.elements) {
-            if (customerDNIModel.getInformationCus(element.text) != null) {
-              customerDNIModel.getInformationCus((element.text))!.rect =
-                  element.boundingBox;
+            if (customerScanModel
+                    .getCustomerScan(currentIdentity)
+                    .getInformationCus(element.text) !=
+                null) {
+              customerScanModel
+                  .getCustomerScan(currentIdentity)
+                  .getInformationCus((element.text))!
+                  .rect = element.boundingBox;
+            } else {
+              customerScanModel
+                  .getCustomerScan(currentIdentity)
+                  .findInfo(element.boundingBox, element.text);
             }
           }
         } else {
-          customerDNIModel.findInfo(line.boundingBox, line.text);
+          customerScanModel
+              .getCustomerScan(currentIdentity)
+              .findInfo(line.boundingBox, line.text);
         }
       }
     }
