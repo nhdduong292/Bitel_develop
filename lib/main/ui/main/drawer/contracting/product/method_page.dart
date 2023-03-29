@@ -69,6 +69,7 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                               controller.valueProduct.value = value;
                               controller.resetPlanReason();
                               if (value > -1) {
+                                controller.isChanged = true;
                                 controller.getPlanReasons(
                                     controller.listProduct[value].productId!,
                                     context);
@@ -220,8 +221,13 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
             () => bottomButton(
                 text: AppLocalizations.of(context)!.textContinue,
                 onTap: () {
-                  if (controller.valueMethod.value > -1 &&
-                      controller.valueProduct.value > -1) {
+                  if ((controller.valueMethod.value > -1 &&
+                          controller.valueProduct.value > -1 &&
+                          controller.status == 'CREATE') ||
+                      (controller.valueMethod.value > -1 &&
+                          controller.valueProduct.value > -1 &&
+                          controller.status == 'CHANGE' &&
+                          controller.checkChangePackage())) {
                     controller.isOnMethodPage.value = false;
                     controller.isOnInvoicePage.value = true;
 
@@ -233,7 +239,12 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                   }
                 },
                 color: !(controller.valueMethod.value > -1 &&
-                        controller.valueProduct.value > -1)
+                            controller.valueProduct.value > -1 &&
+                            controller.status == 'CREATE') &&
+                        !(controller.valueMethod.value > -1 &&
+                            controller.valueProduct.value > -1 &&
+                            controller.status == 'CHANGE' &&
+                            controller.checkChangePackage())
                     ? const Color(0xFF415263).withOpacity(0.2)
                     : null),
           ),

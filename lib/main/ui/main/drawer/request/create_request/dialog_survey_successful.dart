@@ -167,7 +167,7 @@ class DialogSurveySuccessful extends GetWidget {
                                     // Get.toNamed(RouteConfig.productPayment,
                                     //     arguments: controller.requestModel.id);
                                     Get.toNamed(RouteConfig.productPayment,
-                                        arguments: [requestModel]);
+                                        arguments: [requestModel, 'CREATE']);
                                   } else {
                                     Get.back();
                                   }

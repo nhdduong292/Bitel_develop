@@ -19,17 +19,14 @@ import '../../../../../utils/common.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductPaymentMethodLogic extends GetxController {
-  // int requestId = 0;
-  // String type = '';
-  // String idNumber = '';
   bool isLoadingProduct = true;
   BuildContext context;
-
-  // String province = '';
-  // String district = '';
-  // String precinct = '';
-
   RequestDetailModel requestModel = RequestDetailModel();
+
+  String status = 'CREATE';
+  int currentProduct = 2;
+  int currentReason = 2;
+  bool isChanged = false;
 
   ProductPaymentMethodLogic({required this.context});
 
@@ -38,13 +35,8 @@ class ProductPaymentMethodLogic extends GetxController {
     // TODO: implement onInit
     super.onInit();
     var data = Get.arguments;
-    // requestId = data[0];
-    // type = data[0];
-    // idNumber = data[2];
-    // province = data[3];
-    // district = data[4];
-    // precinct = data[5];
     requestModel = data[0];
+    status = data[1];
     getProduts(requestModel.id);
   }
 
@@ -86,6 +78,7 @@ class ProductPaymentMethodLogic extends GetxController {
   }
 
   void getProduts(int requestId) {
+    requestId = 20735;
     ApiUtil.getInstance()!.get(
       url: '${ApiEndPoints.API_LIST_PRODUCT}/$requestId',
       onSuccess: (response) {
@@ -93,6 +86,10 @@ class ProductPaymentMethodLogic extends GetxController {
           listProduct = (response.data['data'] as List)
               .map((postJson) => ProductModel.fromJson(postJson))
               .toList();
+          if (status == 'CHANGE') {
+            valueProduct.value = currentProduct;
+            getPlanReasons(listProduct[currentProduct].productId!, context);
+          }
         } else {
           print("error: ${response.status}");
         }
@@ -144,6 +141,10 @@ class ProductPaymentMethodLogic extends GetxController {
           listPlanReason = (response.data['data'] as List)
               .map((postJson) => PlanReasonModel.fromJson(postJson))
               .toList();
+          if (valueProduct.value == currentProduct && !isChanged) {
+            valueMethod.value = currentReason;
+          }
+
           update();
         } else {
           print("error: ${response.status}");
@@ -213,6 +214,14 @@ class ProductPaymentMethodLogic extends GetxController {
       },
     );
     return completer.future;
+  }
+
+  bool checkChangePackage() {
+    if ((valueProduct.value == currentProduct) &&
+        (valueMethod.value == currentReason)) {
+      return false;
+    }
+    return true;
   }
 
   void _onLoading(BuildContext context) {
