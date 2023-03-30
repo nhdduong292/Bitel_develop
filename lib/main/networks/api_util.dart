@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bitel_ventas/main/networks/response/base_response.dart';
 import 'package:bitel_ventas/main/utils/shared_preference.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'api_interceptors.dart';
 
 class ApiUtil {
@@ -124,6 +125,43 @@ class ApiUtil {
       url,
       queryParameters: params,
       data: body,
+      options:
+          Options(responseType: ResponseType.json, contentType: contentType),
+    )
+        .then((res) {
+      if (onSuccess != null) onSuccess(getBaseResponse(res));
+    }).catchError((error) {
+      if (onError != null) onError(error);
+    });
+  }
+
+  void postFile({
+    required String url,
+    required String path,
+    required String name,
+    Map<String, dynamic> params = const {},
+    bool isDetect = false,
+    String contentType = Headers.jsonContentType,
+    required Function(BaseResponse response) onSuccess,
+    required Function(dynamic error) onError,
+  }) async {
+    FormData formData = FormData.fromMap({
+      "file": await MultipartFile.fromFile(path, filename: name),
+    });
+    String token = await SharedPreferenceUtil.getToken();
+    if (!isDetect) {
+      if (token.isNotEmpty) {
+        dio!.options.headers['Authorization'] = 'Bearer ${token}';
+      }
+    } else {
+      dio!.options.headers['Authorization'] =
+          'Bearer AIzaSyDyzsELhb6aZYiMPL5NB3AZj8m7HUVFogo';
+    }
+    dio!
+        .post(
+      url,
+      queryParameters: params,
+      data: formData,
       options:
           Options(responseType: ResponseType.json, contentType: contentType),
     )

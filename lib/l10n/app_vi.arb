@@ -318,7 +318,7 @@
   "textContractPreview" : "Xem trước hợp đồng",
   "textMainContract" : "Hợp đồng chính",
   "textLendingContract" : "Hợp đồng cho vay",
-  "textIConfirmThat" : "Tôi xác nhận rằng khách hàng đã đọc và xác minh tài liệu này",
+  "textIConfirmThat" : "Tôi xác nhận rằng khách hàng đã đọc và xác minh tài liệu này.",
   "textSignContract" : "Ký hợp đồng",
   "textValidateFingerprint" : "Xác thực vân tay",
   "textEnterThe" : "Nhập ",
@@ -501,6 +501,13 @@
   "textNotEmptyDob": "Ngày sinh không được để trống",
   "textNotEmptyExd": "Ngày hết hạn không được để trống",
   "textUpdateSuccess": "Cập nhập thành công",
-  "textSubscriber": "Hợp đồng"
+  "textSubscriber": "Hợp đồng",
+  "textTheIDNumberDoseNotMatch": "Số chứng minh thư không trùng với số chứng minh thư tạo request",
+  "textUpdateCustomerInformation": "Cập nhật thông tin khách hàng.",
+  "textStatusContractDelete": "Hợp đồng đã bị xóa",
+  "textStatusContractNonActive": "Hợp đồng đăng ký nhưng chưa kích hoạt",
+  "textStatusContractActive": "Hợp đồng đã kích hoạt",
+  "textStatusContractCancel": "Hợp đồng đã bị hủy",
+  "textStatusContractTerminat": "Hợp đồng đã chấm dứt"
 
 }

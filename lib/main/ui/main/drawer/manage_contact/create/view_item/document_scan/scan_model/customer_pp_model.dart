@@ -2,15 +2,15 @@ import 'dart:ui';
 
 import 'item_infor.dart';
 
-class CustomerCEModel {
-  InformationCus number = InformationCus(type: 'N°');
+class CustomerPPModel {
+  InformationCus number = InformationCus(type: 'GCMND');
   InformationCus lastname = InformationCus(type: 'pellidos');
   InformationCus midelname = InformationCus(type: 'ombres');
-  InformationCus name = InformationCus(type: 'ombres');
-  InformationCus nationality = InformationCus(type: 'acionalid');
-  InformationCus sex = InformationCus(type: 'exo');
-  InformationCus dob = InformationCus(type: 'echa');
-  InformationCus ed = InformationCus(type: 'aducida');
+  InformationCus name = InformationCus(type: 'Họ');
+  InformationCus nationality = InformationCus(type: 'uốc');
+  InformationCus sex = InformationCus(type: 'iới');
+  InformationCus dob = InformationCus(type: 'Ngày sinh');
+  InformationCus ed = InformationCus(type: 'giá');
 
   InformationCus? getInformationCus(String text) {
     if (text.contains(lastname.type)) {
@@ -48,12 +48,17 @@ class CustomerCEModel {
     }
     if (name.rect != null) {
       if ((name.rect!.bottom < rect.bottom &&
-              rect.bottom < name.rect!.bottom + 35.0) &&
+              rect.bottom < name.rect!.bottom + 50) &&
           rect.left < name.rect!.right) {
         var arrName = text.split(' ');
-        if (arrName.length >= 2) {
-          midelname.content = arrName[0];
-          name.content = arrName[1];
+        if (arrName.length == 3) {
+          lastname.content = arrName[0];
+          midelname.content = arrName[1];
+          name.content = arrName[2];
+        } else if (arrName.length > 3) {
+          lastname.content = arrName[0];
+          midelname.content = arrName[1];
+          name.content = '${arrName[2]} ${arrName[3]}';
         } else {
           name.content = text;
         }
@@ -61,62 +66,58 @@ class CustomerCEModel {
       }
     }
     if (nationality.rect != null) {
-      if (nationality.rect!.bottom < rect.bottom &&
-          rect.bottom < nationality.rect!.bottom + 35.0 &&
-          nationality.rect!.left - 15 < rect.left &&
-          rect.left < nationality.rect!.right) {
-        nationality.content = text;
+      if (nationality.rect!.bottom - 10 < rect.bottom &&
+          rect.bottom < nationality.rect!.bottom + 10 &&
+          nationality.rect!.right + 60 < rect.left) {
+        var arrNationality = text.split('/');
+        if (arrNationality.length > 1) {
+          nationality.content = arrNationality[1].trim();
+        } else {
+          nationality.content = text;
+        }
         return;
       }
     }
     if (sex.rect != null) {
       if (sex.rect!.bottom < rect.bottom &&
-          rect.bottom < sex.rect!.bottom + 35.0 &&
+          rect.bottom < sex.rect!.bottom + 50.0 &&
           sex.rect!.left - 15 < rect.left &&
           rect.left < sex.rect!.right) {
-        sex.content = text;
+        if (text.contains('Nam')) {
+          sex.content = 'M';
+        } else if (text.contains('Nữ')) {
+          sex.content = 'N';
+        } else {
+          sex.content = 'M';
+        }
       }
     }
     if (dob.rect != null) {
       if (dob.rect!.bottom < rect.bottom &&
-          rect.bottom < dob.rect!.bottom + 35.0 &&
-          dob.rect!.left - 15 < rect.left &&
+          rect.bottom < dob.rect!.bottom + 50 &&
+          dob.rect!.left - 100 < rect.left &&
           rect.left < dob.rect!.right) {
-        dob.content = text.replaceAll('MAY', '5');
+        dob.content = text.replaceAll("/", " ").replaceAll(RegExp(r'\s+'), ' ');
       }
     }
     if (ed.rect != null) {
       if (ed.rect!.bottom < rect.bottom &&
-          rect.bottom < ed.rect!.bottom + 35.0 &&
-          ed.rect!.left - 15 < rect.left &&
+          rect.bottom < ed.rect!.bottom + 50 &&
+          ed.rect!.left - 100 < rect.left &&
           rect.left < ed.rect!.right) {
-        ed.content = convertText(text);
+        ed.content = text.replaceAll("/", " ").replaceAll(RegExp(r'\s+'), ' ');
       }
     }
 
     if (number.rect != null) {
-      if (number.rect!.bottom - 20 < rect.bottom &&
-          rect.bottom - 20 < number.rect!.bottom) {
+      if (number.rect!.bottom < rect.bottom &&
+          rect.bottom < number.rect!.bottom + 50.0 &&
+          number.rect!.left - 40 < rect.left &&
+          rect.left < number.rect!.right) {
         if (num.tryParse(text) != null) {
-          number.content = convertText(text);
+          number.content = text;
         }
       }
     }
-  }
-
-  String convertText(String text) {
-    text = text.toUpperCase().replaceAll('JAN', '1');
-    text = text.toUpperCase().replaceAll('FEB', '2');
-    text = text.toUpperCase().replaceAll('MAR', '3');
-    text = text.toUpperCase().replaceAll('APR', '4');
-    text = text.toUpperCase().replaceAll('MAY', '5');
-    text = text.toUpperCase().replaceAll('JUN', '6');
-    text = text.toUpperCase().replaceAll('JUL', '7');
-    text = text.toUpperCase().replaceAll('AUG', '8');
-    text = text.toUpperCase().replaceAll('SEP', '9');
-    text = text.toUpperCase().replaceAll('OCT', '10');
-    text = text.toUpperCase().replaceAll('NOV', '11');
-    text = text.toUpperCase().replaceAll('DEC', '12');
-    return text;
   }
 }

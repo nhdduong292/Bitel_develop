@@ -11,8 +11,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../../../../../../../res/app_colors.dart';
+import '../../../../../../../networks/model/address_model.dart';
 import '../../../../../../../router/route_config.dart';
 import '../../../../../../../utils/common_widgets.dart';
+import '../../../../request/dialog_address_page.dart';
 import 'client_data_dni_logic.dart';
 
 typedef void TouchUpadte();
@@ -92,34 +94,51 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                               child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    RichText(
-                                      text: TextSpan(
-                                          text:
-                                              '${controller.logicCreateContact.typeCustomer}: ',
-                                          style: AppStyles.r9454C9_14_500
-                                              .copyWith(
-                                                  fontSize: 13,
-                                                  fontWeight: FontWeight.w700),
-                                          children: [
-                                            TextSpan(
-                                              text: controller
-                                                          .logicCreateContact
-                                                          .typeCustomer ==
-                                                      'DNI'
-                                                  ? controller
-                                                      .logicCreateContact
-                                                      .requestModel
-                                                      .customerModel
-                                                      .idNumber
-                                                  : controller.idNumber,
-                                              style: AppStyles.r2B3A4A_12_500
-                                                  .copyWith(
-                                                      fontSize: 13,
-                                                      fontWeight:
-                                                          FontWeight.w400),
-                                            )
-                                          ]),
-                                    )
+                                    SizedBox(
+                                      width: 30,
+                                    ),
+                                    Text(
+                                      '${controller.logicCreateContact.typeCustomer}: ',
+                                      style: AppStyles.r9454C9_14_500.copyWith(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                    // Text(
+                                    //   controller.idNumber,
+                                    //   style: AppStyles.r2B3A4A_12_500.copyWith(
+                                    //       fontSize: 13,
+                                    //       fontWeight: FontWeight.w400),
+                                    // ),
+                                    Expanded(
+                                      child: SizedBox(
+                                        child: TextField(
+                                            keyboardType: TextInputType.number,
+                                            controller: controller.tfIdNumber,
+                                            focusNode: null,
+                                            style: AppStyles.r2B3A4A_12_500
+                                                .copyWith(
+                                                    fontSize: 13,
+                                                    color: AppColors
+                                                        .color_2B3A4A
+                                                        .withOpacity(0.85)),
+                                            onChanged: (value) {},
+                                            decoration: InputDecoration(
+                                              contentPadding:
+                                                  const EdgeInsets.only(
+                                                      top: 5,
+                                                      left: 5,
+                                                      right: 10),
+                                              // hintText: 'hint',
+                                              hintStyle: AppStyles.r2.copyWith(
+                                                  color: AppColors.colorHint1,
+                                                  fontWeight: FontWeight.w400),
+                                              border: OutlineInputBorder(
+                                                  borderSide: BorderSide.none),
+                                              focusedBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide.none),
+                                            )),
+                                      ),
+                                    ),
                                   ]),
                             ),
                           ),
@@ -136,6 +155,18 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                                       .textEnterName,
                                   width: width * 0.55,
                                   controller: controller.tfLastName,
+                                  focusNode: controller.focusLastName,
+                                  onChange: (value) {}),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              textFieldClient(
+                                  context: context,
+                                  label: "Tên đệm",
+                                  hint: AppLocalizations.of(context)!
+                                      .textEnterName,
+                                  width: width * 0.55,
+                                  controller: controller.tfMidelName,
                                   focusNode: controller.focusLastName,
                                   onChange: (value) {}),
                               SizedBox(
@@ -227,19 +258,35 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                                   required: false,
                                   isIcon: true,
                                   width: width * 0.55),
-                              SizedBox(
-                                height: 16,
+                              InkWell(
+                                onTap: () {
+                                  showDialog(
+                                    barrierDismissible: false,
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      controller.resetAdress();
+                                      return BillAddressInformation(
+                                        height: 450,
+                                        controller: controller,
+                                      );
+                                    },
+                                  ).then((value) {
+                                    // controller.checkChangeAdditionalInformation();
+                                    if (value) {
+                                      controller.address =
+                                          '${controller.currentAddress}, ${controller.currentPrecinct.name}, ${controller.currentDistrict.name}, ${controller.currentProvince.name}';
+                                      controller.update();
+                                    }
+                                  });
+                                },
+                                child: lockedBoxV1(
+                                    content: controller.address,
+                                    label: AppLocalizations.of(context)!
+                                        .textAddress,
+                                    required: false,
+                                    isIcon: false,
+                                    width: width * 0.55),
                               ),
-                              textFieldClient(
-                                  context: context,
-                                  label:
-                                      AppLocalizations.of(context)!.textAddress,
-                                  hint: AppLocalizations.of(context)!
-                                      .textEnterAddress,
-                                  width: width * 0.55,
-                                  controller: controller.tfAddress,
-                                  focusNode: controller.focusLastName,
-                                  onChange: (value) {}),
                               SizedBox(
                                 height: 34,
                               ),
@@ -262,45 +309,9 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                             if (!controller.checkValidate()) {
                               return;
                             }
-                            if (controller.logicCreateContact.typeCustomer !=
-                                'DNI') {
-                              callback();
-                              return;
-                            }
-                            _onLoading(context);
-                            controller.createCustomer(
-                              (isSuccess) {
-                                if (isSuccess) {
-                                  Get.back();
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return SuccessDialog(
-                                        height: 299,
-                                        isSuccess: true,
-                                        onClick: () {
-                                          Get.back();
-                                          Get.offNamed(
-                                              RouteConfig.customerInformation,
-                                              arguments: [
-                                                controller.customerModel,
-                                                controller.requestModel,
-                                                controller.productId,
-                                                controller.reasonId,
-                                                controller.isForcedTerm
-                                              ]);
-                                        },
-                                      );
-                                    },
-                                  );
-                                } else {
-                                  Get.back();
-                                  Common.showToastCenter(
-                                      AppLocalizations.of(context)!
-                                          .textErrorAPI);
-                                }
-                              },
-                            );
+                            controller.createBodyCustomer();
+                            callback();
+                            return;
                           },
                           child: Center(
                               child: Text(
@@ -315,6 +326,70 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
             ),
           );
         });
+  }
+
+  Widget lockedBoxV1(
+      {required String label,
+      required String content,
+      required bool required,
+      required bool isIcon,
+      required double width}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Expanded(
+          child: Container(
+            margin: EdgeInsets.only(left: 20, top: 15),
+            alignment: Alignment.topLeft,
+            child: RichText(
+              text: TextSpan(
+                text: label,
+                style: AppStyles.r2B3A4A_12_500.copyWith(
+                    fontSize: 14,
+                    color: AppColors.color_2B3A4A.withOpacity(0.8)),
+                children: [
+                  TextSpan(
+                      text: required ? ' *' : '',
+                      style: TextStyle(
+                        color: AppColors.colorTextError,
+                        fontFamily: 'Barlow',
+                        fontSize: 14,
+                      )),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(left: 15, right: 23, top: 15),
+          child: Container(
+              height: 45,
+              width: width,
+              padding: EdgeInsets.only(left: 18, right: 7),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(color: Color(0xFFE3EAF2), width: 1)),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        content,
+                        style: AppStyles.r2B3A4A_12_500.copyWith(
+                            fontSize: 14,
+                            color: AppColors.color_2B3A4A.withOpacity(0.85)),
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                      visible: isIcon,
+                      child: SvgPicture.asset(AppImages.icArrowDownLockedBox))
+                ],
+              )),
+        ),
+      ],
+    );
   }
 
   void _onLoading(BuildContext context) {
@@ -351,7 +426,7 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                       fontSize: 14,
                       color: AppColors.color_2B3A4A.withOpacity(0.8)))),
         ),
-        Container(
+        SizedBox(
           width: width,
           height: 45,
           child: TextField(
@@ -673,5 +748,339 @@ class SuccessDialog extends Dialog {
         ),
       ),
     );
+  }
+}
+
+class BillAddressInformation extends Dialog {
+  final double height;
+  final ClientDataDNILogic controller;
+  const BillAddressInformation(
+      {super.key, required this.height, required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: SizedBox(
+        width: 330,
+        height: height,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Get.back(result: false);
+                  },
+                  child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: SvgPicture.asset(AppImages.icClose),
+                      )),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10, left: 5),
+                  child: Text(
+                    AppLocalizations.of(context)!.textProvince,
+                    style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    if (controller.listProvince.isEmpty) {
+                      _onLoading(context);
+                      controller.getListProvince(
+                        (isSuccess) {
+                          Get.back();
+                          if (isSuccess) {
+                            showDialogAddress(context, controller.listProvince,
+                                controller, 0);
+                          }
+                        },
+                      );
+                    } else {
+                      showDialogAddress(
+                          context, controller.listProvince, controller, 0);
+                    }
+                  },
+                  child: Container(
+                    height: 45,
+                    child: TextField(
+                        controller: controller.textFieldProvince,
+                        focusNode: controller.focusProvince,
+                        enabled: false,
+                        style: AppStyles.r2.copyWith(
+                            color: AppColors.colorTitle,
+                            fontWeight: FontWeight.w500),
+                        decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.only(
+                                top: 5, left: 10, right: 10),
+                            hintText:
+                                AppLocalizations.of(context)!.hintProvince,
+                            hintStyle: AppStyles.r2.copyWith(
+                                color: AppColors.colorHint1,
+                                fontWeight: FontWeight.w400),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(
+                                    width: 1, color: AppColors.colorLineDash)),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(
+                                    width: 1, color: Colors.redAccent)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(
+                                    width: 1, color: AppColors.colorLineDash)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(
+                                    width: 1, color: AppColors.colorLineDash)),
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child:
+                                  SvgPicture.asset(AppImages.icDropdownSpinner),
+                            ))),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 10, left: 5),
+                  child: Text(
+                    AppLocalizations.of(context)!.textDistrict,
+                    style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    if (controller.textFieldProvince.text.isNotEmpty) {
+                      if (controller.listDistrict.isEmpty) {
+                        _onLoading(context);
+                        controller.getListDistrict(
+                          controller.currentProvince.areaCode,
+                          (isSuccess) {
+                            Get.back();
+                            if (isSuccess) {
+                              showDialogAddress(context,
+                                  controller.listDistrict, controller, 1);
+                            }
+                          },
+                        );
+                      } else {
+                        showDialogAddress(
+                            context, controller.listDistrict, controller, 1);
+                      }
+                    } else {
+                      // Get.snackbar("Thông báo", "Bạn phải chọn Province trước", snackPosition: SnackPosition.BOTTOM);
+                    }
+                  },
+                  child: Container(
+                    height: 45,
+                    child: TextField(
+                        controller: controller.textFieldDistrict,
+                        focusNode: controller.focusDistrict,
+                        enabled: false,
+                        style: AppStyles.r2.copyWith(
+                            color: AppColors.colorTitle,
+                            fontWeight: FontWeight.w500),
+                        decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.only(
+                                top: 5, left: 10, right: 10),
+                            hintText:
+                                AppLocalizations.of(context)!.hintDistrict,
+                            hintStyle: AppStyles.r2.copyWith(
+                                color: AppColors.colorHint1,
+                                fontWeight: FontWeight.w400),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(
+                                    width: 1, color: AppColors.colorLineDash)),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(
+                                    width: 1, color: Colors.redAccent)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(
+                                    width: 1, color: AppColors.colorLineDash)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(
+                                    width: 1, color: AppColors.colorLineDash)),
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child:
+                                  SvgPicture.asset(AppImages.icDropdownSpinner),
+                            ))),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 10, left: 5),
+                  child: Text(
+                    AppLocalizations.of(context)!.textPrecinct,
+                    style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    if (controller.textFieldDistrict.text.isNotEmpty) {
+                      if (controller.listPrecinct.isEmpty) {
+                        _onLoading(context);
+                        controller.getListPrecincts(
+                          controller.currentDistrict.areaCode,
+                          (isSuccess) {
+                            Get.back();
+                            if (isSuccess) {
+                              showDialogAddress(context,
+                                  controller.listPrecinct, controller, 2);
+                            }
+                          },
+                        );
+                      } else {
+                        showDialogAddress(
+                            context, controller.listPrecinct, controller, 2);
+                      }
+                    } else {
+                      // Get.snackbar("Thông báo", "Bạn phải chọn District trước", snackPosition: SnackPosition.BOTTOM);
+                    }
+                  },
+                  child: Container(
+                    height: 45,
+                    child: TextField(
+                        controller: controller.textFieldPrecinct,
+                        focusNode: controller.focusPrecinct,
+                        enabled: false,
+                        style: AppStyles.r2.copyWith(
+                            color: AppColors.colorTitle,
+                            fontWeight: FontWeight.w500),
+                        decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.only(
+                                top: 5, left: 10, right: 10),
+                            hintText:
+                                AppLocalizations.of(context)!.hintPrecinct,
+                            hintStyle: AppStyles.r2.copyWith(
+                                color: AppColors.colorHint1,
+                                fontWeight: FontWeight.w400),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(
+                                    width: 1, color: AppColors.colorLineDash)),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(
+                                    width: 1, color: Colors.redAccent)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(
+                                    width: 1, color: AppColors.colorLineDash)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(
+                                    width: 1, color: AppColors.colorLineDash)),
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child:
+                                  SvgPicture.asset(AppImages.icDropdownSpinner),
+                            ))),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 10, left: 5),
+                  child: Text(
+                    AppLocalizations.of(context)!.textAddress,
+                    style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
+                  ),
+                ),
+                Container(
+                  height: 45,
+                  child: TextField(
+                      focusNode: controller.focusAddress,
+                      controller: controller.textFieldAddress,
+                      style: AppStyles.r2.copyWith(
+                          color: AppColors.colorTitle,
+                          fontWeight: FontWeight.w500),
+                      onChanged: (value) {
+                        controller.setAddress(value);
+                      },
+                      decoration: InputDecoration(
+                        contentPadding:
+                            const EdgeInsets.only(top: 5, left: 10, right: 10),
+                        hintText: AppLocalizations.of(context)!.hintAddress,
+                        hintStyle: AppStyles.r2.copyWith(
+                            color: AppColors.colorHint1,
+                            fontWeight: FontWeight.w400),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(24),
+                            borderSide: const BorderSide(
+                                width: 1, color: AppColors.colorLineDash)),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(24),
+                            borderSide: const BorderSide(
+                                width: 1, color: Colors.redAccent)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(24),
+                            borderSide: const BorderSide(
+                                width: 1, color: AppColors.colorLineDash)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(24),
+                            borderSide: const BorderSide(
+                                width: 1, color: AppColors.colorLineDash)),
+                      )),
+                ),
+                bottomButton(
+                  onTap: () {
+                    if (controller.validateAddress()) {
+                      Get.back(result: true);
+                    }
+                  },
+                  text:
+                      AppLocalizations.of(context)!.textContinue.toUpperCase(),
+                  // color: !controller.isValidateAddress
+                  //     ? const Color(0xFF415263).withOpacity(0.2)
+                  //     : null
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
+      },
+    );
+  }
+
+  void showDialogAddress(BuildContext context, List<AddressModel> list,
+      ClientDataDNILogic controll, int position) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return DialogAddressPage(
+            list,
+            (model) {
+              if (position == 0) {
+                controll.setProvince(model);
+              } else if (position == 1) {
+                controll.setDistrict(model);
+              } else if (position == 2) {
+                controll.setPrecinct(model);
+              }
+            },
+          );
+        });
   }
 }

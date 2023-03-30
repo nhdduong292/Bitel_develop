@@ -900,7 +900,7 @@ Widget spinnerFormV2(
                       }
                     },
                     onSubmitted: (value) {
-                      if(onSubmit != null) {
+                      if (onSubmit != null) {
                         onSubmit.call(value);
                       }
                     },
@@ -941,11 +941,14 @@ Widget spinnerFormV2(
                 style: AppStyles.r2.copyWith(
                     color: AppColors.colorTitle, fontWeight: FontWeight.w500),
                 icon: SvgPicture.asset(AppImages.icDropdownSpinner),
-                hint: hint.isNotEmpty ? Text(
-                  hint,
-                  style: AppStyles.r2.copyWith(
-                      color: AppColors.colorHint1, fontWeight: FontWeight.w400),
-                ) : Text(""),
+                hint: hint.isNotEmpty
+                    ? Text(
+                        hint,
+                        style: AppStyles.r2.copyWith(
+                            color: AppColors.colorHint1,
+                            fontWeight: FontWeight.w400),
+                      )
+                    : Text(""),
                 validator: (value) {
                   if (value == null) {
                     return 'Please select gender.';

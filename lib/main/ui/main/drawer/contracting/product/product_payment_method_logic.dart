@@ -136,24 +136,29 @@ class ProductPaymentMethodLogic extends GetxController {
 
   void getPlanReasons(int id, BuildContext context) {
     _onLoading(context);
-    ApiUtil.getInstance()!.get(
-      url: '${ApiEndPoints.API_PLAN_REASON}/$id',
-      onSuccess: (response) {
-        Get.back();
-        if (response.isSuccess) {
-          listPlanReason = (response.data['data'] as List)
-              .map((postJson) => PlanReasonModel.fromJson(postJson))
-              .toList();
-          update();
-        } else {
-          print("error: ${response.status}");
-        }
-      },
-      onError: (error) {
-        Get.back();
-        Common.showMessageError(error, context);
-      },
-    );
+    try {
+      ApiUtil.getInstance()!.get(
+        url: '${ApiEndPoints.API_PLAN_REASON}/$id',
+        onSuccess: (response) {
+          Get.back();
+          if (response.isSuccess) {
+            listPlanReason = (response.data['data'] as List)
+                .map((postJson) => PlanReasonModel.fromJson(postJson))
+                .toList();
+            update();
+          } else {
+            print("error: ${response.status}");
+          }
+        },
+        onError: (error) {
+          Get.back();
+          Common.showMessageError(error, context);
+        },
+      );
+    } catch (e) {
+      Get.back();
+      Common.showToastCenter(e.toString());
+    }
   }
 
   void getWallet(BuildContext context) {

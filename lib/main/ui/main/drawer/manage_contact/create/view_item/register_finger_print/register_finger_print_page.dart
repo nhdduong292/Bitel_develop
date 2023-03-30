@@ -2,7 +2,7 @@
 
 import 'dart:io';
 
-import 'package:bitel_ventas/main/ui/main/drawer/contracting/register_finger_print/register_finger_print_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/register_finger_print/register_finger_print_logic.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_images.dart';
@@ -13,8 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../../../../../../../../res/app_colors.dart';
-import '../../../../../router/route_config.dart';
+import '../../../../../../../../../../../res/app_colors.dart';
+import '../../../../../../../router/route_config.dart';
 
 typedef void TouchScan();
 
@@ -270,9 +270,8 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                         Column(
                           children: [
                             Visibility(
-                                visible:
-                                    (controller.listImageLeft.length >= 1 ||
-                                        controller.listImageRight.length >= 1),
+                                visible: (controller.listImageLeft.isNotEmpty ||
+                                    controller.listImageRight.isNotEmpty),
                                 child: fingerPrintView(
                                     link: controller.listPathFinger.isNotEmpty
                                         ? controller.listPathFinger[0]
@@ -404,7 +403,9 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                                         .customerInformation,
                                                     arguments: [
                                                       controller.customerModel,
-                                                      controller.requestId,
+                                                      controller
+                                                          .logicCreateContact
+                                                          .requestModel,
                                                       controller.productId,
                                                       controller.reasonId,
                                                       controller.isForcedTerm

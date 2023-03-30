@@ -90,14 +90,12 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 required: false,
                 isIcon: false,
                 width: width * 0.55)),
-            Obx(
-              () => lockedBoxV1(
-                  content: controller.getBillCycle(controller.billCycle.value),
-                  label: AppLocalizations.of(context)!.textBillCycle,
-                  required: true,
-                  isIcon: true,
-                  width: width * 0.55),
-            ),
+            lockedBoxV1(
+                content: controller.getBillCycle(controller.billCycle),
+                label: AppLocalizations.of(context)!.textBillCycle,
+                required: true,
+                isIcon: true,
+                width: width * 0.55),
             lockedBoxV1(
                 content: AppLocalizations.of(context)!.textEmail,
                 label: AppLocalizations.of(context)!.textChangeNotification,
@@ -139,7 +137,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 ).then((value) {
                   if (value) {
                     controller.billAddress =
-                        '${controller.billAddressSelect}, ${controller.billProvince.name}, ${controller.billDistrict.name}, ${controller.billPrecinct.name}';
+                        '${controller.billAddressSelect}, ${controller.billPrecinct.name}, ${controller.billDistrict.name}, ${controller.billProvince.name}';
                     controller.update();
                   }
                 });

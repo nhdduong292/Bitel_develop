@@ -318,7 +318,7 @@
   "textContractPreview" : "Vista previa de contrato",
   "textMainContract" : "Contrato principal",
   "textLendingContract" : "Contrato de comodato",
-  "textIConfirmThat" : "Confirmo que el cliente ha leido y validado este documento",
+  "textIConfirmThat" : "Confirmo que el cliente ha leido y validado este documento.",
   "textSignContract" : "Firmar contrato",
   "textValidateFingerprint" : "Validar huella digital",
   "textEnterThe" : "Ingresar el ",
@@ -503,6 +503,13 @@
   "textNotEmptyDob": "Se requiere Fecha de nacimiento",
   "textNotEmptyExd": "Se requiere Fecha de caducidad",
   "textUpdateSuccess": "Actualizar correctamente",
-  "textSubscriber": "suscriptor"
+  "textSubscriber": "suscriptor",
+  "textTheIDNumberDoseNotMatch": "The ID number does not match the ID number that made the request",
+  "textUpdateCustomerInformation": "Update customer information.",
+  "textStatusContractDelete": "Hợp đồng đã bị xóa",
+  "textStatusContractNonActive": "Hợp đồng đăng ký nhưng chưa kích hoạt",
+  "textStatusContractActive": "Hợp đồng đã kích hoạt",
+  "textStatusContractCancel": "Hợp đồng đã bị hủy",
+  "textStatusContractTerminat": "Hợp đồng đã chấm dứt"
 
 }

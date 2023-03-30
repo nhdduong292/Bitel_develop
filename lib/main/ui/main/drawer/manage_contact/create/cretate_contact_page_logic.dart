@@ -13,6 +13,7 @@ class CreateContactPageLogic extends GetxController {
   int productId = 0;
   int reasonId = 0;
   bool isForcedTerm = false;
+  List<String> listImageScan = [];
   RequestDetailModel requestModel = RequestDetailModel();
 
   final ItemScrollController scrollController = ItemScrollController();

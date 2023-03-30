@@ -13,6 +13,7 @@ import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/scan_model/customer_dni_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/scan_model/customer_ce_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/scan_model/customer_scan_model.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/scan_model/item_infor.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
@@ -34,6 +35,7 @@ class DocumentScanningLogic extends GetxController {
   var checkOption2 = false.obs;
 
   String textPathScan = "";
+  String textPathScanBack = "";
   bool _canProcess = true;
   bool _isBusy = false;
   CustomPaint? _customPaint;
@@ -43,10 +45,15 @@ class DocumentScanningLogic extends GetxController {
       TextRecognizer(script: TextRecognitionScript.latin);
 
   String currentIdentity = "DNI";
-  List<String> listIdentityNumber = ["DNI", "CE", "PP", "PTP"];
+  // List<String> listIdentityNumber = ["DNI", "CE", "PP", "PTP"];
   CustomerScanModel customerScanModel = CustomerScanModel();
 
+  String pathImageFont = '';
+  String pathImageBack = '';
+
   CreateContactPageLogic logicCreateContact = Get.find();
+
+  DocumentScanningLogic({required this.context});
 
   @override
   void onInit() {
@@ -61,24 +68,20 @@ class DocumentScanningLogic extends GetxController {
     update();
   }
 
-  bool isDNI() {
-    if (currentIdentity == 'DNI') {
-      return true;
-    }
-    return false;
-  }
+  // bool isDNI() {
+  //   if (currentIdentity == 'DNI') {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   String getImageIdentity() {
-    if (currentIdentity == listIdentityNumber[0]) {
-      return AppImages.imgDNI;
-    } else if (currentIdentity == listIdentityNumber[1]) {
+    if (currentIdentity == 'CE') {
       return AppImages.imgCE;
-    } else if (currentIdentity == listIdentityNumber[2]) {
+    } else if (currentIdentity == 'PP') {
       return AppImages.imgPP;
-    } else if (currentIdentity == listIdentityNumber[3]) {
-      return AppImages.imgPTP;
     }
-    return AppImages.imgDNI;
+    return AppImages.imgCE;
   }
 
   void onListenerMethod() {
@@ -103,8 +106,12 @@ class DocumentScanningLogic extends GetxController {
     print(result);
   }
 
-  void setPathScan(String value) {
-    textPathScan = value;
+  void setPathScan(String value, bool isScanningFont) {
+    if (isScanningFont) {
+      textPathScan = value;
+    } else {
+      textPathScanBack = value;
+    }
     update();
   }
 
@@ -155,25 +162,30 @@ class DocumentScanningLogic extends GetxController {
     );
   }
 
+  void setListImageScan() {
+    logicCreateContact.listImageScan.clear();
+    if (logicCreateContact.typeCustomer == 'CE') {
+      logicCreateContact.listImageScan.add(pathImageFont);
+      logicCreateContact.listImageScan.add(pathImageBack);
+    } else {
+      logicCreateContact.listImageScan.add(pathImageFont);
+    }
+  }
+
   Future<void> processImage(InputImage inputImage) async {
     final recognizedText = await _textRecognizer.processImage(inputImage);
 
     for (final textBlock in recognizedText.blocks) {
       for (final line in textBlock.lines) {
         print(line.text);
-        if (customerScanModel
-                .getCustomerScan(currentIdentity)
-                .getInformationCus(line.text) !=
-            null) {
+        InformationCus? informationCus = customerScanModel
+            .getCustomerScan(currentIdentity)
+            .getInformationCus(line.text);
+        if (informationCus != null) {
           for (final element in line.elements) {
-            if (customerScanModel
-                    .getCustomerScan(currentIdentity)
-                    .getInformationCus(element.text) !=
-                null) {
-              customerScanModel
-                  .getCustomerScan(currentIdentity)
-                  .getInformationCus((element.text))!
-                  .rect = element.boundingBox;
+            if (element.text.contains(informationCus.type) ||
+                informationCus.type.contains(element.text)) {
+              informationCus.rect = element.boundingBox;
             } else {
               customerScanModel
                   .getCustomerScan(currentIdentity)
@@ -188,5 +200,24 @@ class DocumentScanningLogic extends GetxController {
       }
     }
     update();
+  }
+
+  void uploadFile(String path, String name,
+      Function(bool isSuccess, String path) function) {
+    ApiUtil.getInstance()!.postFile(
+        url: ApiEndPoints.API_UPLOAD_FILE,
+        path: path,
+        name: name,
+        onSuccess: (response) {
+          if (response.isSuccess) {
+            function.call(true, response.data['data']);
+          } else {
+            function.call(false, '');
+          }
+        },
+        onError: (error) {
+          function.call(false, '');
+          Common.showMessageError(error, context);
+        });
   }
 }

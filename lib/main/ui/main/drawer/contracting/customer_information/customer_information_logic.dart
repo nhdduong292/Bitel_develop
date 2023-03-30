@@ -33,7 +33,7 @@ class CustomerInformationLogic extends GetxController {
   var checkOption = false.obs;
   var checkMainContract = true.obs;
   var checkLendingContract = false.obs;
-  var billCycle = ''.obs;
+  var billCycle = '';
   int productId = 0;
   int reasonId = 0;
   bool isForcedTerm = false;
@@ -128,11 +128,11 @@ class CustomerInformationLogic extends GetxController {
   void getCurrentTime() {
     DateTime now = DateTime.now();
     if (now.day >= 6 && now.day < 16) {
-      billCycle.value = 'CYCLE6';
+      billCycle = 'CYCLE6';
     } else if (now.day >= 16 && now.day < 26) {
-      billCycle.value = 'CYCLE16';
+      billCycle = 'CYCLE16';
     } else {
-      billCycle.value = 'CYCLE26';
+      billCycle = 'CYCLE26';
     }
     signDate.value = DateFormat("yyyy-MM-ddTHH:mm:ss").format(now);
     update();
@@ -191,7 +191,7 @@ class CustomerInformationLogic extends GetxController {
       "contractType": isForcedTerm ? "FORCED_TERM" : "UNDETERMINED",
       "numOfSubscriber": 1,
       "signDate": signDate.value.trim(),
-      "billCycle": billCycle.value,
+      "billCycle": billCycle,
       "changeNotification": "Email",
       "printBill": "Email",
       "currency": "SOL",
@@ -441,13 +441,17 @@ class CustomerInformationLogic extends GetxController {
       isActiveUpdate = true;
     } else if (emailController.text != customer.email) {
       isActiveUpdate = true;
-    } else if (currentProvince.province != customer.province) {
+    } else if (currentProvince.province != customer.province &&
+        currentProvince.province.isNotEmpty) {
       isActiveUpdate = true;
-    } else if (currentDistrict.district != customer.district) {
+    } else if (currentDistrict.district != customer.district &&
+        currentDistrict.district.isNotEmpty) {
       isActiveUpdate = true;
-    } else if (currentPrecinct.precinct != customer.precinct) {
+    } else if (currentPrecinct.precinct != customer.precinct &&
+        currentPrecinct.precinct.isNotEmpty) {
       isActiveUpdate = true;
-    } else if (currentAddress != customer.address) {
+    } else if (currentAddress != customer.address &&
+        currentAddress.isNotEmpty) {
       isActiveUpdate = true;
     } else {
       isActiveUpdate = false;
@@ -487,13 +491,19 @@ class CustomerInformationLogic extends GetxController {
       "sex": customer.sex,
       "dateOfBirth": customer.birthDate,
       "expiredDate": customer.idExpireDate,
-      "address": currentAddress,
-      "province": currentProvince.province,
-      "district": currentDistrict.district,
-      "precinct": currentPrecinct.precinct,
+      "address": currentAddress.isEmpty ? customer.address : currentAddress,
+      "province": currentProvince.province.isEmpty
+          ? customer.province
+          : currentProvince.province,
+      "district": currentDistrict.district.isEmpty
+          ? customer.district
+          : currentDistrict.district,
+      "precinct": currentPrecinct.precinct.isEmpty
+          ? customer.precinct
+          : currentPrecinct.precinct,
       "phone": phoneController.text,
       "email": emailController.text,
-      "image": "string",
+      "image": [],
       "left": null,
       "leftImage": null,
       "right": null,

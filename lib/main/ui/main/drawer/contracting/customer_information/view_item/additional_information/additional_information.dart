@@ -222,7 +222,7 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                           controller.checkChangeAdditionalInformation();
                           if (value) {
                             controller.address =
-                                '${controller.currentAddress}, ${controller.currentProvince.name}, ${controller.currentDistrict.name}, ${controller.currentPrecinct.name}';
+                                '${controller.currentAddress}, ${controller.currentPrecinct.name}, ${controller.currentDistrict.name}, ${controller.currentProvince.name}';
                             controller.update();
                           }
                         });
@@ -240,23 +240,15 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                     )
                   ]),
                 ),
-                SizedBox(
-                  width: width,
-                  child: bottomButton(
-                      onTap: () {
-                        if (controller.checkValidateAddInfo()) {
-                          return;
-                        }
-                        if (!controller.checkValidate()) {
-                          return;
-                        }
-                        FocusScope.of(context).requestFocus(FocusNode());
-                        callback();
-                      },
-                      text: AppLocalizations.of(context)!
-                          .textContinue
-                          .toUpperCase()),
-                ),
+                customRadioMutiple(
+                    width: width,
+                    text: AppLocalizations.of(context)!
+                        .textUpdateCustomerInformation,
+                    check: controller.checkOption,
+                    changeValue: (value) {
+                      controller.checkOption.value = value;
+                      controller.isActiveUpdate = value;
+                    }),
                 SizedBox(
                     width: width,
                     child: Row(
@@ -273,33 +265,37 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                         Expanded(
                             flex: 1,
                             child: bottomButton(
-                                onTap: () {
-                                  if (!controller.isActiveUpdate) {
-                                    return;
-                                  }
-                                  if (controller.checkValidateAddInfo()) {
-                                    return;
-                                  }
-                                  if (!controller.checkValidate()) {
-                                    return;
-                                  }
+                              onTap: () {
+                                if (controller.checkValidateAddInfo()) {
+                                  return;
+                                }
+                                if (!controller.checkValidate()) {
+                                  return;
+                                }
+                                FocusScope.of(context)
+                                    .requestFocus(FocusNode());
+                                if (controller.isActiveUpdate) {
                                   controller.updateCustomer((isSuccess) {
                                     if (isSuccess) {
                                       Common.showToastCenter(
                                           AppLocalizations.of(context)!
                                               .textUpdateSuccess);
+                                      callback();
                                     } else {}
                                   });
-                                },
-                                text: AppLocalizations.of(context)!
-                                    .textUpdate
-                                    .toUpperCase(),
-                                color: controller.isActiveUpdate
-                                    ? null
-                                    : const Color(0xFF415263)
-                                        .withOpacity(0.2))),
+                                } else {
+                                  callback();
+                                }
+                              },
+                              text: AppLocalizations.of(context)!
+                                  .textContinue
+                                  .toUpperCase(),
+                            )),
                       ],
                     )),
+                SizedBox(
+                  height: 20,
+                ),
               ]),
         ),
       ),
