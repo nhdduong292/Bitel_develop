@@ -148,10 +148,14 @@ class ListRequestTabState extends State<ListRequestTabPage> {
           });
         },
         onError: (error) {
-          setState(() {
-            isLoading = false;
-          });
-          Common.showMessageError(error, context);
+          try {
+            setState(() {
+              isLoading = false;
+            });
+            Common.showMessageError(error, context);
+          }catch(e){
+            print(e.toString());
+          }
         });
   }
 

@@ -273,7 +273,7 @@
   "textWaitingInstallation": "Instalación pendiente",
   "textKPICommission": "KPI & Comisión",
   "textKPI": "KPI",
-  "textContractMonth": "Contrato/mes",
+  "textContractMonth": "Suscriptor/mes",
   "textPerformance": "Rendimiento",
   "textContract": "Contrato",
   "textCommission": "Comisión",
@@ -503,6 +503,7 @@
   "textNotEmptyDob": "Se requiere Fecha de nacimiento",
   "textNotEmptyExd": "Se requiere Fecha de caducidad",
   "textUpdateSuccess": "Actualizar correctamente",
+  "textSubscriber": "suscriptor",
   "textTheIDNumberDoseNotMatch": "The ID number does not match the ID number that made the request",
   "textUpdateCustomerInformation": "Update customer information.",
   "textStatusContractDelete": "Hợp đồng đã bị xóa",
@@ -510,5 +511,5 @@
   "textStatusContractActive": "Hợp đồng đã kích hoạt",
   "textStatusContractCancel": "Hợp đồng đã bị hủy",
   "textStatusContractTerminat": "Hợp đồng đã chấm dứt"
-  
+
 }

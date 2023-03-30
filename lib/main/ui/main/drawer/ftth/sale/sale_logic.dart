@@ -35,8 +35,8 @@ class SaleLogic extends GetxController {
           AppLocalizations.of(context)!.textSearchRequest, "", "", 0),
       OptionSale(AppImages.icSaleClearDebt,
           AppLocalizations.of(context)!.textClearDebt, "", "", 0),
-      OptionSale(AppImages.icSaleCreateContact,
-          AppLocalizations.of(context)!.textCreateContact, "", "", 0),
+      // OptionSale(AppImages.icSaleCreateContact,
+      //     AppLocalizations.of(context)!.textCreateContact, "", "", 0),
     ];
   }
 
@@ -67,7 +67,7 @@ class SaleLogic extends GetxController {
           "",
           AppLocalizations.of(context)!.textPerformance,
           "${homeSaleModel.performance}",
-          AppLocalizations.of(context)!.textContract,
+          AppLocalizations.of(context)!.textSubscriber,
           7),
       OptionSale("", AppLocalizations.of(context)!.textCommission,
           "${homeSaleModel.commission}", "S", 8),

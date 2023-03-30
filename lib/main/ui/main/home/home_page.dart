@@ -72,7 +72,7 @@ class HomePage extends GetView<HomeLogic> {
                     padding: EdgeInsets.only(right: 20, top: 20),
                     child: InkWell(
                       onTap: () {
-                        Get.toNamed(RouteConfig.forgotPassword);
+                        // Get.toNamed(RouteConfig.forgotPassword);
                       },
                       child: SvgPicture.asset(AppImages.icNotification),
                     ),
