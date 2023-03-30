@@ -166,8 +166,8 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                             ),
                             Obx(
                               () => SizedBox(
-                                width: 140,
-                                height: 190,
+                                width: 200,
+                                height: 280,
                                 // child: controller.pathFinger.value != ''
                                 //     ? Image.asset(
                                 //         controller.pathFinger.value,

@@ -274,7 +274,9 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                                 }
                                 FocusScope.of(context)
                                     .requestFocus(FocusNode());
-                                if (controller.isActiveUpdate) {
+                                if (controller.isActiveUpdate &&
+                                    controller
+                                        .checkChangeAdditionalInformation()) {
                                   controller.updateCustomer((isSuccess) {
                                     if (isSuccess) {
                                       Common.showToastCenter(

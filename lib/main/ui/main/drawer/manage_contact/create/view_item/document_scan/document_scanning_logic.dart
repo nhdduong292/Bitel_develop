@@ -26,6 +26,8 @@ import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../../../../../../networks/request/google_detect_request.dart';
 import '../client_data/customer_detect_mode.dart';
 
@@ -36,8 +38,8 @@ class DocumentScanningLogic extends GetxController {
 
   String textPathScan = "";
   String textPathScanBack = "";
-  bool _canProcess = true;
-  bool _isBusy = false;
+  // bool _canProcess = true;
+  // bool _isBusy = false;
   CustomPaint? _customPaint;
   CustomerDetectModel customerDetectModel = CustomerDetectModel();
   CustomerModel customerModel = CustomerModel();
@@ -219,5 +221,68 @@ class DocumentScanningLogic extends GetxController {
           function.call(false, '');
           Common.showMessageError(error, context);
         });
+  }
+
+  uploadImage(BuildContext context, DocumentScanningLogic controller,
+      bool isScanningFont) async {
+    try {
+      final pickedFile =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        // ignore: use_build_context_synchronously
+        _cropImage(pickedFile, context, controller, isScanningFont);
+      }
+    } on Exception catch (e) {
+      // TODO
+      print(e.toString());
+      Common.showToastCenter(e.toString());
+    }
+  }
+
+  getFromGallery(BuildContext context, DocumentScanningLogic controller,
+      bool isScanningFont) async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    // ignore: use_build_context_synchronously
+    _cropImage(pickedFile, context, controller, isScanningFont);
+  }
+
+  /// Crop Image
+  _cropImage(filePath, BuildContext context, DocumentScanningLogic controller,
+      bool isScanningFont) async {
+    if (filePath != null) {
+      final croppedFile = await ImageCropper().cropImage(
+        sourcePath: filePath.path,
+        compressFormat: ImageCompressFormat.jpg,
+        compressQuality: 100,
+        uiSettings: [
+          AndroidUiSettings(
+              toolbarTitle: 'Cropper',
+              toolbarColor: Colors.deepOrange,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false),
+          IOSUiSettings(
+            title: 'Cropper',
+          ),
+          WebUiSettings(
+            context: context,
+            presentStyle: CropperPresentStyle.dialog,
+            boundary: const CroppieBoundary(
+              width: 520,
+              height: 520,
+            ),
+            viewPort:
+                const CroppieViewPort(width: 480, height: 480, type: 'circle'),
+            enableExif: true,
+            enableZoom: true,
+            showZoomer: true,
+          ),
+        ],
+      );
+      if (croppedFile != null) {
+        controller.setPathScan(croppedFile.path, isScanningFont);
+      }
+    }
   }
 }

@@ -17,6 +17,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../../utils/common.dart';
+
 class RequestDetailPage extends GetWidget {
   const RequestDetailPage({super.key});
 
@@ -406,10 +408,14 @@ class RequestDetailPage extends GetWidget {
                                       Expanded(
                                         child: Text(
                                           controller.requestModel.contractModel
-                                                  .signDate.isEmpty
-                                              ? "---"
-                                              : controller.requestModel
-                                                  .contractModel.signDate,
+                                                  .signDate.isNotEmpty
+                                              ? Common.fromDate(
+                                                  DateTime.parse(controller
+                                                      .requestModel
+                                                      .contractModel
+                                                      .signDate),
+                                                  'dd/MM/yyyy')
+                                              : "---",
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),

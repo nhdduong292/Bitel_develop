@@ -30,7 +30,7 @@ class CustomerInformationLogic extends GetxController {
   var isUpdate = false.obs;
   var signDate = ''.obs;
   var path = ''.obs;
-  var checkOption = false.obs;
+  var checkOption = true.obs;
   var checkMainContract = true.obs;
   var checkLendingContract = false.obs;
   var billCycle = '';
@@ -74,7 +74,7 @@ class CustomerInformationLogic extends GetxController {
   FocusNode focusAddress = FocusNode();
 
   bool isValidateAddress = false;
-  bool isActiveUpdate = false;
+  bool isActiveUpdate = true;
 
   RequestDetailModel requestModel = RequestDetailModel();
 
@@ -219,6 +219,7 @@ class CustomerInformationLogic extends GetxController {
       url: ApiEndPoints.API_CREATE_CONTRACT,
       body: body,
       onSuccess: (response) {
+        print('bxloc create contract success');
         Get.back();
         if (response.isSuccess) {
           print(response.data['data']);
@@ -230,6 +231,7 @@ class CustomerInformationLogic extends GetxController {
         }
       },
       onError: (error) {
+        print('bxloc create contract false');
         isSuccess.call(false);
         Get.back();
         Common.showMessageError(error, context);
@@ -436,28 +438,26 @@ class CustomerInformationLogic extends GetxController {
     return false;
   }
 
-  void checkChangeAdditionalInformation() {
+  bool checkChangeAdditionalInformation() {
     if (phoneController.text != customer.telFax) {
-      isActiveUpdate = true;
+      return true;
     } else if (emailController.text != customer.email) {
-      isActiveUpdate = true;
+      return true;
     } else if (currentProvince.province != customer.province &&
         currentProvince.province.isNotEmpty) {
-      isActiveUpdate = true;
+      return true;
     } else if (currentDistrict.district != customer.district &&
         currentDistrict.district.isNotEmpty) {
-      isActiveUpdate = true;
+      return true;
     } else if (currentPrecinct.precinct != customer.precinct &&
         currentPrecinct.precinct.isNotEmpty) {
-      isActiveUpdate = true;
+      return true;
     } else if (currentAddress != customer.address &&
         currentAddress.isNotEmpty) {
-      isActiveUpdate = true;
+      return true;
     } else {
-      isActiveUpdate = false;
+      return false;
     }
-    update();
-    return;
   }
 
   void resetAdress() {
@@ -513,13 +513,12 @@ class CustomerInformationLogic extends GetxController {
       url: '${ApiEndPoints.API_CREATE_CUSTOMER}/${customer.custId}',
       body: body,
       onSuccess: (response) {
+        Get.back();
         if (response.isSuccess) {
           customer = CustomerModel.fromJson(response.data['data']);
           callBack.call(true);
-          Get.back();
         } else {
           callBack.call(false);
-          Get.back();
         }
       },
       onError: (error) {

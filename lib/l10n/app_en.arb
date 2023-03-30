@@ -523,6 +523,10 @@
 "textStatusContractNonActive": "The contract is registered but not activated",
 "textStatusContractActive": "The contract has been activated",
 "textStatusContractCancel": "The contract has been cancelled",
-"textStatusContractTerminat": "The contract has been terminated"
+"textStatusContractTerminat": "The contract has been terminated",
+"textTakePicturesFrom": "Take pictures from",
+"textCamera": "Camera",
+"textGallery": "Gallery", 
+"textMiddleName": "Middle name"
 
 }

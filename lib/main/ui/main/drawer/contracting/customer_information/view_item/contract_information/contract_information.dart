@@ -281,11 +281,8 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
             child: RichText(
               text: TextSpan(
                 text: label,
-                style: TextStyle(
-                  color: AppColors.colorText1,
-                  fontFamily: 'Barlow',
-                  fontSize: 14,
-                ),
+                style: AppStyles.r2B3A4A_12_500
+                    .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
                 children: [
                   TextSpan(
                       text: required ? ' *' : '',
@@ -303,7 +300,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
           // width: double.infinity,
           height: 45,
           width: width,
-          padding: EdgeInsets.only(left: 12, top: 6, bottom: 6, right: 6),
+          padding: EdgeInsets.only(left: 15, top: 6, bottom: 6, right: 6),
           margin: EdgeInsets.only(left: 15, right: 15, top: 15),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
@@ -340,7 +337,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
               }).toList(),
               alignment: AlignmentDirectional.centerStart,
               style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 14,
                   fontFamily: 'Barlow',
                   color: Color(0xFF415263),
                   fontWeight: FontWeight.w500),
@@ -348,7 +345,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
               hint: Text(
                 hint,
                 style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 14,
                     fontFamily: 'Barlow',
                     fontWeight: FontWeight.w300),
               ),
@@ -395,7 +392,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
           child: Container(
               height: 45,
               width: width,
-              padding: EdgeInsets.only(left: 18, right: 7),
+              padding: EdgeInsets.only(left: 15, right: 7),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(24),
                   border: Border.all(color: Color(0xFFE3EAF2), width: 1)),

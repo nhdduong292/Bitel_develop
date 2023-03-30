@@ -294,7 +294,7 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                     (controller.listImageLeft.length >= 2 ||
                                         controller.listImageRight.length >= 2),
                                 child: fingerPrintView(
-                                    link: controller.listPathFinger.length == 2
+                                    link: controller.listPathFinger.length >= 2
                                         ? controller.listPathFinger[1]
                                         : '',
                                     value: 1,
@@ -555,37 +555,40 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
 
   Widget fingerPrintView(
       {required String link, required int value, required onDelete}) {
-    return SizedBox(
-      child: Row(children: [
-        link.isNotEmpty
-            ? Image.file(
-                File(link),
-                height: 55,
-                fit: BoxFit.cover,
-              )
-            : SizedBox(
-                width: 50,
-                height: 55,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+        child: Row(children: [
+          link.isNotEmpty
+              ? Image.file(
+                  File(link),
+                  height: 55,
+                  fit: BoxFit.cover,
+                )
+              : SizedBox(
+                  width: 50,
+                  height: 55,
+                ),
+          SizedBox(
+            width: 16,
+          ),
+          Center(
+            child: SvgPicture.asset(AppImages.icTickFingerPrint),
+          ),
+          InkWell(
+            onTap: () {
+              onDelete(value);
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  left: 14, top: 10, right: 10, bottom: 10),
+              child: Center(
+                child: SvgPicture.asset(AppImages.icDelete),
               ),
-        SizedBox(
-          width: 16,
-        ),
-        Center(
-          child: SvgPicture.asset(AppImages.icTickFingerPrint),
-        ),
-        InkWell(
-          onTap: () {
-            onDelete(value);
-          },
-          child: Padding(
-            padding:
-                const EdgeInsets.only(left: 14, top: 10, right: 10, bottom: 10),
-            child: Center(
-              child: SvgPicture.asset(AppImages.icDelete),
             ),
           ),
-        ),
-      ]),
+        ]),
+      ),
     );
   }
 }
