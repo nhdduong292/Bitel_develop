@@ -272,7 +272,7 @@
   "textWaitingInstallation": "Complete installation",
   "textKPICommission": "KPI & Commission",
   "textKPI": "KPI",
-  "textContractMonth": "Contract/month",
+  "textContractMonth": "Subscriber/month",
   "textPerformance": "Performance",
   "textContract": "Contract",
   "textCommission": "Commission",
@@ -515,6 +515,7 @@
   "textNotEmptyNationality": "Nationality is required",
   "textNotEmptyDob": "Birthday is required",
   "textNotEmptyExd": "Expired is required",
-  "textUpdateSuccess": "Update successfully"
+  "textUpdateSuccess": "Update successfully",
+  "textSubscriber": "Subscriber"
 
 }

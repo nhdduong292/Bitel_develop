@@ -273,7 +273,7 @@
   "textWaitingInstallation": "Instalación pendiente",
   "textKPICommission": "KPI & Comisión",
   "textKPI": "KPI",
-  "textContractMonth": "Contrato/mes",
+  "textContractMonth": "Suscriptor/mes",
   "textPerformance": "Rendimiento",
   "textContract": "Contrato",
   "textCommission": "Comisión",
@@ -502,6 +502,7 @@
   "textNotEmptyNationality": "Se requiere Nacionalidad",
   "textNotEmptyDob": "Se requiere Fecha de nacimiento",
   "textNotEmptyExd": "Se requiere Fecha de caducidad",
-  "textUpdateSuccess": "Actualizar correctamente"
-  
+  "textUpdateSuccess": "Actualizar correctamente",
+  "textSubscriber": "suscriptor"
+
 }
