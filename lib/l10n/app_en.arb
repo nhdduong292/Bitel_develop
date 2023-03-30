@@ -317,7 +317,7 @@
   "textContractPreview": "Contract preview",
   "textMainContract": "Main contract",
   "textLendingContract": "Lending contract",
-  "textIConfirmThat": "I confirm that the customer has read and verified this document",
+  "textIConfirmThat": "I confirm that the customer has read and verified this document.",
   "textSignContract": "Sign contract",
   "textValidateFingerprint": "Validate fingerprint",
   "textEnterThe": "Enter the ",
@@ -499,8 +499,8 @@
    "textEnterAllInfo": "You must enter all the information",
    "textToastValidateDob": "Date of birth must not be greater than current date",
    "textToastValidateExd": "Date of birth must be before expiration date",
-  "textTotalAmount": "Total Amount",
-  "textNotEmptyPhone": "Phone is required",
+  "textTotalAmount": "Total amount",
+  "textNotEmptyPhone": "Phone number is required",
   "textNotEmptyEmail": "Email is required",
   "textNotEmptyAddress": "Address is required",
   "textIAcceptToReceiveAdvertisingBitel": "I accept to receive advertising and promotional content from Bitel.",
@@ -515,6 +515,13 @@
   "textNotEmptyNationality": "Nationality is required",
   "textNotEmptyDob": "Birthday is required",
   "textNotEmptyExd": "Expired is required",
-  "textUpdateSuccess": "Update successfully"
+  "textUpdateSuccess": "Update successfully",
+  "textTheIDNumberDoseNotMatch": "The ID number does not match the ID number that made the request",
+  "textUpdateCustomerInformation": "Update customer information.",
+  "textStatusContractDelete": "The contract has been deleted",
+"textStatusContractNonActive": "The contract is registered but not activated",
+"textStatusContractActive": "The contract has been activated",
+"textStatusContractCancel": "The contract has been cancelled",
+"textStatusContractTerminat": "The contract has been terminated"
 
 }

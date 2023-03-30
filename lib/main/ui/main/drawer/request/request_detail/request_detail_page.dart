@@ -437,11 +437,7 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.contractModel
-                                                      .status <
-                                                  1
-                                              ? "---"
-                                              : "${controller.requestModel.contractModel.status}",
+                                          controller.getStatusContract(),
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),

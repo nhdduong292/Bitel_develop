@@ -5,6 +5,7 @@ import 'item_infor.dart';
 class CustomerDNIModel {
   InformationCus number = InformationCus(type: 'khong co');
   InformationCus lastname = InformationCus(type: 'rimer');
+  InformationCus midelname = InformationCus(type: 'nombres');
   InformationCus name = InformationCus(type: 'nombres');
   InformationCus nationality = InformationCus(type: 'acionalid');
   InformationCus sex = InformationCus(type: 'Sexo');
@@ -32,14 +33,26 @@ class CustomerDNIModel {
     if (lastname.rect != null) {
       if (lastname.rect!.bottom < rect.bottom &&
           rect.bottom < lastname.rect!.bottom + 25.0) {
-        lastname.content = text;
+        var arrName = text.split(' ');
+        if (arrName.length >= 2) {
+          lastname.content = arrName[0];
+          midelname.content = arrName[1];
+        } else {
+          lastname.content = text;
+        }
         return;
       }
     }
     if (name.rect != null) {
       if (name.rect!.bottom < rect.bottom &&
           rect.bottom < name.rect!.bottom + 25.0) {
-        name.content = text;
+        var arrName = text.split(' ');
+        if (arrName.length >= 2) {
+          midelname.content = arrName[0];
+          name.content = arrName[1];
+        } else {
+          name.content = text;
+        }
         return;
       }
     }

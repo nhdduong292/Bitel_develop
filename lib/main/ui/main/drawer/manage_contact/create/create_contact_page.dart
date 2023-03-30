@@ -1,4 +1,4 @@
-import 'package:bitel_ventas/main/ui/main/drawer/contracting/register_finger_print/register_finger_print_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/register_finger_print/register_finger_print_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/cretate_contact_page_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/client_data.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data_dni/client_data_dni_logic.dart';
@@ -16,7 +16,7 @@ import '../../../../../../res/app_styles.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../../../utils/common.dart';
-import '../../contracting/register_finger_print/register_finger_print_page.dart';
+import 'view_item/register_finger_print/register_finger_print_page.dart';
 import '../../utilitis/info_bussiness.dart';
 
 class CreateContactPage extends GetView<CreateContactPageLogic> {
@@ -206,39 +206,8 @@ class CreateContactPage extends GetView<CreateContactPageLogic> {
                                 registerFingerLogic.setupBodyCreateCustomer();
                               },
                             );
-                            // if (controller.typeCustomer == 'DNI') {
-                            //   return ClientDataDNIWidget(
-                            //     callback: () {
-                            //       controller.checkItem3.value = true;
-                            //       _scrollController.scrollTo(
-                            //         index: 2,
-                            //         duration: const Duration(milliseconds: 200),
-                            //       );
-                            //     },
-                            //   );
-                            // } else {
-                            //   return ClientDataWidget(
-                            //     callback: () {
-                            //       controller.checkItem3.value = true;
-                            //       _scrollController.scrollTo(
-                            //         index: 2,
-                            //         duration: const Duration(milliseconds: 200),
-                            //       );
-                            //       RegisterFingerPrintLogic registerFingerLogic =
-                            //           Get.find();
-                            // registerFingerLogic.setupBodyCreateCustomer();
-                            //     },
-                            //   );
-                            // }
                           } else {
-                            return RegisterFingerPrintPage(
-                                // callback: () {
-                                //   _scrollController.scrollTo(
-                                //     index: 3,
-                                //     duration: const Duration(milliseconds: 200),
-                                //   );
-                                // },
-                                );
+                            return RegisterFingerPrintPage();
                           }
                         }),
                   ),

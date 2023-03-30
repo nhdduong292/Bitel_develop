@@ -19,7 +19,7 @@ class CreateRequestLogic extends GetxController {
   List<String> listService = ["FTTH", "OFFICE_WAN", "LEASED_LINE"];
   String currentIdentityType = "DNI";
   String currentIdentity = "";
-  List<String> listIdentity = ["DNI", "CE", "PP", "PTP"];
+  List<String> listIdentity = ["DNI", "CE", "PP"];
   AddressModel currentProvince = AddressModel();
   List<AddressModel> listProvince = [];
   AddressModel currentDistrict = AddressModel();
@@ -368,7 +368,7 @@ class CreateRequestLogic extends GetxController {
     if (value == listIdentity[0]) {
       return 8;
     } else if (value == listIdentity[2]) {
-      return 15;
+      return 9;
     } else {
       return 9;
     }
