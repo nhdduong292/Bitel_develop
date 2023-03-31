@@ -332,61 +332,64 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                                       controller.currentIdentity == 'CE') ||
                                   (controller.textPathScan.isNotEmpty &&
                                       controller.currentIdentity != 'CE')) {
-                                _onLoading(context);
-
-                                if (controller.currentIdentity == 'CE') {
-                                  controller.uploadFile(
-                                      controller.textPathScan, 'image_font',
-                                      (isSuccess, path) {
-                                    if (isSuccess) {
-                                      controller.pathImageFont = path;
+                                controller.reset();
+                                controller
+                                    .processImage(InputImage.fromFilePath(
+                                        File(controller.textPathScan).path))
+                                    .then((value) {
+                                  if (controller.customerScanModel
+                                      .getCustomerScan(
+                                          controller.currentIdentity)
+                                      .isCardIdentity()) {
+                                    _onLoading(context);
+                                    if (controller.currentIdentity == 'CE') {
                                       controller.uploadFile(
-                                          controller.textPathScanBack,
-                                          'image_back', (isSuccess, path) {
+                                          controller.textPathScan, 'image_font',
+                                          (isSuccess, path) {
                                         if (isSuccess) {
-                                          Get.back();
-                                          controller.pathImageBack = path;
-                                          controller.reset();
-                                          controller
-                                              .logicCreateContact.listImageScan
-                                              .add(controller.pathImageFont);
-                                          controller
-                                              .logicCreateContact.listImageScan
-                                              .add(controller.pathImageBack);
-                                          controller
-                                              .processImage(
-                                                  InputImage.fromFilePath(File(
-                                                          controller
-                                                              .textPathScan)
-                                                      .path))
-                                              .then(
-                                                  (value) => {callback(false)});
+                                          controller.pathImageFont = path;
+                                          controller.uploadFile(
+                                              controller.textPathScanBack,
+                                              'image_back', (isSuccess, path) {
+                                            if (isSuccess) {
+                                              Get.back();
+                                              controller.pathImageBack = path;
+                                              controller.logicCreateContact
+                                                  .listImageScan
+                                                  .add(
+                                                      controller.pathImageFont);
+                                              controller.logicCreateContact
+                                                  .listImageScan
+                                                  .add(
+                                                      controller.pathImageBack);
+                                              callback(false);
+                                            } else {
+                                              Get.back();
+                                            }
+                                          });
                                         } else {
                                           Get.back();
                                         }
                                       });
                                     } else {
-                                      Get.back();
+                                      controller.uploadFile(
+                                          controller.textPathScan, 'image_font',
+                                          (isSuccess, path) {
+                                        if (isSuccess) {
+                                          Get.back();
+                                          controller.pathImageFont = path;
+                                          callback(false);
+                                        } else {
+                                          Get.back();
+                                        }
+                                      });
                                     }
-                                  });
-                                } else {
-                                  controller.uploadFile(
-                                      controller.textPathScan, 'image_font',
-                                      (isSuccess, path) {
-                                    if (isSuccess) {
-                                      Get.back();
-                                      controller.pathImageFont = path;
-                                      controller.reset();
-                                      controller
-                                          .processImage(InputImage.fromFilePath(
-                                              File(controller.textPathScan)
-                                                  .path))
-                                          .then((value) => {callback(false)});
-                                    } else {
-                                      Get.back();
-                                    }
-                                  });
-                                }
+                                  } else {
+                                    Common.showToastCenter(
+                                        AppLocalizations.of(context)!
+                                            .textCardIdentityNotValidate);
+                                  }
+                                });
                               } else {
                                 showDialog(
                                     context: context,

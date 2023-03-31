@@ -512,6 +512,7 @@
   "textTakePicturesFrom": "Lấy ảnh từ",
 "textCamera": "Máy ảnh",
 "textGallery": "Thư viện ảnh", 
-"textMiddleName": "Tên đệm"
+"textMiddleName": "Tên đệm",
+"textCardIdentityNotValidate": "Thẻ không hợp lệ! Xin vui lòng lấy ảnh khác"
 
 }

@@ -514,6 +514,7 @@
   "textTakePicturesFrom": "Take pictures from",
 "textCamera": "Camera",
 "textGallery": "Gallery", 
-"textMiddleName": "Middle name"
+"textMiddleName": "Middle name",
+"textCardIdentityNotValidate": "Invalid card! Please take another photo"
 
 }

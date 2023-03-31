@@ -120,4 +120,30 @@ class CustomerPPModel {
       }
     }
   }
+
+  bool isCardIdentity() {
+    int count = 0;
+    if (number.rect == null) {
+      count++;
+    }
+    if (name.rect == null) {
+      count++;
+    }
+    if (nationality.rect == null) {
+      count++;
+    }
+    if (sex.rect == null) {
+      count++;
+    }
+    if (dob.rect == null) {
+      count++;
+    }
+    if (ed.rect == null) {
+      count++;
+    }
+    if (count > 3) {
+      return false;
+    }
+    return true;
+  }
 }
