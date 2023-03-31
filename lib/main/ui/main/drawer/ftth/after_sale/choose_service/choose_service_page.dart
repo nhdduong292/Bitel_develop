@@ -1,5 +1,6 @@
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/choose_service/choose_service_item_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/choose_service/choose_service_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/dialog_cancel_service/dialog_cancel_service.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:flutter/material.dart';
@@ -42,9 +43,25 @@ class ChooseServicePage extends GetWidget {
                   //   return;
                   // }
                   // _onLoading(context);
-                  RequestDetailModel requestModel = RequestDetailModel();
-                  Get.toNamed(RouteConfig.productPayment,
-                      arguments: [requestModel, 'CHANGE']);
+                  if (controller.afterSaleSearchLogic.type == 'CHANGE_PLAN') {
+                    RequestDetailModel requestModel = RequestDetailModel();
+                    Get.toNamed(RouteConfig.productPayment,
+                        arguments: [requestModel, 'CHANGE']);
+                  } else if (controller.afterSaleSearchLogic.type ==
+                      'TRANSFER_SERVICE') {
+                  } else {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return CancelServiceDialog(
+                            context: context,
+                            onSuccess: () {
+                              Get.back();
+                              Get.toNamed(RouteConfig.clearPenalty);
+                            },
+                          );
+                        });
+                  }
                 },
                 child: Container(
                   width: double.infinity,

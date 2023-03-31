@@ -9,6 +9,7 @@ import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/order_management/ord
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_search_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/clear_penalty/clear_penalty_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/manage_wo/manage_wo_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/id_card_scanner.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/sale/sale_page.dart';
@@ -60,6 +61,8 @@ class RouteConfig {
   static const String buyAnyPay = "/menu/buyAnyPay";
   static const String createOrder = "/menu/buyAnyPay/createOrder";
   static const String orderManagement = "/menu/buyAnyPay/orderManagement";
+  static const String clearPenalty =
+      "/menu/ftth/aftersale/cancelService/clearPenalty";
 
   ///page
   static final List<GetPage> getPages = [
@@ -84,10 +87,11 @@ class RouteConfig {
     GetPage(name: registerFingerPrint, page: () => RegisterFingerPrintPage()),
     GetPage(name: productPayment, page: () => ProductPaymentMethodPage()),
     GetPage(name: clearDebt, page: () => ClearDebtPage()),
-    GetPage(name: afterSaleSearch, page: () => AfterSaleSearchPage("")),
+    GetPage(name: afterSaleSearch, page: () => AfterSaleSearchPage("", "")),
     GetPage(name: buyAnyPay, page: () => BuyAnyPayPage()),
     GetPage(name: createOrder, page: () => CreateOrderPage()),
     GetPage(name: orderManagement, page: () => OrderManagementPage()),
+    GetPage(name: clearPenalty, page: () => ClearPenaltyPage()),
   ];
 
   ///language
