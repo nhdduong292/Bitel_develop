@@ -243,12 +243,13 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                                     return TakeImageDialog(
                                       onCamera: () {
                                         Get.back();
-                                        _getFromGallery(
+                                        controller.getFromGallery(
                                             context, controller, true);
                                       },
                                       onGellary: () {
                                         Get.back();
-                                        uploadImage(context, controller, true);
+                                        controller.uploadImage(
+                                            context, controller, true);
                                       },
                                     );
                                   });
@@ -284,12 +285,12 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                                           return TakeImageDialog(
                                             onCamera: () {
                                               Get.back();
-                                              _getFromGallery(
+                                              controller.getFromGallery(
                                                   context, controller, false);
                                             },
                                             onGellary: () {
                                               Get.back();
-                                              uploadImage(
+                                              controller.uploadImage(
                                                   context, controller, false);
                                             },
                                           );
@@ -393,12 +394,16 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                                       return TakeImageDialog(
                                         onCamera: () {
                                           Get.back();
-                                          _getFromGallery(context, controller,
+                                          controller.getFromGallery(
+                                              context,
+                                              controller,
                                               controller.textPathScan.isEmpty);
                                         },
                                         onGellary: () {
                                           Get.back();
-                                          uploadImage(context, controller,
+                                          controller.uploadImage(
+                                              context,
+                                              controller,
                                               controller.textPathScan.isEmpty);
                                         },
                                       );
@@ -434,63 +439,6 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
       },
     );
   }
-
-  uploadImage(BuildContext context, DocumentScanningLogic controller,
-      bool isScanningFont) async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      // ignore: use_build_context_synchronously
-      _cropImage(pickedFile, context, controller, isScanningFont);
-    }
-  }
-
-  _getFromGallery(BuildContext context, DocumentScanningLogic controller,
-      bool isScanningFont) async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.camera);
-    // ignore: use_build_context_synchronously
-    _cropImage(pickedFile, context, controller, isScanningFont);
-  }
-
-  /// Crop Image
-  _cropImage(filePath, BuildContext context, DocumentScanningLogic controller,
-      bool isScanningFont) async {
-    if (filePath != null) {
-      final croppedFile = await ImageCropper().cropImage(
-        sourcePath: filePath.path,
-        compressFormat: ImageCompressFormat.jpg,
-        compressQuality: 100,
-        uiSettings: [
-          AndroidUiSettings(
-              toolbarTitle: 'Cropper',
-              toolbarColor: Colors.deepOrange,
-              toolbarWidgetColor: Colors.white,
-              initAspectRatio: CropAspectRatioPreset.original,
-              lockAspectRatio: false),
-          IOSUiSettings(
-            title: 'Cropper',
-          ),
-          WebUiSettings(
-            context: context,
-            presentStyle: CropperPresentStyle.dialog,
-            boundary: const CroppieBoundary(
-              width: 520,
-              height: 520,
-            ),
-            viewPort:
-                const CroppieViewPort(width: 480, height: 480, type: 'circle'),
-            enableExif: true,
-            enableZoom: true,
-            showZoomer: true,
-          ),
-        ],
-      );
-      if (croppedFile != null) {
-        controller.setPathScan(croppedFile.path, isScanningFont);
-      }
-    }
-  }
 }
 
 class TakeImageDialog extends Dialog {
@@ -513,7 +461,7 @@ class TakeImageDialog extends Dialog {
             //   height: 15,
             // ),
             Text(
-              'Lấy ảnh từ',
+              AppLocalizations.of(context)!.textTakePicturesFrom,
               style: AppStyles.r16,
             ),
             const SizedBox(
@@ -530,13 +478,13 @@ class TakeImageDialog extends Dialog {
               children: [
                 Expanded(
                     child: bottomButton(
-                        text: 'Camera',
+                        text: AppLocalizations.of(context)!.textCamera,
                         onTap: () {
                           onCamera();
                         })),
                 Expanded(
                     child: bottomButton(
-                        text: 'Thư viện ảnh',
+                        text: AppLocalizations.of(context)!.textGallery,
                         onTap: () {
                           onGellary();
                         }))

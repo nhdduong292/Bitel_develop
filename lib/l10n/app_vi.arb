@@ -508,6 +508,10 @@
   "textStatusContractNonActive": "Hợp đồng đăng ký nhưng chưa kích hoạt",
   "textStatusContractActive": "Hợp đồng đã kích hoạt",
   "textStatusContractCancel": "Hợp đồng đã bị hủy",
-  "textStatusContractTerminat": "Hợp đồng đã chấm dứt"
+  "textStatusContractTerminat": "Hợp đồng đã chấm dứt",
+  "textTakePicturesFrom": "Lấy ảnh từ",
+"textCamera": "Máy ảnh",
+"textGallery": "Thư viện ảnh", 
+"textMiddleName": "Tên đệm"
 
 }

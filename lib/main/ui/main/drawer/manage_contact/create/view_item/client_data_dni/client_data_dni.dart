@@ -162,7 +162,8 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                               ),
                               textFieldClient(
                                   context: context,
-                                  label: "Tên đệm",
+                                  label: AppLocalizations.of(context)!
+                                      .textMiddleName,
                                   hint: AppLocalizations.of(context)!
                                       .textEnterName,
                                   width: width * 0.55,
