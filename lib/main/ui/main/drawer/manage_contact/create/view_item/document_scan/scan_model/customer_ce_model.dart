@@ -82,7 +82,7 @@ class CustomerCEModel {
           rect.bottom < dob.rect!.bottom + 35.0 &&
           dob.rect!.left - 15 < rect.left &&
           rect.left < dob.rect!.right) {
-        dob.content = text.replaceAll('MAY', '5');
+        dob.content = convertText(text);
       }
     }
     if (ed.rect != null) {
@@ -98,7 +98,7 @@ class CustomerCEModel {
       if (number.rect!.bottom - 20 < rect.bottom &&
           rect.bottom - 20 < number.rect!.bottom) {
         if (num.tryParse(text) != null) {
-          number.content = convertText(text);
+          number.content = text;
         }
       }
     }
