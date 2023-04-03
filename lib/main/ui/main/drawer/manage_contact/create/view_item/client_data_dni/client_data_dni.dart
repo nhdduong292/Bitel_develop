@@ -364,7 +364,9 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
         Container(
           margin: EdgeInsets.only(left: 15, right: 23, top: 15),
           child: Container(
-              height: 45,
+              constraints: BoxConstraints(
+                minHeight: 45,
+              ),
               width: width,
               padding: EdgeInsets.only(left: 18, right: 7),
               decoration: BoxDecoration(

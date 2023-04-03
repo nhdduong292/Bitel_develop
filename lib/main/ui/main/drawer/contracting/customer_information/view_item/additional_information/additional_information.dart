@@ -406,7 +406,9 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
         Container(
           margin: EdgeInsets.only(left: 15, right: 15, top: 15),
           child: Container(
-              height: 45,
+              constraints: BoxConstraints(
+                minHeight: 45,
+              ),
               width: width,
               padding: EdgeInsets.only(left: 13, right: 7),
               decoration: BoxDecoration(

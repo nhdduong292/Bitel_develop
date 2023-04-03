@@ -333,6 +333,7 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                                   (controller.textPathScan.isNotEmpty &&
                                       controller.currentIdentity != 'CE')) {
                                 controller.reset();
+                                _onLoading(context);
                                 controller
                                     .processImage(InputImage.fromFilePath(
                                         File(controller.textPathScan).path))
@@ -341,7 +342,6 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                                       .getCustomerScan(
                                           controller.currentIdentity)
                                       .isCardIdentity()) {
-                                    _onLoading(context);
                                     if (controller.currentIdentity == 'CE') {
                                       controller.uploadFile(
                                           controller.textPathScan, 'image_font',
