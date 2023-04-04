@@ -506,7 +506,7 @@ class NoticeDialog extends Dialog {
               height: 15,
             ),
             Text(
-              'Notice',
+              AppLocalizations.of(context)!.textNotice,
               style: AppStyles.r16,
             ),
             SizedBox(
@@ -523,7 +523,7 @@ class NoticeDialog extends Dialog {
             Padding(
               padding: const EdgeInsets.only(left: 30, right: 30),
               child: Text(
-                'You don’t have enough anypay in your account. Please recharge to continue perform transaction.',
+                AppLocalizations.of(context)!.textYouDontHaveEnoughAnypayIn,
                 style: AppStyles.r15,
                 textAlign: TextAlign.center,
               ),
@@ -534,13 +534,13 @@ class NoticeDialog extends Dialog {
               children: [
                 Expanded(
                     child: bottomButtonV2(
-                        text: 'Cancel',
+                        text: AppLocalizations.of(context)!.textCancel,
                         onTap: () {
                           onCancel();
                         })),
                 Expanded(
                     child: bottomButton(
-                        text: 'recharge',
+                        text: AppLocalizations.of(context)!.textRecharge,
                         onTap: () {
                           onContinue();
                         }))

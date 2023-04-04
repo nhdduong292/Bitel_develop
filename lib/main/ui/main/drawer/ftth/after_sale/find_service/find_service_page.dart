@@ -32,6 +32,7 @@ class FindServicePage extends GetWidget {
                     borderRadius: BorderRadius.circular(24),
                     border:
                         Border.all(width: 1, color: AppColors.colorLineDash),
+                    // ignore: prefer_const_literals_to_create_immutables
                     boxShadow: [
                       const BoxShadow(
                         offset: Offset(0, 2),

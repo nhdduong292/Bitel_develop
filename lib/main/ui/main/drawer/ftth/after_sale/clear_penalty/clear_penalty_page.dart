@@ -1,10 +1,3 @@
-import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/create_order/view_item/transaction_bill/transaction_bill_page.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/create_order/view_item/transaction_detail/transaction_detail_page.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/create_order/view_item/transaction_information/transaction_information_page.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/clear_debt_logic.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/view_item/clear_debt_detail/clear_debt_detail_page.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/view_item/otp_clear_debt/otp_clear_debt_page.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/view_item/search/search_clear_debt_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/clear_penalty/clear_penalty_tab_one/clear_penalty_tab_one_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -50,7 +43,8 @@ class ClearPenaltyPage extends GetView<ClearPenaltyLogic> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Clear penalty', style: AppStyles.title),
+                          Text(AppLocalizations.of(context)!.textClearPenalty,
+                              style: AppStyles.title),
                           const SizedBox(height: 5),
                         ],
                       ),

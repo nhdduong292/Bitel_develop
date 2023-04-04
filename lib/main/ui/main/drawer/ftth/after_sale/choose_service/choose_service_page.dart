@@ -57,7 +57,8 @@ class ChooseServicePage extends GetWidget {
                             context: context,
                             onSuccess: () {
                               Get.back();
-                              Get.toNamed(RouteConfig.clearPenalty);
+                              // Get.toNamed(RouteConfig.clearPenalty);
+                              Get.toNamed(RouteConfig.cancelServicePDF);
                             },
                           );
                         });

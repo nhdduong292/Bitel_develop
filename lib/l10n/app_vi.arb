@@ -535,6 +535,16 @@
   "textConfirm": "Confirm",
   "textAreYouSureToCancel": "Are you sure to cancel buy anypay ",
   "textCancelBuyAnyPaySuccess": "Cancel buy anypay successfully",
-    "textInvalidDate": "Invalid date"
+    "textInvalidDate": "Invalid date",
+      "textTheAccountIsConditioned": "The account is conditioned to a forced term contract",
+  "textToContinueWithTheCancelation": "To continue with the cancelation request, the customer will need to pay the penalty",
+  "textDoesTheCustomerStill": "Does the customer still want to cancel the service?",
+  "textYes": "Yes",
+  "textClearPenalty": "Clear penalty",
+  "textYourPaymentWasSuccessful": "Your payment was successful.",
+  "textCancellationRequestForm": "Cancellation request form",
+  "textPenalty": "Penalty",
+  "textNotice": "Notice",
+  "textYouDontHaveEnoughAnypayIn": "You don’t have enough anypay in your account. Please recharge to continue perform transaction."
 
 }

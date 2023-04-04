@@ -30,7 +30,7 @@ class CancelServiceDialog extends Dialog {
             Padding(
               padding: const EdgeInsets.only(left: 22, right: 22),
               child: Text(
-                'The account is conditioned to a forced term contract',
+                AppLocalizations.of(context)!.textTheAccountIsConditioned,
                 style: AppStyles.r415263_13_500
                     .copyWith(fontWeight: FontWeight.w400),
               ),
@@ -178,7 +178,7 @@ class CancelServiceDialog extends Dialog {
                     const EdgeInsets.symmetric(horizontal: 70, vertical: 12),
                 child: RichText(
                   text: TextSpan(
-                      text: 'Penalty: ',
+                      text: '${AppLocalizations.of(context)!.textPenalty}: ',
                       style: AppStyles.r1.copyWith(fontWeight: FontWeight.w400),
                       children: [
                         TextSpan(
@@ -198,14 +198,15 @@ class CancelServiceDialog extends Dialog {
                     height: 16,
                   ),
                   Text(
-                    'To continue with the cancelation request, the customer will need to pay the penalty',
+                    AppLocalizations.of(context)!
+                        .textToContinueWithTheCancelation,
                     style: AppStyles.r415263_13_500
                         .copyWith(fontWeight: FontWeight.w400),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  Text('Does the customer still want to cancel the service?',
+                  Text(AppLocalizations.of(context)!.textDoesTheCustomerStill,
                       style: AppStyles.r415263_13_500),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -218,7 +219,7 @@ class CancelServiceDialog extends Dialog {
                               })),
                       Expanded(
                           child: bottomButton(
-                              text: AppLocalizations.of(context)!.textContinue,
+                              text: AppLocalizations.of(context)!.textYes,
                               onTap: () {
                                 onSuccess();
                               }))
