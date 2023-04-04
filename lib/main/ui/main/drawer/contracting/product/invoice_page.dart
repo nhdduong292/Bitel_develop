@@ -190,7 +190,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                           ),
                           _paymentElement(
                               AppLocalizations.of(context)!.textDiscount,
-                              'S/.-0.0',
+                              'S/.0.0',
                               const Color(0xFFD91C02)),
                           const DottedLine(
                             dashColor: Color(0xFFE3EAF2),

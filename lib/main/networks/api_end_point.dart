@@ -52,4 +52,6 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/customers/id/register-finger";
   static const String API_UPLOAD_FILE =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/file";
+  static const String API_LIST_PROMOTION =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/promotions";
 }

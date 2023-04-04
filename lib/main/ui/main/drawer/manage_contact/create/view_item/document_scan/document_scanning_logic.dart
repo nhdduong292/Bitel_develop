@@ -4,14 +4,7 @@ import 'dart:math';
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
-import 'package:bitel_ventas/main/networks/request/google_detect_request.dart';
-import 'package:bitel_ventas/main/networks/request/google_detect_request.dart';
-import 'package:bitel_ventas/main/networks/request/google_detect_request.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/create_contact_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/cretate_contact_page_logic.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/client_data_logic.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/scan_model/customer_dni_model.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/scan_model/customer_ce_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/scan_model/customer_scan_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/scan_model/item_infor.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
@@ -19,16 +12,13 @@ import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:bitel_ventas/res/app_images.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../../../../../networks/request/google_detect_request.dart';
 import '../client_data/customer_detect_mode.dart';
 
 class DocumentScanningLogic extends GetxController {
@@ -79,11 +69,11 @@ class DocumentScanningLogic extends GetxController {
 
   String getImageIdentity() {
     if (currentIdentity == 'CE') {
-      return AppImages.imgCE;
+      return AppImages.imgIdentityCEFont;
     } else if (currentIdentity == 'PP') {
       return AppImages.imgPP;
     }
-    return AppImages.imgCE;
+    return AppImages.imgIdentityCEFont;
   }
 
   void onListenerMethod() {

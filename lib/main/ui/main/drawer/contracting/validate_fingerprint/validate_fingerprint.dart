@@ -168,21 +168,12 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                               () => SizedBox(
                                 width: 200,
                                 height: 280,
-                                // child: controller.pathFinger.value != ''
-                                //     ? Image.asset(
-                                //         controller.pathFinger.value,
-                                //         fit: BoxFit.fitHeight,
-                                //       )
-                                //     : LoadingCirculApi(),
                                 child: controller.pathFinger.value != ''
                                     ? Image.asset(
                                         controller.pathFinger.value,
                                         fit: BoxFit.fitHeight,
                                       )
-                                    : Image.asset(
-                                        AppImages.imgFingerLeft3,
-                                        fit: BoxFit.fitHeight,
-                                      ),
+                                    : LoadingCirculApi(),
                               ),
                             ),
                             SizedBox(
@@ -300,7 +291,6 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                                 RouteConfig.ftthContracting,
                                                 arguments: [
                                                   controller.contractId,
-                                                  controller.email
                                                 ]);
                                           } else {
                                             Common.showToastCenter(

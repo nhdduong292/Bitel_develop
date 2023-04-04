@@ -12,7 +12,6 @@ class FTTHContractingLogic extends GetxController {
   late BuildContext context;
 
   int contractId = 0;
-  String email = '';
   ContractModel contractModel = ContractModel();
 
   @override
@@ -21,7 +20,6 @@ class FTTHContractingLogic extends GetxController {
     super.onInit();
     var data = Get.arguments;
     contractId = data[0];
-    email = data[1];
     getContract();
   }
 

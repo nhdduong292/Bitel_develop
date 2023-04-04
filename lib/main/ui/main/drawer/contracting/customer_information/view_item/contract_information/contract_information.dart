@@ -69,12 +69,12 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 required: false,
                 isIcon: true,
                 width: width * 0.55),
-            lockedBoxV1(
-                content: '123456/XXXXXX',
-                label: AppLocalizations.of(context)!.textContractNumber,
-                required: false,
-                isIcon: false,
-                width: width * 0.55),
+            // lockedBoxV1(
+            //     content: '123456/XXXXXX',
+            //     label: AppLocalizations.of(context)!.textContractNumber,
+            //     required: false,
+            //     isIcon: false,
+            //     width: width * 0.55),
             lockedBoxV1(
                 content: '1',
                 label: AppLocalizations.of(context)!.textQuantitySubscriber,

@@ -45,7 +45,11 @@ class ListRequestPage extends GetWidget {
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(right: 16, bottom: 35),
-                  child: SvgPicture.asset(AppImages.icCreateRequest),
+                  child: SvgPicture.asset(
+                    AppImages.icCreateRequest,
+                    width: 40,
+                    height: 40,
+                  ),
                 ),
               )
             ],

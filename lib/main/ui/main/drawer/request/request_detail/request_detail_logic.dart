@@ -118,6 +118,11 @@ class RequestDetailLogic extends GetxController {
   }
 
   String getStatusContract() {
+    if (requestModel.status != RequestStatus.CONNECTED &&
+        requestModel.status != RequestStatus.DEPLOYING &&
+        requestModel.status != RequestStatus.COMPLETE) {
+      return '---';
+    }
     if (requestModel.contractModel.status == 0) {
       return AppLocalizations.of(context)!.textStatusContractDelete;
     } else if (requestModel.contractModel.status == 1) {

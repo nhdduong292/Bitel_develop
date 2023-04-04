@@ -205,7 +205,7 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                           height: 7,
                         ),
                         Text(
-                          controller.email,
+                          controller.contractModel.billCycleFromCharging,
                           style: AppStyles.r00A5B1_13_500,
                         ),
                         SizedBox(

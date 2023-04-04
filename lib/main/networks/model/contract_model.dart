@@ -2,7 +2,7 @@ class ContractModel {
   int? _contractId;
   String? _contractNo;
   String? _signDate;
-  int? _billCycleFrom;
+  String? _billCycleFrom;
   String? _billCycleFromCharging;
   int? _status;
   String? _operationCode;
@@ -62,14 +62,13 @@ class ContractModel {
 
   int get status => _status ?? 0;
 
-
   String get billCycleFromCharging => _billCycleFromCharging ?? "";
 
   set billCycleFromCharging(String value) {
     _billCycleFromCharging = value;
   }
 
-  int get billCycleFrom => _billCycleFrom ?? 0;
+  String get billCycleFrom => _billCycleFrom ?? "";
 
   String get signDate => _signDate ?? "";
 
@@ -84,7 +83,6 @@ class ContractModel {
   }
 
   int get contractId => _contractId ?? 0;
-
 
   String get identityType => _identityType ?? "";
 

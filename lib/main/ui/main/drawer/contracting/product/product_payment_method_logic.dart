@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
+import 'package:bitel_ventas/main/networks/model/promotion_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/networks/response/product_response.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/request_detail/request_detail_logic.dart';
@@ -38,12 +39,6 @@ class ProductPaymentMethodLogic extends GetxController {
     // TODO: implement onInit
     super.onInit();
     var data = Get.arguments;
-    // requestId = data[0];
-    // type = data[0];
-    // idNumber = data[2];
-    // province = data[3];
-    // district = data[4];
-    // precinct = data[5];
     requestModel = data[0];
     getProduts(requestModel.id);
   }
@@ -57,6 +52,7 @@ class ProductPaymentMethodLogic extends GetxController {
   var balance = (0.0).obs; // so du trong vi
   var valueProduct = (-1).obs; // index cua product
   var valueMethod = (-1).obs; // index cua reason
+  var valuePromotion = (-1).obs; //index cua promotion
   var totalPayment = 0; // tong tien phai thanh toan
 
   CustomerModel customer = CustomerModel();
@@ -76,6 +72,7 @@ class ProductPaymentMethodLogic extends GetxController {
   }
 
   List<ProductModel> listProduct = [];
+  List<PromotionModel> listPromotion = [];
 
   double getTotal() {
     if (getPlanReason().fee == null ||
@@ -107,6 +104,32 @@ class ProductPaymentMethodLogic extends GetxController {
     );
   }
 
+  void getPromotions(int idProduct) {
+    _onLoading(context);
+    ApiUtil.getInstance()!.get(
+      url: ApiEndPoints.API_LIST_PROMOTION,
+      params: {'productCode': idProduct},
+      onSuccess: (response) {
+        Get.back();
+        if (response.isSuccess) {
+          listPromotion = (response.data['data'] as List)
+              .map((postJson) => PromotionModel.fromJson(postJson))
+              .toList();
+        } else {
+          print("error: ${response.status}");
+        }
+        isLoadingProduct = false;
+        update();
+      },
+      onError: (error) {
+        Get.back();
+        isLoadingProduct = false;
+        update();
+        Common.showMessageError(error, context);
+      },
+    );
+  }
+
   ProductModel getProduct() {
     if (valueProduct.value > -1) {
       return listProduct[valueProduct.value];
@@ -121,9 +144,21 @@ class ProductPaymentMethodLogic extends GetxController {
     return PlanReasonModel();
   }
 
+  PromotionModel getPromotion() {
+    if (valuePromotion.value > -1) {
+      return listPromotion[valuePromotion.value];
+    }
+    return PromotionModel();
+  }
+
   void resetPlanReason() {
     listPlanReason.clear();
     valueMethod.value = -1;
+  }
+
+  void resetPromotions() {
+    listPromotion.clear();
+    valuePromotion.value = -1;
   }
 
   bool isForcedTerm() {

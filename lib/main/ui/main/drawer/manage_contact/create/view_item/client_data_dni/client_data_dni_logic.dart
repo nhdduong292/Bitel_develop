@@ -224,6 +224,7 @@ class ClientDataDNILogic extends GetxController {
   }
 
   bool checkValidate() {
+    print(requestModel.customerModel.idNumber);
     if (tfIdNumber.text != requestModel.customerModel.idNumber) {
       Common.showToastCenter(
           AppLocalizations.of(context)!.textTheIDNumberDoseNotMatch);

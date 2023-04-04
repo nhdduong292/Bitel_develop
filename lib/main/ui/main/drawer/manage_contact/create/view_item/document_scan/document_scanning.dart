@@ -300,8 +300,7 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                                       ? Image.file(
                                           File(controller.textPathScanBack),
                                         )
-                                      : Image.asset(
-                                          controller.getImageIdentity()),
+                                      : Image.asset(AppImages.imgCE),
                                 ),
                               ],
                             ),

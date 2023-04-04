@@ -1,5 +1,6 @@
 import 'package:bitel_ventas/main/networks/model/plan_reason_model.dart';
 import 'package:bitel_ventas/main/networks/model/product_model.dart';
+import 'package:bitel_ventas/main/networks/model/promotion_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_logic.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
@@ -131,6 +132,11 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                                 value: index,
                                 onChange: (value) {
                                   controller.valueMethod.value = value;
+                                  controller.resetPromotions();
+                                  // if (value > -1) {
+                                  //   controller.getPromotions(
+                                  //       controller.listPlanReason[value].id!);
+                                  // }
                                 }),
                         separatorBuilder: (BuildContext context, int index) =>
                             const Divider(
@@ -144,6 +150,66 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
               ),
             ),
           ),
+          // const SizedBox(
+          //   height: 20,
+          // ),
+          // Obx(
+          //   () => Visibility(
+          //     visible: controller.valueMethod.value > -1,
+          //     child: Container(
+          //       margin: const EdgeInsets.only(left: 15, right: 15),
+          //       padding: const EdgeInsets.only(top: 15),
+          //       alignment: Alignment.center,
+          //       decoration: BoxDecoration(
+          //           borderRadius: BorderRadius.circular(30),
+          //           border: Border.all(color: const Color(0xFFE3EAF2)),
+          //           color: Colors.white,
+          //           boxShadow: const [
+          //             BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
+          //           ]),
+          //       child: Column(
+          //         children: [
+          //           Text(
+          //             AppLocalizations.of(context)!.textChoosePromotion,
+          //             style: const TextStyle(
+          //                 color: AppColors.colorContent,
+          //                 fontSize: 15,
+          //                 fontWeight: FontWeight.w500,
+          //                 fontFamily: 'Barlow'),
+          //           ),
+          //           const SizedBox(
+          //             height: 15,
+          //           ),
+          //           const DottedLine(
+          //             dashColor: Color(0xFFE3EAF2),
+          //             dashGapLength: 3,
+          //             dashLength: 4,
+          //           ),
+          //           ListView.separated(
+          //               padding: const EdgeInsets.only(top: 0),
+          //               shrinkWrap: true,
+          //               primary: false,
+          //               itemBuilder: (BuildContext context, int index) =>
+          //                   _itemPromotion(
+          //                       context: context,
+          //                       groupValue: controller.valuePromotion,
+          //                       promotion: controller.listPromotion[index],
+          //                       value: index,
+          //                       onChange: (value) {
+          //                         controller.valuePromotion.value = value;
+          //                       }),
+          //               separatorBuilder: (BuildContext context, int index) =>
+          //                   const Divider(
+          //                     color: AppColors.colorLineDash,
+          //                     height: 1,
+          //                     thickness: 1,
+          //                   ),
+          //               itemCount: controller.listPromotion.length)
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
           Obx(
             () => Visibility(
               visible: controller.valueMethod.value > -1,
@@ -372,6 +438,39 @@ Widget _itemMethod(
                   color: AppColors.colorText3,
                   fontWeight: FontWeight.w700),
             ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget _itemPromotion(
+    {required BuildContext context,
+    required int value,
+    required PromotionModel promotion,
+    required RxInt groupValue,
+    required var onChange}) {
+  return Container(
+    margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+    child: InkWell(
+      onTap: () {
+        groupValue.value != value ? onChange(value) : onChange(-1);
+      },
+      splashColor: Colors.black38,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Obx(() =>
+              groupValue.value == value ? iconChecked() : iconUnchecked()),
+          const SizedBox(
+            width: 16,
+          ),
+          Expanded(
+            flex: 1,
+            child:
+                Text(promotion.name ?? 'null', style: AppStyles.r2B3A4A_12_500),
           ),
         ],
       ),
