@@ -208,8 +208,12 @@ class DialogSurveyMapPage extends GetWidget {
                                   if (isSuccess) {
                                     showDialogSurveySuccessful(context);
                                   } else {
-                                    showDialogSurveyUnsuccessful(
-                                        context, requestModel.id);
+                                    try {
+                                      showDialogSurveyUnsuccessful(
+                                          context, requestModel.id);
+                                    } catch(e){
+                                      print(e.toString());
+                                    }
                                   }
                                 },
                               );
