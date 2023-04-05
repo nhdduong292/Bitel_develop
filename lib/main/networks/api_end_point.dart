@@ -54,4 +54,6 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/file";
   static const String API_LIST_PROMOTION =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/promotions";
+  static const String API_LIST_STAFF =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/staffs";
 }

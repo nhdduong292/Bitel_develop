@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
@@ -42,6 +43,8 @@ class DocumentScanningLogic extends GetxController {
 
   String pathImageFont = '';
   String pathImageBack = '';
+
+  bool onProcessImage = false;
 
   CreateContactPageLogic logicCreateContact = Get.find();
 
@@ -273,6 +276,64 @@ class DocumentScanningLogic extends GetxController {
       if (croppedFile != null) {
         controller.setPathScan(croppedFile.path, isScanningFont);
       }
+    }
+  }
+
+  void onClickContinue({var onContiue, var onScan}) {
+    if (checkOption1.value && checkOption2.value && !onProcessImage) {
+      if ((textPathScan.isNotEmpty &&
+              textPathScanBack.isNotEmpty &&
+              currentIdentity == 'CE') ||
+          (textPathScan.isNotEmpty && currentIdentity != 'CE')) {
+        onProcessImage = true;
+        processImage(InputImage.fromFilePath(File(textPathScan).path))
+            .then((value) {
+          onProcessImage = false;
+          if (customerScanModel
+              .getCustomerScan(currentIdentity)
+              .isCardIdentity()) {
+            reset();
+            _onLoading(context);
+            if (currentIdentity == 'CE') {
+              uploadFile(textPathScan, 'image_font', (isSuccess, path) {
+                if (isSuccess) {
+                  pathImageFont = path;
+                  uploadFile(textPathScanBack, 'image_back', (isSuccess, path) {
+                    if (isSuccess) {
+                      Get.back();
+                      pathImageBack = path;
+                      logicCreateContact.listImageScan.add(pathImageFont);
+                      logicCreateContact.listImageScan.add(pathImageBack);
+                      onContiue();
+                    } else {
+                      Get.back();
+                    }
+                  });
+                } else {
+                  Get.back();
+                }
+              });
+            } else {
+              uploadFile(textPathScan, 'image_font', (isSuccess, path) {
+                if (isSuccess) {
+                  Get.back();
+                  pathImageFont = path;
+                  onContiue();
+                } else {
+                  Get.back();
+                }
+              });
+            }
+          } else {
+            Common.showToastCenter(
+                AppLocalizations.of(context)!.textCardIdentityNotValidate);
+          }
+        });
+      } else {
+        onScan();
+      }
+    } else {
+      Common.showToastCenter(AppLocalizations.of(context)!.textAcceptTheRules);
     }
   }
 }

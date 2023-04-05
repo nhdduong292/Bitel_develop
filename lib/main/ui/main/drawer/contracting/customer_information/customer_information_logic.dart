@@ -488,7 +488,7 @@ class CustomerInformationLogic extends GetxController {
       "name": customer.name,
       "fullName": customer.fullName,
       "nationality": customer.nationality,
-      "sex": customer.sex,
+      "sex": 'M',
       "dateOfBirth": customer.birthDate,
       "expiredDate": customer.idExpireDate,
       "address": currentAddress.isEmpty ? customer.address : currentAddress,
