@@ -287,14 +287,20 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                 if (!controller.validateEmail()) {
                                   return;
                                 }
-                                controller.setAmountToBuy();
 
-                                controller.createOrderLogic.isTabOne.value =
-                                    false;
-                                controller.createOrderLogic.isTabTwo.value =
-                                    true;
+                                controller.postBuyAnyPay(
+                                    isSuccess: (isSuccess) {
+                                  if (isSuccess) {
+                                    controller.setAmountToBuy();
 
-                                controller.createOrderLogic.nextPage(1);
+                                    controller.createOrderLogic.isTabOne.value =
+                                        false;
+                                    controller.createOrderLogic.isTabTwo.value =
+                                        true;
+
+                                    controller.createOrderLogic.nextPage(1);
+                                  }
+                                });
                               }
                             },
                             color: controller.isActiveButton

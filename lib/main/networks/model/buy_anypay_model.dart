@@ -1,5 +1,5 @@
 class BuyAnyPayModel {
-  String? invoiceNo;
+  String? saleOrderId;
   String? bankCode;
   String? code;
   String? idNumber;
@@ -12,13 +12,13 @@ class BuyAnyPayModel {
 
   BuyAnyPayModel();
   BuyAnyPayModel.fromJson(Map<String, dynamic> json) {
-    invoiceNo = json['invoiceNo'];
+    saleOrderId = json['saleOrderId'];
     bankCode = json['bankCode'];
     code = json['code'];
     idNumber = json['idNumber'];
     name = json['name'];
     amount = json['amount'];
-    amount = json['balance'];
+    balance = json['balance'];
     discount = json['discount'];
     total = json['total'];
     creationDate = json['creationDate'];

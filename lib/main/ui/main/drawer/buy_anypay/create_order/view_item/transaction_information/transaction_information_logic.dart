@@ -28,6 +28,8 @@ class TransactionInformationLogic extends GetxController {
 
   TransactionInformationLogic({required this.context});
 
+  double currentAmout = 0.0;
+
   BuyAnyPayModel buyAnyPayModel = BuyAnyPayModel();
   CaptchaModel captchaModel = CaptchaModel();
 
@@ -57,7 +59,7 @@ class TransactionInformationLogic extends GetxController {
       update();
       return;
     }
-
+    currentAmout = double.parse(amount);
     isActiveButton = true;
     update();
   }
@@ -91,6 +93,39 @@ class TransactionInformationLogic extends GetxController {
       },
       onError: (error) {
         Get.back();
+        Common.showMessageError(error, context);
+      },
+    );
+  }
+
+  void postBuyAnyPay({var isSuccess}) {
+    _onLoading(context);
+    Map<String, dynamic> body = {
+      "saleOrderId": null,
+      "code": buyAnyPayModel.code,
+      "idNumber": buyAnyPayModel.idNumber,
+      "name": buyAnyPayModel.name,
+      "amount": currentAmout,
+      "discount": buyAnyPayModel.discount,
+      "total": null,
+      "email": "string",
+      "captcha": textCaptchaController.text.trim()
+    };
+    ApiUtil.getInstance()!.post(
+      url: ApiEndPoints.API_POST_BUY_ANYPAY,
+      body: body,
+      onSuccess: (response) {
+        Get.back();
+        if (response.isSuccess) {
+          buyAnyPayModel = BuyAnyPayModel.fromJson(response.data['data']);
+          isSuccess(true);
+        } else {
+          isSuccess(false);
+        }
+      },
+      onError: (error) {
+        Get.back();
+        isSuccess(false);
         Common.showMessageError(error, context);
       },
     );
