@@ -485,24 +485,5 @@ class CustomerInformationLogic extends GetxController {
       "right": null,
       "rightImage": null
     };
-    ApiUtil.getInstance()!.put(
-      url: '${ApiEndPoints.API_CREATE_CUSTOMER}/${customer.custId}',
-      body: body,
-      onSuccess: (response) {
-        if (response.isSuccess) {
-          customer = CustomerModel.fromJson(response.data['data']);
-          callBack.call(true);
-          Get.back();
-        } else {
-          callBack.call(false);
-          Get.back();
-        }
-      },
-      onError: (error) {
-        Get.back();
-        callBack.call(false);
-        Common.showMessageError(error, context);
-      },
-    );
   }
 }

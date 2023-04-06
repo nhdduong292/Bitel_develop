@@ -2,6 +2,7 @@
 // ;
 import 'dart:ffi';
 
+import 'package:bitel_ventas/main/networks/model/captcha_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/create_order/view_item/transaction_information/transaction_information_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/clear_debt_logic.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -84,7 +85,8 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                               ),
                               itemTextFieldLock(
                                 title: AppLocalizations.of(context)!.textCode,
-                                content: 'LI1DL01',
+                                content:
+                                    controller.buyAnyPayModel.code ?? '---',
                               ),
                               SizedBox(
                                 height: 12,
@@ -92,14 +94,16 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                               itemTextFieldLock(
                                 title:
                                     AppLocalizations.of(context)!.textIDNumber,
-                                content: '19283737',
+                                content:
+                                    controller.buyAnyPayModel.idNumber ?? '---',
                               ),
                               SizedBox(
                                 height: 12,
                               ),
                               itemTextFieldLock(
                                 title: AppLocalizations.of(context)!.textName,
-                                content: 'RUC 2019283737',
+                                content:
+                                    controller.buyAnyPayModel.name ?? '---',
                               ),
                               SizedBox(
                                 height: 12,
@@ -107,7 +111,11 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                               itemTextFieldLock(
                                   title: AppLocalizations.of(context)!
                                       .textCurrentAnypay,
-                                  content: '990.1',
+                                  content:
+                                      controller.buyAnyPayModel.balance != null
+                                          ? controller.buyAnyPayModel.balance
+                                              .toString()
+                                          : '---',
                                   textColor: AppColors.color_9454C9),
                               Padding(
                                 padding:
@@ -228,17 +236,39 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 20, right: 12.01),
-                                      child: InkWell(
-                                        child: Image.asset(
-                                            AppImages.imgCapchaTest),
+                                      padding:
+                                          const EdgeInsets.only(right: 7.04),
+                                      child: Container(
+                                        width: 103,
+                                        height: 48,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20)),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          child: controller
+                                                      .captchaModel.base64Img !=
+                                                  null
+                                              ? Image.memory(
+                                                  fit: BoxFit.fill,
+                                                  controller
+                                                      .convertImageCaptcha(),
+                                                  gaplessPlayback: true)
+                                              : LoadingCirculApi(),
+                                        ),
                                       ),
                                     ),
                                     Padding(
                                       padding:
                                           const EdgeInsets.only(right: 7.04),
                                       child: InkWell(
+                                        onTap: () {
+                                          controller.captchaModel =
+                                              CaptchaModel();
+                                          controller.update();
+                                          controller.getCaptcha();
+                                        },
                                         child: SvgPicture.asset(
                                             AppImages.icRefreshCapcha),
                                       ),

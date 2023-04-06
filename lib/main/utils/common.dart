@@ -214,6 +214,32 @@ class Common {
         showToastCenter(AppLocalizations.of(context)!.textE020);
       } else if (errorCode == 'E021') {
         showToastCenter(AppLocalizations.of(context)!.textE021);
+      } else if (errorCode == 'E022') {
+        showToastCenter(AppLocalizations.of(context)!.textE022);
+      } else if (errorCode == 'E023') {
+        showToastCenter(AppLocalizations.of(context)!.textE023);
+      } else if (errorCode == 'E024') {
+        showToastCenter(AppLocalizations.of(context)!.textE024);
+      } else if (errorCode == 'E025') {
+        showToastCenter(AppLocalizations.of(context)!.textE025);
+      } else if (errorCode == 'E026') {
+        showToastCenter(AppLocalizations.of(context)!.textE026);
+      } else if (errorCode == 'E027') {
+        showToastCenter(AppLocalizations.of(context)!.textE027);
+      } else if (errorCode == 'E028') {
+        showToastCenter(AppLocalizations.of(context)!.textE028);
+      } else if (errorCode == 'E029') {
+        showToastCenter(AppLocalizations.of(context)!.textE029);
+      } else if (errorCode == 'E030') {
+        showToastCenter(AppLocalizations.of(context)!.textE030);
+      } else if (errorCode == 'E031') {
+        showToastCenter(AppLocalizations.of(context)!.textE031);
+      } else if (errorCode == 'E032') {
+        showToastCenter(AppLocalizations.of(context)!.textE032);
+      } else if (errorCode == 'E033') {
+        showToastCenter(AppLocalizations.of(context)!.textE033);
+      } else if (errorCode == 'E034') {
+        showToastCenter(AppLocalizations.of(context)!.textE034);
       }
     } catch (e) {
       Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);

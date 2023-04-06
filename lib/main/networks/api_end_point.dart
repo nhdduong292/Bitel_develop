@@ -44,9 +44,14 @@ class ApiEndPoints {
   static const String API_SIGN_CONTRACT =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts/id/sign";
 
-  static const String API_DETECT_ID = "https://vision.googleapis.com/v1/images:annotate";
+  static const String API_DETECT_ID =
+      "https://vision.googleapis.com/v1/images:annotate";
   static const String API_CREATE_CUSTOMER =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/customers";
   static const String API_REGISTER_FINGER =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/customers/id/register-finger";
+  static const String API_GET_BUY_ANYPAY =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/buy-anypay/general-info";
+  static const String API_GET_CAPTCHA =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/captcha";
 }
