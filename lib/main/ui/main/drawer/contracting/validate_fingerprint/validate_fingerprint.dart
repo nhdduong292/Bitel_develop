@@ -246,9 +246,11 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                     if (Platform.isAndroid) {
                                       controller.getCapture(context);
                                     } else {
-                                      Common.showToastCenter(
-                                          AppLocalizations.of(context)!
-                                              .textOnlyActionAndroid);
+                                      controller.listFinger.add('value');
+                                      controller.update();
+                                      // Common.showToastCenter(
+                                      //     AppLocalizations.of(context)!
+                                      //         .textOnlyActionAndroid);
                                     }
                                   },
                                   child: Container(

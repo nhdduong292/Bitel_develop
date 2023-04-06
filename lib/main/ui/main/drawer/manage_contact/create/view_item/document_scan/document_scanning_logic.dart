@@ -280,58 +280,61 @@ class DocumentScanningLogic extends GetxController {
   }
 
   void onClickContinue({var onContiue, var onScan}) {
-    if (checkOption1.value && checkOption2.value && !onProcessImage) {
-      if ((textPathScan.isNotEmpty &&
-              textPathScanBack.isNotEmpty &&
-              currentIdentity == 'CE') ||
-          (textPathScan.isNotEmpty && currentIdentity != 'CE')) {
-        onProcessImage = true;
-        reset();
-        processImage(InputImage.fromFilePath(File(textPathScan).path))
-            .then((value) {
-          onProcessImage = false;
-          if (customerScanModel
-              .getCustomerScan(currentIdentity)
-              .isCardIdentity()) {
-            _onLoading(context);
-            if (currentIdentity == 'CE') {
-              uploadFile(textPathScan, 'image_font', (isSuccess, path) {
-                if (isSuccess) {
-                  pathImageFont = path;
-                  uploadFile(textPathScanBack, 'image_back', (isSuccess, path) {
-                    if (isSuccess) {
-                      Get.back();
-                      pathImageBack = path;
-                      logicCreateContact.listImageScan.add(pathImageFont);
-                      logicCreateContact.listImageScan.add(pathImageBack);
-                      onContiue();
-                    } else {
-                      Get.back();
-                    }
-                  });
-                } else {
-                  Get.back();
-                }
-              });
-            } else {
-              uploadFile(textPathScan, 'image_font', (isSuccess, path) {
-                if (isSuccess) {
-                  Get.back();
-                  pathImageFont = path;
-                  onContiue();
-                } else {
-                  Get.back();
-                }
-              });
-            }
-          } else {
+    if (checkOption1.value && checkOption2.value) {
+      if (!onProcessImage) {
+        if ((textPathScan.isNotEmpty &&
+                textPathScanBack.isNotEmpty &&
+                currentIdentity == 'CE') ||
+            (textPathScan.isNotEmpty && currentIdentity != 'CE')) {
+          onProcessImage = true;
+          reset();
+          processImage(InputImage.fromFilePath(File(textPathScan).path))
+              .then((value) {
             onProcessImage = false;
-            Common.showToastCenter(
-                AppLocalizations.of(context)!.textCardIdentityNotValidate);
-          }
-        });
-      } else {
-        onScan();
+            if (customerScanModel
+                .getCustomerScan(currentIdentity)
+                .isCardIdentity()) {
+              _onLoading(context);
+              if (currentIdentity == 'CE') {
+                uploadFile(textPathScan, 'image_font', (isSuccess, path) {
+                  if (isSuccess) {
+                    pathImageFont = path;
+                    uploadFile(textPathScanBack, 'image_back',
+                        (isSuccess, path) {
+                      if (isSuccess) {
+                        Get.back();
+                        pathImageBack = path;
+                        logicCreateContact.listImageScan.add(pathImageFont);
+                        logicCreateContact.listImageScan.add(pathImageBack);
+                        onContiue();
+                      } else {
+                        Get.back();
+                      }
+                    });
+                  } else {
+                    Get.back();
+                  }
+                });
+              } else {
+                uploadFile(textPathScan, 'image_font', (isSuccess, path) {
+                  if (isSuccess) {
+                    Get.back();
+                    pathImageFont = path;
+                    onContiue();
+                  } else {
+                    Get.back();
+                  }
+                });
+              }
+            } else {
+              onProcessImage = false;
+              Common.showToastCenter(
+                  AppLocalizations.of(context)!.textCardIdentityNotValidate);
+            }
+          });
+        } else {
+          onScan();
+        }
       }
     } else {
       Common.showToastCenter(AppLocalizations.of(context)!.textAcceptTheRules);
