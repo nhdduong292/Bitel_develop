@@ -514,6 +514,9 @@
 "textGallery": "Thư viện ảnh", 
 "textMiddleName": "Tên đệm",
 "textCardIdentityNotValidate": "Thẻ không hợp lệ! Xin vui lòng lấy ảnh khác",
-"textChoosePromotion": "Choose promotion"
+"textChoosePromotion": "Choose promotion",
+"textValidateIdentityPP": "Số tài liệu chỉ chứa chữ hoa và số",
+"textLastFatherName": "Họ của cha",
+"textLastMotherName": "Họ của mẹ"
 
 }

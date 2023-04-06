@@ -516,6 +516,9 @@
 "textGallery": "Galería", 
 "textMiddleName": "Segundo Nombre",
 "textCardIdentityNotValidate": "Documento incorrecto! Por favor, tome otra foto",
-"textChoosePromotion": "Choose promotion"
+"textChoosePromotion": "Choose promotion",
+"textValidateIdentityPP": "El número de documento solo contiene letras mayúsculas y números",
+"textLastFatherName": "Apellido del padre",
+"textLastMotherName": "Apellido de la madre"
 
 }

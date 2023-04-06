@@ -322,7 +322,7 @@
   "textValidateFingerprint": "Validate fingerprint",
   "textEnterThe": "Enter the ",
   "textCustomerFingerprint": "Customer fingerprint ",
-  "textToVerifyIdentify": "to verify identify and contine with the contracting process, as indicated above",
+  "textToVerifyIdentify": "to verify identity and continue with the contracting process, as indicated above",
   "textCapture": "Capture",
   "textValidate": "Validate",
   "textCongratulation": "Congratulation!",
@@ -332,7 +332,7 @@
   "textDocIdentity": "Doc. Identity:",
   "textPromotion": "Promotion:",
   "textClose": "Close",
-  "textDocumentsWereSentTo": "Documents were sent to",
+  "textDocumentsWereSentTo": "Documents will sent to",
   "textViewDetail": "View detail",
   "textAddressCustomerInfo": "Address",
   "textRegister": "Register",
@@ -529,6 +529,9 @@
 "textGallery": "Gallery", 
 "textMiddleName": "Middle name", 
 "textCardIdentityNotValidate": "Invalid card! Please take another photo",
-"textChoosePromotion": "Choose promotion"
+"textChoosePromotion": "Choose promotion",
+"textValidateIdentityPP": "The document number contains only uppercase letters and numbers",
+"textLastFatherName": "Last Father Name",
+"textLastMotherName": "Last Mother Name"
 
 }

@@ -207,10 +207,14 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                             controller.textCapture.isNotEmpty
                                 ? Image.file(
                                     File(controller.textCapture),
-                                    width: 65,
-                                    height: 85,
+                                    width: 80,
+                                    height: 100,
                                   )
-                                : SvgPicture.asset(AppImages.imgHuellaDactilar),
+                                : SvgPicture.asset(
+                                    AppImages.imgHuellaDactilar,
+                                    width: 80,
+                                    height: 100,
+                                  ),
                             SizedBox(
                               height: 22,
                             ),

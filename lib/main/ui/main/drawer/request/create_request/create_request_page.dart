@@ -171,7 +171,10 @@ class CreateRequestPage extends GetWidget {
                                   maxLength: controller.getMaxLengthIdNumber(
                                       controller.currentIdentityType),
                                   controller: controller.textFieldIdNumber,
-                                  keyboardType: TextInputType.number,
+                                  keyboardType:
+                                      controller.currentIdentityType == 'PP'
+                                          ? TextInputType.text
+                                          : TextInputType.number,
                                   focusNode: controller.focusIdNumber,
                                   textInputAction: TextInputAction.send,
                                   style: AppStyles.r2.copyWith(

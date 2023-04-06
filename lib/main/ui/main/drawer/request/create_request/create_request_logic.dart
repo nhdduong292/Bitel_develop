@@ -116,6 +116,12 @@ class CreateRequestLogic extends GetxController {
       focusIdNumber.requestFocus();
       return true;
     }
+    if (!containsOnlyUpperCaseAndNumber(textFieldIdNumber.text)) {
+      focusIdNumber.requestFocus();
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textValidateIdentityPP);
+      return true;
+    }
     if (textFieldName.value.text.isEmpty) {
       focusName.requestFocus();
       return true;
@@ -372,5 +378,10 @@ class CreateRequestLogic extends GetxController {
     } else {
       return 9;
     }
+  }
+
+  bool containsOnlyUpperCaseAndNumber(String text) {
+    RegExp upperCaseAndNumberRegExp = RegExp(r'^[A-Z0-9]*$');
+    return upperCaseAndNumberRegExp.hasMatch(text);
   }
 }

@@ -161,13 +161,12 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                               dashLength: 4,
                             ),
                             inforContractRow(
-                                lable:
-                                    AppLocalizations.of(context)!.textBillCycle,
+                                lable: AppLocalizations.of(context)!
+                                    .textBillingCycle,
                                 richText: () {
                                   return RichText(
                                       text: TextSpan(
-                                    text:
-                                        '${AppLocalizations.of(context)!.textCiclo} ${controller.contractModel.billCycleFrom.toString()} ',
+                                    text: controller.getTextBillCycle(),
                                     style: AppStyles.r415263_13_500,
                                   ));
                                 }),

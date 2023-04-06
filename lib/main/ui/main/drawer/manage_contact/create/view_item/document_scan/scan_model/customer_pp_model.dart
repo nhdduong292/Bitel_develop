@@ -114,9 +114,7 @@ class CustomerPPModel {
           rect.bottom < number.rect!.bottom + 50.0 &&
           number.rect!.left - 40 < rect.left &&
           rect.left < number.rect!.right) {
-        if (num.tryParse(text) != null) {
-          number.content = text;
-        }
+        number.content = text;
       }
     }
   }

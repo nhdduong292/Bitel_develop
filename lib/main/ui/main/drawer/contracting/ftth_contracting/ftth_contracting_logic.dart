@@ -39,4 +39,14 @@ class FTTHContractingLogic extends GetxController {
       },
     );
   }
+
+  String getTextBillCycle() {
+    if (contractModel.billCycleFrom == 'CYCLE6') {
+      return '${AppLocalizations.of(context)!.textCiclo} 6';
+    } else if (contractModel.billCycleFrom == 'CYCLE16') {
+      return '${AppLocalizations.of(context)!.textCiclo} 16';
+    } else {
+      return '${AppLocalizations.of(context)!.textCiclo} 26';
+    }
+  }
 }

@@ -286,13 +286,13 @@ class DocumentScanningLogic extends GetxController {
               currentIdentity == 'CE') ||
           (textPathScan.isNotEmpty && currentIdentity != 'CE')) {
         onProcessImage = true;
+        reset();
         processImage(InputImage.fromFilePath(File(textPathScan).path))
             .then((value) {
           onProcessImage = false;
           if (customerScanModel
               .getCustomerScan(currentIdentity)
               .isCardIdentity()) {
-            reset();
             _onLoading(context);
             if (currentIdentity == 'CE') {
               uploadFile(textPathScan, 'image_font', (isSuccess, path) {
@@ -325,6 +325,7 @@ class DocumentScanningLogic extends GetxController {
               });
             }
           } else {
+            onProcessImage = false;
             Common.showToastCenter(
                 AppLocalizations.of(context)!.textCardIdentityNotValidate);
           }
