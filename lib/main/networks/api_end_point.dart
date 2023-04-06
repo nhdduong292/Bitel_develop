@@ -56,4 +56,8 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/captcha";
   static const String API_POST_BUY_ANYPAY =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/buy-anypay/pre";
+  static const String API_CONFIRM_POST_BUY_ANYPAY =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/buy-anypay/confirm";
+  static const String API_SEARCH_BUY_ANYPAY =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/buy-anypay";
 }

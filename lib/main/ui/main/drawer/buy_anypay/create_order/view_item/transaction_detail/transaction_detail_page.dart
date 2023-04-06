@@ -74,7 +74,7 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                           ),
                           _itemInfor(
                               title: AppLocalizations.of(context)!.textCode,
-                              content: 'Li1DL01',
+                              content: controller.buyAnyPayModel.code ?? '---',
                               isColor: false),
                           DottedLine(
                             dashColor: Color(0xFFE3EAF2),
@@ -83,7 +83,8 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                           ),
                           _itemInfor(
                               title: AppLocalizations.of(context)!.textIDNumber,
-                              content: '19283737',
+                              content:
+                                  controller.buyAnyPayModel.idNumber ?? '---',
                               isColor: false),
                           DottedLine(
                             dashColor: Color(0xFFE3EAF2),
@@ -92,7 +93,7 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                           ),
                           _itemInfor(
                               title: AppLocalizations.of(context)!.textName,
-                              content: 'BIHUTEL SAC',
+                              content: controller.buyAnyPayModel.name ?? '---',
                               isColor: false),
                           DottedLine(
                             dashColor: Color(0xFFE3EAF2),
@@ -102,7 +103,7 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                           _itemInfor(
                               title:
                                   '${AppLocalizations.of(context)!.textAmount} (1)',
-                              content: 'S/${controller.amountToBuy}',
+                              content: 'S/${controller.buyAnyPayModel.amount}',
                               isColor: true),
                           DottedLine(
                             dashColor: Color(0xFFE3EAF2),
@@ -113,7 +114,7 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                               title:
                                   '${AppLocalizations.of(context)!.textDiscount} (2)',
                               content:
-                                  'S/${(controller.amountToBuy * 0.05).toStringAsFixed(2)}',
+                                  'S/${controller.buyAnyPayModel.discount}',
                               isColor: true),
                           DottedLine(
                             dashColor: Color(0xFFE3EAF2),
@@ -123,8 +124,7 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                           _itemInfor(
                               title:
                                   '${AppLocalizations.of(context)!.textTotalAPagar} (1-2)',
-                              content:
-                                  'S/${(controller.amountToBuy * 0.95).toStringAsFixed(2)}',
+                              content: 'S/${controller.buyAnyPayModel.total}',
                               isColor: true)
                         ]),
                   ),
@@ -217,10 +217,19 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                         text: AppLocalizations.of(context)!.textBuy,
                         onTap: () {
                           if (controller.isCheckBox) {
-                            controller.createOrderLogic.isTabThree.value = true;
-                            controller.createOrderLogic.isTabTwo.value = false;
+                            controller.postConfirmBuyAnyPay(
+                                isSuccess: (isSuccess) {
+                              if (isSuccess) {
+                                controller.setBuyAnyPayModel();
 
-                            controller.createOrderLogic.nextPage(2);
+                                controller.createOrderLogic.isTabThree.value =
+                                    true;
+                                controller.createOrderLogic.isTabTwo.value =
+                                    false;
+
+                                controller.createOrderLogic.nextPage(2);
+                              }
+                            });
                           }
                         },
                         color: controller.isCheckBox

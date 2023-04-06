@@ -1,8 +1,11 @@
+import 'package:bitel_ventas/main/networks/model/buy_anypay_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../../networks/api_end_point.dart';
+import '../../../../../networks/api_util.dart';
 import '../../../../../utils/common.dart';
 
 class OrderManagementLogic extends GetxController {
@@ -14,6 +17,11 @@ class OrderManagementLogic extends GetxController {
   DateTime toDate = DateTime.now();
 
   String currentStatus = '';
+
+  bool isSearched = false;
+  bool isLoading = true;
+
+  List<BuyAnyPayModel> listBuyAnyPay = [];
 
   OrderManagementLogic({required this.context});
 
@@ -37,9 +45,6 @@ class OrderManagementLogic extends GetxController {
     listBank.add(AcountBankModel());
     listBank.add(AcountBankModel());
     listBank.add(AcountBankModel());
-
-    setFromDate(fromDate.subtract(const Duration(days: 30)));
-    setToDate(toDate);
   }
 
   @override
@@ -47,6 +52,8 @@ class OrderManagementLogic extends GetxController {
     // TODO: implement onReady
     super.onReady();
     currentStatus = AppLocalizations.of(context)!.textAll;
+    setFromDate(fromDate.subtract(const Duration(days: 30)));
+    setToDate(toDate);
     update();
   }
 
@@ -58,12 +65,13 @@ class OrderManagementLogic extends GetxController {
   void setToDate(DateTime picked) {
     // print("Date: "+picked.toString());
     toDate = picked;
-    to.value = "${picked.day}/${picked.month}/${picked.year}";
+    var date = "${picked.day}/${picked.month}/${picked.year}";
     // searchRequest.toDate = picked.toIso8601String();
-    if (!compareToDate()) {
-      to.value = '';
+    if (!compareToDate(to: date)) {
       Common.showToastCenter(AppLocalizations.of(context)!.textInvalidDate);
+      return;
     }
+    to.value = date;
     update();
   }
 
@@ -71,25 +79,28 @@ class OrderManagementLogic extends GetxController {
     // print("Date: "+picked.toString());
     // print("Date: "+picked.toIso8601String());
     fromDate = picked;
-    from.value = "${picked.day}/${picked.month}/${picked.year}";
-    if (!compareToDate()) {
-      from.value = '';
+    var date = "${picked.day}/${picked.month}/${picked.year}";
+    if (!compareToDate(from: date)) {
       Common.showToastCenter(AppLocalizations.of(context)!.textInvalidDate);
-    }
+      return;
+    } else {}
     // searchRequest.fromDate = picked.toIso8601String();
     // DateTime pi = DateTime.parse(picked.toIso8601String());
+    from.value = date;
     update();
   }
 
   // so sanh date of birth voi expried date
-  bool compareToDate() {
-    if (to.value.isEmpty || from.value.isEmpty) {
+  bool compareToDate({String? from, String? to}) {
+    if (this.to.value.isEmpty || this.from.value.isEmpty) {
       return true;
     }
+    from = from ?? this.from.value;
+    to = to ?? this.to.value;
     DateFormat formatter = DateFormat("dd/MM/yyyy");
 
-    DateTime date1 = formatter.parse(from.value);
-    DateTime date2 = formatter.parse(to.value);
+    DateTime date1 = formatter.parse(from);
+    DateTime date2 = formatter.parse(to);
 
     int result = date1.compareTo(date2);
 
@@ -100,6 +111,46 @@ class OrderManagementLogic extends GetxController {
     } else {
       return false;
     }
+  }
+
+  void searchBuyAnyPay(
+      {String? bankCode,
+      String? status,
+      required String from,
+      required String to}) {
+    isLoading = true;
+    ApiUtil.getInstance()!.get(
+      url: ApiEndPoints.API_SEARCH_BUY_ANYPAY,
+      params: {
+        'bankCode': bankCode,
+        'status': status,
+        'from': formatDateIso(from),
+        'to': formatDateIso(to),
+        'page': 0,
+        'pageSize': 10,
+        'sort': 'createdDate'
+      },
+      onSuccess: (response) {
+        isLoading = false;
+        if (response.isSuccess) {
+          listBuyAnyPay = (response.data['data'] as List)
+              .map((postJson) => BuyAnyPayModel.fromJson(postJson))
+              .toList();
+          update();
+        } else {}
+      },
+      onError: (error) {
+        isLoading = false;
+        update();
+        Common.showMessageError(error, context);
+      },
+    );
+  }
+
+  String formatDateIso(String date) {
+    DateTime dateTime = DateFormat('dd/MM/yyyy').parse(date);
+    String isoString = dateTime.toIso8601String();
+    return isoString;
   }
 }
 

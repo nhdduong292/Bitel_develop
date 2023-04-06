@@ -1,3 +1,4 @@
+import 'package:bitel_ventas/main/networks/model/buy_anypay_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,7 +11,9 @@ class CreateOrderLogic extends GetxController
   TabController? tabController;
   int index = 0;
 
-  double amountToBuy = 0.0;
+  BuyAnyPayModel buyAnyPayModel = BuyAnyPayModel();
+
+  String email = '';
 
   CreateOrderLogic({required this.context});
 

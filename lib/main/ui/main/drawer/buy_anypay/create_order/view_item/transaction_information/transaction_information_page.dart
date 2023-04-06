@@ -291,7 +291,7 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                 controller.postBuyAnyPay(
                                     isSuccess: (isSuccess) {
                                   if (isSuccess) {
-                                    controller.setAmountToBuy();
+                                    controller.setBuyAnyPayModel();
 
                                     controller.createOrderLogic.isTabOne.value =
                                         false;

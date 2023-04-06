@@ -298,14 +298,19 @@ class OrderManagementPage extends GetWidget {
                     onTap: () {},
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      controller.isSearched = true;
+                      controller.searchBuyAnyPay(
+                          from: controller.from.value, to: controller.to.value);
+                      controller.update();
+                    },
                     child: Container(
                       width: width / 2,
                       margin: const EdgeInsets.only(
                           bottom: 30, left: 25, right: 25, top: 20),
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       decoration: BoxDecoration(
-                        color: false ? Colors.white : AppColors.colorButton,
+                        color: AppColors.colorButton,
                         borderRadius: BorderRadius.circular(24),
                         boxShadow: [
                           BoxShadow(
@@ -318,14 +323,13 @@ class OrderManagementPage extends GetWidget {
                       child: Center(
                           child: Text(
                         AppLocalizations.of(context)!.textSearch.toUpperCase(),
-                        style: false
-                            ? AppStyles.r1.copyWith(fontWeight: FontWeight.w500)
-                            : AppStyles.r5
-                                .copyWith(fontWeight: FontWeight.w500),
+                        style:
+                            AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
                       )),
                     ),
                   ),
-                  GestureDetector(
+                  Visibility(
+                    visible: controller.isSearched,
                     child: Container(
                       width: double.infinity,
                       margin:
@@ -345,46 +349,54 @@ class OrderManagementPage extends GetWidget {
                           ),
                         ],
                       ),
-                      child: ListView.separated(
-                          padding: const EdgeInsets.only(top: 0),
-                          shrinkWrap: true,
-                          primary: false,
-                          itemBuilder: (context, index) {
-                            return _itemOrderSearch(
-                              bankModel: controller.listBank[index],
-                              index: index,
-                              onDelete: (value) {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return ConfirmDialog(
-                                      height: 277,
-                                      bankNumber:
-                                          controller.listBank[value].bankNumber,
-                                      onSuccess: () {
-                                        Get.back();
-                                        controller.listBank.removeAt(value);
-                                        controller.update();
-                                        Common.showToastCenter(
-                                            AppLocalizations.of(context)!
-                                                .textCancelBuyAnyPaySuccess);
+                      constraints: const BoxConstraints(minHeight: 200),
+                      child: controller.isLoading
+                          ? LoadingCirculApi()
+                          : controller.listBuyAnyPay.isNotEmpty
+                              ? ListView.separated(
+                                  padding: const EdgeInsets.only(top: 0),
+                                  shrinkWrap: true,
+                                  primary: false,
+                                  itemBuilder: (context, index) {
+                                    return _itemOrderSearch(
+                                      bankModel: controller.listBank[index],
+                                      index: index,
+                                      onDelete: (value) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return ConfirmDialog(
+                                              height: 277,
+                                              bankNumber: controller
+                                                  .listBank[value].bankNumber,
+                                              onSuccess: () {
+                                                Get.back();
+                                                controller.listBank
+                                                    .removeAt(value);
+                                                controller.update();
+                                                Common.showToastCenter(
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .textCancelBuyAnyPaySuccess);
+                                              },
+                                            );
+                                          },
+                                        );
                                       },
                                     );
                                   },
-                                );
-                              },
-                            );
-                          },
-                          separatorBuilder: (context, index) {
-                            return const Divider(
-                              color: AppColors.colorLineDash,
-                              height: 1,
-                              thickness: 1,
-                            );
-                          },
-                          itemCount: controller.listBank.length),
+                                  separatorBuilder: (context, index) {
+                                    return const Divider(
+                                      color: AppColors.colorLineDash,
+                                      height: 1,
+                                      thickness: 1,
+                                    );
+                                  },
+                                  itemCount: controller.listBank.length)
+                              : Center(
+                                  child: Text('null'),
+                                ),
                     ),
-                    onTap: () {},
                   ),
                   GestureDetector(
                     child: Container(

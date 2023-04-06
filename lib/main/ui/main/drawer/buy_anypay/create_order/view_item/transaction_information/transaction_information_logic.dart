@@ -64,9 +64,8 @@ class TransactionInformationLogic extends GetxController {
     update();
   }
 
-  void setAmountToBuy() {
-    var amount = textAmountController.text.replaceAll(',', '.');
-    createOrderLogic.amountToBuy = double.parse(amount);
+  void setBuyAnyPayModel() {
+    createOrderLogic.buyAnyPayModel = buyAnyPayModel;
   }
 
   bool validateEmail() {
@@ -108,7 +107,7 @@ class TransactionInformationLogic extends GetxController {
       "amount": currentAmout,
       "discount": buyAnyPayModel.discount,
       "total": null,
-      "email": "string",
+      "email": textEmailController.text.trim(),
       "captcha": textCaptchaController.text.trim()
     };
     ApiUtil.getInstance()!.post(

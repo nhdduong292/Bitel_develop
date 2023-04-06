@@ -114,7 +114,9 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                                             height: 10,
                                           ),
                                           Text(
-                                            '00105182879881',
+                                            controller
+                                                    .buyAnyPayModel.bankCode ??
+                                                '---',
                                             style: AppStyles.r00A5B1_13_500
                                                 .copyWith(fontSize: 16),
                                           )
@@ -174,7 +176,7 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                           ),
                           _itemInfor(
                               title: AppLocalizations.of(context)!.textCode,
-                              content: 'Li1DL01',
+                              content: controller.buyAnyPayModel.code ?? '---',
                               isColor: false),
                           DottedLine(
                             dashColor: Color(0xFFE3EAF2),
@@ -183,7 +185,8 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                           ),
                           _itemInfor(
                               title: AppLocalizations.of(context)!.textIDNumber,
-                              content: '19283737',
+                              content:
+                                  controller.buyAnyPayModel.idNumber ?? '---',
                               isColor: false),
                           DottedLine(
                             dashColor: Color(0xFFE3EAF2),
@@ -192,7 +195,7 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                           ),
                           _itemInfor(
                               title: AppLocalizations.of(context)!.textName,
-                              content: 'BIHUTEL SAC',
+                              content: controller.buyAnyPayModel.name ?? '---',
                               isColor: false),
                           DottedLine(
                             dashColor: Color(0xFFE3EAF2),
@@ -202,7 +205,7 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                           _itemInfor(
                               title:
                                   '${AppLocalizations.of(context)!.textAmount} (1)',
-                              content: 'S/${controller.amountToBuy}',
+                              content: 'S/${controller.buyAnyPayModel.amount}',
                               isColor: true),
                           DottedLine(
                             dashColor: Color(0xFFE3EAF2),
@@ -213,7 +216,7 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                               title:
                                   '${AppLocalizations.of(context)!.textDiscount} (2)',
                               content:
-                                  'S/${(controller.amountToBuy * 0.05).toStringAsFixed(2)}',
+                                  'S/${controller.buyAnyPayModel.discount}',
                               isColor: true),
                           DottedLine(
                             dashColor: Color(0xFFE3EAF2),
@@ -223,8 +226,7 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                           _itemInfor(
                               title:
                                   '${AppLocalizations.of(context)!.textTotalAPagar} (1-2)',
-                              content:
-                                  'S/${(controller.amountToBuy * 0.95).toStringAsFixed(2)}',
+                              content: 'S/${controller.buyAnyPayModel.total}',
                               isColor: true),
                           DottedLine(
                             dashColor: Color(0xFFE3EAF2),
@@ -234,7 +236,8 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                           _itemInfor(
                               title:
                                   AppLocalizations.of(context)!.textDateAndHour,
-                              content: '24/05/2018 17:50:50',
+                              content: controller
+                                  .getCreationDate('2023-04-06T10:30:00Z'),
                               isColor: false)
                         ]),
                   ),
@@ -242,7 +245,9 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                     width: width,
                     child: bottomButton(
                       text: AppLocalizations.of(context)!.textIrAlHome,
-                      onTap: () {},
+                      onTap: () {
+                        Get.back();
+                      },
                     ),
                   ),
                   SizedBox(
