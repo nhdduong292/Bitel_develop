@@ -771,7 +771,7 @@ class CreateRequestPage extends GetWidget {
                   ],
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 150,
                 )
               ],
             ),

@@ -4,6 +4,8 @@ import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/networks/response/list_request_response.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_logic.dart';
@@ -18,65 +20,47 @@ import '../../../../../../utils/common.dart';
 class ListRequestTabPage extends StatefulWidget {
   String status;
   ListRequestLogic listRequestLogic;
+
   ListRequestTabPage(
       {required this.status, required this.listRequestLogic, required Key key})
       : super(key: key);
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   // TODO: implement build
-  //   return GetBuilder(
-  //     init: ListRequestTabLogic(status),
-  //     builder: (controller) {
-  //       return controller.isLoading
-  //           ? LoadingCirculApi()
-  //           : controller.listRequest.isEmpty
-  //               ? InkWell(
-  //                   child: Center(
-  //                     child: Text("No data $status"),
-  //                   ),
-  //                   onTap: () {
-  //                     // Get.toNamed(RouteConfig.requestDetail);
-  //                   },
-  //                 )
-  //               : ListView.builder(
-  //                   itemCount: controller.listRequest.length,
-  //                   itemBuilder: (context, index) {
-  //                     return InkWell(
-  //                       onTap: () {
-  //                         List<String> listArgument = ["${controller.listRequest[index].id}",status];
-  //                         Get.toNamed(RouteConfig.requestDetail, arguments: listArgument);
-  //                       },
-  //                       child:
-  //                           ListRequestTabItem(controller.listRequest[index]),
-  //                     );
-  //                   });
-  //     },
-  //   );
-  // }
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
     return ListRequestTabState(status, listRequestLogic);
   }
-  // static ListRequestTabState? of(BuildContext context) =>
-  //     context.findAncestorStateOfType<_ListRequestTabState>();
 }
 
 class ListRequestTabState extends State<ListRequestTabPage> {
   String status;
 
   bool isLoading = false;
+  bool isLoadMore = true;
   List<RequestDetailModel> listRequest = [];
   ListRequestLogic listRequestLogic;
+  final ScrollController _scrollController = ScrollController();
+  static const int PAGE_NUM = 10;
+  int page = 0;
 
   ListRequestTabState(this.status, this.listRequestLogic);
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getListRequest(listRequestLogic.keySearch);
+    _scrollController.addListener(() {
+      if(_scrollController.position.pixels == _scrollController.position.maxScrollExtent){
+        if(isLoadMore) {
+          if(kDebugMode){
+            print("load more list request");
+          }
+          getLoadMore();
+        }
+      }
+    });
+
   }
 
   @override
@@ -93,8 +77,14 @@ class ListRequestTabState extends State<ListRequestTabPage> {
                 },
               )
             : ListView.builder(
-                itemCount: listRequest.length,
+                controller: _scrollController,
+                // itemExtent: 999,
+                itemCount: listRequest.length % 10 == 0 ? listRequest.length + 1 : listRequest.length,
+                shrinkWrap: true,
                 itemBuilder: (context, index) {
+                  if (index == listRequest.length) {
+                    return const CupertinoActivityIndicator();
+                  }
                   return InkWell(
                     onTap: () {
                       List<String> listArgument = [
@@ -109,10 +99,14 @@ class ListRequestTabState extends State<ListRequestTabPage> {
                 });
   }
 
-  void getListRequest(String key) async {
-    setState(() {
-      isLoading = true;
-    });
+  void getListRequest(String key, {int page = 0}) async {
+    this.page = page;
+    if(page == 0) {
+      isLoadMore = true;
+      setState(() {
+        isLoading = true;
+      });
+    }
     Future.delayed(Duration(seconds: 1));
     Map<String, dynamic> params = {
       "service": key.isEmpty ? listRequestLogic.searchRequest.service : "",
@@ -123,8 +117,8 @@ class ListRequestTabState extends State<ListRequestTabPage> {
       "fromDate": key.isEmpty ? listRequestLogic.searchRequest.fromDate : "",
       "toDate": key.isEmpty ? listRequestLogic.searchRequest.toDate : "",
       "key": key,
-      "page": "0",
-      "pageSize": "10",
+      "page": "$page",
+      "pageSize": "$PAGE_NUM",
       "sort": "createdDate"
     };
     ApiUtil.getInstance()!.get(
@@ -134,9 +128,16 @@ class ListRequestTabState extends State<ListRequestTabPage> {
         onSuccess: (response) {
           if (response.isSuccess) {
             print("success :");
-            listRequest.clear();
+            if(page == 0) {
+              listRequest.clear();
+            }
             ListRequestResponse listRequestResponse =
                 ListRequestResponse.fromJson(response.data['data']);
+            if(listRequestResponse.list.length < 10) {
+              isLoadMore = false;
+            } else {
+              isLoadMore = true;
+            }
             setState(() {
               listRequest.addAll(listRequestResponse.list);
             });
@@ -153,16 +154,22 @@ class ListRequestTabState extends State<ListRequestTabPage> {
               isLoading = false;
             });
             Common.showMessageError(error, context);
-          }catch(e){
+          } catch (e) {
             print(e.toString());
           }
         });
   }
 
+  void getLoadMore() {
+    page ++;
+    getListRequest(listRequestLogic.keySearch, page: page);
+  }
+
   @override
   void dispose() {
     // TODO: implement dispose
-    // ApiUtil.getInstance()!.cancelToken!.cancel();
     super.dispose();
   }
+
+
 }

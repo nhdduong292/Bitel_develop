@@ -33,9 +33,9 @@ class ListRequestLogic extends GetxController
     tabController!.animateTo(index, duration: Duration(milliseconds: 500));
     tabController!.addListener(
       () {
+        print("Position: ${tabController!.index}");
         index = tabController!.index;
         update();
-        // print("Position: ${tabController!.index}");
         // ListRequestTabLogic listRequestTabLogic = Get.find<ListRequestTabLogic>();
         // String status = getStatus(tabController!.index);
         // print("Status: $status");

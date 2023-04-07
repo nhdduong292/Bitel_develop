@@ -8,6 +8,7 @@ import 'package:bitel_ventas/main/utils/native_util.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -138,17 +139,21 @@ class RegisterFingerPrintLogic extends GetxController {
 
   Future<void> getCapture() async {
     String result = "";
+    String imageBase64 = "";
     try {
+      final argument = {"pk": "0"};
       final value =
-          await NativeUtil.platformFinger.invokeMethod(NativeUtil.nameFinger);
+          await NativeUtil.platformFinger.invokeMethod(NativeUtil.nameFinger, argument);
       result = value;
+      if(kDebugMode) {
+        print("text Capture: ${result}");
+      }
+      final body = json.decode(result);
+      textCapture = body["pathImage"];
+      imageBase64 = body["imageBase64"];
     } on PlatformException catch (e) {
       e.printInfo();
     }
-    print("text Capture: ${result}");
-    final body = json.decode(result);
-    textCapture = body["pathImage"];
-    String imageBase64 = body["imageBase64"];
     if (imageBase64.isNotEmpty) {
       if (indexLeft > 0) {
         listImageLeft.add(imageBase64);

@@ -73,7 +73,12 @@ public class MainFingerActivity extends FlutterActivity {
             public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
                 if(call.method.equals(nameFinger)){
                     positionScan = 0;
-                   getImageCapture(result);
+                    Map<String,String> arguments = call.arguments();
+                    String pk = "0";
+                    if (arguments != null) {
+                        pk = arguments.get("pk");
+                    }
+                    getImageCapture(result, pk);
                 } else {
                     result.notImplemented();
                 }
@@ -108,7 +113,7 @@ public class MainFingerActivity extends FlutterActivity {
 //        });
     }
     Bitmap bitmap;
-    void getImageCapture(MethodChannel.Result result){
+    void getImageCapture(MethodChannel.Result result, String isPK){
         if (FingerPrintConstant.IS_BY_PASS_FINGER_PRINT) {
             String wsqLeft = FingerPrintConstant.DUMMY_FINGERPRINT;
             Bitmap fingerPrintImgTest = BitmapFactory.decodeResource(getResources(), R.drawable.fingerprint_test);
@@ -149,8 +154,12 @@ public class MainFingerActivity extends FlutterActivity {
                             bitmap = fingerPrint.getFingerPrintBmp();
                             String link = saveImageToCache(bitmap);
                             String imageBase64 = fingerPrint.getEncodeBase64();
-                            FingerModel fingerModel = new FingerModel(link, imageBase64);
-
+                            FingerModel fingerModel;
+                            if(TextUtils.isEmpty(isPK) || isPK.equals("0")) {
+                                 fingerModel = new FingerModel(link, imageBase64);
+                            } else {
+                                 fingerModel = new FingerModel(link, imageBase64, fingerPrint.getPk());
+                            }
                             result.success(fingerModel.toString());
                         } else {
                             result.error("UNAVAILABLE", "Finger not available.", null);
