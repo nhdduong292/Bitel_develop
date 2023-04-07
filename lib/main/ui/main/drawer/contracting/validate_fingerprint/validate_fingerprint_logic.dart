@@ -30,6 +30,7 @@ class ValidateFingerprintLogic extends GetxController {
   List<String> listFinger = [];
 
   bool isGetFingerSuccess = false;
+  String pk = "";
 
   ValidateFingerprintLogic(this.context);
 
@@ -56,8 +57,9 @@ class ValidateFingerprintLogic extends GetxController {
     textCapture = "";
     String result = "";
     try {
+      final argument = {"pk": "1"};
       final value =
-          await NativeUtil.platformFinger.invokeMethod(NativeUtil.nameFinger);
+          await NativeUtil.platformFinger.invokeMethod(NativeUtil.nameFinger, argument);
       result = value;
     } on PlatformException catch (e) {
       e.printInfo();
@@ -67,6 +69,7 @@ class ValidateFingerprintLogic extends GetxController {
       final body = json.decode(result);
       textCapture = body["pathImage"];
       String imageBase64 = body["imageBase64"];
+      pk = body["pk"];
 
       if (listFinger.isNotEmpty) {
         listFinger.clear();

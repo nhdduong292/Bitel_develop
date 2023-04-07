@@ -139,8 +139,9 @@ class RegisterFingerPrintLogic extends GetxController {
     String result = "";
     String imageBase64 = "";
     try {
+      final argument = {"pk": "0"};
       final value =
-          await NativeUtil.platformFinger.invokeMethod(NativeUtil.nameFinger);
+          await NativeUtil.platformFinger.invokeMethod(NativeUtil.nameFinger, argument);
       result = value;
       if(kDebugMode) {
         print("text Capture: ${result}");
