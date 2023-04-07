@@ -594,7 +594,10 @@
   "textE031": "Customer is not exist",
   "textE032": "Contract language not found",
   "textE033": "Captcha is not match",
-  "textE034": "Opt is not match"
+  "textE034": "Opt is not match", 
+  "textLastFatherNameNotEmpty": "Last name of father cannot be empty",
+  "textLastMotherNameNotEmpty": "Last name of mother cannot be empty",
+  "textFullNameNotEmpty": "Full name cannot be emptys"
 
 
 }

@@ -162,12 +162,10 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                               ),
                             ),
                             SizedBox(
-                              height: 43,
+                              height: 20,
                             ),
                             Obx(
                               () => SizedBox(
-                                width: 200,
-                                height: 280,
                                 child: controller.pathFinger.value != ''
                                     ? Image.asset(
                                         controller.pathFinger.value,
@@ -202,7 +200,7 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                       ])),
                             ),
                             SizedBox(
-                              height: 41,
+                              height: 30,
                             ),
                             controller.textCapture.isNotEmpty
                                 ? Image.file(
@@ -349,7 +347,7 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                           ),
                         ),
                         SizedBox(
-                          height: 126,
+                          height: 10,
                         )
                       ]),
                 )),

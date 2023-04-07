@@ -329,7 +329,7 @@
   "textCongratulation" : "¡Felicidades!!",
   "textSuccessfulFTTHContracting" : "Contratación de FTTH exitosa",
   "textOperationCode" : "Código de operación:",
-  "textCustomer" : "cliente:",
+  "textCustomer" : "Cliente:",
   "textDocIdentity" : "Doc. Identidad:",
   "textPromotion" : "Promoción:",
   "textClose" : "Cerrar",
@@ -576,5 +576,8 @@
   "textCancellationRequestForm": "Cancellation request form",
   "textPenalty": "Penalty",
   "textNotice": "Notice",
-  "textYouDontHaveEnoughAnypayIn": "You don’t have enough anypay in your account. Please recharge to continue perform transaction."
+  "textYouDontHaveEnoughAnypayIn": "You don’t have enough anypay in your account. Please recharge to continue perform transaction.",
+    "textLastFatherNameNotEmpty": "El apellido del padre no puede estar vacío",
+  "textLastMotherNameNotEmpty": "El apellido de la madre no puede estar vacío",
+  "textFullNameNotEmpty": "El nombre completo no puede estar vacío"
 }

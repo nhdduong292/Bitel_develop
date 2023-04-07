@@ -70,4 +70,8 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/buy-anypay/saleOrderId";
   static const String API_SEARCH_CLEAR_DEBT =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/clear-debt";
+  static const String API_POST_CLEAR_DEBT =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/clear-debt";
+  static const String API_PUT_CLEAR_DEBT =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/clear-debt/verify";
 }

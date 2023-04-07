@@ -26,7 +26,7 @@ class OTPClearDebtPage extends GetView<OTPClearDebtLogic> {
 
     final FocusScopeNode _focusScopeNode = FocusScopeNode();
     return GetBuilder(
-        init: OTPClearDebtLogic(),
+        init: OTPClearDebtLogic(context: context),
         builder: (controller) {
           return GestureDetector(
             onTap: () {
@@ -110,6 +110,7 @@ class OTPClearDebtPage extends GetView<OTPClearDebtLogic> {
                           },
                           onCompleted: (pin) {
                             controller.isActiveButton = true;
+                            controller.otp = pin;
                             controller.update();
                             print("Completed: " + pin);
                           },
@@ -180,21 +181,25 @@ class OTPClearDebtPage extends GetView<OTPClearDebtLogic> {
                             if (!controller.isActiveButton) {
                               return;
                             }
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return SuccessDialog(
-                                  height: 292,
-                                  isSuccess: true,
-                                  onContinue: () {
-                                    Get.until((route) {
-                                      return Get.currentRoute ==
-                                          RouteConfig.sale;
-                                    });
+                            controller.putClearDebt(isSuccess: (value) {
+                              if (value) {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return SuccessDialog(
+                                      height: 292,
+                                      isSuccess: true,
+                                      onContinue: () {
+                                        Get.until((route) {
+                                          return Get.currentRoute ==
+                                              RouteConfig.sale;
+                                        });
+                                      },
+                                    );
                                   },
                                 );
-                              },
-                            );
+                              }
+                            });
                           },
                           color: controller.isActiveButton
                               ? null

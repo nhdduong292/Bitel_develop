@@ -23,7 +23,22 @@ class ClearDebtModel {
     idNumber = json['idNumber'];
     fullName = json['fullName'];
     status = json['status'];
-    amount = json['amount'];
     expireDate = json['expireDate'];
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'subId': subId,
+      'service': service,
+      'productName': productName,
+      'productCode': productCode,
+      'isdn': isdn,
+      'amount': amount,
+      'idType': idType,
+      'idNumber': idNumber,
+      'fullName': fullName,
+      'status': status,
+      'expireDate': expireDate,
+    };
   }
 }

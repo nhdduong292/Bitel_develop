@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:bitel_ventas/main/networks/model/clear_debt_model.dart';
@@ -21,6 +22,7 @@ class ClearDebtDetailLogic extends GetxController {
   bool isActiveButton = false;
 
   List<ClearDebtModel> listClearDebt = [];
+  List<ClearDebtModel> listSelectClearDebt = [];
 
   ClearDebtLogic clearDebtLogic = Get.find();
 
@@ -40,5 +42,48 @@ class ClearDebtDetailLogic extends GetxController {
     //   return false;
     // }
     return Random().nextBool();
+  }
+
+  void setupListSelect() {
+    listSelectClearDebt.clear();
+    listSelect.map((e) {
+      listSelectClearDebt.add(listClearDebt[e]);
+    }).toList();
+  }
+
+  void postClearDebt({required var isSuccess}) {
+    _onLoading(context);
+    setupListSelect();
+    ApiUtil.getInstance()!.post(
+      url: ApiEndPoints.API_POST_CLEAR_DEBT,
+      body: {'lst': json.decode(jsonEncode(listSelectClearDebt)), 'opt': ''},
+      onSuccess: (response) {
+        Get.back();
+        if (response.isSuccess) {
+          isSuccess(true);
+        } else {
+          isSuccess(false);
+        }
+      },
+      onError: (error) {
+        Get.back();
+        isSuccess(false);
+        Common.showMessageError(error, context);
+      },
+    );
+  }
+
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
+      },
+    );
   }
 }

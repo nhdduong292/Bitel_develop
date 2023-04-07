@@ -251,10 +251,18 @@ class ClientDataDNILogic extends GetxController {
     }
     if (!tfLastName.text.isNotEmpty) {
       Common.showToastCenter(
-          AppLocalizations.of(context)!.textNotEmptyLastName);
+          AppLocalizations.of(context)!.textLastFatherNameNotEmpty);
+      return false;
+    } else if (!tfMidelName.text.isNotEmpty) {
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textLastMotherNameNotEmpty);
       return false;
     } else if (!tfName.text.isNotEmpty) {
       Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyName);
+      return false;
+    } else if (!tfFullName.text.isNotEmpty) {
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textFullNameNotEmpty);
       return false;
     } else if (!tfNationality.text.isNotEmpty) {
       Common.showToastCenter(

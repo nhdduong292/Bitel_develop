@@ -139,7 +139,6 @@ class ProductPaymentMethodLogic extends GetxController {
         update();
       },
       onError: (error) {
-        Get.back();
         isLoadingPromotion = false;
         checkLoading();
         update();

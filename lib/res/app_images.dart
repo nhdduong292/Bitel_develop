@@ -92,7 +92,7 @@ class AppImages {
       'assets/images/img_congratulations_forgot_password.svg';
   static const String imgNotify =
       'assets/images/img_notify_forgot_password.svg';
-  static const icCreateRequest = 'assets/images/ic_create_request.svg';
+  static const icCreateRequest = 'assets/icons/ic_create_request.svg';
   static const icAdvanceSearch = 'assets/images/ic_advance_search.svg';
   static const icTranferSaff = 'assets/images/ic_tranfer_saff.svg';
   static const icCancelRequest = 'assets/images/ic_cancel_request.svg';
@@ -102,17 +102,17 @@ class AppImages {
   static const String icCreateContact = "assets/icons/ic_create_contact.svg";
   static const String icSortAlphabet = "assets/icons/ic_sort_alphabet.svg";
   static const String icSaleCreateRequest =
-      "assets/images/ic_sale_create_request.svg";
+      "assets/icons/ic_sale_create_request.svg";
   static const String icSaleConnectSubscriber =
-      "assets/images/ic_sale_connect_subscriber.svg";
+      "assets/icons/ic_sale_connect_subscriber.svg";
   static const String icSaleRechargeAnypay =
-      "assets/images/ic_sale_recharge_anypay.svg";
+      "assets/icons/ic_sale_recharge_anypay.svg";
   static const String icSaleSearchRequest =
-      "assets/images/ic_sale_search_request.svg";
+      "assets/icons/ic_sale_search_request.svg";
   static const String imgIdentity = 'assets/images/img_identity_demo.svg';
   static const String icCameraRound = "assets/images/ic_camera_round.svg";
   static const String icBorderIdentity = "assets/images/ic_border_identity.svg";
-  static const String icSaleClearDebt = "assets/images/ic_sale_clear_debt.svg";
+  static const String icSaleClearDebt = "assets/icons/ic_sale_clear_debt.svg";
   static const String icSaleCreateContact =
       "assets/images/ic_sale_create_contact.svg";
   static const String icNotify = "assets/icons/ic_notify.svg";

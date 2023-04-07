@@ -162,7 +162,7 @@ class CreateRequestLogic extends GetxController {
       return true;
     }
 
-    if (textFieldAddress.value.text.isEmpty) {
+    if (textFieldAddress.value.text.trim().isEmpty) {
       focusAddress.requestFocus();
       Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyAddress);
       return true;
