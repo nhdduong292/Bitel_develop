@@ -417,7 +417,8 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                                           .requestModel,
                                                       controller.productId,
                                                       controller.reasonId,
-                                                      controller.isForcedTerm
+                                                      controller.isForcedTerm,
+                                                      controller.promotionId
                                                     ]);
                                               },
                                             );

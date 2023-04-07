@@ -517,6 +517,20 @@
 "textChoosePromotion": "Choose promotion",
 "textValidateIdentityPP": "Số tài liệu chỉ chứa chữ hoa và số",
 "textLastFatherName": "Họ của cha",
-"textLastMotherName": "Họ của mẹ"
+"textLastMotherName": "Họ của mẹ",
+ "textE022": "Connect subscriber error",
+  "textE023": "Survey online failed",
+  "textE024": "Invalid survey result",
+  "textE025": "Lock infrastructure failed",
+  "textE026": "Invalid order progress",
+  "textE027": "Order not in survey pending",
+  "textE028": "Wallet not enough!",
+   "textE029": "Request not has survey order",
+  "textE030": "Create offline survey on vsmart failed",
+  "textE031": "Customer is not exist",
+  "textE032": "Contract language not found",
+  "textE033": "Captcha is not match",
+  "textE034": "Opt is not match"
+
 
 }

@@ -25,6 +25,8 @@ class ProductPaymentMethodLogic extends GetxController {
   // String idNumber = '';
   bool isLoadingProduct = true;
   BuildContext context;
+  bool isLoadingReason = true;
+  bool isLoadingPromotion = true;
 
   // String province = '';
   // String district = '';
@@ -104,13 +106,21 @@ class ProductPaymentMethodLogic extends GetxController {
     );
   }
 
+  void checkLoading() {
+    if (!isLoadingReason && !isLoadingPromotion) {
+      Get.back();
+    } else if (isLoadingReason && isLoadingPromotion) {
+      _onLoading(context);
+    }
+  }
+
   void getPromotions(int idProduct) {
-    _onLoading(context);
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_LIST_PROMOTION,
       params: {'productCode': idProduct},
       onSuccess: (response) {
-        Get.back();
+        isLoadingPromotion = false;
+        checkLoading();
         if (response.isSuccess) {
           listPromotion = (response.data['data'] as List)
               .map((postJson) => PromotionModel.fromJson(postJson))
@@ -118,12 +128,12 @@ class ProductPaymentMethodLogic extends GetxController {
         } else {
           print("error: ${response.status}");
         }
-        isLoadingProduct = false;
         update();
       },
       onError: (error) {
         Get.back();
-        isLoadingProduct = false;
+        isLoadingPromotion = false;
+        checkLoading();
         update();
         Common.showMessageError(error, context);
       },
@@ -170,12 +180,12 @@ class ProductPaymentMethodLogic extends GetxController {
   }
 
   void getPlanReasons(int id, BuildContext context) {
-    _onLoading(context);
     try {
       ApiUtil.getInstance()!.get(
         url: '${ApiEndPoints.API_PLAN_REASON}/$id',
         onSuccess: (response) {
-          Get.back();
+          isLoadingReason = false;
+          checkLoading();
           if (response.isSuccess) {
             listPlanReason = (response.data['data'] as List)
                 .map((postJson) => PlanReasonModel.fromJson(postJson))
@@ -186,7 +196,8 @@ class ProductPaymentMethodLogic extends GetxController {
           }
         },
         onError: (error) {
-          Get.back();
+          isLoadingReason = false;
+          checkLoading();
           Common.showMessageError(error, context);
         },
       );

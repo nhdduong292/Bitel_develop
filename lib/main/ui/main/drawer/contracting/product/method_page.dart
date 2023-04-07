@@ -68,11 +68,19 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                             value: index,
                             onChange: (value) {
                               controller.valueProduct.value = value;
+                              controller.isLoadingReason = true;
+                              controller.isLoadingPromotion = true;
+                              controller.checkLoading();
                               controller.resetPlanReason();
                               if (value > -1) {
                                 controller.getPlanReasons(
                                     controller.listProduct[value].productId!,
                                     context);
+                              }
+                              controller.resetPromotions();
+                              if (value > -1) {
+                                controller.getPromotions(
+                                    controller.listProduct[value].productId!);
                               }
                             }),
                     separatorBuilder: (BuildContext context, int index) =>
@@ -132,11 +140,6 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                                 value: index,
                                 onChange: (value) {
                                   controller.valueMethod.value = value;
-                                  controller.resetPromotions();
-                                  // if (value > -1) {
-                                  //   controller.getPromotions(
-                                  //       controller.listPlanReason[value].id!);
-                                  // }
                                 }),
                         separatorBuilder: (BuildContext context, int index) =>
                             const Divider(
@@ -150,66 +153,66 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
               ),
             ),
           ),
-          // const SizedBox(
-          //   height: 20,
-          // ),
-          // Obx(
-          //   () => Visibility(
-          //     visible: controller.valueMethod.value > -1,
-          //     child: Container(
-          //       margin: const EdgeInsets.only(left: 15, right: 15),
-          //       padding: const EdgeInsets.only(top: 15),
-          //       alignment: Alignment.center,
-          //       decoration: BoxDecoration(
-          //           borderRadius: BorderRadius.circular(30),
-          //           border: Border.all(color: const Color(0xFFE3EAF2)),
-          //           color: Colors.white,
-          //           boxShadow: const [
-          //             BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
-          //           ]),
-          //       child: Column(
-          //         children: [
-          //           Text(
-          //             AppLocalizations.of(context)!.textChoosePromotion,
-          //             style: const TextStyle(
-          //                 color: AppColors.colorContent,
-          //                 fontSize: 15,
-          //                 fontWeight: FontWeight.w500,
-          //                 fontFamily: 'Barlow'),
-          //           ),
-          //           const SizedBox(
-          //             height: 15,
-          //           ),
-          //           const DottedLine(
-          //             dashColor: Color(0xFFE3EAF2),
-          //             dashGapLength: 3,
-          //             dashLength: 4,
-          //           ),
-          //           ListView.separated(
-          //               padding: const EdgeInsets.only(top: 0),
-          //               shrinkWrap: true,
-          //               primary: false,
-          //               itemBuilder: (BuildContext context, int index) =>
-          //                   _itemPromotion(
-          //                       context: context,
-          //                       groupValue: controller.valuePromotion,
-          //                       promotion: controller.listPromotion[index],
-          //                       value: index,
-          //                       onChange: (value) {
-          //                         controller.valuePromotion.value = value;
-          //                       }),
-          //               separatorBuilder: (BuildContext context, int index) =>
-          //                   const Divider(
-          //                     color: AppColors.colorLineDash,
-          //                     height: 1,
-          //                     thickness: 1,
-          //                   ),
-          //               itemCount: controller.listPromotion.length)
-          //         ],
-          //       ),
-          //     ),
-          //   ),
-          // ),
+          const SizedBox(
+            height: 20,
+          ),
+          Obx(
+            () => Visibility(
+              visible: controller.valueProduct.value > -1,
+              child: Container(
+                margin: const EdgeInsets.only(left: 15, right: 15),
+                padding: const EdgeInsets.only(top: 15),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    border: Border.all(color: const Color(0xFFE3EAF2)),
+                    color: Colors.white,
+                    boxShadow: const [
+                      BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
+                    ]),
+                child: Column(
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.textChoosePromotion,
+                      style: const TextStyle(
+                          color: AppColors.colorContent,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'Barlow'),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const DottedLine(
+                      dashColor: Color(0xFFE3EAF2),
+                      dashGapLength: 3,
+                      dashLength: 4,
+                    ),
+                    ListView.separated(
+                        padding: const EdgeInsets.only(top: 0),
+                        shrinkWrap: true,
+                        primary: false,
+                        itemBuilder: (BuildContext context, int index) =>
+                            _itemPromotion(
+                                context: context,
+                                groupValue: controller.valuePromotion,
+                                promotion: controller.listPromotion[index],
+                                value: index,
+                                onChange: (value) {
+                                  controller.valuePromotion.value = value;
+                                }),
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const Divider(
+                              color: AppColors.colorLineDash,
+                              height: 1,
+                              thickness: 1,
+                            ),
+                        itemCount: controller.listPromotion.length)
+                  ],
+                ),
+              ),
+            ),
+          ),
           Obx(
             () => Visibility(
               visible: controller.valueMethod.value > -1,

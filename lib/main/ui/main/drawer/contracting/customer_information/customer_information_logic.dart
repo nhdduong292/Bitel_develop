@@ -36,6 +36,7 @@ class CustomerInformationLogic extends GetxController {
   var billCycle = '';
   int productId = 0;
   int reasonId = 0;
+  int promotionId = 0;
   bool isForcedTerm = false;
   String phone = '';
   String email = '';
@@ -94,6 +95,7 @@ class CustomerInformationLogic extends GetxController {
     productId = data[2];
     reasonId = data[3];
     isForcedTerm = data[4];
+    promotionId = data[5];
     phone = customer.telFax;
     email = customer.email;
     address = customer.getInstalAddress();
@@ -187,7 +189,7 @@ class CustomerInformationLogic extends GetxController {
       "requestId": requestModel.id,
       "productId": productId,
       "reasonId": reasonId,
-      "promotionId": 0,
+      "promotionId": promotionId,
       "contractType": isForcedTerm ? "FORCED_TERM" : "UNDETERMINED",
       "numOfSubscriber": 1,
       "signDate": signDate.value.trim(),

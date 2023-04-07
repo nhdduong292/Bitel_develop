@@ -39,6 +39,7 @@ class RegisterFingerPrintLogic extends GetxController {
   int requestId = 0;
   int productId = 0;
   int reasonId = 0;
+  int promotionId = 0;
   bool isForcedTerm = false;
   Map<String, dynamic> body = {};
 
@@ -53,6 +54,7 @@ class RegisterFingerPrintLogic extends GetxController {
     productId = logicCreateContact.productId;
     reasonId = logicCreateContact.reasonId;
     isForcedTerm = logicCreateContact.isForcedTerm;
+    promotionId = logicCreateContact.promotionId;
   }
 
   String findPathFinger() {
