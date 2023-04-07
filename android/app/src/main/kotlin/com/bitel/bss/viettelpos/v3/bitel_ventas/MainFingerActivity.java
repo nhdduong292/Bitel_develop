@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -158,7 +159,7 @@ public class MainFingerActivity extends FlutterActivity {
                             if(TextUtils.isEmpty(isPK) || isPK.equals("0")) {
                                  fingerModel = new FingerModel(link, imageBase64);
                             } else {
-                                 fingerModel = new FingerModel(link, imageBase64, fingerPrint.getPk());
+                                 fingerModel = new FingerModel(link, imageBase64, Base64.encodeToString(fingerPrint.getPk(), Base64.NO_WRAP));
                             }
                             result.success(fingerModel.toString());
                         } else {
