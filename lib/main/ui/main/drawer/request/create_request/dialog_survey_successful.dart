@@ -127,13 +127,6 @@ class DialogSurveySuccessful extends GetWidget {
                                   ? AppColors.colorButton
                                   : Colors.white,
                               borderRadius: BorderRadius.circular(24),
-                              boxShadow: [
-                                BoxShadow(
-                                  offset: const Offset(0, 1),
-                                  blurRadius: 2,
-                                  color: Colors.black.withOpacity(0.3),
-                                ),
-                              ],
                             ),
                             child: Center(
                                 child: Text(

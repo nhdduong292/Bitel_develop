@@ -82,7 +82,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                     style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w700,
-                        fontFamily: 'Roboto',
+                        fontFamily: 'Barlow',
                         fontSize: 14),
                   ),
                 ),
@@ -108,7 +108,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                                 controller.getProduct().productName ?? 'null',
                                 style: const TextStyle(
                                     fontSize: 14,
-                                    fontFamily: 'Roboto',
+                                    fontFamily: 'Barlow',
                                     color: AppColors.colorText1,
                                     fontWeight: FontWeight.w500),
                               ),
@@ -116,7 +116,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                                 '${AppLocalizations.of(context)!.textSpeed} ${controller.getProduct().speed ?? 'null'} Mpbs',
                                 style: const TextStyle(
                                     fontSize: 14,
-                                    fontFamily: 'Roboto',
+                                    fontFamily: 'Barlow',
                                     color: AppColors.colorText1,
                                     fontWeight: FontWeight.w400),
                               ),
@@ -134,7 +134,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                             '${controller.getProduct().defaultValue ?? 'null'} /month',
                             style: const TextStyle(
                                 fontSize: 16,
-                                fontFamily: 'Roboto',
+                                fontFamily: 'Barlow',
                                 color: AppColors.colorText3,
                                 fontWeight: FontWeight.w700),
                           ),
@@ -153,7 +153,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                     style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w700,
-                        fontFamily: 'Roboto',
+                        fontFamily: 'Barlow',
                         fontSize: 14),
                   ),
                 ),
@@ -190,7 +190,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                           ),
                           _paymentElement(
                               AppLocalizations.of(context)!.textDiscount,
-                              'S/.-0.0',
+                              'S/.0.0',
                               const Color(0xFFD91C02)),
                           const DottedLine(
                             dashColor: Color(0xFFE3EAF2),
@@ -226,6 +226,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                         controller.getProduct().productId,
                         controller.getPlanReason().id,
                         controller.isForcedTerm(),
+                        controller.getPromotion().proId ?? 0,
                       ]);
                     } else {
                       Get.toNamed(RouteConfig.createContact, arguments: [
@@ -233,6 +234,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                         controller.getProduct().productId,
                         controller.getPlanReason().id,
                         controller.isForcedTerm(),
+                        controller.getPromotion().proId ?? 0,
                       ]);
                     }
                   });
@@ -255,12 +257,12 @@ Widget _paymentElement(String label, String value, Color color) {
             child: Text(
           label,
           style: const TextStyle(
-              fontFamily: 'Roboto', fontSize: 13, color: AppColors.colorText2),
+              fontFamily: 'Barlow', fontSize: 13, color: AppColors.colorText2),
         )),
         Text(
           value,
           style: TextStyle(
-              fontFamily: 'Roboto',
+              fontFamily: 'Barlow',
               fontSize: 13,
               fontWeight: FontWeight.w500,
               color: color),

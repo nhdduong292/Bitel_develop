@@ -6,6 +6,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 
+import '../../../../../utils/common_widgets.dart';
+
 class CreateRequestPolicyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,8 @@ class CreateRequestPolicyPage extends StatelessWidget {
         elevation: 0.0,
         title: Container(
           margin: const EdgeInsets.only(bottom: 20),
-          child: Text(AppLocalizations.of(context)!.textPolicy, style: AppStyles.title),
+          child: Text(AppLocalizations.of(context)!.textPolicy,
+              style: AppStyles.title),
         ),
         toolbarHeight: 100,
         flexibleSpace: Container(
@@ -48,7 +51,16 @@ class CreateRequestPolicyPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 20, left: 15, right: 10),
               child: Text(AppLocalizations.of(context)!.textContentPolicy),
-            )
+            ),
+            bottomButton(
+              onTap: () {
+                Get.back();
+              },
+              text: AppLocalizations.of(context)!.textContinue.toUpperCase(),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
           ],
         ),
       ),

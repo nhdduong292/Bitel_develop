@@ -164,4 +164,6 @@ class AppImages {
   static const String icDocument = "assets/icons/ic_document.svg";
   static const String icDeleteOrder = "assets/images/ic_delete_order.svg";
   static const String icCopyOrder = "assets/images/ic_copy.svg";
+  static const String imgIdentityCEFont =
+      'assets/images/img_identity_ce_font.jpg';
 }

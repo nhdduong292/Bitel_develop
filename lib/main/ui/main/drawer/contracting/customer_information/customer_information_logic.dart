@@ -13,6 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
@@ -25,16 +26,17 @@ class CustomerInformationLogic extends GetxController {
   var checkItem1 = true.obs;
   var checkItem2 = false.obs;
   var checkItem3 = false.obs;
-  var titleScreen = 'Customer information'.obs;
+  var titleScreen = ''.obs;
   var isUpdate = false.obs;
   var signDate = ''.obs;
   var path = ''.obs;
-  var checkOption = false.obs;
+  var checkOption = true.obs;
   var checkMainContract = true.obs;
   var checkLendingContract = false.obs;
-  var billCycle = ''.obs;
+  var billCycle = '';
   int productId = 0;
   int reasonId = 0;
+  int promotionId = 0;
   bool isForcedTerm = false;
   String phone = '';
   String email = '';
@@ -73,9 +75,15 @@ class CustomerInformationLogic extends GetxController {
   FocusNode focusAddress = FocusNode();
 
   bool isValidateAddress = false;
-  bool isActiveUpdate = false;
+  bool isActiveUpdate = true;
 
   RequestDetailModel requestModel = RequestDetailModel();
+
+  final ItemScrollController scrollController = ItemScrollController();
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
+
+  final FocusScopeNode focusScopeNode = FocusScopeNode();
 
   @override
   void onInit() {
@@ -87,6 +95,7 @@ class CustomerInformationLogic extends GetxController {
     productId = data[2];
     reasonId = data[3];
     isForcedTerm = data[4];
+    promotionId = data[5];
     phone = customer.telFax;
     email = customer.email;
     address = customer.getInstalAddress();
@@ -102,6 +111,13 @@ class CustomerInformationLogic extends GetxController {
         TextSelection.fromPosition(TextPosition(offset: email.length));
   }
 
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+    titleScreen.value = AppLocalizations.of(context)!.textCustomerInformation;
+  }
+
   String getSex() {
     if (customer.sex == 'M') {
       return AppLocalizations.of(context)!.textMale;
@@ -114,11 +130,11 @@ class CustomerInformationLogic extends GetxController {
   void getCurrentTime() {
     DateTime now = DateTime.now();
     if (now.day >= 6 && now.day < 16) {
-      billCycle.value = 'CYCLE6';
+      billCycle = 'CYCLE6';
     } else if (now.day >= 16 && now.day < 26) {
-      billCycle.value = 'CYCLE16';
+      billCycle = 'CYCLE16';
     } else {
-      billCycle.value = 'CYCLE26';
+      billCycle = 'CYCLE26';
     }
     signDate.value = DateFormat("yyyy-MM-ddTHH:mm:ss").format(now);
     update();
@@ -173,11 +189,11 @@ class CustomerInformationLogic extends GetxController {
       "requestId": requestModel.id,
       "productId": productId,
       "reasonId": reasonId,
-      "promotionId": 0,
+      "promotionId": promotionId,
       "contractType": isForcedTerm ? "FORCED_TERM" : "UNDETERMINED",
       "numOfSubscriber": 1,
       "signDate": signDate.value.trim(),
-      "billCycle": billCycle.value,
+      "billCycle": billCycle,
       "changeNotification": "Email",
       "printBill": "Email",
       "currency": "SOL",
@@ -205,6 +221,7 @@ class CustomerInformationLogic extends GetxController {
       url: ApiEndPoints.API_CREATE_CONTRACT,
       body: body,
       onSuccess: (response) {
+        print('bxloc create contract success');
         Get.back();
         if (response.isSuccess) {
           print(response.data['data']);
@@ -216,6 +233,7 @@ class CustomerInformationLogic extends GetxController {
         }
       },
       onError: (error) {
+        print('bxloc create contract false');
         isSuccess.call(false);
         Get.back();
         Common.showMessageError(error, context);
@@ -422,24 +440,26 @@ class CustomerInformationLogic extends GetxController {
     return false;
   }
 
-  void checkChangeAdditionalInformation() {
+  bool checkChangeAdditionalInformation() {
     if (phoneController.text != customer.telFax) {
-      isActiveUpdate = true;
+      return true;
     } else if (emailController.text != customer.email) {
-      isActiveUpdate = true;
-    } else if (currentProvince.province != customer.province) {
-      isActiveUpdate = true;
-    } else if (currentDistrict.district != customer.district) {
-      isActiveUpdate = true;
-    } else if (currentPrecinct.precinct != customer.precinct) {
-      isActiveUpdate = true;
-    } else if (currentAddress != customer.address) {
-      isActiveUpdate = true;
+      return true;
+    } else if (currentProvince.province != customer.province &&
+        currentProvince.province.isNotEmpty) {
+      return true;
+    } else if (currentDistrict.district != customer.district &&
+        currentDistrict.district.isNotEmpty) {
+      return true;
+    } else if (currentPrecinct.precinct != customer.precinct &&
+        currentPrecinct.precinct.isNotEmpty) {
+      return true;
+    } else if (currentAddress != customer.address &&
+        currentAddress.isNotEmpty) {
+      return true;
     } else {
-      isActiveUpdate = false;
+      return false;
     }
-    update();
-    return;
   }
 
   void resetAdress() {
@@ -470,20 +490,68 @@ class CustomerInformationLogic extends GetxController {
       "name": customer.name,
       "fullName": customer.fullName,
       "nationality": customer.nationality,
-      "sex": customer.sex,
+      "sex": 'M',
       "dateOfBirth": customer.birthDate,
       "expiredDate": customer.idExpireDate,
-      "address": currentAddress,
-      "province": currentProvince.province,
-      "district": currentDistrict.district,
-      "precinct": currentPrecinct.precinct,
+      "address": currentAddress.isEmpty ? customer.address : currentAddress,
+      "province": currentProvince.province.isEmpty
+          ? customer.province
+          : currentProvince.province,
+      "district": currentDistrict.district.isEmpty
+          ? customer.district
+          : currentDistrict.district,
+      "precinct": currentPrecinct.precinct.isEmpty
+          ? customer.precinct
+          : currentPrecinct.precinct,
       "phone": phoneController.text,
       "email": emailController.text,
-      "image": "string",
+      "image": [],
       "left": null,
       "leftImage": null,
       "right": null,
       "rightImage": null
     };
+    ApiUtil.getInstance()!.put(
+      url: '${ApiEndPoints.API_CREATE_CUSTOMER}/${customer.custId}',
+      body: body,
+      onSuccess: (response) {
+        Get.back();
+        if (response.isSuccess) {
+          customer = CustomerModel.fromJson(response.data['data']);
+          callBack.call(true);
+        } else {
+          callBack.call(false);
+        }
+      },
+      onError: (error) {
+        Get.back();
+        callBack.call(false);
+        Common.showMessageError(error, context);
+      },
+    );
+  }
+
+  Future<bool> onWillPop() async {
+    if (itemPositionsListener.itemPositions.value.elementAt(0).index == 1) {
+      checkItem1.value = true;
+      checkItem2.value = false;
+      titleScreen.value = AppLocalizations.of(context)!.textCustomerInformation;
+      scrollController.scrollTo(
+        index: 0,
+        duration: const Duration(milliseconds: 200),
+      );
+      return false;
+    } else if (itemPositionsListener.itemPositions.value.elementAt(0).index ==
+        2) {
+      checkItem2.value = true;
+      checkItem3.value = false;
+      scrollController.scrollTo(
+        index: 1,
+        duration: const Duration(milliseconds: 200),
+      );
+      return false;
+    }
+    Get.back();
+    return false; //<-- SEE HERE
   }
 }

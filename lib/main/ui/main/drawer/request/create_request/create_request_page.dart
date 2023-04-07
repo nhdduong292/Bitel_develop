@@ -171,7 +171,10 @@ class CreateRequestPage extends GetWidget {
                                   maxLength: controller.getMaxLengthIdNumber(
                                       controller.currentIdentityType),
                                   controller: controller.textFieldIdNumber,
-                                  keyboardType: TextInputType.number,
+                                  keyboardType:
+                                      controller.currentIdentityType == 'PP'
+                                          ? TextInputType.text
+                                          : TextInputType.number,
                                   focusNode: controller.focusIdNumber,
                                   textInputAction: TextInputAction.send,
                                   style: AppStyles.r2.copyWith(
@@ -243,7 +246,7 @@ class CreateRequestPage extends GetWidget {
                                   text: ' *',
                                   style: TextStyle(
                                       color: Colors.red,
-                                      fontFamily: 'Roboto',
+                                      fontFamily: 'Barlow',
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -304,7 +307,7 @@ class CreateRequestPage extends GetWidget {
                                     text: ' *',
                                     style: TextStyle(
                                         color: Colors.red,
-                                        fontFamily: 'Roboto',
+                                        fontFamily: 'Barlow',
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -385,7 +388,7 @@ class CreateRequestPage extends GetWidget {
                                   text: ' *',
                                   style: TextStyle(
                                       color: Colors.red,
-                                      fontFamily: 'Roboto',
+                                      fontFamily: 'Barlow',
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -394,6 +397,7 @@ class CreateRequestPage extends GetWidget {
                       ),
                       InkWell(
                         onTap: () {
+                          FocusScope.of(context).unfocus();
                           if (controller.listProvince.isEmpty) {
                             _onLoading(context);
                             controller.getListProvince(
@@ -466,7 +470,7 @@ class CreateRequestPage extends GetWidget {
                                   text: ' *',
                                   style: TextStyle(
                                       color: Colors.red,
-                                      fontFamily: 'Roboto',
+                                      fontFamily: 'Barlow',
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -475,6 +479,7 @@ class CreateRequestPage extends GetWidget {
                       ),
                       InkWell(
                         onTap: () {
+                          FocusScope.of(context).unfocus();
                           if (controller.currentProvince.areaCode.isNotEmpty) {
                             if (controller.listDistrict.isEmpty) {
                               _onLoading(context);
@@ -552,7 +557,7 @@ class CreateRequestPage extends GetWidget {
                                   text: ' *',
                                   style: TextStyle(
                                       color: Colors.red,
-                                      fontFamily: 'Roboto',
+                                      fontFamily: 'Barlow',
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -561,6 +566,7 @@ class CreateRequestPage extends GetWidget {
                       ),
                       InkWell(
                         onTap: () {
+                          FocusScope.of(context).unfocus();
                           if (controller.currentDistrict.areaCode.isNotEmpty) {
                             if (controller.listPrecinct.isEmpty) {
                               _onLoading(context);
@@ -638,7 +644,7 @@ class CreateRequestPage extends GetWidget {
                                   text: ' *',
                                   style: TextStyle(
                                       color: Colors.red,
-                                      fontFamily: 'Roboto',
+                                      fontFamily: 'Barlow',
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold),
                                 ),

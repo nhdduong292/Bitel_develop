@@ -1,6 +1,5 @@
 import 'package:bitel_ventas/main/networks/model/contract_model.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../networks/api_end_point.dart';
@@ -8,11 +7,14 @@ import '../../../../../networks/api_util.dart';
 import '../../../../../utils/common.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../../utils/common_widgets.dart';
+
 class FTTHContractingLogic extends GetxController {
   late BuildContext context;
 
+  FTTHContractingLogic({required this.context});
+
   int contractId = 0;
-  String email = '';
   ContractModel contractModel = ContractModel();
 
   @override
@@ -21,14 +23,21 @@ class FTTHContractingLogic extends GetxController {
     super.onInit();
     var data = Get.arguments;
     contractId = data[0];
-    email = data[1];
+  }
+
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
     getContract();
   }
 
   void getContract() {
+    _onLoading(context);
     ApiUtil.getInstance()!.get(
       url: '${ApiEndPoints.API_CREATE_CONTRACT}/${contractId.toString()}',
       onSuccess: (response) {
+        Get.back();
         if (response.isSuccess) {
           contractModel = ContractModel.fromJson(response.data['data']);
           update();
@@ -37,7 +46,32 @@ class FTTHContractingLogic extends GetxController {
         }
       },
       onError: (error) {
+        Get.back();
         Common.showMessageError(error, context);
+      },
+    );
+  }
+
+  String getTextBillCycle() {
+    if (contractModel.billCycleFrom == 'CYCLE6') {
+      return '${AppLocalizations.of(context)!.textCiclo} 6';
+    } else if (contractModel.billCycleFrom == 'CYCLE16') {
+      return '${AppLocalizations.of(context)!.textCiclo} 16';
+    } else {
+      return '${AppLocalizations.of(context)!.textCiclo} 26';
+    }
+  }
+
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
       },
     );
   }

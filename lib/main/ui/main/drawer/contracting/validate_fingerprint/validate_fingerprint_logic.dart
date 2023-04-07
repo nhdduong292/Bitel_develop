@@ -24,7 +24,6 @@ class ValidateFingerprintLogic extends GetxController {
   int contractId = 0;
   String typeCustomer = '';
   String idNumber = '';
-  String email = '';
   BestFingerModel bestFinger = BestFingerModel();
   var pathFinger = ''.obs;
   List<String> listFinger = [];
@@ -43,7 +42,13 @@ class ValidateFingerprintLogic extends GetxController {
     typeCustomer = data[2];
     idNumber = data[3];
     contractId = data[4];
-    email = data[5];
+  }
+
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+    getBestFinger();
   }
 
   void setCapture(String value) {
@@ -63,24 +68,28 @@ class ValidateFingerprintLogic extends GetxController {
       e.printInfo();
     }
     print("text Capture: ${result}");
-    final body = json.decode(result);
-    textCapture = body["pathImage"];
-    String imageBase64 = body["imageBase64"];
+    try {
+      final body = json.decode(result);
+      textCapture = body["pathImage"];
+      String imageBase64 = body["imageBase64"];
 
-    if (listFinger.isNotEmpty) {
-      listFinger.clear();
+      if (listFinger.isNotEmpty) {
+        listFinger.clear();
+      }
+      if (imageBase64.isNotEmpty) {
+        listFinger.add(imageBase64);
+      }
+      if (listFinger.isNotEmpty) {
+        Common.showToastCenter(
+            AppLocalizations.of(context)!.textCaptureFingerprintSuccessfully);
+      } else {
+        Common.showToastCenter(
+            AppLocalizations.of(context)!.textNotifyFingerFail);
+      }
+      update();
+    } catch (e) {
+      Common.showToastCenter(e.toString());
     }
-    if (imageBase64.isNotEmpty) {
-      listFinger.add(imageBase64);
-    }
-    if (listFinger.isNotEmpty) {
-      Common.showToastCenter(
-          AppLocalizations.of(context)!.textCaptureFingerprintSuccessfully);
-    } else {
-      Common.showToastCenter(
-          AppLocalizations.of(context)!.textNotifyFingerFail);
-    }
-    update();
   }
 
   void getBestFinger() {
@@ -123,42 +132,47 @@ class ValidateFingerprintLogic extends GetxController {
         return AppImages.imgFingerRight3;
       } else if (bestFinger.right == 4) {
         return AppImages.imgFingerRight4;
-      } else {
+      } else if (bestFinger.right == 5) {
         return AppImages.imgFingerRight5;
+      } else {
+        return AppImages.imgFingerRight3;
       }
     }
   }
 
   void signContract(Function(bool) isSuccess) {
-    _onLoading(context);
-    Completer<bool> completer = Completer();
-    Map<String, dynamic> body = {
-      // "finger": bestFinger.right ?? bestFinger.left,
-      "finger": 6,
-      "listImage": listFinger
-    };
-    Map<String, dynamic> params = {"type": type};
-    ApiUtil.getInstance()!.put(
-      url: ApiEndPoints.API_SIGN_CONTRACT
-          .replaceAll('id', contractId.toString()),
-      body: body,
-      params: params,
-      onSuccess: (response) {
-        Get.back();
-        if (response.isSuccess) {
-          isSuccess.call(true);
-        } else {
+    try {
+      _onLoading(context);
+      Completer<bool> completer = Completer();
+      Map<String, dynamic> body = {
+        "finger": bestFinger.right ?? bestFinger.left,
+        "listImage": listFinger
+      };
+      Map<String, dynamic> params = {"type": type};
+      ApiUtil.getInstance()!.put(
+        url: ApiEndPoints.API_SIGN_CONTRACT
+            .replaceAll('id', contractId.toString()),
+        body: body,
+        params: params,
+        onSuccess: (response) {
+          Get.back();
+          if (response.isSuccess) {
+            isSuccess.call(true);
+          } else {
+            isSuccess.call(false);
+            print("error: ${response.status}");
+          }
+        },
+        onError: (error) {
+          Get.back();
           isSuccess.call(false);
-          print("error: ${response.status}");
-        }
-      },
-      onError: (error) {
-        Get.back();
-        isSuccess.call(false);
-        Common.showMessageError(error, context);
-      },
-    );
-    // return completer.future;
+          Common.showMessageError(error, context);
+        },
+      );
+    } catch (e) {
+      Get.back();
+      Common.showToastCenter(e.toString());
+    }
   }
 
   void _onLoading(BuildContext context) {

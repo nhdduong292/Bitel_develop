@@ -62,7 +62,7 @@ class LoginPage extends GetWidget {
                       return Container();
                     }
                   }),
-                  // SizedBox(height: 150,),
+                  const SizedBox(height: 50,),
                   Container(
                     width: double.infinity,
                     margin:
@@ -244,6 +244,8 @@ class LoginPage extends GetWidget {
                     ),
                     child: InkWell(
                       onTap: () {
+                        FocusScope.of(context).unfocus();
+                        Future.delayed(Duration(milliseconds: 1000));
                         controller.loginSuccess(context);
                       },
                       child: Center(

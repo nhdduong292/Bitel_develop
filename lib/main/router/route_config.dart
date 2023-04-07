@@ -26,7 +26,7 @@ import 'package:bitel_ventas/main/ui/forgotPassword/forgot_password.dart';
 
 import '../ui/main/drawer/contracting/customer_information/customer_information_page.dart';
 import '../ui/main/drawer/contracting/ftth_contracting/ftth_contracting_page.dart';
-import '../ui/main/drawer/contracting/register_finger_print/register_finger_print_page.dart';
+import '../ui/main/drawer/manage_contact/create/view_item/register_finger_print/register_finger_print_page.dart';
 import '../ui/main/drawer/contracting/validate_fingerprint/validate_fingerprint.dart';
 import '../ui/main/drawer/manage_contact/create/create_contact_page.dart';
 import '../ui/main/drawer/manage_contact/manage/manage_contact_page.dart';

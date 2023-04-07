@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bitel_ventas/main/custom_views/line_dash.dart';
 import 'package:bitel_ventas/main/networks/model/reason_model.dart';
+import 'package:bitel_ventas/main/networks/model/staff_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/dialog_transfer_request_logic.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
@@ -11,6 +12,7 @@ import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -74,17 +76,79 @@ class DialogTransferRequest extends GetWidget {
                               fontWeight: FontWeight.w400),
                         )),
                     Expanded(
-                        flex: 5,
-                        child: spinnerFormV2(
-                            context: context,
-                            hint: AppLocalizations.of(context)!.hintStaffCode,
-                            required: false,
-                            dropValue: "",
-                            function: (value) {
-                              controller.setStaffCode(value);
-                            },
-                            controlTextField: controllerTextField,
-                            listDrop: []))
+                      flex: 5,
+                      child: TypeAheadField(
+                        textFieldConfiguration: TextFieldConfiguration(
+                          controller: controller.staffTextController,
+                          onChanged: (value) {
+                            controller.currentStaffCode = '';
+                          },
+                          style: AppStyles.r2.copyWith(
+                              color: AppColors.colorTitle,
+                              fontWeight: FontWeight.w500),
+                          decoration: InputDecoration(
+                            contentPadding:
+                                const EdgeInsets.symmetric(horizontal: 15),
+                            hintText:
+                                AppLocalizations.of(context)!.hintStaffCode,
+                            hintStyle: AppStyles.r2.copyWith(
+                                color: AppColors.colorHint1,
+                                fontWeight: FontWeight.w400),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(24),
+                              borderSide: const BorderSide(
+                                color: Color(0xFFE3EAF2),
+                                width: 1,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(24),
+                              borderSide: const BorderSide(
+                                color: Color(0xFFE3EAF2),
+                                width: 1,
+                              ),
+                            ),
+                          ),
+                        ),
+                        suggestionsBoxDecoration: SuggestionsBoxDecoration(
+                            borderRadius: BorderRadius.circular(10)),
+                        loadingBuilder: (context) => LoadingCirculApi(),
+                        noItemsFoundBuilder: (context) => LoadingCirculApi(),
+                        suggestionsCallback: (pattern) async {
+                          controller.listStaff.clear();
+                          if (pattern.isEmpty) {
+                            return [];
+                          }
+                          List<StaffModel> list =
+                              await controller.getStaffs(pattern);
+                          if (list.isEmpty) {
+                            return ['Nhân viên không tồn tại'];
+                          }
+                          return list;
+                        },
+                        itemBuilder: (context, suggestion) {
+                          if (suggestion is StaffModel) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(suggestion.name!),
+                            );
+                          } else {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(suggestion),
+                            );
+                          }
+                        },
+                        onSuggestionSelected: (suggestion) {
+                          if (suggestion is StaffModel) {
+                            controller.staffTextController.text =
+                                suggestion.name!;
+                            controller.currentStaffCode = suggestion.staffCode!;
+                            controller.update();
+                          }
+                        },
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -160,13 +224,13 @@ class DialogTransferRequest extends GetWidget {
                   _onLoading(context);
                   controller.transferRequest(
                     id,
-                    controllerTextField.text,
+                    controller.currentStaffCode,
                     context,
-                    (isSuccess) => (isSuccess) {
+                    (isSuccess) {
                       Get.back();
                       if (isSuccess) {
                         Timer(
-                          Duration(milliseconds: 500),
+                          const Duration(milliseconds: 500),
                           () {
                             Get.back();
                             Common.showToastCenter(

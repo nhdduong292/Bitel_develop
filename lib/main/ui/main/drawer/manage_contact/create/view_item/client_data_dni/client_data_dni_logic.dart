@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../../../../networks/api_end_point.dart';
 import '../../../../../../../networks/api_util.dart';
+import '../../../../../../../networks/model/address_model.dart';
 import '../../../../../../../utils/common.dart';
 import '../../cretate_contact_page_logic.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -18,13 +19,16 @@ class ClientDataDNILogic extends GetxController {
   late BuildContext context;
 
   TextEditingController tfLastName = TextEditingController();
+  TextEditingController tfMidelName = TextEditingController();
   TextEditingController tfName = TextEditingController();
+  TextEditingController tfFullName = TextEditingController();
   TextEditingController tfNationality = TextEditingController();
-  TextEditingController tfAddress = TextEditingController();
+  TextEditingController tfIdNumber = TextEditingController();
 
   FocusNode focusLastName = FocusNode();
+  FocusNode fcIdNumber = FocusNode();
   CustomerModel customerModel = CustomerModel();
-  CustomerDNIModel customerDNIModel = CustomerDNIModel();
+  // CustomerDNIModel customerDNIModel = CustomerDNIModel();
 
   ClientDataDNILogic({required this.context});
 
@@ -41,12 +45,36 @@ class ClientDataDNILogic extends GetxController {
   RequestDetailModel requestModel = RequestDetailModel();
   int productId = 0;
   int reasonId = 0;
+  String idNumberRequest = '';
   String idNumber = '';
   String province = '';
   String district = '';
   String precinct = '';
   bool isForcedTerm = false;
   Map<String, dynamic> body = {};
+
+  AddressModel currentProvince = AddressModel();
+  List<AddressModel> listProvince = [];
+  AddressModel currentDistrict = AddressModel();
+  List<AddressModel> listDistrict = [];
+  AddressModel currentPrecinct = AddressModel();
+  List<AddressModel> listPrecinct = [];
+
+  String currentAddress = "";
+
+  String address = '';
+
+  TextEditingController textFieldProvince = TextEditingController();
+  TextEditingController textFieldDistrict = TextEditingController();
+  TextEditingController textFieldPrecinct = TextEditingController();
+  TextEditingController textFieldAddress = TextEditingController();
+
+  FocusNode focusProvince = FocusNode();
+  FocusNode focusDistrict = FocusNode();
+  FocusNode focusPrecinct = FocusNode();
+  FocusNode focusAddress = FocusNode();
+
+  final FocusScopeNode focusScopeNode = FocusScopeNode();
 
   @override
   void onInit() {
@@ -55,7 +83,7 @@ class ClientDataDNILogic extends GetxController {
     requestModel = logicCreateContact.requestModel;
     productId = logicCreateContact.productId;
     reasonId = logicCreateContact.reasonId;
-    idNumber = logicCreateContact.requestModel.customerModel.idNumber;
+    idNumberRequest = logicCreateContact.requestModel.customerModel.idNumber;
     isForcedTerm = logicCreateContact.isForcedTerm;
     province = logicCreateContact.requestModel.province;
     district = logicCreateContact.requestModel.district;
@@ -90,16 +118,28 @@ class ClientDataDNILogic extends GetxController {
     return DateFormat('yyyy-MM-ddTHH:mm:ss').format(dateTime.toUtc());
   }
 
+  void reset() {
+    tfLastName.text = '';
+    tfName.text = '';
+    tfNationality.text = '';
+    sexValue = 'M';
+    dob = '';
+    exd = '';
+  }
+
   void setCustomerDNIModel() {
     DocumentScanningLogic documentScanningLogic = Get.find();
-    customerDNIModel = documentScanningLogic.customerDNIModel;
-
+    var customerDNIModel = documentScanningLogic.customerScanModel
+        .getCustomerScan(documentScanningLogic.currentIdentity);
+    idNumber = customerDNIModel.number.getContent();
     tfLastName.text = customerDNIModel.lastname.getContent();
+    tfMidelName.text = customerDNIModel.midelname.getContent();
     tfLastName.selection = TextSelection.fromPosition(
         TextPosition(offset: customerDNIModel.lastname.getContent().length));
     tfName.text = customerDNIModel.name.getContent();
     tfName.selection = TextSelection.fromPosition(
         TextPosition(offset: customerDNIModel.name.getContent().length));
+    updateFullName();
     tfNationality.text = customerDNIModel.nationality.getContent();
     tfNationality.selection = TextSelection.fromPosition(
         TextPosition(offset: customerDNIModel.nationality.getContent().length));
@@ -114,13 +154,20 @@ class ClientDataDNILogic extends GetxController {
       dob = Common.fromDate(date, 'dd/MM/yyyy');
     } catch (e) {
       // nếu chuỗi không đúng định dạng, phương thức parse sẽ ném ra một ngoại lệ
+      dob = '';
     }
     try {
       final date = dateFormat.parse(customerDNIModel.ed.getContent());
       exd = Common.fromDate(date, 'dd/MM/yyyy');
     } catch (e) {
       // nếu chuỗi không đúng định dạng, phương thức parse sẽ ném ra một ngoại lệ
+      exd = '';
     }
+
+    tfIdNumber.text = idNumber;
+
+    tfIdNumber.selection =
+        TextSelection.fromPosition(TextPosition(offset: idNumber.length));
 
     update();
   }
@@ -128,58 +175,23 @@ class ClientDataDNILogic extends GetxController {
   void createBodyCustomer() {
     body = {
       "type": logicCreateContact.typeCustomer,
-      "idNumber": idNumber,
-      "name": tfName.text,
-      "fullName": '${tfLastName.text} ${tfName.text}',
+      "idNumber": tfIdNumber.text,
+      "name": tfName.text.trim(),
+      "lastNameFather": tfLastName.text.trim(),
+      "lastNameMother": tfMidelName.text.trim(),
+      "fullName": '${tfLastName.text} ${tfMidelName.text} ${tfName.text}'
+          .replaceAll(RegExp(r'\s+'), ' '),
       "nationality": tfNationality.text,
       "sex": sexValue,
       "dateOfBirth": isoDate(dob),
       "expiredDate": isoDate(exd),
-      "address": tfAddress.text,
-      "province": province,
-      "district": district,
-      "precinct": precinct,
-      "image": "string",
+      "address": currentAddress,
+      "province": currentProvince.province,
+      "district": currentDistrict.district,
+      "precinct": currentPrecinct.precinct,
+      "phone": logicCreateContact.requestModel.customerModel.telFax,
+      "image": logicCreateContact.listImageScan,
     };
-  }
-
-  void createCustomer(Function(bool isSuccess) callBack) {
-    Map<String, dynamic> body = {
-      "type": logicCreateContact.typeCustomer,
-      "idNumber": idNumber,
-      "name": tfName.text,
-      "fullName": '${tfLastName.text} ${tfName.text}',
-      "nationality": tfNationality.text,
-      "sex": sexValue,
-      "dateOfBirth": isoDate(dob),
-      "expiredDate": isoDate(exd),
-      "address": tfAddress.text,
-      "province": province,
-      "district": district,
-      "precinct": precinct,
-      "image": "string",
-      "left": null,
-      "leftImage": null,
-      "right": null,
-      "rightImage": null
-    };
-    ApiUtil.getInstance()!.post(
-      url: ApiEndPoints.API_CREATE_CUSTOMER,
-      body: body,
-      onSuccess: (response) {
-        if (response.isSuccess) {
-          customerModel = CustomerModel.fromJson(response.data['data']);
-          callBack.call(true);
-        } else {
-          print("error: ${response.status}");
-          callBack.call(false);
-        }
-      },
-      onError: (error) {
-        callBack.call(false);
-        Common.showMessageError(error, context);
-      },
-    );
   }
 
 // so sanh date of birth voi expried date
@@ -217,7 +229,26 @@ class ClientDataDNILogic extends GetxController {
     }
   }
 
+  void updateFullName() {
+    tfFullName.text = '${tfLastName.text} ${tfMidelName.text} ${tfName.text}'
+        .replaceAll(RegExp(r'\s+'), ' ');
+    update();
+  }
+
   bool checkValidate() {
+    print(requestModel.customerModel.idNumber);
+    if (!containsOnlyUpperCaseAndNumber(tfIdNumber.text)) {
+      fcIdNumber.requestFocus();
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textValidateIdentityPP);
+      return false;
+    }
+    if (tfIdNumber.text != requestModel.customerModel.idNumber) {
+      fcIdNumber.requestFocus();
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textTheIDNumberDoseNotMatch);
+      return false;
+    }
     if (!tfLastName.text.isNotEmpty) {
       Common.showToastCenter(
           AppLocalizations.of(context)!.textNotEmptyLastName);
@@ -235,9 +266,6 @@ class ClientDataDNILogic extends GetxController {
     } else if (!exd.isNotEmpty) {
       Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyExd);
       return false;
-    } else if (!tfAddress.text.isNotEmpty) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyAddress);
-      return false;
     } else if (compareToDateNow()) {
       Common.showToastCenter(
           AppLocalizations.of(context)!.textToastValidateDob);
@@ -246,7 +274,144 @@ class ClientDataDNILogic extends GetxController {
       Common.showToastCenter(
           AppLocalizations.of(context)!.textToastValidateExd);
       return false;
+    } else if (address.isEmpty) {
+      Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyAddress);
+      return false;
     }
     return true;
+  }
+
+  void getListProvince(Function(bool isSuccess) function) {
+    ApiUtil.getInstance()!.get(
+        url: ApiEndPoints.API_PROVINCES,
+        onSuccess: (response) {
+          if (response.isSuccess) {
+            print("success");
+            listProvince = (response.data['data'] as List)
+                .map((postJson) => AddressModel.fromJson(postJson))
+                .toList();
+            if (listProvince.isNotEmpty) {
+              update();
+            }
+            function.call(true);
+          } else {
+            print("error: ${response.status}");
+            function.call(false);
+          }
+        },
+        onError: (error) {
+          function.call(false);
+          Common.showMessageError(error, context);
+        });
+  }
+
+  void getListPrecincts(String areaCode, Function(bool isSuccess) function) {
+    Map<String, dynamic> params = {"areaCode": areaCode};
+    ApiUtil.getInstance()!.get(
+        url: ApiEndPoints.API_PRECINCTS,
+        params: params,
+        onSuccess: (response) {
+          if (response.isSuccess) {
+            print("success");
+            listPrecinct = (response.data['data'] as List)
+                .map((postJson) => AddressModel.fromJson(postJson))
+                .toList();
+            if (listPrecinct.isNotEmpty) {
+              update();
+            }
+            function.call(true);
+          } else {
+            print("error: ${response.status}");
+            function.call(false);
+          }
+        },
+        onError: (error) {
+          function.call(false);
+          Common.showMessageError(error, context);
+        });
+  }
+
+  void getListDistrict(String areaCode, Function(bool isSuccess) function) {
+    Map<String, dynamic> params = {"areaCode": areaCode};
+    ApiUtil.getInstance()!.get(
+        url: ApiEndPoints.API_DISTRICTS,
+        params: params,
+        onSuccess: (response) {
+          if (response.isSuccess) {
+            print("success");
+            listDistrict = (response.data['data'] as List)
+                .map((postJson) => AddressModel.fromJson(postJson))
+                .toList();
+            if (listDistrict.isNotEmpty) {
+              update();
+            }
+            function.call(true);
+          } else {
+            print("error: ${response.status}");
+            function.call(false);
+          }
+        },
+        onError: (error) {
+          function.call(false);
+          Common.showMessageError(error, context);
+        });
+  }
+
+  void setPrecinct(AddressModel value) {
+    // if(value.areaCode == currentPrecinct.areaCode) return;
+    currentPrecinct = value;
+    textFieldPrecinct.text = value.name;
+    update();
+  }
+
+  void setDistrict(AddressModel value) {
+    // if(value.areaCode == currentDistrict.areaCode) return;
+    currentDistrict = value;
+    textFieldDistrict.text = value.name;
+    textFieldPrecinct.text = "";
+    listPrecinct.clear();
+    update();
+  }
+
+  void setProvince(AddressModel value) {
+    // if(value.areaCode == currentProvince.areaCode) return;
+    currentProvince = value;
+    textFieldProvince.text = value.name;
+    textFieldDistrict.text = "";
+    textFieldPrecinct.text = "";
+    listDistrict.clear();
+    listPrecinct.clear();
+    update();
+  }
+
+  void setAddress(String value) {
+    currentAddress = value;
+    update();
+  }
+
+  bool validateAddress() {
+    if (textFieldDistrict.text.isNotEmpty &&
+        textFieldDistrict.text.isNotEmpty &&
+        textFieldPrecinct.text.isNotEmpty &&
+        textFieldAddress.text.isNotEmpty) {
+      return true;
+    }
+    Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
+    return false;
+  }
+
+  void resetAdress() {
+    textFieldProvince.text = '';
+    textFieldDistrict.text = '';
+    textFieldPrecinct.text = '';
+    textFieldAddress.text = '';
+    listProvince.clear();
+    listDistrict.clear();
+    listPrecinct.clear();
+  }
+
+  bool containsOnlyUpperCaseAndNumber(String text) {
+    RegExp upperCaseAndNumberRegExp = RegExp(r'^[A-Z0-9]*$');
+    return upperCaseAndNumberRegExp.hasMatch(text);
   }
 }

@@ -13,12 +13,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 
-import '../../../../../networks/api_end_point.dart';
-import '../../../../../networks/api_util.dart';
-import '../../../../../utils/common_widgets.dart';
-import '../../manage_contact/create/cretate_contact_page_logic.dart';
-import '../../manage_contact/create/view_item/client_data/id_card_scanner_logic.dart';
-import '../../manage_contact/create/view_item/client_data_dni/client_data_dni_logic.dart';
+import '../../../../../../../networks/api_end_point.dart';
+import '../../../../../../../networks/api_util.dart';
+import '../../../../../../../utils/common_widgets.dart';
+import '../../cretate_contact_page_logic.dart';
+import '../client_data/id_card_scanner_logic.dart';
+import '../client_data_dni/client_data_dni_logic.dart';
 
 class RegisterFingerPrintLogic extends GetxController {
   late BuildContext context;
@@ -39,6 +39,7 @@ class RegisterFingerPrintLogic extends GetxController {
   int requestId = 0;
   int productId = 0;
   int reasonId = 0;
+  int promotionId = 0;
   bool isForcedTerm = false;
   Map<String, dynamic> body = {};
 
@@ -53,6 +54,7 @@ class RegisterFingerPrintLogic extends GetxController {
     productId = logicCreateContact.productId;
     reasonId = logicCreateContact.reasonId;
     isForcedTerm = logicCreateContact.isForcedTerm;
+    promotionId = logicCreateContact.promotionId;
   }
 
   String findPathFinger() {

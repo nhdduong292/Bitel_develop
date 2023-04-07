@@ -19,7 +19,7 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return GetBuilder(
-        init: FTTHContractingLogic(),
+        init: FTTHContractingLogic(context: context),
         builder: (controller) {
           return Scaffold(
             body: Column(
@@ -151,7 +151,11 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                     AppLocalizations.of(context)!.textPromotion,
                                 richText: () {
                                   return Text(
-                                    controller.contractModel.promotionName,
+                                    controller
+                                            .contractModel.promotionName.isEmpty
+                                        ? '--'
+                                        : controller
+                                            .contractModel.promotionName,
                                     style: AppStyles.r415263_13_500,
                                   );
                                 }),
@@ -161,13 +165,12 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                               dashLength: 4,
                             ),
                             inforContractRow(
-                                lable:
-                                    AppLocalizations.of(context)!.textBillCycle,
+                                lable: AppLocalizations.of(context)!
+                                    .textBillingCycle,
                                 richText: () {
                                   return RichText(
                                       text: TextSpan(
-                                    text:
-                                        '${AppLocalizations.of(context)!.textCiclo} ${controller.contractModel.billCycleFrom.toString()} ',
+                                    text: controller.getTextBillCycle(),
                                     style: AppStyles.r415263_13_500,
                                   ));
                                 }),
@@ -205,7 +208,7 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                           height: 7,
                         ),
                         Text(
-                          controller.email,
+                          controller.contractModel.billCycleFromCharging,
                           style: AppStyles.r00A5B1_13_500,
                         ),
                         SizedBox(
@@ -225,8 +228,6 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                           RouteConfig.sale;
                                     },
                                   );
-                                  Get.toNamed(RouteConfig.listRequest,
-                                      arguments: 0);
                                 })),
                         SizedBox(
                           height: 126,

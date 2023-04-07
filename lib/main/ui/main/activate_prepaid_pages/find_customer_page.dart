@@ -153,7 +153,7 @@ class FindCustomerPage extends GetView<ActivatePrepaidLogic> {
                                       AppLocalizations.of(context)!
                                           .textFindCustomer,
                                       style: TextStyle(
-                                          fontFamily: 'Roboto',
+                                          fontFamily: 'Barlow',
                                           fontSize: 15.5,
                                           color: AppColors.colorContent,
                                           fontWeight: FontWeight.w500),
@@ -195,7 +195,7 @@ class FindCustomerPage extends GetView<ActivatePrepaidLogic> {
                                                   .textAcceptFindCustomer1,
                                               style: TextStyle(
                                                 color: AppColors.colorContent,
-                                                fontFamily: 'Roboto',
+                                                fontFamily: 'Barlow',
                                                 fontSize: 14,
                                               ),
                                               children: [
@@ -206,7 +206,7 @@ class FindCustomerPage extends GetView<ActivatePrepaidLogic> {
                                                   style: TextStyle(
                                                       color:
                                                           AppColors.colorContent,
-                                                      fontFamily: 'Roboto',
+                                                      fontFamily: 'Barlow',
                                                       fontSize: 14,
                                                       decoration: TextDecoration
                                                           .underline,
@@ -219,7 +219,7 @@ class FindCustomerPage extends GetView<ActivatePrepaidLogic> {
                                                       .textAcceptFindCustomer1sub2,
                                                   style: TextStyle(
                                                     color: AppColors.colorContent,
-                                                    fontFamily: 'Roboto',
+                                                    fontFamily: 'Barlow',
                                                     fontSize: 15,
                                                   ),
                                                 ),
@@ -259,7 +259,7 @@ class FindCustomerPage extends GetView<ActivatePrepaidLogic> {
                                                   .textAcceptFindCustomer2,
                                               style: TextStyle(
                                                 color: AppColors.colorContent,
-                                                fontFamily: 'Roboto',
+                                                fontFamily: 'Barlow',
                                                 fontSize: 14,
                                               ),
                                               children: [
@@ -270,7 +270,7 @@ class FindCustomerPage extends GetView<ActivatePrepaidLogic> {
                                                   style: TextStyle(
                                                       color:
                                                           AppColors.colorContent,
-                                                      fontFamily: 'Roboto',
+                                                      fontFamily: 'Barlow',
                                                       fontSize: 14,
                                                       decoration: TextDecoration
                                                           .underline,

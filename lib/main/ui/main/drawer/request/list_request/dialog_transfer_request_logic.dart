@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/reason_model.dart';
+import 'package:bitel_ventas/main/networks/model/staff_model.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:dio/dio.dart';
@@ -14,6 +17,8 @@ class DialogTransferRequestLogic extends GetxController {
   String currentStaffCode = "";
   List<ReasonModel> listReason = [];
   bool isLoading = false;
+  List<StaffModel> listStaff = [];
+  TextEditingController staffTextController = TextEditingController();
 
   DialogTransferRequestLogic({required this.context});
 
@@ -62,8 +67,8 @@ class DialogTransferRequestLogic extends GetxController {
   }
 
   void transferRequest(int id, String staffCode, BuildContext context,
-      Function(bool isSuccess) callBack) async {
-    Future.delayed(Duration(seconds: 1));
+      Function(bool isSuccess) callBack) {
+    // Future.delayed(Duration(seconds: 1));
     Map<String, dynamic> body = {
       "staffCode": staffCode,
       "reason": currentReason
@@ -87,5 +92,31 @@ class DialogTransferRequestLogic extends GetxController {
           Common.showMessageError(error, context);
           // callBack.call(false);
         });
+  }
+
+  Future<List<StaffModel>> getStaffs(String query) {
+    Completer<List<StaffModel>> completer = Completer();
+    ApiUtil.getInstance()!.get(
+        url: ApiEndPoints.API_LIST_STAFF,
+        params: {'key': query},
+        onSuccess: (response) {
+          if (response.isSuccess) {
+            print("success");
+            listStaff = (response.data['data'] as List)
+                .map((postJson) => StaffModel.fromJson(postJson))
+                .toList();
+            completer.complete(listStaff);
+          } else {
+            print("error: ${response.status}");
+            completer.complete([]);
+          }
+        },
+        onError: (error) {
+          Get.back();
+          Common.showMessageError(error, context);
+          completer.complete([]);
+          // callBack.call(false);
+        });
+    return completer.future;
   }
 }

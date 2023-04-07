@@ -2,7 +2,7 @@
 
 import 'dart:io';
 
-import 'package:bitel_ventas/main/ui/main/drawer/contracting/register_finger_print/register_finger_print_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/register_finger_print/register_finger_print_logic.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_images.dart';
@@ -13,8 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../../../../../../../../res/app_colors.dart';
-import '../../../../../router/route_config.dart';
+import '../../../../../../../../../../../res/app_colors.dart';
+import '../../../../../../../router/route_config.dart';
 
 typedef void TouchScan();
 
@@ -239,6 +239,7 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                   Padding(
                     padding: const EdgeInsets.only(left: 57, right: 20),
                     child: Row(
+                      mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Column(
@@ -267,72 +268,79 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                             ),
                           ],
                         ),
-                        Column(
-                          children: [
-                            Visibility(
-                                visible:
-                                    (controller.listImageLeft.length >= 1 ||
-                                        controller.listImageRight.length >= 1),
-                                child: fingerPrintView(
-                                    link: controller.listPathFinger.isNotEmpty
-                                        ? controller.listPathFinger[0]
-                                        : '',
-                                    value: 0,
-                                    onDelete: (value) {
-                                      if (controller.indexLeft != 0) {
-                                        controller.listImageLeft
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Visibility(
+                                  visible:
+                                      (controller.listImageLeft.isNotEmpty ||
+                                          controller.listImageRight.isNotEmpty),
+                                  child: fingerPrintView(
+                                      link: controller.listPathFinger.isNotEmpty
+                                          ? controller.listPathFinger[0]
+                                          : '',
+                                      value: 0,
+                                      onDelete: (value) {
+                                        if (controller.indexLeft != 0) {
+                                          controller.listImageLeft
+                                              .removeAt(value);
+                                        } else {
+                                          controller.listImageRight
+                                              .removeAt(value);
+                                        }
+                                        controller.listPathFinger
                                             .removeAt(value);
-                                      } else {
-                                        controller.listImageRight
+                                        controller.countFinger.value++;
+                                        controller.update();
+                                      })),
+                              Visibility(
+                                  visible: (controller.listImageLeft.length >=
+                                          2 ||
+                                      controller.listImageRight.length >= 2),
+                                  child: fingerPrintView(
+                                      link:
+                                          controller.listPathFinger.length >= 2
+                                              ? controller.listPathFinger[1]
+                                              : '',
+                                      value: 1,
+                                      onDelete: (value) {
+                                        if (controller.indexLeft != 0) {
+                                          controller.listImageLeft
+                                              .removeAt(value);
+                                        } else {
+                                          controller.listImageRight
+                                              .removeAt(value);
+                                        }
+                                        controller.listPathFinger
                                             .removeAt(value);
-                                      }
-                                      controller.listPathFinger.removeAt(value);
-                                      controller.countFinger.value++;
-                                      controller.update();
-                                    })),
-                            Visibility(
-                                visible:
-                                    (controller.listImageLeft.length >= 2 ||
-                                        controller.listImageRight.length >= 2),
-                                child: fingerPrintView(
-                                    link: controller.listPathFinger.length == 2
-                                        ? controller.listPathFinger[1]
-                                        : '',
-                                    value: 1,
-                                    onDelete: (value) {
-                                      if (controller.indexLeft != 0) {
-                                        controller.listImageLeft
+                                        controller.countFinger.value++;
+                                        controller.update();
+                                      })),
+                              Visibility(
+                                  visible: (controller.listImageLeft.length >=
+                                          3 ||
+                                      controller.listImageRight.length >= 3),
+                                  child: fingerPrintView(
+                                      link:
+                                          controller.listPathFinger.length == 3
+                                              ? controller.listPathFinger[2]
+                                              : '',
+                                      value: 2,
+                                      onDelete: (value) {
+                                        if (controller.indexLeft != 0) {
+                                          controller.listImageLeft
+                                              .removeAt(value);
+                                        } else {
+                                          controller.listImageRight
+                                              .removeAt(value);
+                                        }
+                                        controller.listPathFinger
                                             .removeAt(value);
-                                      } else {
-                                        controller.listImageRight
-                                            .removeAt(value);
-                                      }
-                                      controller.listPathFinger.removeAt(value);
-                                      controller.countFinger.value++;
-                                      controller.update();
-                                    })),
-                            Visibility(
-                                visible:
-                                    (controller.listImageLeft.length >= 3 ||
-                                        controller.listImageRight.length >= 3),
-                                child: fingerPrintView(
-                                    link: controller.listPathFinger.length == 3
-                                        ? controller.listPathFinger[2]
-                                        : '',
-                                    value: 2,
-                                    onDelete: (value) {
-                                      if (controller.indexLeft != 0) {
-                                        controller.listImageLeft
-                                            .removeAt(value);
-                                      } else {
-                                        controller.listImageRight
-                                            .removeAt(value);
-                                      }
-                                      controller.listPathFinger.removeAt(value);
-                                      controller.countFinger.value++;
-                                      controller.update();
-                                    })),
-                          ],
+                                        controller.countFinger.value++;
+                                        controller.update();
+                                      })),
+                            ],
+                          ),
                         )
                       ],
                     ),
@@ -404,10 +412,13 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                                         .customerInformation,
                                                     arguments: [
                                                       controller.customerModel,
-                                                      controller.requestId,
+                                                      controller
+                                                          .logicCreateContact
+                                                          .requestModel,
                                                       controller.productId,
                                                       controller.reasonId,
-                                                      controller.isForcedTerm
+                                                      controller.isForcedTerm,
+                                                      controller.promotionId
                                                     ]);
                                               },
                                             );
@@ -554,37 +565,40 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
 
   Widget fingerPrintView(
       {required String link, required int value, required onDelete}) {
-    return SizedBox(
-      child: Row(children: [
-        link.isNotEmpty
-            ? Image.file(
-                File(link),
-                height: 55,
-                fit: BoxFit.cover,
-              )
-            : SizedBox(
-                width: 50,
-                height: 55,
+    return Padding(
+      padding: const EdgeInsets.only(top: 8, bottom: 8),
+      child: SizedBox(
+        child: Row(children: [
+          link.isNotEmpty
+              ? Image.file(
+                  File(link),
+                  height: 55,
+                  fit: BoxFit.cover,
+                )
+              : SizedBox(
+                  width: 50,
+                  height: 55,
+                ),
+          SizedBox(
+            width: 16,
+          ),
+          Center(
+            child: SvgPicture.asset(AppImages.icTickFingerPrint),
+          ),
+          InkWell(
+            onTap: () {
+              onDelete(value);
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  left: 15, top: 10, right: 5, bottom: 10),
+              child: Center(
+                child: SvgPicture.asset(AppImages.icDelete),
               ),
-        SizedBox(
-          width: 16,
-        ),
-        Center(
-          child: SvgPicture.asset(AppImages.icTickFingerPrint),
-        ),
-        InkWell(
-          onTap: () {
-            onDelete(value);
-          },
-          child: Padding(
-            padding:
-                const EdgeInsets.only(left: 14, top: 10, right: 10, bottom: 10),
-            child: Center(
-              child: SvgPicture.asset(AppImages.icDelete),
             ),
           ),
-        ),
-      ]),
+        ]),
+      ),
     );
   }
 }

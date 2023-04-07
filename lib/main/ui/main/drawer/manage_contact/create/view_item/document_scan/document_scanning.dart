@@ -4,26 +4,29 @@ import 'dart:io';
 import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../../../../../res/app_colors.dart';
+import '../../../../../../../../res/app_images.dart';
 import '../../../../../../../utils/common.dart';
 import '../../../../../../../utils/common_widgets.dart';
 import 'document_scanning_logic.dart';
 
-typedef void TouchScan();
+typedef void TouchScan(bool isDNI);
 
 class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
   final TouchScan callback;
-  DocumentScanningWidget({required this.callback});
+  DocumentScanningWidget({required this.callback(value)});
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     return GetBuilder(
-        init: DocumentScanningLogic(),
+        init: DocumentScanningLogic(context: context),
         builder: (controller) {
           return SingleChildScrollView(
             child: Column(
@@ -139,13 +142,7 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                                         TextSpan(
                                           text: AppLocalizations.of(context)!
                                               .textTratamientoDeMisDatos,
-                                          style: TextStyle(
-                                              color: AppColors.colorContent,
-                                              fontFamily: 'Roboto',
-                                              fontSize: 14,
-                                              decoration:
-                                                  TextDecoration.underline,
-                                              fontWeight: FontWeight.bold),
+                                          style: AppStyles.rU00A5B1_13_500,
                                         ),
                                       ],
                                     ),
@@ -169,7 +166,7 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                                     .textTypeOfDocument,
                                 style: TextStyle(
                                   color: AppColors.colorContent,
-                                  fontFamily: 'Roboto',
+                                  fontFamily: 'Barlow',
                                   fontSize: 14,
                                 ),
                                 children: [
@@ -177,7 +174,7 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                                     text: '*',
                                     style: TextStyle(
                                         color: Colors.red,
-                                        fontFamily: 'Roboto',
+                                        fontFamily: 'Barlow',
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -192,50 +189,126 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 15, right: 15),
-                        child: spinnerFormV2(
-                            context: context,
-                            hint: '',
-                            required: true,
-                            dropValue: controller.currentIdentity,
-                            function: (value) {
-                              controller.setIdentity(value);
-                              controller.logicCreateContact
-                                  .changeTypeCustomer(value);
-                            },
-                            listDrop: controller.listIdentityNumber),
+                        child: Container(
+                            height: 45,
+                            width: width,
+                            padding: EdgeInsets.only(left: 18, right: 7),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(24),
+                                border: Border.all(
+                                    color: Color(0xFFE3EAF2), width: 1)),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      controller.currentIdentity,
+                                      style: AppStyles.r2B3A4A_12_500.copyWith(
+                                          fontSize: 14,
+                                          color: AppColors.color_2B3A4A
+                                              .withOpacity(0.85)),
+                                    ),
+                                  ),
+                                ),
+                                SvgPicture.asset(AppImages.icArrowDownLockedBox)
+                              ],
+                            )),
                       ),
                       SizedBox(
                         height: 22,
                       ),
-                      Visibility(
-                        visible: !controller.isDNI(),
-                        child: Column(
-                          children: [
-                            DottedLine(
-                              dashColor: Color(0xFFE3EAF2),
-                              dashGapLength: 3,
-                              dashLength: 4,
-                            ),
-                            SizedBox(
-                              height: 17,
-                            ),
-                            Text(
-                              AppLocalizations.of(context)!.textNextScan,
-                              style: AppStyles.r3,
-                            ),
-                            SizedBox(
-                              height: 12,
-                            ),
-                            controller.textPathScan.isNotEmpty
+                      Column(
+                        children: [
+                          DottedLine(
+                            dashColor: Color(0xFFE3EAF2),
+                            dashGapLength: 3,
+                            dashLength: 4,
+                          ),
+                          SizedBox(
+                            height: 17,
+                          ),
+                          Text(
+                            AppLocalizations.of(context)!.textNextScan,
+                            style: AppStyles.r3,
+                          ),
+                          SizedBox(
+                            height: 12,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return TakeImageDialog(
+                                      onCamera: () {
+                                        Get.back();
+                                        controller.getFromGallery(
+                                            context, controller, true);
+                                      },
+                                      onGellary: () {
+                                        Get.back();
+                                        controller.uploadImage(
+                                            context, controller, true);
+                                      },
+                                    );
+                                  });
+                            },
+                            child: controller.textPathScan.isNotEmpty
                                 ? Image.file(
                                     File(controller.textPathScan),
                                   )
                                 : Image.asset(controller.getImageIdentity()),
-                            SizedBox(
-                              height: 23,
-                            )
-                          ],
-                        ),
+                          ),
+                          Visibility(
+                            visible:
+                                controller.logicCreateContact.typeCustomer ==
+                                    'CE',
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 17,
+                                ),
+                                Text(
+                                  AppLocalizations.of(context)!.textNextScan,
+                                  style: AppStyles.r3,
+                                ),
+                                SizedBox(
+                                  height: 12,
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    // controller.reset();
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return TakeImageDialog(
+                                            onCamera: () {
+                                              Get.back();
+                                              controller.getFromGallery(
+                                                  context, controller, false);
+                                            },
+                                            onGellary: () {
+                                              Get.back();
+                                              controller.uploadImage(
+                                                  context, controller, false);
+                                            },
+                                          );
+                                        });
+                                  },
+                                  child: controller.textPathScanBack.isNotEmpty
+                                      ? Image.file(
+                                          File(controller.textPathScanBack),
+                                        )
+                                      : Image.asset(AppImages.imgCE),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 23,
+                          )
+                        ],
                       )
                     ]),
                   ),
@@ -243,49 +316,38 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                     () => SizedBox(
                       width: width,
                       child: bottomButton(
-                          text: controller.isDNI()
+                          text: ((controller.textPathScan.isNotEmpty &&
+                                      controller.textPathScanBack.isNotEmpty &&
+                                      controller.currentIdentity == 'CE') ||
+                                  (controller.textPathScan.isNotEmpty &&
+                                      controller.currentIdentity != 'CE'))
                               ? AppLocalizations.of(context)!.textContinue
                               : AppLocalizations.of(context)!.textScan,
                           onTap: () {
-                            if (controller.checkOption1.value &&
-                                controller.checkOption2.value) {
-                              if (controller.textPathScan.isNotEmpty) {
-                                callback();
-                              } else {
-                                if (controller.textPathScan.isEmpty) {
-                                  // controller.getScan();
-                                  // _getFromGallery(context, controller);
-                                } else {
-                                  // callback();
-                                  // controller.detectID(context);
-                                }
-
-                                // uploadImage(context, controller);
-                                // _getFromGallery(context, controller);
-                              }
-                              if (controller.isDNI()) {
-                                callback();
-                              } else {
-                                if (controller.textPathScan.isNotEmpty) {
-                                  callback();
-                                } else {
-                                  if (controller.textPathScan.isEmpty) {
-                                    // controller.getScan();
-                                    // _getFromGallery(context, controller);
-                                  } else {
-                                    // callback();
-                                    // controller.detectID(context);
-                                  }
-
-                                  uploadImage(context, controller);
-                                  // _getFromGallery(context, controller);
-                                }
-                              }
-                            } else {
-                              Common.showToastCenter(
-                                  AppLocalizations.of(context)!
-                                      .textAcceptTheRules);
-                            }
+                            controller.onClickContinue(onContiue: () {
+                              callback(false);
+                            }, onScan: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return TakeImageDialog(
+                                      onCamera: () {
+                                        Get.back();
+                                        controller.getFromGallery(
+                                            context,
+                                            controller,
+                                            controller.textPathScan.isEmpty);
+                                      },
+                                      onGellary: () {
+                                        Get.back();
+                                        controller.uploadImage(
+                                            context,
+                                            controller,
+                                            controller.textPathScan.isEmpty);
+                                      },
+                                    );
+                                  });
+                            });
                           },
                           color: !(controller.checkOption1.value &&
                                   controller.checkOption2.value)
@@ -298,59 +360,76 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
         });
   }
 
-  uploadImage(BuildContext context, DocumentScanningLogic controller) async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      // ignore: use_build_context_synchronously
-      _cropImage(pickedFile, context, controller);
-    }
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
+      },
+    );
   }
+}
 
-  _getFromGallery(
-      BuildContext context, DocumentScanningLogic controller) async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.camera);
-    // ignore: use_build_context_synchronously
-    _cropImage(pickedFile, context, controller);
-  }
+class TakeImageDialog extends Dialog {
+  Function onCamera;
+  Function onGellary;
+  TakeImageDialog({required this.onCamera, required this.onGellary});
 
-  /// Crop Image
-  _cropImage(
-      filePath, BuildContext context, DocumentScanningLogic controller) async {
-    if (filePath != null) {
-      final croppedFile = await ImageCropper().cropImage(
-        sourcePath: filePath.path,
-        compressFormat: ImageCompressFormat.jpg,
-        compressQuality: 100,
-        uiSettings: [
-          AndroidUiSettings(
-              toolbarTitle: 'Cropper',
-              toolbarColor: Colors.deepOrange,
-              toolbarWidgetColor: Colors.white,
-              initAspectRatio: CropAspectRatioPreset.original,
-              lockAspectRatio: false),
-          IOSUiSettings(
-            title: 'Cropper',
-          ),
-          WebUiSettings(
-            context: context,
-            presentStyle: CropperPresentStyle.dialog,
-            boundary: const CroppieBoundary(
-              width: 520,
-              height: 520,
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: Wrap(children: [
+        Column(
+          children: [
+            const SizedBox(
+              height: 22,
             ),
-            viewPort:
-                const CroppieViewPort(width: 480, height: 480, type: 'circle'),
-            enableExif: true,
-            enableZoom: true,
-            showZoomer: true,
-          ),
-        ],
-      );
-      if (croppedFile != null) {
-        controller.setPathScan(croppedFile.path);
-      }
-    }
+            // SvgPicture.asset(AppImages.imgNotify),
+            // const SizedBox(
+            //   height: 15,
+            // ),
+            Text(
+              AppLocalizations.of(context)!.textTakePicturesFrom,
+              style: AppStyles.r16,
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            const DottedLine(
+              dashColor: AppColors.colorLineDash,
+              dashGapLength: 3,
+              dashLength: 4,
+            ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                    child: bottomButton(
+                        text: AppLocalizations.of(context)!.textCamera,
+                        onTap: () {
+                          onCamera();
+                        })),
+                Expanded(
+                    child: bottomButton(
+                        text: AppLocalizations.of(context)!.textGallery,
+                        onTap: () {
+                          onGellary();
+                        }))
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            )
+          ],
+        ),
+      ]),
+    );
   }
 }

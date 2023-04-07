@@ -17,6 +17,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../../utils/common.dart';
+
 class RequestDetailPage extends GetWidget {
   const RequestDetailPage({super.key});
 
@@ -80,7 +82,7 @@ class RequestDetailPage extends GetWidget {
                                       style: const TextStyle(
                                           color: AppColors.colorText2,
                                           fontSize: 15,
-                                          fontFamily: 'Roboto'),
+                                          fontFamily: 'Barlow'),
                                     ),
                                     Expanded(
                                       child: Text(
@@ -112,7 +114,7 @@ class RequestDetailPage extends GetWidget {
                                       style: const TextStyle(
                                           color: AppColors.colorText2,
                                           fontSize: 15,
-                                          fontFamily: 'Roboto'),
+                                          fontFamily: 'Barlow'),
                                     ),
                                     Expanded(
                                       child: Text(
@@ -143,7 +145,7 @@ class RequestDetailPage extends GetWidget {
                                       style: const TextStyle(
                                           color: AppColors.colorText2,
                                           fontSize: 15,
-                                          fontFamily: 'Roboto'),
+                                          fontFamily: 'Barlow'),
                                     ),
                                     Expanded(
                                       child: Text(
@@ -171,7 +173,7 @@ class RequestDetailPage extends GetWidget {
                                       style: const TextStyle(
                                           color: AppColors.colorText2,
                                           fontSize: 15,
-                                          fontFamily: 'Roboto'),
+                                          fontFamily: 'Barlow'),
                                     ),
                                     Expanded(
                                       child: Text(
@@ -207,7 +209,7 @@ class RequestDetailPage extends GetWidget {
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,
-                                            fontFamily: 'Roboto'),
+                                            fontFamily: 'Barlow'),
                                       ),
                                       Expanded(
                                         child: Text(
@@ -237,7 +239,7 @@ class RequestDetailPage extends GetWidget {
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,
-                                            fontFamily: 'Roboto'),
+                                            fontFamily: 'Barlow'),
                                       ),
                                       Expanded(
                                         child: Text(
@@ -268,7 +270,7 @@ class RequestDetailPage extends GetWidget {
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,
-                                            fontFamily: 'Roboto'),
+                                            fontFamily: 'Barlow'),
                                       ),
                                       Expanded(
                                         child: Text(
@@ -300,7 +302,7 @@ class RequestDetailPage extends GetWidget {
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,
-                                            fontFamily: 'Roboto'),
+                                            fontFamily: 'Barlow'),
                                       ),
                                       Expanded(
                                         child: Text(
@@ -337,7 +339,7 @@ class RequestDetailPage extends GetWidget {
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,
-                                            fontFamily: 'Roboto'),
+                                            fontFamily: 'Barlow'),
                                       ),
                                       Expanded(
                                         child: Text(
@@ -369,15 +371,15 @@ class RequestDetailPage extends GetWidget {
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,
-                                            fontFamily: 'Roboto'),
+                                            fontFamily: 'Barlow'),
                                       ),
                                       Expanded(
                                         child: Text(
                                           controller.requestModel.contractModel
-                                                      .billCycleFrom <
-                                                  1
+                                                  .billCycleFrom.isEmpty
                                               ? "---"
-                                              : "${controller.requestModel.contractModel.billCycleFrom}",
+                                              : controller.requestModel
+                                                  .contractModel.billCycleFrom,
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),
@@ -401,15 +403,19 @@ class RequestDetailPage extends GetWidget {
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,
-                                            fontFamily: 'Roboto'),
+                                            fontFamily: 'Barlow'),
                                       ),
                                       Expanded(
                                         child: Text(
                                           controller.requestModel.contractModel
-                                                  .signDate.isEmpty
-                                              ? "---"
-                                              : controller.requestModel
-                                                  .contractModel.signDate,
+                                                  .signDate.isNotEmpty
+                                              ? Common.fromDate(
+                                                  DateTime.parse(controller
+                                                      .requestModel
+                                                      .contractModel
+                                                      .signDate),
+                                                  'dd/MM/yyyy')
+                                              : "---",
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),
@@ -433,15 +439,11 @@ class RequestDetailPage extends GetWidget {
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,
-                                            fontFamily: 'Roboto'),
+                                            fontFamily: 'Barlow'),
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.contractModel
-                                                      .status <
-                                                  1
-                                              ? "---"
-                                              : "${controller.requestModel.contractModel.status}",
+                                          controller.getStatusContract(),
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),
@@ -468,7 +470,7 @@ class RequestDetailPage extends GetWidget {
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,
-                                            fontFamily: 'Roboto'),
+                                            fontFamily: 'Barlow'),
                                       ),
                                       Expanded(
                                         child: Text(
@@ -500,7 +502,7 @@ class RequestDetailPage extends GetWidget {
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,
-                                            fontFamily: 'Roboto'),
+                                            fontFamily: 'Barlow'),
                                       ),
                                       Expanded(
                                         child: Text(
@@ -534,7 +536,7 @@ class RequestDetailPage extends GetWidget {
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,
-                                            fontFamily: 'Roboto'),
+                                            fontFamily: 'Barlow'),
                                       ),
                                       Expanded(
                                         child: Text(
@@ -564,7 +566,7 @@ class RequestDetailPage extends GetWidget {
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,
-                                            fontFamily: 'Roboto'),
+                                            fontFamily: 'Barlow'),
                                       ),
                                       Expanded(
                                         child: Text(

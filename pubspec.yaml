@@ -70,6 +70,7 @@ dependencies:
   google_mlkit_text_recognition: ^0.5.0
   geocoding: ^2.1.0
   firebase_crashlytics: ^3.0.17
+  flutter_typeahead: ^4.3.7
 
 dev_dependencies:
   flutter_test:
@@ -90,7 +91,11 @@ flutter_icons:
   android: true
   ios: true
   image_path: "assets/icons/ic_logo_app.png"
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/icons/ic_logo_app.png"
   min_sdk_android: 21
+#  update chay lenh: flutter pub run flutter_launcher_icons
+
 
 flutter_native_splash:
   color: "#fff200"
@@ -99,14 +104,16 @@ flutter_native_splash:
   image_dark: assets/icons/ic_logo_splash.png
 
   android_12:
-    image: assets/icons/ic_logo_app_12.png
+    image: assets/icons/ic_logo_splash_12.png
     icon_background_color: "#fff200"
     color: "#fff200"
-    image_dark: assets/icons/ic_logo_app_12.png
+    image_dark: assets/icons/ic_logo_splash_12.png
     icon_background_color_dark: "#fff200"
+
 
   web: false
   fullscreen: true
+#  update chay lenh:  flutter pub run flutter_native_splash:create
 
 flutter:
 

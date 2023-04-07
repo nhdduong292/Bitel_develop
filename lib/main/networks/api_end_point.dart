@@ -60,4 +60,10 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/buy-anypay/confirm";
   static const String API_SEARCH_BUY_ANYPAY =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/buy-anypay";
+  static const String API_UPLOAD_FILE =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/file";
+  static const String API_LIST_PROMOTION =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/promotions";
+  static const String API_LIST_STAFF =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/staffs";
 }

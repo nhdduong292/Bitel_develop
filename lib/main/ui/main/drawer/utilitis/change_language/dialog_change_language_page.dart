@@ -1,5 +1,7 @@
 import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/utilitis/change_language/dialog_change_language_logic.dart';
+import 'package:bitel_ventas/res/app_colors.dart';
+import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
@@ -25,30 +27,32 @@ class DialogChangeLanguagePage extends Dialog {
               children: [
                 Text(
                   AppLocalizations.of(context)!.textSelectLanguage,
-                  style: TextStyle(fontSize: 20, color: Colors.black),
-                ),
+                  style: AppStyles.b2.copyWith(fontWeight: FontWeight.bold),),
                 RadioListTile<String>(
-                  title: Text(AppLocalizations.of(context)!.textLanguageEN),
+                  title: Text(AppLocalizations.of(context)!.textLanguageEN, style: AppStyles.r1,),
                   value: RouteConfig.listLanguage[0].languageCode,
                   groupValue: controller.currentLanguage.value,
+                  activeColor: AppColors.colorSubContent,
                   onChanged: (String? value) {
                     print(value);
                     controller.setLanguageCode(value!);
                   },
                 ),
                 RadioListTile<String>(
-                  title: Text(AppLocalizations.of(context)!.textLanguageVN),
+                  title: Text(AppLocalizations.of(context)!.textLanguageVN, style: AppStyles.r1),
                   value: RouteConfig.listLanguage[1].languageCode,
                   groupValue: controller.currentLanguage.value,
+                  activeColor: AppColors.colorSubContent,
                   onChanged: (String? value) {
                     print(value);
                     controller.setLanguageCode(value!);
                   },
                 ),
                 RadioListTile<String>(
-                  title: Text(AppLocalizations.of(context)!.textLanguageES),
+                  title: Text(AppLocalizations.of(context)!.textLanguageES, style: AppStyles.r1),
                   value: RouteConfig.listLanguage[2].languageCode,
                   groupValue: controller.currentLanguage.value,
+                  activeColor: AppColors.colorSubContent,
                   onChanged: (String? value) {
                     print(value);
                     controller.setLanguageCode(value!);
@@ -57,7 +61,7 @@ class DialogChangeLanguagePage extends Dialog {
                 Container(
                   width: double.infinity,
                   margin: EdgeInsets.all(10),
-                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  padding: EdgeInsets.symmetric(horizontal: 10),
                   child: ElevatedButton(
                     onPressed: () {
                       controller.updateLanguage();
@@ -67,12 +71,12 @@ class DialogChangeLanguagePage extends Dialog {
                         foregroundColor:
                         MaterialStateProperty.all<Color>(Colors.white),
                         backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.red),
+                        MaterialStateProperty.all<Color>(AppColors.colorButton),
                         shape:
                         MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                side: BorderSide(color: Colors.red)))),
+                                borderRadius: BorderRadius.circular(24),
+                                side: BorderSide(color: AppColors.colorButton)))),
                   ),
                 )
               ],

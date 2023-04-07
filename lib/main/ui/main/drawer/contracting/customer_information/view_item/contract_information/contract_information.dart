@@ -69,12 +69,12 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 required: false,
                 isIcon: true,
                 width: width * 0.55),
-            lockedBoxV1(
-                content: '123456/XXXXXX',
-                label: AppLocalizations.of(context)!.textContractNumber,
-                required: false,
-                isIcon: false,
-                width: width * 0.55),
+            // lockedBoxV1(
+            //     content: '123456/XXXXXX',
+            //     label: AppLocalizations.of(context)!.textContractNumber,
+            //     required: false,
+            //     isIcon: false,
+            //     width: width * 0.55),
             lockedBoxV1(
                 content: '1',
                 label: AppLocalizations.of(context)!.textQuantitySubscriber,
@@ -90,14 +90,12 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 required: false,
                 isIcon: false,
                 width: width * 0.55)),
-            Obx(
-              () => lockedBoxV1(
-                  content: controller.getBillCycle(controller.billCycle.value),
-                  label: AppLocalizations.of(context)!.textBillCycle,
-                  required: true,
-                  isIcon: true,
-                  width: width * 0.55),
-            ),
+            lockedBoxV1(
+                content: controller.getBillCycle(controller.billCycle),
+                label: AppLocalizations.of(context)!.textBillCycle,
+                required: true,
+                isIcon: true,
+                width: width * 0.55),
             lockedBoxV1(
                 content: AppLocalizations.of(context)!.textEmail,
                 label: AppLocalizations.of(context)!.textChangeNotification,
@@ -139,7 +137,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 ).then((value) {
                   if (value) {
                     controller.billAddress =
-                        '${controller.billAddressSelect}, ${controller.billProvince.name}, ${controller.billDistrict.name}, ${controller.billPrecinct.name}';
+                        '${controller.billAddressSelect}, ${controller.billPrecinct.name}, ${controller.billDistrict.name}, ${controller.billProvince.name}';
                     controller.update();
                   }
                 });
@@ -283,17 +281,14 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
             child: RichText(
               text: TextSpan(
                 text: label,
-                style: TextStyle(
-                  color: AppColors.colorText1,
-                  fontFamily: 'Roboto',
-                  fontSize: 14,
-                ),
+                style: AppStyles.r2B3A4A_12_500
+                    .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
                 children: [
                   TextSpan(
                       text: required ? ' *' : '',
                       style: TextStyle(
                         color: AppColors.colorTextError,
-                        fontFamily: 'Roboto',
+                        fontFamily: 'Barlow',
                         fontSize: 14,
                       )),
                 ],
@@ -305,7 +300,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
           // width: double.infinity,
           height: 45,
           width: width,
-          padding: EdgeInsets.only(left: 12, top: 6, bottom: 6, right: 6),
+          padding: EdgeInsets.only(left: 15, top: 6, bottom: 6, right: 6),
           margin: EdgeInsets.only(left: 15, right: 15, top: 15),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
@@ -342,16 +337,16 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
               }).toList(),
               alignment: AlignmentDirectional.centerStart,
               style: TextStyle(
-                  fontSize: 18,
-                  fontFamily: 'Roboto',
+                  fontSize: 14,
+                  fontFamily: 'Barlow',
                   color: Color(0xFF415263),
                   fontWeight: FontWeight.w500),
               icon: SvgPicture.asset(AppImages.icDropdownSpinner),
               hint: Text(
                 hint,
                 style: TextStyle(
-                    fontSize: 18,
-                    fontFamily: 'Roboto',
+                    fontSize: 14,
+                    fontFamily: 'Barlow',
                     fontWeight: FontWeight.w300),
               ),
             ),
@@ -384,7 +379,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                       text: required ? ' *' : '',
                       style: TextStyle(
                         color: AppColors.colorTextError,
-                        fontFamily: 'Roboto',
+                        fontFamily: 'Barlow',
                         fontSize: 14,
                       )),
                 ],
@@ -395,9 +390,11 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
         Container(
           margin: EdgeInsets.only(left: 15, right: 15, top: 15),
           child: Container(
-              height: 45,
+              constraints: BoxConstraints(
+                minHeight: 45,
+              ),
               width: width,
-              padding: EdgeInsets.only(left: 18, right: 7),
+              padding: EdgeInsets.only(left: 15, right: 7),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(24),
                   border: Border.all(color: Color(0xFFE3EAF2), width: 1)),
@@ -409,7 +406,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                       child: Text(
                         content,
                         style: TextStyle(
-                            fontFamily: 'Roboto',
+                            fontFamily: 'Barlow',
                             color: Color(0xFF415263),
                             fontWeight: FontWeight.w500,
                             fontSize: 13),
@@ -442,277 +439,283 @@ class BillAddressInformation extends Dialog {
         height: height,
         child: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              InkWell(
-                onTap: () {
-                  Get.back(result: false);
-                },
-                child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: SvgPicture.asset(AppImages.icClose),
-                    )),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10, left: 5),
-                child: Text(
-                  AppLocalizations.of(context)!.textProvince,
-                  style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Get.back(result: false);
+                  },
+                  child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: SvgPicture.asset(AppImages.icClose),
+                      )),
                 ),
-              ),
-              InkWell(
-                onTap: () {
-                  if (controller.listProvince.isEmpty) {
-                    _onLoading(context);
-                    controller.getListProvince(
-                      (isSuccess) {
-                        Get.back();
-                        if (isSuccess) {
-                          showDialogAddress(
-                              context, controller.listProvince, controller, 0);
-                        }
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10, left: 5),
+                  child: Text(
+                    AppLocalizations.of(context)!.textProvince,
+                    style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    if (controller.listProvince.isEmpty) {
+                      _onLoading(context);
+                      controller.getListProvince(
+                        (isSuccess) {
+                          Get.back();
+                          if (isSuccess) {
+                            showDialogAddress(context, controller.listProvince,
+                                controller, 0);
+                          }
+                        },
+                      );
+                    } else {
+                      showDialogAddress(
+                          context, controller.listProvince, controller, 0);
+                    }
+                  },
+                  child: Container(
+                    height: 45,
+                    child: TextField(
+                        controller: controller.textFieldProvince,
+                        focusNode: controller.focusProvince,
+                        enabled: false,
+                        style: AppStyles.r2.copyWith(
+                            color: AppColors.colorTitle,
+                            fontWeight: FontWeight.w500),
+                        decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.only(
+                                top: 5, left: 10, right: 10),
+                            hintText:
+                                AppLocalizations.of(context)!.hintProvince,
+                            hintStyle: AppStyles.r2.copyWith(
+                                color: AppColors.colorHint1,
+                                fontWeight: FontWeight.w400),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(
+                                    width: 1, color: AppColors.colorLineDash)),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(
+                                    width: 1, color: Colors.redAccent)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(
+                                    width: 1, color: AppColors.colorLineDash)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(
+                                    width: 1, color: AppColors.colorLineDash)),
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child:
+                                  SvgPicture.asset(AppImages.icDropdownSpinner),
+                            ))),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 10, left: 5),
+                  child: Text(
+                    AppLocalizations.of(context)!.textDistrict,
+                    style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    if (controller.textFieldProvince.text.isNotEmpty) {
+                      if (controller.listDistrict.isEmpty) {
+                        _onLoading(context);
+                        controller.getListDistrict(
+                          controller.billProvince.areaCode,
+                          (isSuccess) {
+                            Get.back();
+                            if (isSuccess) {
+                              showDialogAddress(context,
+                                  controller.listDistrict, controller, 1);
+                            }
+                          },
+                        );
+                      } else {
+                        showDialogAddress(
+                            context, controller.listDistrict, controller, 1);
+                      }
+                    } else {
+                      // Get.snackbar("Thông báo", "Bạn phải chọn Province trước", snackPosition: SnackPosition.BOTTOM);
+                    }
+                  },
+                  child: Container(
+                    height: 45,
+                    child: TextField(
+                        controller: controller.textFieldDistrict,
+                        focusNode: controller.focusDistrict,
+                        enabled: false,
+                        style: AppStyles.r2.copyWith(
+                            color: AppColors.colorTitle,
+                            fontWeight: FontWeight.w500),
+                        decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.only(
+                                top: 5, left: 10, right: 10),
+                            hintText:
+                                AppLocalizations.of(context)!.hintDistrict,
+                            hintStyle: AppStyles.r2.copyWith(
+                                color: AppColors.colorHint1,
+                                fontWeight: FontWeight.w400),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(
+                                    width: 1, color: AppColors.colorLineDash)),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(
+                                    width: 1, color: Colors.redAccent)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(
+                                    width: 1, color: AppColors.colorLineDash)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(
+                                    width: 1, color: AppColors.colorLineDash)),
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child:
+                                  SvgPicture.asset(AppImages.icDropdownSpinner),
+                            ))),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 10, left: 5),
+                  child: Text(
+                    AppLocalizations.of(context)!.textPrecinct,
+                    style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    if (controller.textFieldDistrict.text.isNotEmpty) {
+                      if (controller.listPrecinct.isEmpty) {
+                        _onLoading(context);
+                        controller.getListPrecincts(
+                          controller.billDistrict.areaCode,
+                          (isSuccess) {
+                            Get.back();
+                            if (isSuccess) {
+                              showDialogAddress(context,
+                                  controller.listPrecinct, controller, 2);
+                            }
+                          },
+                        );
+                      } else {
+                        showDialogAddress(
+                            context, controller.listPrecinct, controller, 2);
+                      }
+                    } else {
+                      // Get.snackbar("Thông báo", "Bạn phải chọn District trước", snackPosition: SnackPosition.BOTTOM);
+                    }
+                  },
+                  child: Container(
+                    height: 45,
+                    child: TextField(
+                        controller: controller.textFieldPrecinct,
+                        focusNode: controller.focusPrecinct,
+                        enabled: false,
+                        style: AppStyles.r2.copyWith(
+                            color: AppColors.colorTitle,
+                            fontWeight: FontWeight.w500),
+                        decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.only(
+                                top: 5, left: 10, right: 10),
+                            hintText:
+                                AppLocalizations.of(context)!.hintPrecinct,
+                            hintStyle: AppStyles.r2.copyWith(
+                                color: AppColors.colorHint1,
+                                fontWeight: FontWeight.w400),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(
+                                    width: 1, color: AppColors.colorLineDash)),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(
+                                    width: 1, color: Colors.redAccent)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(
+                                    width: 1, color: AppColors.colorLineDash)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                borderSide: const BorderSide(
+                                    width: 1, color: AppColors.colorLineDash)),
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child:
+                                  SvgPicture.asset(AppImages.icDropdownSpinner),
+                            ))),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 10, left: 5),
+                  child: Text(
+                    AppLocalizations.of(context)!.textAddress,
+                    style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
+                  ),
+                ),
+                Container(
+                  height: 45,
+                  child: TextField(
+                      focusNode: controller.focusAddress,
+                      controller: controller.textFieldAddress,
+                      style: AppStyles.r2.copyWith(
+                          color: AppColors.colorTitle,
+                          fontWeight: FontWeight.w500),
+                      onChanged: (value) {
+                        controller.setBillAddress(value);
                       },
-                    );
-                  } else {
-                    showDialogAddress(
-                        context, controller.listProvince, controller, 0);
-                  }
-                },
-                child: Container(
-                  height: 45,
-                  child: TextField(
-                      controller: controller.textFieldProvince,
-                      focusNode: controller.focusProvince,
-                      enabled: false,
-                      style: AppStyles.r2.copyWith(
-                          color: AppColors.colorTitle,
-                          fontWeight: FontWeight.w500),
                       decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.only(
-                              top: 5, left: 10, right: 10),
-                          hintText: AppLocalizations.of(context)!.hintProvince,
-                          hintStyle: AppStyles.r2.copyWith(
-                              color: AppColors.colorHint1,
-                              fontWeight: FontWeight.w400),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(24),
-                              borderSide: const BorderSide(
-                                  width: 1, color: AppColors.colorLineDash)),
-                          errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(24),
-                              borderSide: const BorderSide(
-                                  width: 1, color: Colors.redAccent)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(24),
-                              borderSide: const BorderSide(
-                                  width: 1, color: AppColors.colorLineDash)),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(24),
-                              borderSide: const BorderSide(
-                                  width: 1, color: AppColors.colorLineDash)),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child:
-                                SvgPicture.asset(AppImages.icDropdownSpinner),
-                          ))),
+                        contentPadding:
+                            const EdgeInsets.only(top: 5, left: 10, right: 10),
+                        hintText: AppLocalizations.of(context)!.hintAddress,
+                        hintStyle: AppStyles.r2.copyWith(
+                            color: AppColors.colorHint1,
+                            fontWeight: FontWeight.w400),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(24),
+                            borderSide: const BorderSide(
+                                width: 1, color: AppColors.colorLineDash)),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(24),
+                            borderSide: const BorderSide(
+                                width: 1, color: Colors.redAccent)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(24),
+                            borderSide: const BorderSide(
+                                width: 1, color: AppColors.colorLineDash)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(24),
+                            borderSide: const BorderSide(
+                                width: 1, color: AppColors.colorLineDash)),
+                      )),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10, bottom: 10, left: 5),
-                child: Text(
-                  AppLocalizations.of(context)!.textDistrict,
-                  style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  if (controller.textFieldProvince.text.isNotEmpty) {
-                    if (controller.listDistrict.isEmpty) {
-                      _onLoading(context);
-                      controller.getListDistrict(
-                        controller.billProvince.areaCode,
-                        (isSuccess) {
-                          Get.back();
-                          if (isSuccess) {
-                            showDialogAddress(context, controller.listDistrict,
-                                controller, 1);
-                          }
-                        },
-                      );
-                    } else {
-                      showDialogAddress(
-                          context, controller.listDistrict, controller, 1);
+                bottomButton(
+                  onTap: () {
+                    if (controller.validateAddress()) {
+                      Get.back(result: true);
                     }
-                  } else {
-                    // Get.snackbar("Thông báo", "Bạn phải chọn Province trước", snackPosition: SnackPosition.BOTTOM);
-                  }
-                },
-                child: Container(
-                  height: 45,
-                  child: TextField(
-                      controller: controller.textFieldDistrict,
-                      focusNode: controller.focusDistrict,
-                      enabled: false,
-                      style: AppStyles.r2.copyWith(
-                          color: AppColors.colorTitle,
-                          fontWeight: FontWeight.w500),
-                      decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.only(
-                              top: 5, left: 10, right: 10),
-                          hintText: AppLocalizations.of(context)!.hintDistrict,
-                          hintStyle: AppStyles.r2.copyWith(
-                              color: AppColors.colorHint1,
-                              fontWeight: FontWeight.w400),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(24),
-                              borderSide: const BorderSide(
-                                  width: 1, color: AppColors.colorLineDash)),
-                          errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(24),
-                              borderSide: const BorderSide(
-                                  width: 1, color: Colors.redAccent)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(24),
-                              borderSide: const BorderSide(
-                                  width: 1, color: AppColors.colorLineDash)),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(24),
-                              borderSide: const BorderSide(
-                                  width: 1, color: AppColors.colorLineDash)),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child:
-                                SvgPicture.asset(AppImages.icDropdownSpinner),
-                          ))),
+                  },
+                  text:
+                      AppLocalizations.of(context)!.textContinue.toUpperCase(),
+                  // color: !controller.isValidateAddress
+                  //     ? const Color(0xFF415263).withOpacity(0.2)
+                  //     : null
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10, bottom: 10, left: 5),
-                child: Text(
-                  AppLocalizations.of(context)!.textPrecinct,
-                  style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  if (controller.textFieldDistrict.text.isNotEmpty) {
-                    if (controller.listPrecinct.isEmpty) {
-                      _onLoading(context);
-                      controller.getListPrecincts(
-                        controller.billDistrict.areaCode,
-                        (isSuccess) {
-                          Get.back();
-                          if (isSuccess) {
-                            showDialogAddress(context, controller.listPrecinct,
-                                controller, 2);
-                          }
-                        },
-                      );
-                    } else {
-                      showDialogAddress(
-                          context, controller.listPrecinct, controller, 2);
-                    }
-                  } else {
-                    // Get.snackbar("Thông báo", "Bạn phải chọn District trước", snackPosition: SnackPosition.BOTTOM);
-                  }
-                },
-                child: Container(
-                  height: 45,
-                  child: TextField(
-                      controller: controller.textFieldPrecinct,
-                      focusNode: controller.focusPrecinct,
-                      enabled: false,
-                      style: AppStyles.r2.copyWith(
-                          color: AppColors.colorTitle,
-                          fontWeight: FontWeight.w500),
-                      decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.only(
-                              top: 5, left: 10, right: 10),
-                          hintText: AppLocalizations.of(context)!.hintPrecinct,
-                          hintStyle: AppStyles.r2.copyWith(
-                              color: AppColors.colorHint1,
-                              fontWeight: FontWeight.w400),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(24),
-                              borderSide: const BorderSide(
-                                  width: 1, color: AppColors.colorLineDash)),
-                          errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(24),
-                              borderSide: const BorderSide(
-                                  width: 1, color: Colors.redAccent)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(24),
-                              borderSide: const BorderSide(
-                                  width: 1, color: AppColors.colorLineDash)),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(24),
-                              borderSide: const BorderSide(
-                                  width: 1, color: AppColors.colorLineDash)),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child:
-                                SvgPicture.asset(AppImages.icDropdownSpinner),
-                          ))),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10, bottom: 10, left: 5),
-                child: Text(
-                  AppLocalizations.of(context)!.textAddress,
-                  style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
-                ),
-              ),
-              Container(
-                height: 45,
-                child: TextField(
-                    focusNode: controller.focusAddress,
-                    controller: controller.textFieldAddress,
-                    style: AppStyles.r2.copyWith(
-                        color: AppColors.colorTitle,
-                        fontWeight: FontWeight.w500),
-                    onChanged: (value) {
-                      controller.setBillAddress(value);
-                    },
-                    decoration: InputDecoration(
-                      contentPadding:
-                          const EdgeInsets.only(top: 5, left: 10, right: 10),
-                      hintText: AppLocalizations.of(context)!.hintAddress,
-                      hintStyle: AppStyles.r2.copyWith(
-                          color: AppColors.colorHint1,
-                          fontWeight: FontWeight.w400),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(24),
-                          borderSide: const BorderSide(
-                              width: 1, color: AppColors.colorLineDash)),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(24),
-                          borderSide: const BorderSide(
-                              width: 1, color: Colors.redAccent)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(24),
-                          borderSide: const BorderSide(
-                              width: 1, color: AppColors.colorLineDash)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(24),
-                          borderSide: const BorderSide(
-                              width: 1, color: AppColors.colorLineDash)),
-                    )),
-              ),
-              bottomButton(
-                onTap: () {
-                  if (controller.validateAddress()) {
-                    Get.back(result: true);
-                  }
-                },
-                text: AppLocalizations.of(context)!.textContinue.toUpperCase(),
-                // color: !controller.isValidateAddress
-                //     ? const Color(0xFF415263).withOpacity(0.2)
-                //     : null
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

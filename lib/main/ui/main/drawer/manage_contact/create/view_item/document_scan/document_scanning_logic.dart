@@ -1,29 +1,25 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
-import 'package:bitel_ventas/main/networks/request/google_detect_request.dart';
-import 'package:bitel_ventas/main/networks/request/google_detect_request.dart';
-import 'package:bitel_ventas/main/networks/request/google_detect_request.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/create_contact_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/cretate_contact_page_logic.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/client_data_logic.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/scan_model/customer_dni_model.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/scan_model/customer_scan_model.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/scan_model/item_infor.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:bitel_ventas/res/app_images.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../../../../../../networks/request/google_detect_request.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import '../client_data/customer_detect_mode.dart';
 
 class DocumentScanningLogic extends GetxController {
@@ -32,21 +28,27 @@ class DocumentScanningLogic extends GetxController {
   var checkOption2 = false.obs;
 
   String textPathScan = "";
-  CustomerModel customer = CustomerModel();
-  bool _canProcess = true;
-  bool _isBusy = false;
+  String textPathScanBack = "";
+  // bool _canProcess = true;
+  // bool _isBusy = false;
   CustomPaint? _customPaint;
   CustomerDetectModel customerDetectModel = CustomerDetectModel();
-  String? _text;
   CustomerModel customerModel = CustomerModel();
   final TextRecognizer _textRecognizer =
       TextRecognizer(script: TextRecognitionScript.latin);
 
   String currentIdentity = "DNI";
-  List<String> listIdentityNumber = ["DNI", "CE", "PP", "PTP"];
-  CustomerDNIModel customerDNIModel = CustomerDNIModel();
+  // List<String> listIdentityNumber = ["DNI", "CE", "PP", "PTP"];
+  CustomerScanModel customerScanModel = CustomerScanModel();
+
+  String pathImageFont = '';
+  String pathImageBack = '';
+
+  bool onProcessImage = false;
 
   CreateContactPageLogic logicCreateContact = Get.find();
+
+  DocumentScanningLogic({required this.context});
 
   @override
   void onInit() {
@@ -61,24 +63,20 @@ class DocumentScanningLogic extends GetxController {
     update();
   }
 
-  bool isDNI() {
-    if (currentIdentity == 'DNI') {
-      return true;
-    }
-    return false;
-  }
+  // bool isDNI() {
+  //   if (currentIdentity == 'DNI') {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   String getImageIdentity() {
-    if (currentIdentity == listIdentityNumber[0]) {
-      return AppImages.imgDNI;
-    } else if (currentIdentity == listIdentityNumber[1]) {
-      return AppImages.imgCE;
-    } else if (currentIdentity == listIdentityNumber[2]) {
+    if (currentIdentity == 'CE') {
+      return AppImages.imgIdentityCEFont;
+    } else if (currentIdentity == 'PP') {
       return AppImages.imgPP;
-    } else if (currentIdentity == listIdentityNumber[3]) {
-      return AppImages.imgPTP;
     }
-    return AppImages.imgDNI;
+    return AppImages.imgIdentityCEFont;
   }
 
   void onListenerMethod() {
@@ -103,10 +101,12 @@ class DocumentScanningLogic extends GetxController {
     print(result);
   }
 
-  void setPathScan(String value) {
-    textPathScan = value;
-    processImage(InputImage.fromFilePath(File(value).path))
-        .then((value) => {print('da xong')});
+  void setPathScan(String value, bool isScanningFont) {
+    if (isScanningFont) {
+      textPathScan = value;
+    } else {
+      textPathScanBack = value;
+    }
     update();
   }
 
@@ -139,6 +139,10 @@ class DocumentScanningLogic extends GetxController {
     );
   }
 
+  void reset() {
+    customerScanModel = CustomerScanModel();
+  }
+
   void _onLoading(BuildContext context) {
     showDialog(
       context: context,
@@ -153,26 +157,187 @@ class DocumentScanningLogic extends GetxController {
     );
   }
 
+  void setListImageScan() {
+    logicCreateContact.listImageScan.clear();
+    if (logicCreateContact.typeCustomer == 'CE') {
+      logicCreateContact.listImageScan.add(pathImageFont);
+      logicCreateContact.listImageScan.add(pathImageBack);
+    } else {
+      logicCreateContact.listImageScan.add(pathImageFont);
+    }
+  }
+
   Future<void> processImage(InputImage inputImage) async {
-    if (!_canProcess) return;
-    if (_isBusy) return;
-    _isBusy = true;
     final recognizedText = await _textRecognizer.processImage(inputImage);
 
     for (final textBlock in recognizedText.blocks) {
       for (final line in textBlock.lines) {
-        if (customerDNIModel.getInformationCus(line.text) != null) {
+        print(line.text);
+        InformationCus? informationCus = customerScanModel
+            .getCustomerScan(currentIdentity)
+            .getInformationCus(line.text);
+        if (informationCus != null) {
           for (final element in line.elements) {
-            if (customerDNIModel.getInformationCus(element.text) != null) {
-              customerDNIModel.getInformationCus((element.text))!.rect =
-                  element.boundingBox;
+            if (element.text.contains(informationCus.type) ||
+                informationCus.type.contains(element.text)) {
+              informationCus.rect = element.boundingBox;
+            } else {
+              customerScanModel
+                  .getCustomerScan(currentIdentity)
+                  .findInfo(element.boundingBox, element.text);
             }
           }
         } else {
-          customerDNIModel.findInfo(line.boundingBox, line.text);
+          customerScanModel
+              .getCustomerScan(currentIdentity)
+              .findInfo(line.boundingBox, line.text);
         }
       }
     }
     update();
+  }
+
+  void uploadFile(String path, String name,
+      Function(bool isSuccess, String path) function) {
+    ApiUtil.getInstance()!.postFile(
+        url: ApiEndPoints.API_UPLOAD_FILE,
+        path: path,
+        name: name,
+        onSuccess: (response) {
+          if (response.isSuccess) {
+            function.call(true, response.data['data']);
+          } else {
+            function.call(false, '');
+          }
+        },
+        onError: (error) {
+          function.call(false, '');
+          Common.showMessageError(error, context);
+        });
+  }
+
+  uploadImage(BuildContext context, DocumentScanningLogic controller,
+      bool isScanningFont) async {
+    try {
+      final pickedFile =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        // ignore: use_build_context_synchronously
+        _cropImage(pickedFile, context, controller, isScanningFont);
+      }
+    } on Exception catch (e) {
+      // TODO
+      print(e.toString());
+      Common.showToastCenter(e.toString());
+    }
+  }
+
+  getFromGallery(BuildContext context, DocumentScanningLogic controller,
+      bool isScanningFont) async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    // ignore: use_build_context_synchronously
+    _cropImage(pickedFile, context, controller, isScanningFont);
+  }
+
+  /// Crop Image
+  _cropImage(filePath, BuildContext context, DocumentScanningLogic controller,
+      bool isScanningFont) async {
+    if (filePath != null) {
+      final croppedFile = await ImageCropper().cropImage(
+        sourcePath: filePath.path,
+        compressFormat: ImageCompressFormat.jpg,
+        compressQuality: 100,
+        uiSettings: [
+          AndroidUiSettings(
+              toolbarTitle: 'Cropper',
+              toolbarColor: Colors.deepOrange,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false),
+          IOSUiSettings(
+            title: 'Cropper',
+          ),
+          WebUiSettings(
+            context: context,
+            presentStyle: CropperPresentStyle.dialog,
+            boundary: const CroppieBoundary(
+              width: 520,
+              height: 520,
+            ),
+            viewPort:
+                const CroppieViewPort(width: 480, height: 480, type: 'circle'),
+            enableExif: true,
+            enableZoom: true,
+            showZoomer: true,
+          ),
+        ],
+      );
+      if (croppedFile != null) {
+        controller.setPathScan(croppedFile.path, isScanningFont);
+      }
+    }
+  }
+
+  void onClickContinue({var onContiue, var onScan}) {
+    if (checkOption1.value && checkOption2.value) {
+      if (!onProcessImage) {
+        if ((textPathScan.isNotEmpty &&
+                textPathScanBack.isNotEmpty &&
+                currentIdentity == 'CE') ||
+            (textPathScan.isNotEmpty && currentIdentity != 'CE')) {
+          onProcessImage = true;
+          reset();
+          processImage(InputImage.fromFilePath(File(textPathScan).path))
+              .then((value) {
+            onProcessImage = false;
+            if (customerScanModel
+                .getCustomerScan(currentIdentity)
+                .isCardIdentity()) {
+              _onLoading(context);
+              if (currentIdentity == 'CE') {
+                uploadFile(textPathScan, 'image_font', (isSuccess, path) {
+                  if (isSuccess) {
+                    pathImageFont = path;
+                    uploadFile(textPathScanBack, 'image_back',
+                        (isSuccess, path) {
+                      if (isSuccess) {
+                        Get.back();
+                        pathImageBack = path;
+                        logicCreateContact.listImageScan.add(pathImageFont);
+                        logicCreateContact.listImageScan.add(pathImageBack);
+                        onContiue();
+                      } else {
+                        Get.back();
+                      }
+                    });
+                  } else {
+                    Get.back();
+                  }
+                });
+              } else {
+                uploadFile(textPathScan, 'image_font', (isSuccess, path) {
+                  if (isSuccess) {
+                    Get.back();
+                    pathImageFont = path;
+                    onContiue();
+                  } else {
+                    Get.back();
+                  }
+                });
+              }
+            } else {
+              onProcessImage = false;
+              Common.showToastCenter(
+                  AppLocalizations.of(context)!.textCardIdentityNotValidate);
+            }
+          });
+        } else {
+          onScan();
+        }
+      }
+    } else {
+      Common.showToastCenter(AppLocalizations.of(context)!.textAcceptTheRules);
+    }
   }
 }

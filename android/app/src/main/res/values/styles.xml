@@ -7,6 +7,7 @@
         <item name="android:windowBackground">@drawable/launch_background</item>
         <item name="android:forceDarkAllowed">false</item>
         <item name="android:windowFullscreen">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
     </style>
     <!-- Theme applied to the Android Window as soon as the process has started.
@@ -18,7 +19,6 @@
     <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
         <item name="android:windowBackground">?android:colorBackground</item>
     </style>
-
     <style name="IconToolbar">
         <item name="android:layout_width">?android:attr/actionBarSize</item>
         <item name="android:layout_height">?android:attr/actionBarSize</item>
@@ -31,7 +31,6 @@
         <item name="android:layout_height">37dp</item>
         <item name="android:padding">5dp</item>
     </style>
-
     <style name="Transparent" parent="@android:style/Theme.Light.NoTitleBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>

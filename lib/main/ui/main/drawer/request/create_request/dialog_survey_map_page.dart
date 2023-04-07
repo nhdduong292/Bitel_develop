@@ -200,6 +200,7 @@ class DialogSurveyMapPage extends GetWidget {
                                   controller.checkValidate(context)) {
                                 return;
                               }
+                              FocusScope.of(context).unfocus();
                               _onLoading(context);
                               controller.createSurvey(
                                 (isSuccess) {

@@ -166,23 +166,14 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                             ),
                             Obx(
                               () => SizedBox(
-                                width: 140,
-                                height: 190,
-                                // child: controller.pathFinger.value != ''
-                                //     ? Image.asset(
-                                //         controller.pathFinger.value,
-                                //         fit: BoxFit.fitHeight,
-                                //       )
-                                //     : LoadingCirculApi(),
+                                width: 200,
+                                height: 280,
                                 child: controller.pathFinger.value != ''
                                     ? Image.asset(
                                         controller.pathFinger.value,
                                         fit: BoxFit.fitHeight,
                                       )
-                                    : Image.asset(
-                                        AppImages.imgFingerLeft3,
-                                        fit: BoxFit.fitHeight,
-                                      ),
+                                    : LoadingCirculApi(),
                               ),
                             ),
                             SizedBox(
@@ -216,10 +207,14 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                             controller.textCapture.isNotEmpty
                                 ? Image.file(
                                     File(controller.textCapture),
-                                    width: 65,
-                                    height: 85,
+                                    width: 80,
+                                    height: 100,
                                   )
-                                : SvgPicture.asset(AppImages.imgHuellaDactilar),
+                                : SvgPicture.asset(
+                                    AppImages.imgHuellaDactilar,
+                                    width: 80,
+                                    height: 100,
+                                  ),
                             SizedBox(
                               height: 22,
                             ),
@@ -251,9 +246,11 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                     if (Platform.isAndroid) {
                                       controller.getCapture(context);
                                     } else {
-                                      Common.showToastCenter(
-                                          AppLocalizations.of(context)!
-                                              .textOnlyActionAndroid);
+                                      controller.listFinger.add('value');
+                                      controller.update();
+                                      // Common.showToastCenter(
+                                      //     AppLocalizations.of(context)!
+                                      //         .textOnlyActionAndroid);
                                     }
                                   },
                                   child: Container(
@@ -300,7 +297,6 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                                 RouteConfig.ftthContracting,
                                                 arguments: [
                                                   controller.contractId,
-                                                  controller.email
                                                 ]);
                                           } else {
                                             Common.showToastCenter(
