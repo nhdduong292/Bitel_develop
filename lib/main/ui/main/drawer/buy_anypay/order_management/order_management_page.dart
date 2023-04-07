@@ -1,3 +1,4 @@
+import 'package:bitel_ventas/main/networks/model/buy_anypay_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/order_management/order_management_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/utilitis/info_bussiness.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
@@ -116,7 +117,7 @@ class OrderManagementPage extends GetWidget {
                               required: false,
                               dropValue: "",
                               function: (value) {
-                                // controller.setStatus(value);
+                                controller.textBankCode = value;
                               },
                               onSubmit: (value) {},
                               listDrop: []),
@@ -300,8 +301,12 @@ class OrderManagementPage extends GetWidget {
                   InkWell(
                     onTap: () {
                       controller.isSearched = true;
+
                       controller.searchBuyAnyPay(
-                          from: controller.from.value, to: controller.to.value);
+                          bankCode: controller.textBankCode,
+                          status: controller.currentStatus,
+                          from: controller.from.value,
+                          to: controller.to.value);
                       controller.update();
                     },
                     child: Container(
@@ -359,7 +364,9 @@ class OrderManagementPage extends GetWidget {
                                   primary: false,
                                   itemBuilder: (context, index) {
                                     return _itemOrderSearch(
-                                      bankModel: controller.listBank[index],
+                                      controller: controller,
+                                      buyAnyPayModel:
+                                          controller.listBuyAnyPay[index],
                                       index: index,
                                       onDelete: (value) {
                                         showDialog(
@@ -368,16 +375,28 @@ class OrderManagementPage extends GetWidget {
                                             return ConfirmDialog(
                                               height: 277,
                                               bankNumber: controller
-                                                  .listBank[value].bankNumber,
+                                                      .listBuyAnyPay[value]
+                                                      .bankCode ??
+                                                  '---',
                                               onSuccess: () {
                                                 Get.back();
-                                                controller.listBank
-                                                    .removeAt(value);
-                                                controller.update();
-                                                Common.showToastCenter(
-                                                    AppLocalizations.of(
-                                                            context)!
-                                                        .textCancelBuyAnyPaySuccess);
+                                                controller.deleteBuyAnyPay(
+                                                    saleOrderId: controller
+                                                            .listBuyAnyPay[
+                                                                value]
+                                                            .saleOrderId ??
+                                                        '',
+                                                    isSuccess: (value) {
+                                                      if (value) {
+                                                        controller.listBuyAnyPay
+                                                            .removeAt(value);
+                                                        controller.update();
+                                                        Common.showToastCenter(
+                                                            AppLocalizations.of(
+                                                                    context)!
+                                                                .textCancelBuyAnyPaySuccess);
+                                                      }
+                                                    });
                                               },
                                             );
                                           },
@@ -392,8 +411,8 @@ class OrderManagementPage extends GetWidget {
                                       thickness: 1,
                                     );
                                   },
-                                  itemCount: controller.listBank.length)
-                              : Center(
+                                  itemCount: controller.listBuyAnyPay.length)
+                              : const Center(
                                   child: Text('null'),
                                 ),
                     ),
@@ -482,11 +501,15 @@ class OrderManagementPage extends GetWidget {
 }
 
 class _itemOrderSearch extends StatelessWidget {
-  AcountBankModel bankModel;
+  BuyAnyPayModel buyAnyPayModel;
+  OrderManagementLogic controller;
   int index;
   var onDelete;
   _itemOrderSearch(
-      {required this.bankModel, required this.index, required this.onDelete});
+      {required this.controller,
+      required this.buyAnyPayModel,
+      required this.index,
+      required this.onDelete});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -495,91 +518,113 @@ class _itemOrderSearch extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
+                  flex: 6,
                   child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: Text(bankModel.bankNumber,
-                            style: AppStyles.bContent_17_700,
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(buyAnyPayModel.bankCode ?? '---',
+                                style: AppStyles.bContent_17_700,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(left: 8, right: 10),
+                            padding: const EdgeInsets.only(
+                                left: 8, right: 8, top: 3, bottom: 3),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(9),
+                              border: Border.all(
+                                  width: 1, color: AppColors.colorContent),
+                            ),
+                            child: InkWell(
+                              onTap: () async {
+                                await Clipboard.setData(ClipboardData(
+                                    text: buyAnyPayModel.idNumber));
+                                Common.showToastCenter(
+                                    AppLocalizations.of(context)!
+                                        .textCopySuccess);
+                              },
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(AppImages.icCopyOrder),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    AppLocalizations.of(context)!.textCopy,
+                                    style: AppStyles.bContent_10_400,
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                            buyAnyPayModel.amount != null
+                                ? buyAnyPayModel.amount.toString()
+                                : '---',
+                            style: AppStyles.bText1_14_500,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis),
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 8, right: 10),
-                        padding: const EdgeInsets.only(
-                            left: 8, right: 8, top: 3, bottom: 3),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(9),
-                          border: Border.all(
-                              width: 1, color: AppColors.colorContent),
-                        ),
-                        child: InkWell(
-                          onTap: () async {
-                            await Clipboard.setData(
-                                ClipboardData(text: bankModel.bankNumber));
-                            Common.showToastCenter(
-                                AppLocalizations.of(context)!.textCopySuccess);
-                          },
-                          child: Row(
-                            children: [
-                              SvgPicture.asset(AppImages.icCopyOrder),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                AppLocalizations.of(context)!.textCopy,
-                                style: AppStyles.bContent_10_400,
-                              )
-                            ],
-                          ),
-                        ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                            Common.fromDate(
+                                DateTime.parse(buyAnyPayModel.creationDate!),
+                                'dd/MM/yyyy'),
+                            style: AppStyles.bText1_13_300,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis),
                       )
                     ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(bankModel.amount,
-                        style: AppStyles.bText1_14_500,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(bankModel.date,
-                        style: AppStyles.bText1_13_300,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis),
-                  )
-                ],
-              )),
-              Container(
-                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 2),
-                margin: const EdgeInsets.only(right: 9),
-                decoration: BoxDecoration(
-                  color: AppColors.colorBackground3,
-                  borderRadius: BorderRadius.circular(9),
+                  )),
+              Expanded(
+                flex: 4,
+                child: Row(
+                  children: [
+                    Container(
+                      padding:
+                          const EdgeInsets.only(left: 20, right: 20, bottom: 2),
+                      margin: const EdgeInsets.only(right: 9),
+                      decoration: BoxDecoration(
+                        color: AppColors.colorBackground3,
+                        borderRadius: BorderRadius.circular(9),
+                      ),
+                      child: Text(
+                        buyAnyPayModel.stauts != null
+                            ? controller.getTextStatus(buyAnyPayModel.stauts!)
+                            : '---',
+                        style: AppStyles.rText1_13_500
+                            .copyWith(color: Colors.white),
+                      ),
+                    ),
+                    const VerticalDivider(
+                      color: AppColors.colorLineDash,
+                    ),
+                    Visibility(
+                      visible: buyAnyPayModel.stauts == 'NEW',
+                      child: InkWell(
+                        onTap: () {
+                          onDelete(index);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SvgPicture.asset(AppImages.icDeleteOrder),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                child: Text(
-                  bankModel.status,
-                  style: AppStyles.rText1_13_500.copyWith(color: Colors.white),
-                ),
-              ),
-              const VerticalDivider(
-                color: AppColors.colorLineDash,
-              ),
-              InkWell(
-                onTap: () {
-                  onDelete(index);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SvgPicture.asset(AppImages.icDeleteOrder),
-                ),
-              ),
+              )
             ],
           ),
         ));

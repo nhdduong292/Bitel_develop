@@ -11,14 +11,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../../../../res/app_colors.dart';
 import '../../../../../../../res/app_images.dart';
 import '../../../../../../../res/app_styles.dart';
+import '../../../../../../networks/model/captcha_model.dart';
 import '../../../../../../utils/common_widgets.dart';
 import 'search_clear_debt_logic.dart';
 
 typedef void TouchScan();
 
 class SearchClearDebtPage extends GetView<SearchClearDebtLogic> {
-  final TouchScan callback;
-  SearchClearDebtPage({required this.callback});
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -97,130 +96,28 @@ class SearchClearDebtPage extends GetView<SearchClearDebtLogic> {
                             height: 28,
                           ),
                           Container(
-                            margin: EdgeInsets.only(
-                                left: 22, right: 15, bottom: 14),
-                            height: 45,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(24),
-                                border:
-                                    Border.all(color: const Color(0xFFE3EAF2))),
-                            child: DropdownButtonFormField2(
-                              decoration: const InputDecoration(
-                                isDense: true,
-                                contentPadding: EdgeInsets.zero,
-                                border: InputBorder.none,
-                              ),
-                              // selectedItemHighlightColor: Colors.red,
-                              buttonPadding:
-                                  const EdgeInsets.only(left: 0, right: 10),
-                              dropdownDecoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(24),
-                                  border: Border.all(
-                                      color: const Color(0xFFE3EAF2))),
-                              isExpanded: true,
-                              value: controller.currentStatus.isNotEmpty
-                                  ? controller.currentStatus
-                                  : null,
-                              onChanged: (value) {
-                                controller.setStatus(value!);
-                              },
-                              buttonHeight: 60,
-                              items: controller
-                                  .getListStatus()
-                                  .map<DropdownMenuItem<String>>(
-                                      (String value) {
-                                return DropdownMenuItem(
-                                    value: value,
-                                    child: Center(child: Text(value)));
-                              }).toList(),
-                              style: AppStyles.r415263_13_500,
-                              icon:
-                                  SvgPicture.asset(AppImages.icDropdownSpinner),
-                              validator: (value) {
-                                if (value == null) {
-                                  return 'Please select gender.';
-                                }
-                              },
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20, right: 15),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                controller.currentStatus ==
-                                        controller.getListStatus()[0]
-                                    ? Expanded(
-                                        flex: 2,
-                                        child: Container(
-                                          margin: EdgeInsets.only(right: 10),
-                                          child: spinnerFormV2(
-                                              context: context,
-                                              hint: "",
-                                              required: false,
-                                              dropValue: controller
-                                                  .currentIdentityType,
-                                              function: (value) {
-                                                controller.setIdentity(value);
-                                              },
-                                              listDrop:
-                                                  controller.listIdentity),
-                                        ))
-                                    : Container(),
-                                Expanded(
-                                    flex: 4,
-                                    child: TextField(
-                                        controller: controller.textFieldEnter,
-                                        keyboardType: TextInputType.phone,
-                                        textInputAction: TextInputAction.send,
-                                        style: AppStyles.r2.copyWith(
-                                            color: AppColors.colorTitle,
-                                            fontWeight: FontWeight.w500),
-                                        onChanged: (value) {
-                                          controller.setEnter(value);
-                                        },
-                                        decoration: InputDecoration(
-                                          contentPadding: const EdgeInsets.only(
-                                              top: 5, left: 10, right: 10),
-                                          hintText:
-                                              AppLocalizations.of(context)!
-                                                  .hintEnterPhone,
-                                          hintStyle: AppStyles.r2.copyWith(
-                                              color: AppColors.colorHint1,
-                                              fontWeight: FontWeight.w400),
-                                          border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(24),
-                                              borderSide: const BorderSide(
-                                                  width: 1,
-                                                  color:
-                                                      AppColors.colorLineDash)),
-                                          errorBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(24),
-                                              borderSide: const BorderSide(
-                                                  width: 1,
-                                                  color: Colors.redAccent)),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(24),
-                                              borderSide: const BorderSide(
-                                                  width: 1,
-                                                  color:
-                                                      AppColors.colorLineDash)),
-                                          enabledBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(24),
-                                              borderSide: const BorderSide(
-                                                  width: 1,
-                                                  color:
-                                                      AppColors.colorLineDash)),
-                                        )))
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 17,
+                            // margin: const EdgeInsets.symmetric(horizontal: 10),
+                            padding: const EdgeInsets.all(20),
+                            child: selectTypeSearchService(
+                                context: context,
+                                currentStatus: controller.currentStatus,
+                                listStatus: controller.getListStatus(),
+                                currentIdentityType:
+                                    controller.currentIdentityType,
+                                listIdentity: controller.listIdentity,
+                                maxLength: controller.getMaxLengthIdNumber(
+                                    controller.currentIdentityType),
+                                controller: controller.textFieldEnter,
+                                changeStatus: (value) {
+                                  controller.setStatus(value);
+                                },
+                                setIdentity: (value) {
+                                  controller.setIdentity(value);
+                                },
+                                onChangeText: (value) {
+                                  controller.setEnter(value);
+                                },
+                                onSubmit: (value) {}),
                           ),
                           Container(
                             margin: const EdgeInsets.only(
@@ -256,15 +153,34 @@ class SearchClearDebtPage extends GetView<SearchClearDebtLogic> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 20, right: 12.01),
-                                  child: InkWell(
-                                    child: Image.asset(AppImages.imgCapchaTest),
+                                  padding: const EdgeInsets.only(right: 7.04),
+                                  child: Container(
+                                    width: 103,
+                                    height: 48,
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: controller
+                                                  .captchaModel.base64Img !=
+                                              null
+                                          ? Image.memory(
+                                              fit: BoxFit.fill,
+                                              controller.convertImageCaptcha(),
+                                              gaplessPlayback: true)
+                                          : LoadingCirculApi(),
+                                    ),
                                   ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(right: 7.04),
                                   child: InkWell(
+                                    onTap: () {
+                                      controller.captchaModel = CaptchaModel();
+                                      controller.update();
+                                      controller.getCaptcha();
+                                    },
                                     child: SvgPicture.asset(
                                         AppImages.icRefreshCapcha),
                                   ),
@@ -283,11 +199,18 @@ class SearchClearDebtPage extends GetView<SearchClearDebtLogic> {
                                 return;
                               }
                               controller.focusScopeNode.unfocus();
-                              ClearDebtLogic clearDebtLogic = Get.find();
-                              clearDebtLogic.balance = controller.balance.value;
-                              clearDebtLogic.isTabOne.value = false;
-                              clearDebtLogic.isTabTwo.value = true;
-                              clearDebtLogic.nextPage(1);
+                              controller.searchClearDebt(isSuccess: (value) {
+                                if (value) {
+                                  ClearDebtLogic clearDebtLogic = Get.find();
+                                  clearDebtLogic.balance =
+                                      controller.balance.value;
+                                  clearDebtLogic.setListClearDebt(
+                                      controller.listClearDebt);
+                                  clearDebtLogic.isTabOne.value = false;
+                                  clearDebtLogic.isTabTwo.value = true;
+                                  clearDebtLogic.nextPage(1);
+                                }
+                              });
                             },
                             color: controller.isActive
                                 ? const Color(0xFF415263).withOpacity(0.2)

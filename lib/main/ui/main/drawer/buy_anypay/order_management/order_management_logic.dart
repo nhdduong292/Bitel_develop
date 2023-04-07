@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
 import '../../../../../utils/common.dart';
+import '../../../../../utils/common_widgets.dart';
 
 class OrderManagementLogic extends GetxController {
   BuildContext context;
@@ -17,6 +18,7 @@ class OrderManagementLogic extends GetxController {
   DateTime toDate = DateTime.now();
 
   String currentStatus = '';
+  String textBankCode = '';
 
   bool isSearched = false;
   bool isLoading = true;
@@ -35,16 +37,10 @@ class OrderManagementLogic extends GetxController {
     ];
   }
 
-  List<AcountBankModel> listBank = [];
-
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    listBank.add(AcountBankModel());
-    listBank.add(AcountBankModel());
-    listBank.add(AcountBankModel());
-    listBank.add(AcountBankModel());
   }
 
   @override
@@ -113,9 +109,24 @@ class OrderManagementLogic extends GetxController {
     }
   }
 
+  String? getCodeStatus(String status) {
+    if (status == getListStatus()[0]) {
+      return null;
+    } else if (status == getListStatus()[1]) {
+      return 'NEW';
+    } else if (status == getListStatus()[2]) {
+      return 'PAID';
+    } else if (status == getListStatus()[3]) {
+      return 'SOLD';
+    } else if (status == getListStatus()[4]) {
+      return 'CANCELED';
+    }
+    return null;
+  }
+
   void searchBuyAnyPay(
       {String? bankCode,
-      String? status,
+      required status,
       required String from,
       required String to}) {
     isLoading = true;
@@ -123,7 +134,7 @@ class OrderManagementLogic extends GetxController {
       url: ApiEndPoints.API_SEARCH_BUY_ANYPAY,
       params: {
         'bankCode': bankCode,
-        'status': status,
+        'status': getCodeStatus(status),
         'from': formatDateIso(from),
         'to': formatDateIso(to),
         'page': 0,
@@ -133,7 +144,7 @@ class OrderManagementLogic extends GetxController {
       onSuccess: (response) {
         isLoading = false;
         if (response.isSuccess) {
-          listBuyAnyPay = (response.data['data'] as List)
+          listBuyAnyPay = (response.data['data']['data'] as List)
               .map((postJson) => BuyAnyPayModel.fromJson(postJson))
               .toList();
           update();
@@ -147,16 +158,56 @@ class OrderManagementLogic extends GetxController {
     );
   }
 
+  void deleteBuyAnyPay({required String saleOrderId, required var isSuccess}) {
+    _onLoading(context);
+    ApiUtil.getInstance()!.delete(
+      url: ApiEndPoints.API_DELETE_BUY_ANYPAY
+          .replaceAll('saleOrderId', saleOrderId),
+      onSuccess: (response) {
+        Get.back();
+        if (response.isSuccess) {
+          isSuccess(true);
+        } else {
+          isSuccess(false);
+        }
+      },
+      onError: (error) {
+        Get.back();
+        isSuccess(false);
+        Common.showMessageError(error, context);
+      },
+    );
+  }
+
   String formatDateIso(String date) {
     DateTime dateTime = DateFormat('dd/MM/yyyy').parse(date);
     String isoString = dateTime.toIso8601String();
     return isoString;
   }
-}
 
-class AcountBankModel {
-  String bankNumber = '00105182879881';
-  String amount = 'S/ 2,775 (3,000 ANYPAY)';
-  String date = '12/01/2021 10:50';
-  String status = 'New';
+  String getTextStatus(String status) {
+    if (status == 'NEW') {
+      return AppLocalizations.of(context)!.textNew;
+    } else if (status == 'PAID') {
+      return AppLocalizations.of(context)!.textPaid;
+    } else if (status == 'SOLD') {
+      return AppLocalizations.of(context)!.textSold;
+    } else {
+      return AppLocalizations.of(context)!.textCanceled;
+    }
+  }
+
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
+      },
+    );
+  }
 }

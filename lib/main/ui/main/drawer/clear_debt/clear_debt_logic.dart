@@ -1,3 +1,4 @@
+import 'package:bitel_ventas/main/networks/model/clear_debt_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,6 +11,7 @@ class ClearDebtLogic extends GetxController with SingleGetTickerProviderMixin {
   int index = 0;
 
   double balance = 0.0;
+  List<ClearDebtModel> listClearDebt = [];
 
   ClearDebtLogic({required this.context});
 
@@ -30,6 +32,11 @@ class ClearDebtLogic extends GetxController with SingleGetTickerProviderMixin {
         // listRequestTabLogic.getListRequest(status);
       },
     );
+  }
+
+  void setListClearDebt(List<ClearDebtModel> list) {
+    listClearDebt.clear();
+    listClearDebt = list;
   }
 
   void nextPage(int value) {

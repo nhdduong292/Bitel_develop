@@ -66,4 +66,8 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/promotions";
   static const String API_LIST_STAFF =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/staffs";
+  static const String API_DELETE_BUY_ANYPAY =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/buy-anypay/saleOrderId";
+  static const String API_SEARCH_CLEAR_DEBT =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/clear-debt";
 }

@@ -126,7 +126,7 @@ class ValidateFingerprintLogic extends GetxController {
     } else {
       if (bestFinger.right == 1) {
         return AppImages.imgFingerRight1;
-      } else if (bestFinger.right == 1) {
+      } else if (bestFinger.right == 2) {
         return AppImages.imgFingerRight2;
       } else if (bestFinger.right == 3) {
         return AppImages.imgFingerRight3;

@@ -126,9 +126,7 @@ class ClearDebtPage extends GetView<ClearDebtLogic> {
                         controller: controller.tabController,
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
-                      SearchClearDebtPage(
-                        callback: () {},
-                      ),
+                      SearchClearDebtPage(),
                       ClearDebtDetailPage(),
                       OTPClearDebtPage()
                     ])),

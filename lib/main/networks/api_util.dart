@@ -172,6 +172,29 @@ class ApiUtil {
     });
   }
 
+  void delete(
+      {required String url,
+      Map<String, dynamic> params = const {},
+      required Function(BaseResponse response) onSuccess,
+      required Function(dynamic error) onError,
+      bool isCancel = false}) async {
+    String token = await SharedPreferenceUtil.getToken();
+    if (token.isNotEmpty) {
+      dio!.options.headers['Authorization'] = 'Bearer ${token}';
+    }
+    // if(isCancel) {
+    //   dio!.options.
+    // }
+    dio!
+        .delete(url,
+            queryParameters: params, cancelToken: isCancel ? cancelToken : null)
+        .then((res) {
+      if (onSuccess != null) onSuccess(getBaseResponse(res));
+    }).catchError((error) {
+      onError(error);
+    });
+  }
+
   BaseResponse getBaseResponse(Response response) {
     return BaseResponse.success(
         data: response.data,

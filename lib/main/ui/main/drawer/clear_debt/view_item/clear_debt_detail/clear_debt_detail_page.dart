@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 // ;
+import 'package:bitel_ventas/main/networks/model/clear_debt_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/clear_debt_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/view_item/clear_debt_detail/clear_debt_detail_logic.dart';
+import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -38,21 +40,21 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
                               context: context,
                               value: index,
                               listValue: controller.listSelect,
-                              model: controller.listDetailService[index],
+                              model: controller.listClearDebt[index],
                               onChange: (value, check) {
                                 if (check) {
                                   controller.listSelect.add(value);
-                                  controller.totalService =
-                                      controller.totalService +
-                                          controller.listDetailService[value]
-                                              .receiptNumber;
+                                  controller.totalService = controller
+                                          .totalService +
+                                      (controller.listClearDebt[value].amount ??
+                                          0.0);
                                   controller.update();
                                 } else {
                                   controller.listSelect.remove(value);
-                                  controller.totalService =
-                                      controller.totalService -
-                                          controller.listDetailService[value]
-                                              .receiptNumber;
+                                  controller.totalService = controller
+                                          .totalService -
+                                      (controller.listClearDebt[value].amount ??
+                                          0.0);
                                   controller.update();
                                 }
 
@@ -66,7 +68,7 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
                           const SizedBox(
                             height: 20,
                           ),
-                      itemCount: controller.listDetailService.length),
+                      itemCount: controller.listClearDebt.length),
                   SizedBox(
                     height: 19,
                   ),
@@ -136,7 +138,7 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
       {required BuildContext context,
       required int value,
       required List<int> listValue,
-      required DetailServiceModel model,
+      required ClearDebtModel model,
       required var onChange}) {
     var check = listValue.contains(value).obs;
     return Container(
@@ -181,7 +183,7 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
                                 style: AppStyles.r6C8AA1_13_400,
                               ),
                               Text(
-                                model.idType,
+                                model.idType ?? '---',
                                 style: AppStyles.r2B3A4A_12_500
                                     .copyWith(fontSize: 13),
                               ),
@@ -192,7 +194,7 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
                                 AppLocalizations.of(context)!.textIDNumber,
                                 style: AppStyles.r6C8AA1_13_400,
                               ),
-                              Text(model.idNumber,
+                              Text(model.idNumber ?? '---',
                                   style: AppStyles.r2B3A4A_12_500
                                       .copyWith(fontSize: 13)),
                             ],
@@ -212,7 +214,7 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
                                 AppLocalizations.of(context)!.textName,
                                 style: AppStyles.r6C8AA1_13_400,
                               ),
-                              Text(model.name,
+                              Text(model.fullName ?? '---',
                                   style: AppStyles.r2B3A4A_12_500
                                       .copyWith(fontSize: 13)),
                               SizedBox(
@@ -230,7 +232,7 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
                                   padding: const EdgeInsets.only(
                                       left: 9, right: 9, top: 2, bottom: 2),
                                   child: Text(
-                                    model.condition,
+                                    model.status ?? '---',
                                     style: TextStyle(color: Colors.white),
                                   ),
                                 ),
@@ -292,7 +294,7 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
                             style: AppStyles.r6C8AA1_13_400,
                           ),
                           Text(
-                            'S/ ${model.receiptNumber}',
+                            'S/ ${model.amount}',
                             style:
                                 AppStyles.r9454C9_14_500.copyWith(fontSize: 17),
                           ),
@@ -304,7 +306,7 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(model.bankNumber,
+                          Text('010345699096',
                               style: AppStyles.r2B3A4A_12_500
                                   .copyWith(fontSize: 13)),
                           RichText(
@@ -314,7 +316,11 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
                                   style: AppStyles.r6C8AA1_13_400,
                                   children: [
                                 TextSpan(
-                                    text: model.vence,
+                                    text: model.expireDate != null
+                                        ? Common.fromDate(
+                                            DateTime.parse(model.expireDate!),
+                                            'dd/MM/yyyy')
+                                        : '---',
                                     style: AppStyles.r2B3A4A_12_500
                                         .copyWith(fontSize: 13))
                               ]))
@@ -332,7 +338,7 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
   Widget expandableV1(
       {required BuildContext context,
       required Widget child,
-      required DetailServiceModel model}) {
+      required ClearDebtModel model}) {
     return ExpandableNotifier(
       child: Column(
         mainAxisSize: MainAxisSize.max,
@@ -368,7 +374,7 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
                                       AppLocalizations.of(context)!
                                           .textTypeOfService,
                                       style: AppStyles.r6C8AA1_13_400),
-                                  Text(model.type,
+                                  Text(model.idType ?? '---',
                                       style: AppStyles.r2B3A4A_12_500
                                           .copyWith(fontSize: 13)),
                                   SizedBox(
@@ -376,7 +382,7 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
                                   ),
                                   Text(AppLocalizations.of(context)!.textNumber,
                                       style: AppStyles.r6C8AA1_13_400),
-                                  Text(model.number,
+                                  Text(model.idNumber ?? '---',
                                       style: AppStyles.r2B3A4A_12_500
                                           .copyWith(fontSize: 13)),
                                 ],
@@ -394,7 +400,7 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
                                   ),
                                   Text(AppLocalizations.of(context)!.textPlan,
                                       style: AppStyles.r6C8AA1_13_400),
-                                  Text(model.plan,
+                                  Text(model.productName ?? '---',
                                       style: AppStyles.r2B3A4A_12_500
                                           .copyWith(fontSize: 13)),
                                 ],
@@ -445,7 +451,7 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
                                             AppLocalizations.of(context)!
                                                 .textTypeOfService,
                                             style: AppStyles.r6C8AA1_13_400),
-                                        Text(model.type,
+                                        Text(model.service ?? '---',
                                             style: AppStyles.r2B3A4A_12_500
                                                 .copyWith(fontSize: 13)),
                                         SizedBox(
@@ -455,7 +461,7 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
                                             AppLocalizations.of(context)!
                                                 .textNumber,
                                             style: AppStyles.r6C8AA1_13_400),
-                                        Text(model.number,
+                                        Text(model.subId ?? '---',
                                             style: AppStyles.r2B3A4A_12_500
                                                 .copyWith(fontSize: 13)),
                                       ],
@@ -476,7 +482,7 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
                                             AppLocalizations.of(context)!
                                                 .textPlan,
                                             style: AppStyles.r6C8AA1_13_400),
-                                        Text(model.plan,
+                                        Text(model.productName ?? '---',
                                             style: AppStyles.r2B3A4A_12_500
                                                 .copyWith(fontSize: 13)),
                                       ],

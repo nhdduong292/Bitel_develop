@@ -9,6 +9,7 @@ class BuyAnyPayModel {
   double? discount;
   double? total;
   String? creationDate;
+  String? stauts;
 
   BuyAnyPayModel();
   BuyAnyPayModel.fromJson(Map<String, dynamic> json) {
@@ -22,5 +23,6 @@ class BuyAnyPayModel {
     discount = json['discount'];
     total = json['total'];
     creationDate = json['creationDate'];
+    stauts = json['status'];
   }
 }
