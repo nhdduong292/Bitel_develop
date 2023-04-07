@@ -63,8 +63,8 @@ class ValidateFingerprintLogic extends GetxController {
     String result = "";
     try {
       final argument = {"pk": "1"};
-      final value =
-          await NativeUtil.platformFinger.invokeMethod(NativeUtil.nameFinger, argument);
+      final value = await NativeUtil.platformFinger
+          .invokeMethod(NativeUtil.nameFinger, argument);
       result = value;
     } on PlatformException catch (e) {
       e.printInfo();
@@ -149,7 +149,8 @@ class ValidateFingerprintLogic extends GetxController {
       Completer<bool> completer = Completer();
       Map<String, dynamic> body = {
         "finger": bestFinger.right ?? bestFinger.left,
-        "listImage": listFinger
+        "listImage": listFinger,
+        "pk": pk
       };
       Map<String, dynamic> params = {"type": type};
       ApiUtil.getInstance()!.put(
@@ -167,7 +168,7 @@ class ValidateFingerprintLogic extends GetxController {
           }
         },
         onError: (error) {
-          Get.back();
+          Get.back(); 
           isSuccess.call(false);
           Common.showMessageError(error, context);
         },
