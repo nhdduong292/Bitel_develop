@@ -40,7 +40,7 @@ class DrawerPage extends GetView<DrawerLogic> {
                   height: MediaQuery.of(context).size.height,
                   child: SvgPicture.asset(
                     AppImages.bgHomeDrawer,
-                    fit: BoxFit.fitWidth,
+                    fit: BoxFit.fill,
                     // width: MediaQuery.of(context).size.width * 0.85,
                     // height: MediaQuery.of(context).size.height,
                   ),

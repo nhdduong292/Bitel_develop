@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class FingerModel implements Serializable {
     String pathImage;
     String imageBase64;
-    String pk;
+    String pk = "";
 
     public FingerModel(String pathImage, String imageBase64) {
         this.pathImage = pathImage;

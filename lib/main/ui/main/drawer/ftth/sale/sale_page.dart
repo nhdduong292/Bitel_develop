@@ -399,9 +399,9 @@ class SalePage extends GetWidget {
                                 shrinkWrap: true,
                                 physics: const ScrollPhysics(),
                                 gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                    SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 3,
-                                        childAspectRatio: 2,
+                                        childAspectRatio: (width / 276),
                                         crossAxisSpacing: 6.0,
                                         mainAxisSpacing: 10.0),
                                 itemBuilder: (BuildContext context, int index) {
@@ -443,6 +443,7 @@ class SalePage extends GetWidget {
                                             width: 10,
                                           ),
                                           Text(
+                                            textAlign: TextAlign.center,
                                             optionSale.title,
                                             style: AppStyles.r7.copyWith(
                                                 fontWeight: FontWeight.w500,
