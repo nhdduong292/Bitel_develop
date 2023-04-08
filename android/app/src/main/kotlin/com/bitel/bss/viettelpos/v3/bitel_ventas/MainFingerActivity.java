@@ -156,10 +156,14 @@ public class MainFingerActivity extends FlutterActivity {
                             String link = saveImageToCache(bitmap);
                             String imageBase64 = fingerPrint.getEncodeBase64();
                             FingerModel fingerModel;
-                            if(TextUtils.isEmpty(isPK) || isPK.equals("0")) {
+                            if(isPK.equals("0")) {
                                  fingerModel = new FingerModel(link, imageBase64);
                             } else {
-                                 fingerModel = new FingerModel(link, imageBase64, Base64.encodeToString(fingerPrint.getPk(), Base64.NO_WRAP));
+                                if(fingerPrint.getPk() != null && Base64.encodeToString(fingerPrint.getPk(), Base64.NO_WRAP) != null) {
+                                    fingerModel = new FingerModel(link, imageBase64, Base64.encodeToString(fingerPrint.getPk(), Base64.NO_WRAP));
+                                } else {
+                                    fingerModel = new FingerModel(link, imageBase64);
+                                }
                             }
                             result.success(fingerModel.toString());
                         } else {

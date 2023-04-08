@@ -39,7 +39,7 @@ import SecuGen.FDxSDKPro.SGWSQLib;
 
 public class SecugenFingerPrintScanner extends FingerPrintScannerBase implements SGFingerPresentEvent {
     final String TAG = "SecugenFingerPrintScanner";
-    public final boolean IS_BY_PASS_PK = false;
+    public final boolean IS_BY_PASS_PK = true;
 
     private IntentFilter filter; // 2014-04-11
     protected PendingIntent mPermissionIntent;
