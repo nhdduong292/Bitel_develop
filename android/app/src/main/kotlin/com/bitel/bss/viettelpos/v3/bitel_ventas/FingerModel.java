@@ -2,7 +2,7 @@ package com.bitel.bss.viettelpos.v3.bitel_ventas;
 
 import java.io.Serializable;
 
-public class FingerModel implements Serializable {
+public class FingerModel {
     String pathImage;
     String imageBase64;
     String pk = "";
