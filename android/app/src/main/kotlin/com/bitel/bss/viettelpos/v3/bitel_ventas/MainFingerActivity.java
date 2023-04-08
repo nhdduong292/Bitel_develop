@@ -74,12 +74,16 @@ public class MainFingerActivity extends FlutterActivity {
             public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
                 if(call.method.equals(nameFinger)){
                     positionScan = 0;
-                    Map<String,String> arguments = call.arguments();
-                    String pk = "0";
-                    if (arguments != null) {
-                        pk = arguments.get("pk");
+                    try {
+                        Map<String, String> arguments = call.arguments();
+                        String pk = "0";
+                        if (arguments != null) {
+                            pk = arguments.get("pk");
+                        }
+                        getImageCapture(result, pk);
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
-                    getImageCapture(result, pk);
                 } else {
                     result.notImplemented();
                 }
@@ -159,7 +163,7 @@ public class MainFingerActivity extends FlutterActivity {
                             if(isPK.equals("0")) {
                                  fingerModel = new FingerModel(link, imageBase64);
                             } else {
-                                if(fingerPrint.getPk() != null && Base64.encodeToString(fingerPrint.getPk(), Base64.NO_WRAP) != null) {
+                                if(fingerPrint.getPk().length > 0 && Base64.encodeToString(fingerPrint.getPk(), Base64.NO_WRAP) != null) {
                                     fingerModel = new FingerModel(link, imageBase64, Base64.encodeToString(fingerPrint.getPk(), Base64.NO_WRAP));
                                 } else {
                                     fingerModel = new FingerModel(link, imageBase64);
