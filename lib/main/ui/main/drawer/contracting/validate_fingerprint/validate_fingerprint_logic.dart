@@ -57,12 +57,13 @@ class ValidateFingerprintLogic extends GetxController {
     textCapture = "";
     String result = "";
     try {
-      final argument = {"pk": "1"};
+      final argument = {"pk": "0"};
       final value =
           await NativeUtil.platformFinger.invokeMethod(NativeUtil.nameFinger, argument);
       result = value;
     } on PlatformException catch (e) {
       e.printInfo();
+      return;
     }
     print("text Capture: ${result}");
     try {
