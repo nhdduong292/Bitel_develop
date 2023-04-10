@@ -56,6 +56,7 @@ public class MainFingerActivity extends FlutterActivity {
     private ProgressDialog waitProgress;
 
     int positionScan = 0;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,18 +73,14 @@ public class MainFingerActivity extends FlutterActivity {
         new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), platformFinger).setMethodCallHandler(new MethodChannel.MethodCallHandler() {
             @Override
             public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
-                if(call.method.equals(nameFinger)){
+                if (call.method.equals(nameFinger)) {
                     positionScan = 0;
-                    try {
-                        Map<String, String> arguments = call.arguments();
-                        String pk = "0";
-                        if (arguments != null) {
-                            pk = arguments.get("pk");
-                        }
-                        getImageCapture(result, pk);
-                    }catch (Exception e){
-                        e.printStackTrace();
+                    Map<String, String> arguments = call.arguments();
+                    String pk = "0";
+                    if (arguments != null) {
+                        pk = arguments.get("pk");
                     }
+                    getImageCapture(result, pk);
                 } else {
                     result.notImplemented();
                 }
@@ -117,8 +114,10 @@ public class MainFingerActivity extends FlutterActivity {
 //            }
 //        });
     }
+
     Bitmap bitmap;
-    void getImageCapture(MethodChannel.Result result, String isPK){
+
+    void getImageCapture(MethodChannel.Result result, String isPK) {
         if (FingerPrintConstant.IS_BY_PASS_FINGER_PRINT) {
             String wsqLeft = FingerPrintConstant.DUMMY_FINGERPRINT;
             Bitmap fingerPrintImgTest = BitmapFactory.decodeResource(getResources(), R.drawable.fingerprint_test);
@@ -129,26 +128,26 @@ public class MainFingerActivity extends FlutterActivity {
         }
 
         if (FingerScannerFactory.fingerPrintScannerImp == null) {
-            Log.d(TAG,"fingerPrintScannerImp == null");
-            showDialog("Error","Your device is not compatible with this version. Please, use Android 6 or lower.","","Cancel");
+            Log.d(TAG, "fingerPrintScannerImp == null");
+            showDialog("Error", "Your device is not compatible with this version. Please, use Android 6 or lower.", "", "Cancel");
             result.error("UNAVAILABLE", "Finger not available.", null);
         } else if (FingerScannerFactory.fingerPrintScannerImp instanceof EmptyFingerPrintScanner) {
-            Log.d(TAG,"fingerPrintScannerImp instanceof EmptyFingerPrintScanner");
+            Log.d(TAG, "fingerPrintScannerImp instanceof EmptyFingerPrintScanner");
             if (((EmptyFingerPrintScanner) FingerScannerFactory.fingerPrintScannerImp).getStatus()
                     == EmptyFingerPrintScanner.STATUS.DEVICE_NOT_FOUND) {
-                Log.d(TAG,"fingerPrintScannerImp instanceof EmptyFingerPrintScanner DEVICE_NOT_FOUND");
-                showDialog("Error","Can\\'t find usb fingerprint scanner. Please go back one step and plugin the device","","Cancel");
+                Log.d(TAG, "fingerPrintScannerImp instanceof EmptyFingerPrintScanner DEVICE_NOT_FOUND");
+                showDialog("Error", "Can\\'t find usb fingerprint scanner. Please go back one step and plugin the device", "", "Cancel");
             } else {
-                Log.d(TAG,"fingerPrintScannerImp instanceof EmptyFingerPrintScanner DEVICE");
-                showDialog("Error","Your device is not compatible with this version. Please, use Android 6 or lower.","","Cancel");
+                Log.d(TAG, "fingerPrintScannerImp instanceof EmptyFingerPrintScanner DEVICE");
+                showDialog("Error", "Your device is not compatible with this version. Please, use Android 6 or lower.", "", "Cancel");
             }
             result.error("UNAVAILABLE", "Finger not available.", null);
         } else {
-            Log.d(TAG,"fingerPrintScannerImp.onCapture");
+            Log.d(TAG, "fingerPrintScannerImp.onCapture");
             FingerScannerFactory.fingerPrintScannerImp.onCapture(new FingerPrintScannerBase.CaptureFingerListener() {
                 @Override
                 public void onPreExecute() {
-                    showWaitProgress(MainFingerActivity.this,"Each capture should not longer than 10s, please try to re-position your finger");
+                    showWaitProgress(MainFingerActivity.this, "Each capture should not longer than 10s, please try to re-position your finger");
                 }
 
                 @Override
@@ -156,20 +155,29 @@ public class MainFingerActivity extends FlutterActivity {
                     hideWaitProgress();
                     if (fingerPrint != null) {
                         if (fingerPrint.getFingerPrintBmp() != null) {
-                            bitmap = fingerPrint.getFingerPrintBmp();
-                            String link = saveImageToCache(bitmap);
-                            String imageBase64 = fingerPrint.getEncodeBase64();
-                            FingerModel fingerModel;
-                            if(isPK.equals("0")) {
-                                 fingerModel = new FingerModel(link, imageBase64);
-                            } else {
-                                if(fingerPrint.getPk().length > 0 && !TextUtils.isEmpty(Base64.encodeToString(fingerPrint.getPk(), Base64.NO_WRAP))) {
-                                    fingerModel = new FingerModel(link, imageBase64, Base64.encodeToString(fingerPrint.getPk(), Base64.NO_WRAP));
-                                } else {
+                            try {
+                                bitmap = fingerPrint.getFingerPrintBmp();
+                                String link = saveImageToCache(bitmap);
+                                String imageBase64 = fingerPrint.getEncodeBase64();
+                                FingerModel fingerModel;
+                                if (isPK.equals("0")) {
                                     fingerModel = new FingerModel(link, imageBase64);
+                                } else {
+                                    if (fingerPrint.getPk() != null) {
+                                        String mPk = Base64.encodeToString(fingerPrint.getPk(), Base64.NO_WRAP);
+                                        if(!TextUtils.isEmpty(mPk)) {
+                                            fingerModel = new FingerModel(link, imageBase64, mPk);
+                                        } else {
+                                            fingerModel = new FingerModel(link, imageBase64);
+                                        }
+                                    } else {
+                                        fingerModel = new FingerModel(link, imageBase64);
+                                    }
                                 }
+                                result.success(fingerModel.toString());
+                            }catch (Exception e){
+                                result.error("UNAVAILABLE", "Finger not crashhhhhhhhhhhhhhh.", null);
                             }
-                            result.success(fingerModel.toString());
                         } else {
                             result.error("UNAVAILABLE", "Finger not available.", null);
                         }
@@ -212,19 +220,19 @@ public class MainFingerActivity extends FlutterActivity {
             try {
                 file = ImageUtils.convertBitmapToFile(MainFingerActivity.this,
                         ImageUtils.scaleImageBitmap(MainFingerActivity.this,
-                                imageUri, 640, 480), ""+System.currentTimeMillis());
+                                imageUri, 640, 480), "" + System.currentTimeMillis());
 //                currentCustomer.setImageFile(file);
             } catch (IOException e) {
                 e.printStackTrace();
             }
             if (file == null) {
-                if(positionScan == 0) {
+                if (positionScan == 0) {
                     channelScan1.invokeMethod(nameScan1, photoFile.getPath());
                 } else {
                     channelScan2.invokeMethod(nameScan2, photoFile.getPath());
                 }
             } else {
-                if(positionScan == 0) {
+                if (positionScan == 0) {
                     channelScan1.invokeMethod(nameScan1, file.getPath());
                 } else {
                     channelScan2.invokeMethod(nameScan2, file.getPath());
@@ -257,7 +265,8 @@ public class MainFingerActivity extends FlutterActivity {
         super.onStop();
         FingerScannerFactory.onStop();
     }
-    private void showDialog(String title, String content, String btnLeft, String btnRight){
+
+    private void showDialog(String title, String content, String btnLeft, String btnRight) {
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle(title);
         alertDialog.setMessage(content);
@@ -300,7 +309,7 @@ public class MainFingerActivity extends FlutterActivity {
         }
     }
 
-    String saveImageToCache(Bitmap bitmap){
+    String saveImageToCache(Bitmap bitmap) {
         File sd = getCacheDir();
         File folder = new File(sd, "/finger/");
         if (!folder.exists()) {
@@ -310,7 +319,7 @@ public class MainFingerActivity extends FlutterActivity {
                 folder.mkdirs();
             }
         }
-        File fileName = new File(folder,System.currentTimeMillis()+".jpg");
+        File fileName = new File(folder, System.currentTimeMillis() + ".jpg");
         try {
             FileOutputStream outputStream = new FileOutputStream(String.valueOf(fileName));
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
@@ -336,7 +345,7 @@ public class MainFingerActivity extends FlutterActivity {
 
 
             }
-        }, new String[]{ android.Manifest.permission.CAMERA,
+        }, new String[]{android.Manifest.permission.CAMERA,
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE});
 
 

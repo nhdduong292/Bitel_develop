@@ -299,6 +299,7 @@ public class SecugenFingerPrintScanner extends FingerPrintScannerBase implements
         }
     };
 
+    @SuppressLint("WrongConstant")
     private void initUsbPermissionReceiver(){
         filter = new IntentFilter(ACTION_USB_PERMISSION);
         // request USB Permissions
