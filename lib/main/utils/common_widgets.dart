@@ -1313,3 +1313,171 @@ SvgPicture iconOnlyRadio(int color) {
     width: 20,
   );
 }
+
+Widget selectTypeSearchService(
+    {required BuildContext context,
+    required String currentStatus,
+    required List<String> listStatus,
+    required String currentIdentityType,
+    required List<String> listIdentity,
+    required int maxLength,
+    required TextEditingController controller,
+    required var changeStatus,
+    required var setIdentity,
+    required var onSubmit,
+    required var onChangeText}) {
+  return Column(
+    children: [
+      Container(
+        height: 45,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(color: const Color(0xFFE3EAF2))),
+        child: DropdownButtonFormField2(
+          decoration: const InputDecoration(
+            isDense: true,
+            contentPadding: EdgeInsets.zero,
+            border: InputBorder.none,
+          ),
+          // selectedItemHighlightColor: Colors.red,
+          buttonPadding: const EdgeInsets.only(left: 0, right: 10),
+          dropdownDecoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(color: const Color(0xFFE3EAF2))),
+          isExpanded: true,
+          value: currentStatus.isNotEmpty ? currentStatus : null,
+          onChanged: (value) {
+            controller.text = '';
+            changeStatus(value);
+          },
+          buttonHeight: 60,
+          items: listStatus.map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem(
+                value: value, child: Center(child: Text(value)));
+          }).toList(),
+          style: AppStyles.r2.copyWith(
+              color: AppColors.color_415263, fontWeight: FontWeight.w500),
+          icon: SvgPicture.asset(AppImages.icDropdownSpinner),
+          validator: (value) {
+            if (value == null) {
+              return 'Please select gender.';
+            }
+          },
+        ),
+      ),
+      const SizedBox(
+        height: 15,
+      ),
+      currentStatus == listStatus[0]
+          ? Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                currentStatus == listStatus[0]
+                    ? Expanded(
+                        flex: 2,
+                        child: Container(
+                          margin: EdgeInsets.only(right: 10),
+                          child: spinnerFormV2(
+                              context: context,
+                              hint: "",
+                              required: false,
+                              dropValue: currentIdentityType,
+                              function: (value) {
+                                controller.text = '';
+                                setIdentity(value);
+                              },
+                              listDrop: listIdentity),
+                        ))
+                    : Container(),
+                Expanded(
+                  flex: 4,
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 14),
+                    child: TextField(
+                        maxLength: maxLength,
+                        controller: controller,
+                        keyboardType: TextInputType.number,
+                        // focusNode: controller.focusIdNumber,
+                        textInputAction: TextInputAction.send,
+                        style: AppStyles.r2.copyWith(
+                            color: AppColors.colorTitle,
+                            fontWeight: FontWeight.w500),
+                        onSubmitted: (value) {
+                          onSubmit(value);
+                        },
+                        onChanged: (value) {
+                          onChangeText(value);
+                        },
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.only(
+                              top: 5, left: 10, right: 10),
+                          hintText:
+                              AppLocalizations.of(context)!.hintIdentityNumber,
+                          hintStyle: AppStyles.r2.copyWith(
+                              color: AppColors.colorHint1,
+                              fontWeight: FontWeight.w400),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(24),
+                              borderSide: const BorderSide(
+                                  width: 1, color: AppColors.colorLineDash)),
+                          errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(24),
+                              borderSide: const BorderSide(
+                                  width: 1, color: Colors.redAccent)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(24),
+                              borderSide: const BorderSide(
+                                  width: 1, color: AppColors.colorLineDash)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(24),
+                              borderSide: const BorderSide(
+                                  width: 1, color: AppColors.colorLineDash)),
+                        )),
+                  ),
+                )
+              ],
+            )
+          : Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                    flex: 4,
+                    child: TextField(
+                        controller: controller,
+                        textInputAction: TextInputAction.send,
+                        style: AppStyles.r2.copyWith(
+                            color: AppColors.colorTitle,
+                            fontWeight: FontWeight.w500),
+                        onChanged: (value) {
+                          onChangeText(value);
+                        },
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.only(
+                              top: 5, left: 10, right: 10),
+                          hintText:
+                              AppLocalizations.of(context)!.hintEnterPhone,
+                          hintStyle: AppStyles.r2.copyWith(
+                              color: AppColors.colorHint1,
+                              fontWeight: FontWeight.w400),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(24),
+                              borderSide: const BorderSide(
+                                  width: 1, color: AppColors.colorLineDash)),
+                          errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(24),
+                              borderSide: const BorderSide(
+                                  width: 1, color: Colors.redAccent)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(24),
+                              borderSide: const BorderSide(
+                                  width: 1, color: AppColors.colorLineDash)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(24),
+                              borderSide: const BorderSide(
+                                  width: 1, color: AppColors.colorLineDash)),
+                        )))
+              ],
+            )
+    ],
+  );
+}

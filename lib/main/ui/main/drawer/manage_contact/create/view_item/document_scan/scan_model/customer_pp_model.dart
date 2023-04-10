@@ -114,10 +114,34 @@ class CustomerPPModel {
           rect.bottom < number.rect!.bottom + 50.0 &&
           number.rect!.left - 40 < rect.left &&
           rect.left < number.rect!.right) {
-        if (num.tryParse(text) != null) {
-          number.content = text;
-        }
+        number.content = text;
       }
     }
+  }
+
+  bool isCardIdentity() {
+    int count = 0;
+    if (number.rect == null) {
+      count++;
+    }
+    if (name.rect == null) {
+      count++;
+    }
+    if (nationality.rect == null) {
+      count++;
+    }
+    if (sex.rect == null) {
+      count++;
+    }
+    if (dob.rect == null) {
+      count++;
+    }
+    if (ed.rect == null) {
+      count++;
+    }
+    if (count > 3) {
+      return false;
+    }
+    return true;
   }
 }

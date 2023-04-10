@@ -300,8 +300,7 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                                       ? Image.file(
                                           File(controller.textPathScanBack),
                                         )
-                                      : Image.asset(
-                                          controller.getImageIdentity()),
+                                      : Image.asset(AppImages.imgCE),
                                 ),
                               ],
                             ),
@@ -325,95 +324,30 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                               ? AppLocalizations.of(context)!.textContinue
                               : AppLocalizations.of(context)!.textScan,
                           onTap: () {
-                            if (controller.checkOption1.value &&
-                                controller.checkOption2.value) {
-                              if ((controller.textPathScan.isNotEmpty &&
-                                      controller.textPathScanBack.isNotEmpty &&
-                                      controller.currentIdentity == 'CE') ||
-                                  (controller.textPathScan.isNotEmpty &&
-                                      controller.currentIdentity != 'CE')) {
-                                _onLoading(context);
-
-                                if (controller.currentIdentity == 'CE') {
-                                  controller.uploadFile(
-                                      controller.textPathScan, 'image_font',
-                                      (isSuccess, path) {
-                                    if (isSuccess) {
-                                      controller.pathImageFont = path;
-                                      controller.uploadFile(
-                                          controller.textPathScanBack,
-                                          'image_back', (isSuccess, path) {
-                                        if (isSuccess) {
-                                          Get.back();
-                                          controller.pathImageBack = path;
-                                          controller.reset();
-                                          controller
-                                              .logicCreateContact.listImageScan
-                                              .add(controller.pathImageFont);
-                                          controller
-                                              .logicCreateContact.listImageScan
-                                              .add(controller.pathImageBack);
-                                          controller
-                                              .processImage(
-                                                  InputImage.fromFilePath(File(
-                                                          controller
-                                                              .textPathScan)
-                                                      .path))
-                                              .then(
-                                                  (value) => {callback(false)});
-                                        } else {
-                                          Get.back();
-                                        }
-                                      });
-                                    } else {
-                                      Get.back();
-                                    }
+                            controller.onClickContinue(onContiue: () {
+                              callback(false);
+                            }, onScan: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return TakeImageDialog(
+                                      onCamera: () {
+                                        Get.back();
+                                        controller.getFromGallery(
+                                            context,
+                                            controller,
+                                            controller.textPathScan.isEmpty);
+                                      },
+                                      onGellary: () {
+                                        Get.back();
+                                        controller.uploadImage(
+                                            context,
+                                            controller,
+                                            controller.textPathScan.isEmpty);
+                                      },
+                                    );
                                   });
-                                } else {
-                                  controller.uploadFile(
-                                      controller.textPathScan, 'image_font',
-                                      (isSuccess, path) {
-                                    if (isSuccess) {
-                                      Get.back();
-                                      controller.pathImageFont = path;
-                                      controller.reset();
-                                      controller
-                                          .processImage(InputImage.fromFilePath(
-                                              File(controller.textPathScan)
-                                                  .path))
-                                          .then((value) => {callback(false)});
-                                    } else {
-                                      Get.back();
-                                    }
-                                  });
-                                }
-                              } else {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return TakeImageDialog(
-                                        onCamera: () {
-                                          Get.back();
-                                          controller.getFromGallery(
-                                              context,
-                                              controller,
-                                              controller.textPathScan.isEmpty);
-                                        },
-                                        onGellary: () {
-                                          Get.back();
-                                          controller.uploadImage(
-                                              context,
-                                              controller,
-                                              controller.textPathScan.isEmpty);
-                                        },
-                                      );
-                                    });
-                              }
-                            } else {
-                              Common.showToastCenter(
-                                  AppLocalizations.of(context)!
-                                      .textAcceptTheRules);
-                            }
+                            });
                           },
                           color: !(controller.checkOption1.value &&
                                   controller.checkOption2.value)

@@ -376,10 +376,10 @@ class RequestDetailPage extends GetWidget {
                                       Expanded(
                                         child: Text(
                                           controller.requestModel.contractModel
-                                                      .billCycleFrom <
-                                                  1
+                                                  .billCycleFrom.isEmpty
                                               ? "---"
-                                              : "${controller.requestModel.contractModel.billCycleFrom}",
+                                              : controller.requestModel
+                                                  .contractModel.billCycleFrom,
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),
@@ -628,7 +628,10 @@ class RequestDetailPage extends GetWidget {
                                             RequestStatus
                                                 .SURVEY_OFFLINE_SUCCESSFULLY) {
                                       Get.toNamed(RouteConfig.productPayment,
-                                          arguments: [controller.requestModel]);
+                                          arguments: [
+                                            controller.requestModel,
+                                            'CREATE'
+                                          ]);
                                     } else if (controller.status ==
                                         RequestStatus.CONNECTED) {
                                       //todo show dialog cancel

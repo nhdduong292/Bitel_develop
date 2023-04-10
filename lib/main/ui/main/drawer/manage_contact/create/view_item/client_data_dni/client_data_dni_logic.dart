@@ -21,10 +21,12 @@ class ClientDataDNILogic extends GetxController {
   TextEditingController tfLastName = TextEditingController();
   TextEditingController tfMidelName = TextEditingController();
   TextEditingController tfName = TextEditingController();
+  TextEditingController tfFullName = TextEditingController();
   TextEditingController tfNationality = TextEditingController();
   TextEditingController tfIdNumber = TextEditingController();
 
   FocusNode focusLastName = FocusNode();
+  FocusNode fcIdNumber = FocusNode();
   CustomerModel customerModel = CustomerModel();
   // CustomerDNIModel customerDNIModel = CustomerDNIModel();
 
@@ -137,6 +139,7 @@ class ClientDataDNILogic extends GetxController {
     tfName.text = customerDNIModel.name.getContent();
     tfName.selection = TextSelection.fromPosition(
         TextPosition(offset: customerDNIModel.name.getContent().length));
+    updateFullName();
     tfNationality.text = customerDNIModel.nationality.getContent();
     tfNationality.selection = TextSelection.fromPosition(
         TextPosition(offset: customerDNIModel.nationality.getContent().length));
@@ -173,8 +176,11 @@ class ClientDataDNILogic extends GetxController {
     body = {
       "type": logicCreateContact.typeCustomer,
       "idNumber": tfIdNumber.text,
-      "name": tfName.text,
-      "fullName": '${tfLastName.text} ${tfMidelName.text} ${tfName.text}',
+      "name": tfName.text.trim(),
+      "lastNameFather": tfLastName.text.trim(),
+      "lastNameMother": tfMidelName.text.trim(),
+      "fullName": '${tfLastName.text} ${tfMidelName.text} ${tfName.text}'
+          .replaceAll(RegExp(r'\s+'), ' '),
       "nationality": tfNationality.text,
       "sex": sexValue,
       "dateOfBirth": isoDate(dob),
@@ -223,18 +229,40 @@ class ClientDataDNILogic extends GetxController {
     }
   }
 
+  void updateFullName() {
+    tfFullName.text = '${tfLastName.text} ${tfMidelName.text} ${tfName.text}'
+        .replaceAll(RegExp(r'\s+'), ' ');
+    update();
+  }
+
   bool checkValidate() {
+    print(requestModel.customerModel.idNumber);
+    if (!containsOnlyUpperCaseAndNumber(tfIdNumber.text)) {
+      fcIdNumber.requestFocus();
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textValidateIdentityPP);
+      return false;
+    }
     if (tfIdNumber.text != requestModel.customerModel.idNumber) {
+      fcIdNumber.requestFocus();
       Common.showToastCenter(
           AppLocalizations.of(context)!.textTheIDNumberDoseNotMatch);
       return false;
     }
     if (!tfLastName.text.isNotEmpty) {
       Common.showToastCenter(
-          AppLocalizations.of(context)!.textNotEmptyLastName);
+          AppLocalizations.of(context)!.textLastFatherNameNotEmpty);
+      return false;
+    } else if (!tfMidelName.text.isNotEmpty) {
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textLastMotherNameNotEmpty);
       return false;
     } else if (!tfName.text.isNotEmpty) {
       Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyName);
+      return false;
+    } else if (!tfFullName.text.isNotEmpty) {
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textFullNameNotEmpty);
       return false;
     } else if (!tfNationality.text.isNotEmpty) {
       Common.showToastCenter(
@@ -388,5 +416,10 @@ class ClientDataDNILogic extends GetxController {
     listProvince.clear();
     listDistrict.clear();
     listPrecinct.clear();
+  }
+
+  bool containsOnlyUpperCaseAndNumber(String text) {
+    RegExp upperCaseAndNumberRegExp = RegExp(r'^[A-Z0-9]*$');
+    return upperCaseAndNumberRegExp.hasMatch(text);
   }
 }

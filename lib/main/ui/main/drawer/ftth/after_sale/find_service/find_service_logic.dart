@@ -10,7 +10,7 @@ class FindServiceLogic extends GetxController {
   String currentIdentityType = "";
   TextEditingController textFieldEnter = TextEditingController();
   String currentEnter = "";
-
+  final FocusScopeNode focusScopeNode = FocusScopeNode();
 
   FindServiceLogic(this.context);
 
@@ -28,7 +28,7 @@ class FindServiceLogic extends GetxController {
     update();
   }
 
-  void setIdentity(String value){
+  void setIdentity(String value) {
     currentIdentityType = value;
     update();
   }
@@ -38,9 +38,9 @@ class FindServiceLogic extends GetxController {
     update();
   }
 
-  void setEnter(String value){
+  void setEnter(String value) {
     currentEnter = value;
-    if(currentEnter.isNotEmpty){
+    if (currentEnter.isNotEmpty) {
       setActiveButton(false);
     } else {
       setActiveButton(true);
@@ -54,5 +54,15 @@ class FindServiceLogic extends GetxController {
       AppLocalizations.of(context)!.textFTTHAccount,
       AppLocalizations.of(context)!.textPhoneNumber
     ];
+  }
+
+  int getMaxLengthIdNumber(String value) {
+    if (value == listIdentity[0]) {
+      return 8;
+    } else if (value == listIdentity[2]) {
+      return 15;
+    } else {
+      return 9;
+    }
   }
 }

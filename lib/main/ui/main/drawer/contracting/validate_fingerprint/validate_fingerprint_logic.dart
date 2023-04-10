@@ -24,7 +24,6 @@ class ValidateFingerprintLogic extends GetxController {
   int contractId = 0;
   String typeCustomer = '';
   String idNumber = '';
-  String email = '';
   BestFingerModel bestFinger = BestFingerModel();
   var pathFinger = ''.obs;
   List<String> listFinger = [];
@@ -44,7 +43,13 @@ class ValidateFingerprintLogic extends GetxController {
     typeCustomer = data[2];
     idNumber = data[3];
     contractId = data[4];
-    email = data[5];
+  }
+
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+    getBestFinger();
   }
 
   void setCapture(String value) {
@@ -58,8 +63,8 @@ class ValidateFingerprintLogic extends GetxController {
     String result = "";
     try {
       // final argument = {"pk": "0"};
-      final value =
-          await NativeUtil.platformFinger.invokeMethod(NativeUtil.nameFinger);
+      final value = await NativeUtil.platformFinger
+          .invokeMethod(NativeUtil.nameFinger, argument);
       result = value;
     } on PlatformException catch (e) {
       e.printInfo();
@@ -125,14 +130,16 @@ class ValidateFingerprintLogic extends GetxController {
     } else {
       if (bestFinger.right == 1) {
         return AppImages.imgFingerRight1;
-      } else if (bestFinger.right == 1) {
+      } else if (bestFinger.right == 2) {
         return AppImages.imgFingerRight2;
       } else if (bestFinger.right == 3) {
         return AppImages.imgFingerRight3;
       } else if (bestFinger.right == 4) {
         return AppImages.imgFingerRight4;
-      } else {
+      } else if (bestFinger.right == 5) {
         return AppImages.imgFingerRight5;
+      } else {
+        return AppImages.imgFingerRight3;
       }
     }
   }
@@ -142,9 +149,9 @@ class ValidateFingerprintLogic extends GetxController {
       _onLoading(context);
       Completer<bool> completer = Completer();
       Map<String, dynamic> body = {
-        // "finger": bestFinger.right ?? bestFinger.left,
-        "finger": 6,
-        "listImage": listFinger
+        "finger": bestFinger.right ?? bestFinger.left,
+        "listImage": listFinger,
+        "pk": pk
       };
       Map<String, dynamic> params = {"type": type};
       ApiUtil.getInstance()!.put(

@@ -35,7 +35,7 @@ class CustomerCEModel {
     if (lastname.rect != null) {
       if (lastname.rect!.bottom < rect.bottom &&
           rect.bottom < lastname.rect!.bottom + 35.0 &&
-          rect.left < lastname.rect!.right) {
+          rect.left - 30 < lastname.rect!.left) {
         var arrName = text.split(' ');
         if (arrName.length >= 2) {
           lastname.content = arrName[0];
@@ -63,8 +63,8 @@ class CustomerCEModel {
     if (nationality.rect != null) {
       if (nationality.rect!.bottom < rect.bottom &&
           rect.bottom < nationality.rect!.bottom + 35.0 &&
-          nationality.rect!.left - 15 < rect.left &&
-          rect.left < nationality.rect!.right) {
+          nationality.rect!.left - 30 < rect.left &&
+          rect.left - 30 < nationality.rect!.right) {
         nationality.content = text;
         return;
       }
@@ -82,7 +82,7 @@ class CustomerCEModel {
           rect.bottom < dob.rect!.bottom + 35.0 &&
           dob.rect!.left - 15 < rect.left &&
           rect.left < dob.rect!.right) {
-        dob.content = text.replaceAll('MAY', '5');
+        dob.content = convertText(text);
       }
     }
     if (ed.rect != null) {
@@ -98,7 +98,7 @@ class CustomerCEModel {
       if (number.rect!.bottom - 20 < rect.bottom &&
           rect.bottom - 20 < number.rect!.bottom) {
         if (num.tryParse(text) != null) {
-          number.content = convertText(text);
+          number.content = text;
         }
       }
     }
@@ -118,5 +118,34 @@ class CustomerCEModel {
     text = text.toUpperCase().replaceAll('NOV', '11');
     text = text.toUpperCase().replaceAll('DEC', '12');
     return text;
+  }
+
+  bool isCardIdentity() {
+    int count = 0;
+    if (number.rect == null) {
+      count++;
+    }
+    if (lastname.rect == null) {
+      count++;
+    }
+    if (name.rect == null) {
+      count++;
+    }
+    if (nationality.rect == null) {
+      count++;
+    }
+    if (sex.rect == null) {
+      count++;
+    }
+    if (dob.rect == null) {
+      count++;
+    }
+    if (ed.rect == null) {
+      count++;
+    }
+    if (count > 3) {
+      return false;
+    }
+    return true;
   }
 }

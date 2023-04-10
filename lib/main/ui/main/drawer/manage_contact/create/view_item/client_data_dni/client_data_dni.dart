@@ -112,9 +112,14 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                                     Expanded(
                                       child: SizedBox(
                                         child: TextField(
-                                            keyboardType: TextInputType.number,
+                                            keyboardType: controller
+                                                        .logicCreateContact
+                                                        .typeCustomer ==
+                                                    'CE'
+                                                ? TextInputType.number
+                                                : TextInputType.text,
                                             controller: controller.tfIdNumber,
-                                            focusNode: null,
+                                            focusNode: controller.fcIdNumber,
                                             style: AppStyles.r2B3A4A_12_500
                                                 .copyWith(
                                                     fontSize: 13,
@@ -150,26 +155,30 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                               textFieldClient(
                                   context: context,
                                   label: AppLocalizations.of(context)!
-                                      .textLastName,
+                                      .textLastFatherName,
                                   hint: AppLocalizations.of(context)!
                                       .textEnterName,
                                   width: width * 0.55,
                                   controller: controller.tfLastName,
                                   focusNode: controller.focusLastName,
-                                  onChange: (value) {}),
+                                  onChange: (value) {
+                                    controller.updateFullName();
+                                  }),
                               SizedBox(
                                 height: 16,
                               ),
                               textFieldClient(
                                   context: context,
                                   label: AppLocalizations.of(context)!
-                                      .textMiddleName,
+                                      .textLastMotherName,
                                   hint: AppLocalizations.of(context)!
                                       .textEnterName,
                                   width: width * 0.55,
                                   controller: controller.tfMidelName,
                                   focusNode: controller.focusLastName,
-                                  onChange: (value) {}),
+                                  onChange: (value) {
+                                    controller.updateFullName();
+                                  }),
                               SizedBox(
                                 height: 16,
                               ),
@@ -180,6 +189,21 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                                       .textEnterName,
                                   width: width * 0.55,
                                   controller: controller.tfName,
+                                  focusNode: controller.focusLastName,
+                                  onChange: (value) {
+                                    controller.updateFullName();
+                                  }),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              textFieldClient(
+                                  context: context,
+                                  label: AppLocalizations.of(context)!
+                                      .textFullName,
+                                  hint: AppLocalizations.of(context)!
+                                      .textEnterName,
+                                  width: width * 0.55,
+                                  controller: controller.tfFullName,
                                   focusNode: controller.focusLastName,
                                   onChange: (value) {}),
                               SizedBox(
@@ -364,7 +388,9 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
         Container(
           margin: EdgeInsets.only(left: 15, right: 23, top: 15),
           child: Container(
-              height: 45,
+              constraints: BoxConstraints(
+                minHeight: 45,
+              ),
               width: width,
               padding: EdgeInsets.only(left: 18, right: 7),
               decoration: BoxDecoration(

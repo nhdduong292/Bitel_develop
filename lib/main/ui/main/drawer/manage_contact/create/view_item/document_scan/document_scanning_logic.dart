@@ -1,17 +1,11 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
-import 'package:bitel_ventas/main/networks/request/google_detect_request.dart';
-import 'package:bitel_ventas/main/networks/request/google_detect_request.dart';
-import 'package:bitel_ventas/main/networks/request/google_detect_request.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/create_contact_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/cretate_contact_page_logic.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/client_data_logic.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/scan_model/customer_dni_model.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/scan_model/customer_ce_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/scan_model/customer_scan_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/scan_model/item_infor.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
@@ -19,16 +13,13 @@ import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:bitel_ventas/res/app_images.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../../../../../networks/request/google_detect_request.dart';
 import '../client_data/customer_detect_mode.dart';
 
 class DocumentScanningLogic extends GetxController {
@@ -52,6 +43,8 @@ class DocumentScanningLogic extends GetxController {
 
   String pathImageFont = '';
   String pathImageBack = '';
+
+  bool onProcessImage = false;
 
   CreateContactPageLogic logicCreateContact = Get.find();
 
@@ -79,11 +72,11 @@ class DocumentScanningLogic extends GetxController {
 
   String getImageIdentity() {
     if (currentIdentity == 'CE') {
-      return AppImages.imgCE;
+      return AppImages.imgIdentityCEFont;
     } else if (currentIdentity == 'PP') {
       return AppImages.imgPP;
     }
-    return AppImages.imgCE;
+    return AppImages.imgIdentityCEFont;
   }
 
   void onListenerMethod() {
@@ -283,6 +276,68 @@ class DocumentScanningLogic extends GetxController {
       if (croppedFile != null) {
         controller.setPathScan(croppedFile.path, isScanningFont);
       }
+    }
+  }
+
+  void onClickContinue({var onContiue, var onScan}) {
+    if (checkOption1.value && checkOption2.value) {
+      if (!onProcessImage) {
+        if ((textPathScan.isNotEmpty &&
+                textPathScanBack.isNotEmpty &&
+                currentIdentity == 'CE') ||
+            (textPathScan.isNotEmpty && currentIdentity != 'CE')) {
+          onProcessImage = true;
+          reset();
+          processImage(InputImage.fromFilePath(File(textPathScan).path))
+              .then((value) {
+            onProcessImage = false;
+            if (customerScanModel
+                .getCustomerScan(currentIdentity)
+                .isCardIdentity()) {
+              _onLoading(context);
+              if (currentIdentity == 'CE') {
+                uploadFile(textPathScan, 'image_font', (isSuccess, path) {
+                  if (isSuccess) {
+                    pathImageFont = path;
+                    uploadFile(textPathScanBack, 'image_back',
+                        (isSuccess, path) {
+                      if (isSuccess) {
+                        Get.back();
+                        pathImageBack = path;
+                        logicCreateContact.listImageScan.add(pathImageFont);
+                        logicCreateContact.listImageScan.add(pathImageBack);
+                        onContiue();
+                      } else {
+                        Get.back();
+                      }
+                    });
+                  } else {
+                    Get.back();
+                  }
+                });
+              } else {
+                uploadFile(textPathScan, 'image_font', (isSuccess, path) {
+                  if (isSuccess) {
+                    Get.back();
+                    pathImageFont = path;
+                    onContiue();
+                  } else {
+                    Get.back();
+                  }
+                });
+              }
+            } else {
+              onProcessImage = false;
+              Common.showToastCenter(
+                  AppLocalizations.of(context)!.textCardIdentityNotValidate);
+            }
+          });
+        } else {
+          onScan();
+        }
+      }
+    } else {
+      Common.showToastCenter(AppLocalizations.of(context)!.textAcceptTheRules);
     }
   }
 }

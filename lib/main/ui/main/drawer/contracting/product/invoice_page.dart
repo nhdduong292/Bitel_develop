@@ -190,7 +190,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                           ),
                           _paymentElement(
                               AppLocalizations.of(context)!.textDiscount,
-                              'S/.-0.0',
+                              'S/.0.0',
                               const Color(0xFFD91C02)),
                           const DottedLine(
                             dashColor: Color(0xFFE3EAF2),
@@ -226,6 +226,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                         controller.getProduct().productId,
                         controller.getPlanReason().id,
                         controller.isForcedTerm(),
+                        controller.getPromotion().proId ?? 0,
                       ]);
                     } else {
                       Get.toNamed(RouteConfig.createContact, arguments: [
@@ -233,6 +234,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                         controller.getProduct().productId,
                         controller.getPlanReason().id,
                         controller.isForcedTerm(),
+                        controller.getPromotion().proId ?? 0,
                       ]);
                     }
                   });

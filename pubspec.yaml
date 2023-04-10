@@ -70,6 +70,7 @@ dependencies:
   google_mlkit_text_recognition: ^0.5.0
   geocoding: ^2.1.0
   firebase_crashlytics: ^3.0.17
+  flutter_typeahead: ^4.3.7
 
 dev_dependencies:
   flutter_test:

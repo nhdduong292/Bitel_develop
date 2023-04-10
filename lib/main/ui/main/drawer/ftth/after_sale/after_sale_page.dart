@@ -12,7 +12,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class AfterSalePage extends StatelessWidget{
+class AfterSalePage extends StatelessWidget {
   const AfterSalePage({super.key});
 
   @override
@@ -33,7 +33,8 @@ class AfterSalePage extends StatelessWidget{
         elevation: 0.0,
         title: Container(
           margin: const EdgeInsets.only(bottom: 20),
-          child: Text(AppLocalizations.of(context)!.textAfterSaleFuntion, style: AppStyles.title),
+          child: Text(AppLocalizations.of(context)!.textAfterSaleFuntion,
+              style: AppStyles.title),
         ),
         toolbarHeight: 100,
         flexibleSpace: Container(
@@ -51,8 +52,8 @@ class AfterSalePage extends StatelessWidget{
             child: Container(
               width: double.infinity,
               margin: const EdgeInsets.only(top: 15, left: 10, right: 10),
-              padding:
-              const EdgeInsets.only(left: 16, top: 13, bottom: 13, right: 16),
+              padding: const EdgeInsets.only(
+                  left: 16, top: 13, bottom: 13, right: 16),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(24),
@@ -76,23 +77,24 @@ class AfterSalePage extends StatelessWidget{
                   ),
                   Expanded(
                       child: Text(
-                        AppLocalizations.of(context)!.textChangePlan,
-                        style: AppStyles.r1,
-                      )),
+                    AppLocalizations.of(context)!.textChangePlan,
+                    style: AppStyles.r1,
+                  )),
                   SvgPicture.asset(AppImages.icOvalArrowRight)
                 ],
               ),
             ),
             onTap: () {
-              Get.to(AfterSaleSearchPage(AppLocalizations.of(context)!.textChangePlan));
+              Get.to(AfterSaleSearchPage(
+                  AppLocalizations.of(context)!.textChangePlan, 'CHANGE_PLAN'));
             },
           ),
           GestureDetector(
             child: Container(
               width: double.infinity,
               margin: const EdgeInsets.only(top: 15, left: 10, right: 10),
-              padding:
-              const EdgeInsets.only(left: 16, top: 13, bottom: 13, right: 16),
+              padding: const EdgeInsets.only(
+                  left: 16, top: 13, bottom: 13, right: 16),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(24),
@@ -116,23 +118,25 @@ class AfterSalePage extends StatelessWidget{
                   ),
                   Expanded(
                       child: Text(
-                        AppLocalizations.of(context)!.textTransferService,
-                        style: AppStyles.r1.copyWith(fontWeight: FontWeight.w400),
-                      )),
+                    AppLocalizations.of(context)!.textTransferService,
+                    style: AppStyles.r1.copyWith(fontWeight: FontWeight.w400),
+                  )),
                   SvgPicture.asset(AppImages.icOvalArrowRight)
                 ],
               ),
             ),
             onTap: () {
-              Get.to(AfterSaleSearchPage(AppLocalizations.of(context)!.textTransferService));
+              Get.to(AfterSaleSearchPage(
+                  AppLocalizations.of(context)!.textTransferService,
+                  'TRANSFER_SERVICE'));
             },
           ),
           GestureDetector(
             child: Container(
               width: double.infinity,
               margin: const EdgeInsets.only(top: 15, left: 10, right: 10),
-              padding:
-              const EdgeInsets.only(left: 16, top: 13, bottom: 13, right: 16),
+              padding: const EdgeInsets.only(
+                  left: 16, top: 13, bottom: 13, right: 16),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(24),
@@ -156,20 +160,21 @@ class AfterSalePage extends StatelessWidget{
                   ),
                   Expanded(
                       child: Text(
-                        AppLocalizations.of(context)!.textCancelService,
-                        style: AppStyles.r1,
-                      )),
+                    AppLocalizations.of(context)!.textCancelService,
+                    style: AppStyles.r1,
+                  )),
                   SvgPicture.asset(AppImages.icOvalArrowRight)
                 ],
               ),
             ),
             onTap: () {
-                Get.to(AfterSaleSearchPage(AppLocalizations.of(context)!.textCancelService));
+              Get.to(AfterSaleSearchPage(
+                  AppLocalizations.of(context)!.textCancelService,
+                  'CANCEL_SERVICE'));
             },
           ),
         ],
       ),
     );
   }
-
 }

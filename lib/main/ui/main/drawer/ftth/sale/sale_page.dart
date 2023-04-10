@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:async';
 
 import 'package:bitel_ventas/main/router/route_config.dart';
@@ -22,6 +24,7 @@ class SalePage extends GetWidget {
       init: SaleLogic(context: context),
       builder: (controller) {
         return Scaffold(
+          backgroundColor: Colors.white,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             leading: Padding(
@@ -107,7 +110,7 @@ class SalePage extends GetWidget {
                                 onTap: () {
                                   controller.setIndexSelect(optionSale.index);
                                   Timer(
-                                    Duration(milliseconds: 500),
+                                    const Duration(milliseconds: 500),
                                     () {
                                       if (index == 0) {
                                         Get.toNamed(RouteConfig.listRequest,
@@ -132,10 +135,7 @@ class SalePage extends GetWidget {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 12),
                                   decoration: BoxDecoration(
-                                      color: optionSale.index ==
-                                              controller.indexSelect
-                                          ? Colors.white
-                                          : AppColors.colorBackground1,
+                                      color: const Color(0xFFDEF9FE),
                                       borderRadius: BorderRadius.circular(6),
                                       border: Border.all(
                                           color: optionSale.index ==
@@ -146,6 +146,18 @@ class SalePage extends GetWidget {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Text(
+                                        optionSale.content,
+                                        style: AppStyles.b4.copyWith(
+                                            color: optionSale.index ==
+                                                    controller.indexSelect
+                                                ? AppColors.colorTitle
+                                                : AppColors.colorText5,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
                                         optionSale.title,
                                         style: AppStyles.r2.copyWith(
                                             color: optionSale.index ==
@@ -154,18 +166,6 @@ class SalePage extends GetWidget {
                                                 : AppColors.colorText5
                                                     .withOpacity(0.5),
                                             fontWeight: FontWeight.w400),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        optionSale.content,
-                                        style: AppStyles.b4.copyWith(
-                                            color: optionSale.index ==
-                                                    controller.indexSelect
-                                                ? AppColors.colorTitle
-                                                : AppColors.colorText5,
-                                            fontWeight: FontWeight.w600),
                                       ),
                                     ],
                                   ),
@@ -205,10 +205,7 @@ class SalePage extends GetWidget {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 12),
                                   decoration: BoxDecoration(
-                                      color: optionSale.index ==
-                                              controller.indexSelect
-                                          ? Colors.white
-                                          : AppColors.colorBackground1,
+                                      color: const Color(0xFFDEF9FE),
                                       borderRadius: BorderRadius.circular(6),
                                       border: Border.all(
                                           color: optionSale.index ==
@@ -323,10 +320,7 @@ class SalePage extends GetWidget {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 12),
                                   decoration: BoxDecoration(
-                                      color: optionSale.index ==
-                                              controller.indexSelect
-                                          ? Colors.white
-                                          : AppColors.colorBackground1,
+                                      color: const Color(0xFFDEF9FE),
                                       borderRadius: BorderRadius.circular(6),
                                       border: Border.all(
                                           color: optionSale.index ==
@@ -386,59 +380,86 @@ class SalePage extends GetWidget {
                         ),
                       ),
                       Container(
-                          child: GridView.builder(
-                        itemCount: controller.getListOptionSale(context).length,
-                        shrinkWrap: true,
-                        physics: const ScrollPhysics(),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: 6,
-                                crossAxisSpacing: 4.0,
-                                mainAxisSpacing: 4.0),
-                        itemBuilder: (BuildContext context, int index) {
-                          OptionSale optionSale =
-                              controller.getListOptionSale(context)[index];
-                          return GestureDetector(
-                            onTap: () {
-                              if (optionSale.title ==
-                                  AppLocalizations.of(context)!
-                                      .textCreateRequest) {
-                                Get.toNamed(RouteConfig.createRequest);
-                              } else if (optionSale.title ==
-                                  AppLocalizations.of(context)!
-                                      .textSearchRequest) {
-                                Get.toNamed(RouteConfig.listRequest,
-                                    arguments: 0);
-                              } else if (optionSale.title ==
-                                  AppLocalizations.of(context)!
-                                      .textConnectSubscriber) {
-                                Get.toNamed(RouteConfig.listRequest,
-                                    arguments: 1);
-                              } else if(optionSale.title == AppLocalizations.of(context)!.textRechargeAnypay) {
-                                Get.toNamed(RouteConfig.buyAnyPay);
-                              }
-                            },
-                            child: Container(
-                              margin: const EdgeInsets.only(left: 16),
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset(optionSale.icon),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    optionSale.title,
-                                    style: AppStyles.r7.copyWith(
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.black),
-                                  ),
-                                ],
-                              ),
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.bottomCenter,
+                              end: Alignment.topCenter,
+                              colors: [
+                                Color(0xFFFFECDD),
+                                Color(0xFFFFFFFF),
+                              ],
                             ),
-                          );
-                        },
-                      )),
+                          ),
+                          child: Column(
+                            children: [
+                              GridView.builder(
+                                itemCount: controller
+                                    .getListOptionSale(context)
+                                    .length,
+                                shrinkWrap: true,
+                                physics: const ScrollPhysics(),
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3,
+                                        childAspectRatio: (width / 276),
+                                        crossAxisSpacing: 6.0,
+                                        mainAxisSpacing: 10.0),
+                                itemBuilder: (BuildContext context, int index) {
+                                  OptionSale optionSale = controller
+                                      .getListOptionSale(context)[index];
+                                  return GestureDetector(
+                                    onTap: () {
+                                      if (optionSale.title ==
+                                          AppLocalizations.of(context)!
+                                              .textCreateRequest) {
+                                        Get.toNamed(RouteConfig.createRequest);
+                                      } else if (optionSale.title ==
+                                          AppLocalizations.of(context)!
+                                              .textSearchRequest) {
+                                        Get.toNamed(RouteConfig.listRequest,
+                                            arguments: 0);
+                                      } else if (optionSale.title ==
+                                          AppLocalizations.of(context)!
+                                              .textConnectSubscriber) {
+                                        Get.toNamed(RouteConfig.listRequest,
+                                            arguments: 1);
+                                      } else if (optionSale.title ==
+                                          AppLocalizations.of(context)!
+                                              .textClearDebt) {
+                                        Get.toNamed(RouteConfig.clearDebt);
+                                      } else if (optionSale.title ==
+                                          AppLocalizations.of(context)!
+                                              .textRechargeAnypay) {
+                                        Get.toNamed(RouteConfig.buyAnyPay);
+                                      }
+                                    },
+                                    child: Container(
+                                      margin: const EdgeInsets.only(left: 16),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          SvgPicture.asset(optionSale.icon),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            textAlign: TextAlign.center,
+                                            optionSale.title,
+                                            style: AppStyles.r7.copyWith(
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.black),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                              SizedBox(
+                                height: 20,
+                              )
+                            ],
+                          )),
                     ],
                   ),
                 )

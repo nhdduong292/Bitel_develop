@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
+import 'package:bitel_ventas/main/networks/model/promotion_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/networks/response/product_response.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/request_detail/request_detail_logic.dart';
@@ -19,17 +20,21 @@ import '../../../../../utils/common.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductPaymentMethodLogic extends GetxController {
-  // int requestId = 0;
-  // String type = '';
-  // String idNumber = '';
   bool isLoadingProduct = true;
   BuildContext context;
+  bool isLoadingReason = true;
+  bool isLoadingPromotion = true;
 
   // String province = '';
   // String district = '';
   // String precinct = '';
 
   RequestDetailModel requestModel = RequestDetailModel();
+
+  String status = 'CREATE';
+  int currentProduct = 2;
+  int currentReason = 2;
+  bool isChanged = false;
 
   ProductPaymentMethodLogic({required this.context});
 
@@ -38,13 +43,8 @@ class ProductPaymentMethodLogic extends GetxController {
     // TODO: implement onInit
     super.onInit();
     var data = Get.arguments;
-    // requestId = data[0];
-    // type = data[0];
-    // idNumber = data[2];
-    // province = data[3];
-    // district = data[4];
-    // precinct = data[5];
     requestModel = data[0];
+    status = data[1];
     getProduts(requestModel.id);
   }
 
@@ -57,6 +57,7 @@ class ProductPaymentMethodLogic extends GetxController {
   var balance = (0.0).obs; // so du trong vi
   var valueProduct = (-1).obs; // index cua product
   var valueMethod = (-1).obs; // index cua reason
+  var valuePromotion = (-1).obs; //index cua promotion
   var totalPayment = 0; // tong tien phai thanh toan
 
   CustomerModel customer = CustomerModel();
@@ -76,6 +77,7 @@ class ProductPaymentMethodLogic extends GetxController {
   }
 
   List<ProductModel> listProduct = [];
+  List<PromotionModel> listPromotion = [];
 
   double getTotal() {
     if (getPlanReason().fee == null ||
@@ -86,6 +88,7 @@ class ProductPaymentMethodLogic extends GetxController {
   }
 
   void getProduts(int requestId) {
+    requestId = 20735;
     ApiUtil.getInstance()!.get(
       url: '${ApiEndPoints.API_LIST_PRODUCT}/$requestId',
       onSuccess: (response) {
@@ -93,6 +96,10 @@ class ProductPaymentMethodLogic extends GetxController {
           listProduct = (response.data['data'] as List)
               .map((postJson) => ProductModel.fromJson(postJson))
               .toList();
+          if (status == 'CHANGE') {
+            valueProduct.value = currentProduct;
+            getPlanReasons(listProduct[currentProduct].productId!, context);
+          }
         } else {
           print("error: ${response.status}");
         }
@@ -101,6 +108,39 @@ class ProductPaymentMethodLogic extends GetxController {
       },
       onError: (error) {
         isLoadingProduct = false;
+        update();
+        Common.showMessageError(error, context);
+      },
+    );
+  }
+
+  void checkLoading() {
+    if (!isLoadingReason && !isLoadingPromotion) {
+      Get.back();
+    } else if (isLoadingReason && isLoadingPromotion) {
+      _onLoading(context);
+    }
+  }
+
+  void getPromotions(int idProduct) {
+    ApiUtil.getInstance()!.get(
+      url: ApiEndPoints.API_LIST_PROMOTION,
+      params: {'productCode': idProduct},
+      onSuccess: (response) {
+        isLoadingPromotion = false;
+        checkLoading();
+        if (response.isSuccess) {
+          listPromotion = (response.data['data'] as List)
+              .map((postJson) => PromotionModel.fromJson(postJson))
+              .toList();
+        } else {
+          print("error: ${response.status}");
+        }
+        update();
+      },
+      onError: (error) {
+        isLoadingPromotion = false;
+        checkLoading();
         update();
         Common.showMessageError(error, context);
       },
@@ -121,9 +161,21 @@ class ProductPaymentMethodLogic extends GetxController {
     return PlanReasonModel();
   }
 
+  PromotionModel getPromotion() {
+    if (valuePromotion.value > -1) {
+      return listPromotion[valuePromotion.value];
+    }
+    return PromotionModel();
+  }
+
   void resetPlanReason() {
     listPlanReason.clear();
     valueMethod.value = -1;
+  }
+
+  void resetPromotions() {
+    listPromotion.clear();
+    valuePromotion.value = -1;
   }
 
   bool isForcedTerm() {
@@ -135,23 +187,27 @@ class ProductPaymentMethodLogic extends GetxController {
   }
 
   void getPlanReasons(int id, BuildContext context) {
-    _onLoading(context);
     try {
       ApiUtil.getInstance()!.get(
         url: '${ApiEndPoints.API_PLAN_REASON}/$id',
         onSuccess: (response) {
-          Get.back();
+          isLoadingReason = false;
+          checkLoading();
           if (response.isSuccess) {
             listPlanReason = (response.data['data'] as List)
                 .map((postJson) => PlanReasonModel.fromJson(postJson))
                 .toList();
+            if (valueProduct.value == currentProduct && !isChanged) {
+              valueMethod.value = currentReason;
+            }
             update();
           } else {
             print("error: ${response.status}");
           }
         },
         onError: (error) {
-          Get.back();
+          isLoadingReason = false;
+          checkLoading();
           Common.showMessageError(error, context);
         },
       );
@@ -218,6 +274,14 @@ class ProductPaymentMethodLogic extends GetxController {
       },
     );
     return completer.future;
+  }
+
+  bool checkChangePackage() {
+    if ((valueProduct.value == currentProduct) &&
+        (valueMethod.value == currentReason)) {
+      return false;
+    }
+    return true;
   }
 
   void _onLoading(BuildContext context) {
