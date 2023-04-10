@@ -241,6 +241,16 @@ class Common {
         showToastCenter(AppLocalizations.of(context)!.textE033);
       } else if (errorCode == 'E034') {
         showToastCenter(AppLocalizations.of(context)!.textE034);
+      } else if (errorCode == 'E035') {
+        showToastCenter(AppLocalizations.of(context)!.textE035);
+      } else if (errorCode == 'E036') {
+        showToastCenter(AppLocalizations.of(context)!.textE036);
+      } else if (errorCode == 'E037') {
+        showToastCenter(AppLocalizations.of(context)!.textE037);
+      } else if (errorCode == 'E038') {
+        showToastCenter(AppLocalizations.of(context)!.textE038);
+      } else if (errorCode == 'E039') {
+        showToastCenter(AppLocalizations.of(context)!.textE039);
       }
     } catch (e) {
       Common.showToastCenter(e.toString());
