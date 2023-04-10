@@ -163,7 +163,7 @@ public class MainFingerActivity extends FlutterActivity {
                             if(isPK.equals("0")) {
                                  fingerModel = new FingerModel(link, imageBase64);
                             } else {
-                                if(fingerPrint.getPk().length > 0 && Base64.encodeToString(fingerPrint.getPk(), Base64.NO_WRAP) != null) {
+                                if(fingerPrint.getPk().length > 0 && !TextUtils.isEmpty(Base64.encodeToString(fingerPrint.getPk(), Base64.NO_WRAP))) {
                                     fingerModel = new FingerModel(link, imageBase64, Base64.encodeToString(fingerPrint.getPk(), Base64.NO_WRAP));
                                 } else {
                                     fingerModel = new FingerModel(link, imageBase64);
