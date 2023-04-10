@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 import SecuGen.FDxSDKPro.JSGFPLib;
 import SecuGen.FDxSDKPro.SGAutoOnEventNotifier;
@@ -272,8 +273,7 @@ public class SecugenFingerPrintScanner extends FingerPrintScannerBase implements
                     fpInfo.ImageQuality = quality1[0];
                     fpInfo.ImpressionType = SGImpressionType.SG_IMPTYPE_LP;
                     fpInfo.ViewNumber = 1;
-                    for (int i=0; i< mRegisterTemplate.length; ++i)
-                        mRegisterTemplate[i] = 0;
+                    Arrays.fill(mRegisterTemplate, (byte) 0);
                     sgfplib.CreateTemplate(fpInfo, mRegisterImage, mRegisterTemplate);
                     FINGER_PRINT.setPk(mRegisterTemplate);
                 }
