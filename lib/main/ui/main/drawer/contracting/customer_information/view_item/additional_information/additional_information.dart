@@ -107,6 +107,7 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                         onChange: (value) {
                           controller.phone = value;
                           controller.checkChangeAdditionalInformation();
+                          controller.showButtonContinue();
                         }),
                     inputFormV3(
                         hint: AppLocalizations.of(context)!.textEnterEmail,
@@ -118,6 +119,7 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                         onChange: (value) {
                           controller.email = value;
                           controller.checkChangeAdditionalInformation();
+                          controller.showButtonContinue();
                         }),
                     InkWell(
                       onTap: () {
@@ -202,6 +204,9 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                                   callback();
                                 }
                               },
+                              color: !controller.isActiveContinue
+                                  ? const Color(0xFF415263).withOpacity(0.2)
+                                  : null,
                               text: AppLocalizations.of(context)!
                                   .textContinue
                                   .toUpperCase(),

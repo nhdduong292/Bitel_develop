@@ -76,6 +76,7 @@ class CustomerInformationLogic extends GetxController {
 
   bool isValidateAddress = false;
   bool isActiveUpdate = true;
+  bool isActiveContinue = false;
 
   RequestDetailModel requestModel = RequestDetailModel();
 
@@ -553,5 +554,15 @@ class CustomerInformationLogic extends GetxController {
     }
     Get.back();
     return false; //<-- SEE HERE
+  }
+
+  void showButtonContinue() {
+    if (phoneController.text.isNotEmpty && emailController.text.isNotEmpty) {
+      isActiveContinue = true;
+      update();
+    } else {
+      isActiveContinue = false;
+      update();
+    }
   }
 }
