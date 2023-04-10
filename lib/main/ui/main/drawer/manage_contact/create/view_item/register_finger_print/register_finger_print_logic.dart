@@ -151,6 +151,7 @@ class RegisterFingerPrintLogic extends GetxController {
       imageBase64 = body["imageBase64"];
     } on PlatformException catch (e) {
       e.printInfo();
+      return;
     }
     if (imageBase64.isNotEmpty) {
       if (indexLeft > 0) {
