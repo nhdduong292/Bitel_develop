@@ -80,7 +80,7 @@ class ValidateFingerprintLogic extends GetxController {
     textCapture = "";
     String result = "";
     try {
-      final argument = {"pk": "1"};
+      final argument = {"pk": "0"};
       final value = await NativeUtil.platformFinger
           .invokeMethod(NativeUtil.nameFinger, argument);
       result = value;
@@ -92,15 +92,16 @@ class ValidateFingerprintLogic extends GetxController {
       final body = json.decode(result);
       textCapture = body["pathImage"];
       String imageBase64 = body["imageBase64"];
-      pk = body["pk"];
-      if(kDebugMode) {
-          print("pk: $pk");
-      }
+      // pk = body["pk"];
+      // if(kDebugMode) {
+      //     print("pk: $pk");
+      // }
       if (listFinger.isNotEmpty) {
         listFinger.clear();
       }
       if (imageBase64.isNotEmpty) {
         listFinger.add(imageBase64);
+        getParamPK();
       }
       if (listFinger.isNotEmpty) {
         Common.showToastCenter(
