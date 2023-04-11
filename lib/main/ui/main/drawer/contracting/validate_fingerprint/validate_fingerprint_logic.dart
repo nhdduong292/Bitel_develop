@@ -7,6 +7,7 @@ import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -70,13 +71,14 @@ class ValidateFingerprintLogic extends GetxController {
       e.printInfo();
       return;
     }
-    print("text Capture: ${result}");
     try {
       final body = json.decode(result);
       textCapture = body["pathImage"];
       String imageBase64 = body["imageBase64"];
       pk = body["pk"];
-
+      if(kDebugMode) {
+          print("pk: $pk");
+      }
       if (listFinger.isNotEmpty) {
         listFinger.clear();
       }
