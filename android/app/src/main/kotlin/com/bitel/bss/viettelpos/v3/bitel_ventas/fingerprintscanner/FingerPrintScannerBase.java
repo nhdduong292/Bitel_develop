@@ -64,7 +64,6 @@ public abstract class FingerPrintScannerBase {
     /**
      * AsyncTask captures fingerprint
      */
-    @SuppressLint("StaticFieldLeak")
     protected class CaptureFingerAsyncTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {

@@ -274,10 +274,13 @@ public class SecugenFingerPrintScanner extends FingerPrintScannerBase implements
                     fpInfo.ImpressionType = SGImpressionType.SG_IMPTYPE_LP;
                     fpInfo.ViewNumber = 1;
                     Arrays.fill(mRegisterTemplate, (byte) 0);
-                    new Runnable() { @Override public void run() {
-                        sgfplib.CreateTemplate(fpInfo, mRegisterImage, mRegisterTemplate);
-                        FINGER_PRINT.setPk(mRegisterTemplate);
-                    }};
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            sgfplib.CreateTemplate(fpInfo, mRegisterImage, mRegisterTemplate);
+                            FINGER_PRINT.setPk(mRegisterTemplate);
+                        }
+                    });
                 }
                 FINGER_PRINT.setSerial(getSerial());
             } catch (Exception e) {
