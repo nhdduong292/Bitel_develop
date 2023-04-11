@@ -46,9 +46,11 @@ import io.flutter.plugin.common.MethodChannel;
 public class MainFingerActivity extends FlutterActivity {
     private static final String TAG = "MainFingerActivity";
     private String platformFinger = "bitel.com/finger";
+    private String platformFingerPK = "bitel.com/fingerPK";
     private String platformScan1 = "bitel.com/scan1";
     private String platformScan2 = "bitel.com/scan2";
     String nameFinger = "getFinger";
+    String nameFingerPK = "getFingerPK";
     String nameScan1 = "getScan1";
     String nameScan2 = "getScan2";
     private MethodChannel channelScan1;
@@ -87,32 +89,21 @@ public class MainFingerActivity extends FlutterActivity {
             }
         });
 
-//        channelScan1 = new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), platformScan1);
-//        channelScan1.setMethodCallHandler(new MethodChannel.MethodCallHandler() {
-//            @Override
-//            public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
-//                if(call.method.equals(nameScan1)){
-//                    onScanImage();
-//                    result.success("open scan successssssssssssssss");
-//                } else {
-//                    result.notImplemented();
-//                }
-//            }
-//        });
-//
-//        channelScan2 = new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), platformScan2);
-//        channelScan2.setMethodCallHandler(new MethodChannel.MethodCallHandler() {
-//            @Override
-//            public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
-//                if(call.method.equals(nameScan2)){
-//                    positionScan = 1;
-//                    onScanImage();
-//                    result.success("open scan successssssssssssssss");
-//                } else {
-//                    result.notImplemented();
-//                }
-//            }
-//        });
+        new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), platformFingerPK).setMethodCallHandler(new MethodChannel.MethodCallHandler() {
+            @Override
+            public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
+                if (call.method.equals(nameFingerPK)) {
+                    if (FingerPrintScannerBase.FINGER_PRINT.getPk() != null) {
+                        String mPk = Base64.encodeToString(FingerPrintScannerBase.FINGER_PRINT.getPk(), Base64.NO_WRAP);
+                        result.success(mPk);
+                    } else {
+                        result.notImplemented();
+                    }
+                } else {
+                    result.notImplemented();
+                }
+            }
+        });
     }
 
     Bitmap bitmap;

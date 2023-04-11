@@ -1,9 +1,11 @@
 package com.bitel.bss.viettelpos.v3.bitel_ventas.fingerprintscanner;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
@@ -53,7 +55,7 @@ public abstract class FingerPrintScannerBase {
     public void onCapture(CaptureFingerListener captureFingerListener) {
         this.captureFingerListener = captureFingerListener;
         CaptureFingerAsyncTask captureFingerAsyncTask = new CaptureFingerAsyncTask();
-        captureFingerAsyncTask.execute();
+        captureFingerAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     public void onDestroy() {
@@ -62,6 +64,7 @@ public abstract class FingerPrintScannerBase {
     /**
      * AsyncTask captures fingerprint
      */
+    @SuppressLint("StaticFieldLeak")
     protected class CaptureFingerAsyncTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {

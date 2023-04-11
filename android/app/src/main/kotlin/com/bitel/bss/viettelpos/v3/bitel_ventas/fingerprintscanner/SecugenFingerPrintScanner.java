@@ -264,18 +264,20 @@ public class SecugenFingerPrintScanner extends FingerPrintScannerBase implements
                 FINGER_PRINT.setHaveFingerImage(true);
                 if (!IS_BY_PASS_PK) {
                     mMaxTemplateSize = new int[1];
-//                    sgfplib.SetTemplateFormat(SecuGen.FDxSDKPro.SGFDxTemplateFormat.TEMPLATE_FORMAT_ISO19794);
-//                    sgfplib.GetMaxTemplateSize(mMaxTemplateSize);
-//                    sgfplib.GetImageQuality(mImageWidth, mImageHeight, mRegisterImage, quality1);
+                    sgfplib.SetTemplateFormat(SecuGen.FDxSDKPro.SGFDxTemplateFormat.TEMPLATE_FORMAT_ISO19794);
+                    sgfplib.GetMaxTemplateSize(mMaxTemplateSize);
+                    sgfplib.GetImageQuality(mImageWidth, mImageHeight, mRegisterImage, quality1);
                     mRegisterTemplate = new byte[mMaxTemplateSize[0]];
-//                    SGFingerInfo fpInfo = new SGFingerInfo();
-//                    fpInfo.FingerNumber = 1;
-//                    fpInfo.ImageQuality = quality1[0];
-//                    fpInfo.ImpressionType = SGImpressionType.SG_IMPTYPE_LP;
-//                    fpInfo.ViewNumber = 1;
+                    SGFingerInfo fpInfo = new SGFingerInfo();
+                    fpInfo.FingerNumber = 1;
+                    fpInfo.ImageQuality = quality1[0];
+                    fpInfo.ImpressionType = SGImpressionType.SG_IMPTYPE_LP;
+                    fpInfo.ViewNumber = 1;
                     Arrays.fill(mRegisterTemplate, (byte) 0);
-//                    sgfplib.CreateTemplate(fpInfo, mRegisterImage, mRegisterTemplate);
-                    FINGER_PRINT.setPk(mRegisterTemplate);
+                    new Runnable() { @Override public void run() {
+                        sgfplib.CreateTemplate(fpInfo, mRegisterImage, mRegisterTemplate);
+                        FINGER_PRINT.setPk(mRegisterTemplate);
+                    }};
                 }
                 FINGER_PRINT.setSerial(getSerial());
             } catch (Exception e) {

@@ -59,6 +59,23 @@ class ValidateFingerprintLogic extends GetxController {
     update();
   }
 
+  void getParamPK() async{
+    String result = "";
+    try {
+      final value = await NativeUtil.platformFingerPK
+          .invokeMethod(NativeUtil.nameFingerPK);
+      result = value;
+    } on PlatformException catch (e) {
+      e.printInfo();
+      return;
+    }
+    pk = result;
+    if(kDebugMode) {
+      print("pk: $pk");
+    }
+    Common.showToastCenter(pk);
+  }
+
   Future<void> getCapture(BuildContext context) async {
     textCapture = "";
     String result = "";
