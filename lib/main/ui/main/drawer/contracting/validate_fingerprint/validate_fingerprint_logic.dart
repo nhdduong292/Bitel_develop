@@ -59,7 +59,7 @@ class ValidateFingerprintLogic extends GetxController {
     update();
   }
 
-  void getParamPK() async{
+  void getParamPK() async {
     String result = "";
     try {
       final value = await NativeUtil.platformFingerPK
@@ -70,7 +70,7 @@ class ValidateFingerprintLogic extends GetxController {
       return;
     }
     pk = result;
-    if(kDebugMode) {
+    if (kDebugMode) {
       print("pk: $pk");
     }
     Common.showToastCenter(pk);
@@ -92,23 +92,25 @@ class ValidateFingerprintLogic extends GetxController {
       final body = json.decode(result);
       textCapture = body["pathImage"];
       String imageBase64 = body["imageBase64"];
-      pk = body["pk"];
-      if(kDebugMode) {
-          print("pk: $pk");
-      }
+      // pk = body["pk"];
+      // if (kDebugMode) {
+      //   print("pk: $pk");
+      // }
+      // Common.showToastCenter(pk);
       if (listFinger.isNotEmpty) {
         listFinger.clear();
       }
       if (imageBase64.isNotEmpty) {
         listFinger.add(imageBase64);
+        getParamPK();
       }
-      if (listFinger.isNotEmpty) {
-        Common.showToastCenter(
-            AppLocalizations.of(context)!.textCaptureFingerprintSuccessfully);
-      } else {
-        Common.showToastCenter(
-            AppLocalizations.of(context)!.textNotifyFingerFail);
-      }
+      // if (listFinger.isNotEmpty) {
+      //   Common.showToastCenter(
+      //       AppLocalizations.of(context)!.textCaptureFingerprintSuccessfully);
+      // } else {
+      //   Common.showToastCenter(
+      //       AppLocalizations.of(context)!.textNotifyFingerFail);
+      // }
       update();
     } catch (e) {
       Common.showToastCenter(e.toString());

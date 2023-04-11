@@ -200,9 +200,13 @@ class DocumentScanningLogic extends GetxController {
   void uploadFile(String path, String name,
       Function(bool isSuccess, String path) function) {
     ApiUtil.getInstance()!.postFile(
-        url: ApiEndPoints.API_UPLOAD_FILE,
+        url: ApiEndPoints.API_UPLOAD_IDENTIFY_CARD,
         path: path,
         name: name,
+        data: {
+          "idType": currentIdentity,
+          "idNumber": logicCreateContact.requestModel.customerModel.idNumber
+        },
         onSuccess: (response) {
           if (response.isSuccess) {
             function.call(true, response.data['data']);

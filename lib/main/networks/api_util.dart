@@ -5,6 +5,7 @@ import 'package:bitel_ventas/main/utils/shared_preference.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'api_interceptors.dart';
+import 'package:http_parser/http_parser.dart';
 
 class ApiUtil {
   Dio? dio;
@@ -139,6 +140,7 @@ class ApiUtil {
     required String url,
     required String path,
     required String name,
+    required Map<String, dynamic> data,
     Map<String, dynamic> params = const {},
     bool isDetect = false,
     String contentType = Headers.jsonContentType,
@@ -147,6 +149,10 @@ class ApiUtil {
   }) async {
     FormData formData = FormData.fromMap({
       "file": await MultipartFile.fromFile(path, filename: name),
+      "data": MultipartFile.fromString(
+        jsonEncode(data),
+        contentType: MediaType.parse('application/json'),
+      ),
     });
     String token = await SharedPreferenceUtil.getToken();
     if (!isDetect) {

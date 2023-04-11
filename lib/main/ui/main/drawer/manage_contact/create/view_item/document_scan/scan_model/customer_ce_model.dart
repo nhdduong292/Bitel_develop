@@ -4,7 +4,7 @@ import 'item_infor.dart';
 
 class CustomerCEModel {
   InformationCus number = InformationCus(type: 'N°');
-  InformationCus lastname = InformationCus(type: 'pellidos');
+  InformationCus lastname = InformationCus(type: 'Apel');
   InformationCus midelname = InformationCus(type: 'ombres');
   InformationCus name = InformationCus(type: 'ombres');
   InformationCus nationality = InformationCus(type: 'acionalid');
