@@ -99,7 +99,14 @@ class CustomerInformationLogic extends GetxController {
     promotionId = data[5];
     phone = customer.telFax;
     email = customer.email;
-    address = customer.getInstalAddress();
+    if (customer.address.isNotEmpty ||
+        customer.province.isNotEmpty ||
+        customer.district.isNotEmpty ||
+        customer.precinct.isNotEmpty) {
+      address = customer.getInstalAddress();
+    } else {
+      address = requestModel.getInstalAddress();
+    }
 
     billAddress = requestModel.getInstalAddress();
 
@@ -110,6 +117,8 @@ class CustomerInformationLogic extends GetxController {
     emailController.text = email;
     emailController.selection =
         TextSelection.fromPosition(TextPosition(offset: email.length));
+
+    showButtonContinue();
   }
 
   @override
@@ -494,15 +503,25 @@ class CustomerInformationLogic extends GetxController {
       "sex": 'M',
       "dateOfBirth": customer.birthDate,
       "expiredDate": customer.idExpireDate,
-      "address": currentAddress.isEmpty ? customer.address : currentAddress,
+      "address": currentAddress.isEmpty
+          ? (customer.address.isNotEmpty
+              ? customer.address
+              : requestModel.address)
+          : currentAddress,
       "province": currentProvince.province.isEmpty
-          ? customer.province
+          ? (customer.province.isNotEmpty
+              ? customer.province
+              : requestModel.province)
           : currentProvince.province,
       "district": currentDistrict.district.isEmpty
-          ? customer.district
+          ? (customer.district.isNotEmpty
+              ? customer.district
+              : requestModel.district)
           : currentDistrict.district,
       "precinct": currentPrecinct.precinct.isEmpty
-          ? customer.precinct
+          ? (customer.precinct.isNotEmpty
+              ? customer.precinct
+              : requestModel.precinct)
           : currentPrecinct.precinct,
       "phone": phoneController.text,
       "email": emailController.text,

@@ -222,6 +222,20 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                               SizedBox(
                                 height: 16,
                               ),
+                              formDateView(
+                                  context: context,
+                                  type: 1,
+                                  hint: AppLocalizations.of(context)!
+                                      .textEnterDate,
+                                  label: AppLocalizations.of(context)!
+                                      .textDateOfBirth,
+                                  content: controller.dob,
+                                  required: false,
+                                  isIcon: true,
+                                  width: width * 0.55),
+                              SizedBox(
+                                height: 16,
+                              ),
                               Row(
                                 children: [
                                   Expanded(
@@ -260,12 +274,12 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                               ),
                               formDateView(
                                   context: context,
-                                  type: 1,
+                                  type: 2,
                                   hint: AppLocalizations.of(context)!
                                       .textEnterDate,
                                   label: AppLocalizations.of(context)!
-                                      .textDateOfBirth,
-                                  content: controller.dob,
+                                      .textDateOfIssue,
+                                  content: controller.issue,
                                   required: false,
                                   isIcon: true,
                                   width: width * 0.55),
@@ -274,7 +288,7 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                               ),
                               formDateView(
                                   context: context,
-                                  type: 2,
+                                  type: 3,
                                   hint: AppLocalizations.of(context)!
                                       .textEnterDate,
                                   label: AppLocalizations.of(context)!
@@ -283,35 +297,35 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                                   required: false,
                                   isIcon: true,
                                   width: width * 0.55),
-                              InkWell(
-                                onTap: () {
-                                  showDialog(
-                                    barrierDismissible: false,
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      controller.resetAdress();
-                                      return BillAddressInformation(
-                                        height: 450,
-                                        controller: controller,
-                                      );
-                                    },
-                                  ).then((value) {
-                                    // controller.checkChangeAdditionalInformation();
-                                    if (value) {
-                                      controller.address =
-                                          '${controller.currentAddress}, ${controller.currentPrecinct.name}, ${controller.currentDistrict.name}, ${controller.currentProvince.name}';
-                                      controller.update();
-                                    }
-                                  });
-                                },
-                                child: lockedBoxV1(
-                                    content: controller.address,
-                                    label: AppLocalizations.of(context)!
-                                        .textAddress,
-                                    required: false,
-                                    isIcon: false,
-                                    width: width * 0.55),
-                              ),
+                              // InkWell(
+                              //   onTap: () {
+                              //     showDialog(
+                              //       barrierDismissible: false,
+                              //       context: context,
+                              //       builder: (BuildContext context) {
+                              //         controller.resetAdress();
+                              //         return BillAddressInformation(
+                              //           height: 450,
+                              //           controller: controller,
+                              //         );
+                              //       },
+                              //     ).then((value) {
+                              //       // controller.checkChangeAdditionalInformation();
+                              //       if (value) {
+                              //         controller.address =
+                              //             '${controller.currentAddress}, ${controller.currentPrecinct.name}, ${controller.currentDistrict.name}, ${controller.currentProvince.name}';
+                              //         controller.update();
+                              //       }
+                              //     });
+                              //   },
+                              //   child: lockedBoxV1(
+                              //       content: controller.address,
+                              //       label: AppLocalizations.of(context)!
+                              //           .textAddress,
+                              //       required: false,
+                              //       isIcon: false,
+                              //       width: width * 0.55),
+                              // ),
                               SizedBox(
                                 height: 34,
                               ),

@@ -10,6 +10,7 @@ class CustomerPPModel {
   InformationCus nationality = InformationCus(type: 'uốc');
   InformationCus sex = InformationCus(type: 'iới');
   InformationCus dob = InformationCus(type: 'Ngày sinh');
+  InformationCus issue = InformationCus(type: 'Ngày cấp');
   InformationCus ed = InformationCus(type: 'giá');
 
   InformationCus? getInformationCus(String text) {
@@ -23,6 +24,8 @@ class CustomerPPModel {
       return sex;
     } else if (text.contains(dob.type)) {
       return dob;
+    } else if (text.contains(issue.type)) {
+      return issue;
     } else if (text.contains(ed.type)) {
       return ed;
     } else if (text.contains(number.type)) {
@@ -100,6 +103,15 @@ class CustomerPPModel {
         dob.content = text.replaceAll("/", " ").replaceAll(RegExp(r'\s+'), ' ');
       }
     }
+    if (issue.rect != null) {
+      if (issue.rect!.bottom < rect.bottom &&
+          rect.bottom < issue.rect!.bottom + 50 &&
+          issue.rect!.left - 100 < rect.left &&
+          rect.left < issue.rect!.right) {
+        issue.content =
+            text.replaceAll("/", " ").replaceAll(RegExp(r'\s+'), ' ');
+      }
+    }
     if (ed.rect != null) {
       if (ed.rect!.bottom < rect.bottom &&
           rect.bottom < ed.rect!.bottom + 50 &&
@@ -134,6 +146,9 @@ class CustomerPPModel {
       count++;
     }
     if (dob.rect == null) {
+      count++;
+    }
+    if (issue.rect == null) {
       count++;
     }
     if (ed.rect == null) {

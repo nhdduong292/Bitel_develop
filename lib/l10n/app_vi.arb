@@ -583,6 +583,7 @@
   "textYouDontHaveEnoughAnypayIn": "You don’t have enough anypay in your account. Please recharge to continue perform transaction.",
     "textLastFatherNameNotEmpty": "Họ của cha không được để trống",
   "textLastMotherNameNotEmpty": "Họ của mẹ không được để trống",
-  "textFullNameNotEmpty": "Tên đầy đủ không được để trống"
+  "textFullNameNotEmpty": "Tên đầy đủ không được để trống",
+  "textDateOfIssue": "Ngày phát hành"
 
 }

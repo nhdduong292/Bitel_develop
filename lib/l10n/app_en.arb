@@ -602,7 +602,8 @@
   "textE039": "Validate customer's finger fail", 
   "textLastFatherNameNotEmpty": "Last name of father cannot be empty",
   "textLastMotherNameNotEmpty": "Last name of mother cannot be empty",
-  "textFullNameNotEmpty": "Full name cannot be emptys"
+  "textFullNameNotEmpty": "Full name cannot be emptys",
+  "textDateOfIssue": "Date of issue"
 
 
 }

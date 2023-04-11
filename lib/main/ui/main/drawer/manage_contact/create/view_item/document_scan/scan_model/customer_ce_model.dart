@@ -10,6 +10,7 @@ class CustomerCEModel {
   InformationCus nationality = InformationCus(type: 'acionalid');
   InformationCus sex = InformationCus(type: 'exo');
   InformationCus dob = InformationCus(type: 'echa');
+  InformationCus issue = InformationCus(type: 'Emisi');
   InformationCus ed = InformationCus(type: 'aducida');
 
   InformationCus? getInformationCus(String text) {
@@ -23,6 +24,8 @@ class CustomerCEModel {
       return sex;
     } else if (text.contains(dob.type)) {
       return dob;
+    } else if (text.contains(issue.type)) {
+      return issue;
     } else if (text.contains(ed.type)) {
       return ed;
     } else if (text.contains(number.type)) {
@@ -83,6 +86,14 @@ class CustomerCEModel {
           dob.rect!.left - 15 < rect.left &&
           rect.left < dob.rect!.right) {
         dob.content = convertText(text);
+      }
+    }
+    if (issue.rect != null) {
+      if (issue.rect!.bottom < rect.bottom &&
+          rect.bottom < issue.rect!.bottom + 35.0 &&
+          issue.rect!.left - 15 < rect.left &&
+          rect.left < issue.rect!.right) {
+        issue.content = convertText(text);
       }
     }
     if (ed.rect != null) {

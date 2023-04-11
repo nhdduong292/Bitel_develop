@@ -584,5 +584,6 @@
   "textYouDontHaveEnoughAnypayIn": "You don’t have enough anypay in your account. Please recharge to continue perform transaction.",
     "textLastFatherNameNotEmpty": "El apellido del padre no puede estar vacío",
   "textLastMotherNameNotEmpty": "El apellido de la madre no puede estar vacío",
-  "textFullNameNotEmpty": "El nombre completo no puede estar vacío"
+  "textFullNameNotEmpty": "El nombre completo no puede estar vacío",
+  "textDateOfIssue": "Día de Publicación"
 }

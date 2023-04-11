@@ -41,6 +41,7 @@ class ClientDataDNILogic extends GetxController {
   DateTime selectDate = DateTime.now();
   String dob = '';
   String exd = '';
+  String issue = '';
   CreateContactPageLogic logicCreateContact = Get.find();
   RequestDetailModel requestModel = RequestDetailModel();
   int productId = 0;
@@ -102,6 +103,8 @@ class ClientDataDNILogic extends GetxController {
   void setToDate(DateTime picked) {
     if (typeDate == 1) {
       dob = "${picked.day}/${picked.month}/${picked.year}";
+    } else if (typeDate == 2) {
+      issue = "${picked.day}/${picked.month}/${picked.year}";
     } else {
       exd = "${picked.day}/${picked.month}/${picked.year}";
     }
@@ -157,6 +160,13 @@ class ClientDataDNILogic extends GetxController {
       dob = '';
     }
     try {
+      final date = dateFormat.parse(customerDNIModel.issue.getContent());
+      issue = Common.fromDate(date, 'dd/MM/yyyy');
+    } catch (e) {
+      // nếu chuỗi không đúng định dạng, phương thức parse sẽ ném ra một ngoại lệ
+      issue = '';
+    }
+    try {
       final date = dateFormat.parse(customerDNIModel.ed.getContent());
       exd = Common.fromDate(date, 'dd/MM/yyyy');
     } catch (e) {
@@ -185,10 +195,15 @@ class ClientDataDNILogic extends GetxController {
       "sex": sexValue,
       "dateOfBirth": isoDate(dob),
       "expiredDate": isoDate(exd),
-      "address": currentAddress,
-      "province": currentProvince.province,
-      "district": currentDistrict.district,
-      "precinct": currentPrecinct.precinct,
+      "issueDate": isoDate(issue),
+      // "address": currentAddress,
+      // "province": currentProvince.province,
+      // "district": currentDistrict.district,
+      // "precinct": currentPrecinct.precinct,
+      "address": "",
+      "province": "",
+      "district": "",
+      "precinct": "",
       "phone": logicCreateContact.requestModel.customerModel.telFax,
       "image": logicCreateContact.listImageScan,
     };
@@ -282,10 +297,11 @@ class ClientDataDNILogic extends GetxController {
       Common.showToastCenter(
           AppLocalizations.of(context)!.textToastValidateExd);
       return false;
-    } else if (address.isEmpty) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyAddress);
-      return false;
     }
+    // else if (address.isEmpty) {
+    //   Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyAddress);
+    //   return false;
+    // }
     return true;
   }
 
