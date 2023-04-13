@@ -73,7 +73,7 @@ class ValidateFingerprintLogic extends GetxController {
     if (kDebugMode) {
       print("pk: $pk");
     }
-    Common.showToastCenter(pk);
+    // Common.showToastCenter(pk);
   }
 
   Future<void> getCapture(BuildContext context) async {
@@ -103,14 +103,15 @@ class ValidateFingerprintLogic extends GetxController {
         listFinger.add(imageBase64);
         getParamPK();
       }
-      // if (listFinger.isNotEmpty) {
-      //   Common.showToastCenter(
-      //       AppLocalizations.of(context)!.textCaptureFingerprintSuccessfully);
-      // } else {
-      //   Common.showToastCenter(
-      //       AppLocalizations.of(context)!.textNotifyFingerFail);
-      // }
+
       update();
+      if (listFinger.isNotEmpty) {
+        Common.showToastCenter(
+            AppLocalizations.of(context)!.textCaptureFingerprintSuccessfully);
+      } else {
+        Common.showToastCenter(
+            AppLocalizations.of(context)!.textNotifyFingerFail);
+      }
     } catch (e) {
       Common.showToastCenter(e.toString());
     }

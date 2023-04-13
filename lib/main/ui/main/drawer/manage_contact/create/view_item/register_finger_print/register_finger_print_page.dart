@@ -374,8 +374,8 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                     controller.getCapture();
                                   } else {
                                     controller.indexLeft = 2;
-                                    controller.listPathFinger.add('');
-                                    controller.listImageLeft.add('');
+                                    controller.listPathFinger.add('string');
+                                    controller.listImageLeft.add('string');
                                     controller.countFinger.value--;
                                     controller.update();
                                     // Common.showToastCenter(

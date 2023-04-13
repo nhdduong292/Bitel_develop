@@ -58,7 +58,9 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      initialRoute: Get.find<SettingService>().getToken() ? RouteConfig.main : RouteConfig.login,
+      initialRoute: Get.find<SettingService>().getToken()
+          ? RouteConfig.main
+          : RouteConfig.login,
       // initialRoute:  RouteConfig.main,
       getPages: RouteConfig.getPages,
       locale: Get.find<SettingService>().currentLocate.value,
@@ -68,6 +70,4 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-
-
 }

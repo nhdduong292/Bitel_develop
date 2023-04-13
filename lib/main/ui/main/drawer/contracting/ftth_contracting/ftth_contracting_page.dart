@@ -11,6 +11,7 @@ import '../../../../../../res/app_images.dart';
 import '../../../../../../res/app_styles.dart';
 import '../../../../../router/route_config.dart';
 import '../../../../../utils/common.dart';
+import '../../ftth/sale/sale_logic.dart';
 import 'ftth_contracting_logic.dart';
 
 class FTTHContractingPage extends GetView<FTTHContractingLogic> {
@@ -228,6 +229,8 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                           RouteConfig.sale;
                                     },
                                   );
+                                  SaleLogic saleLogic = Get.find();
+                                  saleLogic.viewWillAppear();
                                 })),
                         SizedBox(
                           height: 126,

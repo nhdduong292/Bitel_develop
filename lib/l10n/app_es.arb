@@ -585,5 +585,6 @@
     "textLastFatherNameNotEmpty": "El apellido del padre no puede estar vacío",
   "textLastMotherNameNotEmpty": "El apellido de la madre no puede estar vacío",
   "textFullNameNotEmpty": "El nombre completo no puede estar vacío",
-  "textDateOfIssue": "Día de Publicación"
+  "textDateOfIssue": "Día de Publicación",
+    "textE040": "Create deployment task on Vsmart failed"
 }

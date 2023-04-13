@@ -251,6 +251,8 @@ class Common {
         showToastCenter(AppLocalizations.of(context)!.textE038);
       } else if (errorCode == 'E039') {
         showToastCenter(AppLocalizations.of(context)!.textE039);
+      } else if (errorCode == 'E040') {
+        showToastCenter(AppLocalizations.of(context)!.textE040);
       }
     } catch (e) {
       Common.showToastCenter(e.toString());

@@ -88,6 +88,12 @@ class SaleLogic extends GetxController {
     getHomeSale();
   }
 
+  void viewWillAppear() {
+    isLoading = false;
+    update();
+    getHomeSale();
+  }
+
   double getPerformanceKPI() {
     if (homeSaleModel.performance == 0 || homeSaleModel.kpi == 0) {
       return 0;
