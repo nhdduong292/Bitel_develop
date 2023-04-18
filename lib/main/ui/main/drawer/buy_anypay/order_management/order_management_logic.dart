@@ -153,7 +153,7 @@ class OrderManagementLogic extends GetxController {
       onError: (error) {
         isLoading = false;
         update();
-        Common.showMessageError(error, context);
+        Common.showMessageError(error: error, context: context);
       },
     );
   }
@@ -174,7 +174,7 @@ class OrderManagementLogic extends GetxController {
       onError: (error) {
         Get.back();
         isSuccess(false);
-        Common.showMessageError(error, context);
+        Common.showMessageError(error: error, context: context);
       },
     );
   }

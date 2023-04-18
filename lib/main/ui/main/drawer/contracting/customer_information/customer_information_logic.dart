@@ -36,7 +36,8 @@ class CustomerInformationLogic extends GetxController {
   var billCycle = '';
   int productId = 0;
   int reasonId = 0;
-  int promotionId = 0;
+  List<int> listPromotionId = [];
+  int packageId = 0;
   bool isForcedTerm = false;
   String phone = '';
   String email = '';
@@ -96,7 +97,8 @@ class CustomerInformationLogic extends GetxController {
     productId = data[2];
     reasonId = data[3];
     isForcedTerm = data[4];
-    promotionId = data[5];
+    listPromotionId = data[5];
+    packageId = data[6];
     phone = customer.telFax;
     email = customer.email;
     if (customer.address.isNotEmpty ||
@@ -199,7 +201,8 @@ class CustomerInformationLogic extends GetxController {
       "requestId": requestModel.id,
       "productId": productId,
       "reasonId": reasonId,
-      "promotionId": promotionId,
+      "packageId": packageId,
+      "promotionId": listPromotionId,
       "contractType": isForcedTerm ? "FORCED_TERM" : "UNDETERMINED",
       "numOfSubscriber": 1,
       "signDate": signDate.value.trim(),
@@ -246,7 +249,7 @@ class CustomerInformationLogic extends GetxController {
         print('bxloc create contract false');
         isSuccess.call(false);
         Get.back();
-        Common.showMessageError(error, context);
+        Common.showMessageError(error: error, context: context);
       },
     );
   }
@@ -319,7 +322,7 @@ class CustomerInformationLogic extends GetxController {
         },
         onError: (error) {
           function.call(false);
-          Common.showMessageError(error, context);
+          Common.showMessageError(error: error, context: context);
         });
   }
 
@@ -345,7 +348,7 @@ class CustomerInformationLogic extends GetxController {
         },
         onError: (error) {
           function.call(false);
-          Common.showMessageError(error, context);
+          Common.showMessageError(error: error, context: context);
         });
   }
 
@@ -371,7 +374,7 @@ class CustomerInformationLogic extends GetxController {
         },
         onError: (error) {
           function.call(false);
-          Common.showMessageError(error, context);
+          Common.showMessageError(error: error, context: context);
         });
   }
 
@@ -546,7 +549,7 @@ class CustomerInformationLogic extends GetxController {
       onError: (error) {
         Get.back();
         callBack.call(false);
-        Common.showMessageError(error, context);
+        Common.showMessageError(error: error, context: context);
       },
     );
   }

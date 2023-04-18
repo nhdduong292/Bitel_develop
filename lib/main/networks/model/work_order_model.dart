@@ -1,4 +1,4 @@
-class WorkOrderModel{
+class WorkOrderModel {
   int? _id;
   int? _idRequest;
   String? _woType;
@@ -29,14 +29,14 @@ class WorkOrderModel{
     _teamCode = json['teamCode'];
     _teamCode = json['teamName'];
     _staffCode = json['staffCode'];
-    _staffCode = json['staffName'];
+    _staffName = json['staffName'];
   }
 
   String get staffName => _staffName ?? "";
 
   String get staffCode => _staffCode ?? "";
 
-  String get teamName => _teamName ?? "";
+  String get teamName => _teamName ?? "---";
 
   String get teamCode => _teamCode ?? "";
 

@@ -71,7 +71,7 @@ class Common {
   }
 
   static bool validateEmail(String text) {
-    RegExp regex = RegExp(r'^[\w-\.]+@(gmail\.com|hotmail\.com)$');
+    RegExp regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
     return regex.hasMatch(text);
   }
 
@@ -155,7 +155,9 @@ class Common {
     return base64img;
   }
 
-  static void showMessageError(var error, BuildContext context) {
+  static void showMessageError(
+      {required var error, required BuildContext context, bool? isShow}) {
+    isShow ?? true;
     try {
       if (error != null) {
         if (error is! DioError) {
@@ -217,7 +219,7 @@ class Common {
         showToastCenter(AppLocalizations.of(context)!.textE021);
       } else if (errorCode == 'E022') {
         showToastCenter(AppLocalizations.of(context)!.textE022);
-      } else if (errorCode == 'E023') {
+      } else if (errorCode == 'E023' && isShow!) {
         showToastCenter(AppLocalizations.of(context)!.textE023);
       } else if (errorCode == 'E024') {
         showToastCenter(AppLocalizations.of(context)!.textE024);

@@ -215,20 +215,31 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                   SizedBox(
                     height: 21,
                   ),
-                  DottedBorder(
-                    borderType: BorderType.RRect,
-                    radius: Radius.circular(26),
-                    dashPattern: [2, 2],
-                    strokeWidth: 1,
-                    color: Color(0xFF9454C9),
-                    child: SizedBox(
-                      width: 266,
-                      height: 44,
-                      child: Center(
-                        child: Text(
-                          AppLocalizations.of(context)!.textClickHereTo,
-                          style:
-                              AppStyles.r9454C9_14_500.copyWith(fontSize: 12),
+                  InkWell(
+                    onTap: () {
+                      controller.countFinger.value = 3;
+                      controller.listImageLeft.clear();
+                      controller.listImageRight.clear();
+                      controller.listPathFinger.clear();
+                      controller.currentImageFinger = '';
+                      controller.currentPathFinger = '';
+                      controller.update();
+                    },
+                    child: DottedBorder(
+                      borderType: BorderType.RRect,
+                      radius: Radius.circular(26),
+                      dashPattern: [2, 2],
+                      strokeWidth: 1,
+                      color: Color(0xFF9454C9),
+                      child: SizedBox(
+                        width: 266,
+                        height: 44,
+                        child: Center(
+                          child: Text(
+                            AppLocalizations.of(context)!.textClickHereTo,
+                            style:
+                                AppStyles.r9454C9_14_500.copyWith(fontSize: 12),
+                          ),
                         ),
                       ),
                     ),
@@ -260,11 +271,19 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                             Container(
                               width: 150,
                               height: 165,
+                              padding: EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                 border: Border.all(
                                     color: Color(0xFFE3EAF2), width: 1),
                                 borderRadius: BorderRadius.circular(2),
                               ),
+                              child: controller.currentPathFinger.isNotEmpty &&
+                                      controller.currentPathFinger != "String"
+                                  ? Image.file(
+                                      File(controller.currentPathFinger),
+                                      fit: BoxFit.cover,
+                                    )
+                                  : null,
                             ),
                           ],
                         ),
@@ -374,9 +393,8 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                     controller.getCapture();
                                   } else {
                                     controller.indexLeft = 2;
-                                    controller.listPathFinger.add('string');
-                                    controller.listImageLeft.add('string');
-                                    controller.countFinger.value--;
+                                    controller.currentPathFinger = 'String';
+                                    controller.currentImageFinger = 'String';
                                     controller.update();
                                     // Common.showToastCenter(
                                     //     AppLocalizations.of(context)!
@@ -392,7 +410,8 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                           child: bottomButton(
                               isRegister:
                                   controller.listImageLeft.length == 3 ||
-                                      controller.listImageRight.length == 3,
+                                      controller.listImageRight.length == 3 ||
+                                      controller.currentPathFinger.isNotEmpty,
                               onTap: () {
                                 if (controller.listImageLeft.length >= 3 ||
                                     controller.listImageRight.length >= 3) {
@@ -418,7 +437,9 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                                       controller.productId,
                                                       controller.reasonId,
                                                       controller.isForcedTerm,
-                                                      controller.promotionId
+                                                      controller
+                                                          .listPromotionId,
+                                                      controller.packageId
                                                     ]);
                                               },
                                             );
@@ -431,15 +452,43 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                       }
                                     },
                                   );
+                                } else if (controller
+                                        .currentPathFinger.isNotEmpty &&
+                                    controller.currentImageFinger.isNotEmpty) {
+                                  if (controller.indexLeft > 0) {
+                                    controller.listImageLeft
+                                        .add(controller.currentImageFinger);
+                                    controller.listPathFinger
+                                        .add(controller.currentPathFinger);
+                                    controller.countFinger.value--;
+                                    Common.showToastCenter(
+                                        '${AppLocalizations.of(context)!.textGetSuccess} ${controller.listImageLeft.length}');
+                                  } else {
+                                    controller.listImageRight
+                                        .add(controller.currentImageFinger);
+                                    controller.listPathFinger
+                                        .add(controller.currentPathFinger);
+                                    controller.countFinger.value--;
+                                    Common.showToastCenter(
+                                        "${AppLocalizations.of(context)!.textGetSuccess} ${controller.listImageRight.length}");
+                                  }
                                 } else {
                                   Common.showToastCenter(
                                       AppLocalizations.of(context)!
                                           .textLimitFingerRegister);
                                 }
+                                controller.currentPathFinger = '';
+                                controller.currentImageFinger = '';
+                                controller.update();
                               },
-                              text: AppLocalizations.of(context)!
-                                  .textRegister
-                                  .toUpperCase())),
+                              text: controller.listImageLeft.length == 3 ||
+                                      controller.listImageRight.length == 3
+                                  ? AppLocalizations.of(context)!
+                                      .textRegister
+                                      .toUpperCase()
+                                  : AppLocalizations.of(context)!
+                                      .textSave
+                                      .toUpperCase())),
                     ],
                   )),
               SizedBox(
@@ -569,15 +618,19 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
       padding: const EdgeInsets.only(top: 8, bottom: 8),
       child: SizedBox(
         child: Row(children: [
-          link.isNotEmpty
+          SizedBox(
+            width: 8,
+          ),
+          link.isNotEmpty && link != "String"
               ? Image.file(
                   File(link),
                   height: 55,
                   fit: BoxFit.cover,
                 )
-              : SizedBox(
+              : Container(
                   width: 50,
                   height: 55,
+                  color: Colors.black,
                 ),
           SizedBox(
             width: 16,

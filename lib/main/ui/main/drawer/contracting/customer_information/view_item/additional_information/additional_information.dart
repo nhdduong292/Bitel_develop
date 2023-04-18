@@ -194,9 +194,9 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                                         .checkChangeAdditionalInformation()) {
                                   controller.updateCustomer((isSuccess) {
                                     if (isSuccess) {
-                                      Common.showToastCenter(
-                                          AppLocalizations.of(context)!
-                                              .textUpdateSuccess);
+                                      Common.showToastCenter(AppLocalizations
+                                              .of(context)!
+                                          .textUpdateCustomerInformationSuccessfully);
                                       callback();
                                     } else {}
                                   });

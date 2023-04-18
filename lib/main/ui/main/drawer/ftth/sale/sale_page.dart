@@ -98,9 +98,9 @@ class SalePage extends GetWidget {
                             shrinkWrap: true,
                             physics: const ScrollPhysics(),
                             gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 3,
-                                    childAspectRatio: 1.5,
+                                    childAspectRatio: (width / 320),
                                     crossAxisSpacing: 6.0,
                                     mainAxisSpacing: 10.0),
                             itemBuilder: (BuildContext context, int index) {
@@ -143,7 +143,7 @@ class SalePage extends GetWidget {
                                               ? AppColors.colorTitle
                                               : AppColors.colorBackground1)),
                                   child: Column(
-                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Text(
                                         optionSale.content,
@@ -152,12 +152,14 @@ class SalePage extends GetWidget {
                                                     controller.indexSelect
                                                 ? AppColors.colorTitle
                                                 : AppColors.colorText5,
-                                            fontWeight: FontWeight.w600),
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 20),
                                       ),
                                       const SizedBox(
                                         height: 10,
                                       ),
                                       Text(
+                                        textAlign: TextAlign.center,
                                         optionSale.title,
                                         style: AppStyles.r2.copyWith(
                                             color: optionSale.index ==
@@ -165,7 +167,8 @@ class SalePage extends GetWidget {
                                                 ? AppColors.colorTitle
                                                 : AppColors.colorText5
                                                     .withOpacity(0.5),
-                                            fontWeight: FontWeight.w400),
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 14),
                                       ),
                                     ],
                                   ),
@@ -189,9 +192,9 @@ class SalePage extends GetWidget {
                             shrinkWrap: true,
                             physics: const ScrollPhysics(),
                             gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 3,
-                                    childAspectRatio: 1.2,
+                                    childAspectRatio: (width / 350),
                                     crossAxisSpacing: 6.0,
                                     mainAxisSpacing: 10.0),
                             itemBuilder: (BuildContext context, int index) {
@@ -223,7 +226,8 @@ class SalePage extends GetWidget {
                                                 ? AppColors.colorTitle
                                                 : AppColors.colorText5
                                                     .withOpacity(0.5),
-                                            fontWeight: FontWeight.w400),
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 14),
                                       ),
                                       const SizedBox(
                                         height: 10,
@@ -235,7 +239,8 @@ class SalePage extends GetWidget {
                                                     controller.indexSelect
                                                 ? AppColors.colorTitle
                                                 : AppColors.colorText5,
-                                            fontWeight: FontWeight.w600),
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 20),
                                       ),
                                       const SizedBox(
                                         height: 6,
@@ -252,7 +257,8 @@ class SalePage extends GetWidget {
                                                     ? AppColors.colorTitle
                                                     : AppColors.colorText5
                                                         .withOpacity(0.5),
-                                                fontWeight: FontWeight.w400),
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 14),
                                           ),
                                           Container(
                                             margin: index == 1
@@ -304,9 +310,9 @@ class SalePage extends GetWidget {
                             shrinkWrap: true,
                             physics: const ScrollPhysics(),
                             gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 3,
-                                    childAspectRatio: 1.2,
+                                    childAspectRatio: (width / 350),
                                     crossAxisSpacing: 6.0,
                                     mainAxisSpacing: 10.0),
                             itemBuilder: (BuildContext context, int index) {
@@ -338,7 +344,8 @@ class SalePage extends GetWidget {
                                                 ? AppColors.colorTitle
                                                 : AppColors.colorText5
                                                     .withOpacity(0.5),
-                                            fontWeight: FontWeight.w400),
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 14),
                                       ),
                                       const SizedBox(
                                         height: 10,
@@ -350,7 +357,8 @@ class SalePage extends GetWidget {
                                                     controller.indexSelect
                                                 ? AppColors.colorTitle
                                                 : AppColors.colorText5,
-                                            fontWeight: FontWeight.w600),
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 20),
                                       ),
                                       const SizedBox(
                                         height: 6,
@@ -363,7 +371,8 @@ class SalePage extends GetWidget {
                                                 ? AppColors.colorTitle
                                                 : AppColors.colorText5
                                                     .withOpacity(0.5),
-                                            fontWeight: FontWeight.w400),
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 14),
                                       ),
                                     ],
                                   ),
@@ -385,7 +394,7 @@ class SalePage extends GetWidget {
                               begin: Alignment.bottomCenter,
                               end: Alignment.topCenter,
                               colors: [
-                                Color(0xFFFFECDD),
+                                Color(0xFFDEF9FE),
                                 Color(0xFFFFFFFF),
                               ],
                             ),

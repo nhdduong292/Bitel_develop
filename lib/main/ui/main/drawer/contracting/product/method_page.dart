@@ -195,13 +195,9 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                         primary: false,
                         itemBuilder: (BuildContext context, int index) =>
                             _itemPromotion(
-                                context: context,
-                                groupValue: controller.valuePromotion,
-                                promotion: controller.listPromotion[index],
-                                value: index,
-                                onChange: (value) {
-                                  controller.valuePromotion.value = value;
-                                }),
+                              context: context,
+                              promotion: controller.listPromotion[index],
+                            ),
                         separatorBuilder: (BuildContext context, int index) =>
                             const Divider(
                               color: AppColors.colorLineDash,
@@ -304,7 +300,11 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                       index: 1,
                       duration: const Duration(milliseconds: 200),
                     );
+                    controller.isLoadingWallet = true;
+                    controller.isLoadingBill = true;
+                    controller.checkLoadingBill();
                     controller.getWallet(context);
+                    controller.postContractInformation();
                   }
                 },
                 color: !(controller.valueMethod.value > -1 &&
@@ -412,7 +412,7 @@ Widget _itemMethod(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  reason.name ?? 'null',
+                  reason.packageName ?? '---',
                   style: const TextStyle(
                       fontSize: 16,
                       fontFamily: 'Barlow',
@@ -428,7 +428,7 @@ Widget _itemMethod(
                       fontWeight: FontWeight.w400),
                 ),
                 Text(
-                  '${AppLocalizations.of(context)!.textReasonCodeName} ${reason.reasonCode}',
+                  '${AppLocalizations.of(context)!.textReasonCodeName} ${reason.name} - ${reason.reasonCode}',
                   style: const TextStyle(
                       fontSize: 14,
                       fontFamily: 'Barlow',
@@ -460,31 +460,23 @@ Widget _itemMethod(
 }
 
 Widget _itemPromotion(
-    {required BuildContext context,
-    required int value,
-    required PromotionModel promotion,
-    required RxInt groupValue,
-    required var onChange}) {
+    {required BuildContext context, required PromotionModel promotion}) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
     child: InkWell(
-      onTap: () {
-        groupValue.value != value ? onChange(value) : onChange(-1);
-      },
       splashColor: Colors.black38,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
         children: [
-          Obx(() =>
-              groupValue.value == value ? iconChecked() : iconUnchecked()),
+          iconChecked(),
           const SizedBox(
             width: 16,
           ),
           Expanded(
             flex: 1,
-            child:
-                Text(promotion.name ?? 'null', style: AppStyles.r2B3A4A_12_500),
+            child: Text(promotion.name ?? 'null',
+                style: AppStyles.r2B3A4A_12_500.copyWith(fontSize: 13)),
           ),
         ],
       ),
@@ -501,8 +493,8 @@ Widget typeContact({required bool check, required String content}) {
       ),
       Text(
         content,
-        style: AppStyles.r2B3A4A_12_500
-            .copyWith(color: AppColors.color_2B3A4A.withOpacity(0.85)),
+        style: AppStyles.r2B3A4A_12_500.copyWith(
+            color: AppColors.color_2B3A4A.withOpacity(0.85), fontSize: 13),
       )
     ],
   );

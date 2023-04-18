@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../../networks/model/work_order_model.dart';
 import '../../../../../utils/common.dart';
 
 class RequestDetailLogic extends GetxController {
@@ -55,7 +56,7 @@ class RequestDetailLogic extends GetxController {
         onError: (error) {
           isLoading = false;
           update();
-          Common.showMessageError(error, context);
+          Common.showMessageError(error: error, context: context);
         });
   }
 
@@ -135,5 +136,29 @@ class RequestDetailLogic extends GetxController {
       return AppLocalizations.of(context)!.textStatusContractTerminat;
     }
     return '---';
+  }
+
+  String getTeamName(WorkOrderModel model) {
+    if (model.teamCode.isEmpty && model.teamName.isEmpty) {
+      return '---';
+    } else {
+      if (model.teamName.isNotEmpty) {
+        return model.teamName;
+      } else {
+        return model.teamCode;
+      }
+    }
+  }
+
+  String getStaffName(WorkOrderModel model) {
+    if (model.staffName.isEmpty && model.staffCode.isEmpty) {
+      return '---';
+    } else {
+      if (model.staffName.isNotEmpty) {
+        return model.staffName;
+      } else {
+        return model.staffCode;
+      }
+    }
   }
 }

@@ -12,7 +12,8 @@ class CreateContactPageLogic extends GetxController {
   String typeCustomer = '';
   int productId = 0;
   int reasonId = 0;
-  int promotionId = 0;
+  List<int> listPromotionId = [];
+  int packageId = 0;
   bool isForcedTerm = false;
   List<String> listImageScan = [];
   RequestDetailModel requestModel = RequestDetailModel();
@@ -30,7 +31,8 @@ class CreateContactPageLogic extends GetxController {
     productId = data[1];
     reasonId = data[2];
     isForcedTerm = data[3];
-    promotionId = data[4];
+    listPromotionId = data[4];
+    packageId = data[5];
     typeCustomer = requestModel.customerModel.type;
   }
 

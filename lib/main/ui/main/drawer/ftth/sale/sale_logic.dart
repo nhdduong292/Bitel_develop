@@ -29,10 +29,10 @@ class SaleLogic extends GetxController {
           AppLocalizations.of(context)!.textCreateRequest, "", "", 0),
       OptionSale(AppImages.icSaleConnectSubscriber,
           AppLocalizations.of(context)!.textConnectSubscriber, "", "", 0),
-      OptionSale(AppImages.icSaleRechargeAnypay,
-          AppLocalizations.of(context)!.textRechargeAnypay, "", "", 0),
       OptionSale(AppImages.icSaleSearchRequest,
           AppLocalizations.of(context)!.textSearchRequest, "", "", 0),
+      OptionSale(AppImages.icSaleRechargeAnypay,
+          AppLocalizations.of(context)!.textRechargeAnypay, "", "", 0),
       OptionSale(AppImages.icSaleClearDebt,
           AppLocalizations.of(context)!.textClearDebt, "", "", 0),
       // OptionSale(AppImages.icSaleCreateContact,
@@ -118,7 +118,7 @@ class SaleLogic extends GetxController {
       onError: (error) {
         isLoading = true;
         update();
-        Common.showMessageError(error, context);
+        Common.showMessageError(error: error, context: context);
       },
     );
   }

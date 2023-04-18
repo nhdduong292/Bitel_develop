@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
+import 'package:bitel_ventas/main/networks/model/bill_model.dart';
 import 'package:bitel_ventas/main/networks/model/promotion_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/networks/response/product_response.dart';
@@ -24,6 +25,8 @@ class ProductPaymentMethodLogic extends GetxController {
   BuildContext context;
   bool isLoadingReason = true;
   bool isLoadingPromotion = true;
+  bool isLoadingWallet = true;
+  bool isLoadingBill = true;
 
   // String province = '';
   // String district = '';
@@ -78,6 +81,8 @@ class ProductPaymentMethodLogic extends GetxController {
 
   List<ProductModel> listProduct = [];
   List<PromotionModel> listPromotion = [];
+  List<int> listIdPromotion = [];
+  BillModel billModel = BillModel();
 
   double getTotal() {
     if (getPlanReason().fee == null ||
@@ -109,7 +114,7 @@ class ProductPaymentMethodLogic extends GetxController {
       onError: (error) {
         isLoadingProduct = false;
         update();
-        Common.showMessageError(error, context);
+        Common.showMessageError(error: error, context: context);
       },
     );
   }
@@ -122,10 +127,18 @@ class ProductPaymentMethodLogic extends GetxController {
     }
   }
 
+  void checkLoadingBill() {
+    if (!isLoadingBill && !isLoadingWallet) {
+      Get.back();
+    } else if (isLoadingBill && isLoadingWallet) {
+      _onLoading(context);
+    }
+  }
+
   void getPromotions(int idProduct) {
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_LIST_PROMOTION,
-      params: {'productCode': idProduct},
+      params: {'productId': idProduct},
       onSuccess: (response) {
         isLoadingPromotion = false;
         checkLoading();
@@ -133,6 +146,7 @@ class ProductPaymentMethodLogic extends GetxController {
           listPromotion = (response.data['data'] as List)
               .map((postJson) => PromotionModel.fromJson(postJson))
               .toList();
+          getListIdPromotion();
         } else {
           print("error: ${response.status}");
         }
@@ -142,9 +156,16 @@ class ProductPaymentMethodLogic extends GetxController {
         isLoadingPromotion = false;
         checkLoading();
         update();
-        Common.showMessageError(error, context);
+        Common.showMessageError(error: error, context: context);
       },
     );
+  }
+
+  void getListIdPromotion() {
+    listIdPromotion.clear();
+    for (var promotion in listPromotion) {
+      listIdPromotion.add(promotion.proId ?? 0);
+    }
   }
 
   ProductModel getProduct() {
@@ -208,7 +229,7 @@ class ProductPaymentMethodLogic extends GetxController {
         onError: (error) {
           isLoadingReason = false;
           checkLoading();
-          Common.showMessageError(error, context);
+          Common.showMessageError(error: error, context: context);
         },
       );
     } catch (e) {
@@ -218,11 +239,11 @@ class ProductPaymentMethodLogic extends GetxController {
   }
 
   void getWallet(BuildContext context) {
-    _onLoading(context);
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_WALLET,
       onSuccess: (response) {
-        Get.back();
+        isLoadingWallet = false;
+        checkLoadingBill();
         if (response.isSuccess) {
           balance.value = response.data['data'] as double;
         } else {
@@ -230,8 +251,9 @@ class ProductPaymentMethodLogic extends GetxController {
         }
       },
       onError: (error) {
-        Get.back();
-        Common.showMessageError(error, context);
+        isLoadingWallet = false;
+        checkLoadingBill();
+        Common.showMessageError(error: error, context: context);
       },
     );
   }
@@ -261,7 +283,7 @@ class ProductPaymentMethodLogic extends GetxController {
               if (error.response!.data['errorCode'] == 'E012') {
                 completer.complete(false);
               } else {
-                Common.showMessageError(error, context);
+                Common.showMessageError(error: error, context: context);
               }
             } else {
               Common.showToastCenter(
@@ -314,5 +336,53 @@ class ProductPaymentMethodLogic extends GetxController {
       );
     }
     return false; //<-- SEE HERE
+  }
+
+  void postContractInformation() {
+    Map<String, dynamic> body = {
+      "requestId": requestModel.id,
+      "productId": getProduct().productId,
+      "reasonId": getPlanReason().id,
+      "packageId": getPlanReason().packageId,
+      "promotionId": listIdPromotion,
+      "contractType": isForcedTerm() ? "FORCED_TERM" : "UNDETERMINED",
+      "numOfSubscriber": 1,
+      "signDate": null,
+      "billCycle": "CYCLE6",
+      "changeNotification": "Email",
+      "printBill": "Email",
+      "currency": "SOL",
+      "language": null,
+      "province": null,
+      "district": null,
+      "precinct": null,
+      "address": null,
+      "phone": null,
+      "email": null,
+      "protectionFilter": null,
+      "receiveInfoByMail": null,
+      "receiveFromThirdParty": null,
+      "receiveFromBitel": null
+    };
+    ApiUtil.getInstance()!.post(
+      url: ApiEndPoints.API_POST_CONTRACT_INFORMATION,
+      body: body,
+      onSuccess: (response) {
+        isLoadingBill = false;
+        checkLoadingBill();
+        if (response.isSuccess) {
+          billModel = BillModel.fromJson(response.data['data']);
+          update();
+          print(response.data['data']);
+        } else {
+          print("error: ${response.status}");
+        }
+      },
+      onError: (error) {
+        isLoadingBill = false;
+        checkLoadingBill();
+        Common.showMessageError(error: error, context: context);
+      },
+    );
   }
 }

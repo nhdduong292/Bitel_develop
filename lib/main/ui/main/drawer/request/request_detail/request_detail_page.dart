@@ -246,7 +246,7 @@ class RequestDetailPage extends GetWidget {
                                           controller.requestModel.customerModel
                                                   .fullName.isEmpty
                                               ? "---"
-                                              : "${controller.requestModel.subscriptionModel.productCode} + ${controller.requestModel.subscriptionModel.speed}",
+                                              : "${controller.requestModel.subscriptionModel.productName} + ${controller.requestModel.subscriptionModel.speed}",
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),
@@ -541,81 +541,74 @@ class RequestDetailPage extends GetWidget {
                                       Expanded(
                                         child: Text(
                                           controller.requestModel.listWO.isEmpty
-                                              ? "---"
-                                              : controller.requestModel
-                                                  .listWO[0].teamName,
+                                              ? '---'
+                                              : controller.getTeamName(
+                                                  controller
+                                                      .requestModel.listWO[0]),
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),
                                       )
                                     ],
                                   ),
-                                ),
-                                const DottedLine(
-                                  dashColor: Color(0xFFE3EAF2),
-                                  dashGapLength: 3,
-                                  dashLength: 4,
                                 ),
                                 Container(
                                   margin: const EdgeInsets.only(
-                                      bottom: 15, left: 15, right: 15, top: 15),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        AppLocalizations.of(context)!.textStaff,
-                                        style: const TextStyle(
-                                            color: AppColors.colorText2,
-                                            fontSize: 15,
-                                            fontFamily: 'Barlow'),
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          controller.requestModel.listWO.isEmpty
-                                              ? "---"
-                                              : controller.requestModel
-                                                  .listWO[0].staffName,
-                                          textAlign: TextAlign.right,
-                                          style: AppStyles.r415263_13_500,
-                                        ),
-                                      )
-                                    ],
+                                      top: 12, left: 15, right: 15),
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Table(
+                                      border: TableBorder.all(),
+                                      columnWidths: const {
+                                        0: FixedColumnWidth(150),
+                                        1: FixedColumnWidth(150),
+                                        2: FixedColumnWidth(150),
+                                        3: FixedColumnWidth(100),
+                                        4: FixedColumnWidth(100),
+                                      },
+                                      children: List.generate(
+                                          controller
+                                                  .requestModel.listWO.length +
+                                              1, (index) {
+                                        if (index == 0) {
+                                          return buildRow([
+                                            AppLocalizations.of(context)!
+                                                .textWOType,
+                                            AppLocalizations.of(context)!
+                                                .textStaff,
+                                            AppLocalizations.of(context)!
+                                                .textStatus,
+                                            AppLocalizations.of(context)!
+                                                .textStartDate,
+                                            AppLocalizations.of(context)!
+                                                .textEndDate,
+                                          ], true);
+                                        } else {
+                                          WorkOrderModel model = controller
+                                              .requestModel.listWO[index - 1];
+                                          return buildRow([
+                                            model.woType,
+                                            controller.getStaffName(model),
+                                            model.status,
+                                            model.creationDate.isNotEmpty
+                                                ? Common.fromDate(
+                                                    DateTime.parse(
+                                                        model.creationDate),
+                                                    'dd/MM/yyyy')
+                                                : '---',
+                                            model.expectedDate.isNotEmpty
+                                                ? Common.fromDate(
+                                                    DateTime.parse(
+                                                        model.expectedDate),
+                                                    'dd/MM/yyyy')
+                                                : '---'
+                                          ], false);
+                                        }
+                                      }),
+                                    ),
                                   ),
                                 ),
                               ],
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(
-                                top: 12, left: 15, right: 15),
-                            child: Table(
-                              border: TableBorder.all(),
-                              columnWidths: const {
-                                0: FractionColumnWidth(0.2),
-                                1: FractionColumnWidth(0.4),
-                                2: FractionColumnWidth(0.2),
-                                3: FractionColumnWidth(0.2),
-                              },
-                              children: List.generate(
-                                  controller.requestModel.listWO.length + 1,
-                                  (index) {
-                                if (index == 0) {
-                                  return buildRow([
-                                    AppLocalizations.of(context)!.textWOType,
-                                    AppLocalizations.of(context)!.textStartDate,
-                                    AppLocalizations.of(context)!.textEndDate,
-                                    AppLocalizations.of(context)!.textStatus
-                                  ], true);
-                                } else {
-                                  WorkOrderModel model =
-                                      controller.requestModel.listWO[index - 1];
-                                  return buildRow([
-                                    model.woType,
-                                    model.creationDate,
-                                    model.expectedDate,
-                                    model.status
-                                  ], false);
-                                }
-                              }),
                             ),
                           ),
                           controller.isShowBtnConnect

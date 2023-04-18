@@ -4,6 +4,10 @@ class PlanReasonModel {
   double? feeInstallation;
   String? reasonCode;
   double? fee;
+  String? currency;
+  int? packageId;
+  String? packageName;
+  int? numMonthPay;
 
   PlanReasonModel();
 
@@ -13,5 +17,9 @@ class PlanReasonModel {
     feeInstallation = json['feeInstallation'];
     reasonCode = json['reasonCode'];
     fee = json['fee'];
+    currency = json['currency'];
+    packageId = json['packageId'];
+    packageName = json['packageName'];
+    numMonthPay = json['numMonthPay'];
   }
 }

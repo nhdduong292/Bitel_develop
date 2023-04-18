@@ -240,22 +240,24 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                     //   Common.showToastCenter(
                                     //       "Chờ hiển thị ngón tay cần lấy");
                                     // }
-
-                                    if (Platform.isAndroid) {
-                                      controller.getCapture(context);
-                                    } else {
-                                      controller.listFinger.add('value');
-                                      controller.update();
-                                      // Common.showToastCenter(
-                                      //     AppLocalizations.of(context)!
-                                      //         .textOnlyActionAndroid);
+                                    if (controller.isGetFingerSuccess) {
+                                      if (Platform.isAndroid) {
+                                        controller.getCapture(context);
+                                      } else {
+                                        controller.listFinger.add('String');
+                                        controller.update();
+                                        // Common.showToastCenter(
+                                        //     AppLocalizations.of(context)!
+                                        //         .textOnlyActionAndroid);
+                                      }
                                     }
                                   },
                                   child: Container(
                                     height: 50,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(25),
-                                      color: controller.listFinger.isEmpty
+                                      color: controller.listFinger.isEmpty &&
+                                              controller.isGetFingerSuccess
                                           ? AppColors.colorButton
                                           : Colors.white,
                                       border:
@@ -296,10 +298,6 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                                 arguments: [
                                                   controller.contractId,
                                                 ]);
-                                          } else {
-                                            Common.showToastCenter(
-                                                AppLocalizations.of(context)!
-                                                    .textErrorAPI);
                                           }
                                         },
                                       );
@@ -308,10 +306,6 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                         (p0) {
                                           if (p0) {
                                             Get.back(result: true);
-                                          } else {
-                                            Common.showToastCenter(
-                                                AppLocalizations.of(context)!
-                                                    .textErrorAPI);
                                           }
                                         },
                                       );

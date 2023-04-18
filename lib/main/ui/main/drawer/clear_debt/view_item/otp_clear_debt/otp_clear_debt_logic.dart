@@ -60,7 +60,7 @@ class OTPClearDebtLogic extends GetxController {
       onError: (error) {
         Get.back();
         isSuccess(false);
-        Common.showMessageError(error, context);
+       Common.showMessageError(error: error, context: context);
       },
     );
   }

@@ -126,7 +126,17 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                                                     color: AppColors
                                                         .color_2B3A4A
                                                         .withOpacity(0.85)),
-                                            onChanged: (value) {},
+                                            onChanged: (value) {
+                                              controller.tfIdNumber.text =
+                                                  value.toUpperCase();
+                                              controller.tfIdNumber.selection =
+                                                  TextSelection.fromPosition(
+                                                      TextPosition(
+                                                          offset: controller
+                                                              .tfIdNumber
+                                                              .text
+                                                              .length));
+                                            },
                                             decoration: InputDecoration(
                                               contentPadding:
                                                   const EdgeInsets.only(

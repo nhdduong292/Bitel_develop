@@ -325,7 +325,7 @@ class ClientDataDNILogic extends GetxController {
         },
         onError: (error) {
           function.call(false);
-          Common.showMessageError(error, context);
+          Common.showMessageError(error: error, context: context);
         });
   }
 
@@ -351,7 +351,7 @@ class ClientDataDNILogic extends GetxController {
         },
         onError: (error) {
           function.call(false);
-          Common.showMessageError(error, context);
+          Common.showMessageError(error: error, context: context);
         });
   }
 
@@ -377,7 +377,7 @@ class ClientDataDNILogic extends GetxController {
         },
         onError: (error) {
           function.call(false);
-          Common.showMessageError(error, context);
+          Common.showMessageError(error: error, context: context);
         });
   }
 

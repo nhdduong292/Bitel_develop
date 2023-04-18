@@ -184,7 +184,13 @@ class CreateRequestPage extends GetWidget {
                                     // controller.searchNumberContact(value);
                                   },
                                   onChanged: (value) {
-                                    controller.setIdentity(value);
+                                    controller.textFieldIdNumber.text =
+                                        value.toUpperCase();
+                                    controller.textFieldIdNumber.selection =
+                                        TextSelection.fromPosition(TextPosition(
+                                            offset: controller.textFieldIdNumber
+                                                .text.length));
+                                    controller.setIdentity(value.toUpperCase());
                                   },
                                   decoration: InputDecoration(
                                     contentPadding: const EdgeInsets.only(

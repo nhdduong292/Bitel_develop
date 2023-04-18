@@ -47,7 +47,7 @@ class FTTHContractingLogic extends GetxController {
       },
       onError: (error) {
         Get.back();
-        Common.showMessageError(error, context);
+        Common.showMessageError(error: error, context: context);
       },
     );
   }

@@ -167,7 +167,7 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                             ),
                             inforContractRow(
                                 lable: AppLocalizations.of(context)!
-                                    .textBillingCycle,
+                                    .textBillingCycleFTTH,
                                 richText: () {
                                   return RichText(
                                       text: TextSpan(
@@ -245,25 +245,27 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
 
   Widget inforContractRow({required String lable, required var richText}) {
     return SizedBox(
-      height: 44,
-      child: Row(
-        children: [
-          Expanded(
-              flex: 2,
-              child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    lable,
-                    style: AppStyles.r6C8AA1_13_400,
-                  ))),
-          Expanded(
-              flex: 3,
-              child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                      padding: const EdgeInsets.only(left: 30),
-                      child: richText())))
-        ],
+      child: Padding(
+        padding: const EdgeInsets.only(top: 14, bottom: 14),
+        child: Row(
+          children: [
+            Expanded(
+                flex: 2,
+                child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      lable,
+                      style: AppStyles.r6C8AA1_13_400,
+                    ))),
+            Expanded(
+                flex: 3,
+                child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                        padding: const EdgeInsets.only(left: 30),
+                        child: richText())))
+          ],
+        ),
       ),
     );
   }

@@ -5,6 +5,7 @@ class SubscriptionModel {
   String? _password;
   double? _speed;
   String? _productCode;
+  String? _productName;
   double? _pricePlan;
   double? _localPricePlan;
 
@@ -16,6 +17,7 @@ class SubscriptionModel {
     _password = json['password'];
     _speed = json['speed'];
     _productCode = json['productCode'];
+    _productName = json['productName'];
     _pricePlan = json['pricePlan'];
     _localPricePlan = json['localPricePlan'];
   }
@@ -25,6 +27,8 @@ class SubscriptionModel {
   double get pricePlan => _pricePlan ?? 0;
 
   String get productCode => _productCode ?? "";
+
+  String get productName => _productName ?? "---";
 
   double get speed => _speed ?? 0;
 

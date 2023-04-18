@@ -51,16 +51,16 @@ class ListRequestTabState extends State<ListRequestTabPage> {
     super.initState();
     getListRequest(listRequestLogic.keySearch);
     _scrollController.addListener(() {
-      if(_scrollController.position.pixels == _scrollController.position.maxScrollExtent){
-        if(isLoadMore) {
-          if(kDebugMode){
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        if (isLoadMore) {
+          if (kDebugMode) {
             print("load more list request");
           }
           getLoadMore();
         }
       }
     });
-
   }
 
   @override
@@ -79,7 +79,9 @@ class ListRequestTabState extends State<ListRequestTabPage> {
             : ListView.builder(
                 controller: _scrollController,
                 // itemExtent: 999,
-                itemCount: listRequest.length % 10 == 0 ? listRequest.length + 1 : listRequest.length,
+                itemCount: listRequest.length % 10 == 0
+                    ? listRequest.length + 1
+                    : listRequest.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   if (index == listRequest.length) {
@@ -101,7 +103,7 @@ class ListRequestTabState extends State<ListRequestTabPage> {
 
   void getListRequest(String key, {int page = 0}) async {
     this.page = page;
-    if(page == 0) {
+    if (page == 0) {
       isLoadMore = true;
       setState(() {
         isLoading = true;
@@ -128,12 +130,12 @@ class ListRequestTabState extends State<ListRequestTabPage> {
         onSuccess: (response) {
           if (response.isSuccess) {
             print("success :");
-            if(page == 0) {
+            if (page == 0) {
               listRequest.clear();
             }
             ListRequestResponse listRequestResponse =
                 ListRequestResponse.fromJson(response.data['data']);
-            if(listRequestResponse.list.length < 10) {
+            if (listRequestResponse.list.length < 10) {
               isLoadMore = false;
             } else {
               isLoadMore = true;
@@ -153,7 +155,7 @@ class ListRequestTabState extends State<ListRequestTabPage> {
             setState(() {
               isLoading = false;
             });
-            Common.showMessageError(error, context);
+            Common.showMessageError(error: error, context: context);
           } catch (e) {
             print(e.toString());
           }
@@ -161,7 +163,7 @@ class ListRequestTabState extends State<ListRequestTabPage> {
   }
 
   void getLoadMore() {
-    page ++;
+    page++;
     getListRequest(listRequestLogic.keySearch, page: page);
   }
 
@@ -170,6 +172,4 @@ class ListRequestTabState extends State<ListRequestTabPage> {
     // TODO: implement dispose
     super.dispose();
   }
-
-
 }

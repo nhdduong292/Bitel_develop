@@ -140,8 +140,7 @@ class DialogSurveyMapLogic extends GetxController {
     int radius = 0;
     try {
       radius = int.parse(currentRadius);
-    } catch(e){
-    }
+    } catch (e) {}
     if (currentTechnology == "GPON" && (radius > 500 || radius < 1)) {
       // setRadius("500");
       Common.showToastCenter(AppLocalizations.of(context)!.textRadiusLimit);
@@ -181,7 +180,8 @@ class DialogSurveyMapLogic extends GetxController {
         onError: (error) {
           Get.back();
           function.call(false);
-          Common.showMessageError(error, context);
+          Common.showMessageError(
+              error: error, context: context, isShow: false);
         });
   }
 

@@ -203,7 +203,7 @@ class CreateRequestLogic extends GetxController {
         },
         onError: (error) {
           function.call(false, requestModel);
-          Common.showMessageError(error, context);
+          Common.showMessageError(error: error, context: context);
         });
   }
 
@@ -240,7 +240,7 @@ class CreateRequestLogic extends GetxController {
           }
         },
         onError: (error) {
-          Common.showMessageError(error, context);
+          Common.showMessageError(error: error, context: context);
         });
   }
 
@@ -264,7 +264,7 @@ class CreateRequestLogic extends GetxController {
         },
         onError: (error) {
           function.call(false);
-          Common.showMessageError(error, context);
+          Common.showMessageError(error: error, context: context);
         });
   }
 
@@ -290,7 +290,7 @@ class CreateRequestLogic extends GetxController {
         },
         onError: (error) {
           function.call(false);
-          Common.showMessageError(error, context);
+          Common.showMessageError(error: error, context: context);
         });
   }
 
@@ -316,7 +316,7 @@ class CreateRequestLogic extends GetxController {
         },
         onError: (error) {
           function.call(false);
-          Common.showMessageError(error, context);
+          Common.showMessageError(error: error, context: context);
         });
   }
 
@@ -342,7 +342,7 @@ class CreateRequestLogic extends GetxController {
         },
         onError: (error) {
           callBack.call(false);
-          Common.showMessageError(error, context);
+          Common.showMessageError(error: error, context: context);
         });
   }
 
@@ -361,7 +361,7 @@ class CreateRequestLogic extends GetxController {
         },
         onError: (error) {
           callBack.call(false);
-          Common.showMessageError(error, context);
+          Common.showMessageError(error: error, context: context);
         });
   }
 

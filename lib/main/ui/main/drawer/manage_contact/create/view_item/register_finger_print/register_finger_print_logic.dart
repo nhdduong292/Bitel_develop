@@ -40,12 +40,15 @@ class RegisterFingerPrintLogic extends GetxController {
   int requestId = 0;
   int productId = 0;
   int reasonId = 0;
-  int promotionId = 0;
+  List<int> listPromotionId = [];
+  int packageId = 0;
   bool isForcedTerm = false;
   Map<String, dynamic> body = {};
 
   String textCapture = "";
   List<String> listPathFinger = [];
+  String currentPathFinger = "";
+  String currentImageFinger = "";
 
   @override
   void onInit() {
@@ -55,7 +58,8 @@ class RegisterFingerPrintLogic extends GetxController {
     productId = logicCreateContact.productId;
     reasonId = logicCreateContact.reasonId;
     isForcedTerm = logicCreateContact.isForcedTerm;
-    promotionId = logicCreateContact.promotionId;
+    listPromotionId = logicCreateContact.listPromotionId;
+    packageId = logicCreateContact.packageId;
   }
 
   String findPathFinger() {
@@ -131,7 +135,7 @@ class RegisterFingerPrintLogic extends GetxController {
       onError: (error) {
         Get.back();
         completer.complete(false);
-        Common.showMessageError(error, context);
+        Common.showMessageError(error: error, context: context);
       },
     );
     return completer.future;
@@ -144,7 +148,7 @@ class RegisterFingerPrintLogic extends GetxController {
       final value =
           await NativeUtil.platformFinger.invokeMethod(NativeUtil.nameFinger);
       result = value;
-      if(kDebugMode) {
+      if (kDebugMode) {
         print("text Capture: ${result}");
       }
       final body = json.decode(result);
@@ -155,19 +159,8 @@ class RegisterFingerPrintLogic extends GetxController {
       return;
     }
     if (imageBase64.isNotEmpty) {
-      if (indexLeft > 0) {
-        listImageLeft.add(imageBase64);
-        listPathFinger.add(textCapture);
-        countFinger.value--;
-        Common.showToastCenter(
-            '${AppLocalizations.of(context)!.textGetSuccess} ${listImageLeft.length}');
-      } else {
-        listImageRight.add(imageBase64);
-        listPathFinger.add(textCapture);
-        countFinger.value--;
-        Common.showToastCenter(
-            "${AppLocalizations.of(context)!.textGetSuccess} ${listImageRight.length}");
-      }
+      currentPathFinger = textCapture;
+      currentImageFinger = imageBase64;
     } else {
       Common.showToastCenter(AppLocalizations.of(context)!.textGetNoSuccess);
     }
@@ -217,7 +210,7 @@ class RegisterFingerPrintLogic extends GetxController {
       onError: (error) {
         Get.back();
         callBack.call(false);
-        Common.showMessageError(error, context);
+        Common.showMessageError(error: error, context: context);
       },
     );
   }

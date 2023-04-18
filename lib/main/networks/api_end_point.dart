@@ -74,6 +74,8 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/clear-debt";
   static const String API_PUT_CLEAR_DEBT =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/clear-debt/verify";
-      static const String API_UPLOAD_IDENTIFY_CARD =
+  static const String API_UPLOAD_IDENTIFY_CARD =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/file/identify-card";
+  static const String API_POST_CONTRACT_INFORMATION =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts/information";
 }

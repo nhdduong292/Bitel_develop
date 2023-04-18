@@ -97,50 +97,88 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                       boxShadow: const [
                         BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
                       ]),
-                  child: Obx(
-                    () => Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                controller.getProduct().productName ?? 'null',
-                                style: const TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: 'Barlow',
-                                    color: AppColors.colorText1,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              Text(
-                                '${AppLocalizations.of(context)!.textSpeed} ${controller.getProduct().speed ?? 'null'} Mpbs',
-                                style: const TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: 'Barlow',
-                                    color: AppColors.colorText1,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ],
-                          ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              controller.billModel.product.productName ??
+                                  'null',
+                              style: const TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: 'Barlow',
+                                  color: AppColors.colorText1,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  '${AppLocalizations.of(context)!.textSpeed} ',
+                                  style: const TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: 'Barlow',
+                                      color: AppColors.colorText1,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                                controller.billModel.speedNew != 0
+                                    ? Text(
+                                        '${controller.billModel.product.speed ?? '---'} Mpbs',
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: 'Barlow',
+                                          color: AppColors.colorText1,
+                                          fontWeight: FontWeight.w400,
+                                          decoration:
+                                              TextDecoration.lineThrough,
+                                          decorationStyle:
+                                              TextDecorationStyle.solid,
+                                        ),
+                                      )
+                                    : Text(
+                                        '${controller.billModel.product.speed ?? '---'} Mpbs',
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: 'Barlow',
+                                          color: AppColors.colorText1,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                Visibility(
+                                  visible: controller.billModel.speedNew != 0,
+                                  child: Text(
+                                    '${controller.billModel.speedNew} Mpbs',
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: 'Barlow',
+                                      color: AppColors.colorText1,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ],
                         ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 10),
-                          decoration: BoxDecoration(
-                            color: AppColors.colorSubContent.withOpacity(0.07),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Text(
-                            '${controller.getProduct().defaultValue ?? 'null'} /month',
-                            style: const TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'Barlow',
-                                color: AppColors.colorText3,
-                                fontWeight: FontWeight.w700),
-                          ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 30, vertical: 10),
+                        decoration: BoxDecoration(
+                          color: AppColors.colorSubContent.withOpacity(0.07),
+                          borderRadius: BorderRadius.circular(20),
                         ),
-                      ],
-                    ),
+                        child: Text(
+                          '${controller.billModel.product.defaultValue ?? 'null'} /month',
+                          style: const TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Barlow',
+                              color: AppColors.colorText3,
+                              fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(
@@ -158,52 +196,51 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                   ),
                 ),
                 Container(
-                    margin: const EdgeInsets.only(top: 10),
-                    alignment: Alignment.centerLeft,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(color: const Color(0xFFE3EAF2)),
-                        color: Colors.white,
-                        boxShadow: const [
-                          BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
-                        ]),
-                    child: Obx(
-                      () => Column(
-                        children: [
-                          _paymentElement(
-                              controller.getPlanReason().name ?? 'null',
-                              'S/.${controller.getPlanReason().fee}',
-                              const Color(0xFF415263)),
-                          const DottedLine(
-                            dashColor: Color(0xFFE3EAF2),
-                            dashGapLength: 3,
-                            dashLength: 4,
-                          ),
-                          _paymentElement(
-                              AppLocalizations.of(context)!.textInstallationFee,
-                              'S/.${controller.getPlanReason().feeInstallation}',
-                              const Color(0xFF415263)),
-                          const DottedLine(
-                            dashColor: Color(0xFFE3EAF2),
-                            dashGapLength: 3,
-                            dashLength: 4,
-                          ),
-                          _paymentElement(
-                              AppLocalizations.of(context)!.textDiscount,
-                              'S/.0.0',
-                              const Color(0xFFD91C02)),
-                          const DottedLine(
-                            dashColor: Color(0xFFE3EAF2),
-                            dashGapLength: 3,
-                            dashLength: 4,
-                          ),
-                          _paymentElement(
-                              AppLocalizations.of(context)!.textTotalAmount,
-                              'S/.${controller.getTotal()}',
-                              const Color(0xFF9454C9)),
-                        ],
+                  margin: const EdgeInsets.only(top: 10),
+                  alignment: Alignment.centerLeft,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      border: Border.all(color: const Color(0xFFE3EAF2)),
+                      color: Colors.white,
+                      boxShadow: const [
+                        BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
+                      ]),
+                  child: Column(
+                    children: [
+                      _paymentElement(
+                          controller.billModel.paymentName,
+                          'S/.${controller.billModel.fee}',
+                          const Color(0xFF415263)),
+                      const DottedLine(
+                        dashColor: Color(0xFFE3EAF2),
+                        dashGapLength: 3,
+                        dashLength: 4,
                       ),
-                    ))
+                      _paymentElement(
+                          AppLocalizations.of(context)!.textInstallationFee,
+                          'S/.${controller.billModel.installationFee}',
+                          const Color(0xFF415263)),
+                      const DottedLine(
+                        dashColor: Color(0xFFE3EAF2),
+                        dashGapLength: 3,
+                        dashLength: 4,
+                      ),
+                      _paymentElement(
+                          AppLocalizations.of(context)!.textDiscount,
+                          'S/.${controller.billModel.discount}',
+                          const Color(0xFFD91C02)),
+                      const DottedLine(
+                        dashColor: Color(0xFFE3EAF2),
+                        dashGapLength: 3,
+                        dashLength: 4,
+                      ),
+                      _paymentElement(
+                          AppLocalizations.of(context)!.textTotalAmount,
+                          'S/.${controller.billModel.total}',
+                          const Color(0xFF9454C9)),
+                    ],
+                  ),
+                )
               ],
             ),
           ),
@@ -226,7 +263,8 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                         controller.getProduct().productId,
                         controller.getPlanReason().id,
                         controller.isForcedTerm(),
-                        controller.getPromotion().proId ?? 0,
+                        controller.listIdPromotion,
+                        controller.getPlanReason().packageId
                       ]);
                     } else {
                       Get.toNamed(RouteConfig.createContact, arguments: [
@@ -234,7 +272,8 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                         controller.getProduct().productId,
                         controller.getPlanReason().id,
                         controller.isForcedTerm(),
-                        controller.getPromotion().proId ?? 0,
+                        controller.listIdPromotion,
+                        controller.getPlanReason().packageId
                       ]);
                     }
                   });

@@ -130,20 +130,20 @@ class ValidateFingerprintLogic extends GetxController {
         }
       },
       onError: (error) {
-        Common.showMessageError(error, context);
+        Common.showMessageError(error: error, context: context);
       },
     );
   }
 
   String findPathFinger() {
     if (bestFinger.left != 0) {
-      if (bestFinger.left == 6) {
+      if (bestFinger.left == 1) {
         return AppImages.imgFingerLeft1;
-      } else if (bestFinger.left == 7) {
+      } else if (bestFinger.left == 2) {
         return AppImages.imgFingerLeft2;
-      } else if (bestFinger.left == 8) {
+      } else if (bestFinger.left == 3) {
         return AppImages.imgFingerLeft3;
-      } else if (bestFinger.left == 9) {
+      } else if (bestFinger.left == 4) {
         return AppImages.imgFingerLeft4;
       } else {
         return AppImages.imgFingerLeft5;
@@ -170,7 +170,7 @@ class ValidateFingerprintLogic extends GetxController {
       _onLoading(context);
       Completer<bool> completer = Completer();
       Map<String, dynamic> body = {
-        "finger": bestFinger.right ?? bestFinger.left,
+        "finger": bestFinger.right != 0 ? bestFinger.right : bestFinger.left,
         "listImage": listFinger,
         "pk": pk
       };
@@ -192,7 +192,7 @@ class ValidateFingerprintLogic extends GetxController {
         onError: (error) {
           Get.back();
           isSuccess.call(false);
-          Common.showMessageError(error, context);
+          Common.showMessageError(error: error, context: context);
         },
       );
     } catch (e) {
