@@ -269,7 +269,8 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                           .textCapture
                                           .toUpperCase(),
                                       style: TextStyle(
-                                        color: controller.listFinger.isEmpty
+                                        color: controller.listFinger.isEmpty &&
+                                                controller.isGetFingerSuccess
                                             ? Colors.white
                                             : Colors.black,
                                         fontSize: 15,

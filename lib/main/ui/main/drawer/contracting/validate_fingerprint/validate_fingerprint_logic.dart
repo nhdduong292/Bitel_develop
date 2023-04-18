@@ -125,6 +125,7 @@ class ValidateFingerprintLogic extends GetxController {
           bestFinger = BestFingerModel.fromJson(response.data['data']);
           pathFinger.value = findPathFinger();
           isGetFingerSuccess = true;
+          update();
         } else {
           print("error: ${response.status}");
         }

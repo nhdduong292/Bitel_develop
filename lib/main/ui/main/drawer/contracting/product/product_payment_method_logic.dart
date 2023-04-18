@@ -211,6 +211,7 @@ class ProductPaymentMethodLogic extends GetxController {
     try {
       ApiUtil.getInstance()!.get(
         url: '${ApiEndPoints.API_PLAN_REASON}/$id',
+        params: {"requestId": requestModel.id},
         onSuccess: (response) {
           isLoadingReason = false;
           checkLoading();

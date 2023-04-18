@@ -1,23 +1,27 @@
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class DialogSurveySuccessfulLogic extends GetxController{
+import '../../../../../utils/common.dart';
+
+class DialogSurveySuccessfulLogic extends GetxController {
+  BuildContext context;
   bool isSelectOffline = false;
   int id;
 
+  DialogSurveySuccessfulLogic({required this.context, required this.id});
 
-  DialogSurveySuccessfulLogic(this.id);
-
-  void setSurveyOffline(bool value){
+  void setSurveyOffline(bool value) {
     isSelectOffline = value;
     update();
   }
 
   void createSurveyOnline(Function(bool isSuccess) callBack) {
-    ApiUtil.getInstance( )!.get(
-        url: "${ApiEndPoints.API_SURVEY}/${id}${ApiEndPoints.API_SURVEY_ONLINE}",
+    ApiUtil.getInstance()!.get(
+        url:
+            "${ApiEndPoints.API_SURVEY}/${id}${ApiEndPoints.API_SURVEY_ONLINE}",
         onSuccess: (response) {
           if (response.isSuccess) {
             print("success");
@@ -29,17 +33,19 @@ class DialogSurveySuccessfulLogic extends GetxController{
         },
         onError: (error) {
           callBack.call(false);
+          Common.showMessageError(error: error, context: context);
         });
   }
 
-  void createSurveyOffline(Function (bool isSuccess) callBack) {
+  void createSurveyOffline(Function(bool isSuccess) callBack) {
     Map<String, dynamic> body = {
       "status": RequestStatus.CREATE_REQUEST,
       "reasonId": "",
       "note": ""
     };
-    ApiUtil.getInstance( )!.put(
-        url: "${ApiEndPoints.API_REQUEST_DETAIL}/${id}${ApiEndPoints.API_CHANGE_STATUS_REQUEST}",
+    ApiUtil.getInstance()!.put(
+        url:
+            "${ApiEndPoints.API_REQUEST_DETAIL}/${id}${ApiEndPoints.API_CHANGE_STATUS_REQUEST}",
         body: body,
         onSuccess: (response) {
           if (response.isSuccess) {
@@ -53,6 +59,7 @@ class DialogSurveySuccessfulLogic extends GetxController{
         },
         onError: (error) {
           callBack.call(false);
+          Common.showMessageError(error: error, context: context);
         });
   }
 }

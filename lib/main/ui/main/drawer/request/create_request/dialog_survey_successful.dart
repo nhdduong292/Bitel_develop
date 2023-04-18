@@ -24,7 +24,7 @@ class DialogSurveySuccessful extends GetWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: DialogSurveySuccessfulLogic(requestModel.id),
+      init: DialogSurveySuccessfulLogic(context: context, id: requestModel.id),
       builder: (controller) {
         return Dialog(
           shape: RoundedRectangleBorder(

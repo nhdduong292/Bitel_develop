@@ -1064,7 +1064,7 @@ Widget expandableV1({required String label, required Widget child}) {
       children: [
         Expandable(
           theme: ExpandableThemeData(hasIcon: false),
-          collapsed: ExpandableButton(
+          expanded: ExpandableButton(
             child: Container(
               margin: EdgeInsets.only(left: 15, right: 15),
               padding: EdgeInsets.all(12),
@@ -1095,7 +1095,7 @@ Widget expandableV1({required String label, required Widget child}) {
               ),
             ),
           ),
-          expanded: Column(
+          collapsed: Column(
             children: [
               ExpandableButton(
                 child: Container(
