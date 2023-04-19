@@ -177,12 +177,11 @@ class RequestDetailPage extends GetWidget {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        controller.requestModel.customerModel
+                                        controller.requestModel
                                                 .getInstalAddress()
                                                 .isEmpty
                                             ? "---"
-                                            : controller
-                                                .requestModel.customerModel
+                                            : controller.requestModel
                                                 .getInstalAddress(),
                                         textAlign: TextAlign.right,
                                         style: AppStyles.r415263_13_500,
@@ -246,7 +245,10 @@ class RequestDetailPage extends GetWidget {
                                           controller.requestModel.customerModel
                                                   .fullName.isEmpty
                                               ? "---"
-                                              : "${controller.requestModel.subscriptionModel.productName} + ${controller.requestModel.subscriptionModel.speed}",
+                                              : controller
+                                                  .requestModel
+                                                  .subscriptionModel
+                                                  .productName,
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),

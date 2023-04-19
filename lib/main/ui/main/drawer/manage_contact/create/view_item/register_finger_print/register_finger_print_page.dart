@@ -392,7 +392,7 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                   if (Platform.isAndroid) {
                                     controller.getCapture();
                                   } else {
-                                    controller.indexLeft = 2;
+                                    // controller.indexLeft = controller.indexLeft;
                                     controller.currentPathFinger = 'String';
                                     controller.currentImageFinger = 'String';
                                     controller.update();
