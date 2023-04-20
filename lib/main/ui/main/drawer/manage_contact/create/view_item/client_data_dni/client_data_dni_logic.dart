@@ -12,6 +12,7 @@ import '../../../../../../../networks/api_end_point.dart';
 import '../../../../../../../networks/api_util.dart';
 import '../../../../../../../networks/model/address_model.dart';
 import '../../../../../../../utils/common.dart';
+import '../../../../../../../utils/common_widgets.dart';
 import '../../cretate_contact_page_logic.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -44,13 +45,15 @@ class ClientDataDNILogic extends GetxController {
   String issue = '';
   CreateContactPageLogic logicCreateContact = Get.find();
   RequestDetailModel requestModel = RequestDetailModel();
-  int productId = 0;
-  int reasonId = 0;
   String idNumberRequest = '';
   String idNumber = '';
   String province = '';
   String district = '';
   String precinct = '';
+  int productId = 0;
+  int reasonId = 0;
+  List<int> listPromotionId = [];
+  int packageId = 0;
   bool isForcedTerm = false;
   Map<String, dynamic> body = {};
 
@@ -86,6 +89,8 @@ class ClientDataDNILogic extends GetxController {
     reasonId = logicCreateContact.reasonId;
     idNumberRequest = logicCreateContact.requestModel.customerModel.idNumber;
     isForcedTerm = logicCreateContact.isForcedTerm;
+    listPromotionId = logicCreateContact.listPromotionId;
+    packageId = logicCreateContact.packageId;
     province = logicCreateContact.requestModel.province;
     district = logicCreateContact.requestModel.district;
     precinct = logicCreateContact.requestModel.precinct;
@@ -437,5 +442,71 @@ class ClientDataDNILogic extends GetxController {
   bool containsOnlyUpperCaseAndNumber(String text) {
     RegExp upperCaseAndNumberRegExp = RegExp(r'^[A-Z0-9]*$');
     return upperCaseAndNumberRegExp.hasMatch(text);
+  }
+
+  void checkFingerExit(Function(bool isSuccess) function) {
+    _onLoading(context);
+    ApiUtil.getInstance()!.get(
+        url: ApiEndPoints.API_CHECK_FINGER_EXIT,
+        params: {
+          "idNo": tfIdNumber.text.trim(),
+          "type": logicCreateContact.typeCustomer
+        },
+        onSuccess: (response) {
+          if (response.isSuccess) {
+            createCustomer((isSuccess) {
+              if (isSuccess) {
+                function.call(true);
+              }
+            });
+          } else {
+            Get.back();
+            function.call(false);
+          }
+        },
+        onError: (error) {
+          Get.back();
+          function.call(false);
+          Common.showMessageError(error: error, context: context);
+        });
+  }
+
+  void createCustomer(Function(bool isSuccess) callBack) {
+    body['left'] = null;
+    body['leftImage'] = null;
+    body['right'] = null;
+    body['rightImage'] = null;
+    ApiUtil.getInstance()!.post(
+      url: ApiEndPoints.API_CREATE_CUSTOMER,
+      body: body,
+      onSuccess: (response) {
+        if (response.isSuccess) {
+          Get.back();
+          customerModel = CustomerModel.fromJson(response.data['data']);
+          callBack.call(true);
+        } else {
+          callBack.call(false);
+        }
+      },
+      onError: (error) {
+        Get.back();
+        callBack.call(false);
+        Common.showMessageError(error: error, context: context);
+      },
+    );
+  }
+
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
+      },
+    );
   }
 }

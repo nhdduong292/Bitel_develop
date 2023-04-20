@@ -359,7 +359,36 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                               return;
                             }
                             controller.createBodyCustomer();
-                            callback();
+                            controller.checkFingerExit((isSuccess) {
+                              if (isSuccess) {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return SuccessDialog(
+                                      height: 299,
+                                      isSuccess: true,
+                                      onClick: () {
+                                        Get.back();
+                                        Get.offNamed(
+                                            RouteConfig.customerInformation,
+                                            arguments: [
+                                              controller.customerModel,
+                                              controller.logicCreateContact
+                                                  .requestModel,
+                                              controller.productId,
+                                              controller.reasonId,
+                                              controller.isForcedTerm,
+                                              controller.listPromotionId,
+                                              controller.packageId
+                                            ]);
+                                      },
+                                    );
+                                  },
+                                );
+                              } else {
+                                callback();
+                              }
+                            });
                             return;
                           },
                           child: Center(

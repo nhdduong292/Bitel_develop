@@ -747,10 +747,6 @@ class CreateRequestPage extends GetWidget {
                                 Get.back();
                                 if (isSuccess) {
                                   showDialogSurveyMap(context, controller);
-                                } else {
-                                  Common.showToastCenter(
-                                      AppLocalizations.of(context)!
-                                          .textErrorAPI);
                                 }
                               },
                             );

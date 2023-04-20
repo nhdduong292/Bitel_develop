@@ -189,33 +189,31 @@ class RegisterFingerPrintLogic extends GetxController {
   }
 
   void createCustomer(Function(bool isSuccess) callBack) {
-    print(indexLeft);
-    print(indexRight);
-    // _onLoading(context);
-    // body['left'] = indexLeft;
-    // body['leftImage'] = listImageLeft;
-    // body['right'] = indexRight;
-    // body['rightImage'] = listImageRight;
-    // ApiUtil.getInstance()!.post(
-    //   url: ApiEndPoints.API_CREATE_CUSTOMER,
-    //   body: body,
-    //   onSuccess: (response) {
-    //     if (response.isSuccess) {
-    //       Get.back();
-    //       customerModel = CustomerModel.fromJson(response.data['data']);
-    //       print(customerModel.name);
-    //       print('Call api register customer');
-    //       callBack.call(true);
-    //     } else {
-    //       print("error: ${response.status}");
-    //       callBack.call(false);
-    //     }
-    //   },
-    //   onError: (error) {
-    //     Get.back();
-    //     callBack.call(false);
-    //     Common.showMessageError(error: error, context: context);
-    //   },
-    // );
+    _onLoading(context);
+    body['left'] = indexLeft;
+    body['leftImage'] = listImageLeft;
+    body['right'] = indexRight;
+    body['rightImage'] = listImageRight;
+    ApiUtil.getInstance()!.post(
+      url: ApiEndPoints.API_CREATE_CUSTOMER,
+      body: body,
+      onSuccess: (response) {
+        if (response.isSuccess) {
+          Get.back();
+          customerModel = CustomerModel.fromJson(response.data['data']);
+          print(customerModel.name);
+          print('Call api register customer');
+          callBack.call(true);
+        } else {
+          print("error: ${response.status}");
+          callBack.call(false);
+        }
+      },
+      onError: (error) {
+        Get.back();
+        callBack.call(false);
+        Common.showMessageError(error: error, context: context);
+      },
+    );
   }
 }

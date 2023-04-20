@@ -150,6 +150,17 @@ class RequestDetailLogic extends GetxController {
     }
   }
 
+  String getBillCycle(String billCycle) {
+    if (billCycle == 'CYCLE6') {
+      return '${AppLocalizations.of(context)!.textCircle} 6';
+    } else if (billCycle == 'CYCLE16') {
+      return '${AppLocalizations.of(context)!.textCircle} 16';
+    } else if (billCycle == 'CYCLE26') {
+      return '${AppLocalizations.of(context)!.textCircle} 26';
+    }
+    return '---';
+  }
+
   String getStaffName(WorkOrderModel model) {
     if (model.staffName.isEmpty && model.staffCode.isEmpty) {
       return '---';

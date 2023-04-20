@@ -377,11 +377,10 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.contractModel
-                                                  .billCycleFrom.isEmpty
-                                              ? "---"
-                                              : controller.requestModel
-                                                  .contractModel.billCycleFrom,
+                                          controller.getBillCycle(controller
+                                              .requestModel
+                                              .contractModel
+                                              .billCycleFrom),
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),
