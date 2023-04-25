@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/bill_model.dart';
+import 'package:bitel_ventas/main/networks/model/package_model.dart';
 import 'package:bitel_ventas/main/networks/model/promotion_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/networks/response/product_response.dart';
@@ -22,6 +23,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductPaymentMethodLogic extends GetxController {
   bool isLoadingProduct = true;
+  bool isLoadingPackage = true;
   BuildContext context;
   bool isLoadingReason = true;
   bool isLoadingPromotion = true;
@@ -49,6 +51,7 @@ class ProductPaymentMethodLogic extends GetxController {
     requestModel = data[0];
     status = data[1];
     getProduts(requestModel.id);
+    getPackages(requestModel.id);
   }
 
   final ItemScrollController? scrollController = ItemScrollController();
@@ -59,6 +62,7 @@ class ProductPaymentMethodLogic extends GetxController {
   var isOnInvoicePage = false.obs;
   var balance = (0.0).obs; // so du trong vi
   var valueProduct = (-1).obs; // index cua product
+  var valuePackage = (-1).obs; // index cua package
   var valueMethod = (-1).obs; // index cua reason
   var valuePromotion = (-1).obs; //index cua promotion
   var totalPayment = 0; // tong tien phai thanh toan
@@ -80,20 +84,12 @@ class ProductPaymentMethodLogic extends GetxController {
   }
 
   List<ProductModel> listProduct = [];
+  List<PackageModel> listPackage = [];
   List<PromotionModel> listPromotion = [];
   List<int> listIdPromotion = [];
   BillModel billModel = BillModel();
 
-  double getTotal() {
-    if (getPlanReason().fee == null ||
-        getPlanReason().feeInstallation == null) {
-      return 0.0;
-    }
-    return getPlanReason().fee! + getPlanReason().feeInstallation!;
-  }
-
   void getProduts(int requestId) {
-    requestId = 20735;
     ApiUtil.getInstance()!.get(
       url: '${ApiEndPoints.API_LIST_PRODUCT}/$requestId',
       onSuccess: (response) {
@@ -103,7 +99,7 @@ class ProductPaymentMethodLogic extends GetxController {
               .toList();
           if (status == 'CHANGE') {
             valueProduct.value = currentProduct;
-            getPlanReasons(listProduct[currentProduct].productId!, context);
+            getPlanReasons();
           }
         } else {
           print("error: ${response.status}");
@@ -113,6 +109,28 @@ class ProductPaymentMethodLogic extends GetxController {
       },
       onError: (error) {
         isLoadingProduct = false;
+        update();
+        Common.showMessageError(error: error, context: context);
+      },
+    );
+  }
+
+  void getPackages(int requestId) {
+    ApiUtil.getInstance()!.get(
+      url: ApiEndPoints.API_GET_PACKAGE,
+      onSuccess: (response) {
+        if (response.isSuccess) {
+          listPackage = (response.data['data'] as List)
+              .map((postJson) => PackageModel.fromJson(postJson))
+              .toList();
+        } else {
+          print("error: ${response.status}");
+        }
+        isLoadingPackage = false;
+        update();
+      },
+      onError: (error) {
+        isLoadingPackage = false;
         update();
         Common.showMessageError(error: error, context: context);
       },
@@ -135,10 +153,13 @@ class ProductPaymentMethodLogic extends GetxController {
     }
   }
 
-  void getPromotions(int idProduct) {
+  void getPromotions() {
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_LIST_PROMOTION,
-      params: {'productId': idProduct},
+      params: {
+        'productId': getProduct().productId,
+        'packageId': getPackage().packageId
+      },
       onSuccess: (response) {
         isLoadingPromotion = false;
         checkLoading();
@@ -175,6 +196,13 @@ class ProductPaymentMethodLogic extends GetxController {
     return ProductModel();
   }
 
+  PackageModel getPackage() {
+    if (valuePackage.value > -1) {
+      return listPackage[valuePackage.value];
+    }
+    return PackageModel();
+  }
+
   PlanReasonModel getPlanReason() {
     if (valueMethod.value > -1) {
       return listPlanReason[valueMethod.value];
@@ -187,6 +215,10 @@ class ProductPaymentMethodLogic extends GetxController {
       return listPromotion[valuePromotion.value];
     }
     return PromotionModel();
+  }
+
+  void resetPackage() {
+    valuePackage.value = -1;
   }
 
   void resetPlanReason() {
@@ -207,11 +239,14 @@ class ProductPaymentMethodLogic extends GetxController {
     return true;
   }
 
-  void getPlanReasons(int id, BuildContext context) {
+  void getPlanReasons() {
     try {
       ApiUtil.getInstance()!.get(
-        url: '${ApiEndPoints.API_PLAN_REASON}/$id',
-        params: {"requestId": requestModel.id},
+        url: '${ApiEndPoints.API_PLAN_REASON}/${getProduct().productId}',
+        params: {
+          "requestId": requestModel.id,
+          "packageId": getPackage().packageId
+        },
         onSuccess: (response) {
           isLoadingReason = false;
           checkLoading();
@@ -344,7 +379,7 @@ class ProductPaymentMethodLogic extends GetxController {
       "requestId": requestModel.id,
       "productId": getProduct().productId,
       "reasonId": getPlanReason().id,
-      "packageId": getPlanReason().packageId,
+      "packageId": getPackage().packageId,
       "promotionId": listIdPromotion,
       "contractType": isForcedTerm() ? "FORCED_TERM" : "UNDETERMINED",
       "numOfSubscriber": 1,

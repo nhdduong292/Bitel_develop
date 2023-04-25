@@ -67,7 +67,8 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                           left: 20,
                           child: InkWell(
                             onTap: () {
-                              if (controller.isLoadingProduct) {
+                              if (controller.isLoadingProduct ||
+                                  controller.isLoadingPackage) {
                                 Get.back();
                                 return;
                               }
@@ -136,7 +137,7 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                   const SizedBox(
                     height: 20,
                   ),
-                  controller.isLoadingProduct
+                  (controller.isLoadingProduct || controller.isLoadingPackage)
                       ? LoadingCirculApi()
                       : Expanded(
                           child: ScrollablePositionedList.builder(

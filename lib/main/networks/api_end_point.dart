@@ -82,4 +82,6 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts/information";
   static const String API_CHECK_FINGER_EXIT =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/customers/check-finger-exist";
+  static const String API_GET_PACKAGE =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/payment-packages";
 }

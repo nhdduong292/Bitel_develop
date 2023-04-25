@@ -170,10 +170,10 @@ class ReceiptInformationPage extends GetView<ProductPaymentMethodLogic> {
                     child: Obx(
                       () => Column(
                         children: [
-                          _paymentElement(
-                              controller.getPlanReason().name ?? 'null',
-                              'S/.${controller.getPlanReason().fee}',
-                              const Color(0xFF415263)),
+                          // _paymentElement(
+                          //     controller.getPlanReason().name ?? 'null',
+                          //     'S/.${controller.getPlanReason().fee}',
+                          //     const Color(0xFF415263)),
                           const DottedLine(
                             dashColor: Color(0xFFE3EAF2),
                             dashGapLength: 3,
@@ -197,10 +197,10 @@ class ReceiptInformationPage extends GetView<ProductPaymentMethodLogic> {
                             dashGapLength: 3,
                             dashLength: 4,
                           ),
-                          _paymentElement(
-                              AppLocalizations.of(context)!.textTotalAmount,
-                              'S/.${controller.getTotal()}',
-                              const Color(0xFF9454C9)),
+                          // _paymentElement(
+                          //     AppLocalizations.of(context)!.textTotalAmount,
+                          //     'S/.${controller.getTotal()}',
+                          //     const Color(0xFF9454C9)),
                         ],
                       ),
                     ))

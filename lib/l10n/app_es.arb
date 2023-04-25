@@ -587,5 +587,8 @@
   "textFullNameNotEmpty": "El nombre completo no puede estar vacío",
   "textDateOfIssue": "Día de Publicación",
   "textE040": "Create deployment task on Vsmart failed",
-  "textBillingCycleFTTH": "Ciclo de facturación:"
+  "textBillingCycleFTTH": "Ciclo de facturación:",
+     "textChonseAReasonConnection": "Seleccionar una razón para la conexión",
+   "textReasonCode": "Código de razón",
+   "textInstallationFee": "Tarifa de instalación"
 }

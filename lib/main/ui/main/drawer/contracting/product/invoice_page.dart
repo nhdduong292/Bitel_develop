@@ -98,35 +98,38 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                         BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
                       ]),
                   child: Row(
+                    mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(
                         child: Column(
+                          mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               controller.billModel.product.productName ??
                                   'null',
                               style: const TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 13,
                                   fontFamily: 'Barlow',
                                   color: AppColors.colorText1,
                                   fontWeight: FontWeight.w500),
                             ),
                             Row(
+                              mainAxisSize: MainAxisSize.max,
                               children: [
                                 Text(
-                                  '${AppLocalizations.of(context)!.textSpeed} ',
+                                  '${AppLocalizations.of(context)!.textSpeed}: ',
                                   style: const TextStyle(
-                                      fontSize: 14,
+                                      fontSize: 12,
                                       fontFamily: 'Barlow',
                                       color: AppColors.colorText1,
                                       fontWeight: FontWeight.w400),
                                 ),
                                 controller.billModel.speedNew != 0
                                     ? Text(
-                                        '${controller.billModel.product.speed ?? '---'} Mpbs',
+                                        '${controller.billModel.product.speed ?? '---'} Mpbs ',
                                         style: const TextStyle(
-                                          fontSize: 14,
+                                          fontSize: 12,
                                           fontFamily: 'Barlow',
                                           color: AppColors.colorText1,
                                           fontWeight: FontWeight.w400,
@@ -139,7 +142,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                                     : Text(
                                         '${controller.billModel.product.speed ?? '---'} Mpbs',
                                         style: const TextStyle(
-                                          fontSize: 14,
+                                          fontSize: 12,
                                           fontFamily: 'Barlow',
                                           color: AppColors.colorText1,
                                           fontWeight: FontWeight.w400,
@@ -150,7 +153,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                                   child: Text(
                                     '${controller.billModel.speedNew} Mpbs',
                                     style: const TextStyle(
-                                      fontSize: 14,
+                                      fontSize: 12,
                                       fontFamily: 'Barlow',
                                       color: AppColors.colorText1,
                                       fontWeight: FontWeight.w400,
@@ -264,7 +267,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                         controller.getPlanReason().id,
                         controller.isForcedTerm(),
                         controller.listIdPromotion,
-                        controller.getPlanReason().packageId
+                        controller.getPackage().packageId
                       ]);
                     } else {
                       Get.toNamed(RouteConfig.createContact, arguments: [
@@ -273,7 +276,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                         controller.getPlanReason().id,
                         controller.isForcedTerm(),
                         controller.listIdPromotion,
-                        controller.getPlanReason().packageId
+                        controller.getPackage().packageId
                       ]);
                     }
                   });

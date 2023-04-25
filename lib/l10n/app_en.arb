@@ -605,6 +605,9 @@
   "textFullNameNotEmpty": "Full name cannot be emptys",
   "textDateOfIssue": "Date of issue",
   "textE040": "Create deployment task on Vsmart failed",
-   "textBillingCycleFTTH": "Billing cycle:"
+   "textBillingCycleFTTH": "Billing cycle:",
+   "textChonseAReasonConnection": "Chonse a reason connection",
+   "textReasonCode": "Reason code",
+   "textInstallationFee": "Installation fee"
 
 }

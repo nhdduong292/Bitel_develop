@@ -560,7 +560,7 @@
   "textTotalAPay": "Total a pay",
   "textCopy": "Copy",
   "textCopySuccess": "Copy successfully!",
-    "textTotalAmount": "Total Amount",
+    "textTotalAmount": "Tổng cộng",
      "textIngresaUnCodigo": "Ingresa un código",
   "textNew": "New",
   "textAll": "All",
@@ -586,6 +586,9 @@
   "textFullNameNotEmpty": "Tên đầy đủ không được để trống",
   "textDateOfIssue": "Ngày phát hành",
   "textE040": "Create deployment task on Vsmart failed",
-  "textBillingCycleFTTH": "Chu kỳ thanh toán:"
+  "textBillingCycleFTTH": "Chu kỳ thanh toán:",
+       "textChonseAReasonConnection": "Chọn lý do đầu nối",
+   "textReasonCode": "Mã lý do",
+   "textInstallationFee": "Phí lắp đặt"
 
 }

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:get/get.dart';
 
 class ProductModel {
@@ -15,5 +17,15 @@ class ProductModel {
     offerName = json['offerName'];
     defaultValue = json['defaultValue'];
     speed = json['speed'];
+  }
+
+  double get productValue {
+    double value;
+    try {
+      value = double.parse(defaultValue ?? '');
+      return value;
+    } catch (e) {
+      return 0.0;
+    }
   }
 }

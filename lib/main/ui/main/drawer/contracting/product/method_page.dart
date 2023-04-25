@@ -1,3 +1,4 @@
+import 'package:bitel_ventas/main/networks/model/package_model.dart';
 import 'package:bitel_ventas/main/networks/model/plan_reason_model.dart';
 import 'package:bitel_ventas/main/networks/model/product_model.dart';
 import 'package:bitel_ventas/main/networks/model/promotion_model.dart';
@@ -68,21 +69,7 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                             value: index,
                             onChange: (value) {
                               controller.valueProduct.value = value;
-                              controller.isLoadingReason = true;
-                              controller.isLoadingPromotion = true;
-                              controller.checkLoading();
-                              controller.resetPlanReason();
-                              if (value > -1) {
-                                controller.isChanged = true;
-                                controller.getPlanReasons(
-                                    controller.listProduct[value].productId!,
-                                    context);
-                              }
-                              controller.resetPromotions();
-                              if (value > -1) {
-                                controller.getPromotions(
-                                    controller.listProduct[value].productId!);
-                              }
+                              controller.resetPackage();
                             }),
                     separatorBuilder: (BuildContext context, int index) =>
                         const Divider(
@@ -134,6 +121,80 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                         shrinkWrap: true,
                         primary: false,
                         itemBuilder: (BuildContext context, int index) =>
+                            _itemPackage(
+                                context: context,
+                                groupValue: controller.valuePackage,
+                                package: controller.listPackage[index],
+                                value: index,
+                                onChange: (value) {
+                                  controller.valuePackage.value = value;
+                                  controller.isLoadingReason = true;
+                                  controller.isLoadingPromotion = true;
+                                  controller.checkLoading();
+                                  controller.resetPlanReason();
+                                  if (value > -1) {
+                                    controller.isChanged = true;
+                                    controller.getPlanReasons();
+                                  }
+                                  controller.resetPromotions();
+                                  if (value > -1) {
+                                    controller.getPromotions();
+                                  }
+                                },
+                                fee: controller.getProduct().productValue),
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const Divider(
+                              color: AppColors.colorLineDash,
+                              height: 1,
+                              thickness: 1,
+                            ),
+                        itemCount: controller.listPackage.length)
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Obx(
+            () => Visibility(
+              visible: controller.valueProduct.value > -1 &&
+                  controller.valuePackage.value > -1,
+              child: Container(
+                margin: const EdgeInsets.only(left: 15, right: 15),
+                padding: const EdgeInsets.only(top: 15),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    border: Border.all(color: const Color(0xFFE3EAF2)),
+                    color: Colors.white,
+                    boxShadow: const [
+                      BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
+                    ]),
+                child: Column(
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.textChonseAReasonConnection,
+                      style: const TextStyle(
+                          color: AppColors.colorContent,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'Barlow'),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const DottedLine(
+                      dashColor: Color(0xFFE3EAF2),
+                      dashGapLength: 3,
+                      dashLength: 4,
+                    ),
+                    ListView.separated(
+                        padding: const EdgeInsets.only(top: 0),
+                        shrinkWrap: true,
+                        primary: false,
+                        itemBuilder: (BuildContext context, int index) =>
                             _itemMethod(
                                 context: context,
                                 groupValue: controller.valueMethod,
@@ -159,7 +220,8 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
           ),
           Obx(
             () => Visibility(
-              visible: controller.valueProduct.value > -1,
+              visible: controller.valueProduct.value > -1 &&
+                  controller.valuePackage.value > -1,
               child: Container(
                 margin: const EdgeInsets.only(left: 15, right: 15),
                 padding: const EdgeInsets.only(top: 15),
@@ -288,6 +350,7 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                 onTap: () {
                   if ((controller.valueMethod.value > -1 &&
                           controller.valueProduct.value > -1 &&
+                          controller.valuePackage.value > -1 &&
                           controller.status == 'CREATE') ||
                       (controller.valueMethod.value > -1 &&
                           controller.valueProduct.value > -1 &&
@@ -309,6 +372,7 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                 },
                 color: !(controller.valueMethod.value > -1 &&
                             controller.valueProduct.value > -1 &&
+                            controller.valuePackage.value > -1 &&
                             controller.status == 'CREATE') &&
                         !(controller.valueMethod.value > -1 &&
                             controller.valueProduct.value > -1 &&
@@ -384,6 +448,60 @@ Widget _itemProduct(
   );
 }
 
+Widget _itemPackage(
+    {required BuildContext context,
+    required int value,
+    required PackageModel package,
+    required RxInt groupValue,
+    required var onChange,
+    required double fee}) {
+  return Container(
+    margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+    child: InkWell(
+      onTap: () {
+        groupValue.value != value ? onChange(value) : onChange(-1);
+      },
+      splashColor: Colors.black38,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Obx(() =>
+              groupValue.value == value ? iconChecked() : iconUnchecked()),
+          const SizedBox(
+            width: 16,
+          ),
+          Expanded(
+            flex: 1,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(package.packageName ?? '---',
+                    style: AppStyles.r2B3A4A_12_500),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
+            decoration: BoxDecoration(
+              color: AppColors.colorSubContent.withOpacity(0.07),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Text(
+              (fee * (package.numMonthPay ?? 0)).toString(),
+              style: const TextStyle(
+                  fontSize: 16,
+                  fontFamily: 'Barlow',
+                  color: AppColors.colorText3,
+                  fontWeight: FontWeight.w700),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
 Widget _itemMethod(
     {required BuildContext context,
     required int value,
@@ -412,45 +530,17 @@ Widget _itemMethod(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  reason.packageName ?? '---',
-                  style: const TextStyle(
-                      fontSize: 16,
-                      fontFamily: 'Barlow',
-                      color: AppColors.colorText1,
-                      fontWeight: FontWeight.w500),
-                ),
+                    '${AppLocalizations.of(context)!.textName}: ${reason.name}',
+                    style: AppStyles.r2B3A4A_12_500),
                 Text(
-                  '${AppLocalizations.of(context)!.textFreeInstallation} ${reason.feeInstallation}',
-                  style: const TextStyle(
-                      fontSize: 14,
-                      fontFamily: 'Barlow',
-                      color: AppColors.colorText2,
-                      fontWeight: FontWeight.w400),
-                ),
+                    '${AppLocalizations.of(context)!.textReasonCode} ${reason.reasonCode}',
+                    style: AppStyles.r2B3A4A_12_500),
                 Text(
-                  '${AppLocalizations.of(context)!.textReasonCodeName} ${reason.name} - ${reason.reasonCode}',
-                  style: const TextStyle(
-                      fontSize: 14,
-                      fontFamily: 'Barlow',
-                      color: AppColors.colorText2,
-                      fontWeight: FontWeight.w400),
+                  '${AppLocalizations.of(context)!.textInstallationFee} ${reason.feeInstallation}',
+                  style: AppStyles.r6C8AA1_13_400
+                      .copyWith(fontSize: 12, fontWeight: FontWeight.w500),
                 ),
               ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
-            decoration: BoxDecoration(
-              color: AppColors.colorSubContent.withOpacity(0.07),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Text(
-              reason.fee.toString(),
-              style: const TextStyle(
-                  fontSize: 16,
-                  fontFamily: 'Barlow',
-                  color: AppColors.colorText3,
-                  fontWeight: FontWeight.w700),
             ),
           ),
         ],
