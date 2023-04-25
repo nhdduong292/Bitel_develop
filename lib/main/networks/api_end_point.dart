@@ -1,7 +1,7 @@
 class ApiEndPoints {
-  static const String DOMAIN = "http://10.121.43.33:9901/ftth";
+  static const String DOMAIN = "http://181.176.242.147:9901/ftth/";
   static const String DOMAIN_TEST = "http://10.121.14.196:9092";
-  static const bool isDev = false;
+  static const bool isDev = false; //todo true là test false la that
   static const String API_LIST_REQUEST =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/requests";
   static const String API_CREATE_REQUEST =
@@ -35,7 +35,7 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts/id/preview";
   // static const String API_LOGIN = "http://10.121.14.196:9093/login";
 
-  static const String API_LOGIN = "http://10.121.43.33:9901/ftth_auth/login";
+  static const String API_LOGIN = "http://181.176.242.147:9901/ftth_auth/login";
 
   static const String API_PLAN_REASON =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/plan-reasons";

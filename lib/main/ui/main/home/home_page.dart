@@ -10,6 +10,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../res/app_colors.dart';
 import '../../../../res/app_styles.dart';
 import '../../../router/route_config.dart';
+import '../drawer/utilitis/info_bussiness.dart';
 
 class HomePage extends GetView<HomeLogic> {
   @override
@@ -86,7 +87,7 @@ class HomePage extends GetView<HomeLogic> {
                 children: [
                   Image.asset(AppImages.icAvatarDefault),
                   SizedBox(height: 10),
-                  Text("Hola, Diego Guadalupe", style: AppStyles.b2),
+                  Text(InfoBusiness.getInstance()!.getUser().sub, style: AppStyles.b2),
                   SizedBox(height: 12),
                   Row(
                     children: [

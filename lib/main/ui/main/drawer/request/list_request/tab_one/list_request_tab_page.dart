@@ -1,18 +1,15 @@
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
-import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/networks/response/list_request_response.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_tab_item.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/tab_one/list_request_tab_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 
 import '../../../../../../utils/common.dart';
@@ -76,29 +73,31 @@ class ListRequestTabState extends State<ListRequestTabPage> {
                   // Get.toNamed(RouteConfig.requestDetail);
                 },
               )
-            : ListView.builder(
-                controller: _scrollController,
-                // itemExtent: 999,
-                itemCount: listRequest.length % 10 == 0
-                    ? listRequest.length + 1
-                    : listRequest.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  if (index == listRequest.length) {
-                    return const CupertinoActivityIndicator();
-                  }
-                  return InkWell(
-                    onTap: () {
-                      List<String> listArgument = [
-                        "${listRequest[index].id}",
-                        status
-                      ];
-                      Get.toNamed(RouteConfig.requestDetail,
-                          arguments: listArgument);
-                    },
-                    child: ListRequestTabItem(listRequest[index]),
-                  );
-                });
+            : RefreshIndicator(
+                onRefresh: _onRefresh,
+                child: ListView.builder(
+                    controller: _scrollController,
+                    // itemExtent: 999,
+                    itemCount: listRequest.length % 10 == 0
+                        ? listRequest.length + 1
+                        : listRequest.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      if (index == listRequest.length) {
+                        return const CupertinoActivityIndicator();
+                      }
+                      return InkWell(
+                        onTap: () {
+                          List<String> listArgument = [
+                            "${listRequest[index].id}",
+                            status
+                          ];
+                          Get.toNamed(RouteConfig.requestDetail,
+                              arguments: listArgument);
+                        },
+                        child: ListRequestTabItem(listRequest[index]),
+                      );
+                    }));
   }
 
   void getListRequest(String key, {int page = 0}) async {
@@ -171,5 +170,9 @@ class ListRequestTabState extends State<ListRequestTabPage> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+  }
+
+  Future _onRefresh() async {
+    getListRequest(listRequestLogic.keySearch, page: 0);
   }
 }
