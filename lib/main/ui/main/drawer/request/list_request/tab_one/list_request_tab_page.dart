@@ -6,6 +6,7 @@ import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_tab_item.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
+import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -75,6 +76,7 @@ class ListRequestTabState extends State<ListRequestTabPage> {
               )
             : RefreshIndicator(
                 onRefresh: _onRefresh,
+                color: AppColors.colorBackground,
                 child: ListView.builder(
                     controller: _scrollController,
                     // itemExtent: 999,
