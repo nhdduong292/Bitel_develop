@@ -194,7 +194,7 @@ class DialogSurveyMapPage extends GetWidget {
                       // const SizedBox(width: 15,),
                       Expanded(
                           flex: 1,
-                          child: InkWell(
+                          child: GestureDetector(
                             onTap: () {
                               if (controller.isActive ||
                                   controller.checkValidate(context)) {
@@ -211,7 +211,7 @@ class DialogSurveyMapPage extends GetWidget {
                                     try {
                                       showDialogSurveyUnsuccessful(
                                           context, requestModel.id);
-                                    } catch(e){
+                                    } catch (e) {
                                       print(e.toString());
                                     }
                                   }

@@ -523,7 +523,7 @@
   "textE025": "Lock infrastructure failed",
   "textE026": "Invalid order progress",
   "textE027": "Order not in survey pending",
-  "textE028": "Wallet not enough!",
+  "textE028": "Anypay account balance not enough!",
   "textE029": "Request not has survey order",
   "textE030": "Create offline survey on vsmart failed",
   "textE031": "Customer is not exist",
@@ -586,7 +586,17 @@
   "textDateOfIssue": "Ngày phát hành",
   "textE040": "Create deployment task on Vsmart failed",
   "textBillingCycleFTTH": "Chu kỳ thanh toán:",
-  "textChonseAReasonConnection": "Lí do đấu nối",
+  "textChonseAReasonConnection": "Chọn lí do đấu nối",
   "textReasonCode": "Mã lý do",
-  "textInstallationFee": "Phí lắp đặt"
+  "textInstallationFee": "Phí lắp đặt",
+     "textE040": "Create deployment task on Vsmart failed",
+    "textE041": "Payment package not found!",
+    "textE042": "Reason not found",
+    "textE043": "Shop not found",
+    "textE044": "Minus anypay fail!",
+    "textE045": "Customer's finger is not exist!",
+   "textE046": "Agent or channel doesn't have anypay account",
+   "textE047": "Promotion not exist!",
+    "textE048": "Contract has been created",
+    "textE049": "Sign contract failed"
 }

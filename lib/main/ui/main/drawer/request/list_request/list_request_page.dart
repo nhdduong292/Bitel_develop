@@ -225,6 +225,12 @@ class ListRequestPage extends GetWidget {
                           style: AppStyles.r7,
                         ),
                       ),
+                      Tab(
+                        child: Text(
+                          AppLocalizations.of(context)!.textAll,
+                          style: AppStyles.r7,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -324,6 +330,11 @@ class ListRequestPage extends GetWidget {
                               listRequestLogic: controller,
                               key: controller.globalKey7,
                             ),
+                            ListRequestTabPage(
+                              status: RequestStatus.ALL,
+                              listRequestLogic: controller,
+                              key: controller.globalKey8,
+                            ),
                           ],
                         )),
                       ],
@@ -385,6 +396,8 @@ class ListRequestPage extends GetWidget {
                     controller.globalKey6.currentState!.getListRequest("");
                   } else if (controller.index == 6) {
                     controller.globalKey7.currentState!.getListRequest("");
+                  } else if (controller.index == 7) {
+                    controller.globalKey8.currentState!.getListRequest("");
                   }
                 } else {
                   controller.updateSearchRequest(model, context);

@@ -65,7 +65,7 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                       Positioned(
                           top: 45,
                           left: 20,
-                          child: InkWell(
+                          child: GestureDetector(
                             onTap: () {
                               if (controller.isLoadingProduct ||
                                   controller.isLoadingPackage) {
@@ -105,7 +105,7 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                       // Positioned(
                       //     top: 50,
                       //     right: 15,
-                      //     child: InkWell(
+                      //     child: GestureDetector(
                       //       onTap: () {},
                       //       child: SvgPicture.asset(AppImages.icNotify),
                       //     )),

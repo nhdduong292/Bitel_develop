@@ -247,9 +247,11 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                         child: ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(20),
-                                          child: controller
-                                                      .captchaModel.base64Img !=
-                                                  null
+                                          child: controller.captchaModel
+                                                          .base64Img !=
+                                                      null &&
+                                                  controller.captchaModel
+                                                      .base64Img!.isNotEmpty
                                               ? Image.memory(
                                                   fit: BoxFit.fill,
                                                   controller

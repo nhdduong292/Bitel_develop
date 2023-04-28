@@ -28,9 +28,11 @@ class SearchRequest {
   int getPositionStatus(BuildContext context) {
     if (status == AppLocalizations.of(context)!.textCreateRequest) {
       return 0;
-    } else if (status == AppLocalizations.of(context)!.textCreateRequestWithout) {
+    } else if (status ==
+        AppLocalizations.of(context)!.textCreateRequestWithout) {
       return 1;
-    } else if (status == AppLocalizations.of(context)!.textSurveyOfflineSuccess) {
+    } else if (status ==
+        AppLocalizations.of(context)!.textSurveyOfflineSuccess) {
       return 2;
     } else if (status == AppLocalizations.of(context)!.textConnected) {
       return 3;
@@ -41,7 +43,7 @@ class SearchRequest {
     } else if (status == AppLocalizations.of(context)!.textCancel) {
       return 6;
     }
-    return 0;
+    return 7;
   }
 
   void reset() {
@@ -60,9 +62,11 @@ class SearchRequest {
     } else {
       if (status == AppLocalizations.of(context)!.textCreateRequest) {
         return RequestStatus.CREATE_REQUEST;
-      } else if (status == AppLocalizations.of(context)!.textCreateRequestWithout) {
+      } else if (status ==
+          AppLocalizations.of(context)!.textCreateRequestWithout) {
         return RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY;
-      } else if (status == AppLocalizations.of(context)!.textSurveyOfflineSuccess) {
+      } else if (status ==
+          AppLocalizations.of(context)!.textSurveyOfflineSuccess) {
         return RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY;
       } else if (status == AppLocalizations.of(context)!.textConnected) {
         return RequestStatus.CONNECTED;

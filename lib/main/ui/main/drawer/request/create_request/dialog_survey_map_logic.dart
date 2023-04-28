@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
@@ -82,6 +83,8 @@ class DialogSurveyMapLogic extends GetxController {
     currentPoint = point;
     lat = point.latitude;
     long = point.longitude;
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(lat, long, localeIdentifier: "en_US");
     setMarker(point);
     GoogleMapController controller = await controllerMap.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(

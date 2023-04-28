@@ -27,7 +27,7 @@ class WorkOrderModel {
     _status = json['status'];
     _cableBoxCode = json['cableBoxCode'];
     _teamCode = json['teamCode'];
-    _teamCode = json['teamName'];
+    _teamName = json['teamName'];
     _staffCode = json['staffCode'];
     _staffName = json['staffName'];
   }
@@ -36,7 +36,7 @@ class WorkOrderModel {
 
   String get staffCode => _staffCode ?? "";
 
-  String get teamName => _teamName ?? "---";
+  String get teamName => _teamName ?? "";
 
   String get teamCode => _teamCode ?? "";
 

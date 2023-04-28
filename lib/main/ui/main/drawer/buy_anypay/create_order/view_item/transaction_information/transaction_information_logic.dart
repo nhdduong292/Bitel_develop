@@ -161,7 +161,11 @@ class TransactionInformationLogic extends GetxController {
   }
 
   Uint8List convertImageCaptcha() {
-    var data = captchaModel.base64Img!.split(',');
-    return base64Decode(data[1]);
+    try {
+      var data = captchaModel.base64Img!.split(',');
+      return base64Decode(data[1]);
+    } catch (e) {
+      return base64Decode(captchaModel.base64Img!);
+    }
   }
 }

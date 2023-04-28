@@ -157,7 +157,7 @@ class Common {
 
   static void showMessageError(
       {required var error, required BuildContext context, bool? isShow}) {
-    isShow ?? true;
+    isShow = isShow ?? false;
     try {
       if (error != null) {
         if (error is! DioError) {
@@ -219,7 +219,7 @@ class Common {
         showToastCenter(AppLocalizations.of(context)!.textE021);
       } else if (errorCode == 'E022') {
         showToastCenter(AppLocalizations.of(context)!.textE022);
-      } else if (errorCode == 'E023' && isShow!) {
+      } else if (errorCode == 'E023' && isShow) {
         showToastCenter(AppLocalizations.of(context)!.textE023);
       } else if (errorCode == 'E024') {
         showToastCenter(AppLocalizations.of(context)!.textE024);
@@ -229,7 +229,7 @@ class Common {
         showToastCenter(AppLocalizations.of(context)!.textE026);
       } else if (errorCode == 'E027') {
         showToastCenter(AppLocalizations.of(context)!.textE027);
-      } else if (errorCode == 'E028') {
+      } else if (errorCode == 'E028' && isShow) {
         showToastCenter(AppLocalizations.of(context)!.textE028);
       } else if (errorCode == 'E029') {
         showToastCenter(AppLocalizations.of(context)!.textE029);
@@ -255,6 +255,24 @@ class Common {
         showToastCenter(AppLocalizations.of(context)!.textE039);
       } else if (errorCode == 'E040') {
         showToastCenter(AppLocalizations.of(context)!.textE040);
+      } else if (errorCode == 'E041') {
+        showToastCenter(AppLocalizations.of(context)!.textE041);
+      } else if (errorCode == 'E042') {
+        showToastCenter(AppLocalizations.of(context)!.textE042);
+      } else if (errorCode == 'E043') {
+        showToastCenter(AppLocalizations.of(context)!.textE043);
+      } else if (errorCode == 'E044') {
+        showToastCenter(AppLocalizations.of(context)!.textE044);
+      } else if (errorCode == 'E045') {
+        showToastCenter(AppLocalizations.of(context)!.textE045);
+      } else if (errorCode == 'E046') {
+        showToastCenter(AppLocalizations.of(context)!.textE046);
+      } else if (errorCode == 'E047') {
+        showToastCenter(AppLocalizations.of(context)!.textE047);
+      } else if (errorCode == 'E048') {
+        showToastCenter(AppLocalizations.of(context)!.textE048);
+      } else if (errorCode == 'E049') {
+        showToastCenter(AppLocalizations.of(context)!.textE049);
       }
     } catch (e) {
       Common.showToastCenter(e.toString());

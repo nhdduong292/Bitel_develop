@@ -22,12 +22,13 @@ class ListRequestLogic extends GetxController
   GlobalKey<ListRequestTabState> globalKey5 = GlobalKey();
   GlobalKey<ListRequestTabState> globalKey6 = GlobalKey();
   GlobalKey<ListRequestTabState> globalKey7 = GlobalKey();
+  GlobalKey<ListRequestTabState> globalKey8 = GlobalKey();
 
   String keySearch = '';
   @override
   void onInit() {
     // TODO: implement onInit
-    tabController = TabController(vsync: this, length: 7);
+    tabController = TabController(vsync: this, length: 8);
     super.onInit();
     index = Get.arguments;
     tabController!.animateTo(index, duration: Duration(milliseconds: 500));
@@ -88,6 +89,8 @@ class ListRequestLogic extends GetxController
         globalKey6.currentState!.getListRequest(key);
       } else if (index == 6) {
         globalKey7.currentState!.getListRequest(key);
+      } else if (index == 7) {
+        globalKey8.currentState!.getListRequest(key);
       }
     });
   }
