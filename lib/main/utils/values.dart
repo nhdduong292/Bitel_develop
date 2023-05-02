@@ -15,6 +15,7 @@ class RequestStatus {
       "CREATE_REQUEST_WITHOUT_SURVEY";
   static final String SURVEY_OFFLINE_SUCCESSFULLY =
       "SURVEY_OFFLINE_SUCCESSFULLY";
+  static final String SUCCEED_SURVEY = "SUCCEED_SURVEY";
   static final String CONNECTED = "CONNECTED";
   static final String DEPLOYING = "DEPLOYING";
   static final String COMPLETE = "COMPLETE";

@@ -31,12 +31,12 @@ class RequestDetailLogic extends GetxController {
     // TODO: implement onInit
     listArgument = Get.arguments;
     currentId = listArgument[0];
-    status = listArgument[1];
+    // status = listArgument[1];
     print("id: $currentId status: $status");
     super.onInit();
     getRequestDetail(currentId);
-    isShowBtnConnect = checkShowBtnConnect(status);
-    isShowBtnCancelTransfer = checkShowBtnCancelTransfer(status);
+    // isShowBtnConnect = checkShowBtnConnect(status);
+    // isShowBtnCancelTransfer = checkShowBtnCancelTransfer(status);
   }
 
   void getRequestDetail(String id) async {
@@ -47,6 +47,9 @@ class RequestDetailLogic extends GetxController {
           if (response.isSuccess) {
             print("success");
             requestModel = RequestDetailModel.fromJson(response.data['data']);
+            isShowBtnConnect = checkShowBtnConnect(requestModel.status);
+            isShowBtnCancelTransfer =
+                checkShowBtnCancelTransfer(requestModel.status);
           } else {
             print("error: ${response.status}");
           }

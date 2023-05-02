@@ -2,6 +2,7 @@ import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/address_model.dart';
 import 'package:bitel_ventas/main/networks/model/contact_model.dart';
+import 'package:bitel_ventas/main/networks/model/customer_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/networks/response/search_contact_response.dart';
@@ -11,6 +12,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../../../utils/common_widgets.dart';
 
 class CreateRequestLogic extends GetxController {
   BuildContext context;
@@ -33,6 +36,7 @@ class CreateRequestLogic extends GetxController {
   String currentName = "";
   String currentPhone = "";
   bool isCheckAgree = true;
+  CustomerModel customerModel = CustomerModel();
 
   TextEditingController textFieldIdNumber = TextEditingController();
   TextEditingController textFieldPhone = TextEditingController();
@@ -56,6 +60,13 @@ class CreateRequestLogic extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    focusIdNumber.addListener(() {
+      if (!focusIdNumber.hasFocus) {
+        // The TextField lost focus
+        print('TextField lost focus');
+        getCustomerExist();
+      }
+    });
     // getMaxLengthIdNumber(currentIdentityType);
   }
 
@@ -365,6 +376,42 @@ class CreateRequestLogic extends GetxController {
         });
   }
 
+  void getCustomerExist() {
+    _onLoading(context);
+    ApiUtil.getInstance()!.get(
+        url: ApiEndPoints.API_GET_CUSTOMER_EXIST,
+        params: {
+          "idType": currentIdentityType,
+          "idNo": textFieldIdNumber.text.trim()
+        },
+        onSuccess: (response) {
+          if (response.isSuccess) {
+            print("success");
+            customerModel = CustomerModel.fromJson(response.data["data"]);
+            textFieldName.text = customerModel.fullName;
+            currentName = customerModel.fullName;
+            textFieldPhone.text = customerModel.telFax;
+            currentPhone = customerModel.telFax;
+            textFieldAddress.text = customerModel.address;
+            textFieldProvince.text = customerModel.provinceName;
+            currentProvince.province = customerModel.province;
+            textFieldDistrict.text = customerModel.districtName;
+            currentDistrict.district = customerModel.district;
+            textFieldPrecinct.text = customerModel.precinctName;
+            currentPrecinct.precinct = customerModel.precinct;
+            currentAddress = customerModel.address;
+            update();
+          } else {
+            print("error: ${response.status}");
+          }
+          Get.back();
+        },
+        onError: (error) {
+          Get.back();
+          Common.showMessageError(error: error, context: context);
+        });
+  }
+
   void setCheckAgree(bool value) {
     isCheckAgree = value;
     update();
@@ -383,5 +430,19 @@ class CreateRequestLogic extends GetxController {
   bool containsOnlyUpperCaseAndNumber(String text) {
     RegExp upperCaseAndNumberRegExp = RegExp(r'^[A-Z0-9]*$');
     return upperCaseAndNumberRegExp.hasMatch(text);
+  }
+
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
+      },
+    );
   }
 }

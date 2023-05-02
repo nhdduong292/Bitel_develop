@@ -600,5 +600,6 @@
    "textE046": "Agent or channel doesn't have anypay account",
    "textE047": "Promotion not exist!",
     "textE048": "Contract has been created",
-    "textE049": "Sign contract failed"
+    "textE049": "Sign contract failed",
+  "textSucceedSurvey": "Encuesta exitosa"
 }

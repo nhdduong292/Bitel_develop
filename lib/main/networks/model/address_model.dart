@@ -1,10 +1,9 @@
-class AddressModel{
+class AddressModel {
   String? _areaCode;
   String? _name;
   String? _province;
   String? _district;
   String? _precinct;
-
 
   AddressModel();
   AddressModel.fromJson(Map<String, dynamic> json) {
@@ -14,7 +13,6 @@ class AddressModel{
     _district = json['district'];
     _precinct = json['precinct'];
   }
-
 
   String get name => _name ?? "";
 
@@ -33,4 +31,16 @@ class AddressModel{
   String get district => _district ?? "";
 
   String get province => _province ?? "";
+
+  set province(String value) {
+    _province = value;
+  }
+
+  set district(String value) {
+    _district = value;
+  }
+
+  set precinct(String value) {
+    _precinct = value;
+  }
 }

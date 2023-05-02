@@ -1,7 +1,7 @@
 class ApiEndPoints {
   static const String DOMAIN = "http://181.176.242.147:9901/ftth";
   static const String DOMAIN_TEST = "http://10.121.14.196:9092";
-  static const bool isDev = true; //todo true là test false la that
+  static const bool isDev = false; //todo true là test false la that
   static const String API_LIST_REQUEST =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/requests";
   static const String API_CREATE_REQUEST =
@@ -33,9 +33,9 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts";
   static const String API_CONTRACT_PREVIEW =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts/id/preview";
-  static const String API_LOGIN = "http://10.121.14.196:9093/login";
+  // static const String API_LOGIN = "http://10.121.14.196:9093/login";
 
-  // static const String API_LOGIN = "http://181.176.242.147:9901/ftth_auth/login";
+  static const String API_LOGIN = "http://181.176.242.147:9901/ftth_auth/login";
 
   static const String API_PLAN_REASON =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/plan-reasons";
@@ -86,4 +86,6 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/payment-packages";
   static const String API_CHECK_BALANCE =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts/check-balance";
+  static const String API_GET_CUSTOMER_EXIST =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/customers/exist";
 }

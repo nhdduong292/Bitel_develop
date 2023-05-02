@@ -115,12 +115,12 @@ class RequestModel {
     } else {
       if(_status == RequestStatus.CREATE_REQUEST){
         return AppLocalizations.of(context)!.textCreateRequest;
-      } else if(_status == RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY){
-        return AppLocalizations.of(context)!.textCreateRequestWithout;
+      // } else if(_status == RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY){
+      //   return AppLocalizations.of(context)!.textCreateRequestWithout;
       } else if(_status == RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY){
-        return AppLocalizations.of(context)!.textSurveyOfflineSuccess;
-      } else if(_status == RequestStatus.CONNECTED){
-        return AppLocalizations.of(context)!.textConnected;
+        return AppLocalizations.of(context)!.textSucceedSurvey;
+      // } else if(_status == RequestStatus.CONNECTED){
+      //   return AppLocalizations.of(context)!.textConnected;
       } else if(_status == RequestStatus.DEPLOYING){
         return AppLocalizations.of(context)!.textDeploying;
       } else if(_status == RequestStatus.COMPLETE){
@@ -131,6 +131,30 @@ class RequestModel {
       return "";
     }
   }
+
+  // String getStatus(BuildContext context){
+  //
+  //   if(_status == null) {
+  //     return "";
+  //   } else {
+  //     if(_status == RequestStatus.CREATE_REQUEST){
+  //       return AppLocalizations.of(context)!.textCreateRequest;
+  //     } else if(_status == RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY){
+  //       return AppLocalizations.of(context)!.textCreateRequestWithout;
+  //     } else if(_status == RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY){
+  //       return AppLocalizations.of(context)!.textSurveyOfflineSuccess;
+  //     } else if(_status == RequestStatus.CONNECTED){
+  //       return AppLocalizations.of(context)!.textConnected;
+  //     } else if(_status == RequestStatus.DEPLOYING){
+  //       return AppLocalizations.of(context)!.textDeploying;
+  //     } else if(_status == RequestStatus.COMPLETE){
+  //       return AppLocalizations.of(context)!.textComplete;
+  //     } else if(_status == RequestStatus.CANCEL){
+  //       return AppLocalizations.of(context)!.textCancel;
+  //     }
+  //     return "";
+  //   }
+  // }
 
   set status(String value) {
     _status = value;

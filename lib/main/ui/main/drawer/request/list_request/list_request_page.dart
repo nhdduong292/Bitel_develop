@@ -189,27 +189,34 @@ class ListRequestPage extends GetWidget {
                     },
                     unselectedLabelColor: AppColors.colorText2,
                     tabs: [
+                      Tab(
+                        child: Text(
+                          AppLocalizations.of(context)!.textAll,
+                          style: AppStyles.r7,
+                        ),
+                      ),
                       // first tab [you can add an icon using the icon property]
                       Tab(
                           child: Text(
                               AppLocalizations.of(context)!.textCreateRequest,
                               style: AppStyles.r7)),
 
+                      // Tab(
+                      //     child: Text(
+                      //   AppLocalizations.of(context)!.textCreateRequestWithout,
+                      //   style: AppStyles.r7,
+                      // )),
                       Tab(
                           child: Text(
-                        AppLocalizations.of(context)!.textCreateRequestWithout,
+                        // AppLocalizations.of(context)!.textSurveyOfflineSuccess
+                        AppLocalizations.of(context)!.textSucceedSurvey,
                         style: AppStyles.r7,
                       )),
-                      Tab(
-                          child: Text(
-                        AppLocalizations.of(context)!.textSurveyOfflineSuccess,
-                        style: AppStyles.r7,
-                      )),
-                      Tab(
-                          child: Text(
-                        AppLocalizations.of(context)!.textConnected,
-                        style: AppStyles.r7,
-                      )),
+                      // Tab(
+                      //     child: Text(
+                      //   AppLocalizations.of(context)!.textConnected,
+                      //   style: AppStyles.r7,
+                      // )),
                       Tab(
                           child: Text(
                         AppLocalizations.of(context)!.textDeploying,
@@ -222,12 +229,6 @@ class ListRequestPage extends GetWidget {
                       Tab(
                         child: Text(
                           AppLocalizations.of(context)!.textCancel,
-                          style: AppStyles.r7,
-                        ),
-                      ),
-                      Tab(
-                        child: Text(
-                          AppLocalizations.of(context)!.textAll,
                           style: AppStyles.r7,
                         ),
                       ),
@@ -295,45 +296,45 @@ class ListRequestPage extends GetWidget {
                           children: [
                             // first tab bar view widget
                             ListRequestTabPage(
+                              status: RequestStatus.ALL,
+                              listRequestLogic: controller,
+                              key: controller.globalKeyAll,
+                            ),
+                            ListRequestTabPage(
                               status: RequestStatus.CREATE_REQUEST,
                               listRequestLogic: controller,
-                              key: controller.globalKey1,
+                              key: controller.globalKeyCreateRequest,
                             ),
+                            // ListRequestTabPage(
+                            //   status:
+                            //       RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY,
+                            //   listRequestLogic: controller,
+                            //   key: controller.globalKey2,
+                            // ),
+                            // ListRequestTabPage(
+                            //   status: RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY,
+                            //   listRequestLogic: controller,
+                            //   key: controller.globalKey3,
+                            // ),
                             ListRequestTabPage(
-                              status:
-                                  RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY,
+                              status: RequestStatus.SUCCEED_SURVEY,
                               listRequestLogic: controller,
-                              key: controller.globalKey2,
-                            ),
-                            ListRequestTabPage(
-                              status: RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY,
-                              listRequestLogic: controller,
-                              key: controller.globalKey3,
-                            ),
-                            ListRequestTabPage(
-                              status: RequestStatus.CONNECTED,
-                              listRequestLogic: controller,
-                              key: controller.globalKey4,
+                              key: controller.globalKeySucceedSurvey,
                             ),
                             ListRequestTabPage(
                               status: RequestStatus.DEPLOYING,
                               listRequestLogic: controller,
-                              key: controller.globalKey5,
+                              key: controller.globalKeyDeploying,
                             ),
                             ListRequestTabPage(
                               status: RequestStatus.COMPLETE,
                               listRequestLogic: controller,
-                              key: controller.globalKey6,
+                              key: controller.globalKeyComplete,
                             ),
                             ListRequestTabPage(
                               status: RequestStatus.CANCEL,
                               listRequestLogic: controller,
-                              key: controller.globalKey7,
-                            ),
-                            ListRequestTabPage(
-                              status: RequestStatus.ALL,
-                              listRequestLogic: controller,
-                              key: controller.globalKey8,
+                              key: controller.globalKeyCancel,
                             ),
                           ],
                         )),
@@ -382,22 +383,26 @@ class ListRequestPage extends GetWidget {
               onSubmit: (model) {
                 if (controller.index == model.getPositionStatus(context)) {
                   controller.updateSearchRequest(model, context);
-                  if (controller.index == 0) {
-                    controller.globalKey1.currentState!.getListRequest("");
-                  } else if (controller.index == 1) {
-                    controller.globalKey2.currentState!.getListRequest("");
+                  if (controller.index == 1) {
+                    controller.globalKeyCreateRequest.currentState!
+                        .getListRequest("");
                   } else if (controller.index == 2) {
-                    controller.globalKey3.currentState!.getListRequest("");
+                    controller.globalKeySucceedSurvey.currentState!
+                        .getListRequest("");
+                    // } else if (controller.index == 2) {
+                    //   controller.globalKey3.currentState!.getListRequest("");
+                    // } else if (controller.index == 3) {
+                    //   controller.globalKey4.currentState!.getListRequest("");
                   } else if (controller.index == 3) {
-                    controller.globalKey4.currentState!.getListRequest("");
+                    controller.globalKeyDeploying.currentState!
+                        .getListRequest("");
                   } else if (controller.index == 4) {
-                    controller.globalKey5.currentState!.getListRequest("");
+                    controller.globalKeyComplete.currentState!
+                        .getListRequest("");
                   } else if (controller.index == 5) {
-                    controller.globalKey6.currentState!.getListRequest("");
-                  } else if (controller.index == 6) {
-                    controller.globalKey7.currentState!.getListRequest("");
-                  } else if (controller.index == 7) {
-                    controller.globalKey8.currentState!.getListRequest("");
+                    controller.globalKeyCancel.currentState!.getListRequest("");
+                  } else if (controller.index == 0) {
+                    controller.globalKeyAll.currentState!.getListRequest("");
                   }
                 } else {
                   controller.updateSearchRequest(model, context);

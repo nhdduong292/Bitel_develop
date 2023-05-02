@@ -615,10 +615,10 @@ class RequestDetailPage extends GetWidget {
                           controller.isShowBtnConnect
                               ? InkWell(
                                   onTap: () {
-                                    if (controller.status ==
+                                    if (controller.requestModel.status ==
                                             RequestStatus
                                                 .CREATE_REQUEST_WITHOUT_SURVEY ||
-                                        controller.status ==
+                                        controller.requestModel.status ==
                                             RequestStatus
                                                 .SURVEY_OFFLINE_SUCCESSFULLY) {
                                       Get.toNamed(RouteConfig.productPayment,
@@ -626,16 +626,16 @@ class RequestDetailPage extends GetWidget {
                                             controller.requestModel,
                                             'CREATE'
                                           ]);
-                                    } else if (controller.status ==
+                                    } else if (controller.requestModel.status ==
                                         RequestStatus.CONNECTED) {
                                       //todo show dialog cancel
                                       showDialogCancelRequest(
                                           context, controller.requestModel.id);
-                                    } else if (controller.status ==
+                                    } else if (controller.requestModel.status ==
                                             RequestStatus.DEPLOYING ||
-                                        controller.status ==
+                                        controller.requestModel.status ==
                                             RequestStatus.COMPLETE ||
-                                        controller.status ==
+                                        controller.requestModel.status ==
                                             RequestStatus.CANCEL) {
                                       Get.back();
                                     }
