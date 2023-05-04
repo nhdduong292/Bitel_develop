@@ -412,9 +412,9 @@ class CreateRequestPage extends GetWidget {
                               suggestionsCallback: (pattern) async {
                                 print(pattern);
                                 controller.listArea.clear();
-                                // if (pattern.isEmpty) {
-                                //   return [];
-                                // }
+                                if (pattern.isEmpty) {
+                                  return [];
+                                }
                                 List<AddressModel> list =
                                     await controller.getAreas(pattern);
                                 if (list.isEmpty) {
