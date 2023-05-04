@@ -6,7 +6,9 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_native_splash/cli_commands.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:multiselect/multiselect.dart';
@@ -1479,5 +1481,61 @@ Widget selectTypeSearchService(
               ],
             )
     ],
+  );
+}
+
+Widget aHeadFieldType(
+    {required var hint,
+    required var controller,
+    required var autoFocus,
+    required BuildContext context,
+    required dynamic Function(dynamic) suggestionsCallback,
+    required dynamic Function(dynamic, dynamic) itemBuilder,
+    required var onSuggestionSelected,
+    required var onChange}) {
+  return TypeAheadField(
+    textFieldConfiguration: TextFieldConfiguration(
+      controller: controller,
+      autofocus: autoFocus,
+      onChanged: (value) {
+        onChange();
+      },
+      style: AppStyles.r2
+          .copyWith(color: AppColors.colorTitle, fontWeight: FontWeight.w500),
+      decoration: InputDecoration(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 15),
+        hintText: hint,
+        hintStyle: AppStyles.r2
+            .copyWith(color: AppColors.colorHint1, fontWeight: FontWeight.w400),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(24),
+          borderSide: const BorderSide(
+            color: Color(0xFFE3EAF2),
+            width: 1,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(24),
+          borderSide: const BorderSide(
+            color: Color(0xFFE3EAF2),
+            width: 1,
+          ),
+        ),
+      ),
+    ),
+    suggestionsBoxDecoration:
+        SuggestionsBoxDecoration(borderRadius: BorderRadius.circular(10)),
+    loadingBuilder: (context) => LoadingCirculApi(),
+    noItemsFoundBuilder: (context) => LoadingCirculApi(),
+    suggestionsCallback: (pattern) {
+      print(pattern);
+      return suggestionsCallback(pattern);
+    },
+    itemBuilder: (context, suggestion) {
+      return itemBuilder(context, suggestion);
+    },
+    onSuggestionSelected: (suggestion) {
+      onSuggestionSelected(suggestion);
+    },
   );
 }

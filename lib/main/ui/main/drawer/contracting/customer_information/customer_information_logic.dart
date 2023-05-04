@@ -50,29 +50,19 @@ class CustomerInformationLogic extends GetxController {
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
 
-  AddressModel currentProvince = AddressModel();
-  List<AddressModel> listProvince = [];
-  AddressModel currentDistrict = AddressModel();
-  List<AddressModel> listDistrict = [];
-  AddressModel currentPrecinct = AddressModel();
-  List<AddressModel> listPrecinct = [];
+  AddressModel currentArea = AddressModel();
+  List<AddressModel> listArea = [];
 
-  AddressModel billProvince = AddressModel();
-  AddressModel billDistrict = AddressModel();
-  AddressModel billPrecinct = AddressModel();
+  AddressModel billArea = AddressModel();
   String billAddressSelect = "";
 
   String currentAddress = "";
   bool isAddContact = true;
 
-  TextEditingController textFieldProvince = TextEditingController();
-  TextEditingController textFieldDistrict = TextEditingController();
-  TextEditingController textFieldPrecinct = TextEditingController();
+  TextEditingController textFieldArea = TextEditingController();
   TextEditingController textFieldAddress = TextEditingController();
 
-  FocusNode focusProvince = FocusNode();
-  FocusNode focusDistrict = FocusNode();
-  FocusNode focusPrecinct = FocusNode();
+  FocusNode focusArea = FocusNode();
   FocusNode focusAddress = FocusNode();
 
   bool isValidateAddress = false;
@@ -211,14 +201,14 @@ class CustomerInformationLogic extends GetxController {
       "printBill": "Email",
       "currency": "SOL",
       "language": contractLanguagetValue.value.toUpperCase(),
-      "province": billProvince.province.isNotEmpty
-          ? billProvince.province
+      "province": billArea.province.isNotEmpty
+          ? billArea.province
           : requestModel.province,
-      "district": billDistrict.district.isNotEmpty
-          ? billDistrict.district
+      "district": billArea.district.isNotEmpty
+          ? billArea.district
           : requestModel.district,
-      "precinct": billPrecinct.precinct.isNotEmpty
-          ? billPrecinct.precinct
+      "precinct": billArea.precinct.isNotEmpty
+          ? billArea.precinct
           : requestModel.precinct,
       "address": billAddressSelect.isNotEmpty
           ? billAddressSelect
@@ -302,109 +292,6 @@ class CustomerInformationLogic extends GetxController {
     return true;
   }
 
-  void getListProvince(Function(bool isSuccess) function) {
-    ApiUtil.getInstance()!.get(
-        url: ApiEndPoints.API_PROVINCES,
-        onSuccess: (response) {
-          if (response.isSuccess) {
-            print("success");
-            listProvince = (response.data['data'] as List)
-                .map((postJson) => AddressModel.fromJson(postJson))
-                .toList();
-            if (listProvince.isNotEmpty) {
-              update();
-            }
-            function.call(true);
-          } else {
-            print("error: ${response.status}");
-            function.call(false);
-          }
-        },
-        onError: (error) {
-          function.call(false);
-          Common.showMessageError(error: error, context: context);
-        });
-  }
-
-  void getListPrecincts(String areaCode, Function(bool isSuccess) function) {
-    Map<String, dynamic> params = {"areaCode": areaCode};
-    ApiUtil.getInstance()!.get(
-        url: ApiEndPoints.API_PRECINCTS,
-        params: params,
-        onSuccess: (response) {
-          if (response.isSuccess) {
-            print("success");
-            listPrecinct = (response.data['data'] as List)
-                .map((postJson) => AddressModel.fromJson(postJson))
-                .toList();
-            if (listPrecinct.isNotEmpty) {
-              update();
-            }
-            function.call(true);
-          } else {
-            print("error: ${response.status}");
-            function.call(false);
-          }
-        },
-        onError: (error) {
-          function.call(false);
-          Common.showMessageError(error: error, context: context);
-        });
-  }
-
-  void getListDistrict(String areaCode, Function(bool isSuccess) function) {
-    Map<String, dynamic> params = {"areaCode": areaCode};
-    ApiUtil.getInstance()!.get(
-        url: ApiEndPoints.API_DISTRICTS,
-        params: params,
-        onSuccess: (response) {
-          if (response.isSuccess) {
-            print("success");
-            listDistrict = (response.data['data'] as List)
-                .map((postJson) => AddressModel.fromJson(postJson))
-                .toList();
-            if (listDistrict.isNotEmpty) {
-              update();
-            }
-            function.call(true);
-          } else {
-            print("error: ${response.status}");
-            function.call(false);
-          }
-        },
-        onError: (error) {
-          function.call(false);
-          Common.showMessageError(error: error, context: context);
-        });
-  }
-
-  void setPrecinct(AddressModel value) {
-    // if(value.areaCode == currentPrecinct.areaCode) return;
-    currentPrecinct = value;
-    textFieldPrecinct.text = value.name;
-    update();
-  }
-
-  void setDistrict(AddressModel value) {
-    // if(value.areaCode == currentDistrict.areaCode) return;
-    currentDistrict = value;
-    textFieldDistrict.text = value.name;
-    textFieldPrecinct.text = "";
-    listPrecinct.clear();
-    update();
-  }
-
-  void setProvince(AddressModel value) {
-    // if(value.areaCode == currentProvince.areaCode) return;
-    currentProvince = value;
-    textFieldProvince.text = value.name;
-    textFieldDistrict.text = "";
-    textFieldPrecinct.text = "";
-    listDistrict.clear();
-    listPrecinct.clear();
-    update();
-  }
-
   void setAddress(String value) {
     currentAddress = value;
     update();
@@ -412,28 +299,8 @@ class CustomerInformationLogic extends GetxController {
 
   void setBillPrecinct(AddressModel value) {
     // if(value.areaCode == currentPrecinct.areaCode) return;
-    billPrecinct = value;
-    textFieldPrecinct.text = value.name;
-    update();
-  }
-
-  void setBillDistrict(AddressModel value) {
-    // if(value.areaCode == currentDistrict.areaCode) return;
-    billDistrict = value;
-    textFieldDistrict.text = value.name;
-    textFieldPrecinct.text = "";
-    listPrecinct.clear();
-    update();
-  }
-
-  void setBillProvince(AddressModel value) {
-    // if(value.areaCode == currentProvince.areaCode) return;
-    billProvince = value;
-    textFieldProvince.text = value.name;
-    textFieldDistrict.text = "";
-    textFieldPrecinct.text = "";
-    listDistrict.clear();
-    listPrecinct.clear();
+    billArea = value;
+    textFieldArea.text = value.name;
     update();
   }
 
@@ -443,10 +310,19 @@ class CustomerInformationLogic extends GetxController {
   }
 
   bool validateAddress() {
-    if (textFieldDistrict.text.isNotEmpty &&
-        textFieldDistrict.text.isNotEmpty &&
-        textFieldPrecinct.text.isNotEmpty &&
-        textFieldAddress.text.isNotEmpty) {
+    if (currentArea.province.isNotEmpty &&
+        currentArea.district.isNotEmpty &&
+        currentArea.precinct.isNotEmpty) {
+      return true;
+    }
+    Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
+    return false;
+  }
+
+  bool validateBillAddress() {
+    if (billArea.province.isNotEmpty &&
+        billArea.district.isNotEmpty &&
+        billArea.precinct.isNotEmpty) {
       return true;
     }
     Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
@@ -458,14 +334,8 @@ class CustomerInformationLogic extends GetxController {
       return true;
     } else if (emailController.text != customer.email) {
       return true;
-    } else if (currentProvince.province != customer.province &&
-        currentProvince.province.isNotEmpty) {
-      return true;
-    } else if (currentDistrict.district != customer.district &&
-        currentDistrict.district.isNotEmpty) {
-      return true;
-    } else if (currentPrecinct.precinct != customer.precinct &&
-        currentPrecinct.precinct.isNotEmpty) {
+    } else if (currentArea.precinct != customer.precinct &&
+        currentArea.precinct.isNotEmpty) {
       return true;
     } else if (currentAddress != customer.address &&
         currentAddress.isNotEmpty) {
@@ -476,23 +346,15 @@ class CustomerInformationLogic extends GetxController {
   }
 
   void resetAdress() {
-    textFieldProvince.text = '';
-    textFieldDistrict.text = '';
-    textFieldPrecinct.text = '';
+    textFieldArea.text = '';
     textFieldAddress.text = '';
-    listProvince.clear();
-    listDistrict.clear();
-    listPrecinct.clear();
+    listArea.clear();
   }
 
   void resetBillAdress() {
-    textFieldProvince.text = '';
-    textFieldDistrict.text = '';
-    textFieldPrecinct.text = '';
+    textFieldArea.text = '';
     textFieldAddress.text = '';
-    listProvince.clear();
-    listDistrict.clear();
-    listPrecinct.clear();
+    listArea.clear();
   }
 
   void updateCustomer(Function(bool isSuccess) callBack) {
@@ -511,21 +373,21 @@ class CustomerInformationLogic extends GetxController {
               ? customer.address
               : requestModel.address)
           : currentAddress,
-      "province": currentProvince.province.isEmpty
+      "province": currentArea.province.isEmpty
           ? (customer.province.isNotEmpty
               ? customer.province
               : requestModel.province)
-          : currentProvince.province,
-      "district": currentDistrict.district.isEmpty
+          : currentArea.province,
+      "district": currentArea.district.isEmpty
           ? (customer.district.isNotEmpty
               ? customer.district
               : requestModel.district)
-          : currentDistrict.district,
-      "precinct": currentPrecinct.precinct.isEmpty
+          : currentArea.district,
+      "precinct": currentArea.precinct.isEmpty
           ? (customer.precinct.isNotEmpty
               ? customer.precinct
               : requestModel.precinct)
-          : currentPrecinct.precinct,
+          : currentArea.precinct,
       "phone": phoneController.text,
       "email": emailController.text,
       "image": [],
@@ -586,5 +448,57 @@ class CustomerInformationLogic extends GetxController {
       isActiveContinue = false;
       update();
     }
+  }
+
+  // Future<List<AddressModel>> getAreas(String query) {
+  //   Completer<List<AddressModel>> completer = Completer();
+  //   ApiUtil.getInstance()!.get(
+  //       url: ApiEndPoints.API_SEARCH_AREAS,
+  //       params: {'key': query},
+  //       onSuccess: (response) {
+  //         if (response.isSuccess) {
+  //           print("success");
+  //           listArea = (response.data['data'] as List)
+  //               .map((postJson) => AddressModel.fromJson(postJson))
+  //               .toList();
+  //           completer.complete(listArea);
+  //         } else {
+  //           print("error: ${response.status}");
+  //           completer.complete([]);
+  //         }
+  //       },
+  //       onError: (error) {
+  //         Get.back();
+  //         Common.showMessageError(error: error, context: context);
+  //         completer.complete([]);
+  //         // callBack.call(false);
+  //       });
+  //   return completer.future;
+  // }
+
+  Future<List<AddressModel>> getAreas(String query) {
+    Completer<List<AddressModel>> completer = Completer();
+    ApiUtil.getInstance()!.get(
+        url: ApiEndPoints.API_SEARCH_AREAS,
+        params: {'key': query},
+        onSuccess: (response) {
+          if (response.isSuccess) {
+            print("success");
+            listArea = (response.data['data'] as List)
+                .map((postJson) => AddressModel.fromJson(postJson))
+                .toList();
+            completer.complete(listArea);
+          } else {
+            print("error: ${response.status}");
+            completer.complete([]);
+          }
+        },
+        onError: (error) {
+          Get.back();
+          Common.showMessageError(error: error, context: context);
+          completer.complete([]);
+          // callBack.call(false);
+        });
+    return completer.future;
   }
 }

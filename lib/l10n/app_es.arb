@@ -602,5 +602,8 @@
     "textE048": "Contract has been created",
     "textE049": "Sign contract failed",
   "textSucceedSurvey": "Encuesta exitosa",
-   "textUsernameOrPasswordInvalid": "Nombre de usuario o contraseña inválido/a"
+   "textUsernameOrPasswordInvalid": "Nombre de usuario o contraseña inválido/a",
+    "textArea": "Provincia - Distrito - Recinto",
+    "textEnterArea": "Ingresar recinto",
+    "textAddressNotFound": "Dirección no encontrada"
 }

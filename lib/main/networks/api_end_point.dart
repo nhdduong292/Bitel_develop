@@ -88,4 +88,6 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts/check-balance";
   static const String API_GET_CUSTOMER_EXIST =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/customers/exist";
+  static const String API_SEARCH_AREAS =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/areas/search";
 }

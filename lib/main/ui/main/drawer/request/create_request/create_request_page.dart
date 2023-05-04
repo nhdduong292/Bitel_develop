@@ -22,6 +22,7 @@ import 'package:get/get.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../../networks/model/staff_model.dart';
 import 'dialog_survey_unsuccesful.dart';
 
 class CreateRequestPage extends GetWidget {
@@ -385,7 +386,7 @@ class CreateRequestPage extends GetWidget {
                         padding: const EdgeInsets.only(top: 16, bottom: 10),
                         child: RichText(
                           text: TextSpan(
-                              text: AppLocalizations.of(context)!.textProvince,
+                              text: AppLocalizations.of(context)!.textArea,
                               style: AppStyles.r1
                                   .copyWith(fontWeight: FontWeight.w500),
                               // ignore: prefer_const_literals_to_create_immutables
@@ -401,242 +402,61 @@ class CreateRequestPage extends GetWidget {
                               ]),
                         ),
                       ),
-                      InkWell(
-                        onTap: () {
-                          FocusScope.of(context).unfocus();
-                          if (controller.listProvince.isEmpty) {
-                            _onLoading(context);
-                            controller.getListProvince(
-                              (isSuccess) {
-                                Get.back();
-                                if (isSuccess) {
-                                  showDialogAddress(context,
-                                      controller.listProvince, controller, 0);
+                      SizedBox(
+                          height: 45,
+                          child: aHeadFieldType(
+                              autoFocus: false,
+                              hint: AppLocalizations.of(context)!.textEnterArea,
+                              controller: controller.textFieldArea,
+                              context: context,
+                              suggestionsCallback: (pattern) async {
+                                print(pattern);
+                                controller.listArea.clear();
+                                // if (pattern.isEmpty) {
+                                //   return [];
+                                // }
+                                List<AddressModel> list =
+                                    await controller.getAreas(pattern);
+                                if (list.isEmpty) {
+                                  return [
+                                    // ignore: use_build_context_synchronously
+                                    AppLocalizations.of(context)!
+                                        .textAddressNotFound
+                                  ];
+                                }
+                                return list;
+                              },
+                              itemBuilder: (context, suggestion) {
+                                if (suggestion is AddressModel) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(suggestion.fullName),
+                                  );
+                                } else {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(suggestion),
+                                  );
                                 }
                               },
-                            );
-                          } else {
-                            showDialogAddress(context, controller.listProvince,
-                                controller, 0);
-                          }
-                        },
-                        child: Container(
-                          height: 45,
-                          child: TextField(
-                              controller: controller.textFieldProvince,
-                              focusNode: controller.focusProvince,
-                              enabled: false,
-                              style: AppStyles.r2.copyWith(
-                                  color: AppColors.colorTitle,
-                                  fontWeight: FontWeight.w500),
-                              decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.only(
-                                      top: 5, left: 10, right: 10),
-                                  hintText: AppLocalizations.of(context)!
-                                      .hintProvince,
-                                  hintStyle: AppStyles.r2.copyWith(
-                                      color: AppColors.colorHint1,
-                                      fontWeight: FontWeight.w400),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(24),
-                                      borderSide: const BorderSide(
-                                          width: 1,
-                                          color: AppColors.colorLineDash)),
-                                  errorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(24),
-                                      borderSide: const BorderSide(
-                                          width: 1, color: Colors.redAccent)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(24),
-                                      borderSide: const BorderSide(
-                                          width: 1,
-                                          color: AppColors.colorLineDash)),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(24),
-                                      borderSide: const BorderSide(
-                                          width: 1,
-                                          color: AppColors.colorLineDash)),
-                                  suffixIcon: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: SvgPicture.asset(
-                                        AppImages.icDropdownSpinner),
-                                  ))),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 16, bottom: 10),
-                        child: RichText(
-                          text: TextSpan(
-                              text: AppLocalizations.of(context)!.textDistrict,
-                              style: AppStyles.r1
-                                  .copyWith(fontWeight: FontWeight.w500),
-                              // ignore: prefer_const_literals_to_create_immutables
-                              children: [
-                                const TextSpan(
-                                  text: ' *',
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      fontFamily: 'Barlow',
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ]),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          FocusScope.of(context).unfocus();
-                          if (controller.currentProvince.areaCode.isNotEmpty) {
-                            if (controller.listDistrict.isEmpty) {
-                              _onLoading(context);
-                              controller.getListDistrict(
-                                controller.currentProvince.areaCode,
-                                (isSuccess) {
-                                  Get.back();
-                                  if (isSuccess) {
-                                    showDialogAddress(context,
-                                        controller.listDistrict, controller, 1);
-                                  }
-                                },
-                              );
-                            } else {
-                              showDialogAddress(context,
-                                  controller.listDistrict, controller, 1);
-                            }
-                          } else {
-                            // Get.snackbar("Thông báo", "Bạn phải chọn Province trước", snackPosition: SnackPosition.BOTTOM);
-                          }
-                        },
-                        child: Container(
-                          height: 45,
-                          child: TextField(
-                              controller: controller.textFieldDistrict,
-                              focusNode: controller.focusDistrict,
-                              enabled: false,
-                              style: AppStyles.r2.copyWith(
-                                  color: AppColors.colorTitle,
-                                  fontWeight: FontWeight.w500),
-                              decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.only(
-                                      top: 5, left: 10, right: 10),
-                                  hintText: AppLocalizations.of(context)!
-                                      .hintDistrict,
-                                  hintStyle: AppStyles.r2.copyWith(
-                                      color: AppColors.colorHint1,
-                                      fontWeight: FontWeight.w400),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(24),
-                                      borderSide: const BorderSide(
-                                          width: 1,
-                                          color: AppColors.colorLineDash)),
-                                  errorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(24),
-                                      borderSide: const BorderSide(
-                                          width: 1, color: Colors.redAccent)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(24),
-                                      borderSide: const BorderSide(
-                                          width: 1,
-                                          color: AppColors.colorLineDash)),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(24),
-                                      borderSide: const BorderSide(
-                                          width: 1,
-                                          color: AppColors.colorLineDash)),
-                                  suffixIcon: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: SvgPicture.asset(
-                                        AppImages.icDropdownSpinner),
-                                  ))),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 16, bottom: 10),
-                        child: RichText(
-                          text: TextSpan(
-                              text: AppLocalizations.of(context)!.textPrecinct,
-                              style: AppStyles.r1
-                                  .copyWith(fontWeight: FontWeight.w500),
-                              // ignore: prefer_const_literals_to_create_immutables
-                              children: [
-                                const TextSpan(
-                                  text: ' *',
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      fontFamily: 'Barlow',
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ]),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          FocusScope.of(context).unfocus();
-                          if (controller.currentDistrict.areaCode.isNotEmpty) {
-                            if (controller.listPrecinct.isEmpty) {
-                              _onLoading(context);
-                              controller.getListPrecincts(
-                                controller.currentDistrict.areaCode,
-                                (isSuccess) {
-                                  Get.back();
-                                  if (isSuccess) {
-                                    showDialogAddress(context,
-                                        controller.listPrecinct, controller, 2);
-                                  }
-                                },
-                              );
-                            } else {
-                              showDialogAddress(context,
-                                  controller.listPrecinct, controller, 2);
-                            }
-                          } else {
-                            // Get.snackbar("Thông báo", "Bạn phải chọn District trước", snackPosition: SnackPosition.BOTTOM);
-                          }
-                        },
-                        child: Container(
-                          height: 45,
-                          child: TextField(
-                              controller: controller.textFieldPrecinct,
-                              focusNode: controller.focusPrecinct,
-                              enabled: false,
-                              style: AppStyles.r2.copyWith(
-                                  color: AppColors.colorTitle,
-                                  fontWeight: FontWeight.w500),
-                              decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.only(
-                                      top: 5, left: 10, right: 10),
-                                  hintText: AppLocalizations.of(context)!
-                                      .hintPrecinct,
-                                  hintStyle: AppStyles.r2.copyWith(
-                                      color: AppColors.colorHint1,
-                                      fontWeight: FontWeight.w400),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(24),
-                                      borderSide: const BorderSide(
-                                          width: 1,
-                                          color: AppColors.colorLineDash)),
-                                  errorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(24),
-                                      borderSide: const BorderSide(
-                                          width: 1, color: Colors.redAccent)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(24),
-                                      borderSide: const BorderSide(
-                                          width: 1,
-                                          color: AppColors.colorLineDash)),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(24),
-                                      borderSide: const BorderSide(
-                                          width: 1,
-                                          color: AppColors.colorLineDash)),
-                                  suffixIcon: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: SvgPicture.asset(
-                                        AppImages.icDropdownSpinner),
-                                  ))),
-                        ),
-                      ),
+                              onChange: () {
+                                controller.currentArea.province = "";
+                                controller.currentArea.district = "";
+                                controller.currentArea.precinct = "";
+                              },
+                              onSuggestionSelected: (suggestion) {
+                                if (suggestion is AddressModel) {
+                                  controller.textFieldArea.text =
+                                      suggestion.fullName;
+                                  controller.currentArea.province =
+                                      suggestion.province;
+                                  controller.currentArea.district =
+                                      suggestion.district;
+                                  controller.currentArea.precinct =
+                                      suggestion.precinct;
+                                  controller.update();
+                                }
+                              })),
                       Padding(
                         padding: const EdgeInsets.only(top: 16, bottom: 10),
                         child: RichText(
@@ -746,13 +566,13 @@ class CreateRequestPage extends GetWidget {
                             borderRadius: BorderRadius.circular(24),
                           ),
                           child: InkWell(
-                            onTap: (){
+                            onTap: () {
                               if (controller.checkValidateCreate(context)) {
                                 return;
                               }
                               _onLoading(context);
                               controller.createRequest(
-                                    (isSuccess, model) {
+                                (isSuccess, model) {
                                   Get.back();
                                   if (isSuccess) {
                                     showDialogSurveyMap(context, controller);
@@ -762,12 +582,12 @@ class CreateRequestPage extends GetWidget {
                             },
                             child: Center(
                                 child: Text(
-                                  AppLocalizations.of(context)!
-                                      .textSurvey
-                                      .toUpperCase(),
-                                  style: AppStyles.r5
-                                      .copyWith(fontWeight: FontWeight.w500),
-                                )),
+                              AppLocalizations.of(context)!
+                                  .textSurvey
+                                  .toUpperCase(),
+                              style: AppStyles.r5
+                                  .copyWith(fontWeight: FontWeight.w500),
+                            )),
                           ),
                         ))
                   ],
@@ -887,26 +707,5 @@ class CreateRequestPage extends GetWidget {
         );
       },
     );
-  }
-
-  void showDialogAddress(BuildContext context, List<AddressModel> list,
-      CreateRequestLogic controll, int position) {
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return DialogAddressPage(
-            list,
-            (model) {
-              if (position == 0) {
-                controll.setProvince(model);
-              } else if (position == 1) {
-                controll.setDistrict(model);
-              } else if (position == 2) {
-                controll.setPrecinct(model);
-              }
-            },
-          );
-        });
   }
 }

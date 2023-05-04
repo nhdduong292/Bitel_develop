@@ -129,7 +129,7 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                           builder: (BuildContext context) {
                             controller.resetAdress();
                             return BillAddressInformation(
-                              height: 450,
+                              height: 300,
                               controller: controller,
                             );
                           },
@@ -137,7 +137,7 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                           controller.checkChangeAdditionalInformation();
                           if (value) {
                             controller.address =
-                                '${controller.currentAddress}, ${controller.currentPrecinct.name}, ${controller.currentDistrict.name}, ${controller.currentProvince.name}';
+                                '${controller.currentAddress}, ${controller.currentArea.fullName}';
                             controller.update();
                           }
                         });
@@ -389,210 +389,79 @@ class BillAddressInformation extends Dialog {
                       )),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 10, left: 5),
-                  child: Text(
-                    AppLocalizations.of(context)!.textProvince,
-                    style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
+                  padding: const EdgeInsets.only(top: 16, bottom: 10),
+                  child: RichText(
+                    text: TextSpan(
+                        text: AppLocalizations.of(context)!.textArea,
+                        style:
+                            AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
+                        // ignore: prefer_const_literals_to_create_immutables
+                        children: [
+                          const TextSpan(
+                            text: ' *',
+                            style: TextStyle(
+                                color: Colors.red,
+                                fontFamily: 'Barlow',
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ]),
                   ),
                 ),
-                InkWell(
-                  onTap: () {
-                    if (controller.listProvince.isEmpty) {
-                      _onLoading(context);
-                      controller.getListProvince(
-                        (isSuccess) {
-                          Get.back();
-                          if (isSuccess) {
-                            showDialogAddress(context, controller.listProvince,
-                                controller, 0);
+                SizedBox(
+                    height: 45,
+                    child: aHeadFieldType(
+                        autoFocus: true,
+                        hint: AppLocalizations.of(context)!.textEnterArea,
+                        controller: controller.textFieldArea,
+                        context: context,
+                        suggestionsCallback: (pattern) async {
+                          controller.listArea.clear();
+                          if (pattern.isEmpty) {
+                            return [];
+                          }
+                          List<AddressModel> list =
+                              await controller.getAreas(pattern);
+                          if (list.isEmpty) {
+                            return [
+                              // ignore: use_build_context_synchronously
+                              AppLocalizations.of(context)!.textAddressNotFound
+                            ];
+                          }
+                          return list;
+                        },
+                        itemBuilder: (context, suggestion) {
+                          if (suggestion is AddressModel) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(suggestion.fullName),
+                            );
+                          } else {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(suggestion),
+                            );
                           }
                         },
-                      );
-                    } else {
-                      showDialogAddress(
-                          context, controller.listProvince, controller, 0);
-                    }
-                  },
-                  child: Container(
-                    height: 45,
-                    child: TextField(
-                        controller: controller.textFieldProvince,
-                        focusNode: controller.focusProvince,
-                        enabled: false,
-                        style: AppStyles.r2.copyWith(
-                            color: AppColors.colorTitle,
-                            fontWeight: FontWeight.w500),
-                        decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.only(
-                                top: 5, left: 10, right: 10),
-                            hintText:
-                                AppLocalizations.of(context)!.hintProvince,
-                            hintStyle: AppStyles.r2.copyWith(
-                                color: AppColors.colorHint1,
-                                fontWeight: FontWeight.w400),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(24),
-                                borderSide: const BorderSide(
-                                    width: 1, color: AppColors.colorLineDash)),
-                            errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(24),
-                                borderSide: const BorderSide(
-                                    width: 1, color: Colors.redAccent)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(24),
-                                borderSide: const BorderSide(
-                                    width: 1, color: AppColors.colorLineDash)),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(24),
-                                borderSide: const BorderSide(
-                                    width: 1, color: AppColors.colorLineDash)),
-                            suffixIcon: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child:
-                                  SvgPicture.asset(AppImages.icDropdownSpinner),
-                            ))),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 10, left: 5),
-                  child: Text(
-                    AppLocalizations.of(context)!.textDistrict,
-                    style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    if (controller.textFieldProvince.text.isNotEmpty) {
-                      if (controller.listDistrict.isEmpty) {
-                        _onLoading(context);
-                        controller.getListDistrict(
-                          controller.currentProvince.areaCode,
-                          (isSuccess) {
-                            Get.back();
-                            if (isSuccess) {
-                              showDialogAddress(context,
-                                  controller.listDistrict, controller, 1);
-                            }
-                          },
-                        );
-                      } else {
-                        showDialogAddress(
-                            context, controller.listDistrict, controller, 1);
-                      }
-                    } else {
-                      // Get.snackbar("Thông báo", "Bạn phải chọn Province trước", snackPosition: SnackPosition.BOTTOM);
-                    }
-                  },
-                  child: Container(
-                    height: 45,
-                    child: TextField(
-                        controller: controller.textFieldDistrict,
-                        focusNode: controller.focusDistrict,
-                        enabled: false,
-                        style: AppStyles.r2.copyWith(
-                            color: AppColors.colorTitle,
-                            fontWeight: FontWeight.w500),
-                        decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.only(
-                                top: 5, left: 10, right: 10),
-                            hintText:
-                                AppLocalizations.of(context)!.hintDistrict,
-                            hintStyle: AppStyles.r2.copyWith(
-                                color: AppColors.colorHint1,
-                                fontWeight: FontWeight.w400),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(24),
-                                borderSide: const BorderSide(
-                                    width: 1, color: AppColors.colorLineDash)),
-                            errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(24),
-                                borderSide: const BorderSide(
-                                    width: 1, color: Colors.redAccent)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(24),
-                                borderSide: const BorderSide(
-                                    width: 1, color: AppColors.colorLineDash)),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(24),
-                                borderSide: const BorderSide(
-                                    width: 1, color: AppColors.colorLineDash)),
-                            suffixIcon: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child:
-                                  SvgPicture.asset(AppImages.icDropdownSpinner),
-                            ))),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 10, left: 5),
-                  child: Text(
-                    AppLocalizations.of(context)!.textPrecinct,
-                    style: AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    if (controller.textFieldDistrict.text.isNotEmpty) {
-                      if (controller.listPrecinct.isEmpty) {
-                        _onLoading(context);
-                        controller.getListPrecincts(
-                          controller.currentDistrict.areaCode,
-                          (isSuccess) {
-                            Get.back();
-                            if (isSuccess) {
-                              showDialogAddress(context,
-                                  controller.listPrecinct, controller, 2);
-                            }
-                          },
-                        );
-                      } else {
-                        showDialogAddress(
-                            context, controller.listPrecinct, controller, 2);
-                      }
-                    } else {
-                      // Get.snackbar("Thông báo", "Bạn phải chọn District trước", snackPosition: SnackPosition.BOTTOM);
-                    }
-                  },
-                  child: Container(
-                    height: 45,
-                    child: TextField(
-                        controller: controller.textFieldPrecinct,
-                        focusNode: controller.focusPrecinct,
-                        enabled: false,
-                        style: AppStyles.r2.copyWith(
-                            color: AppColors.colorTitle,
-                            fontWeight: FontWeight.w500),
-                        decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.only(
-                                top: 5, left: 10, right: 10),
-                            hintText:
-                                AppLocalizations.of(context)!.hintPrecinct,
-                            hintStyle: AppStyles.r2.copyWith(
-                                color: AppColors.colorHint1,
-                                fontWeight: FontWeight.w400),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(24),
-                                borderSide: const BorderSide(
-                                    width: 1, color: AppColors.colorLineDash)),
-                            errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(24),
-                                borderSide: const BorderSide(
-                                    width: 1, color: Colors.redAccent)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(24),
-                                borderSide: const BorderSide(
-                                    width: 1, color: AppColors.colorLineDash)),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(24),
-                                borderSide: const BorderSide(
-                                    width: 1, color: AppColors.colorLineDash)),
-                            suffixIcon: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child:
-                                  SvgPicture.asset(AppImages.icDropdownSpinner),
-                            ))),
-                  ),
-                ),
+                        onChange: () {
+                          controller.currentArea.province = "";
+                          controller.currentArea.district = "";
+                          controller.currentArea.precinct = "";
+                        },
+                        onSuggestionSelected: (suggestion) {
+                          if (suggestion is AddressModel) {
+                            controller.textFieldArea.text = suggestion.fullName;
+                            controller.currentArea.fullName =
+                                suggestion.fullName;
+                            controller.currentArea.province =
+                                suggestion.province;
+                            controller.currentArea.district =
+                                suggestion.district;
+                            controller.currentArea.precinct =
+                                suggestion.precinct;
+                            controller.update();
+                          }
+                        })),
                 Padding(
                   padding: const EdgeInsets.only(top: 10, bottom: 10, left: 5),
                   child: Text(
@@ -668,26 +537,5 @@ class BillAddressInformation extends Dialog {
         );
       },
     );
-  }
-
-  void showDialogAddress(BuildContext context, List<AddressModel> list,
-      CustomerInformationLogic controll, int position) {
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return DialogAddressPage(
-            list,
-            (model) {
-              if (position == 0) {
-                controll.setProvince(model);
-              } else if (position == 1) {
-                controll.setDistrict(model);
-              } else if (position == 2) {
-                controll.setPrecinct(model);
-              }
-            },
-          );
-        });
   }
 }

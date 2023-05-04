@@ -4,6 +4,7 @@ class AddressModel {
   String? _province;
   String? _district;
   String? _precinct;
+  String? _fullName;
 
   AddressModel();
   AddressModel.fromJson(Map<String, dynamic> json) {
@@ -12,6 +13,7 @@ class AddressModel {
     _province = json['province'];
     _district = json['district'];
     _precinct = json['precinct'];
+    _fullName = json['fullName'];
   }
 
   String get name => _name ?? "";
@@ -32,6 +34,8 @@ class AddressModel {
 
   String get province => _province ?? "";
 
+  String get fullName => _fullName ?? "";
+
   set province(String value) {
     _province = value;
   }
@@ -42,5 +46,9 @@ class AddressModel {
 
   set precinct(String value) {
     _precinct = value;
+  }
+
+  set fullName(String value) {
+    _fullName = value;
   }
 }

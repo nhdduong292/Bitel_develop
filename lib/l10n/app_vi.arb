@@ -600,5 +600,8 @@
     "textE048": "Contract has been created",
     "textE049": "Sign contract failed",
   "textSucceedSurvey": "Khảo sát thành công",
-   "textUsernameOrPasswordInvalid": "Tên đăng nhập hoặc mật khẩu không hợp lệ"
+   "textUsernameOrPasswordInvalid": "Tên đăng nhập hoặc mật khẩu không hợp lệ",
+    "textArea": "Tỉnh - Quận - Khu vực",
+    "textEnterArea": "Nhập khu vực",
+    "textAddressNotFound": "Địa chỉ không tồn tại"
 }

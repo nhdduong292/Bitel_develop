@@ -211,6 +211,7 @@ class DialogSurveyMapLogic extends GetxController {
 
   void getLocationAddress() async {
     try {
+      print(requestModel.getInstalAddress());
       List<Location> locations = await locationFromAddress(
           requestModel.getInstalAddress(),
           localeIdentifier: "es_PE");
