@@ -136,16 +136,25 @@ class AppImages {
   static const String icTickFingerPrint =
       "assets/icons/ic_tick_finger_print.svg";
   static const String imgDemoContract = "assets/images/img_demo_contract.png";
-  static const String imgFingerLeft5 = "assets/images/img_finger_left_5.png";
-  static const String imgFingerLeft4 = "assets/images/img_finger_left_4.png";
-  static const String imgFingerLeft3 = "assets/images/img_finger_left_3.png";
-  static const String imgFingerLeft2 = "assets/images/img_finger_left_2.png";
-  static const String imgFingerLeft1 = "assets/images/img_finger_left_1.png";
-  static const String imgFingerRight5 = "assets/images/img_finger_right_5.png";
-  static const String imgFingerRight4 = "assets/images/img_finger_right_4.png";
-  static const String imgFingerRight3 = "assets/images/img_finger_right_3.png";
-  static const String imgFingerRight2 = "assets/images/img_finger_right_2.png";
-  static const String imgFingerRight1 = "assets/images/img_finger_right_1.png";
+  static const String imgFingerLeftLittle =
+      "assets/images/img_finger_left_5.png";
+  static const String imgFingerLeftRing = "assets/images/img_finger_left_4.png";
+  static const String imgFingerLeftMiddle =
+      "assets/images/img_finger_left_3.png";
+  static const String imgFingerLeftIndex =
+      "assets/images/img_finger_left_2.png";
+  static const String imgFingerLeftThumb =
+      "assets/images/img_finger_left_1.png";
+  static const String imgFingerRightLittle =
+      "assets/images/img_finger_right_5.png";
+  static const String imgFingerRightRing =
+      "assets/images/img_finger_right_4.png";
+  static const String imgFingerRightMiddle =
+      "assets/images/img_finger_right_3.png";
+  static const String imgFingerRightIndex =
+      "assets/images/img_finger_right_2.png";
+  static const String imgFingerRightThumb =
+      "assets/images/img_finger_right_1.png";
   static const String imgDNI = "assets/images/dni_example.jpg";
   static const String imgCE = "assets/images/ce_example.jpg";
   static const String imgPP = "assets/images/pp_example.jpg";

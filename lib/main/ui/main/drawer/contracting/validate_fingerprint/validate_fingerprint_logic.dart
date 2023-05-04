@@ -138,30 +138,30 @@ class ValidateFingerprintLogic extends GetxController {
 
   String findPathFinger() {
     if (bestFinger.left != 0) {
-      if (bestFinger.left == 1) {
-        return AppImages.imgFingerLeft1;
-      } else if (bestFinger.left == 2) {
-        return AppImages.imgFingerLeft2;
-      } else if (bestFinger.left == 3) {
-        return AppImages.imgFingerLeft3;
-      } else if (bestFinger.left == 4) {
-        return AppImages.imgFingerLeft4;
+      if (bestFinger.left == 6) {
+        return AppImages.imgFingerLeftThumb;
+      } else if (bestFinger.left == 7) {
+        return AppImages.imgFingerLeftIndex;
+      } else if (bestFinger.left == 8) {
+        return AppImages.imgFingerLeftMiddle;
+      } else if (bestFinger.left == 9) {
+        return AppImages.imgFingerLeftRing;
       } else {
-        return AppImages.imgFingerLeft5;
+        return AppImages.imgFingerLeftLittle;
       }
     } else {
       if (bestFinger.right == 1) {
-        return AppImages.imgFingerRight1;
+        return AppImages.imgFingerRightThumb;
       } else if (bestFinger.right == 2) {
-        return AppImages.imgFingerRight2;
+        return AppImages.imgFingerRightIndex;
       } else if (bestFinger.right == 3) {
-        return AppImages.imgFingerRight3;
+        return AppImages.imgFingerRightMiddle;
       } else if (bestFinger.right == 4) {
-        return AppImages.imgFingerRight4;
+        return AppImages.imgFingerRightRing;
       } else if (bestFinger.right == 5) {
-        return AppImages.imgFingerRight5;
+        return AppImages.imgFingerRightLittle;
       } else {
-        return AppImages.imgFingerRight3;
+        return AppImages.imgFingerRightMiddle;
       }
     }
   }
