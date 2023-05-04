@@ -110,7 +110,15 @@ class LoginLogic extends GetxController {
       },
       onError: (error) {
         Get.back();
-        Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
+        try {
+          final statusCode = error.response?.statusCode;
+          if (statusCode == 401) {
+            Common.showToastCenter(
+                AppLocalizations.of(context)!.textUsernameOrPasswordInvalid);
+            return;
+          }
+        } catch (e) {}
+        Common.showMessageError(error: error, context: context);
       },
     );
   }

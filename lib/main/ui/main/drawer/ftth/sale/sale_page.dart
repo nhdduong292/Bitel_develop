@@ -77,405 +77,414 @@ class SalePage extends GetWidget {
             ),
           ),
           body: controller.isLoading
-              ? RefreshIndicator(onRefresh: _onRefresh,
-              color: AppColors.colorBackground,
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        AppLocalizations.of(context)!.textRequestManagement,
-                        style: AppStyles.r7.copyWith(
-                            fontWeight: FontWeight.w700, color: Colors.black),
-                      ),
-                    ),
-                    Container(
-                        margin: const EdgeInsets.only(left: 16, right: 16),
-                        child: GridView.builder(
-                          itemCount: controller
-                              .getListRequestManagement(context)
-                              .length,
-                          shrinkWrap: true,
-                          physics: const ScrollPhysics(),
-                          gridDelegate:
-                          SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              childAspectRatio: (width / 320),
-                              crossAxisSpacing: 6.0,
-                              mainAxisSpacing: 10.0),
-                          itemBuilder: (BuildContext context, int index) {
-                            OptionSale optionSale = controller
-                                .getListRequestManagement(context)[index];
-                            return GestureDetector(
-                              onTap: () {
-                                controller.setIndexSelect(optionSale.index);
-                                Timer(
-                                  const Duration(milliseconds: 500),
-                                      () {
-                                    if (index == 0) {
-                                      Get.toNamed(RouteConfig.listRequest,
-                                          arguments: 0);
-                                    } else if (index == 1) {
-                                      Get.toNamed(RouteConfig.listRequest,
-                                          arguments: 2);
-                                    } else if (index == 2) {
-                                      Get.toNamed(RouteConfig.listRequest,
-                                          arguments: 3);
-                                    } else if (index == 3) {
-                                      Get.toNamed(RouteConfig.listRequest,
-                                          arguments: 5);
-                                    } else if (index == 4) {
-                                      Get.toNamed(RouteConfig.listRequest,
-                                          arguments: 6);
-                                    }
-                                  },
-                                );
-                              },
-                              child: Container(
-                                padding:
-                                const EdgeInsets.symmetric(vertical: 12),
-                                decoration: BoxDecoration(
-                                    color: const Color(0xFFDEF9FE),
-                                    borderRadius: BorderRadius.circular(6),
-                                    border: Border.all(
-                                        color: optionSale.index ==
-                                            controller.indexSelect
-                                            ? AppColors.colorTitle
-                                            : AppColors.colorBackground1)),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Text(
-                                      optionSale.content,
-                                      style: AppStyles.b4.copyWith(
-                                          color: optionSale.index ==
-                                              controller.indexSelect
-                                              ? AppColors.colorTitle
-                                              : AppColors.colorText5,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 20),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      textAlign: TextAlign.center,
-                                      optionSale.title,
-                                      style: AppStyles.r2.copyWith(
-                                          color: optionSale.index ==
-                                              controller.indexSelect
-                                              ? AppColors.colorTitle
-                                              : AppColors.colorText5
-                                              .withOpacity(0.5),
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        )),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        AppLocalizations.of(context)!.textKPICommission,
-                        style: AppStyles.r7.copyWith(
-                            fontWeight: FontWeight.w700, color: Colors.black),
-                      ),
-                    ),
-                    Container(
-                        margin: const EdgeInsets.only(left: 16, right: 16),
-                        child: GridView.builder(
-                          itemCount:
-                          controller.getListKPICommission(context).length,
-                          shrinkWrap: true,
-                          physics: const ScrollPhysics(),
-                          gridDelegate:
-                          SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              childAspectRatio: (width / 350),
-                              crossAxisSpacing: 6.0,
-                              mainAxisSpacing: 10.0),
-                          itemBuilder: (BuildContext context, int index) {
-                            OptionSale optionSale = controller
-                                .getListKPICommission(context)[index];
-                            return GestureDetector(
-                              onTap: () {
-                                controller.setIndexSelect(optionSale.index);
-                              },
-                              child: Container(
-                                padding:
-                                const EdgeInsets.symmetric(vertical: 12),
-                                decoration: BoxDecoration(
-                                    color: const Color(0xFFDEF9FE),
-                                    borderRadius: BorderRadius.circular(6),
-                                    border: Border.all(
-                                        color: optionSale.index ==
-                                            controller.indexSelect
-                                            ? AppColors.colorTitle
-                                            : AppColors.colorBackground1)),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      optionSale.title,
-                                      style: AppStyles.r2.copyWith(
-                                          color: optionSale.index ==
-                                              controller.indexSelect
-                                              ? AppColors.colorTitle
-                                              : AppColors.colorText5
-                                              .withOpacity(0.5),
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      optionSale.content,
-                                      style: AppStyles.b4.copyWith(
-                                          color: optionSale.index ==
-                                              controller.indexSelect
-                                              ? AppColors.colorTitle
-                                              : AppColors.colorText5,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 20),
-                                    ),
-                                    const SizedBox(
-                                      height: 6,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          optionSale.unit,
-                                          style: AppStyles.r2.copyWith(
-                                              color: optionSale.index ==
-                                                  controller.indexSelect
-                                                  ? AppColors.colorTitle
-                                                  : AppColors.colorText5
-                                                  .withOpacity(0.5),
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 14),
-                                        ),
-                                        Container(
-                                          margin: index == 1
-                                              ? const EdgeInsets.only(left: 8)
-                                              : const EdgeInsets.only(
-                                              left: 0),
-                                          padding: index == 1
-                                              ? const EdgeInsets.all(2)
-                                              : const EdgeInsets.all(0),
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                              BorderRadius.circular(4),
-                                              color: Colors.white),
-                                          child: index == 1
-                                              ? Text(
-                                            "${controller.getPerformanceKPI()}%",
-                                            style: AppStyles
-                                                .r2
-                                                .copyWith(
-                                                color: AppColors
-                                                    .color_83BF6E,
-                                                fontWeight:
-                                                FontWeight
-                                                    .w600),
-                                          )
-                                              : const Text(""),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        )),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        AppLocalizations.of(context)!.textWalletControl,
-                        style: AppStyles.r7.copyWith(
-                            fontWeight: FontWeight.w700, color: Colors.black),
-                      ),
-                    ),
-                    Container(
-                        margin: const EdgeInsets.only(left: 16, right: 16),
-                        child: GridView.builder(
-                          itemCount:
-                          controller.getListWalletControl(context).length,
-                          shrinkWrap: true,
-                          physics: const ScrollPhysics(),
-                          gridDelegate:
-                          SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              childAspectRatio: (width / 350),
-                              crossAxisSpacing: 6.0,
-                              mainAxisSpacing: 10.0),
-                          itemBuilder: (BuildContext context, int index) {
-                            OptionSale optionSale = controller
-                                .getListWalletControl(context)[index];
-                            return GestureDetector(
-                              onTap: () {
-                                controller.setIndexSelect(optionSale.index);
-                              },
-                              child: Container(
-                                padding:
-                                const EdgeInsets.symmetric(vertical: 12),
-                                decoration: BoxDecoration(
-                                    color: const Color(0xFFDEF9FE),
-                                    borderRadius: BorderRadius.circular(6),
-                                    border: Border.all(
-                                        color: optionSale.index ==
-                                            controller.indexSelect
-                                            ? AppColors.colorTitle
-                                            : AppColors.colorBackground1)),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      optionSale.title,
-                                      style: AppStyles.r2.copyWith(
-                                          color: optionSale.index ==
-                                              controller.indexSelect
-                                              ? AppColors.colorTitle
-                                              : AppColors.colorText5
-                                              .withOpacity(0.5),
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      optionSale.content,
-                                      style: AppStyles.b4.copyWith(
-                                          color: optionSale.index ==
-                                              controller.indexSelect
-                                              ? AppColors.colorTitle
-                                              : AppColors.colorText5,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 20),
-                                    ),
-                                    const SizedBox(
-                                      height: 6,
-                                    ),
-                                    Text(
-                                      optionSale.unit,
-                                      style: AppStyles.r2.copyWith(
-                                          color: optionSale.index ==
-                                              controller.indexSelect
-                                              ? AppColors.colorTitle
-                                              : AppColors.colorText5
-                                              .withOpacity(0.5),
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        )),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        AppLocalizations.of(context)!.textFunction,
-                        style: AppStyles.r7.copyWith(
-                            fontWeight: FontWeight.w700, color: Colors.black),
-                      ),
-                    ),
-                    Container(
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter,
-                            colors: [
-                              Color(0xFFDEF9FE),
-                              Color(0xFFFFFFFF),
-                            ],
+              ? RefreshIndicator(
+                  onRefresh: _onRefresh,
+                  color: AppColors.colorBackground,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text(
+                            AppLocalizations.of(context)!.textRequestManagement,
+                            style: AppStyles.r7.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black),
                           ),
                         ),
-                        child: Column(
-                          children: [
-                            GridView.builder(
+                        Container(
+                            margin: const EdgeInsets.only(left: 16, right: 16),
+                            child: GridView.builder(
                               itemCount: controller
-                                  .getListOptionSale(context)
+                                  .getListRequestManagement(context)
                                   .length,
                               shrinkWrap: true,
                               physics: const ScrollPhysics(),
                               gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
-                                  childAspectRatio: (width / 276),
-                                  crossAxisSpacing: 6.0,
-                                  mainAxisSpacing: 10.0),
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      childAspectRatio: (width / 320),
+                                      crossAxisSpacing: 6.0,
+                                      mainAxisSpacing: 10.0),
                               itemBuilder: (BuildContext context, int index) {
                                 OptionSale optionSale = controller
-                                    .getListOptionSale(context)[index];
+                                    .getListRequestManagement(context)[index];
                                 return GestureDetector(
                                   onTap: () {
-                                    if (optionSale.title ==
-                                        AppLocalizations.of(context)!
-                                            .textCreateRequest) {
-                                      Get.toNamed(RouteConfig.createRequest);
-                                    } else if (optionSale.title ==
-                                        AppLocalizations.of(context)!
-                                            .textSearchRequest) {
-                                      Get.toNamed(RouteConfig.listRequest,
-                                          arguments: 0);
-                                    } else if (optionSale.title ==
-                                        AppLocalizations.of(context)!
-                                            .textConnectSubscriber) {
-                                      Get.toNamed(RouteConfig.listRequest,
-                                          arguments: 1);
-                                    } else if (optionSale.title ==
-                                        AppLocalizations.of(context)!
-                                            .textClearDebt) {
-                                      Get.toNamed(RouteConfig.clearDebt);
-                                    } else if (optionSale.title ==
-                                        AppLocalizations.of(context)!
-                                            .textRechargeAnypay) {
-                                      Get.toNamed(RouteConfig.buyAnyPay);
-                                    }
+                                    controller.setIndexSelect(optionSale.index);
+                                    Timer(
+                                      const Duration(milliseconds: 500),
+                                      () {
+                                        if (index == 0) {
+                                          Get.toNamed(RouteConfig.listRequest,
+                                              arguments: 1 );
+                                        } else if (index == 1) {
+                                          Get.toNamed(RouteConfig.listRequest,
+                                              arguments: 2);
+                                        } else if (index == 2) {
+                                          Get.toNamed(RouteConfig.listRequest,
+                                              arguments: 3);
+                                        } else if (index == 3) {
+                                          Get.toNamed(RouteConfig.listRequest,
+                                              arguments: 4);
+                                        } else if (index == 4) {
+                                          Get.toNamed(RouteConfig.listRequest,
+                                              arguments: 5);
+                                        }
+                                      },
+                                    );
                                   },
                                   child: Container(
-                                    margin: const EdgeInsets.only(left: 16),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 12),
+                                    decoration: BoxDecoration(
+                                        color: const Color(0xFFDEF9FE),
+                                        borderRadius: BorderRadius.circular(6),
+                                        border: Border.all(
+                                            color: optionSale.index ==
+                                                    controller.indexSelect
+                                                ? AppColors.colorTitle
+                                                : AppColors.colorBackground1)),
                                     child: Column(
-                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        SvgPicture.asset(optionSale.icon),
+                                        Text(
+                                          optionSale.content,
+                                          style: AppStyles.b4.copyWith(
+                                              color: optionSale.index ==
+                                                      controller.indexSelect
+                                                  ? AppColors.colorTitle
+                                                  : AppColors.colorText5,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 20),
+                                        ),
                                         const SizedBox(
-                                          width: 10,
+                                          height: 10,
                                         ),
                                         Text(
                                           textAlign: TextAlign.center,
                                           optionSale.title,
-                                          style: AppStyles.r7.copyWith(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black),
+                                          style: AppStyles.r2.copyWith(
+                                              color: optionSale.index ==
+                                                      controller.indexSelect
+                                                  ? AppColors.colorTitle
+                                                  : AppColors.colorText5
+                                                      .withOpacity(0.5),
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14),
                                         ),
                                       ],
                                     ),
                                   ),
                                 );
                               },
+                            )),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text(
+                            AppLocalizations.of(context)!.textKPICommission,
+                            style: AppStyles.r7.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black),
+                          ),
+                        ),
+                        Container(
+                            margin: const EdgeInsets.only(left: 16, right: 16),
+                            child: GridView.builder(
+                              itemCount: controller
+                                  .getListKPICommission(context)
+                                  .length,
+                              shrinkWrap: true,
+                              physics: const ScrollPhysics(),
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      childAspectRatio: (width / 350),
+                                      crossAxisSpacing: 6.0,
+                                      mainAxisSpacing: 10.0),
+                              itemBuilder: (BuildContext context, int index) {
+                                OptionSale optionSale = controller
+                                    .getListKPICommission(context)[index];
+                                return GestureDetector(
+                                  onTap: () {
+                                    controller.setIndexSelect(optionSale.index);
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 12),
+                                    decoration: BoxDecoration(
+                                        color: const Color(0xFFDEF9FE),
+                                        borderRadius: BorderRadius.circular(6),
+                                        border: Border.all(
+                                            color: optionSale.index ==
+                                                    controller.indexSelect
+                                                ? AppColors.colorTitle
+                                                : AppColors.colorBackground1)),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          optionSale.title,
+                                          style: AppStyles.r2.copyWith(
+                                              color: optionSale.index ==
+                                                      controller.indexSelect
+                                                  ? AppColors.colorTitle
+                                                  : AppColors.colorText5
+                                                      .withOpacity(0.5),
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text(
+                                          optionSale.content,
+                                          style: AppStyles.b4.copyWith(
+                                              color: optionSale.index ==
+                                                      controller.indexSelect
+                                                  ? AppColors.colorTitle
+                                                  : AppColors.colorText5,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 20),
+                                        ),
+                                        const SizedBox(
+                                          height: 6,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              optionSale.unit,
+                                              style: AppStyles.r2.copyWith(
+                                                  color: optionSale.index ==
+                                                          controller.indexSelect
+                                                      ? AppColors.colorTitle
+                                                      : AppColors.colorText5
+                                                          .withOpacity(0.5),
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 14),
+                                            ),
+                                            Container(
+                                              margin: index == 1
+                                                  ? const EdgeInsets.only(
+                                                      left: 8)
+                                                  : const EdgeInsets.only(
+                                                      left: 0),
+                                              padding: index == 1
+                                                  ? const EdgeInsets.all(2)
+                                                  : const EdgeInsets.all(0),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(4),
+                                                  color: Colors.white),
+                                              child: index == 1
+                                                  ? Text(
+                                                      "${controller.getPerformanceKPI()}%",
+                                                      style: AppStyles
+                                                          .r2
+                                                          .copyWith(
+                                                              color: AppColors
+                                                                  .color_83BF6E,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600),
+                                                    )
+                                                  : const Text(""),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            )),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text(
+                            AppLocalizations.of(context)!.textWalletControl,
+                            style: AppStyles.r7.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black),
+                          ),
+                        ),
+                        Container(
+                            margin: const EdgeInsets.only(left: 16, right: 16),
+                            child: GridView.builder(
+                              itemCount: controller
+                                  .getListWalletControl(context)
+                                  .length,
+                              shrinkWrap: true,
+                              physics: const ScrollPhysics(),
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      childAspectRatio: (width / 350),
+                                      crossAxisSpacing: 6.0,
+                                      mainAxisSpacing: 10.0),
+                              itemBuilder: (BuildContext context, int index) {
+                                OptionSale optionSale = controller
+                                    .getListWalletControl(context)[index];
+                                return GestureDetector(
+                                  onTap: () {
+                                    controller.setIndexSelect(optionSale.index);
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 12),
+                                    decoration: BoxDecoration(
+                                        color: const Color(0xFFDEF9FE),
+                                        borderRadius: BorderRadius.circular(6),
+                                        border: Border.all(
+                                            color: optionSale.index ==
+                                                    controller.indexSelect
+                                                ? AppColors.colorTitle
+                                                : AppColors.colorBackground1)),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          optionSale.title,
+                                          style: AppStyles.r2.copyWith(
+                                              color: optionSale.index ==
+                                                      controller.indexSelect
+                                                  ? AppColors.colorTitle
+                                                  : AppColors.colorText5
+                                                      .withOpacity(0.5),
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text(
+                                          optionSale.content,
+                                          style: AppStyles.b4.copyWith(
+                                              color: optionSale.index ==
+                                                      controller.indexSelect
+                                                  ? AppColors.colorTitle
+                                                  : AppColors.colorText5,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 20),
+                                        ),
+                                        const SizedBox(
+                                          height: 6,
+                                        ),
+                                        Text(
+                                          optionSale.unit,
+                                          style: AppStyles.r2.copyWith(
+                                              color: optionSale.index ==
+                                                      controller.indexSelect
+                                                  ? AppColors.colorTitle
+                                                  : AppColors.colorText5
+                                                      .withOpacity(0.5),
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            )),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text(
+                            AppLocalizations.of(context)!.textFunction,
+                            style: AppStyles.r7.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black),
+                          ),
+                        ),
+                        Container(
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.bottomCenter,
+                                end: Alignment.topCenter,
+                                colors: [
+                                  Color(0xFFDEF9FE),
+                                  Color(0xFFFFFFFF),
+                                ],
+                              ),
                             ),
-                            SizedBox(
-                              height: 20,
-                            )
-                          ],
-                        )),
-                  ],
-                ),
-              ),
-
-          )
+                            child: Column(
+                              children: [
+                                GridView.builder(
+                                  itemCount: controller
+                                      .getListOptionSale(context)
+                                      .length,
+                                  shrinkWrap: true,
+                                  physics: const ScrollPhysics(),
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 3,
+                                          childAspectRatio: (width / 276),
+                                          crossAxisSpacing: 6.0,
+                                          mainAxisSpacing: 10.0),
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    OptionSale optionSale = controller
+                                        .getListOptionSale(context)[index];
+                                    return GestureDetector(
+                                      onTap: () {
+                                        if (optionSale.title ==
+                                            AppLocalizations.of(context)!
+                                                .textCreateRequest) {
+                                          Get.toNamed(
+                                              RouteConfig.createRequest);
+                                        } else if (optionSale.title ==
+                                            AppLocalizations.of(context)!
+                                                .textSearchRequest) {
+                                          Get.toNamed(RouteConfig.listRequest,
+                                              arguments: 0);
+                                        } else if (optionSale.title ==
+                                            AppLocalizations.of(context)!
+                                                .textConnectSubscriber) {
+                                          Get.toNamed(RouteConfig.listRequest,
+                                              arguments: 2);
+                                        } else if (optionSale.title ==
+                                            AppLocalizations.of(context)!
+                                                .textClearDebt) {
+                                          Get.toNamed(RouteConfig.clearDebt);
+                                        } else if (optionSale.title ==
+                                            AppLocalizations.of(context)!
+                                                .textRechargeAnypay) {
+                                          Get.toNamed(RouteConfig.buyAnyPay);
+                                        }
+                                      },
+                                      child: Container(
+                                        margin: const EdgeInsets.only(left: 16),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            SvgPicture.asset(optionSale.icon),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              textAlign: TextAlign.center,
+                                              optionSale.title,
+                                              style: AppStyles.r7.copyWith(
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.black),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                )
+                              ],
+                            )),
+                      ],
+                    ),
+                  ),
+                )
               : Center(child: LoadingCirculApi()),
         );
       },

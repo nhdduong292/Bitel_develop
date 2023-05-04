@@ -599,5 +599,6 @@
    "textE047": "Promotion not exist!",
     "textE048": "Contract has been created",
     "textE049": "Sign contract failed",
-  "textSucceedSurvey": "Khảo sát thành công"
+  "textSucceedSurvey": "Khảo sát thành công",
+   "textUsernameOrPasswordInvalid": "Tên đăng nhập hoặc mật khẩu không hợp lệ"
 }

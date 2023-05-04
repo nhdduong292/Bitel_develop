@@ -601,5 +601,6 @@
    "textE047": "Promotion not exist!",
     "textE048": "Contract has been created",
     "textE049": "Sign contract failed",
-  "textSucceedSurvey": "Encuesta exitosa"
+  "textSucceedSurvey": "Encuesta exitosa",
+   "textUsernameOrPasswordInvalid": "Nombre de usuario o contraseña inválido/a"
 }

@@ -619,6 +619,7 @@
    "textE047": "Promotion not exist!",
     "textE048": "Contract has been created",
     "textE049": "Sign contract failed",
-    "textSucceedSurvey": "Succeed survey"
+    "textSucceedSurvey": "Succeed survey",
+    "textUsernameOrPasswordInvalid": "Username or password invalid"
 
 }

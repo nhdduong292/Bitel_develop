@@ -168,6 +168,11 @@ class Common {
         Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
         return;
       }
+      final statusCode = error.response?.statusCode;
+      if (statusCode == 401) {
+        Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
+        return;
+      }
       if (error.response!.data['errorCode'] == null) {
         Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
         return;
