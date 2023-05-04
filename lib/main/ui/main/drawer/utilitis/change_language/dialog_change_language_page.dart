@@ -15,7 +15,7 @@ class DialogChangeLanguagePage extends Dialog {
       builder: (controller) {
         return Dialog(
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
           alignment: Alignment.bottomCenter,
           child: Container(
             margin: EdgeInsets.all(10),
@@ -27,9 +27,13 @@ class DialogChangeLanguagePage extends Dialog {
               children: [
                 Text(
                   AppLocalizations.of(context)!.textSelectLanguage,
-                  style: AppStyles.b2.copyWith(fontWeight: FontWeight.bold),),
+                  style: AppStyles.b2.copyWith(fontWeight: FontWeight.bold),
+                ),
                 RadioListTile<String>(
-                  title: Text(AppLocalizations.of(context)!.textLanguageEN, style: AppStyles.r1,),
+                  title: Text(
+                    AppLocalizations.of(context)!.textLanguageEN,
+                    style: AppStyles.r1,
+                  ),
                   value: RouteConfig.listLanguage[0].languageCode,
                   groupValue: controller.currentLanguage.value,
                   activeColor: AppColors.colorSubContent,
@@ -39,7 +43,8 @@ class DialogChangeLanguagePage extends Dialog {
                   },
                 ),
                 RadioListTile<String>(
-                  title: Text(AppLocalizations.of(context)!.textLanguageVN, style: AppStyles.r1),
+                  title: Text(AppLocalizations.of(context)!.textLanguageVN,
+                      style: AppStyles.r1),
                   value: RouteConfig.listLanguage[1].languageCode,
                   groupValue: controller.currentLanguage.value,
                   activeColor: AppColors.colorSubContent,
@@ -49,7 +54,8 @@ class DialogChangeLanguagePage extends Dialog {
                   },
                 ),
                 RadioListTile<String>(
-                  title: Text(AppLocalizations.of(context)!.textLanguageES, style: AppStyles.r1),
+                  title: Text(AppLocalizations.of(context)!.textLanguageES,
+                      style: AppStyles.r1),
                   value: RouteConfig.listLanguage[2].languageCode,
                   groupValue: controller.currentLanguage.value,
                   activeColor: AppColors.colorSubContent,
@@ -69,14 +75,15 @@ class DialogChangeLanguagePage extends Dialog {
                     child: Text(AppLocalizations.of(context)!.textContinue),
                     style: ButtonStyle(
                         foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                        backgroundColor:
-                        MaterialStateProperty.all<Color>(AppColors.colorButton),
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            AppColors.colorButton),
                         shape:
-                        MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(24),
-                                side: BorderSide(color: AppColors.colorButton)))),
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(24),
+                                    side: BorderSide(
+                                        color: AppColors.colorButton)))),
                   ),
                 )
               ],
