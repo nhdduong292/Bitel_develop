@@ -298,7 +298,7 @@ class OrderManagementPage extends GetWidget {
                     ),
                     onTap: () {},
                   ),
-                  InkWell(
+                  GestureDetector(
                     onTap: () {
                       controller.isSearched = true;
 

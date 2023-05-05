@@ -421,4 +421,31 @@ class ProductPaymentMethodLogic extends GetxController {
       },
     );
   }
+
+  void checkBalance(var onSuccess) {
+    _onLoading(context);
+    ApiUtil.getInstance()!.get(
+      url: ApiEndPoints.API_CHECK_BALANCE,
+      params: {"amount": billModel.total},
+      onSuccess: (response) {
+        Get.back();
+        if (response.isSuccess) {
+          onSuccess(true);
+        } else {
+          onSuccess(false);
+        }
+      },
+      onError: (error) {
+        Get.back();
+        Common.showMessageError(error: error, context: context);
+        try {
+          String errorCode = error.response!.data['errorCode'];
+          if (errorCode == 'E028') {
+            onSuccess(false);
+          }
+          // ignore: empty_catches
+        } catch (e) {}
+      },
+    );
+  }
 }

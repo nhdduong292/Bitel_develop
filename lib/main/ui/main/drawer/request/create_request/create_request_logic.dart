@@ -1,16 +1,18 @@
+import 'dart:async';
+
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/address_model.dart';
 import 'package:bitel_ventas/main/networks/model/contact_model.dart';
+import 'package:bitel_ventas/main/networks/model/customer_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
-import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/networks/response/search_contact_response.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../../../utils/common_widgets.dart';
 
 class CreateRequestLogic extends GetxController {
   BuildContext context;
@@ -20,12 +22,8 @@ class CreateRequestLogic extends GetxController {
   String currentIdentityType = "DNI";
   String currentIdentity = "";
   List<String> listIdentity = ["DNI", "CE", "PP"];
-  AddressModel currentProvince = AddressModel();
-  List<AddressModel> listProvince = [];
-  AddressModel currentDistrict = AddressModel();
-  List<AddressModel> listDistrict = [];
-  AddressModel currentPrecinct = AddressModel();
-  List<AddressModel> listPrecinct = [];
+  AddressModel currentArea = AddressModel();
+  List<AddressModel> listArea = [];
   String currentAddress = "";
   bool isAddContact = true;
   ContactModel contactModel = ContactModel();
@@ -33,20 +31,17 @@ class CreateRequestLogic extends GetxController {
   String currentName = "";
   String currentPhone = "";
   bool isCheckAgree = true;
+  CustomerModel customerModel = CustomerModel();
 
   TextEditingController textFieldIdNumber = TextEditingController();
   TextEditingController textFieldPhone = TextEditingController();
   TextEditingController textFieldName = TextEditingController();
-  TextEditingController textFieldProvince = TextEditingController();
-  TextEditingController textFieldDistrict = TextEditingController();
-  TextEditingController textFieldPrecinct = TextEditingController();
+  TextEditingController textFieldArea = TextEditingController();
   TextEditingController textFieldAddress = TextEditingController();
   FocusNode focusIdNumber = FocusNode();
   FocusNode focusName = FocusNode();
   FocusNode focusPhone = FocusNode();
-  FocusNode focusProvince = FocusNode();
-  FocusNode focusDistrict = FocusNode();
-  FocusNode focusPrecinct = FocusNode();
+  FocusNode focusArea = FocusNode();
   FocusNode focusAddress = FocusNode();
   RequestDetailModel requestModel = RequestDetailModel();
 
@@ -56,6 +51,12 @@ class CreateRequestLogic extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    focusIdNumber.addListener(() {
+      if (!focusIdNumber.hasFocus) {
+        // The TextField lost focus
+        getCustomerExist();
+      }
+    });
     // getMaxLengthIdNumber(currentIdentityType);
   }
 
@@ -66,28 +67,8 @@ class CreateRequestLogic extends GetxController {
 
   void setPrecinct(AddressModel value) {
     // if(value.areaCode == currentPrecinct.areaCode) return;
-    currentPrecinct = value;
-    textFieldPrecinct.text = value.name;
-    update();
-  }
-
-  void setDistrict(AddressModel value) {
-    // if(value.areaCode == currentDistrict.areaCode) return;
-    currentDistrict = value;
-    textFieldDistrict.text = value.name;
-    textFieldPrecinct.text = "";
-    listPrecinct.clear();
-    update();
-  }
-
-  void setProvince(AddressModel value) {
-    // if(value.areaCode == currentProvince.areaCode) return;
-    currentProvince = value;
-    textFieldProvince.text = value.name;
-    textFieldDistrict.text = "";
-    textFieldPrecinct.text = "";
-    listDistrict.clear();
-    listPrecinct.clear();
+    currentArea = value;
+    textFieldArea.text = value.name;
     update();
   }
 
@@ -132,31 +113,9 @@ class CreateRequestLogic extends GetxController {
       Common.showToastCenter(AppLocalizations.of(context)!.textPhoneMin9Number);
       return true;
     }
-    // if(currentProvince.isEmpty){
-    //   focusProvince.requestFocus();
-    //   return true;
-    // }
-    // if(currentDistrict.isEmpty){
-    //   focusDistrict.requestFocus();
-    //   return true;
-    // }
-    // if(currentPrecinct.isEmpty){
-    //   focusPrecinct.requestFocus();
-    //   return true;
-    // }
-    if (currentProvince.province.isEmpty) {
-      Common.showToastCenter(
-          AppLocalizations.of(context)!.textNotEmptyProvince);
-      return true;
-    }
-
-    if (currentDistrict.district.isEmpty) {
-      Common.showToastCenter(
-          AppLocalizations.of(context)!.textNotEmptyDistrict);
-      return true;
-    }
-
-    if (currentPrecinct.precinct.isEmpty) {
+    if (currentArea.province.isEmpty ||
+        currentArea.district.isEmpty ||
+        currentArea.precinct.isEmpty) {
       Common.showToastCenter(
           AppLocalizations.of(context)!.textNotEmptyPrecinct);
       return true;
@@ -179,12 +138,12 @@ class CreateRequestLogic extends GetxController {
       Function(bool isSuccess, RequestDetailModel model) function) {
     Map<String, dynamic> body = {
       "address": currentAddress.trim(),
-      "district": currentDistrict.district.trim(),
+      "district": currentArea.district.trim(),
       "idNumber": currentIdentity.trim(),
       "name": currentName.trim(),
       "phone": currentPhone.trim(),
-      "precinct": currentPrecinct.precinct.trim(),
-      "province": currentProvince.province.trim(),
+      "precinct": currentArea.precinct.trim(),
+      "province": currentArea.province.trim(),
       "service": currentService.trim(),
       "identityType": currentIdentityType.trim()
     };
@@ -244,82 +203,6 @@ class CreateRequestLogic extends GetxController {
         });
   }
 
-  void getListProvince(Function(bool isSuccess) function) {
-    ApiUtil.getInstance()!.get(
-        url: ApiEndPoints.API_PROVINCES,
-        onSuccess: (response) {
-          if (response.isSuccess) {
-            print("success");
-            listProvince = (response.data['data'] as List)
-                .map((postJson) => AddressModel.fromJson(postJson))
-                .toList();
-            if (listProvince.isNotEmpty) {
-              update();
-            }
-            function.call(true);
-          } else {
-            print("error: ${response.status}");
-            function.call(false);
-          }
-        },
-        onError: (error) {
-          function.call(false);
-          Common.showMessageError(error: error, context: context);
-        });
-  }
-
-  void getListPrecincts(String areaCode, Function(bool isSuccess) function) {
-    Map<String, dynamic> params = {"areaCode": areaCode};
-    ApiUtil.getInstance()!.get(
-        url: ApiEndPoints.API_PRECINCTS,
-        params: params,
-        onSuccess: (response) {
-          if (response.isSuccess) {
-            print("success");
-            listPrecinct = (response.data['data'] as List)
-                .map((postJson) => AddressModel.fromJson(postJson))
-                .toList();
-            if (listPrecinct.isNotEmpty) {
-              update();
-            }
-            function.call(true);
-          } else {
-            print("error: ${response.status}");
-            function.call(false);
-          }
-        },
-        onError: (error) {
-          function.call(false);
-          Common.showMessageError(error: error, context: context);
-        });
-  }
-
-  void getListDistrict(String areaCode, Function(bool isSuccess) function) {
-    Map<String, dynamic> params = {"areaCode": areaCode};
-    ApiUtil.getInstance()!.get(
-        url: ApiEndPoints.API_DISTRICTS,
-        params: params,
-        onSuccess: (response) {
-          if (response.isSuccess) {
-            print("success");
-            listDistrict = (response.data['data'] as List)
-                .map((postJson) => AddressModel.fromJson(postJson))
-                .toList();
-            if (listDistrict.isNotEmpty) {
-              update();
-            }
-            function.call(true);
-          } else {
-            print("error: ${response.status}");
-            function.call(false);
-          }
-        },
-        onError: (error) {
-          function.call(false);
-          Common.showMessageError(error: error, context: context);
-        });
-  }
-
   void createSurveyOffline(Function(bool isSuccess) callBack) {
     Map<String, dynamic> body = {
       "status": RequestStatus.CREATE_REQUEST,
@@ -365,6 +248,43 @@ class CreateRequestLogic extends GetxController {
         });
   }
 
+  void getCustomerExist() {
+    _onLoading(context);
+    ApiUtil.getInstance()!.get(
+        url: ApiEndPoints.API_GET_CUSTOMER_EXIST,
+        params: {
+          "idType": currentIdentityType,
+          "idNo": textFieldIdNumber.text.trim()
+        },
+        onSuccess: (response) {
+          if (response.isSuccess) {
+            print("success");
+            customerModel = CustomerModel.fromJson(response.data["data"]);
+            if (customerModel.custId != 0) {
+              textFieldName.text = customerModel.name;
+              currentName = customerModel.name;
+              textFieldPhone.text = customerModel.telFax;
+              currentPhone = customerModel.telFax;
+              textFieldAddress.text = customerModel.address;
+              currentAddress = customerModel.address;
+              textFieldArea.text =
+                  '${customerModel.provinceName} - ${customerModel.districtName} - ${customerModel.precinctName}';
+              currentArea.province = customerModel.province;
+              currentArea.district = customerModel.district;
+              currentArea.precinct = customerModel.precinct;
+            }
+            update();
+          } else {
+            print("error: ${response.status}");
+          }
+          Get.back();
+        },
+        onError: (error) {
+          Get.back();
+          Common.showMessageError(error: error, context: context);
+        });
+  }
+
   void setCheckAgree(bool value) {
     isCheckAgree = value;
     update();
@@ -383,5 +303,45 @@ class CreateRequestLogic extends GetxController {
   bool containsOnlyUpperCaseAndNumber(String text) {
     RegExp upperCaseAndNumberRegExp = RegExp(r'^[A-Z0-9]*$');
     return upperCaseAndNumberRegExp.hasMatch(text);
+  }
+
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
+      },
+    );
+  }
+
+  Future<List<AddressModel>> getAreas(String query) {
+    Completer<List<AddressModel>> completer = Completer();
+    ApiUtil.getInstance()!.get(
+        url: ApiEndPoints.API_SEARCH_AREAS,
+        params: {'key': query},
+        onSuccess: (response) {
+          if (response.isSuccess) {
+            print("success");
+            listArea = (response.data['data'] as List)
+                .map((postJson) => AddressModel.fromJson(postJson))
+                .toList();
+            completer.complete(listArea);
+          } else {
+            print("error: ${response.status}");
+            completer.complete([]);
+          }
+        },
+        onError: (error) {
+          Get.back();
+          Common.showMessageError(error: error, context: context);
+          completer.complete([]);
+          // callBack.call(false);
+        });
+    return completer.future;
   }
 }

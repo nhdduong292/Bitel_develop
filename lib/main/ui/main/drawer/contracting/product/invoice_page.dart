@@ -248,42 +248,55 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
             ),
           ),
           bottomButton(
-            text: AppLocalizations.of(context)!.textContinue,
-            onTap: () {
-              if (true) {
-                if (controller.balance < controller.totalPayment) {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return const RechargeDialog(height: 340);
-                      });
-                } else {
-                  controller.checkRegisterCustomer(context).then((value) {
-                    if (value) {
-                      Get.toNamed(RouteConfig.customerInformation, arguments: [
-                        controller.customer,
-                        controller.requestModel,
-                        controller.getProduct().productId,
-                        controller.getPlanReason().id,
-                        controller.isForcedTerm(),
-                        controller.listIdPromotion,
-                        controller.getPackage().packageId
-                      ]);
-                    } else {
-                      Get.toNamed(RouteConfig.createContact, arguments: [
-                        controller.requestModel,
-                        controller.getProduct().productId,
-                        controller.getPlanReason().id,
-                        controller.isForcedTerm(),
-                        controller.listIdPromotion,
-                        controller.getPackage().packageId
-                      ]);
-                    }
-                  });
-                }
-              }
-            },
-          ),
+              text: AppLocalizations.of(context)!.textContinue,
+              onTap: () {
+                controller.checkBalance((value) {
+                  if (value) {
+                    controller.checkRegisterCustomer(context).then((value) {
+                      if (value) {
+                        Get.toNamed(RouteConfig.customerInformation,
+                            arguments: [
+                              controller.customer,
+                              controller.requestModel,
+                              controller.getProduct().productId,
+                              controller.getPlanReason().id,
+                              controller.isForcedTerm(),
+                              controller.listIdPromotion,
+                              controller.getPackage().packageId
+                            ]);
+                      } else {
+                        Get.toNamed(RouteConfig.createContact, arguments: [
+                          controller.requestModel,
+                          controller.getProduct().productId,
+                          controller.getPlanReason().id,
+                          controller.isForcedTerm(),
+                          controller.listIdPromotion,
+                          controller.getPackage().packageId
+                        ]);
+                      }
+                    });
+                  } else {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return RechargeDialog(
+                            height: 340,
+                            onCanncel: () {
+                              controller.isOnInvoicePage.value = false;
+                              controller.isOnMethodPage.value = true;
+                              controller.scrollController?.scrollTo(
+                                index: 0,
+                                duration: const Duration(milliseconds: 200),
+                              );
+                            },
+                            onContinue: () {
+                              Get.toNamed(RouteConfig.createOrder);
+                            },
+                          );
+                        });
+                  }
+                });
+              }),
         ],
       )),
     );
@@ -316,8 +329,14 @@ Widget _paymentElement(String label, String value, Color color) {
 
 class RechargeDialog extends Dialog {
   final double height;
+  Function onCanncel;
+  Function onContinue;
 
-  const RechargeDialog({super.key, required this.height});
+  RechargeDialog(
+      {super.key,
+      required this.height,
+      required this.onCanncel,
+      required this.onContinue});
 
   @override
   Widget build(BuildContext context) {
@@ -364,11 +383,17 @@ class RechargeDialog extends Dialog {
                 Expanded(
                     child: bottomButtonV2(
                         text: AppLocalizations.of(context)!.textCancel,
-                        onTap: () => Get.back())),
+                        onTap: () {
+                          Get.back();
+                          onCanncel();
+                        })),
                 Expanded(
                     child: bottomButton(
                         text: AppLocalizations.of(context)!.textRecharge,
-                        onTap: () {}))
+                        onTap: () {
+                          Get.back();
+                          onContinue();
+                        }))
               ],
             ),
             const SizedBox(

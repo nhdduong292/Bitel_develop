@@ -1,5 +1,5 @@
 class ApiEndPoints {
-  static const String DOMAIN = "http://181.176.242.147:9901/ftth/";
+  static const String DOMAIN = "http://181.176.242.147:9901/ftth";
   static const String DOMAIN_TEST = "http://10.121.14.196:9092";
   static const bool isDev = false; //todo true là test false la that
   static const String API_LIST_REQUEST =
@@ -84,4 +84,10 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/customers/check-finger-exist";
   static const String API_GET_PACKAGE =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/payment-packages";
+  static const String API_CHECK_BALANCE =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts/check-balance";
+  static const String API_GET_CUSTOMER_EXIST =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/customers/exist";
+  static const String API_SEARCH_AREAS =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/areas/search";
 }

@@ -15,19 +15,20 @@ class ListRequestLogic extends GetxController
   SearchRequest searchRequest = SearchRequest();
   int index = 0;
   Timer? _debounce;
-  GlobalKey<ListRequestTabState> globalKey1 = GlobalKey();
+  GlobalKey<ListRequestTabState> globalKeyCreateRequest = GlobalKey();
   GlobalKey<ListRequestTabState> globalKey2 = GlobalKey();
   GlobalKey<ListRequestTabState> globalKey3 = GlobalKey();
-  GlobalKey<ListRequestTabState> globalKey4 = GlobalKey();
-  GlobalKey<ListRequestTabState> globalKey5 = GlobalKey();
-  GlobalKey<ListRequestTabState> globalKey6 = GlobalKey();
-  GlobalKey<ListRequestTabState> globalKey7 = GlobalKey();
+  GlobalKey<ListRequestTabState> globalKeySucceedSurvey = GlobalKey();
+  GlobalKey<ListRequestTabState> globalKeyDeploying = GlobalKey();
+  GlobalKey<ListRequestTabState> globalKeyComplete = GlobalKey();
+  GlobalKey<ListRequestTabState> globalKeyCancel = GlobalKey();
+  GlobalKey<ListRequestTabState> globalKeyAll = GlobalKey();
 
   String keySearch = '';
   @override
   void onInit() {
     // TODO: implement onInit
-    tabController = TabController(vsync: this, length: 7);
+    tabController = TabController(vsync: this, length: 6);
     super.onInit();
     index = Get.arguments;
     tabController!.animateTo(index, duration: Duration(milliseconds: 500));
@@ -47,21 +48,40 @@ class ListRequestLogic extends GetxController
   String getStatus(int index) {
     if (index == 0) {
       return RequestStatus.CREATE_REQUEST;
+      // } else if (index == 1) {
+      //   return RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY;
     } else if (index == 1) {
-      return RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY;
+      return RequestStatus.SUCCEED_SURVEY;
+      // } else if (index == 3) {
+      //   return RequestStatus.CONNECTED;
     } else if (index == 2) {
-      return RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY;
-    } else if (index == 3) {
-      return RequestStatus.CONNECTED;
-    } else if (index == 4) {
       return RequestStatus.DEPLOYING;
-    } else if (index == 5) {
+    } else if (index == 3) {
       return RequestStatus.COMPLETE;
-    } else if (index == 6) {
+    } else if (index == 4) {
       return RequestStatus.CANCEL;
     }
     return "";
   }
+
+  // String getStatus(int index) {
+  //   if (index == 0) {
+  //     return RequestStatus.CREATE_REQUEST;
+  //   } else if (index == 1) {
+  //     return RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY;
+  //   } else if (index == 2) {
+  //     return RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY;
+  //   } else if (index == 3) {
+  //     return RequestStatus.CONNECTED;
+  //   } else if (index == 4) {
+  //     return RequestStatus.DEPLOYING;
+  //   } else if (index == 5) {
+  //     return RequestStatus.COMPLETE;
+  //   } else if (index == 6) {
+  //     return RequestStatus.CANCEL;
+  //   }
+  //   return "";
+  // }
 
   void updateSearchRequest(SearchRequest model, BuildContext context) {
     index = model.getPositionStatus(context);
@@ -74,20 +94,22 @@ class ListRequestLogic extends GetxController
     if (_debounce?.isActive ?? false) _debounce!.cancel();
     _debounce = Timer(const Duration(milliseconds: 500), () {
       // do something with query
-      if (index == 0) {
-        globalKey1.currentState!.getListRequest(key);
-      } else if (index == 1) {
-        globalKey2.currentState!.getListRequest(key);
+      if (index == 1) {
+        globalKeyCreateRequest.currentState!.getListRequest(key);
       } else if (index == 2) {
-        globalKey3.currentState!.getListRequest(key);
+        globalKeySucceedSurvey.currentState!.getListRequest(key);
+        // } else if (index == 2) {
+        //   globalKey3.currentState!.getListRequest(key);
+        // } else if (index == 3) {
+        //   globalKey4.currentState!.getListRequest(key);
       } else if (index == 3) {
-        globalKey4.currentState!.getListRequest(key);
+        globalKeyDeploying.currentState!.getListRequest(key);
       } else if (index == 4) {
-        globalKey5.currentState!.getListRequest(key);
+        globalKeyComplete.currentState!.getListRequest(key);
       } else if (index == 5) {
-        globalKey6.currentState!.getListRequest(key);
-      } else if (index == 6) {
-        globalKey7.currentState!.getListRequest(key);
+        globalKeyCancel.currentState!.getListRequest(key);
+      } else if (index == 0) {
+        globalKeyAll.currentState!.getListRequest(key);
       }
     });
   }

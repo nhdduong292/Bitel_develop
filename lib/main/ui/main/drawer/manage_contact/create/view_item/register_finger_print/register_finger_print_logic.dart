@@ -28,7 +28,7 @@ class RegisterFingerPrintLogic extends GetxController {
 
   var handValue = (1).obs;
   var fingerValue = (1).obs;
-  var pathFinger = AppImages.imgFingerLeft1.obs;
+  var pathFinger = AppImages.imgFingerLeftThumb.obs;
   int indexLeft = 0;
   List<String> listImageLeft = [];
   int indexRight = 0;
@@ -70,38 +70,38 @@ class RegisterFingerPrintLogic extends GetxController {
       indexRight = 0;
       if (fingerValue.value == 1) {
         indexLeft = 6;
-        return AppImages.imgFingerLeft1;
+        return AppImages.imgFingerLeftThumb;
       } else if (fingerValue.value == 2) {
         indexLeft = 7;
-        return AppImages.imgFingerLeft2;
+        return AppImages.imgFingerLeftIndex;
       } else if (fingerValue.value == 3) {
         indexLeft = 8;
-        return AppImages.imgFingerLeft3;
+        return AppImages.imgFingerLeftMiddle;
       } else if (fingerValue.value == 4) {
         indexLeft = 9;
-        return AppImages.imgFingerLeft4;
+        return AppImages.imgFingerLeftRing;
       } else {
         indexLeft = 10;
-        return AppImages.imgFingerLeft5;
+        return AppImages.imgFingerLeftLittle;
       }
     } else {
       //todo phai
       indexLeft = 0;
       if (fingerValue.value == 1) {
         indexRight = 1;
-        return AppImages.imgFingerRight1;
+        return AppImages.imgFingerRightThumb;
       } else if (fingerValue.value == 2) {
         indexRight = 2;
-        return AppImages.imgFingerRight2;
+        return AppImages.imgFingerRightIndex;
       } else if (fingerValue.value == 3) {
         indexRight = 3;
-        return AppImages.imgFingerRight3;
+        return AppImages.imgFingerRightMiddle;
       } else if (fingerValue.value == 4) {
         indexRight = 4;
-        return AppImages.imgFingerRight4;
+        return AppImages.imgFingerRightRing;
       } else {
         indexRight = 5;
-        return AppImages.imgFingerRight5;
+        return AppImages.imgFingerRightLittle;
       }
     }
   }

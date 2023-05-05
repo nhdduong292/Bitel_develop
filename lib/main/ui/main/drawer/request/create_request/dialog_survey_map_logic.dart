@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
@@ -14,6 +15,8 @@ import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uuid/uuid.dart';
+
+import '../../../../../utils/common_widgets.dart';
 
 class DialogSurveyMapLogic extends GetxController {
   BuildContext context;
@@ -61,10 +64,17 @@ class DialogSurveyMapLogic extends GetxController {
     //   print("lat: $lat long: $long");
     //   setCircle(currentPoint);
     // });
+  }
 
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+    _onLoading(context);
     _getCurrentLocation().then(
       (value) {
         getLocationAddress();
+        // Get.back();
       },
     );
   }
@@ -82,6 +92,8 @@ class DialogSurveyMapLogic extends GetxController {
     currentPoint = point;
     lat = point.latitude;
     long = point.longitude;
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(lat, long, localeIdentifier: "en_US");
     setMarker(point);
     GoogleMapController controller = await controllerMap.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(
@@ -95,6 +107,7 @@ class DialogSurveyMapLogic extends GetxController {
         strokeWidth: 1));
     isActive = false;
     update();
+    Get.back();
   }
 
   void setTechnology(String value) {
@@ -198,6 +211,7 @@ class DialogSurveyMapLogic extends GetxController {
 
   void getLocationAddress() async {
     try {
+      print(requestModel.getInstalAddress());
       List<Location> locations = await locationFromAddress(
           requestModel.getInstalAddress(),
           localeIdentifier: "es_PE");
@@ -212,9 +226,26 @@ class DialogSurveyMapLogic extends GetxController {
         currentPoint = LatLng(lat, long);
         print("lat: $lat long: $long");
         setCircle(currentPoint);
+      } else {
+        Get.back();
       }
     } catch (e) {
+      Get.back();
       Common.showToastCenter(e.toString());
     }
+  }
+
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
+      },
+    );
   }
 }
