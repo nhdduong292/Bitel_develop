@@ -603,5 +603,6 @@
    "textUsernameOrPasswordInvalid": "Tên đăng nhập hoặc mật khẩu không hợp lệ",
     "textArea": "Tỉnh - Quận - Khu vực",
     "textEnterArea": "Nhập khu vực",
-    "textAddressNotFound": "Địa chỉ không tồn tại"
+    "textAddressNotFound": "Địa chỉ không tồn tại",
+    "textMonth": "tháng"
 }

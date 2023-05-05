@@ -173,7 +173,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
-                          '${controller.billModel.product.defaultValue ?? 'null'} /month',
+                          '${controller.billModel.product.defaultValue ?? 'null'} /${AppLocalizations.of(context)!.textMonth}',
                           style: const TextStyle(
                               fontSize: 16,
                               fontFamily: 'Barlow',

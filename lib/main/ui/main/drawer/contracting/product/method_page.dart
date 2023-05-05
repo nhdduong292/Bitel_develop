@@ -64,6 +64,7 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                     primary: false,
                     itemBuilder: (BuildContext context, int index) =>
                         _itemProduct(
+                            context: context,
                             groupValue: controller.valueProduct,
                             product: controller.listProduct[index],
                             value: index,
@@ -391,7 +392,8 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
 }
 
 Widget _itemProduct(
-    {required int value,
+    {required BuildContext context,
+    required int value,
     required ProductModel product,
     required RxInt groupValue,
     required var onChange}) {
@@ -423,7 +425,7 @@ Widget _itemProduct(
                   height: 8,
                 ),
                 Text(
-                  'Speed ${product.speed} Mpbs',
+                  '${AppLocalizations.of(context)!.textSpeed} ${product.speed} Mpbs',
                   style: AppStyles.r6C8AA1_13_400
                       .copyWith(fontSize: 12, fontWeight: FontWeight.w500),
                 ),
@@ -437,7 +439,7 @@ Widget _itemProduct(
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
-              '${product.defaultValue ?? 'null'}/month',
+              '${product.defaultValue ?? 'null'}/${AppLocalizations.of(context)!.textMonth}',
               style: AppStyles.r9454C9_14_500
                   .copyWith(fontWeight: FontWeight.w700, fontSize: 16),
             ),

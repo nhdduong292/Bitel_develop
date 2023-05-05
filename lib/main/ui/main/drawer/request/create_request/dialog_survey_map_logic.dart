@@ -107,6 +107,27 @@ class DialogSurveyMapLogic extends GetxController {
         strokeWidth: 1));
     isActive = false;
     update();
+  }
+
+  void setCircleFirst(LatLng point) async {
+    currentPoint = point;
+    lat = point.latitude;
+    long = point.longitude;
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(lat, long, localeIdentifier: "en_US");
+    setMarker(point);
+    GoogleMapController controller = await controllerMap.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(target: point, zoom: 14.4746)));
+    circles.add(Circle(
+        circleId: CircleId('raj'),
+        center: point,
+        fillColor: Colors.blue.withOpacity(0.1),
+        radius: radiusValue,
+        strokeColor: Colors.blue,
+        strokeWidth: 1));
+    isActive = false;
+    update();
     Get.back();
   }
 
@@ -225,7 +246,7 @@ class DialogSurveyMapLogic extends GetxController {
         long = locations[0].longitude;
         currentPoint = LatLng(lat, long);
         print("lat: $lat long: $long");
-        setCircle(currentPoint);
+        setCircleFirst(currentPoint);
       } else {
         Get.back();
       }
