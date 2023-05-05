@@ -604,5 +604,6 @@
     "textArea": "Tỉnh - Quận - Khu vực",
     "textEnterArea": "Nhập khu vực",
     "textAddressNotFound": "Địa chỉ không tồn tại",
-    "textMonth": "tháng"
+    "textMonth": "tháng",
+    "textTheSystemIsOverloaded": "Hệ thống đang quá tải, vui lòng quay lại sau"
 }

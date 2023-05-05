@@ -113,12 +113,12 @@
   "textContactPhone": "Contact phone",
   "hintContactPhone": "Enter Contact phone",
   "textSurveyAddress": "Survey address",
-  "textProvince": "Province",
-  "hintProvince": "Choose Province",
-  "textDistrict": "District",
-  "hintDistrict": "Choose District",
-  "textPrecinct": "Precinct",
-  "hintPrecinct": "Choose Precinct",
+  "textProvince": "Department",
+  "hintProvince": "Choose Department",
+  "textDistrict": "Province",
+  "hintDistrict": "Choose Province",
+  "textPrecinct": "District",
+  "hintPrecinct": "Choose District",
   "textAddress": "Address",
   "hintAddress": "Choose Address",
   "textCancel": "Cancel",
@@ -624,6 +624,7 @@
     "textArea": "Province - District - Precinct",
     "textEnterArea": "Enter area",
     "textAddressNotFound": "Address not found", 
-    "textMonth": "month"
+    "textMonth": "month",
+    "textTheSystemIsOverloaded": "The system is overloaded, please try again later"
 
 }

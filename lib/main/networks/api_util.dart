@@ -20,9 +20,9 @@ class ApiUtil {
   ApiUtil() {
     if (dio == null) {
       dio = Dio();
-      dio!.options.connectTimeout = Duration(seconds: 120);
+      dio!.options.connectTimeout = const Duration(seconds: 120);
       // dio!.options.receiveTimeout = Duration(seconds: 60);
-      dio!.options.receiveTimeout = Duration(seconds: 300);
+      dio!.options.receiveTimeout = const Duration(seconds: 300);
       dio!.interceptors.add(ApiInterceptors());
     }
     cancelToken ??= CancelToken();

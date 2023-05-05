@@ -164,6 +164,11 @@ class Common {
           Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
           return;
         }
+        if (error.type == DioErrorType.connectionTimeout) {
+          Common.showToastCenter(
+              AppLocalizations.of(context)!.textTheSystemIsOverloaded);
+          return;
+        }
       } else {
         Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
         return;
