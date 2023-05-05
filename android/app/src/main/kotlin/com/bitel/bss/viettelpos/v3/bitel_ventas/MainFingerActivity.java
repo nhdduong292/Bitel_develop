@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -36,6 +37,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import io.flutter.embedding.android.FlutterActivity;
@@ -56,6 +58,7 @@ public class MainFingerActivity extends FlutterActivity {
     private MethodChannel channelScan1;
     private MethodChannel channelScan2;
     private ProgressDialog waitProgress;
+
 
     int positionScan = 0;
 
@@ -109,6 +112,13 @@ public class MainFingerActivity extends FlutterActivity {
     Bitmap bitmap;
 
     void getImageCapture(MethodChannel.Result result, String isPK) {
+        Locale myLocale;
+        myLocale = new Locale("en");
+        Locale.setDefault(myLocale);
+        Configuration config = new Configuration();
+        config.locale = myLocale;
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+         String locale = myLocale.getLanguage();
         if (FingerPrintConstant.IS_BY_PASS_FINGER_PRINT) {
             String wsqLeft = FingerPrintConstant.DUMMY_FINGERPRINT;
             Bitmap fingerPrintImgTest = BitmapFactory.decodeResource(getResources(), R.drawable.fingerprint_test);
@@ -120,17 +130,17 @@ public class MainFingerActivity extends FlutterActivity {
 
         if (FingerScannerFactory.fingerPrintScannerImp == null) {
             Log.d(TAG, "fingerPrintScannerImp == null");
-            showDialog("Error", "Your device is not compatible with this version. Please, use Android 6 or lower.", "", "Cancel");
+            showDialog("Error" + locale, getString(R.string.title_error_device_lower_6), "", "Cancel");
             result.error("UNAVAILABLE", "Finger not available.", null);
         } else if (FingerScannerFactory.fingerPrintScannerImp instanceof EmptyFingerPrintScanner) {
             Log.d(TAG, "fingerPrintScannerImp instanceof EmptyFingerPrintScanner");
             if (((EmptyFingerPrintScanner) FingerScannerFactory.fingerPrintScannerImp).getStatus()
                     == EmptyFingerPrintScanner.STATUS.DEVICE_NOT_FOUND) {
                 Log.d(TAG, "fingerPrintScannerImp instanceof EmptyFingerPrintScanner DEVICE_NOT_FOUND");
-                showDialog("Error", "Can\\'t find usb fingerprint scanner. Please go back one step and plugin the device", "", "Cancel");
+                showDialog("Error" + locale, getString(R.string.title_error_find_use_findger), "", "Cancel");
             } else {
                 Log.d(TAG, "fingerPrintScannerImp instanceof EmptyFingerPrintScanner DEVICE");
-                showDialog("Error", "Your device is not compatible with this version. Please, use Android 6 or lower.", "", "Cancel");
+                showDialog("Error"+ locale, getString(R.string.title_error_device_lower_6), "", "Cancel");
             }
             result.error("UNAVAILABLE", "Finger not available.", null);
         } else {
@@ -138,7 +148,8 @@ public class MainFingerActivity extends FlutterActivity {
             FingerScannerFactory.fingerPrintScannerImp.onCapture(new FingerPrintScannerBase.CaptureFingerListener() {
                 @Override
                 public void onPreExecute() {
-                    showWaitProgress(MainFingerActivity.this, "Each capture should not longer than 10s, please try to re-position your finger");
+
+                    showWaitProgress(MainFingerActivity.this,locale + getString(R.string.title_load_fingerScan));
                 }
 
                 @Override
