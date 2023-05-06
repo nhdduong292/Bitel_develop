@@ -210,8 +210,7 @@ class DialogAdvancedSearchPage extends GetWidget {
                                                 BorderRadius.circular(24),
                                             borderSide: const BorderSide(
                                                 width: 1,
-                                                color:
-                                                    AppColors.colorLineDash)),
+                                                color: Color(0xFFE3EAF2))),
                                         errorBorder: OutlineInputBorder(
                                             borderRadius:
                                                 BorderRadius.circular(24),
@@ -223,15 +222,13 @@ class DialogAdvancedSearchPage extends GetWidget {
                                                 BorderRadius.circular(24),
                                             borderSide: const BorderSide(
                                                 width: 1,
-                                                color:
-                                                    AppColors.colorLineDash)),
+                                                color: Color(0xFFE3EAF2))),
                                         enabledBorder: OutlineInputBorder(
                                             borderRadius:
                                                 BorderRadius.circular(24),
                                             borderSide: const BorderSide(
                                                 width: 1,
-                                                color:
-                                                    AppColors.colorLineDash)),
+                                                color: Color(0xFFE3EAF2))),
                                         suffixIcon: Padding(
                                           padding: const EdgeInsets.all(10),
                                           child: SvgPicture.asset(

@@ -74,12 +74,11 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                       ),
                       Container(
                         margin: EdgeInsets.only(left: 15, right: 15, top: 30),
-                        child: InkWell(
+                        child: GestureDetector(
                           onTap: () {
                             controller.checkOption1.value =
                                 !controller.checkOption1.value;
                           },
-                          splashColor: Colors.black38,
                           child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -116,12 +115,11 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                       ),
                       Container(
                         margin: EdgeInsets.only(left: 15, right: 15, top: 30),
-                        child: InkWell(
+                        child: GestureDetector(
                           onTap: () {
                             controller.checkOption2.value =
                                 !controller.checkOption2.value;
                           },
-                          splashColor: Colors.black38,
                           child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [

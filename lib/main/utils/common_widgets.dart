@@ -1272,11 +1272,10 @@ Widget customRadioMutiple(
     required var changeValue}) {
   return Container(
     margin: EdgeInsets.only(left: 15, right: 15, top: 16),
-    child: InkWell(
+    child: GestureDetector(
       onTap: () {
         changeValue(!check.value);
       },
-      splashColor: Colors.black38,
       child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
         Obx(() => check.value
             ? SvgPicture.asset(AppImages.icRadioChecked)

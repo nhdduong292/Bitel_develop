@@ -191,13 +191,12 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                               child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    InkWell(
+                                    GestureDetector(
                                         onTap: () {
                                           controller.step3Choice1Checked.value =
                                               !controller
                                                   .step3Choice1Checked.value;
                                         },
-                                        splashColor: Colors.black38,
                                         child: Obx(() =>
                                             controller.step3Choice1Checked.value
                                                 ? iconChecked()
@@ -240,13 +239,12 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                               child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    InkWell(
+                                    GestureDetector(
                                         onTap: () {
                                           controller.step3Choice2Checked.value =
                                           !controller
                                               .step3Choice2Checked.value;
                                         },
-                                        splashColor: Colors.black38,
                                         child: Obx(() =>
                                         controller.step3Choice2Checked.value
                                             ? iconChecked()
@@ -322,13 +320,12 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                               child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    InkWell(
+                                    GestureDetector(
                                         onTap: () {
                                           controller.step3Choice3Checked.value =
                                               !controller
                                                   .step3Choice3Checked.value;
                                         },
-                                        splashColor: Colors.black38,
                                         child: Obx(() =>
                                             controller.step3Choice3Checked.value
                                                 ? iconChecked()
@@ -372,13 +369,12 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                               child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    InkWell(
+                                    GestureDetector(
                                         onTap: () {
                                           controller.step3Choice4Checked.value =
                                           !controller
                                               .step3Choice4Checked.value;
                                         },
-                                        splashColor: Colors.black38,
                                         child: Obx(() =>
                                         controller.step3Choice4Checked.value
                                             ? iconChecked()
@@ -422,13 +418,12 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                               child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    InkWell(
+                                    GestureDetector(
                                         onTap: () {
                                           controller.step3Choice5Checked.value =
                                           !controller
                                               .step3Choice5Checked.value;
                                         },
-                                        splashColor: Colors.black38,
                                         child: Obx(() =>
                                         controller.step3Choice5Checked.value
                                             ? iconChecked()
@@ -471,8 +466,7 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                     Container(
                         margin:
                             EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                        child: InkWell(
-                          splashColor: Colors.black38,
+                        child: GestureDetector(
                           onTap: () => controller.gotoNextStep(step: 4),
                           child: Container(
                             height: 50,

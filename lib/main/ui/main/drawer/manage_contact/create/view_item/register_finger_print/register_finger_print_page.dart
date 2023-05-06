@@ -563,12 +563,11 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
       required int value,
       required var groupValue,
       required onChange}) {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         onChange(value);
         controller.pathFinger.value = controller.findPathFinger();
       },
-      splashColor: Colors.black38,
       child: Obx(
         () => SizedBox(
           child: Row(
