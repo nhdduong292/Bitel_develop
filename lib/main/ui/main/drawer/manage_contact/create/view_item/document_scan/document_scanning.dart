@@ -258,52 +258,7 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                                 ? Image.file(
                                     File(controller.textPathScan),
                                   )
-                                : Image.asset(controller.getImageIdentity()),
-                          ),
-                          Visibility(
-                            visible:
-                                controller.logicCreateContact.typeCustomer ==
-                                    'CE',
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 17,
-                                ),
-                                Text(
-                                  AppLocalizations.of(context)!.textNextScan,
-                                  style: AppStyles.r3,
-                                ),
-                                SizedBox(
-                                  height: 12,
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    // controller.reset();
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return TakeImageDialog(
-                                            onCamera: () {
-                                              Get.back();
-                                              controller.getFromGallery(
-                                                  context, controller, false);
-                                            },
-                                            onGellary: () {
-                                              Get.back();
-                                              controller.uploadImage(
-                                                  context, controller, false);
-                                            },
-                                          );
-                                        });
-                                  },
-                                  child: controller.textPathScanBack.isNotEmpty
-                                      ? Image.file(
-                                          File(controller.textPathScanBack),
-                                        )
-                                      : Image.asset(AppImages.imgCE),
-                                ),
-                              ],
-                            ),
+                                : Image.asset(AppImages.imgCE),
                           ),
                           SizedBox(
                             height: 23,
@@ -317,7 +272,6 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                       width: width,
                       child: bottomButton(
                           text: ((controller.textPathScan.isNotEmpty &&
-                                      controller.textPathScanBack.isNotEmpty &&
                                       controller.currentIdentity == 'CE') ||
                                   (controller.textPathScan.isNotEmpty &&
                                       controller.currentIdentity != 'CE'))

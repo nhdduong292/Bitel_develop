@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
+import 'package:bitel_ventas/main/networks/response/google_detect_item.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/cretate_contact_page_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/scan_model/customer_scan_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/scan_model/item_infor.dart';
@@ -20,7 +21,10 @@ import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../../../../../networks/model/ce.dart';
+import '../../../../../../../networks/model/pp.dart';
 import '../client_data/customer_detect_mode.dart';
+import 'package:image/image.dart' as img;
 
 class DocumentScanningLogic extends GetxController {
   late BuildContext context;
@@ -28,7 +32,6 @@ class DocumentScanningLogic extends GetxController {
   var checkOption2 = false.obs;
 
   String textPathScan = "";
-  String textPathScanBack = "";
   // bool _canProcess = true;
   // bool _isBusy = false;
   CustomPaint? _customPaint;
@@ -41,12 +44,16 @@ class DocumentScanningLogic extends GetxController {
   // List<String> listIdentityNumber = ["DNI", "CE", "PP", "PTP"];
   CustomerScanModel customerScanModel = CustomerScanModel();
 
-  String pathImageFont = '';
   String pathImageBack = '';
 
   bool onProcessImage = false;
 
   CreateContactPageLogic logicCreateContact = Get.find();
+
+  List<GoogleDetectItem> listGoogleDetect = [];
+
+  CE ce = CE();
+  PP pp = PP();
 
   DocumentScanningLogic({required this.context});
 
@@ -104,8 +111,6 @@ class DocumentScanningLogic extends GetxController {
   void setPathScan(String value, bool isScanningFont) {
     if (isScanningFont) {
       textPathScan = value;
-    } else {
-      textPathScanBack = value;
     }
     update();
   }
@@ -140,7 +145,8 @@ class DocumentScanningLogic extends GetxController {
   }
 
   void reset() {
-    customerScanModel = CustomerScanModel();
+    ce = CE();
+    pp = PP();
   }
 
   void _onLoading(BuildContext context) {
@@ -160,45 +166,15 @@ class DocumentScanningLogic extends GetxController {
   void setListImageScan() {
     logicCreateContact.listImageScan.clear();
     if (logicCreateContact.typeCustomer == 'CE') {
-      logicCreateContact.listImageScan.add(pathImageFont);
       logicCreateContact.listImageScan.add(pathImageBack);
     } else {
-      logicCreateContact.listImageScan.add(pathImageFont);
+      logicCreateContact.listImageScan.add(pathImageBack);
     }
-  }
-
-  Future<void> processImage(InputImage inputImage) async {
-    final recognizedText = await _textRecognizer.processImage(inputImage);
-
-    for (final textBlock in recognizedText.blocks) {
-      for (final line in textBlock.lines) {
-        print(line.text);
-        InformationCus? informationCus = customerScanModel
-            .getCustomerScan(currentIdentity)
-            .getInformationCus(line.text);
-        if (informationCus != null) {
-          for (final element in line.elements) {
-            if (element.text.contains(informationCus.type) ||
-                informationCus.type.contains(element.text)) {
-              informationCus.rect = element.boundingBox;
-            } else {
-              customerScanModel
-                  .getCustomerScan(currentIdentity)
-                  .findInfo(element.boundingBox, element.text);
-            }
-          }
-        } else {
-          customerScanModel
-              .getCustomerScan(currentIdentity)
-              .findInfo(line.boundingBox, line.text);
-        }
-      }
-    }
-    update();
   }
 
   void uploadFile(String path, String name,
       Function(bool isSuccess, String path) function) {
+    _onLoading(context);
     ApiUtil.getInstance()!.postFile(
         url: ApiEndPoints.API_UPLOAD_IDENTIFY_CARD,
         path: path,
@@ -208,6 +184,7 @@ class DocumentScanningLogic extends GetxController {
           "idNumber": logicCreateContact.requestModel.customerModel.idNumber
         },
         onSuccess: (response) {
+          Get.back();
           if (response.isSuccess) {
             function.call(true, response.data['data']);
           } else {
@@ -215,6 +192,7 @@ class DocumentScanningLogic extends GetxController {
           }
         },
         onError: (error) {
+          Get.back();
           function.call(false, '');
           Common.showMessageError(error: error, context: context);
         });
@@ -285,63 +263,72 @@ class DocumentScanningLogic extends GetxController {
 
   void onClickContinue({var onContiue, var onScan}) {
     if (checkOption1.value && checkOption2.value) {
-      if (!onProcessImage) {
-        if ((textPathScan.isNotEmpty &&
-                textPathScanBack.isNotEmpty &&
-                currentIdentity == 'CE') ||
-            (textPathScan.isNotEmpty && currentIdentity != 'CE')) {
-          onProcessImage = true;
-          reset();
-          processImage(InputImage.fromFilePath(File(textPathScan).path))
-              .then((value) {
-            onProcessImage = false;
-            if (customerScanModel
-                .getCustomerScan(currentIdentity)
-                .isCardIdentity()) {
-              _onLoading(context);
-              if (currentIdentity == 'CE') {
-                uploadFile(textPathScan, 'image_font', (isSuccess, path) {
-                  if (isSuccess) {
-                    pathImageFont = path;
-                    uploadFile(textPathScanBack, 'image_back',
-                        (isSuccess, path) {
-                      if (isSuccess) {
-                        Get.back();
-                        pathImageBack = path;
-                        logicCreateContact.listImageScan.add(pathImageFont);
-                        logicCreateContact.listImageScan.add(pathImageBack);
-                        onContiue();
-                      } else {
-                        Get.back();
-                      }
-                    });
-                  } else {
-                    Get.back();
-                  }
-                });
-              } else {
-                uploadFile(textPathScan, 'image_font', (isSuccess, path) {
-                  if (isSuccess) {
-                    Get.back();
-                    pathImageFont = path;
-                    onContiue();
-                  } else {
-                    Get.back();
-                  }
-                });
-              }
+      if (textPathScan.isNotEmpty) {
+        reset();
+        detectImage((value) {
+          if (value) {
+            if (currentIdentity == 'CE') {
+              ce.getDocumentItems(listGoogleDetect[0].fullTextAnnotation!.text);
             } else {
-              onProcessImage = false;
+              pp.getDocumentItems(listGoogleDetect[0].fullTextAnnotation!.text);
+            }
+            if (ce.checkIdentify() || pp.checkIdentify()) {
+              uploadFile(textPathScan, 'image_back', (isSuccess, path) {
+                if (isSuccess) {
+                  pathImageBack = path;
+                  onContiue();
+                }
+              });
+            } else {
               Common.showToastCenter(
                   AppLocalizations.of(context)!.textCardIdentityNotValidate);
             }
-          });
-        } else {
-          onScan();
-        }
+          }
+        });
+      } else {
+        onScan();
       }
     } else {
       Common.showToastCenter(AppLocalizations.of(context)!.textAcceptTheRules);
     }
+  }
+
+  void detectImage(var onSuccess) {
+    Map<String, dynamic> body = {
+      "requests": [
+        {
+          "image": {
+            "content": Common.convertImageFileToBase64(File(textPathScan))
+          },
+          "features": [
+            {"type": "TEXT_DETECTION"}
+          ]
+        }
+      ]
+    };
+    _onLoading(context);
+    ApiUtil.getInstance()!.postDetectImage(
+      url: ApiEndPoints.API_DETECT_ID,
+      params: {"key": "AIzaSyAlf4Kr2ag8ZLpj04fuYrfv5eGWzNmhLX8"},
+      body: body,
+      onSuccess: (response) {
+        Get.back();
+        listGoogleDetect = (response.data['responses'] as List)
+            .map((postJson) => GoogleDetectItem.fromJson(postJson))
+            .toList();
+        onSuccess(true);
+      },
+      onError: (error) {
+        Get.back();
+        Common.showMessageError(error: error, context: context);
+        try {
+          String errorCode = error.response!.data['errorCode'];
+          if (errorCode == 'E028') {
+            onSuccess(false);
+          }
+          // ignore: empty_catches
+        } catch (e) {}
+      },
+    );
   }
 }
