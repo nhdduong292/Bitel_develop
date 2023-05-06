@@ -172,14 +172,13 @@ class FindCustomerPage extends GetView<ActivatePrepaidLogic> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        InkWell(
+                                        GestureDetector(
                                             onTap: () {
                                               controller
                                                       .step1Choice1Checked.value =
                                                   !controller
                                                       .step1Choice1Checked.value;
                                             },
-                                            splashColor: Colors.black38,
                                             child: Obx(() => controller
                                                     .step1Choice1Checked.value
                                                 ? iconChecked()
@@ -236,14 +235,13 @@ class FindCustomerPage extends GetView<ActivatePrepaidLogic> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        InkWell(
+                                        GestureDetector(
                                             onTap: () {
                                               controller
                                                       .step1Choice2Checked.value =
                                                   !controller
                                                       .step1Choice2Checked.value;
                                             },
-                                            splashColor: Colors.black38,
                                             child: Obx(() => controller
                                                     .step1Choice2Checked.value
                                                 ? iconChecked()
@@ -296,8 +294,7 @@ class FindCustomerPage extends GetView<ActivatePrepaidLogic> {
                         bottom: 70,
                         left: 30,
                         right: 30,
-                        child: InkWell(
-                          splashColor: Colors.black38,
+                        child: GestureDetector(
                           onTap: () => controller.gotoNextStep(step: 2),
                           child: Container(
                             height: 50,

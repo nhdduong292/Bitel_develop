@@ -269,8 +269,7 @@ class ManageContactPage extends GetView<ManageContactLogic> {
                             Container(
                               margin: EdgeInsets.only(
                                   left: 15, top: 24, right: 15, bottom: 10),
-                              child: InkWell(
-                                splashColor: Colors.black38,
+                              child: GestureDetector(
                                 onTap: () {},
                                 child: Container(
                                   height: 50,

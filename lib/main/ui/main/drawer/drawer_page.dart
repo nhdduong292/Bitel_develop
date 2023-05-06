@@ -68,8 +68,7 @@ class DrawerPage extends GetView<DrawerLogic> {
                           DrawerItem drawerItem =
                               controller.getListItem(context)[index];
                           if (drawerItem.list!.isEmpty) {
-                            return InkWell(
-                              splashColor: Colors.black54,
+                            return GestureDetector(
                               onTap: () {
                                 controller.onItemClick(
                                     index: index, context: context);

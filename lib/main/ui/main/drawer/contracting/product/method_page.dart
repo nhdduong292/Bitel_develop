@@ -399,11 +399,10 @@ Widget _itemProduct(
     required var onChange}) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-    child: InkWell(
+    child: GestureDetector(
       onTap: () {
         groupValue.value != value ? onChange(value) : onChange(-1);
       },
-      splashColor: Colors.black38,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
@@ -459,11 +458,10 @@ Widget _itemPackage(
     required double fee}) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-    child: InkWell(
+    child: GestureDetector(
       onTap: () {
         groupValue.value != value ? onChange(value) : onChange(-1);
       },
-      splashColor: Colors.black38,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -512,11 +510,10 @@ Widget _itemMethod(
     required var onChange}) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-    child: InkWell(
+    child: GestureDetector(
       onTap: () {
         groupValue.value != value ? onChange(value) : onChange(-1);
       },
-      splashColor: Colors.black38,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -555,8 +552,7 @@ Widget _itemPromotion(
     {required BuildContext context, required PromotionModel promotion}) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-    child: InkWell(
-      splashColor: Colors.black38,
+    child: GestureDetector(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
