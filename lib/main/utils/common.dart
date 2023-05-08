@@ -273,7 +273,7 @@ class Common {
         showToastCenter(AppLocalizations.of(context)!.textE043);
       } else if (errorCode == 'E044') {
         showToastCenter(AppLocalizations.of(context)!.textE044);
-      } else if (errorCode == 'E045') {
+      } else if (errorCode == 'E045' && isShow) {
         showToastCenter(AppLocalizations.of(context)!.textE045);
       } else if (errorCode == 'E046') {
         showToastCenter(AppLocalizations.of(context)!.textE046);
