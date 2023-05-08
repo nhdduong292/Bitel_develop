@@ -29,7 +29,9 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
         builder: (controller) {
           return FocusScope(
             node: controller.focusScopeNode,
-            child: GestureDetector(
+            child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
               onTap: () {
                 FocusScope.of(context).requestFocus(FocusNode());
               },
@@ -265,6 +267,8 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                       padding:
                                           const EdgeInsets.only(right: 7.04),
                                       child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                         onTap: () {
                                           controller.captchaModel =
                                               CaptchaModel();
@@ -309,7 +313,9 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                 ? null
                                 : const Color(0xFF415263).withOpacity(0.2)),
                       ),
-                      GestureDetector(
+                      InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                         child: Container(
                           width: double.infinity,
                           margin: const EdgeInsets.only(

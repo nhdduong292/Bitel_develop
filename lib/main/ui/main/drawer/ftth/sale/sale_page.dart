@@ -29,7 +29,9 @@ class SalePage extends GetWidget {
             backgroundColor: Colors.transparent,
             leading: Padding(
               padding: const EdgeInsets.only(left: 18, bottom: 18, top: 2),
-              child: GestureDetector(
+              child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                 child: SvgPicture.asset(AppImages.icBack),
                 onTap: () {
                   Get.back();
@@ -110,7 +112,9 @@ class SalePage extends GetWidget {
                               itemBuilder: (BuildContext context, int index) {
                                 OptionSale optionSale = controller
                                     .getListRequestManagement(context)[index];
-                                return GestureDetector(
+                                return InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                   onTap: () {
                                     controller.setIndexSelect(optionSale.index);
                                     Timer(
@@ -206,7 +210,9 @@ class SalePage extends GetWidget {
                               itemBuilder: (BuildContext context, int index) {
                                 OptionSale optionSale = controller
                                     .getListKPICommission(context)[index];
-                                return GestureDetector(
+                                return InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                   onTap: () {
                                     controller.setIndexSelect(optionSale.index);
                                   },
@@ -327,7 +333,9 @@ class SalePage extends GetWidget {
                               itemBuilder: (BuildContext context, int index) {
                                 OptionSale optionSale = controller
                                     .getListWalletControl(context)[index];
-                                return GestureDetector(
+                                return InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                   onTap: () {
                                     controller.setIndexSelect(optionSale.index);
                                   },
@@ -427,7 +435,9 @@ class SalePage extends GetWidget {
                                       (BuildContext context, int index) {
                                     OptionSale optionSale = controller
                                         .getListOptionSale(context)[index];
-                                    return GestureDetector(
+                                    return InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                       onTap: () {
                                         if (optionSale.title ==
                                             AppLocalizations.of(context)!

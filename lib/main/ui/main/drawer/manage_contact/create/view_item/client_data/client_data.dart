@@ -175,7 +175,9 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                       SizedBox(
                         height: 16,
                       ),
-                      GestureDetector(
+                      InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                         onTap: () {},
                         child: Container(
                           height: 48,
@@ -216,6 +218,8 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                         height: 16,
                       ),
                       InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                         onTap: () {
                           if (controller.textPathScan.isEmpty) {
                             // controller.getScan();
@@ -263,6 +267,8 @@ class ClientDataWidget extends GetView<ClientDataLogic> {
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                   onTap: () {
                     // if(controller.textPathScan.isEmpty){
                     //   Common.showToastCenter("Bạn chưa chụp ảnh thẻ");

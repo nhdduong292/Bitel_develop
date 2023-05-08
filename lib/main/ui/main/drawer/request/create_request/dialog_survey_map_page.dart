@@ -46,6 +46,8 @@ class DialogSurveyMapPage extends GetWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                     onTap: () {
                       Get.back();
                     },
@@ -173,6 +175,8 @@ class DialogSurveyMapPage extends GetWidget {
                       //       ),
                       //
                       //       child: InkWell(
+                      //       highlightColor: Colors.transparent,
+                      //       splashColor: Colors.transparent,
                       //         onTap: () {
                       //           if(controller.isConnect){
                       //             Get.back();
@@ -194,7 +198,9 @@ class DialogSurveyMapPage extends GetWidget {
                       // const SizedBox(width: 15,),
                       Expanded(
                           flex: 1,
-                          child: GestureDetector(
+                          child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                             onTap: () {
                               if (controller.isActive ||
                                   controller.checkValidate(context)) {

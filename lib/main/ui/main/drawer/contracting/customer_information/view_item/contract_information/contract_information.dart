@@ -123,6 +123,8 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 dropdownValue: controller.contractLanguagetValue,
                 width: width * 0.55),
             InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
               onTap: () {
                 showDialog(
                   barrierDismissible: false,
@@ -444,6 +446,8 @@ class BillAddressInformation extends Dialog {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                   onTap: () {
                     Get.back(result: false);
                   },

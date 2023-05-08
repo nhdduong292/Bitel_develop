@@ -544,6 +544,7 @@
   "textNotEmptyNationality": "Nationality is required",
   "textNotEmptyDob": "Birthday is required",
   "textNotEmptyExd": "Expired is required",
+  "textNotEmptyIssue": "Issue date is required",
   "textUpdateCustomerInformationSuccessfully": "Update customer information successfully",
   "textIngresaUnCodigo": "Ingresa un código",
   "textNew": "New",
@@ -625,6 +626,6 @@
     "textEnterArea": "Enter area",
     "textAddressNotFound": "Address not found", 
     "textMonth": "month",
-    "textTheSystemIsOverloaded": "The system is overloaded, please try again later"
-
+    "textTheSystemIsOverloaded": "The system is overloaded, please try again later",
+    "textStaffNotExist": "Staff does not exist"
 }

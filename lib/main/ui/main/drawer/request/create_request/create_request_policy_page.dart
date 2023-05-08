@@ -17,7 +17,9 @@ class CreateRequestPolicyPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         leading: Padding(
           padding: const EdgeInsets.only(left: 18, bottom: 18, top: 2),
-          child: GestureDetector(
+          child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
             child: SvgPicture.asset(AppImages.icBack),
             onTap: () {
               Get.back();

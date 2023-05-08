@@ -65,7 +65,9 @@ class StockPage extends GetWidget {
                   style: AppStyles.r3,
                 ),
               ),
-              GestureDetector(
+              InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                 child: Container(
                   width: double.infinity,
                   margin: EdgeInsets.only(top: 15, left: 10, right: 10),
@@ -111,7 +113,9 @@ class StockPage extends GetWidget {
 
                 },
               ),
-              GestureDetector(
+              InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                 child: Container(
                   width: double.infinity,
                   margin: EdgeInsets.only(top: 15, left: 10, right: 10),
@@ -157,7 +161,9 @@ class StockPage extends GetWidget {
 
                 },
               ),
-              GestureDetector(
+              InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                 child: Container(
                   width: double.infinity,
                   margin: EdgeInsets.only(top: 15, left: 10, right: 10),
@@ -203,7 +209,9 @@ class StockPage extends GetWidget {
 
                 },
               ),
-              GestureDetector(
+              InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                 child: Container(
                   width: double.infinity,
                   margin: EdgeInsets.only(top: 15, left: 10, right: 10),

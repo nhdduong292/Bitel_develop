@@ -27,7 +27,9 @@ class OrderManagementPage extends GetWidget {
               backgroundColor: Colors.transparent,
               leading: Padding(
                 padding: const EdgeInsets.only(left: 18, bottom: 18, top: 2),
-                child: GestureDetector(
+                child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                   child: SvgPicture.asset(AppImages.icBack),
                   onTap: () {
                     Get.back();
@@ -78,7 +80,9 @@ class OrderManagementPage extends GetWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  GestureDetector(
+                  InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                     child: Container(
                       width: double.infinity,
                       margin: const EdgeInsets.only(
@@ -191,6 +195,8 @@ class OrderManagementPage extends GetWidget {
                               Expanded(
                                 flex: 1,
                                 child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                     onTap: () {
                                       _selectDate(context, controller, true);
                                     },
@@ -244,6 +250,8 @@ class OrderManagementPage extends GetWidget {
                               Expanded(
                                 flex: 1,
                                 child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                     onTap: () {
                                       _selectDate(context, controller, false);
                                     },
@@ -298,7 +306,9 @@ class OrderManagementPage extends GetWidget {
                     ),
                     onTap: () {},
                   ),
-                  GestureDetector(
+                  InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                     onTap: () {
                       controller.isSearched = true;
 
@@ -417,7 +427,9 @@ class OrderManagementPage extends GetWidget {
                                 ),
                     ),
                   ),
-                  GestureDetector(
+                  InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                     child: Container(
                       width: double.infinity,
                       margin: const EdgeInsets.only(
@@ -542,6 +554,8 @@ class _itemOrderSearch extends StatelessWidget {
                                   width: 1, color: AppColors.colorContent),
                             ),
                             child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                               onTap: () async {
                                 await Clipboard.setData(ClipboardData(
                                     text: buyAnyPayModel.idNumber));
@@ -613,6 +627,8 @@ class _itemOrderSearch extends StatelessWidget {
                     Visibility(
                       visible: buyAnyPayModel.stauts == 'NEW',
                       child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                         onTap: () {
                           onDelete(index);
                         },

@@ -176,6 +176,8 @@ class LoginPage extends GetWidget {
                                   width: 1, color: Colors.transparent),
                             ),
                             suffixIcon: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                               onTap: () {
                                 controller.setShowPass(
                                     !controller.isShowPass.value);
@@ -205,6 +207,8 @@ class LoginPage extends GetWidget {
                       children: [
                         Expanded(
                             child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                               onTap: () {
                                 controller.setRememberAccount(
                                     !controller.isRememberAccount);
@@ -243,6 +247,8 @@ class LoginPage extends GetWidget {
                       borderRadius: BorderRadius.circular(24),
                     ),
                     child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                       onTap: () {
                         FocusScope.of(context).unfocus();
                         Future.delayed(Duration(milliseconds: 1000));

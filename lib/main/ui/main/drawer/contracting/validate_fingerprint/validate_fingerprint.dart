@@ -61,6 +61,8 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                         top: 45,
                         left: 20,
                         child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                           onTap: () {
                             Get.back();
                           },
@@ -227,6 +229,8 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                               Expanded(
                                 flex: 1,
                                 child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                   onTap: () {
                                     // if (controller.isGetFingerSuccess) {
                                     //   if (Platform.isAndroid) {
@@ -286,6 +290,8 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                               Expanded(
                                 flex: 1,
                                 child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                   onTap: () {
                                     if (controller.listFinger.isEmpty) {
                                       return;

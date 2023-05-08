@@ -55,6 +55,8 @@ class ClearDebtPage extends GetView<ClearDebtLogic> {
                         top: 50,
                         left: 20,
                         child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                           onTap: () {
                             if (controller.index == 1) {
                               controller.isTabTwo.value = false;

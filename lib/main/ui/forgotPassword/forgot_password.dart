@@ -76,6 +76,8 @@ class ForgotPassword extends GetView<ForgotPasswordLogic> {
                         top: 35,
                         left: 20,
                         child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                           onTap: () {
                             if (_itemPositionsListener.itemPositions.value
                                     .elementAt(0)
@@ -288,12 +290,16 @@ class ForgotPassword extends GetView<ForgotPasswordLogic> {
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 12.01),
                 child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                   child: Image.asset(AppImages.imgCapchaTest),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 7.04),
                 child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                   child: SvgPicture.asset(AppImages.icRefreshCapcha),
                 ),
               )
@@ -554,6 +560,8 @@ class SuccessDialog extends Dialog {
                 borderRadius: BorderRadius.circular(24),
               ),
               child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                 onTap: () {},
                 child: Center(
                     child: Text(

@@ -74,7 +74,9 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                       ),
                       Container(
                         margin: EdgeInsets.only(left: 15, right: 15, top: 30),
-                        child: GestureDetector(
+                        child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                           onTap: () {
                             controller.checkOption1.value =
                                 !controller.checkOption1.value;
@@ -115,7 +117,9 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                       ),
                       Container(
                         margin: EdgeInsets.only(left: 15, right: 15, top: 30),
-                        child: GestureDetector(
+                        child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                           onTap: () {
                             controller.checkOption2.value =
                                 !controller.checkOption2.value;
@@ -234,6 +238,8 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                             height: 12,
                           ),
                           InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                             onTap: () {
                               showDialog(
                                   context: context,

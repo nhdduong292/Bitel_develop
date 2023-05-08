@@ -75,6 +75,8 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 16),
                       child: Text(
@@ -87,6 +89,8 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
                     ),
                   ),
                   InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                     child: Padding(
                       padding: const EdgeInsets.only(right: 16),
                       child: Text(
@@ -104,6 +108,8 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
               height: 18,
             ),
             InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
               onTap: () {
                 if (controller.checkMainContract.value) {
                   Get.to(PDFPreviewPage(),

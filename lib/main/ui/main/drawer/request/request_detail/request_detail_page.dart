@@ -33,7 +33,9 @@ class RequestDetailPage extends GetWidget {
             backgroundColor: Colors.transparent,
             leading: Padding(
               padding: const EdgeInsets.only(left: 18, bottom: 18, top: 2),
-              child: GestureDetector(
+              child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                 child: SvgPicture.asset(AppImages.icBack),
                 onTap: () {
                   Get.back();
@@ -614,6 +616,8 @@ class RequestDetailPage extends GetWidget {
                           ),
                           controller.isShowBtnConnect
                               ? InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                   onTap: () {
                                     if (controller.requestModel.status ==
                                             RequestStatus
@@ -665,6 +669,8 @@ class RequestDetailPage extends GetWidget {
                                     Expanded(
                                         flex: 1,
                                         child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                           onTap: () {
                                             showDialogCancelRequest(context,
                                                 controller.requestModel.id);
@@ -701,6 +707,8 @@ class RequestDetailPage extends GetWidget {
                                     Expanded(
                                         flex: 1,
                                         child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                           onTap: () {
                                             showDialogTransferRequest(context,
                                                 controller.requestModel.id);

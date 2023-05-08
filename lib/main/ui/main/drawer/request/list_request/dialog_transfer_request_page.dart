@@ -52,6 +52,8 @@ class DialogTransferRequest extends GetWidget {
                           fontWeight: FontWeight.w500),
                     )),
                     InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                       onTap: () {
                         Get.back();
                       },
@@ -122,7 +124,7 @@ class DialogTransferRequest extends GetWidget {
                           List<StaffModel> list =
                               await controller.getStaffs(pattern);
                           if (list.isEmpty) {
-                            return ['Nhân viên không tồn tại'];
+                            return [AppLocalizations.of(context)!.textStaffNotExist];
                           }
                           return list;
                         },
@@ -219,6 +221,8 @@ class DialogTransferRequest extends GetWidget {
                 ),
               ),
               InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                 onTap: () {
                   if (controller.checkValidate(context)) return;
                   _onLoading(context);

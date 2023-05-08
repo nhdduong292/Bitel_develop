@@ -28,7 +28,9 @@ class ClearPenaltyTabTwoPage extends GetView<ClearPenaltyTabTwoLogic> {
     return GetBuilder(
         init: ClearPenaltyTabTwoLogic(context: context),
         builder: (controller) {
-          return GestureDetector(
+          return InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
             onTap: () {
               FocusScope.of(context).requestFocus(FocusNode());
             },
@@ -267,6 +269,8 @@ class SuccessDialog extends Dialog {
                 borderRadius: BorderRadius.circular(24),
               ),
               child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                 onTap: () {
                   onContinue();
                 },

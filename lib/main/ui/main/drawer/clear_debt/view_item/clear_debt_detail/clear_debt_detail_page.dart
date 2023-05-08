@@ -282,6 +282,8 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                   onTap: () {
                     check.value = !check.value;
                     onChange(value, check.value);

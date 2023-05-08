@@ -65,7 +65,9 @@ class SettingPage extends GetView<SettingLogic> {
                 SettingModel settingModel =
                     controller.getListSetting(context)[index];
                 if (settingModel.list!.isEmpty) {
-                  return GestureDetector(
+                  return InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                     child: Container(
                       width: double.infinity,
                       margin: EdgeInsets.only(top: 15, left: 15, right: 15),

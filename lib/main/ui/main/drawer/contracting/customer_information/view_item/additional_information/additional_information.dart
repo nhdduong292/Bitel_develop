@@ -30,7 +30,9 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
 
     return FocusScope(
       node: controller.focusScopeNode,
-      child: GestureDetector(
+      child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
         },
@@ -122,6 +124,8 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                           controller.showButtonContinue();
                         }),
                     InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                       onTap: () {
                         showDialog(
                           barrierDismissible: false,
@@ -378,6 +382,8 @@ class BillAddressInformation extends Dialog {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                   onTap: () {
                     Get.back(result: false);
                   },

@@ -49,6 +49,8 @@ class PDFPreviewPage extends GetView<PDFPreviewLogic> {
                           top: 45,
                           left: 20,
                           child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                             onTap: () {
                               Get.back();
                             },

@@ -17,7 +17,9 @@ class FindServicePage extends GetWidget {
     return GetBuilder(
       init: FindServiceLogic(context),
       builder: (controller) {
-        return GestureDetector(
+        return InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
           onTap: () {
             FocusScope.of(context).requestFocus(FocusNode());
           },
@@ -67,6 +69,8 @@ class FindServicePage extends GetWidget {
                 ),
                 Expanded(child: Container()),
                 InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                   onTap: () {
                     // if (controller.isActive ||
                     //     controller.checkValidate(context)) {

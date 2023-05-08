@@ -59,6 +59,8 @@ class CustommerInformationPage extends GetView<CustomerInformationLogic> {
                           top: 45,
                           left: 20,
                           child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                             onTap: () {
                               if (controller
                                       .itemPositionsListener.itemPositions.value

@@ -309,6 +309,9 @@ class ClientDataDNILogic extends GetxController {
       Common.showToastCenter(
           AppLocalizations.of(context)!.textToastValidateExd);
       return false;
+    } else if (!issue.isNotEmpty) {
+      Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyIssue);
+      return false;
     }
     // else if (address.isEmpty) {
     //   Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyAddress);

@@ -20,6 +20,8 @@ class TabTwoPage extends GetWidget{
       init: TabTwoLogic(status, context),
       builder: (controller) {
         return  controller.isLoading ? LoadingCirculApi() : controller.listRequest.isEmpty ? InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
           child: Center(
             child: Text(AppLocalizations.of(context)!.textNoData),
           ),
@@ -30,6 +32,8 @@ class TabTwoPage extends GetWidget{
             itemCount: controller.listRequest.length,
             itemBuilder: (context, index) {
               return InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                 onTap: () {
                   List<String> listArgument = ["${controller.listRequest[index].id}",status];
                   Get.toNamed(RouteConfig.requestDetail, arguments: listArgument);

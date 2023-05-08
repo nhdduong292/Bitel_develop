@@ -499,6 +499,7 @@
   "textNotEmptyNationality": "Quốc gia không được để trống",
   "textNotEmptyDob": "Ngày sinh không được để trống",
   "textNotEmptyExd": "Ngày hết hạn không được để trống",
+  "textNotEmptyIssue": "Ngày phát hành không được để trống",
   "textUpdateCustomerInformationSuccessfully": "Cập nhật thông tin khách hàng thành công",
   "textSubscriber": "Hợp đồng",
   "textTheIDNumberDoseNotMatch": "Số chứng minh thư không trùng với số chứng minh thư tạo request",
@@ -605,5 +606,6 @@
     "textEnterArea": "Nhập khu vực",
     "textAddressNotFound": "Địa chỉ không tồn tại",
     "textMonth": "tháng",
-    "textTheSystemIsOverloaded": "Hệ thống đang quá tải, vui lòng quay lại sau"
+    "textTheSystemIsOverloaded": "Hệ thống đang quá tải, vui lòng quay lại sau",
+  "textStaffNotExist": "Nhân viên không tồn tại"
 }

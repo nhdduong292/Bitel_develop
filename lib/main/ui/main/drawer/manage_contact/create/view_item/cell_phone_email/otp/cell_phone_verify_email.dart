@@ -130,6 +130,8 @@ class CellPhoneVerifyEmailWidget extends GetView<CellPhoneVerifyEmailWidget> {
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                   onTap: () {
                     callback();
                   },

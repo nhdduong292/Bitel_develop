@@ -51,6 +51,8 @@ class DialogCancelRequest extends GetWidget {
                           fontWeight: FontWeight.w500),
                     )),
                     InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                       onTap: () {
                         Get.back();
                       },
@@ -156,6 +158,8 @@ class DialogCancelRequest extends GetWidget {
                 ),
               ),
               InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                 onTap: () {
                   if (controller.checkValidate(context)) return;
                   _onLoading(context);

@@ -57,6 +57,8 @@ class ManageWOPage extends GetView<ManageWOLogic> {
                       top: 35,
                       left: 20,
                       child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                         onTap: () => Get.back(),
                         child: Container(
                           width: 35,
@@ -153,6 +155,8 @@ class ManageWOPage extends GetView<ManageWOLogic> {
                         height: 5,
                       ),
                       InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                         onTap: () {
                           showDialog(
                               context: context,
@@ -267,6 +271,8 @@ Widget tabBarView({
                 ),
               ),
               InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                   child: SvgPicture.asset(
                 AppImages.icSortAlphabet,
                 width: 33,
@@ -308,6 +314,8 @@ Widget tabBarView({
 
 Widget _woItem({required WorkOrder wo, required BuildContext context}) {
   return InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
     onTap: () {Get.to(() => WODetailPage(wo: wo,));},
     child: Column(
       children: [
@@ -607,6 +615,8 @@ class DialogAdvancedSearch extends Dialog {
                                   Expanded(
                                     flex:1,
                                     child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                         onTap: () {
                                           _selectDate(context,controller, true);
                                         },
@@ -636,6 +646,8 @@ class DialogAdvancedSearch extends Dialog {
                                   Expanded(
                                     flex:1,
                                     child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                         onTap: () {
                                           _selectDate(context,controller,false);
                                         },
@@ -676,6 +688,8 @@ class DialogAdvancedSearch extends Dialog {
                     top: 10,
                     right: 10,
                     child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                       onTap: () => Get.back(),
                       child: Icon(
                         Icons.close,

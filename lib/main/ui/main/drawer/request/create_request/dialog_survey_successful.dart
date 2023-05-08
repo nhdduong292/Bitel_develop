@@ -39,6 +39,8 @@ class DialogSurveySuccessful extends GetWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                   onTap: () {
                     Get.back();
                   },
@@ -67,6 +69,8 @@ class DialogSurveySuccessful extends GetWidget {
                       color: AppColors.colorText4, fontWeight: FontWeight.w500),
                 ),
                 InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                   onTap: () {
                     controller.setSurveyOffline(!controller.isSelectOffline);
                   },
@@ -100,6 +104,8 @@ class DialogSurveySuccessful extends GetWidget {
                     Expanded(
                         flex: 1,
                         child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                           onTap: () {
                             if (controller.isSelectOffline) {
                               _onLoading(context);
@@ -147,6 +153,8 @@ class DialogSurveySuccessful extends GetWidget {
                     Expanded(
                         flex: 1,
                         child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                           onTap: () {
                             if (!controller.isSelectOffline) {
                               _onLoading(context);

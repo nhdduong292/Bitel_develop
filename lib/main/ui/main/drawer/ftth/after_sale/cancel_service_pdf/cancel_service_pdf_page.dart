@@ -48,6 +48,8 @@ class CancelServicePDFPage extends GetView<CancelServicePDFLogic> {
                         top: 45,
                         left: 20,
                         child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                           onTap: () {
                             Get.back();
                           },
@@ -102,6 +104,8 @@ class CancelServicePDFPage extends GetView<CancelServicePDFLogic> {
                                 height: 18,
                               ),
                               InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                 onTap: () {},
                                 child: Image.asset(
                                   AppImages.imgDemoContract,

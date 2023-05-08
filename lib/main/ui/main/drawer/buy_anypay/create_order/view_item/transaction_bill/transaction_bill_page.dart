@@ -124,6 +124,8 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                                       ),
                                     ),
                                     InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                       onTap: () async {
                                         await Clipboard.setData(ClipboardData(
                                             text: "00105182879881"));

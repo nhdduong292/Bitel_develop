@@ -57,6 +57,8 @@ class DialogAdvancedSearchPage extends GetWidget {
                               fontWeight: FontWeight.w500),
                         )),
                         InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                           onTap: () {
                             Get.back();
                           },
@@ -169,6 +171,8 @@ class DialogAdvancedSearchPage extends GetWidget {
                         Expanded(
                             flex: 5,
                             child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                               onTap: () {
                                 if (controller.listProvince.isEmpty) {
                                   _onLoading(context);
@@ -290,6 +294,8 @@ class DialogAdvancedSearchPage extends GetWidget {
                                 Expanded(
                                   flex: 1,
                                   child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                       onTap: () {
                                         _selectDate(context, controller, true);
                                       },
@@ -345,6 +351,8 @@ class DialogAdvancedSearchPage extends GetWidget {
                                 Expanded(
                                   flex: 1,
                                   child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                       onTap: () {
                                         _selectDate(context, controller, false);
                                       },
@@ -400,6 +408,8 @@ class DialogAdvancedSearchPage extends GetWidget {
                     ),
                   ),
                   InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                     onTap: () {
                       Future.delayed(const Duration(milliseconds: 600));
                       if (controller.checkValidate(context)) {

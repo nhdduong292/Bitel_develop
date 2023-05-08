@@ -20,7 +20,9 @@ class BuyAnyPayPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         leading: Padding(
           padding: const EdgeInsets.only(left: 18, bottom: 18, top: 2),
-          child: GestureDetector(
+          child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
             child: SvgPicture.asset(AppImages.icBack),
             onTap: () {
               Get.back();
@@ -69,7 +71,9 @@ class BuyAnyPayPage extends StatelessWidget {
       body: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          GestureDetector(
+          InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
             child: Container(
               width: double.infinity,
               margin: const EdgeInsets.only(top: 15, left: 10, right: 10),
@@ -109,7 +113,9 @@ class BuyAnyPayPage extends StatelessWidget {
               Get.toNamed(RouteConfig.createOrder);
             },
           ),
-          GestureDetector(
+          InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
             child: Container(
               width: double.infinity,
               margin: const EdgeInsets.only(top: 15, left: 10, right: 10),
@@ -149,7 +155,9 @@ class BuyAnyPayPage extends StatelessWidget {
               Get.toNamed(RouteConfig.orderManagement);
             },
           ),
-          GestureDetector(
+          InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
             child: Container(
               width: double.infinity,
               margin: const EdgeInsets.only(top: 50, left: 10, right: 10),

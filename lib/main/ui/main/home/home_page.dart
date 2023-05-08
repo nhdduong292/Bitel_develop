@@ -53,7 +53,9 @@ class HomePage extends GetView<HomeLogic> {
               ),
             ),
             toolbarHeight: 280,
-            leading: GestureDetector(
+            leading: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
               child: Stack(
                 children: [
                   Padding(
@@ -72,6 +74,8 @@ class HomePage extends GetView<HomeLogic> {
                   Padding(
                     padding: EdgeInsets.only(right: 20, top: 20),
                     child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                       onTap: () {
                         // Get.toNamed(RouteConfig.forgotPassword);
                       },

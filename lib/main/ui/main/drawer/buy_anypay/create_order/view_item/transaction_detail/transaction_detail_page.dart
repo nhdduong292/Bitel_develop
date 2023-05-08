@@ -177,6 +177,8 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                             height: 15,
                           ),
                           InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                             onTap: () {
                               controller.isCheckBox = !controller.isCheckBox;
                               controller.update();
@@ -236,7 +238,9 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                             ? null
                             : const Color(0xFF415263).withOpacity(0.2)),
                   ),
-                  GestureDetector(
+                  InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                     child: Container(
                       width: double.infinity,
                       margin:

@@ -502,6 +502,7 @@
   "textNotEmptyNationality": "Se requiere Nacionalidad",
   "textNotEmptyDob": "Se requiere Fecha de nacimiento",
   "textNotEmptyExd": "Se requiere Fecha de caducidad",
+  "textNotEmptyIssue": "La fecha de emisión es obligatoria",
  "textUpdateCustomerInformationSuccessfully": "Actualización de la información del cliente realizada con éxito",
   "textSubscriber": "suscriptor",
   "textTheIDNumberDoseNotMatch": "El número de DNI no coincide con el número de DNI que realizó la solicitud",
@@ -564,11 +565,11 @@
   "textCopy": "Copiar",
   "textCopySuccess": "¡Copia con éxito!",
    "textIngresaUnCodigo": "Ingresa un código",
-  "textNew": "New",
+  "textNew": "Nuevo",
   "textAll": "Todos",
-  "textPaid": "Paid",
-  "textSold": "Sold",
-  "textCanceled": "Canceled",
+  "textPaid": "Pagado",
+  "textSold": "Vendido",
+  "textCanceled": "Cancelado",
   "textConfirm": "Confirmar",
   "textAreYouSureToCancel": "¿Estás seguro de cancelar comprar anypay? ",
   "textCancelBuyAnyPaySuccess": "Cancelar comprar anypay con éxito",
@@ -608,5 +609,6 @@
     "textEnterArea": "Ingresar recinto",
     "textAddressNotFound": "Dirección no encontrada",
     "textMonth": "mes",
-    "textTheSystemIsOverloaded": "El sistema está sobrecargado, por favor inténtelo de nuevo más tarde"
+    "textTheSystemIsOverloaded": "El sistema está sobrecargado, por favor inténtelo de nuevo más tarde",
+  "textStaffNotExist": "El personal no existe"
 }

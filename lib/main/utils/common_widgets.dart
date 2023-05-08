@@ -764,7 +764,9 @@ Widget inputFormPassword(
 Widget bottomButton({required String text, required onTap, color}) {
   return Container(
     margin: EdgeInsets.only(left: 15, top: 24, right: 15, bottom: 10),
-    child: GestureDetector(
+    child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
       onTap: onTap,
       child: Container(
         height: 50,
@@ -795,6 +797,8 @@ Widget bottomButtonV2(
   return Container(
     margin: EdgeInsets.only(left: 15, top: 24, right: 15, bottom: 10),
     child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
       onTap: onTap,
       child: Container(
         height: 50,
@@ -1230,6 +1234,8 @@ Widget customRadioGroup(
     required RxInt groupValue,
     required var onChange}) {
   return InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
     onTap: () {
       onChange(value);
     },
@@ -1272,7 +1278,9 @@ Widget customRadioMutiple(
     required var changeValue}) {
   return Container(
     margin: EdgeInsets.only(left: 15, right: 15, top: 16),
-    child: GestureDetector(
+    child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
       onTap: () {
         changeValue(!check.value);
       },

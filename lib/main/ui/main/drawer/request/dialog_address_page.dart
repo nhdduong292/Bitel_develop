@@ -25,6 +25,8 @@ class DialogAddressPage extends StatelessWidget{
         mainAxisSize: MainAxisSize.min,
         children: [
           InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
             onTap: () {
               Get.back();
             },
@@ -41,6 +43,8 @@ class DialogAddressPage extends StatelessWidget{
               itemCount: list.length,
               itemBuilder: (context, index) {
                 return InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                   onTap: () {
                     Get.back();
                     onSubmit.call(list[index]);

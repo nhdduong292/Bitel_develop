@@ -22,7 +22,9 @@ class RegisterFingerPage extends GetWidget {
             backgroundColor: Colors.transparent,
             leading:  Padding(
               padding: EdgeInsets.only(left: 18, bottom: 18,top: 2),
-              child: GestureDetector(
+              child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                 child: SvgPicture.asset(AppImages.icBack),
                 onTap: () {
                   Get.back();

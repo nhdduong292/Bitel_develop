@@ -74,6 +74,8 @@ class CustomerInfoPage extends GetView<ActivatePrepaidLogic> {
                         top: 35,
                         left: 20,
                         child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                           onTap: () => Get.back(),
                           child: Container(
                             width: 35,
@@ -241,7 +243,9 @@ class CustomerInfoPage extends GetView<ActivatePrepaidLogic> {
                         bottom: 70,
                         left: 30,
                         right: 30,
-                        child: GestureDetector(
+                        child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                           onTap: () => controller.gotoNextStep(step: 3),
                           child: Container(
                             height: 50,

@@ -37,7 +37,9 @@ class CreateRequestPage extends GetWidget {
             backgroundColor: Colors.transparent,
             leading: Padding(
               padding: const EdgeInsets.only(left: 18, bottom: 18, top: 2),
-              child: GestureDetector(
+              child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                 child: SvgPicture.asset(AppImages.icBack),
                 onTap: () {
                   Get.back();
@@ -83,6 +85,8 @@ class CreateRequestPage extends GetWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                         onTap: () {
                           controller.setCheckAgree(!controller.isCheckAgree);
                         },
@@ -375,6 +379,8 @@ class CreateRequestPage extends GetWidget {
                             width: 10,
                           ),
                           // InkWell(
+                          //   highlightColor: Colors.transparent,
+                          //   splashColor: Colors.transparent,
                           //   child: SvgPicture.asset(AppImages.icSurveyAddress),
                           //   onTap: () {
                           //     // showDialogSurveyMap(context);
@@ -541,6 +547,8 @@ class CreateRequestPage extends GetWidget {
                             ],
                           ),
                           child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                             onTap: () {
                               Get.back();
                             },
@@ -566,6 +574,8 @@ class CreateRequestPage extends GetWidget {
                             borderRadius: BorderRadius.circular(24),
                           ),
                           child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                             onTap: () {
                               if (controller.checkValidateCreate(context)) {
                                 return;

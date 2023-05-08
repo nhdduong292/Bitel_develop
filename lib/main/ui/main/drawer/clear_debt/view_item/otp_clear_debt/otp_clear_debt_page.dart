@@ -28,7 +28,9 @@ class OTPClearDebtPage extends GetView<OTPClearDebtLogic> {
     return GetBuilder(
         init: OTPClearDebtLogic(context: context),
         builder: (controller) {
-          return GestureDetector(
+          return InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
             onTap: () {
               FocusScope.of(context).requestFocus(FocusNode());
             },
@@ -275,6 +277,8 @@ class SuccessDialog extends Dialog {
                 borderRadius: BorderRadius.circular(24),
               ),
               child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                 onTap: () {
                   onContinue();
                 },

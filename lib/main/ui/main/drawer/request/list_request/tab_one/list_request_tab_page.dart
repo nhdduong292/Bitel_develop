@@ -67,6 +67,8 @@ class ListRequestTabState extends State<ListRequestTabPage> {
         ? LoadingCirculApi()
         : listRequest.isEmpty
             ? InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                 child: Center(
                   child: Text(AppLocalizations.of(context)!.textNoData),
                 ),
@@ -89,6 +91,8 @@ class ListRequestTabState extends State<ListRequestTabPage> {
                         return const CupertinoActivityIndicator();
                       }
                       return InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                         onTap: () {
                           List<String> listArgument = [
                             "${listRequest[index].id}",

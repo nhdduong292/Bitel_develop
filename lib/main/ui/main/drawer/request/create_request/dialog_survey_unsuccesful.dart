@@ -36,6 +36,8 @@ class DialogSurveyUnsuccessful extends GetWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                   onTap: () {
                     Get.back();
                   },
@@ -64,6 +66,8 @@ class DialogSurveyUnsuccessful extends GetWidget {
                       color: AppColors.colorText4, fontWeight: FontWeight.w500),
                 ),
                 InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                   onTap: () {
                     controller.setSurveyOffline(!controller.isSelectOffline);
                   },
@@ -93,6 +97,8 @@ class DialogSurveyUnsuccessful extends GetWidget {
                   ),
                 ),
                 InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                   onTap: () {
                     _onLoading(context);
                     controller.createSurveyOffline(

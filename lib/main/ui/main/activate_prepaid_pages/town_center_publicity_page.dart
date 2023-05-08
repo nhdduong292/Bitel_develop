@@ -76,6 +76,8 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                             top: 35,
                             left: 20,
                             child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                               onTap: () => Get.back(),
                               child: Container(
                                 width: 35,
@@ -191,7 +193,9 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                               child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    GestureDetector(
+                                    InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                         onTap: () {
                                           controller.step3Choice1Checked.value =
                                               !controller
@@ -239,7 +243,9 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                               child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    GestureDetector(
+                                    InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                         onTap: () {
                                           controller.step3Choice2Checked.value =
                                           !controller
@@ -320,7 +326,9 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                               child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    GestureDetector(
+                                    InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                         onTap: () {
                                           controller.step3Choice3Checked.value =
                                               !controller
@@ -369,7 +377,9 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                               child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    GestureDetector(
+                                    InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                         onTap: () {
                                           controller.step3Choice4Checked.value =
                                           !controller
@@ -418,7 +428,9 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                               child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    GestureDetector(
+                                    InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                         onTap: () {
                                           controller.step3Choice5Checked.value =
                                           !controller
@@ -466,7 +478,9 @@ class TownCenterPublicityPage extends GetView<ActivatePrepaidLogic> {
                     Container(
                         margin:
                             EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                        child: GestureDetector(
+                        child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                           onTap: () => controller.gotoNextStep(step: 4),
                           child: Container(
                             height: 50,

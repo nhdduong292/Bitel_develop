@@ -56,6 +56,8 @@ class WODetailPage extends GetView<ManageWOLogic> {
                           top: 35,
                           left: 20,
                           child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                             onTap: () => Get.back(),
                             child: Container(
                               width: 35,

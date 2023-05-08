@@ -27,6 +27,8 @@ class ChooseServicePage extends GetWidget {
                 itemCount: 2,
                 itemBuilder: (context, index) {
                   return InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                     onTap: () {
                       controller.valueService.value = index;
                       controller.setActive(false);
@@ -37,6 +39,8 @@ class ChooseServicePage extends GetWidget {
                 },
               ),
               InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                 onTap: () {
                   // if (controller.isActive ||
                   //     controller.checkValidate(context)) {

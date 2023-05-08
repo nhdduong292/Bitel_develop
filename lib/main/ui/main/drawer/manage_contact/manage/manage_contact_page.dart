@@ -61,6 +61,8 @@ class ManageContactPage extends GetView<ManageContactLogic> {
                             top: 35,
                             left: 20,
                             child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                               onTap: () => Get.back(),
                               child: Container(
                                 width: 35,
@@ -81,6 +83,8 @@ class ManageContactPage extends GetView<ManageContactLogic> {
                           top: 35,
                           right: 20,
                           child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                             child: SvgPicture.asset(
                               AppImages.icCreateContact,
                               width: 30,
@@ -269,7 +273,9 @@ class ManageContactPage extends GetView<ManageContactLogic> {
                             Container(
                               margin: EdgeInsets.only(
                                   left: 15, top: 24, right: 15, bottom: 10),
-                              child: GestureDetector(
+                              child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                 onTap: () {},
                                 child: Container(
                                   height: 50,
@@ -341,6 +347,8 @@ class ManageContactPage extends GetView<ManageContactLogic> {
                                   ),
                                 ),
                                 InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                     child: SvgPicture.asset(
                                   AppImages.icSortAlphabet,
                                   width: 33,

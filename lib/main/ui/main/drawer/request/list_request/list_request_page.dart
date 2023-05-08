@@ -30,7 +30,9 @@ class ListRequestPage extends GetWidget {
             backgroundColor: Colors.transparent,
             leading: Padding(
               padding: const EdgeInsets.only(left: 18, bottom: 18, top: 2),
-              child: GestureDetector(
+              child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                 child: SvgPicture.asset(AppImages.icBack),
                 onTap: () {
                   Get.back();
@@ -40,6 +42,8 @@ class ListRequestPage extends GetWidget {
             elevation: 0.0,
             actions: [
               InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                 onTap: () {
                   Get.toNamed(RouteConfig.createRequest);
                 },
@@ -150,6 +154,8 @@ class ListRequestPage extends GetWidget {
                         ),
                       ),
                       InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                         onTap: () {
                           showDialogAdvanceSearch(context, controller);
                         },
@@ -268,6 +274,8 @@ class ListRequestPage extends GetWidget {
                               ),
                             )),
                             // InkWell(
+                            // highlightColor: Colors.transparent,
+                            // splashColor: Colors.transparent,
                             //   onTap: () {
                             //     showDialogTransferRequest(context);
                             //   },
@@ -278,6 +286,8 @@ class ListRequestPage extends GetWidget {
                             //   ),
                             // ),
                             // InkWell(
+                            // highlightColor: Colors.transparent,
+                            // splashColor: Colors.transparent,
                             //   onTap: () {
                             //     showDialogCancelRequest(context);
                             //   },

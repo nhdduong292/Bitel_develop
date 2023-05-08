@@ -26,7 +26,9 @@ class SearchClearDebtPage extends GetView<SearchClearDebtLogic> {
         builder: (controller) {
           return FocusScope(
             node: controller.focusScopeNode,
-            child: GestureDetector(
+            child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
               onTap: () {
                 FocusScope.of(context).requestFocus(FocusNode());
               },
@@ -178,6 +180,8 @@ class SearchClearDebtPage extends GetView<SearchClearDebtLogic> {
                                 Padding(
                                   padding: const EdgeInsets.only(right: 7.04),
                                   child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                                     onTap: () {
                                       controller.captchaModel = CaptchaModel();
                                       controller.update();

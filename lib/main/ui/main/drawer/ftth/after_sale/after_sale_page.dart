@@ -23,7 +23,9 @@ class AfterSalePage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         leading: Padding(
           padding: const EdgeInsets.only(left: 18, bottom: 18, top: 2),
-          child: GestureDetector(
+          child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
             child: SvgPicture.asset(AppImages.icBack),
             onTap: () {
               Get.back();
@@ -48,7 +50,9 @@ class AfterSalePage extends StatelessWidget {
       body: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          GestureDetector(
+          InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
             child: Container(
               width: double.infinity,
               margin: const EdgeInsets.only(top: 15, left: 10, right: 10),
@@ -89,7 +93,9 @@ class AfterSalePage extends StatelessWidget {
                   AppLocalizations.of(context)!.textChangePlan, 'CHANGE_PLAN'));
             },
           ),
-          GestureDetector(
+          InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
             child: Container(
               width: double.infinity,
               margin: const EdgeInsets.only(top: 15, left: 10, right: 10),
@@ -131,7 +137,9 @@ class AfterSalePage extends StatelessWidget {
                   'TRANSFER_SERVICE'));
             },
           ),
-          GestureDetector(
+          InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
             child: Container(
               width: double.infinity,
               margin: const EdgeInsets.only(top: 15, left: 10, right: 10),

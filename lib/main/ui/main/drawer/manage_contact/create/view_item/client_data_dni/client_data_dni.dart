@@ -31,7 +31,9 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
         builder: (controller) {
           return FocusScope(
             node: controller.focusScopeNode,
-            child: GestureDetector(
+            child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
               onTap: () {
                 FocusScope.of(context).requestFocus(FocusNode());
               },
@@ -308,6 +310,8 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                                   isIcon: true,
                                   width: width * 0.55),
                               // InkWell(
+                            // highlightColor: Colors.transparent,
+                            // splashColor: Colors.transparent,
                               //   onTap: () {
                               //     showDialog(
                               //       barrierDismissible: false,
@@ -353,6 +357,8 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                           borderRadius: BorderRadius.circular(24),
                         ),
                         child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                           onTap: () {
                             FocusScope.of(context).requestFocus(FocusNode());
                             if (!controller.checkValidate()) {
@@ -587,6 +593,8 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
           ),
         ),
         InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
           onTap: () {
             controller.typeDate = type;
             if (type == 1) {
@@ -814,6 +822,8 @@ class SuccessDialog extends Dialog {
                 borderRadius: BorderRadius.circular(24),
               ),
               child: InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                 onTap: () {
                   onClick();
                 },
@@ -851,6 +861,8 @@ class BillAddressInformation extends Dialog {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                   onTap: () {
                     Get.back(result: false);
                   },
@@ -869,6 +881,8 @@ class BillAddressInformation extends Dialog {
                   ),
                 ),
                 InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                   onTap: () {
                     if (controller.listProvince.isEmpty) {
                       _onLoading(context);
@@ -934,6 +948,8 @@ class BillAddressInformation extends Dialog {
                   ),
                 ),
                 InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                   onTap: () {
                     if (controller.textFieldProvince.text.isNotEmpty) {
                       if (controller.listDistrict.isEmpty) {
@@ -1004,6 +1020,8 @@ class BillAddressInformation extends Dialog {
                   ),
                 ),
                 InkWell(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
                   onTap: () {
                     if (controller.textFieldDistrict.text.isNotEmpty) {
                       if (controller.listPrecinct.isEmpty) {
