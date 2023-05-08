@@ -1,4 +1,5 @@
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
+import 'package:bitel_ventas/main/networks/model/identify_base_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/document_scanning_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/document_scan/scan_model/customer_dni_model.dart';
@@ -137,43 +138,49 @@ class ClientDataDNILogic extends GetxController {
 
   void setCustomerDNIModel() {
     DocumentScanningLogic documentScanningLogic = Get.find();
-    var customerDNIModel = documentScanningLogic.customerScanModel
-        .getCustomerScan(documentScanningLogic.currentIdentity);
-    idNumber = customerDNIModel.number.getContent();
-    tfLastName.text = customerDNIModel.lastname.getContent();
-    tfMidelName.text = customerDNIModel.midelname.getContent();
+    IdentifyModel identifyModel;
+    if (documentScanningLogic.currentIdentity == 'CE') {
+      identifyModel = documentScanningLogic.ce;
+    } else {
+      identifyModel = documentScanningLogic.pp;
+    }
+    idNumber = identifyModel.getIdNumber();
+    tfLastName.text = identifyModel.getLastName();
+    tfMidelName.text = identifyModel.getMiddleName();
     tfLastName.selection = TextSelection.fromPosition(
-        TextPosition(offset: customerDNIModel.lastname.getContent().length));
-    tfName.text = customerDNIModel.name.getContent();
+        TextPosition(offset: identifyModel.getLastName().length));
+    tfName.text = identifyModel.getFirstName();
     tfName.selection = TextSelection.fromPosition(
-        TextPosition(offset: customerDNIModel.name.getContent().length));
+        TextPosition(offset: identifyModel.getFirstName().length));
     updateFullName();
-    tfNationality.text = customerDNIModel.nationality.getContent();
+    tfNationality.text = identifyModel.getNational();
     tfNationality.selection = TextSelection.fromPosition(
-        TextPosition(offset: customerDNIModel.nationality.getContent().length));
-    if (customerDNIModel.sex.content == 'M') {
+        TextPosition(offset: identifyModel.getNational().length));
+    if (identifyModel.getGenderBase() == 'M') {
       sexValue = 'M';
-    } else if (customerDNIModel.sex.content == 'F') {
+    } else if (identifyModel.getGenderBase() == 'F') {
       sexValue = 'F';
     }
-    final dateFormat = DateFormat('dd MM yyyy');
     try {
-      final date = dateFormat.parse(customerDNIModel.dob.getContent());
-      dob = Common.fromDate(date, 'dd/MM/yyyy');
+      DateTime date =
+          DateFormat("yy MM dd").parse(identifyModel.getDateOfBirth());
+      dob = DateFormat("dd/MM/yyyy").format(date);
     } catch (e) {
       // nếu chuỗi không đúng định dạng, phương thức parse sẽ ném ra một ngoại lệ
       dob = '';
     }
     try {
-      final date = dateFormat.parse(customerDNIModel.issue.getContent());
-      issue = Common.fromDate(date, 'dd/MM/yyyy');
+      DateTime date =
+          DateFormat("yy MM dd").parse(identifyModel.getDateOfIssue());
+      issue = DateFormat("dd/MM/yyyy").format(date);
     } catch (e) {
       // nếu chuỗi không đúng định dạng, phương thức parse sẽ ném ra một ngoại lệ
       issue = '';
     }
     try {
-      final date = dateFormat.parse(customerDNIModel.ed.getContent());
-      exd = Common.fromDate(date, 'dd/MM/yyyy');
+      DateTime date =
+          DateFormat("yy MM dd").parse(identifyModel.getDateOfExpiry().trim());
+      exd = DateFormat("dd/MM/yyyy").format(date);
     } catch (e) {
       // nếu chuỗi không đúng định dạng, phương thức parse sẽ ném ra một ngoại lệ
       exd = '';

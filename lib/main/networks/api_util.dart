@@ -137,6 +137,31 @@ class ApiUtil {
     });
   }
 
+  void postDetectImage({
+    required String url,
+    Map<String, dynamic>? body,
+    Map<String, dynamic> params = const {},
+    bool isDetect = false,
+    String contentType = Headers.jsonContentType,
+    required Function(BaseResponse response) onSuccess,
+    required Function(dynamic error) onError,
+  }) async {
+    dio!.options.headers['Authorization'] = '';
+    dio!
+        .post(
+      url,
+      queryParameters: params,
+      data: body,
+      options:
+          Options(responseType: ResponseType.json, contentType: contentType),
+    )
+        .then((res) {
+      if (onSuccess != null) onSuccess(getBaseResponse(res));
+    }).catchError((error) {
+      if (onError != null) onError(error);
+    });
+  }
+
   void postFile({
     required String url,
     required String path,
