@@ -610,5 +610,6 @@
     "textAddressNotFound": "Dirección no encontrada",
     "textMonth": "mes",
     "textTheSystemIsOverloaded": "El sistema está sobrecargado, por favor inténtelo de nuevo más tarde",
-  "textStaffNotExist": "El personal no existe"
+  "textStaffNotExist": "El personal no existe",
+      "textSystemError": "Error del sistema"
 }

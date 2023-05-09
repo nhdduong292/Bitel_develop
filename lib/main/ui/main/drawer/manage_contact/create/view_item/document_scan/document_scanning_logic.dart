@@ -280,8 +280,10 @@ class DocumentScanningLogic extends GetxController {
                 }
               });
             } else {
-              Common.showToastCenter(
+              Common.showSystemErrorDialog(context,
                   AppLocalizations.of(context)!.textCardIdentityNotValidate);
+              // Common.showToastCenter(
+              //     AppLocalizations.of(context)!.textCardIdentityNotValidate);
             }
           }
         });
