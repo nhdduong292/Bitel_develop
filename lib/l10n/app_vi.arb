@@ -608,5 +608,6 @@
     "textMonth": "tháng",
     "textTheSystemIsOverloaded": "Hệ thống đang quá tải, vui lòng quay lại sau",
   "textStaffNotExist": "Nhân viên không tồn tại",
-    "textSystemError": "Lỗi hệ thống"
+    "textSystemError": "Lỗi hệ thống",
+     "textLoginSessionHasExpired": "Phiên đăng nhập đã hết. Vui lòng đăng nhập lại!"
 }

@@ -8,8 +8,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../router/route_config.dart';
 
 class Common {
   static const int DAY = 86400000;
@@ -178,8 +182,16 @@ class Common {
       }
       final statusCode = error.response?.statusCode;
       if (statusCode == 401) {
-        showSystemErrorDialog(
-            context, AppLocalizations.of(context)!.textErrorAPI);
+        showSystemErrorLoginDialog(
+            context, AppLocalizations.of(context)!.textLoginSessionHasExpired,
+            () {
+          Get.until(
+            (route) {
+              return Get.currentRoute == RouteConfig.login;
+            },
+          );
+          Get.toNamed(RouteConfig.login);
+        });
         return;
       }
       if (error.response!.data['errorCode'] == null) {
@@ -308,6 +320,21 @@ class Common {
         builder: (context) {
           return SystemErrorDialog(
             text: text,
+          );
+        });
+  }
+
+  static void showSystemErrorLoginDialog(
+      BuildContext context, String text, Function onSuccess) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return SystemErrorLoginDialog(
+            text: text,
+            onOk: () {
+              onSuccess();
+            },
           );
         });
   }

@@ -611,5 +611,6 @@
     "textMonth": "mes",
     "textTheSystemIsOverloaded": "El sistema está sobrecargado, por favor inténtelo de nuevo más tarde",
   "textStaffNotExist": "El personal no existe",
-      "textSystemError": "Error del sistema"
+      "textSystemError": "Error del sistema",
+       "textLoginSessionHasExpired": "Sesión de inicio de sesión ha caducado. ¡Inicia sesión de nuevo!"
 }
