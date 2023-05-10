@@ -607,5 +607,9 @@
     "textAddressNotFound": "Địa chỉ không tồn tại",
     "textMonth": "tháng",
     "textTheSystemIsOverloaded": "Hệ thống đang quá tải, vui lòng quay lại sau",
-  "textStaffNotExist": "Nhân viên không tồn tại"
+  "textStaffNotExist": "Nhân viên không tồn tại",
+  "textFilter": "Lọc: ",
+  "textThisMonth": "Tháng này",
+  "textLastMonth": "Tháng trước",
+  "textLast3Month": "3 tháng trước"
 }

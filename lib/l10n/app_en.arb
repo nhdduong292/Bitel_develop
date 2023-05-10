@@ -627,5 +627,9 @@
     "textAddressNotFound": "Address not found", 
     "textMonth": "month",
     "textTheSystemIsOverloaded": "The system is overloaded, please try again later",
-    "textStaffNotExist": "Staff does not exist"
+    "textStaffNotExist": "Staff does not exist",
+  "textFilter": "Filter: ",
+  "textThisMonth": "This month",
+  "textLastMonth": "Last month",
+  "textLast3Month": "Last 3 months"
 }

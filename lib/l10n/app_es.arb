@@ -610,5 +610,9 @@
     "textAddressNotFound": "Dirección no encontrada",
     "textMonth": "mes",
     "textTheSystemIsOverloaded": "El sistema está sobrecargado, por favor inténtelo de nuevo más tarde",
-  "textStaffNotExist": "El personal no existe"
+  "textStaffNotExist": "El personal no existe",
+  "textFilter": "Filtrar: ",
+  "textThisMonth": "Este mes",
+  "textLastMonth": "El mes pasado",
+  "textLast3Month": "Últimos 3 meses"
 }

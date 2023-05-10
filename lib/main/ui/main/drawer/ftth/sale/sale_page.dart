@@ -86,14 +86,59 @@ class SalePage extends GetWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Text(
-                            AppLocalizations.of(context)!.textRequestManagement,
-                            style: AppStyles.r7.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black),
-                          ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Text(
+                                  AppLocalizations.of(context)!.textRequestManagement,
+                                  style: AppStyles.r7.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.black),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              child: Text(
+                                AppLocalizations.of(context)!.textFilter,
+                                style: AppStyles.r7.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black),
+                              ),
+                            ),
+                            Container(
+                              height: 30,
+                              width: 150,
+                              padding: EdgeInsets.only(left: 12, right: 6),
+                              margin: const EdgeInsets.only(top: 16, right: 16, bottom: 15),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(24),
+                                  border: Border.all(color: Color(0xFFE3EAF2))),
+                              child: Obx(
+                                  () => DropdownButton<String>(
+                                    isExpanded: true,
+                                    underline: Container(),
+                                    value: controller.selectedMonthFilter.value,
+                                    onChanged: (String? value) {
+                                      controller.selectedMonthFilter.value = value!;
+                                      controller.setDate(value);
+                                    },
+                                    items: controller.getMonthFilterItems().map<DropdownMenuItem<String>>((String value) {
+                                      return DropdownMenuItem(value: value, child: Text(value));
+                                    }).toList(),
+                                    alignment: AlignmentDirectional.centerStart,
+                                    style: TextStyle(
+                                        fontSize: 13,
+                                        fontFamily: 'Barlow',
+                                        color: Color(0xFF415263),
+                                        fontWeight: FontWeight.w400),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         Container(
                             margin: const EdgeInsets.only(left: 16, right: 16),
