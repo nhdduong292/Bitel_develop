@@ -619,4 +619,9 @@
     "textIDType": "Loại ID",
     "textIDNumber": "Số ID"
 
+  "textStaffNotExist": "Nhân viên không tồn tại",
+  "textFilter": "Lọc: ",
+  "textThisMonth": "Tháng này",
+  "textLastMonth": "Tháng trước",
+  "textLast3Month": "3 tháng trước"
 }

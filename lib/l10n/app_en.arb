@@ -633,4 +633,9 @@
     "textServiceNumber": "Service number",
     "textCancelationDate": "Cancelation date",
     "textDateOfRequest": "Date of request"
+    "textStaffNotExist": "Staff does not exist",
+  "textFilter": "Filter: ",
+  "textThisMonth": "This month",
+  "textLastMonth": "Last month",
+  "textLast3Month": "Last 3 months"
 }

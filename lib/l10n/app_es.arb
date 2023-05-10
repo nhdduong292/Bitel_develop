@@ -621,4 +621,9 @@
     "textNumber": "Número",
     "textIDType": "Tipo de identificación",
     "textIDNumber": "Número de identificación"
+  "textStaffNotExist": "El personal no existe",
+  "textFilter": "Filtrar: ",
+  "textThisMonth": "Este mes",
+  "textLastMonth": "El mes pasado",
+  "textLast3Month": "Últimos 3 meses"
 }

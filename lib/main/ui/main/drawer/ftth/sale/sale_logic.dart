@@ -16,6 +16,20 @@ class SaleLogic extends GetxController {
   bool isLoading = false;
   BuildContext context;
 
+  DateTime now = DateTime.now();
+
+  String fromDate = '';
+  String toDate = '';
+
+  List<String> getMonthFilterItems(){
+    return [
+      AppLocalizations.of(context)!.textThisMonth,
+      AppLocalizations.of(context)!.textLastMonth,
+      AppLocalizations.of(context)!.textLast3Month];
+  }
+
+  RxString selectedMonthFilter = "".obs;
+
   SaleLogic({required this.context});
 
   void setIndexSelect(int value) {
@@ -38,6 +52,22 @@ class SaleLogic extends GetxController {
       // OptionSale(AppImages.icSaleCreateContact,
       //     AppLocalizations.of(context)!.textCreateContact, "", "", 0),
     ];
+  }
+
+  void setDate(String month){
+    if (month == AppLocalizations.of(context)!.textThisMonth) {
+      fromDate = DateTime(now.year, now.month, now.day - 30).toIso8601String();
+      toDate = now.toIso8601String();
+    } else if (month == AppLocalizations.of(context)!.textLastMonth) {
+      fromDate = DateTime(now.year, now.month, now.day - 60).toIso8601String();
+      toDate = DateTime(now.year, now.month, now.day - 30).toIso8601String();
+    } else if (month == AppLocalizations.of(context)!.textLast3Month) {
+      fromDate = DateTime(now.year, now.month, now.day - 90).toIso8601String();
+      toDate = now.toIso8601String();
+    }
+    isLoading = false;
+    update();
+    getHomeSale();
   }
 
   List<OptionSale> getListRequestManagement(BuildContext context) {
@@ -85,7 +115,16 @@ class SaleLogic extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    toDate = now.toIso8601String();
+    fromDate = fromDate = DateTime(now.year, now.month, now.day - 30).toIso8601String();
     getHomeSale();
+  }
+
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+    selectedMonthFilter.value = AppLocalizations.of(context)!.textThisMonth;
   }
 
   void viewWillAppear() {
@@ -104,6 +143,10 @@ class SaleLogic extends GetxController {
   void getHomeSale() {
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_HOME_SALE,
+      params: {
+        "fromDate": fromDate,
+        "toDate": toDate
+      },
       onSuccess: (response) {
         // Get.back();
         if (response.isSuccess) {
