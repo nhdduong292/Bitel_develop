@@ -765,8 +765,8 @@ Widget bottomButton({required String text, required onTap, color}) {
   return Container(
     margin: EdgeInsets.only(left: 15, top: 24, right: 15, bottom: 10),
     child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       onTap: onTap,
       child: Container(
         height: 50,
@@ -797,8 +797,8 @@ Widget bottomButtonV2(
   return Container(
     margin: EdgeInsets.only(left: 15, top: 24, right: 15, bottom: 10),
     child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       onTap: onTap,
       child: Container(
         height: 50,
@@ -881,7 +881,8 @@ Widget spinnerFormV2(
     TextInputAction? typeAction,
     Function(String value)? function,
     Function(String value)? onSubmit,
-    FocusNode? focusNode}) {
+    FocusNode? focusNode,
+    bool? isMaxlenght}) {
   return Column(
     children: [
       Container(
@@ -893,6 +894,9 @@ Widget spinnerFormV2(
             ? Padding(
                 padding: EdgeInsets.only(left: 12, top: 6, bottom: 6, right: 6),
                 child: TextField(
+                    maxLines: isMaxlenght ?? false ? null : 1,
+                    expands: isMaxlenght ?? false,
+                    maxLength: isMaxlenght ?? false ? 500 : null,
                     controller: controlTextField,
                     keyboardType: inputType,
                     autofocus: required,
@@ -1234,8 +1238,8 @@ Widget customRadioGroup(
     required RxInt groupValue,
     required var onChange}) {
   return InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+    highlightColor: Colors.transparent,
+    splashColor: Colors.transparent,
     onTap: () {
       onChange(value);
     },
@@ -1279,8 +1283,8 @@ Widget customRadioMutiple(
   return Container(
     margin: EdgeInsets.only(left: 15, right: 15, top: 16),
     child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       onTap: () {
         changeValue(!check.value);
       },

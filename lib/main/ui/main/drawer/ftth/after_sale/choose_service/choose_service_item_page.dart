@@ -1,3 +1,4 @@
+import 'package:bitel_ventas/main/networks/model/find_account_model.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
@@ -5,12 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 
+import '../../../../../../utils/common.dart';
+
 class ChooseServiceItemPage extends GetWidget {
   int index;
   RxInt select;
+  FindAccountModel model;
 
-
-  ChooseServiceItemPage(this.index, this.select);
+  ChooseServiceItemPage(this.index, this.select, this.model);
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +37,11 @@ class ChooseServiceItemPage extends GetWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
-            child: Obx(() {
-              return select.value == index ? iconChecked() : iconUnchecked();
-            },),
+            child: Obx(
+              () {
+                return select.value == index ? iconChecked() : iconUnchecked();
+              },
+            ),
           ),
           Expanded(
               flex: 1,
@@ -52,7 +57,7 @@ class ChooseServiceItemPage extends GetWidget {
                     ),
                   ),
                   Text(
-                    "data",
+                    model.typeOfService,
                     style: AppStyles.rText1_13_500,
                   ),
                   Padding(
@@ -63,7 +68,7 @@ class ChooseServiceItemPage extends GetWidget {
                     ),
                   ),
                   Text(
-                    "data",
+                    model.serviceNumber.toString(),
                     style: AppStyles.rText1_13_500,
                   ),
                   Padding(
@@ -74,7 +79,7 @@ class ChooseServiceItemPage extends GetWidget {
                     ),
                   ),
                   Text(
-                    "data",
+                    Common.getIdentityType(model.idType),
                     style: AppStyles.rText1_13_500,
                   ),
                   Padding(
@@ -85,7 +90,7 @@ class ChooseServiceItemPage extends GetWidget {
                     ),
                   ),
                   Text(
-                    "data",
+                    model.name,
                     style: AppStyles.rText1_13_500,
                   )
                 ],
@@ -108,26 +113,26 @@ class ChooseServiceItemPage extends GetWidget {
                       ),
                     ),
                     Text(
-                      "data",
+                      model.plan,
                       style: AppStyles.rText1_13_500,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 10,bottom: 4),
+                      padding: const EdgeInsets.only(top: 10, bottom: 4),
                       child: Text(
                         AppLocalizations.of(context)!.textStatus,
                         style: AppStyles.r6C8AA1_13_400,
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 8,right: 8, bottom: 2),
+                      padding: EdgeInsets.only(left: 8, right: 8, bottom: 2),
                       decoration: BoxDecoration(
                         color: AppColors.colorBackground3,
                         borderRadius: BorderRadius.circular(9),
-
                       ),
                       child: Text(
-                        "Active",
-                        style: AppStyles.rText1_13_500.copyWith(color: Colors.white),
+                        'Active',
+                        style: AppStyles.rText1_13_500
+                            .copyWith(color: Colors.white),
                       ),
                     ),
                     Padding(
@@ -138,7 +143,7 @@ class ChooseServiceItemPage extends GetWidget {
                       ),
                     ),
                     Text(
-                      "data",
+                      model.idNumber,
                       style: AppStyles.rText1_13_500,
                     ),
                     Padding(

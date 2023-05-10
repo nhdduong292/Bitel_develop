@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:bitel_ventas/main/networks/model/best_finger_model.dart';
+import 'package:bitel_ventas/main/networks/model/cancel_service_infor_model.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
@@ -23,9 +24,11 @@ class ValidateFingerprintLogic extends GetxController {
   String type = '';
   int cusId = 0;
   int contractId = 0;
+  int orderId = 0;
   String typeCustomer = '';
   String idNumber = '';
   BestFingerModel bestFinger = BestFingerModel();
+  CancelServiceInforModel cancelServiceInforModel = CancelServiceInforModel();
   var pathFinger = ''.obs;
   List<String> listFinger = [];
 
@@ -40,10 +43,17 @@ class ValidateFingerprintLogic extends GetxController {
     super.onInit();
     var data = Get.arguments;
     type = data[0];
-    cusId = data[1];
-    typeCustomer = data[2];
-    idNumber = data[3];
-    contractId = data[4];
+    if (type.isNotEmpty) {
+      cusId = data[1];
+      typeCustomer = data[2];
+      idNumber = data[3];
+      contractId = data[4];
+    } else {
+      cusId = data[1];
+      typeCustomer = data[2];
+      idNumber = data[3];
+      orderId = data[4];
+    }
   }
 
   @override
@@ -181,6 +191,42 @@ class ValidateFingerprintLogic extends GetxController {
             .replaceAll('id', contractId.toString()),
         body: body,
         params: params,
+        onSuccess: (response) {
+          Get.back();
+          if (response.isSuccess) {
+            cancelServiceInforModel =
+                CancelServiceInforModel.fromJson(response.data['data']);
+            isSuccess.call(true);
+          } else {
+            isSuccess.call(false);
+            print("error: ${response.status}");
+          }
+        },
+        onError: (error) {
+          Get.back();
+          isSuccess.call(false);
+          Common.showMessageError(error: error, context: context);
+        },
+      );
+    } catch (e) {
+      Get.back();
+      Common.showToastCenter(e.toString());
+    }
+  }
+
+  void signCancelService(Function(bool) isSuccess) {
+    try {
+      _onLoading(context);
+      Completer<bool> completer = Completer();
+      Map<String, dynamic> body = {
+        "finger": bestFinger.right != 0 ? bestFinger.right : bestFinger.left,
+        "listImage": listFinger,
+        "pk": pk
+      };
+      ApiUtil.getInstance()!.put(
+        url: ApiEndPoints.API_SIGN_CANCEL_SERVICE
+            .replaceAll('orderId', orderId.toString()),
+        body: body,
         onSuccess: (response) {
           Get.back();
           if (response.isSuccess) {

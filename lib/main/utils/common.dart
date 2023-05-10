@@ -338,4 +338,21 @@ class Common {
           );
         });
   }
+
+  static String getIdentityType(int idType) {
+    if (idType == 1) {
+      return 'DNI';
+    } else if (idType == 2) {
+      return 'CE';
+    } else if (idType == 3) {
+      return 'RUC';
+    } else if (idType == 4) {
+      return 'PP';
+    } else if (idType == 7) {
+      return 'PTP';
+    } else if (idType == 8) {
+      return 'CPP';
+    }
+    return '---';
+  }
 }

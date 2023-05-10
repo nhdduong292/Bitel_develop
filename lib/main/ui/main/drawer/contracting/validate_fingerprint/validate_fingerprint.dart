@@ -2,6 +2,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:bitel_ventas/main/networks/model/cancel_service_infor_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/validate_fingerprint/validate_fingerprint_logic.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
@@ -61,8 +62,8 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                         top: 45,
                         left: 20,
                         child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          splashColor: Colors.transparent,
                           onTap: () {
                             Get.back();
                           },
@@ -229,8 +230,8 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                               Expanded(
                                 flex: 1,
                                 child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
                                   onTap: () {
                                     // if (controller.isGetFingerSuccess) {
                                     //   if (Platform.isAndroid) {
@@ -290,10 +291,25 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                               Expanded(
                                 flex: 1,
                                 child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
                                   onTap: () {
                                     if (controller.listFinger.isEmpty) {
+                                      return;
+                                    }
+                                    if (controller.type.isEmpty) {
+                                      controller.signCancelService(
+                                        (isSuccess) {
+                                          if (isSuccess) {
+                                            Get.toNamed(
+                                                RouteConfig.cancelServiceInfor,
+                                                arguments: [
+                                                  controller
+                                                      .cancelServiceInforModel,
+                                                ]);
+                                          }
+                                        },
+                                      );
                                       return;
                                     }
                                     if (controller.type == 'LENDING') {

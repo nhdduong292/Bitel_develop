@@ -1,7 +1,7 @@
 class ApiEndPoints {
   static const String DOMAIN = "http://181.176.242.147:9901/ftth";
   static const String DOMAIN_TEST = "http://10.121.14.196:9092";
-  static const bool isDev = false; //todo true là test false la that
+  static const bool isDev = true; //todo true là test false la that
   static const String API_LIST_REQUEST =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/requests";
   static const String API_CREATE_REQUEST =
@@ -33,9 +33,9 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts";
   static const String API_CONTRACT_PREVIEW =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts/id/preview";
-  // static const String API_LOGIN = "http://10.121.14.196:9093/login";
+  static const String API_LOGIN = "http://10.121.14.196:9093/login";
 
-  static const String API_LOGIN = "http://181.176.242.147:9901/ftth_auth/login";
+  // static const String API_LOGIN = "http://181.176.242.147:9901/ftth_auth/login";
 
   static const String API_PLAN_REASON =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/plan-reasons";
@@ -90,4 +90,12 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/customers/exist";
   static const String API_SEARCH_AREAS =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/areas/search";
+  static const String API_FIND_ACCOUNT =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/cancel-service/find-account";
+  static const String API_REQUEST_CANNCEL =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/cancel-service/request-cancel/subId";
+  static const String API_CONTRACT_PREVIEW_ORDER_ID =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/cancel-service/request-cancel/preview/orderId";
+  static const String API_SIGN_CANCEL_SERVICE =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/cancel-service/request-cancel/sign/orderId";
 }

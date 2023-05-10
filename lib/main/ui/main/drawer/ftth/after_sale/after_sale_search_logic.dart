@@ -1,3 +1,4 @@
+import 'package:bitel_ventas/main/networks/model/find_account_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,6 +10,7 @@ class AfterSaleSearchLogic extends GetxController
   int index = 0;
   String title;
   String type;
+  List<FindAccountModel> listAccount = [];
   BuildContext context;
 
   AfterSaleSearchLogic(this.title, this.context, this.type);

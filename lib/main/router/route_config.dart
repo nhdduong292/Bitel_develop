@@ -10,7 +10,9 @@ import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_pay
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_search_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/cancel_service_pdf/cancel_service_pdf_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/cancel_service_success/cancel_service_success.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/clear_penalty/clear_penalty_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/date_cancel_service/date_cancel_service.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/dialog_cancel_service/dialog_cancel_service.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/manage_wo/manage_wo_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/id_card_scanner.dart';
@@ -67,6 +69,10 @@ class RouteConfig {
       "/menu/ftth/aftersale/cancelService/clearPenalty";
   static const String cancelServicePDF =
       "/menu/ftth/aftersale/cancelService/pdf";
+  static const String dateCancelService =
+      "/menu/ftth/aftersale/dateCancelService";
+  static const String cancelServiceInfor =
+      "/menu/ftth/aftersale/cancelServiceInfor";
 
   ///page
   static final List<GetPage> getPages = [
@@ -97,6 +103,8 @@ class RouteConfig {
     GetPage(name: orderManagement, page: () => OrderManagementPage()),
     GetPage(name: clearPenalty, page: () => ClearPenaltyPage()),
     GetPage(name: cancelServicePDF, page: () => CancelServicePDFPage()),
+    GetPage(name: dateCancelService, page: () => DateCancelService()),
+    GetPage(name: cancelServiceInfor, page: () => CancelServiceSuccess()),
   ];
 
   ///language

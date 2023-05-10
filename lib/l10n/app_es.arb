@@ -612,5 +612,13 @@
     "textTheSystemIsOverloaded": "El sistema está sobrecargado, por favor inténtelo de nuevo más tarde",
   "textStaffNotExist": "El personal no existe",
       "textSystemError": "Error del sistema",
-       "textLoginSessionHasExpired": "Sesión de inicio de sesión ha caducado. ¡Inicia sesión de nuevo!"
+       "textLoginSessionHasExpired": "Sesión de inicio de sesión ha caducado. ¡Inicia sesión de nuevo!",
+      "textServiceNumber": "Número de servicio",
+      "textCancelationDate": "Fecha de cancelación",
+      "textDateOfRequest": "Fecha de solicitud",
+    "textTypeOfService": "Tipo de servicio",
+    "textPlan": "Plan:",
+    "textNumber": "Número",
+    "textIDType": "Tipo de identificación",
+    "textIDNumber": "Número de identificación"
 }

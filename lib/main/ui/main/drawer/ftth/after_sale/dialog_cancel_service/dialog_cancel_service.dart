@@ -1,3 +1,5 @@
+import 'package:bitel_ventas/main/networks/model/cancel_service_model.dart';
+import 'package:bitel_ventas/main/networks/model/find_account_model.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
@@ -9,13 +11,20 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import '../../../../../../../res/app_colors.dart';
 import '../../../../../../../res/app_images.dart';
 import '../../../../../../../res/app_styles.dart';
+import '../../../../../../utils/common.dart';
 import '../../../../../../utils/common_widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CancelServiceDialog extends Dialog {
   BuildContext context;
   Function onSuccess;
-  CancelServiceDialog({required this.context, required this.onSuccess});
+  FindAccountModel accountModel;
+  CancelServiceModel cancelServiceModel;
+  CancelServiceDialog(
+      {required this.context,
+      required this.onSuccess,
+      required this.accountModel,
+      required this.cancelServiceModel});
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +76,7 @@ class CancelServiceDialog extends Dialog {
                             ),
                           ),
                           Text(
-                            "data",
+                            accountModel.serviceNumber,
                             style: AppStyles.rText1_13_500,
                           ),
                           Padding(
@@ -78,7 +87,7 @@ class CancelServiceDialog extends Dialog {
                             ),
                           ),
                           Text(
-                            "data",
+                            Common.getIdentityType(accountModel.idType),
                             style: AppStyles.rText1_13_500,
                           ),
                           Padding(
@@ -89,7 +98,7 @@ class CancelServiceDialog extends Dialog {
                             ),
                           ),
                           Text(
-                            "data",
+                            accountModel.name,
                             style: AppStyles.rText1_13_500,
                           )
                         ],
@@ -112,7 +121,7 @@ class CancelServiceDialog extends Dialog {
                               ),
                             ),
                             Text(
-                              "data",
+                              accountModel.plan,
                               style: AppStyles.rText1_13_500,
                             ),
                             Padding(
@@ -144,7 +153,7 @@ class CancelServiceDialog extends Dialog {
                               ),
                             ),
                             Text(
-                              "data",
+                              accountModel.idNumber,
                               style: AppStyles.rText1_13_500,
                             ),
                             // Padding(
@@ -179,12 +188,13 @@ class CancelServiceDialog extends Dialog {
                 child: RichText(
                   text: TextSpan(
                       text: '${AppLocalizations.of(context)!.textPenalty}: ',
-                      style: AppStyles.r1.copyWith(fontWeight: FontWeight.w400),
+                      style: AppStyles.r1
+                          .copyWith(fontWeight: FontWeight.w400, fontSize: 16),
                       children: [
                         TextSpan(
-                          text: 'S/00 .0',
+                          text: 'S/${cancelServiceModel.totalPenalty}',
                           style: AppStyles.r9454C9_14_500.copyWith(
-                              fontSize: 13, fontWeight: FontWeight.w700),
+                              fontSize: 15, fontWeight: FontWeight.w700),
                         ),
                       ]),
                 ),

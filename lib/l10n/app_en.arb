@@ -629,5 +629,8 @@
     "textTheSystemIsOverloaded": "The system is overloaded, please try again later",
     "textStaffNotExist": "Staff does not exist",
     "textSystemError": "System error",
-    "textLoginSessionHasExpired": "Login session has expired. Please log in again!"
+    "textLoginSessionHasExpired": "Login session has expired. Please log in again!",
+    "textServiceNumber": "Service number",
+    "textCancelationDate": "Cancelation date",
+    "textDateOfRequest": "Date of request"
 }

@@ -18,8 +18,8 @@ class FindServicePage extends GetWidget {
       init: FindServiceLogic(context),
       builder: (controller) {
         return InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
           onTap: () {
             FocusScope.of(context).requestFocus(FocusNode());
           },
@@ -69,20 +69,23 @@ class FindServicePage extends GetWidget {
                 ),
                 Expanded(child: Container()),
                 InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
                   onTap: () {
-                    // if (controller.isActive ||
-                    //     controller.checkValidate(context)) {
-                    //   return;
-                    // }
-                    // _onLoading(context);
+                    if (controller.isActive) {
+                      return;
+                    }
+
                     FocusScope.of(context).requestFocus(FocusNode());
-                    AfterSaleSearchLogic logic =
-                        Get.find<AfterSaleSearchLogic>();
-                    logic.isTabTwo.value = true;
-                    logic.isTabOne.value = false;
-                    logic.nextPage(1);
+                    controller.getAccounts((isSuccess) {
+                      if (isSuccess) {
+                        AfterSaleSearchLogic logic =
+                            Get.find<AfterSaleSearchLogic>();
+                        logic.isTabTwo.value = true;
+                        logic.isTabOne.value = false;
+                        logic.nextPage(1);
+                      }
+                    });
                   },
                   child: Container(
                     width: double.infinity,
