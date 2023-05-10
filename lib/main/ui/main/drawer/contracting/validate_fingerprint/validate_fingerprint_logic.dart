@@ -219,17 +219,20 @@ class ValidateFingerprintLogic extends GetxController {
       _onLoading(context);
       Completer<bool> completer = Completer();
       Map<String, dynamic> body = {
+        // "finger": bestFinger.right != 0 ? bestFinger.right : bestFinger.left,
         "finger": bestFinger.right != 0 ? bestFinger.right : bestFinger.left,
         "listImage": listFinger,
         "pk": pk
       };
-      ApiUtil.getInstance()!.put(
+      ApiUtil.getInstance()!.post(
         url: ApiEndPoints.API_SIGN_CANCEL_SERVICE
             .replaceAll('orderId', orderId.toString()),
         body: body,
         onSuccess: (response) {
           Get.back();
           if (response.isSuccess) {
+            cancelServiceInforModel =
+                CancelServiceInforModel.fromJson(response.data['data']);
             isSuccess.call(true);
           } else {
             isSuccess.call(false);
