@@ -13,7 +13,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DialogTransferRequestLogic extends GetxController {
   BuildContext context;
-  String currentReason = "";
+  int currentReason = 0;
   String currentStaffCode = "";
   List<ReasonModel> listReason = [];
   bool isLoading = false;
@@ -59,7 +59,7 @@ class DialogTransferRequestLogic extends GetxController {
   }
 
   bool checkValidate(BuildContext context) {
-    if (currentStaffCode.isEmpty || currentReason.isEmpty) {
+    if (currentStaffCode.isEmpty || currentReason == 0) {
       Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
       return true;
     }

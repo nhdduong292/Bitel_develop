@@ -1,47 +1,42 @@
-import 'package:bitel_ventas/main/networks/model/cancel_service_model.dart';
 import 'package:bitel_ventas/main/networks/model/find_account_model.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_search_logic.dart';
-import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../../networks/api_end_point.dart';
 import '../../../../../../networks/api_util.dart';
+import '../../../../../../networks/model/cancel_service_model.dart';
+import '../../../../../../utils/common.dart';
 import '../../../../../../utils/common_widgets.dart';
 
-class ChooseServiceLogic extends GetxController {
-  AfterSaleSearchLogic afterSaleSearchLogic = Get.find();
-  bool isActive = true;
-  List<FindAccountModel> listAccount = [];
-  var valueService = (-1).obs;
-  CancelServiceModel cancelServiceModel = CancelServiceModel();
-
+class DateCancelServiceLogic extends GetxController {
   BuildContext context;
-
-  ChooseServiceLogic({required this.context});
+  FindAccountModel findAccountModel = FindAccountModel();
+  bool isActive = true;
+  DateTime selectDate = DateTime.now();
+  DateTime? datePicker;
+  var fromDate = "".obs;
+  var toDate = "".obs;
+  bool isCheckAgree = true;
+  String cancelDate = '';
+  DateCancelServiceLogic({required this.context});
+  CancelServiceModel cancelServiceModel = CancelServiceModel();
 
   @override
   void onInit() {
     // TODO: implement onInit
-    super.onInit();
-    listAccount = afterSaleSearchLogic.listAccount;
-    update();
-  }
-
-  void setActive(bool value) {
-    isActive = value;
-    update();
+    var data = Get.arguments;
+    findAccountModel = data[0];
   }
 
   void requestCanncel(var onSuccess) {
     _onLoading(context);
     Map<String, dynamic> body = {
-      'subId': listAccount[valueService.value].subId,
-      'cancelDate': '',
+      'subId': findAccountModel.subId,
+      'cancelDate': datePicker?.toIso8601String(),
     };
     ApiUtil.getInstance()!.post(
-      url: ApiEndPoints.API_REQUEST_CANNCEL.replaceAll(
-          'subId', listAccount[valueService.value].subId.toString()),
+      url: ApiEndPoints.API_REQUEST_CANNCEL
+          .replaceAll('subId', findAccountModel.subId.toString()),
       body: body,
       onSuccess: (response) {
         Get.back();
@@ -75,5 +70,33 @@ class ChooseServiceLogic extends GetxController {
         );
       },
     );
+  }
+
+  void setFromDate(DateTime picked) {
+    fromDate.value = "${picked.day}/${picked.month}/${picked.year}";
+    update();
+  }
+
+  void setToDate(DateTime picked) {
+    cancelDate = "${picked.day}/${picked.month}/${picked.year}";
+    datePicker = picked;
+    update();
+  }
+
+  void setDateNow() {
+    selectDate = DateTime.now();
+  }
+
+  void setCheckAgree(bool value) {
+    isCheckAgree = value;
+    update();
+  }
+
+  bool checkActiveContinue() {
+    if (cancelDate.isNotEmpty && isCheckAgree) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

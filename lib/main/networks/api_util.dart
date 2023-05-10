@@ -77,6 +77,32 @@ class ApiUtil {
     });
   }
 
+  Future<void> postPDF({
+    required String url,
+    Map<String, dynamic> params = const {},
+    required Function(Response success) onSuccess,
+    required Function(dynamic error) onError,
+  }) async {
+    String token = await SharedPreferenceUtil.getToken();
+    if (token.isNotEmpty) {
+      dio!.options.headers['Authorization'] = 'Bearer ${token}';
+    }
+    dio!
+        .post(
+      url,
+      queryParameters: params,
+      options: Options(
+        responseType: ResponseType.bytes,
+        followRedirects: false,
+      ),
+    )
+        .then((res) {
+      if (onSuccess != null) onSuccess(res);
+    }).catchError((error) {
+      if (onError != null) onError(error);
+    });
+  }
+
   Future<void> put({
     required String url,
     Map<String, dynamic>? body,

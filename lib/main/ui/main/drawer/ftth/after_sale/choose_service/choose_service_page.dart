@@ -15,7 +15,7 @@ class ChooseServicePage extends GetWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: ChooseServiceLogic(),
+      init: ChooseServiceLogic(context: context),
       builder: (controller) {
         return Scaffold(
           backgroundColor: Colors.white,
@@ -24,23 +24,23 @@ class ChooseServicePage extends GetWidget {
               ListView.builder(
                 shrinkWrap: true,
                 primary: false,
-                itemCount: 2,
+                itemCount: controller.listAccount.length,
                 itemBuilder: (context, index) {
                   return InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     onTap: () {
                       controller.valueService.value = index;
                       controller.setActive(false);
                     },
-                    child:
-                        ChooseServiceItemPage(index, controller.valueService),
+                    child: ChooseServiceItemPage(index, controller.valueService,
+                        controller.listAccount[index]),
                   );
                 },
               ),
               InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
                 onTap: () {
                   // if (controller.isActive ||
                   //     controller.checkValidate(context)) {
@@ -54,18 +54,9 @@ class ChooseServicePage extends GetWidget {
                   } else if (controller.afterSaleSearchLogic.type ==
                       'TRANSFER_SERVICE') {
                   } else {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return CancelServiceDialog(
-                            context: context,
-                            onSuccess: () {
-                              Get.back();
-                              // Get.toNamed(RouteConfig.clearPenalty);
-                              Get.toNamed(RouteConfig.cancelServicePDF);
-                            },
-                          );
-                        });
+                    Get.toNamed(RouteConfig.dateCancelService, arguments: [
+                      controller.listAccount[controller.valueService.value]
+                    ]);
                   }
                 },
                 child: Container(

@@ -1,6 +1,13 @@
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_search_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../../../../networks/api_end_point.dart';
+import '../../../../../../networks/api_util.dart';
+import '../../../../../../networks/model/find_account_model.dart';
+import '../../../../../../utils/common.dart';
+import '../../../../../../utils/common_widgets.dart';
 
 class FindServiceLogic extends GetxController {
   bool isActive = true;
@@ -11,6 +18,9 @@ class FindServiceLogic extends GetxController {
   TextEditingController textFieldEnter = TextEditingController();
   String currentEnter = "";
   final FocusScopeNode focusScopeNode = FocusScopeNode();
+  List<FindAccountModel> listAccount = [];
+
+  AfterSaleSearchLogic afterSaleSearchLogic = Get.find();
 
   FindServiceLogic(this.context);
 
@@ -26,6 +36,20 @@ class FindServiceLogic extends GetxController {
   void setStatus(String value) {
     currentStatus = value;
     update();
+  }
+
+  String getStatusCode() {
+    if (currentStatus == AppLocalizations.of(context)!.textIdentityNumber) {
+      return 'ID_NUMBER';
+    } else if (currentStatus == AppLocalizations.of(context)!.textFTTHAccount) {
+      return 'ACCOUNT';
+    } else if (currentStatus == AppLocalizations.of(context)!.textPhoneNumber) {
+      return 'PHONE_NUMBER';
+    } else if (currentStatus ==
+        AppLocalizations.of(context)!.textServiceNumber) {
+      return 'SERVICE_CODE';
+    }
+    return '';
   }
 
   void setIdentity(String value) {
@@ -52,7 +76,8 @@ class FindServiceLogic extends GetxController {
     return [
       AppLocalizations.of(context)!.textIdentityNumber,
       AppLocalizations.of(context)!.textFTTHAccount,
-      AppLocalizations.of(context)!.textPhoneNumber
+      AppLocalizations.of(context)!.textPhoneNumber,
+      AppLocalizations.of(context)!.textServiceNumber
     ];
   }
 
@@ -64,5 +89,50 @@ class FindServiceLogic extends GetxController {
     } else {
       return 9;
     }
+  }
+
+  void getAccounts(var onSuccess) {
+    _onLoading(context);
+    ApiUtil.getInstance()!.get(
+      url: ApiEndPoints.API_FIND_ACCOUNT,
+      params: {
+        'type': getStatusCode(),
+        'idType': currentIdentityType,
+        'value': currentEnter
+      },
+      onSuccess: (response) {
+        Get.back();
+        if (response.isSuccess) {
+          listAccount = (response.data['data'] as List)
+              .map((postJson) => FindAccountModel.fromJson(postJson))
+              .toList();
+          afterSaleSearchLogic.listAccount = listAccount;
+          onSuccess(true);
+        } else {
+          print("error: ${response.status}");
+          onSuccess(false);
+        }
+        update();
+      },
+      onError: (error) {
+        Get.back();
+        onSuccess(false);
+        Common.showMessageError(error: error, context: context);
+      },
+    );
+  }
+
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
+      },
+    );
   }
 }

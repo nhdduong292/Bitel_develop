@@ -51,8 +51,8 @@ class DialogCancelRequest extends GetWidget {
                           fontWeight: FontWeight.w500),
                     )),
                     InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
                       onTap: () {
                         Get.back();
                       },
@@ -99,7 +99,7 @@ class DialogCancelRequest extends GetWidget {
                           isExpanded: true,
                           // value: controller.currentReason.isNotEmpty ? controller.currentReason : null,
                           onChanged: (value) {
-                            controller.currentReason = value!.id!.toString();
+                            controller.currentReason = value!.id!;
                           },
                           items: controller.listReason
                               .map<DropdownMenuItem<ReasonModel>>(
@@ -144,6 +144,7 @@ class DialogCancelRequest extends GetWidget {
                     Expanded(
                         flex: 5,
                         child: spinnerFormV2(
+                            isMaxlenght: true,
                             context: context,
                             hint: AppLocalizations.of(context)!.hintNote,
                             required: false,
@@ -158,8 +159,8 @@ class DialogCancelRequest extends GetWidget {
                 ),
               ),
               InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
                 onTap: () {
                   if (controller.checkValidate(context)) return;
                   _onLoading(context);

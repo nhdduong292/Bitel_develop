@@ -20,6 +20,7 @@ class PDFPreviewLogic extends GetxController {
   var loadSuccess = false.obs;
   var type = '';
   int contractId = 0;
+  int orderId = 0;
 
   PDFPreviewLogic({required this.context});
 
@@ -30,8 +31,13 @@ class PDFPreviewLogic extends GetxController {
 
     var data = Get.arguments;
     type = data[0];
-    contractId = data[1];
-    getPDF();
+    if (type.isNotEmpty) {
+      contractId = data[1];
+      getPDF();
+    } else {
+      orderId = data[1];
+      getPDFByOrderId();
+    }
   }
 
   Future<Uint8List> fromAsset(String asset, String filename) async {
@@ -60,6 +66,26 @@ class PDFPreviewLogic extends GetxController {
         url: ApiEndPoints.API_CONTRACT_PREVIEW
             .replaceAll("id", contractId.toString()),
         params: {"type": type},
+        onSuccess: (response) async {
+          bytesPDF = response.data;
+          loadSuccess.value = true;
+        },
+        onError: (error) {
+          loadSuccess.value = true;
+        },
+      );
+    } catch (e) {
+      throw Exception('Error parsing asset file!');
+    }
+  }
+
+  getPDFByOrderId() async {
+    // To open from assets, you can copy them to the app storage folder, and the access them "locally"
+
+    try {
+      ApiUtil.getInstance()!.postPDF(
+        url: ApiEndPoints.API_CONTRACT_PREVIEW_ORDER_ID
+            .replaceAll("orderId", orderId.toString()),
         onSuccess: (response) async {
           bytesPDF = response.data;
           loadSuccess.value = true;

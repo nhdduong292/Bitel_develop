@@ -190,7 +190,7 @@ class DialogTransferRequest extends GetWidget {
                           isExpanded: true,
                           // value: controller.currentReason.isNotEmpty ? controller.currentReason : null,
                           onChanged: (value) {
-                            controller.currentReason = value!.id!.toString();
+                            controller.currentReason = value!.id!;
                           },
                           items: controller.listReason
                               .map<DropdownMenuItem<ReasonModel>>(

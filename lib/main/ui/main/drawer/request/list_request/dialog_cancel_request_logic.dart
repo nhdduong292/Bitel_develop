@@ -10,7 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DialogCancelRequestLogic extends GetxController {
   BuildContext context;
-  String currentReason = "";
+  int currentReason = 0;
   String currentNote = "";
   List<ReasonModel> listReason = [];
   bool isLoading = false;
@@ -54,7 +54,7 @@ class DialogCancelRequestLogic extends GetxController {
   }
 
   bool checkValidate(BuildContext context) {
-    if (currentReason.isEmpty) {
+    if (currentReason == 0) {
       Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
       return true;
     }

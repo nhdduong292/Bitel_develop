@@ -90,4 +90,12 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/customers/exist";
   static const String API_SEARCH_AREAS =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/areas/search";
+  static const String API_FIND_ACCOUNT =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/cancel-service/find-account";
+  static const String API_REQUEST_CANNCEL =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/cancel-service/request-cancel/subId";
+  static const String API_CONTRACT_PREVIEW_ORDER_ID =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/cancel-service/request-cancel/preview/orderId";
+  static const String API_SIGN_CANCEL_SERVICE =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/cancel-service/request-cancel/sign/orderId";
 }

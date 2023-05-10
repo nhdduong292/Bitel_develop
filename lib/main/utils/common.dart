@@ -2,13 +2,18 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as Math;
 
+import 'package:bitel_ventas/main/utils/dialog_util.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../router/route_config.dart';
 
 class Common {
   static const int DAY = 86400000;
@@ -161,128 +166,140 @@ class Common {
     try {
       if (error != null) {
         if (error is! DioError) {
-          Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
+          showSystemErrorDialog(
+              context, AppLocalizations.of(context)!.textErrorAPI);
           return;
         }
         if (error.type == DioErrorType.connectionTimeout) {
-          Common.showToastCenter(
-              AppLocalizations.of(context)!.textTheSystemIsOverloaded);
+          showSystemErrorDialog(
+              context, AppLocalizations.of(context)!.textTheSystemIsOverloaded);
           return;
         }
       } else {
-        Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
+        showSystemErrorDialog(
+            context, AppLocalizations.of(context)!.textErrorAPI);
         return;
       }
       final statusCode = error.response?.statusCode;
       if (statusCode == 401) {
-        Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
+        showSystemErrorLoginDialog(
+            context, AppLocalizations.of(context)!.textLoginSessionHasExpired,
+            () {
+          Get.until(
+            (route) {
+              return Get.currentRoute == RouteConfig.login;
+            },
+          );
+          Get.toNamed(RouteConfig.login);
+        });
         return;
       }
       if (error.response!.data['errorCode'] == null) {
-        Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
+        showSystemErrorDialog(
+            context, AppLocalizations.of(context)!.textErrorAPI);
         return;
       }
       String errorCode = error.response!.data['errorCode'];
       if (errorCode == 'E000') {
-        showToastCenter(AppLocalizations.of(context)!.textE000);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE000);
       } else if (errorCode == 'E001') {
-        showToastCenter(AppLocalizations.of(context)!.textE001);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE001);
       } else if (errorCode == 'E002') {
-        showToastCenter(AppLocalizations.of(context)!.textE002);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE002);
       } else if (errorCode == 'E003') {
-        showToastCenter(AppLocalizations.of(context)!.textE003);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE003);
       } else if (errorCode == 'E004') {
-        showToastCenter(AppLocalizations.of(context)!.textE004);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE004);
       } else if (errorCode == 'E005') {
-        showToastCenter(AppLocalizations.of(context)!.textE005);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE005);
       } else if (errorCode == 'E006') {
-        showToastCenter(AppLocalizations.of(context)!.textE006);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE006);
       } else if (errorCode == 'E007') {
-        showToastCenter(AppLocalizations.of(context)!.textE007);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE007);
       } else if (errorCode == 'E008') {
-        showToastCenter(AppLocalizations.of(context)!.textE008);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE008);
       } else if (errorCode == 'E009') {
-        showToastCenter(AppLocalizations.of(context)!.textE009);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE009);
       } else if (errorCode == 'E010') {
-        showToastCenter(AppLocalizations.of(context)!.textE010);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE010);
       } else if (errorCode == 'E011') {
-        showToastCenter(AppLocalizations.of(context)!.textE011);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE011);
       } else if (errorCode == 'E012') {
-        showToastCenter(AppLocalizations.of(context)!.textE012);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE012);
       } else if (errorCode == 'E013') {
-        showToastCenter(AppLocalizations.of(context)!.textE013);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE013);
       } else if (errorCode == 'E014') {
-        showToastCenter(AppLocalizations.of(context)!.textE014);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE014);
       } else if (errorCode == 'E015') {
-        showToastCenter(AppLocalizations.of(context)!.textE015);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE015);
       } else if (errorCode == 'E016') {
-        showToastCenter(AppLocalizations.of(context)!.textE016);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE016);
       } else if (errorCode == 'E017') {
-        showToastCenter(AppLocalizations.of(context)!.textE017);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE017);
       } else if (errorCode == 'E018') {
-        showToastCenter(AppLocalizations.of(context)!.textE018);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE018);
       } else if (errorCode == 'E019') {
-        showToastCenter(AppLocalizations.of(context)!.textE019);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE019);
       } else if (errorCode == 'E020') {
-        showToastCenter(AppLocalizations.of(context)!.textE020);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE020);
       } else if (errorCode == 'E021') {
-        showToastCenter(AppLocalizations.of(context)!.textE021);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE021);
       } else if (errorCode == 'E022') {
-        showToastCenter(AppLocalizations.of(context)!.textE022);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE022);
       } else if (errorCode == 'E023' && isShow) {
-        showToastCenter(AppLocalizations.of(context)!.textE023);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE023);
       } else if (errorCode == 'E024') {
-        showToastCenter(AppLocalizations.of(context)!.textE024);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE024);
       } else if (errorCode == 'E025') {
-        showToastCenter(AppLocalizations.of(context)!.textE025);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE025);
       } else if (errorCode == 'E026') {
-        showToastCenter(AppLocalizations.of(context)!.textE026);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE026);
       } else if (errorCode == 'E027') {
-        showToastCenter(AppLocalizations.of(context)!.textE027);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE027);
       } else if (errorCode == 'E028' && isShow) {
-        showToastCenter(AppLocalizations.of(context)!.textE028);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE028);
       } else if (errorCode == 'E029') {
-        showToastCenter(AppLocalizations.of(context)!.textE029);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE029);
       } else if (errorCode == 'E030') {
-        showToastCenter(AppLocalizations.of(context)!.textE030);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE030);
       } else if (errorCode == 'E031') {
-        showToastCenter(AppLocalizations.of(context)!.textE031);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE031);
       } else if (errorCode == 'E032') {
-        showToastCenter(AppLocalizations.of(context)!.textE032);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE032);
       } else if (errorCode == 'E033') {
-        showToastCenter(AppLocalizations.of(context)!.textE033);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE033);
       } else if (errorCode == 'E034') {
-        showToastCenter(AppLocalizations.of(context)!.textE034);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE034);
       } else if (errorCode == 'E035') {
-        showToastCenter(AppLocalizations.of(context)!.textE035);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE035);
       } else if (errorCode == 'E036') {
-        showToastCenter(AppLocalizations.of(context)!.textE036);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE036);
       } else if (errorCode == 'E037') {
-        showToastCenter(AppLocalizations.of(context)!.textE037);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE037);
       } else if (errorCode == 'E038') {
-        showToastCenter(AppLocalizations.of(context)!.textE038);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE038);
       } else if (errorCode == 'E039') {
-        showToastCenter(AppLocalizations.of(context)!.textE039);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE039);
       } else if (errorCode == 'E040') {
-        showToastCenter(AppLocalizations.of(context)!.textE040);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE040);
       } else if (errorCode == 'E041') {
-        showToastCenter(AppLocalizations.of(context)!.textE041);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE041);
       } else if (errorCode == 'E042') {
-        showToastCenter(AppLocalizations.of(context)!.textE042);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE042);
       } else if (errorCode == 'E043') {
-        showToastCenter(AppLocalizations.of(context)!.textE043);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE043);
       } else if (errorCode == 'E044') {
-        showToastCenter(AppLocalizations.of(context)!.textE044);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE044);
       } else if (errorCode == 'E045' && isShow) {
-        showToastCenter(AppLocalizations.of(context)!.textE045);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE045);
       } else if (errorCode == 'E046') {
-        showToastCenter(AppLocalizations.of(context)!.textE046);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE046);
       } else if (errorCode == 'E047') {
-        showToastCenter(AppLocalizations.of(context)!.textE047);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE047);
       } else if (errorCode == 'E048') {
-        showToastCenter(AppLocalizations.of(context)!.textE048);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE048);
       } else if (errorCode == 'E049') {
-        showToastCenter(AppLocalizations.of(context)!.textE049);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE049);
       }
     } catch (e) {
       Common.showToastCenter(e.toString());
@@ -295,5 +312,47 @@ class Common {
     String minute = min.toString().length <= 1 ? "0$min" : "$min";
     String second = sec.toString().length <= 1 ? "0$sec" : "$sec";
     return "$minute : $second";
+  }
+
+  static void showSystemErrorDialog(BuildContext context, String text) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return SystemErrorDialog(
+            text: text,
+          );
+        });
+  }
+
+  static void showSystemErrorLoginDialog(
+      BuildContext context, String text, Function onSuccess) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return SystemErrorLoginDialog(
+            text: text,
+            onOk: () {
+              onSuccess();
+            },
+          );
+        });
+  }
+
+  static String getIdentityType(int idType) {
+    if (idType == 1) {
+      return 'DNI';
+    } else if (idType == 2) {
+      return 'CE';
+    } else if (idType == 3) {
+      return 'RUC';
+    } else if (idType == 4) {
+      return 'PP';
+    } else if (idType == 7) {
+      return 'PTP';
+    } else if (idType == 8) {
+      return 'CPP';
+    }
+    return '---';
   }
 }

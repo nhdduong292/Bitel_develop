@@ -9,6 +9,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../../../res/app_colors.dart';
+import '../../../../../../router/route_config.dart';
+import '../../../../../../utils/common.dart';
+import '../../../contracting/customer_information/pdf_preview_page.dart';
 import 'cancel_service_pdf_logic.dart';
 
 class CancelServicePDFPage extends GetView<CancelServicePDFLogic> {
@@ -48,8 +51,8 @@ class CancelServicePDFPage extends GetView<CancelServicePDFLogic> {
                         top: 45,
                         left: 20,
                         child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          splashColor: Colors.transparent,
                           onTap: () {
                             Get.back();
                           },
@@ -104,9 +107,12 @@ class CancelServicePDFPage extends GetView<CancelServicePDFLogic> {
                                 height: 18,
                               ),
                               InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
-                                onTap: () {},
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent,
+                                onTap: () {
+                                  Get.to(PDFPreviewPage(),
+                                      arguments: ['', controller.orderId]);
+                                },
                                 child: Image.asset(
                                   AppImages.imgDemoContract,
                                   width: 320,
@@ -134,7 +140,17 @@ class CancelServicePDFPage extends GetView<CancelServicePDFLogic> {
                                   text: AppLocalizations.of(context)!
                                       .textSignContract
                                       .toUpperCase(),
-                                  onTap: () {},
+                                  onTap: () {
+                                    Get.toNamed(RouteConfig.validateFingerprint,
+                                        arguments: [
+                                          '',
+                                          controller.findAccountModel.custId,
+                                          Common.getIdentityType(controller
+                                              .findAccountModel.idType),
+                                          controller.findAccountModel.idNumber,
+                                          controller.orderId
+                                        ]);
+                                  },
                                   color: !(controller.checkOption.value)
                                       ? const Color(0xFF415263).withOpacity(0.2)
                                       : null),
