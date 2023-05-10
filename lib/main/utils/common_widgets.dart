@@ -1339,6 +1339,10 @@ Widget selectTypeSearchService(
     required var setIdentity,
     required var onSubmit,
     required var onChangeText}) {
+  bool isPP = false;
+  if (currentIdentityType == listIdentity[2]) {
+    isPP = true;
+  }
   return Column(
     children: [
       Container(
@@ -1369,7 +1373,9 @@ Widget selectTypeSearchService(
                 value: value, child: Center(child: Text(value)));
           }).toList(),
           style: AppStyles.r2.copyWith(
-              color: AppColors.color_415263, fontWeight: FontWeight.w500),
+              color: AppColors.color_415263,
+              fontWeight: FontWeight.w500,
+              fontSize: 14),
           icon: SvgPicture.asset(AppImages.icDropdownSpinner),
           validator: (value) {
             if (value == null) {
@@ -1386,30 +1392,29 @@ Widget selectTypeSearchService(
               mainAxisSize: MainAxisSize.max,
               children: [
                 currentStatus == listStatus[0]
-                    ? Expanded(
-                        flex: 2,
-                        child: Container(
-                          margin: EdgeInsets.only(right: 10),
-                          child: spinnerFormV2(
-                              context: context,
-                              hint: "",
-                              required: false,
-                              dropValue: currentIdentityType,
-                              function: (value) {
-                                controller.text = '';
-                                setIdentity(value);
-                              },
-                              listDrop: listIdentity),
-                        ))
+                    ? Container(
+                        width: 100,
+                        margin: EdgeInsets.only(right: 10),
+                        child: spinnerFormV2(
+                            context: context,
+                            hint: "",
+                            required: false,
+                            dropValue: currentIdentityType,
+                            function: (value) {
+                              controller.text = '';
+                              setIdentity(value);
+                            },
+                            listDrop: listIdentity),
+                      )
                     : Container(),
                 Expanded(
-                  flex: 4,
                   child: Container(
-                    margin: const EdgeInsets.only(top: 14),
+                    margin: const EdgeInsets.only(top: 19),
                     child: TextField(
                         maxLength: maxLength,
                         controller: controller,
-                        keyboardType: TextInputType.number,
+                        keyboardType:
+                            isPP ? TextInputType.text : TextInputType.number,
                         // focusNode: controller.focusIdNumber,
                         textInputAction: TextInputAction.send,
                         style: AppStyles.r2.copyWith(
@@ -1419,6 +1424,12 @@ Widget selectTypeSearchService(
                           onSubmit(value);
                         },
                         onChanged: (value) {
+                          if (isPP) {
+                            controller.text = value.toUpperCase();
+                            controller.selection = TextSelection.fromPosition(
+                                TextPosition(offset: value.length));
+                            value = value.toUpperCase();
+                          }
                           onChangeText(value);
                         },
                         decoration: InputDecoration(

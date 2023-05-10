@@ -632,8 +632,7 @@
     "textLoginSessionHasExpired": "Login session has expired. Please log in again!",
     "textServiceNumber": "Service number",
     "textCancelationDate": "Cancelation date",
-    "textDateOfRequest": "Date of request"
-    "textStaffNotExist": "Staff does not exist",
+    "textDateOfRequest": "Date of request",
   "textFilter": "Filter: ",
   "textThisMonth": "This month",
   "textLastMonth": "Last month",

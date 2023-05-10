@@ -617,9 +617,7 @@
     "textTypeOfService": "Loại dịch vụ",
     "textNumber": "Số",
     "textIDType": "Loại ID",
-    "textIDNumber": "Số ID"
-
-  "textStaffNotExist": "Nhân viên không tồn tại",
+    "textIDNumber": "Số ID",
   "textFilter": "Lọc: ",
   "textThisMonth": "Tháng này",
   "textLastMonth": "Tháng trước",

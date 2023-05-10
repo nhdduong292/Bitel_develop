@@ -3,6 +3,7 @@ import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/networks/response/list_request_response.dart';
 import 'package:bitel_ventas/main/router/route_config.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/sale/sale_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_tab_item.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
@@ -38,6 +39,7 @@ class ListRequestTabState extends State<ListRequestTabPage> {
   List<RequestDetailModel> listRequest = [];
   ListRequestLogic listRequestLogic;
   final ScrollController _scrollController = ScrollController();
+  SaleLogic saleLogic = Get.find();
   static const int PAGE_NUM = 10;
   int page = 0;
 
@@ -47,6 +49,8 @@ class ListRequestTabState extends State<ListRequestTabPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    listRequestLogic.searchRequest.fromDate = saleLogic.fromDate;
+    listRequestLogic.searchRequest.toDate = saleLogic.toDate;
     getListRequest(listRequestLogic.keySearch);
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
@@ -67,8 +71,8 @@ class ListRequestTabState extends State<ListRequestTabPage> {
         ? LoadingCirculApi()
         : listRequest.isEmpty
             ? InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
                 child: Center(
                   child: Text(AppLocalizations.of(context)!.textNoData),
                 ),
@@ -91,8 +95,8 @@ class ListRequestTabState extends State<ListRequestTabPage> {
                         return const CupertinoActivityIndicator();
                       }
                       return InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
                         onTap: () {
                           List<String> listArgument = [
                             "${listRequest[index].id}",

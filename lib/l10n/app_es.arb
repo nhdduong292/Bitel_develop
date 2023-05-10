@@ -620,8 +620,7 @@
     "textPlan": "Plan:",
     "textNumber": "Número",
     "textIDType": "Tipo de identificación",
-    "textIDNumber": "Número de identificación"
-  "textStaffNotExist": "El personal no existe",
+    "textIDNumber": "Número de identificación",
   "textFilter": "Filtrar: ",
   "textThisMonth": "Este mes",
   "textLastMonth": "El mes pasado",

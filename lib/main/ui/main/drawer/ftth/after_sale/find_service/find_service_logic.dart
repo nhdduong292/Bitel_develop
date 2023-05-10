@@ -11,7 +11,7 @@ import '../../../../../../utils/common_widgets.dart';
 
 class FindServiceLogic extends GetxController {
   bool isActive = true;
-  List<String> listIdentity = ["DNI", "CE", "PP", "PTP"];
+  List<String> listIdentity = ["DNI", "CE", "PP"];
   String currentStatus = "";
   BuildContext context;
   String currentIdentityType = "";
@@ -85,7 +85,7 @@ class FindServiceLogic extends GetxController {
     if (value == listIdentity[0]) {
       return 8;
     } else if (value == listIdentity[2]) {
-      return 15;
+      return 9;
     } else {
       return 9;
     }
