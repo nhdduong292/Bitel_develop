@@ -260,19 +260,23 @@ class CreateRequestLogic extends GetxController {
           if (response.isSuccess) {
             print("success");
             customerModel = CustomerModel.fromJson(response.data["data"]);
+
+            textFieldName.text = customerModel.name;
+            currentName = customerModel.name;
+            textFieldPhone.text = customerModel.telFax;
+            currentPhone = customerModel.telFax;
+            textFieldAddress.text = customerModel.address;
+            currentAddress = customerModel.address;
             if (customerModel.custId != 0) {
-              textFieldName.text = customerModel.name;
-              currentName = customerModel.name;
-              textFieldPhone.text = customerModel.telFax;
-              currentPhone = customerModel.telFax;
-              textFieldAddress.text = customerModel.address;
-              currentAddress = customerModel.address;
               textFieldArea.text =
                   '${customerModel.provinceName} - ${customerModel.districtName} - ${customerModel.precinctName}';
-              currentArea.province = customerModel.province;
-              currentArea.district = customerModel.district;
-              currentArea.precinct = customerModel.precinct;
+            } else {
+              textFieldArea.text = '';
             }
+            currentArea.province = customerModel.province;
+            currentArea.district = customerModel.district;
+            currentArea.precinct = customerModel.precinct;
+
             update();
           } else {
             print("error: ${response.status}");
