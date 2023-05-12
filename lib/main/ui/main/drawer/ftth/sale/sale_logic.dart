@@ -21,11 +21,12 @@ class SaleLogic extends GetxController {
   String fromDate = '';
   String toDate = '';
 
-  List<String> getMonthFilterItems(){
+  List<String> getMonthFilterItems() {
     return [
       AppLocalizations.of(context)!.textThisMonth,
       AppLocalizations.of(context)!.textLastMonth,
-      AppLocalizations.of(context)!.textLast3Month];
+      AppLocalizations.of(context)!.textLast3Month
+    ];
   }
 
   RxString selectedMonthFilter = "".obs;
@@ -54,7 +55,7 @@ class SaleLogic extends GetxController {
     ];
   }
 
-  void setDate(String month){
+  void setDate(String month) {
     if (month == AppLocalizations.of(context)!.textThisMonth) {
       fromDate = DateTime(now.year, now.month, now.day - 30).toIso8601String();
       toDate = now.toIso8601String();
@@ -116,7 +117,8 @@ class SaleLogic extends GetxController {
     // TODO: implement onInit
     super.onInit();
     toDate = now.toIso8601String();
-    fromDate = fromDate = DateTime(now.year, now.month, now.day - 30).toIso8601String();
+    fromDate = fromDate =
+        DateTime(now.year, now.month, now.day - 30).toIso8601String();
     getHomeSale();
   }
 
@@ -143,10 +145,7 @@ class SaleLogic extends GetxController {
   void getHomeSale() {
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_HOME_SALE,
-      params: {
-        "fromDate": fromDate,
-        "toDate": toDate
-      },
+      params: {"fromDate": fromDate, "toDate": toDate},
       onSuccess: (response) {
         // Get.back();
         if (response.isSuccess) {

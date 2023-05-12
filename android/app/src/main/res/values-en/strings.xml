@@ -1,3 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="title_load_fingerScan">Each capture should not longer than 10s, please try to re-position your finger</string>
+     <string name="title_error_device_lower_6">Your device is not compatible with this version. Please, use Android 6 or lower.</string>
+    <string name="title_error_find_use_findger">Can\'t find usb fingerprint scanner. Please go back one step and plugin the device</string>
 </resources>

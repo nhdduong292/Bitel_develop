@@ -16,6 +16,7 @@ import 'package:get/get.dart';
 
 import '../../../../../../../networks/api_end_point.dart';
 import '../../../../../../../networks/api_util.dart';
+import '../../../../../../../services/settings_service.dart';
 import '../../../../../../../utils/common_widgets.dart';
 import '../../cretate_contact_page_logic.dart';
 import '../client_data/id_card_scanner_logic.dart';
@@ -144,11 +145,14 @@ class RegisterFingerPrintLogic extends GetxController {
   }
 
   Future<void> getCapture() async {
+    String language =
+        Get.find<SettingService>().currentLocate.value.languageCode;
     String result = "";
     String imageBase64 = "";
     try {
-      final value =
-          await NativeUtil.platformFinger.invokeMethod(NativeUtil.nameFinger);
+      final argument = {"language": language};
+      final value = await NativeUtil.platformFinger
+          .invokeMethod(NativeUtil.nameFinger, argument);
       result = value;
       if (kDebugMode) {
         print("text Capture: ${result}");

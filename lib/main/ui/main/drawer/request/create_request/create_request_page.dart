@@ -38,8 +38,8 @@ class CreateRequestPage extends GetWidget {
             leading: Padding(
               padding: const EdgeInsets.only(left: 18, bottom: 18, top: 2),
               child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
                 child: SvgPicture.asset(AppImages.icBack),
                 onTap: () {
                   Get.back();
@@ -85,8 +85,8 @@ class CreateRequestPage extends GetWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
                         onTap: () {
                           controller.setCheckAgree(!controller.isCheckAgree);
                         },
@@ -171,7 +171,7 @@ class CreateRequestPage extends GetWidget {
                           Expanded(
                             flex: 2,
                             child: Container(
-                              margin: const EdgeInsets.only(top: 14),
+                              margin: const EdgeInsets.only(top: 20),
                               child: TextField(
                                   maxLength: controller.getMaxLengthIdNumber(
                                       controller.currentIdentityType),

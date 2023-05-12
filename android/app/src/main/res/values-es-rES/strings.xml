@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_load_fingerScan">aaaaaaa</string>
-    <string name="title_error_device_lower_6">bbbbbbbb</string>
-    <string name="title_error_find_use_findger">ccccccccc</string>
+     <string name="title_load_fingerScan">Cada captura no debe durar más de 10 segundos, intente volver a colocar el dedo</string>
+    <string name="title_error_device_lower_6">Tu dispositivo no es compatible con esta versión. Por favor, use Android 6 o inferior</string>
+    <string name="title_error_find_use_findger">No se puede encontrar el escáner de huellas dactilares USB. Retroceda un paso y conecte el dispositivo</string>
 </resources>

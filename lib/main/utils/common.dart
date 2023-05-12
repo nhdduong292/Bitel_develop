@@ -246,8 +246,8 @@ class Common {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE021);
       } else if (errorCode == 'E022') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE022);
-      } else if (errorCode == 'E023' && isShow) {
-        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE023);
+      } else if (errorCode == 'E023') {
+        // showSystemErrorDialog(context, AppLocalizations.of(context)!.textE023);
       } else if (errorCode == 'E024') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE024);
       } else if (errorCode == 'E025') {
@@ -256,8 +256,8 @@ class Common {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE026);
       } else if (errorCode == 'E027') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE027);
-      } else if (errorCode == 'E028' && isShow) {
-        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE028);
+      } else if (errorCode == 'E028') {
+        // showSystemErrorDialog(context, AppLocalizations.of(context)!.textE028);
       } else if (errorCode == 'E029') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE029);
       } else if (errorCode == 'E030') {
@@ -290,8 +290,8 @@ class Common {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE043);
       } else if (errorCode == 'E044') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE044);
-      } else if (errorCode == 'E045' && isShow) {
-        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE045);
+      } else if (errorCode == 'E045') {
+        // showSystemErrorDialog(context, AppLocalizations.of(context)!.textE045);
       } else if (errorCode == 'E046') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE046);
       } else if (errorCode == 'E047') {
@@ -300,9 +300,13 @@ class Common {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE048);
       } else if (errorCode == 'E049') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE049);
+      } else {
+        showSystemErrorDialog(context, error.response!.data['errorMessage']);
       }
     } catch (e) {
-      Common.showToastCenter(e.toString());
+      if (kDebugMode) {
+        Common.showToastCenter(e.toString());
+      }
     }
   }
 

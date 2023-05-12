@@ -84,6 +84,7 @@ class ListRequestTabState extends State<ListRequestTabPage> {
                 onRefresh: _onRefresh,
                 color: AppColors.colorBackground,
                 child: ListView.builder(
+                    physics: const AlwaysScrollableScrollPhysics(),
                     controller: _scrollController,
                     // itemExtent: 999,
                     itemCount: listRequest.length % 10 == 0

@@ -93,7 +93,7 @@ class ApiUtil {
       queryParameters: params,
       options: Options(
         responseType: ResponseType.bytes,
-        followRedirects: false,
+        followRedirects: false,   
       ),
     )
         .then((res) {

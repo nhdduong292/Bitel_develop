@@ -42,10 +42,9 @@ class ChooseServicePage extends GetWidget {
                 highlightColor: Colors.transparent,
                 splashColor: Colors.transparent,
                 onTap: () {
-                  // if (controller.isActive ||
-                  //     controller.checkValidate(context)) {
-                  //   return;
-                  // }
+                  if (controller.isActive) {
+                    return;
+                  }
                   // _onLoading(context);
                   if (controller.afterSaleSearchLogic.type == 'CHANGE_PLAN') {
                     RequestDetailModel requestModel = RequestDetailModel();

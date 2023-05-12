@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_load_fingerScan">11111111111</string>
-    <string name="title_error_device_lower_6">22222222222</string>
-    <string name="title_error_find_use_findger">33333333333333333</string>
+    <string name="title_load_fingerScan">Mỗi lần chụp không được dài hơn 10 giây, vui lòng thử đặt lại vị trí ngón tay của bạn</string>
+    <string name="title_error_device_lower_6">Không thể tìm thấy máy quét dấu vân tay usb. Vui lòng quay lại một bước và cắm thiết bị</string>
+    <string name="title_error_find_use_findger">Không thể tìm thấy máy quét dấu vân tay usb. Vui lòng quay lại một bước và cắm thiết bị</string>
 </resources>

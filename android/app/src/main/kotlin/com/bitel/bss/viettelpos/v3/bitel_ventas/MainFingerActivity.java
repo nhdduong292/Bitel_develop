@@ -82,10 +82,14 @@ public class MainFingerActivity extends FlutterActivity {
                     positionScan = 0;
                     Map<String, String> arguments = call.arguments();
                     String pk = "0";
+                    String language = "";
                     if (arguments != null) {
-                        pk = arguments.get("pk");
+                        if(arguments.size() > 1){
+                            pk = arguments.get("pk");
+                        }
+                        language = arguments.get("language");
                     }
-                    getImageCapture(result, pk);
+                    getImageCapture(result, pk, language);
                 } else {
                     result.notImplemented();
                 }
@@ -111,9 +115,9 @@ public class MainFingerActivity extends FlutterActivity {
 
     Bitmap bitmap;
 
-    void getImageCapture(MethodChannel.Result result, String isPK) {
+    void getImageCapture(MethodChannel.Result result, String isPK, String language) {
         Locale myLocale;
-        myLocale = new Locale("en");
+        myLocale = new Locale(language);
         Locale.setDefault(myLocale);
         Configuration config = new Configuration();
         config.locale = myLocale;
@@ -130,17 +134,17 @@ public class MainFingerActivity extends FlutterActivity {
 
         if (FingerScannerFactory.fingerPrintScannerImp == null) {
             Log.d(TAG, "fingerPrintScannerImp == null");
-            showDialog("Error" + locale, getString(R.string.title_error_device_lower_6), "", "Cancel");
+            showDialog("Error", getString(R.string.title_error_device_lower_6), "", "Cancel");
             result.error("UNAVAILABLE", "Finger not available.", null);
         } else if (FingerScannerFactory.fingerPrintScannerImp instanceof EmptyFingerPrintScanner) {
             Log.d(TAG, "fingerPrintScannerImp instanceof EmptyFingerPrintScanner");
             if (((EmptyFingerPrintScanner) FingerScannerFactory.fingerPrintScannerImp).getStatus()
                     == EmptyFingerPrintScanner.STATUS.DEVICE_NOT_FOUND) {
                 Log.d(TAG, "fingerPrintScannerImp instanceof EmptyFingerPrintScanner DEVICE_NOT_FOUND");
-                showDialog("Error" + locale, getString(R.string.title_error_find_use_findger), "", "Cancel");
+                showDialog("Error", getString(R.string.title_error_find_use_findger), "", "Cancel");
             } else {
                 Log.d(TAG, "fingerPrintScannerImp instanceof EmptyFingerPrintScanner DEVICE");
-                showDialog("Error"+ locale, getString(R.string.title_error_device_lower_6), "", "Cancel");
+                showDialog("Error", getString(R.string.title_error_device_lower_6), "", "Cancel");
             }
             result.error("UNAVAILABLE", "Finger not available.", null);
         } else {
@@ -149,7 +153,7 @@ public class MainFingerActivity extends FlutterActivity {
                 @Override
                 public void onPreExecute() {
 
-                    showWaitProgress(MainFingerActivity.this,locale + getString(R.string.title_load_fingerScan));
+                    showWaitProgress(MainFingerActivity.this, getString(R.string.title_load_fingerScan));
                 }
 
                 @Override

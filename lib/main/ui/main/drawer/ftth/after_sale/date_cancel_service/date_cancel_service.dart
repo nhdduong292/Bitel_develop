@@ -321,7 +321,10 @@ class DateCancelService extends GetWidget {
                                   );
                                 });
                           } else {
-                            Get.toNamed(RouteConfig.cancelServicePDF);
+                            Get.toNamed(RouteConfig.cancelServicePDF,
+                                arguments: [
+                                  controller.cancelServiceModel.cancelOrderId
+                                ]);
                           }
                         }
                       });

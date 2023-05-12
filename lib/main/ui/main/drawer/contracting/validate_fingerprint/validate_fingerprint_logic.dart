@@ -18,6 +18,8 @@ import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../../services/settings_service.dart';
+
 class ValidateFingerprintLogic extends GetxController {
   late BuildContext context;
   String textCapture = "";
@@ -87,10 +89,12 @@ class ValidateFingerprintLogic extends GetxController {
   }
 
   Future<void> getCapture(BuildContext context) async {
+    String language =
+        Get.find<SettingService>().currentLocate.value.languageCode;
     textCapture = "";
     String result = "";
     try {
-      final argument = {"pk": "0"};
+      final argument = {"pk": "0", "language": language};
       final value = await NativeUtil.platformFinger
           .invokeMethod(NativeUtil.nameFinger, argument);
       result = value;
@@ -194,8 +198,6 @@ class ValidateFingerprintLogic extends GetxController {
         onSuccess: (response) {
           Get.back();
           if (response.isSuccess) {
-            cancelServiceInforModel =
-                CancelServiceInforModel.fromJson(response.data['data']);
             isSuccess.call(true);
           } else {
             isSuccess.call(false);
