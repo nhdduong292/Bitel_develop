@@ -556,8 +556,8 @@
   "textAreYouSureToCancel": "Are you sure to cancel buy anypay ",
   "textCancelBuyAnyPaySuccess": "Cancel buy anypay successfully",
   "textInvalidDate": "Invalid date",
-  "textTheAccountIsConditioned": "The account is conditioned to a forced term contract",
-  "textToContinueWithTheCancelation": "To continue with the cancellation request, the customer will need to pay the penalty",
+  "textTheAccountIsConditioned": "The account is conditioned to a forced term contract.",
+  "textToContinueWithTheCancelation": "To continue with the cancellation request, the customer will need to pay the penalty.",
   "textDoesTheCustomerStill": "Does the customer still want to cancel the service?",
   "textYes": "Yes",
   "textClearPenalty": "Clear penalty",
@@ -636,5 +636,21 @@
   "textFilter": "Filter: ",
   "textThisMonth": "This month",
   "textLastMonth": "Last month",
-  "textLast3Month": "Last 3 months"
+  "textLast3Month": "Last 3 months", 
+  "textE050": "Unlock infrastructure failed",
+  "textE051": "Request already cancel",
+  "textE052": "Can not cancel request has contract",
+  "textE053": "Sign cancel form failed",
+  "textEnterAccount": "Enter account",
+  "textEnterServiceNumber": "Enter service number",
+  "textPenaltyInformation": "Penalty information",
+  "textTheIDNumber": "ID number is not enough",
+  "textTheAccountHasUnpaid": "The account has unpaid debt.",
+  "textInvoiceNumber": "Invoice number",
+  "textAmountOfDebt": "Amount of debt",
+  "textCancelAnyway": "Cancel anyway",
+  "textTheAccountHasUnfinished": "The account has unfinished WO.",
+  "textReasonOfTermination": "Reason of termination",
+  "textNoResultIsFound": "No result is found"
+  
 }

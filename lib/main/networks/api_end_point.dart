@@ -98,4 +98,8 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/cancel-service/request-cancel/preview/orderId";
   static const String API_SIGN_CANCEL_SERVICE =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/cancel-service/request-cancel/sign/orderId";
+  static const String API_GET_REASONS_CANCEL_SERVICE =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/reasons/cancel-service";
+  static const String API_CHECK_DEBT_WO =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/cancel-service/check-debt-wo";
 }

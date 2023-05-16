@@ -97,6 +97,12 @@ class CreateRequestLogic extends GetxController {
       focusIdNumber.requestFocus();
       return true;
     }
+    if ((textFieldIdNumber.value.text.length < 8 && currentIdentity == 'DNI') ||
+        (textFieldIdNumber.value.text.length < 9 && currentIdentity != 'DNI')) {
+      focusIdNumber.requestFocus();
+      Common.showToastCenter(AppLocalizations.of(context)!.textTheIDNumber);
+      return true;
+    }
     if (!containsOnlyUpperCaseAndNumber(textFieldIdNumber.text)) {
       focusIdNumber.requestFocus();
       Common.showToastCenter(

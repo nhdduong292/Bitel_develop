@@ -17,6 +17,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../../router/route_config.dart';
+import '../../../../../utils/dialog_util.dart';
+import 'list_request_logic.dart';
+
 class DialogCancelRequest extends GetWidget {
   final Function? onSubmit;
   int id;
@@ -65,7 +69,7 @@ class DialogCancelRequest extends GetWidget {
               ),
               const LineDash(color: AppColors.colorLineDash),
               Container(
-                padding: EdgeInsets.only(top: 16, right: 16, left: 16),
+                padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
                 child: Row(
                   children: [
                     Expanded(
@@ -82,7 +86,7 @@ class DialogCancelRequest extends GetWidget {
                         height: 45,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(24),
-                            border: Border.all(color: Color(0xFFE3EAF2))),
+                            border: Border.all(color: const Color(0xFFE3EAF2))),
                         child: DropdownButtonFormField2(
                           decoration: const InputDecoration(
                             isDense: true,
@@ -95,7 +99,8 @@ class DialogCancelRequest extends GetWidget {
                               const EdgeInsets.only(left: 0, right: 10),
                           dropdownDecoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(24),
-                              border: Border.all(color: Color(0xFFE3EAF2))),
+                              border:
+                                  Border.all(color: const Color(0xFFE3EAF2))),
                           isExpanded: true,
                           // value: controller.currentReason.isNotEmpty ? controller.currentReason : null,
                           onChanged: (value) {
@@ -130,7 +135,7 @@ class DialogCancelRequest extends GetWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(top: 16, right: 16, left: 16),
+                padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
                 child: Row(
                   children: [
                     Expanded(
@@ -170,17 +175,26 @@ class DialogCancelRequest extends GetWidget {
                     (isSuccess) {
                       Get.back();
                       if (isSuccess) {
-                        Timer(
-                          Duration(milliseconds: 500),
-                          () {
-                            Get.back();
-                            Common.showToastCenter(AppLocalizations.of(context)!
-                                .textCancelRequestSuccessfully);
-                          },
-                        );
-                      } else {
-                        Common.showToastCenter(
-                            AppLocalizations.of(context)!.textErrorAPI);
+                        showDialog(
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (context) {
+                              return SuccessDialog(
+                                text: AppLocalizations.of(context)!
+                                    .textSuccessAPI,
+                                onOk: () {
+                                  Get.until(
+                                    (route) {
+                                      return Get.currentRoute ==
+                                          RouteConfig.listRequest;
+                                    },
+                                  );
+                                  ListRequestLogic listRequestLogic =
+                                      Get.find();
+                                  listRequestLogic.refreshListRequest();
+                                },
+                              );
+                            });
                       }
                     },
                   );
@@ -188,9 +202,9 @@ class DialogCancelRequest extends GetWidget {
                 },
                 child: Container(
                   width: double.infinity,
-                  margin:
-                      EdgeInsets.only(top: 30, bottom: 36, left: 16, right: 16),
-                  padding: EdgeInsets.symmetric(vertical: 16),
+                  margin: const EdgeInsets.only(
+                      top: 30, bottom: 36, left: 16, right: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
                   decoration: BoxDecoration(
                     color: AppColors.colorButton,
                     borderRadius: BorderRadius.circular(24),

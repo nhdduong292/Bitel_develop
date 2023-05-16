@@ -77,11 +77,14 @@ class PDFPreviewPage extends GetView<PDFPreviewLogic> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                                controller.type == 'MAIN'
-                                    ? AppLocalizations.of(context)!
-                                        .textMainContract
+                                controller.type.isNotEmpty
+                                    ? controller.type == 'MAIN'
+                                        ? AppLocalizations.of(context)!
+                                            .textMainContract
+                                        : AppLocalizations.of(context)!
+                                            .textLendingContract
                                     : AppLocalizations.of(context)!
-                                        .textLendingContract,
+                                        .textCancelService,
                                 style: AppStyles.title),
                             const SizedBox(height: 5),
                           ],
@@ -102,7 +105,7 @@ class PDFPreviewPage extends GetView<PDFPreviewLogic> {
                         width: 1.0,
                       ),
                       boxShadow: [
-                         const BoxShadow(
+                        const BoxShadow(
                           color: Color.fromRGBO(185, 212, 220, 0.2),
                           offset: Offset(0, 2),
                           blurRadius: 7.0,
@@ -115,7 +118,11 @@ class PDFPreviewPage extends GetView<PDFPreviewLogic> {
                         height: 52,
                         child: Center(
                           child: Text(
-                            AppLocalizations.of(context)!.textContractPreview,
+                            controller.type.isNotEmpty
+                                ? AppLocalizations.of(context)!
+                                    .textContractPreview
+                                : AppLocalizations.of(context)!
+                                    .textCancellationRequestForm,
                             style: AppStyles.r00A5B1_15d5_500,
                           ),
                         ),

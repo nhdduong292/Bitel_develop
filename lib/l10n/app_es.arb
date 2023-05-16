@@ -574,8 +574,8 @@
   "textAreYouSureToCancel": "¿Estás seguro de cancelar comprar anypay? ",
   "textCancelBuyAnyPaySuccess": "Cancelar comprar anypay con éxito",
     "textInvalidDate": "Fecha invalida",
-      "textTheAccountIsConditioned": "La cuenta está condicionada a un contrato a plazo forzoso",
-  "textToContinueWithTheCancelation": "Para continuar con la solicitud de cancelación, el cliente deberá pagar la penalización",
+      "textTheAccountIsConditioned": "La cuenta está condicionada a un contrato a plazo forzoso.",
+  "textToContinueWithTheCancelation": "Para continuar con la solicitud de cancelación, el cliente deberá pagar la penalización.",
   "textDoesTheCustomerStill": "¿El cliente todavía quiere cancelar el servicio?",
   "textYes": "Sí",
   "textClearPenalty": "Penalti claro",
@@ -624,5 +624,21 @@
   "textFilter": "Filtrar: ",
   "textThisMonth": "Este mes",
   "textLastMonth": "El mes pasado",
-  "textLast3Month": "Últimos 3 meses"
+  "textLast3Month": "Últimos 3 meses",
+"textE050": "Falló el desbloqueo de la infraestructura",
+"textE051": "La solicitud ya ha sido cancelada",
+"textE052": "No se puede cancelar la solicitud si hay un contrato",
+"textE053": "Falla al firmar el formulario de cancelación",
+  "textEnterAccount": "Ingrese la cuenta",
+  "textEnterServiceNumber": "Ingrese el número de servicio",
+   "textPenaltyInformation": "Información de penalización",
+   "textTheIDNumber": "El número de identificación no es suficiente",
+  "textTheAccountHasUnpaid": "La cuenta tiene deudas impagas.",
+"textInvoiceNumber": "Número de factura",
+"textAmountOfDebt": "Monto de la deuda",
+"textCancelAnyway": "Cancelar de todos modos",
+"textTheAccountHasUnfinished": "La cuenta tiene trabajos inacabados.",
+"textReasonOfTermination": "Motivo de la rescisión",
+ "textNoResultIsFound": "No se encuentra ningún resultado"
+  
 }

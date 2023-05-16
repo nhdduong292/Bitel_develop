@@ -45,6 +45,26 @@ class ListRequestLogic extends GetxController
     );
   }
 
+  void refreshListRequest() {
+    if (index == 1) {
+      globalKeyCreateRequest.currentState!.getListRequest(keySearch);
+    } else if (index == 2) {
+      globalKeySucceedSurvey.currentState!.getListRequest(keySearch);
+      // } else if (index == 2) {
+      //   globalKey3.currentState!.getListRequest(key);
+      // } else if (index == 3) {
+      //   globalKey4.currentState!.getListRequest(key);
+    } else if (index == 3) {
+      globalKeyDeploying.currentState!.getListRequest(keySearch);
+    } else if (index == 4) {
+      globalKeyComplete.currentState!.getListRequest(keySearch);
+    } else if (index == 5) {
+      globalKeyCancel.currentState!.getListRequest(keySearch);
+    } else if (index == 0) {
+      globalKeyAll.currentState!.getListRequest(keySearch);
+    }
+  }
+
   String getStatus(int index) {
     if (index == 0) {
       return RequestStatus.CREATE_REQUEST;

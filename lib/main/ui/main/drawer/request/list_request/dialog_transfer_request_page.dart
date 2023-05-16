@@ -4,11 +4,13 @@ import 'package:bitel_ventas/main/custom_views/line_dash.dart';
 import 'package:bitel_ventas/main/networks/model/reason_model.dart';
 import 'package:bitel_ventas/main/networks/model/staff_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/dialog_transfer_request_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_logic.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
+import 'package:dotted_line/dotted_line.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,6 +20,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:get/get.dart';
+
+import '../../../../../router/route_config.dart';
+import '../../../../../utils/dialog_util.dart';
 
 class DialogTransferRequest extends GetWidget {
   int id;
@@ -52,8 +57,8 @@ class DialogTransferRequest extends GetWidget {
                           fontWeight: FontWeight.w500),
                     )),
                     InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
                       onTap: () {
                         Get.back();
                       },
@@ -124,7 +129,9 @@ class DialogTransferRequest extends GetWidget {
                           List<StaffModel> list =
                               await controller.getStaffs(pattern);
                           if (list.isEmpty) {
-                            return [AppLocalizations.of(context)!.textStaffNotExist];
+                            return [
+                              AppLocalizations.of(context)!.textStaffNotExist
+                            ];
                           }
                           return list;
                         },
@@ -221,8 +228,8 @@ class DialogTransferRequest extends GetWidget {
                 ),
               ),
               InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
                 onTap: () {
                   if (controller.checkValidate(context)) return;
                   _onLoading(context);
@@ -233,14 +240,26 @@ class DialogTransferRequest extends GetWidget {
                     (isSuccess) {
                       Get.back();
                       if (isSuccess) {
-                        Timer(
-                          const Duration(milliseconds: 500),
-                          () {
-                            Get.back();
-                            Common.showToastCenter(
-                                AppLocalizations.of(context)!.textSuccessAPI);
-                          },
-                        );
+                        showDialog(
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (context) {
+                              return SuccessDialog(
+                                text: AppLocalizations.of(context)!
+                                    .textSuccessAPI,
+                                onOk: () {
+                                  Get.until(
+                                    (route) {
+                                      return Get.currentRoute ==
+                                          RouteConfig.listRequest;
+                                    },
+                                  );
+                                  ListRequestLogic listRequestLogic =
+                                      Get.find();
+                                  listRequestLogic.refreshListRequest();
+                                },
+                              );
+                            });
                       } else {
                         Common.showToastCenter(
                             AppLocalizations.of(context)!.textErrorAPI);

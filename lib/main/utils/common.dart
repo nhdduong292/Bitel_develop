@@ -300,6 +300,14 @@ class Common {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE048);
       } else if (errorCode == 'E049') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE049);
+      } else if (errorCode == 'E050') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE050);
+      } else if (errorCode == 'E051') { 
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE051);
+      } else if (errorCode == 'E052') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE052);
+      } else if (errorCode == 'E053') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE053);
       } else {
         showSystemErrorDialog(context, error.response!.data['errorMessage']);
       }

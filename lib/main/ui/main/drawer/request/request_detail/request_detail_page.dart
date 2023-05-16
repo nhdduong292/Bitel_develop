@@ -34,8 +34,8 @@ class RequestDetailPage extends GetWidget {
             leading: Padding(
               padding: const EdgeInsets.only(left: 18, bottom: 18, top: 2),
               child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
                 child: SvgPicture.asset(AppImages.icBack),
                 onTap: () {
                   Get.back();
@@ -616,8 +616,8 @@ class RequestDetailPage extends GetWidget {
                           ),
                           controller.isShowBtnConnect
                               ? InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
                                   onTap: () {
                                     if (controller.requestModel.status ==
                                             RequestStatus
@@ -669,8 +669,8 @@ class RequestDetailPage extends GetWidget {
                                     Expanded(
                                         flex: 1,
                                         child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          splashColor: Colors.transparent,
                                           onTap: () {
                                             showDialogCancelRequest(context,
                                                 controller.requestModel.id);
@@ -707,8 +707,8 @@ class RequestDetailPage extends GetWidget {
                                     Expanded(
                                         flex: 1,
                                         child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          splashColor: Colors.transparent,
                                           onTap: () {
                                             showDialogTransferRequest(context,
                                                 controller.requestModel.id);
@@ -749,31 +749,27 @@ class RequestDetailPage extends GetWidget {
   }
 
   void showDialogTransferRequest(BuildContext context, int id) {
-    Timer(const Duration(milliseconds: 500), () {
-      showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (context) {
-            return DialogTransferRequest(
-              id: id,
-              onSubmit: () {},
-            );
-          });
-    });
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return DialogTransferRequest(
+            id: id,
+            onSubmit: () {},
+          );
+        });
   }
 
   void showDialogCancelRequest(BuildContext context, int id) {
-    Timer(const Duration(milliseconds: 500), () {
-      showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (context) {
-            return DialogCancelRequest(
-              onSubmit: () {},
-              id: id,
-            );
-          });
-    });
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return DialogCancelRequest(
+            onSubmit: () {},
+            id: id,
+          );
+        });
   }
 
   TableRow buildRow(List<String> cells, bool isHeader) => TableRow(

@@ -7,7 +7,10 @@ import 'package:get/get.dart';
 
 import '../../../../../../networks/api_end_point.dart';
 import '../../../../../../networks/api_util.dart';
+import '../../../../../../networks/model/check_debt_model.dart';
+import '../../../../../../router/route_config.dart';
 import '../../../../../../utils/common_widgets.dart';
+import 'choose_service_page.dart';
 
 class ChooseServiceLogic extends GetxController {
   AfterSaleSearchLogic afterSaleSearchLogic = Get.find();
@@ -15,6 +18,7 @@ class ChooseServiceLogic extends GetxController {
   List<FindAccountModel> listAccount = [];
   var valueService = (-1).obs;
   CancelServiceModel cancelServiceModel = CancelServiceModel();
+  CheckDebtModel checkDebtModel = CheckDebtModel();
 
   BuildContext context;
 
@@ -31,6 +35,33 @@ class ChooseServiceLogic extends GetxController {
   void setActive(bool value) {
     isActive = value;
     update();
+  }
+
+  void checkDebtWO(var onSuccess) {
+    _onLoading(context);
+    Map<String, dynamic> body = {
+      'subId': listAccount[valueService.value].subId,
+    };
+    ApiUtil.getInstance()!.get(
+      url: ApiEndPoints.API_CHECK_DEBT_WO,
+      params: body,
+      onSuccess: (response) {
+        Get.back();
+        if (response.isSuccess) {
+          checkDebtModel = CheckDebtModel.fromJson(response.data['data']);
+          onSuccess(true);
+        } else {
+          print("error: ${response.status}");
+          onSuccess(false);
+        }
+        update();
+      },
+      onError: (error) {
+        Get.back();
+        onSuccess(false);
+        Common.showMessageError(error: error, context: context);
+      },
+    );
   }
 
   void requestCanncel(var onSuccess) {
@@ -75,5 +106,58 @@ class ChooseServiceLogic extends GetxController {
         );
       },
     );
+  }
+
+  void onCheckDebtWO() {
+    if (checkDebtModel.isDebt) {
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) {
+            return NotiCancelDialog(
+              model: checkDebtModel,
+              isDebt: true,
+              onOk: () {
+                if (checkDebtModel.isPendingWo) {
+                  showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (context) {
+                        return NotiCancelDialog(
+                          model: checkDebtModel,
+                          isDebt: false,
+                          onOk: () {
+                            Get.toNamed(RouteConfig.dateCancelService,
+                                arguments: [listAccount[valueService.value]]);
+                          },
+                        );
+                      });
+                } else {
+                  Get.toNamed(RouteConfig.dateCancelService,
+                      arguments: [listAccount[valueService.value]]);
+                }
+              },
+            );
+          });
+    } else {
+      if (checkDebtModel.isPendingWo) {
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) {
+              return NotiCancelDialog(
+                model: checkDebtModel,
+                isDebt: false,
+                onOk: () {
+                  Get.toNamed(RouteConfig.dateCancelService,
+                      arguments: [listAccount[valueService.value]]);
+                },
+              );
+            });
+      } else {
+        Get.toNamed(RouteConfig.dateCancelService,
+            arguments: [listAccount[valueService.value]]);
+      }
+    }
   }
 }

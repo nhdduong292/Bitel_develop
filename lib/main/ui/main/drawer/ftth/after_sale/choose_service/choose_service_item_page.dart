@@ -63,7 +63,7 @@ class ChooseServiceItemPage extends GetWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: Text(
-                      AppLocalizations.of(context)!.textNumber,
+                      AppLocalizations.of(context)!.textServiceNumber,
                       style: AppStyles.r6C8AA1_13_400,
                     ),
                   ),

@@ -1340,8 +1340,20 @@ Widget selectTypeSearchService(
     required var onSubmit,
     required var onChangeText}) {
   bool isPP = false;
+  bool isPhone = false;
   if (currentIdentityType == listIdentity[2]) {
     isPP = true;
+  }
+  if (currentStatus == listStatus[2]) {
+    isPhone = true;
+  }
+  var hintText = '';
+  if (currentStatus == listStatus[1]) {
+    hintText = AppLocalizations.of(context)!.textEnterAccount;
+  } else if (currentStatus == listStatus[2]) {
+    hintText = AppLocalizations.of(context)!.hintEnterPhone;
+  } else {
+    hintText = AppLocalizations.of(context)!.textEnterServiceNumber;
   }
   return Column(
     children: [
@@ -1468,6 +1480,8 @@ Widget selectTypeSearchService(
                     flex: 4,
                     child: TextField(
                         controller: controller,
+                        keyboardType:
+                            isPhone ? TextInputType.number : TextInputType.text,
                         textInputAction: TextInputAction.send,
                         style: AppStyles.r2.copyWith(
                             color: AppColors.colorTitle,
@@ -1478,8 +1492,7 @@ Widget selectTypeSearchService(
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.only(
                               top: 5, left: 10, right: 10),
-                          hintText:
-                              AppLocalizations.of(context)!.hintEnterPhone,
+                          hintText: hintText,
                           hintStyle: AppStyles.r2.copyWith(
                               color: AppColors.colorHint1,
                               fontWeight: FontWeight.w400),

@@ -64,10 +64,22 @@ class FindServiceLogic extends GetxController {
 
   void setEnter(String value) {
     currentEnter = value;
-    if (currentEnter.isNotEmpty) {
-      setActiveButton(false);
+    if (currentStatus == AppLocalizations.of(context)!.textIdentityNumber) {
+      if (currentIdentityType == 'DNI' && currentEnter.length == 8) {
+        setActiveButton(false);
+      } else if (currentIdentityType == 'CE' && currentEnter.length == 9) {
+        setActiveButton(false);
+      } else if (currentIdentityType == 'PP' && currentEnter.length == 9) {
+        setActiveButton(false);
+      } else {
+        setActiveButton(true);
+      }
     } else {
-      setActiveButton(true);
+      if (currentEnter.isNotEmpty) {
+        setActiveButton(false);
+      } else {
+        setActiveButton(true);
+      }
     }
     update();
   }

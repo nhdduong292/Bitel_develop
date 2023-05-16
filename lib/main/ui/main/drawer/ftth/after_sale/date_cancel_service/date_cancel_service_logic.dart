@@ -1,4 +1,5 @@
 import 'package:bitel_ventas/main/networks/model/find_account_model.dart';
+import 'package:bitel_ventas/main/networks/model/reasons_cancel_service_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,12 +21,16 @@ class DateCancelServiceLogic extends GetxController {
   String cancelDate = '';
   DateCancelServiceLogic({required this.context});
   CancelServiceModel cancelServiceModel = CancelServiceModel();
+  List<ReasonCancelServiceModel> listReasons = [];
+  int currentReason = 0;
 
   @override
-  void onInit() {
-    // TODO: implement onInit
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
     var data = Get.arguments;
     findAccountModel = data[0];
+    getReasons();
   }
 
   void requestCanncel(var onSuccess) {
@@ -33,6 +38,7 @@ class DateCancelServiceLogic extends GetxController {
     Map<String, dynamic> body = {
       'subId': findAccountModel.subId,
       'cancelDate': datePicker?.toIso8601String(),
+      'reasonId': currentReason
     };
     ApiUtil.getInstance()!.post(
       url: ApiEndPoints.API_REQUEST_CANNCEL
@@ -93,10 +99,32 @@ class DateCancelServiceLogic extends GetxController {
   }
 
   bool checkActiveContinue() {
-    if (cancelDate.isNotEmpty && isCheckAgree) {
+    if (cancelDate.isNotEmpty && isCheckAgree && currentReason != 0) {
       return true;
     } else {
       return false;
     }
+  }
+
+  void getReasons() {
+    _onLoading(context);
+    ApiUtil.getInstance()!.get(
+      url: ApiEndPoints.API_GET_REASONS_CANCEL_SERVICE,
+      onSuccess: (response) {
+        Get.back();
+        if (response.isSuccess) {
+          listReasons = (response.data['data'] as List)
+              .map((postJson) => ReasonCancelServiceModel.fromJson(postJson))
+              .toList();
+        } else {
+          print("error: ${response.status}");
+        }
+        update();
+      },
+      onError: (error) {
+        Get.back();
+        Common.showMessageError(error: error, context: context);
+      },
+    );
   }
 }

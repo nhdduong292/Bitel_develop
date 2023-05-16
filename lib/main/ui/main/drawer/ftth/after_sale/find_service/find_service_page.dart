@@ -11,6 +11,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../../../utils/common.dart';
+
 class FindServicePage extends GetWidget {
   @override
   Widget build(BuildContext context) {
@@ -79,6 +81,11 @@ class FindServicePage extends GetWidget {
                     FocusScope.of(context).requestFocus(FocusNode());
                     controller.getAccounts((isSuccess) {
                       if (isSuccess) {
+                        if (controller.listAccount.isEmpty) {
+                          Common.showToastCenter(AppLocalizations.of(context)!
+                              .textNoResultIsFound);
+                          return;
+                        }
                         AfterSaleSearchLogic logic =
                             Get.find<AfterSaleSearchLogic>();
                         logic.isTabTwo.value = true;

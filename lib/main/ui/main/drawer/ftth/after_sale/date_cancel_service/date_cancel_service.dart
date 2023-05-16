@@ -1,3 +1,4 @@
+import 'package:bitel_ventas/main/networks/model/reasons_cancel_service_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_search_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/choose_service/choose_service_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/find_service/find_service_page.dart';
@@ -5,6 +6,7 @@ import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -79,89 +81,90 @@ class DateCancelService extends GetWidget {
                 height: 10,
               ),
               Expanded(
-                  child: Column(
-                children: [
-                  Container(
-                    margin:
-                        const EdgeInsets.only(left: 25, right: 25, bottom: 20),
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(24),
-                      border:
-                          Border.all(width: 1, color: AppColors.colorLineDash),
-                      boxShadow: [
-                        const BoxShadow(
-                          offset: Offset(0, 2),
-                          blurRadius: 2,
-                          color: AppColors.colorLineDash,
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                            flex: 1,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 2),
-                                  child: Text(
-                                    AppLocalizations.of(context)!
-                                        .textTypeOfService,
-                                    style: AppStyles.r6C8AA1_13_400,
+                  child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(
+                          left: 25, right: 25, bottom: 20),
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(24),
+                        border: Border.all(
+                            width: 1, color: AppColors.colorLineDash),
+                        boxShadow: [
+                          const BoxShadow(
+                            offset: Offset(0, 2),
+                            blurRadius: 2,
+                            color: AppColors.colorLineDash,
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                              flex: 1,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 2),
+                                    child: Text(
+                                      AppLocalizations.of(context)!
+                                          .textTypeOfService,
+                                      style: AppStyles.r6C8AA1_13_400,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  controller.findAccountModel.typeOfService,
-                                  style: AppStyles.rText1_13_500,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 10),
-                                  child: Text(
-                                    AppLocalizations.of(context)!.textNumber,
-                                    style: AppStyles.r6C8AA1_13_400,
+                                  Text(
+                                    controller.findAccountModel.typeOfService,
+                                    style: AppStyles.rText1_13_500,
                                   ),
-                                ),
-                                Text(
-                                  controller.findAccountModel.serviceNumber
-                                      .toString(),
-                                  style: AppStyles.rText1_13_500,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 22),
-                                  child: Text(
-                                    AppLocalizations.of(context)!.textIDType,
-                                    style: AppStyles.r6C8AA1_13_400,
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Text(
+                                      AppLocalizations.of(context)!
+                                          .textServiceNumber,
+                                      style: AppStyles.r6C8AA1_13_400,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  Common.getIdentityType(
-                                      controller.findAccountModel.idType),
-                                  style: AppStyles.rText1_13_500,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 10),
-                                  child: Text(
-                                    AppLocalizations.of(context)!.textName,
-                                    style: AppStyles.r6C8AA1_13_400,
+                                  Text(
+                                    controller.findAccountModel.serviceNumber
+                                        .toString(),
+                                    style: AppStyles.rText1_13_500,
                                   ),
-                                ),
-                                Text(
-                                  controller.findAccountModel.name,
-                                  style: AppStyles.rText1_13_500,
-                                )
-                              ],
-                            )),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                            flex: 1,
-                            child: Container(
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 22),
+                                    child: Text(
+                                      AppLocalizations.of(context)!.textIDType,
+                                      style: AppStyles.r6C8AA1_13_400,
+                                    ),
+                                  ),
+                                  Text(
+                                    Common.getIdentityType(
+                                        controller.findAccountModel.idType),
+                                    style: AppStyles.rText1_13_500,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Text(
+                                      AppLocalizations.of(context)!.textName,
+                                      style: AppStyles.r6C8AA1_13_400,
+                                    ),
+                                  ),
+                                  Text(
+                                    controller.findAccountModel.name,
+                                    style: AppStyles.rText1_13_500,
+                                  )
+                                ],
+                              )),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                              flex: 1,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -222,144 +225,216 @@ class DateCancelService extends GetWidget {
                                     style: AppStyles.rText1_13_500,
                                   )
                                 ],
-                              ),
-                            ))
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  formDateView(
-                      controller: controller,
-                      context: context,
-                      hint: AppLocalizations.of(context)!.textEnterDate,
-                      label: AppLocalizations.of(context)!.textCancelationDate,
-                      content: controller.cancelDate,
-                      required: true,
-                      isIcon: true,
-                      width: width * 0.5),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 25, right: 25),
-                    child: InkWell(
-                      highlightColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      onTap: () {
-                        controller.setCheckAgree(!controller.isCheckAgree);
-                      },
-                      child: Row(
-                        children: [
-                          controller.isCheckAgree
-                              ? iconOnlyRadio(0)
-                              : iconOnlyUnRadio(),
-                          const SizedBox(
-                            width: 14,
-                          ),
-                          Expanded(
-                              flex: 1,
-                              child: RichText(
-                                text: TextSpan(
-                                  text: AppLocalizations.of(context)!
-                                      .textInfoCreateRequest1,
-                                  style: AppStyles.r2
-                                      .copyWith(color: AppColors.colorText1),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                        recognizer: TapGestureRecognizer()
-                                          ..onTap = () =>
-                                              Get.to(CreateRequestPolicyPage()),
-                                        text: AppLocalizations.of(context)!
-                                            .textInfoCreateRequest2,
-                                        style: const TextStyle(
-                                            color: AppColors.colorUnderText,
-                                            decoration:
-                                                TextDecoration.underline)),
-                                    TextSpan(
-                                        text: AppLocalizations.of(context)!
-                                            .textInfoCreateRequest3)
-                                  ],
-                                ),
                               ))
                         ],
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  InkWell(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    onTap: () {
-                      if (!controller.checkActiveContinue()) {
-                        return;
-                      }
-                      controller.requestCanncel((isSuccess) {
-                        if (isSuccess) {
-                          if (controller.cancelServiceModel.isPenalty &&
-                              controller.cancelServiceModel.totalPenalty > 0) {
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return CancelServiceDialog(
-                                    context: context,
-                                    accountModel: controller.findAccountModel,
-                                    cancelServiceModel:
-                                        controller.cancelServiceModel,
-                                    onSuccess: () {
-                                      Get.back();
-                                      // Get.toNamed(RouteConfig.clearPenalty);
-                                      Get.toNamed(RouteConfig.cancelServicePDF,
-                                          arguments: [
-                                            controller.cancelServiceModel
-                                                .cancelOrderId
-                                          ]);
-                                    },
-                                  );
-                                });
-                          } else {
-                            Get.toNamed(RouteConfig.cancelServicePDF,
-                                arguments: [
-                                  controller.cancelServiceModel.cancelOrderId
-                                ]);
-                          }
-                        }
-                      });
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      margin: const EdgeInsets.only(
-                          bottom: 50, left: 25, right: 25),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      decoration: BoxDecoration(
-                        color: !controller.checkActiveContinue()
-                            ? Colors.white
-                            : AppColors.colorButton,
-                        borderRadius: BorderRadius.circular(24),
-                        boxShadow: [
-                          BoxShadow(
-                            offset: const Offset(0, 1),
-                            blurRadius: 2,
-                            color: Colors.black.withOpacity(0.3),
+                    formDateView(
+                        controller: controller,
+                        context: context,
+                        hint: AppLocalizations.of(context)!.textEnterDate,
+                        label:
+                            AppLocalizations.of(context)!.textCancelationDate,
+                        content: controller.cancelDate,
+                        required: true,
+                        isIcon: true,
+                        width: width * 0.5),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 25, right: 25),
+                      width: width,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Text(
+                            "${AppLocalizations.of(context)!.textReasonOfTermination}:",
+                            style: AppStyles.r2B3A4A_12_500.copyWith(
+                                fontSize: 14,
+                                color:
+                                    AppColors.color_2B3A4A.withOpacity(0.85)),
                           ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Container(
+                            width: 300,
+                            height: 45,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(24),
+                                border:
+                                    Border.all(color: const Color(0xFFE3EAF2))),
+                            child: DropdownButtonFormField2(
+                              decoration: const InputDecoration(
+                                isDense: true,
+                                contentPadding: EdgeInsets.zero,
+                                border: InputBorder.none,
+                              ),
+                              // selectedItemHighlightColor: Colors.red,
+                              buttonHeight: 60,
+                              buttonPadding:
+                                  const EdgeInsets.only(left: 0, right: 10),
+                              dropdownDecoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(24),
+                                  border: Border.all(
+                                      color: const Color(0xFFE3EAF2))),
+                              isExpanded: true,
+                              // value: controller.currentReason.isNotEmpty ? controller.currentReason : null,
+                              onChanged: (value) {
+                                controller.currentReason = value!.id!;
+                                controller.update();
+                              },
+                              items: controller.listReasons.map<
+                                      DropdownMenuItem<
+                                          ReasonCancelServiceModel>>(
+                                  (ReasonCancelServiceModel value) {
+                                return DropdownMenuItem(
+                                    value: value, child: Text(value.content!));
+                              }).toList(),
+                              style: AppStyles.r2.copyWith(
+                                  color: AppColors.colorTitle,
+                                  fontWeight: FontWeight.w500),
+                              icon:
+                                  SvgPicture.asset(AppImages.icDropdownSpinner),
+                              hint: Text(
+                                AppLocalizations.of(context)!.hintReason,
+                                style: AppStyles.r2.copyWith(
+                                    color: AppColors.colorHint1,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              validator: (value) {
+                                if (value == null) {
+                                  return AppLocalizations.of(context)!
+                                      .textPleaseSelect;
+                                }
+                              },
+                            ),
+                          )
                         ],
                       ),
-                      child: Center(
-                          child: Text(
-                        AppLocalizations.of(context)!
-                            .textContinue
-                            .toUpperCase(),
-                        style: !controller.checkActiveContinue()
-                            ? AppStyles.r1.copyWith(fontWeight: FontWeight.w500)
-                            : AppStyles.r5
-                                .copyWith(fontWeight: FontWeight.w500),
-                      )),
                     ),
-                  )
-                ],
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 25, right: 25),
+                      child: InkWell(
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+                        onTap: () {
+                          controller.setCheckAgree(!controller.isCheckAgree);
+                        },
+                        child: Row(
+                          children: [
+                            controller.isCheckAgree
+                                ? iconOnlyRadio(0)
+                                : iconOnlyUnRadio(),
+                            const SizedBox(
+                              width: 14,
+                            ),
+                            Expanded(
+                                flex: 1,
+                                child: RichText(
+                                  text: TextSpan(
+                                    text: AppLocalizations.of(context)!
+                                        .textInfoCreateRequest1,
+                                    style: AppStyles.r2
+                                        .copyWith(color: AppColors.colorText1),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () => Get.to(
+                                                CreateRequestPolicyPage()),
+                                          text: AppLocalizations.of(context)!
+                                              .textInfoCreateRequest2,
+                                          style: const TextStyle(
+                                              color: AppColors.colorUnderText,
+                                              decoration:
+                                                  TextDecoration.underline)),
+                                      TextSpan(
+                                          text: AppLocalizations.of(context)!
+                                              .textInfoCreateRequest3)
+                                    ],
+                                  ),
+                                ))
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    InkWell(
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      onTap: () {
+                        if (!controller.checkActiveContinue()) {
+                          return;
+                        }
+                        controller.requestCanncel((isSuccess) {
+                          if (isSuccess) {
+                            if (controller.cancelServiceModel.isPenalty &&
+                                controller.cancelServiceModel.totalPenalty >
+                                    0) {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return CancelServiceDialog(
+                                      context: context,
+                                      accountModel: controller.findAccountModel,
+                                      cancelServiceModel:
+                                          controller.cancelServiceModel,
+                                      onSuccess: () {
+                                        Get.back();
+                                        // Get.toNamed(RouteConfig.clearPenalty);
+                                        Get.toNamed(RouteConfig.penaltyInfor);
+                                      },
+                                    );
+                                  });
+                            } else {
+                              Get.toNamed(RouteConfig.cancelServicePDF,
+                                  arguments: [
+                                    controller.cancelServiceModel.cancelOrderId
+                                  ]);
+                            }
+                          }
+                        });
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        margin: const EdgeInsets.only(
+                            bottom: 50, left: 25, right: 25),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        decoration: BoxDecoration(
+                          color: !controller.checkActiveContinue()
+                              ? Colors.white
+                              : AppColors.colorButton,
+                          borderRadius: BorderRadius.circular(24),
+                          boxShadow: [
+                            BoxShadow(
+                              offset: const Offset(0, 1),
+                              blurRadius: 2,
+                              color: Colors.black.withOpacity(0.3),
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                            child: Text(
+                          AppLocalizations.of(context)!
+                              .textContinue
+                              .toUpperCase(),
+                          style: !controller.checkActiveContinue()
+                              ? AppStyles.r1
+                                  .copyWith(fontWeight: FontWeight.w500)
+                              : AppStyles.r5
+                                  .copyWith(fontWeight: FontWeight.w500),
+                        )),
+                      ),
+                    )
+                  ],
+                ),
               )),
             ],
           ),

@@ -14,6 +14,7 @@ import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/cancel_service_
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/clear_penalty/clear_penalty_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/date_cancel_service/date_cancel_service.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/dialog_cancel_service/dialog_cancel_service.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/penalty_information/penalty_information_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/manage_wo/manage_wo_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/id_card_scanner.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/sale/sale_page.dart';
@@ -73,6 +74,8 @@ class RouteConfig {
       "/menu/ftth/aftersale/dateCancelService";
   static const String cancelServiceInfor =
       "/menu/ftth/aftersale/cancelServiceInfor";
+  static const String penaltyInfor =
+      "/menu/ftth/aftersale/cancelService/penaltyInfor";
 
   ///page
   static final List<GetPage> getPages = [
@@ -105,6 +108,7 @@ class RouteConfig {
     GetPage(name: cancelServicePDF, page: () => CancelServicePDFPage()),
     GetPage(name: dateCancelService, page: () => DateCancelService()),
     GetPage(name: cancelServiceInfor, page: () => CancelServiceSuccess()),
+    GetPage(name: penaltyInfor, page: () => PenaltyInformationPage()),
   ];
 
   ///language
