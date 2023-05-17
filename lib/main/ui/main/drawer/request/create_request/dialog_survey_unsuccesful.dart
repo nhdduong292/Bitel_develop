@@ -1,6 +1,7 @@
 import 'package:bitel_ventas/main/custom_views/line_dash.dart';
 import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_unsuccessfull_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_images.dart';
@@ -36,8 +37,8 @@ class DialogSurveyUnsuccessful extends GetWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
                   onTap: () {
                     Get.back();
                   },
@@ -66,8 +67,8 @@ class DialogSurveyUnsuccessful extends GetWidget {
                       color: AppColors.colorText4, fontWeight: FontWeight.w500),
                 ),
                 InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
                   onTap: () {
                     controller.setSurveyOffline(!controller.isSelectOffline);
                   },
@@ -97,15 +98,33 @@ class DialogSurveyUnsuccessful extends GetWidget {
                   ),
                 ),
                 InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
                   onTap: () {
                     _onLoading(context);
                     controller.createSurveyOffline(
                       (isSuccess) {
                         if (isSuccess) {
-                          Get.close(4);
-                          Get.toNamed(RouteConfig.listRequest, arguments: 1);
+                          Get.back();
+                          bool isExit = Get.isRegistered<ListRequestLogic>();
+                          if (isExit) {
+                            Get.until(
+                              (route) {
+                                return Get.currentRoute ==
+                                    RouteConfig.listRequest;
+                              },
+                            );
+                            ListRequestLogic listRequestLogic = Get.find();
+                            listRequestLogic.updateSearchRequestToIndex(1);
+                            listRequestLogic.refreshListRequest();
+                          } else {
+                            Get.until(
+                              (route) {
+                                return Get.currentRoute == RouteConfig.sale;
+                              },
+                            );
+                            Get.toNamed(RouteConfig.listRequest, arguments: 1);
+                          }
                         } else {
                           Get.back();
                         }

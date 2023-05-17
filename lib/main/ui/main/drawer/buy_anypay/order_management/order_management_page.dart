@@ -1,4 +1,4 @@
-import 'package:bitel_ventas/main/networks/model/buy_anypay_model.dart';
+import 'package:bitel_ventas/main/networks/model/buy_anypay_comfirm_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/order_management/order_management_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/utilitis/info_bussiness.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
@@ -15,6 +15,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../../networks/model/buy_anypay_create_model.dart';
+import '../../../../../networks/model/buy_anypay_search_model.dart';
+
 class OrderManagementPage extends GetWidget {
   @override
   Widget build(BuildContext context) {
@@ -28,8 +31,8 @@ class OrderManagementPage extends GetWidget {
               leading: Padding(
                 padding: const EdgeInsets.only(left: 18, bottom: 18, top: 2),
                 child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
                   child: SvgPicture.asset(AppImages.icBack),
                   onTap: () {
                     Get.back();
@@ -81,8 +84,8 @@ class OrderManagementPage extends GetWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     child: Container(
                       width: double.infinity,
                       margin: const EdgeInsets.only(
@@ -195,8 +198,8 @@ class OrderManagementPage extends GetWidget {
                               Expanded(
                                 flex: 1,
                                 child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    splashColor: Colors.transparent,
                                     onTap: () {
                                       _selectDate(context, controller, true);
                                     },
@@ -250,8 +253,8 @@ class OrderManagementPage extends GetWidget {
                               Expanded(
                                 flex: 1,
                                 child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    splashColor: Colors.transparent,
                                     onTap: () {
                                       _selectDate(context, controller, false);
                                     },
@@ -307,8 +310,8 @@ class OrderManagementPage extends GetWidget {
                     onTap: () {},
                   ),
                   InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     onTap: () {
                       controller.isSearched = true;
 
@@ -385,22 +388,25 @@ class OrderManagementPage extends GetWidget {
                                             return ConfirmDialog(
                                               height: 277,
                                               bankNumber: controller
-                                                      .listBuyAnyPay[value]
-                                                      .bankCode ??
-                                                  '---',
+                                                  .listBuyAnyPay[value]
+                                                  .saleOrderCode,
                                               onSuccess: () {
-                                                Get.back();
                                                 controller.deleteBuyAnyPay(
                                                     saleOrderId: controller
-                                                            .listBuyAnyPay[
-                                                                value]
-                                                            .saleOrderId ??
-                                                        '',
-                                                    isSuccess: (value) {
-                                                      if (value) {
-                                                        controller.listBuyAnyPay
-                                                            .removeAt(value);
-                                                        controller.update();
+                                                        .listBuyAnyPay[value]
+                                                        .saleOrderId,
+                                                    isSuccess: (isSuccess) {
+                                                      if (isSuccess) {
+                                                        Get.back();
+                                                        controller.searchBuyAnyPay(
+                                                            bankCode: controller
+                                                                .textBankCode,
+                                                            status: controller
+                                                                .currentStatus,
+                                                            from: controller
+                                                                .from.value,
+                                                            to: controller
+                                                                .to.value);
                                                         Common.showToastCenter(
                                                             AppLocalizations.of(
                                                                     context)!
@@ -428,8 +434,8 @@ class OrderManagementPage extends GetWidget {
                     ),
                   ),
                   InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     child: Container(
                       width: double.infinity,
                       margin: const EdgeInsets.only(
@@ -513,7 +519,7 @@ class OrderManagementPage extends GetWidget {
 }
 
 class _itemOrderSearch extends StatelessWidget {
-  BuyAnyPayModel buyAnyPayModel;
+  BuyAnyPaySearchModel buyAnyPayModel;
   OrderManagementLogic controller;
   int index;
   var onDelete;
@@ -524,6 +530,16 @@ class _itemOrderSearch extends StatelessWidget {
       required this.onDelete});
   @override
   Widget build(BuildContext context) {
+    Color? colorStatus;
+    if (buyAnyPayModel.status == 'NEW') {
+      colorStatus = AppColors.colorBackground3;
+    } else if (buyAnyPayModel.status == 'PAID') {
+      colorStatus = Colors.grey;
+    } else if (buyAnyPayModel.status == 'SOLD') {
+      colorStatus = Colors.orange;
+    } else {
+      colorStatus = Colors.red;
+    }
     return Container(
         padding: const EdgeInsets.only(top: 8, bottom: 12),
         child: IntrinsicHeight(
@@ -538,42 +554,46 @@ class _itemOrderSearch extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: Text(buyAnyPayModel.bankCode ?? '---',
-                                style: AppStyles.bContent_17_700,
+                            child: Text(buyAnyPayModel.saleOrderCode,
+                                style: AppStyles.bContent_17_700
+                                    .copyWith(fontSize: 16),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis),
                           ),
-                          Container(
-                            margin: const EdgeInsets.only(left: 8, right: 10),
-                            padding: const EdgeInsets.only(
-                                left: 8, right: 8, top: 3, bottom: 3),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(9),
-                              border: Border.all(
-                                  width: 1, color: AppColors.colorContent),
-                            ),
-                            child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
-                              onTap: () async {
-                                await Clipboard.setData(ClipboardData(
-                                    text: buyAnyPayModel.idNumber));
-                                Common.showToastCenter(
-                                    AppLocalizations.of(context)!
-                                        .textCopySuccess);
-                              },
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset(AppImages.icCopyOrder),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    AppLocalizations.of(context)!.textCopy,
-                                    style: AppStyles.bContent_10_400,
-                                  )
-                                ],
+                          Visibility(
+                            visible: buyAnyPayModel.status == 'NEW',
+                            child: Container(
+                              margin: const EdgeInsets.only(left: 8, right: 10),
+                              padding: const EdgeInsets.only(
+                                  left: 8, right: 8, top: 3, bottom: 3),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(9),
+                                border: Border.all(
+                                    width: 1, color: AppColors.colorContent),
+                              ),
+                              child: InkWell(
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent,
+                                onTap: () async {
+                                  await Clipboard.setData(ClipboardData(
+                                      text: buyAnyPayModel.saleOrderCode));
+                                  Common.showToastCenter(
+                                      AppLocalizations.of(context)!
+                                          .textCopySuccess);
+                                },
+                                child: Row(
+                                  children: [
+                                    SvgPicture.asset(AppImages.icCopyOrder),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      AppLocalizations.of(context)!.textCopy,
+                                      style: AppStyles.bContent_10_400,
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           )
@@ -582,9 +602,7 @@ class _itemOrderSearch extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Text(
-                            buyAnyPayModel.amount != null
-                                ? buyAnyPayModel.amount.toString()
-                                : '---',
+                            'S/ ${buyAnyPayModel.totalToPay} (${buyAnyPayModel.quantity} ANYPAY)',
                             style: AppStyles.bText1_14_500,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis),
@@ -593,8 +611,8 @@ class _itemOrderSearch extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Text(
                             Common.fromDate(
-                                DateTime.parse(buyAnyPayModel.creationDate!),
-                                'dd/MM/yyyy'),
+                                DateTime.parse(buyAnyPayModel.saleOrderDate),
+                                'dd/MM/yyyy hh:mm'),
                             style: AppStyles.bText1_13_300,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis),
@@ -610,13 +628,11 @@ class _itemOrderSearch extends StatelessWidget {
                           const EdgeInsets.only(left: 20, right: 20, bottom: 2),
                       margin: const EdgeInsets.only(right: 9),
                       decoration: BoxDecoration(
-                        color: AppColors.colorBackground3,
+                        color: colorStatus,
                         borderRadius: BorderRadius.circular(9),
                       ),
                       child: Text(
-                        buyAnyPayModel.stauts != null
-                            ? controller.getTextStatus(buyAnyPayModel.stauts!)
-                            : '---',
+                        controller.getTextStatus(buyAnyPayModel.status),
                         style: AppStyles.rText1_13_500
                             .copyWith(color: Colors.white),
                       ),
@@ -624,17 +640,19 @@ class _itemOrderSearch extends StatelessWidget {
                     const VerticalDivider(
                       color: AppColors.colorLineDash,
                     ),
-                    Visibility(
-                      visible: buyAnyPayModel.stauts == 'NEW',
-                      child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
-                        onTap: () {
-                          onDelete(index);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SvgPicture.asset(AppImages.icDeleteOrder),
+                    Expanded(
+                      child: Visibility(
+                        visible: buyAnyPayModel.status == 'NEW',
+                        child: InkWell(
+                          highlightColor: Colors.transparent,
+                          splashColor: Colors.transparent,
+                          onTap: () {
+                            onDelete(index);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: SvgPicture.asset(AppImages.icDeleteOrder),
+                          ),
                         ),
                       ),
                     ),

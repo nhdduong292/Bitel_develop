@@ -181,7 +181,7 @@ class DialogCancelRequest extends GetWidget {
                             builder: (context) {
                               return SuccessDialog(
                                 text: AppLocalizations.of(context)!
-                                    .textSuccessAPI,
+                                    .textCancelRequestSuccessfully,
                                 onOk: () {
                                   Get.until(
                                     (route) {
@@ -191,6 +191,8 @@ class DialogCancelRequest extends GetWidget {
                                   );
                                   ListRequestLogic listRequestLogic =
                                       Get.find();
+                                  listRequestLogic
+                                      .updateSearchRequestToIndex(0);
                                   listRequestLogic.refreshListRequest();
                                 },
                               );

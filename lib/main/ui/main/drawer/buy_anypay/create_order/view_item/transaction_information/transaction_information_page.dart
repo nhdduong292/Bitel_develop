@@ -16,6 +16,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../../../../res/app_colors.dart';
 import '../../../../../../../../res/app_images.dart';
 import '../../../../../../../../res/app_styles.dart';
+import '../../../../../../../utils/common.dart';
 import '../../../../../../../utils/common_widgets.dart';
 
 typedef void TouchScan();
@@ -30,8 +31,8 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
           return FocusScope(
             node: controller.focusScopeNode,
             child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
               onTap: () {
                 FocusScope.of(context).requestFocus(FocusNode());
               },
@@ -87,8 +88,7 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                               ),
                               itemTextFieldLock(
                                 title: AppLocalizations.of(context)!.textCode,
-                                content:
-                                    controller.buyAnyPayModel.code ?? '---',
+                                content: controller.buyAnyPayComfirmModel.code,
                               ),
                               SizedBox(
                                 height: 12,
@@ -97,15 +97,14 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                 title:
                                     AppLocalizations.of(context)!.textIDNumber,
                                 content:
-                                    controller.buyAnyPayModel.idNumber ?? '---',
+                                    controller.buyAnyPayComfirmModel.idNumber,
                               ),
                               SizedBox(
                                 height: 12,
                               ),
                               itemTextFieldLock(
                                 title: AppLocalizations.of(context)!.textName,
-                                content:
-                                    controller.buyAnyPayModel.name ?? '---',
+                                content: controller.buyAnyPayComfirmModel.name,
                               ),
                               SizedBox(
                                 height: 12,
@@ -113,11 +112,12 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                               itemTextFieldLock(
                                   title: AppLocalizations.of(context)!
                                       .textCurrentAnypay,
-                                  content:
-                                      controller.buyAnyPayModel.balance != null
-                                          ? controller.buyAnyPayModel.balance
-                                              .toString()
-                                          : '---',
+                                  content: controller
+                                              .buyAnyPayComfirmModel.balance !=
+                                          null
+                                      ? controller.buyAnyPayComfirmModel.balance
+                                          .toString()
+                                      : '---',
                                   textColor: AppColors.color_9454C9),
                               Padding(
                                 padding:
@@ -144,7 +144,13 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                         ])),
                                     Text(
                                       AppLocalizations.of(context)!
-                                          .textTheMinimumIs100,
+                                          .textTheMinimumIs100(
+                                              controller.buyAnyPayComfirmModel
+                                                  .amountMax
+                                                  .toInt(),
+                                              controller.buyAnyPayComfirmModel
+                                                  .amountMin
+                                                  .toInt()),
                                       style: AppStyles.r2B3A4A_12_500.copyWith(
                                           color: AppColors.color_2B3A4A
                                               .withOpacity(0.65),
@@ -159,9 +165,7 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                         context: context,
                                         hint: AppLocalizations.of(context)!
                                             .textEnterTheAmount,
-                                        type: TextInputType.numberWithOptions(
-                                          decimal: true,
-                                        ),
+                                        type: TextInputType.number,
                                         errorText: controller.errorTextAmount,
                                         onChange: () {
                                           controller.checkValidate();
@@ -178,13 +182,20 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                     SizedBox(
                                       height: 14,
                                     ),
-                                    Text(
-                                        AppLocalizations.of(context)!
-                                            .textSendToEmail,
-                                        style: AppStyles.r2B3A4A_12_500
-                                            .copyWith(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w400)),
+                                    RichText(
+                                        text: TextSpan(
+                                            text: AppLocalizations.of(context)!
+                                                .textSendToEmail,
+                                            style: AppStyles.r2B3A4A_12_500
+                                                .copyWith(
+                                                    fontSize: 13,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                            children: [
+                                          TextSpan(
+                                              text: ' *',
+                                              style: AppStyles.rF76F5A_13_500)
+                                        ])),
                                     SizedBox(
                                       height: 14,
                                     ),
@@ -217,25 +228,32 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                   children: [
                                     Expanded(
                                       child: TextField(
-                                        controller:
-                                            controller.textCaptchaController,
-                                        style: AppStyles.r415263_13_500
-                                            .copyWith(fontSize: 16),
-                                        onChanged: (value) {
-                                          controller.checkValidate();
-                                        },
-                                        decoration: InputDecoration(
-                                          hintText:
-                                              AppLocalizations.of(context)!
-                                                  .textEnterCaptcha,
-                                          hintStyle: TextStyle(
-                                              fontSize: 13,
-                                              fontFamily: 'Roboto',
-                                              fontWeight: FontWeight.w400,
-                                              color: Color(0xFF7F96AD)),
-                                          border: InputBorder.none,
-                                        ),
-                                      ),
+                                          focusNode: controller.focusCaptcha,
+                                          controller:
+                                              controller.textCaptchaController,
+                                          style: AppStyles.r415263_13_500
+                                              .copyWith(fontSize: 16),
+                                          onChanged: (value) {
+                                            controller.errorTextCaptcha = null;
+                                            controller.checkValidate();
+                                          },
+                                          decoration: InputDecoration(
+                                            contentPadding:
+                                                const EdgeInsets.only(
+                                                    top: 5,
+                                                    left: 10,
+                                                    right: 10),
+                                            hintText:
+                                                AppLocalizations.of(context)!
+                                                    .textEnterCaptcha,
+                                            hintStyle: AppStyles.r2.copyWith(
+                                                color: AppColors.colorHint1,
+                                                fontWeight: FontWeight.w400),
+                                            border: InputBorder.none,
+                                          )),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
                                     ),
                                     Padding(
                                       padding:
@@ -267,8 +285,8 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                       padding:
                                           const EdgeInsets.only(right: 7.04),
                                       child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        splashColor: Colors.transparent,
                                         onTap: () {
                                           controller.captchaModel =
                                               CaptchaModel();
@@ -293,8 +311,19 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                 if (!controller.validateEmail()) {
                                   return;
                                 }
+                                if (controller.textCaptchaController.text
+                                        .trim() !=
+                                    controller.captchaModel.imgString) {
+                                  controller.textCaptchaController.text = '';
+                                  Common.showToastCenter(
+                                      AppLocalizations.of(context)!
+                                          .textCaptchaIsNotCorrect);
+                                  controller.focusCaptcha.canRequestFocus;
+                                  controller.update();
+                                  return;
+                                }
 
-                                controller.postBuyAnyPay(
+                                controller.postBuyAnyPayComfirm(
                                     isSuccess: (isSuccess) {
                                   if (isSuccess) {
                                     controller.setBuyAnyPayModel();
@@ -314,8 +343,8 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                 : const Color(0xFF415263).withOpacity(0.2)),
                       ),
                       InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
                         child: Container(
                           width: double.infinity,
                           margin: const EdgeInsets.only(

@@ -90,7 +90,11 @@ class RequestDetailPage extends GetWidget {
                                       child: Text(
                                         controller.requestModel.customerModel
                                                 .fullName.isEmpty
-                                            ? "---"
+                                            ? controller.requestModel
+                                                    .customerModel.name.isEmpty
+                                                ? '---'
+                                                : controller.requestModel
+                                                    .customerModel.name
                                             : controller.requestModel
                                                 .customerModel.fullName,
                                         textAlign: TextAlign.right,
@@ -244,8 +248,11 @@ class RequestDetailPage extends GetWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          controller.requestModel.customerModel
-                                                  .fullName.isEmpty
+                                          controller
+                                                  .requestModel
+                                                  .subscriptionModel
+                                                  .productName
+                                                  .isEmpty
                                               ? "---"
                                               : controller
                                                   .requestModel
@@ -348,10 +355,7 @@ class RequestDetailPage extends GetWidget {
                                       Expanded(
                                         child: Text(
                                           controller.requestModel.contractModel
-                                                      .contractId <
-                                                  1
-                                              ? "---"
-                                              : "${controller.requestModel.contractModel.contractId}",
+                                              .contractNo,
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),

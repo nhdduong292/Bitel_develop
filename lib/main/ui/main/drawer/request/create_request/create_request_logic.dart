@@ -97,8 +97,12 @@ class CreateRequestLogic extends GetxController {
       focusIdNumber.requestFocus();
       return true;
     }
-    if ((textFieldIdNumber.value.text.length < 8 && currentIdentity == 'DNI') ||
-        (textFieldIdNumber.value.text.length < 9 && currentIdentity != 'DNI')) {
+    if ((textFieldIdNumber.value.text.length < 8 &&
+            currentIdentityType == 'DNI') ||
+        (textFieldIdNumber.value.text.length < 6 &&
+            currentIdentityType == 'PP') ||
+        (textFieldIdNumber.value.text.length < 9 &&
+            currentIdentityType == 'CE')) {
       focusIdNumber.requestFocus();
       Common.showToastCenter(AppLocalizations.of(context)!.textTheIDNumber);
       return true;
@@ -304,7 +308,7 @@ class CreateRequestLogic extends GetxController {
     if (value == listIdentity[0]) {
       return 8;
     } else if (value == listIdentity[2]) {
-      return 9;
+      return 15;
     } else {
       return 9;
     }

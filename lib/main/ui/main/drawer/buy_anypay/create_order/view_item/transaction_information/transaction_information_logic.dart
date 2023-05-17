@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:typed_data';
 
-import 'package:bitel_ventas/main/networks/model/buy_anypay_model.dart';
+import 'package:bitel_ventas/main/networks/model/buy_anypay_comfirm_model.dart';
+import 'package:bitel_ventas/main/networks/model/buy_anypay_create_model.dart';
 import 'package:bitel_ventas/main/networks/model/captcha_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/create_order/create_order_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/clear_debt_logic.dart';
@@ -22,15 +24,19 @@ class TransactionInformationLogic extends GetxController {
   TextEditingController textEmailController = TextEditingController();
   TextEditingController textCaptchaController = TextEditingController();
 
+  FocusNode focusCaptcha = FocusNode();
+
   bool isActiveButton = false;
   String? errorTextAmount;
+  String? errorTextCaptcha;
   CreateOrderLogic createOrderLogic = Get.find();
 
   TransactionInformationLogic({required this.context});
 
   double currentAmout = 0.0;
 
-  BuyAnyPayModel buyAnyPayModel = BuyAnyPayModel();
+  BuyAnyPayGeneralModel buyAnyPayComfirmModel = BuyAnyPayGeneralModel();
+  BuyAnyPayCreateModel buyAnyPayCreateModel = BuyAnyPayCreateModel();
   CaptchaModel captchaModel = CaptchaModel();
 
   @override
@@ -48,13 +54,20 @@ class TransactionInformationLogic extends GetxController {
       update();
       return;
     }
-    var amount = textAmountController.text.replaceAll(',', '.');
-    if (!(double.parse(amount) >= 100 && double.parse(amount) <= 10000)) {
+    var amount = textAmountController.text;
+    if (!(double.parse(amount) >= buyAnyPayComfirmModel.amountMin &&
+        double.parse(amount) <= buyAnyPayComfirmModel.amountMax)) {
       isActiveButton = false;
-      errorTextAmount = AppLocalizations.of(context)!.textTheMinimumIs100;
+      errorTextAmount = AppLocalizations.of(context)!.textTheMinimumIs100(
+          buyAnyPayComfirmModel.amountMax.toInt(),
+          buyAnyPayComfirmModel.amountMin.toInt());
       update();
       return;
     } else if (textCaptchaController.text.isEmpty) {
+      isActiveButton = false;
+      update();
+      return;
+    } else if (textEmailController.text.isEmpty) {
       isActiveButton = false;
       update();
       return;
@@ -65,13 +78,10 @@ class TransactionInformationLogic extends GetxController {
   }
 
   void setBuyAnyPayModel() {
-    createOrderLogic.buyAnyPayModel = buyAnyPayModel;
+    createOrderLogic.buyAnyPayCreateModel = buyAnyPayCreateModel;
   }
 
   bool validateEmail() {
-    if (textEmailController.text.isEmpty) {
-      return true;
-    }
     if (!Common.validateEmail(textEmailController.text)) {
       Common.showToastCenter(AppLocalizations.of(context)!.textValidateEmail);
       return false;
@@ -86,7 +96,8 @@ class TransactionInformationLogic extends GetxController {
       onSuccess: (response) {
         Get.back();
         if (response.isSuccess) {
-          buyAnyPayModel = BuyAnyPayModel.fromJson(response.data['data']);
+          buyAnyPayComfirmModel =
+              BuyAnyPayGeneralModel.fromJson(response.data['data']);
           update();
         } else {}
       },
@@ -97,26 +108,23 @@ class TransactionInformationLogic extends GetxController {
     );
   }
 
-  void postBuyAnyPay({var isSuccess}) {
+  void postBuyAnyPayComfirm({var isSuccess}) {
     _onLoading(context);
     Map<String, dynamic> body = {
-      "saleOrderId": null,
-      "code": buyAnyPayModel.code,
-      "idNumber": buyAnyPayModel.idNumber,
-      "name": buyAnyPayModel.name,
-      "amount": currentAmout,
-      "discount": buyAnyPayModel.discount,
-      "total": null,
+      "idType": buyAnyPayComfirmModel.idType,
+      "idNumber": buyAnyPayComfirmModel.idNumber,
+      "amount": int.parse(textAmountController.text.trim()),
       "email": textEmailController.text.trim(),
-      "captcha": textCaptchaController.text.trim()
     };
+    createOrderLogic.bodyRequestBuyAnyPay = body;
     ApiUtil.getInstance()!.post(
-      url: ApiEndPoints.API_POST_BUY_ANYPAY,
+      url: ApiEndPoints.API_CONFIRM_POST_BUY_ANYPAY,
       body: body,
       onSuccess: (response) {
         Get.back();
         if (response.isSuccess) {
-          buyAnyPayModel = BuyAnyPayModel.fromJson(response.data['data']);
+          buyAnyPayCreateModel =
+              BuyAnyPayCreateModel.fromJson(response.data['data']);
           isSuccess(true);
         } else {
           isSuccess(false);

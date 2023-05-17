@@ -74,7 +74,7 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                           ),
                           _itemInfor(
                               title: AppLocalizations.of(context)!.textCode,
-                              content: controller.buyAnyPayModel.code ?? '---',
+                              content: controller.buyAnyPayCreateModel.code,
                               isColor: false),
                           DottedLine(
                             dashColor: Color(0xFFE3EAF2),
@@ -83,8 +83,7 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                           ),
                           _itemInfor(
                               title: AppLocalizations.of(context)!.textIDNumber,
-                              content:
-                                  controller.buyAnyPayModel.idNumber ?? '---',
+                              content: controller.buyAnyPayCreateModel.idNumber,
                               isColor: false),
                           DottedLine(
                             dashColor: Color(0xFFE3EAF2),
@@ -93,7 +92,7 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                           ),
                           _itemInfor(
                               title: AppLocalizations.of(context)!.textName,
-                              content: controller.buyAnyPayModel.name ?? '---',
+                              content: controller.buyAnyPayCreateModel.name,
                               isColor: false),
                           DottedLine(
                             dashColor: Color(0xFFE3EAF2),
@@ -103,7 +102,8 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                           _itemInfor(
                               title:
                                   '${AppLocalizations.of(context)!.textAmount} (1)',
-                              content: 'S/${controller.buyAnyPayModel.amount}',
+                              content:
+                                  'S/${controller.buyAnyPayCreateModel.amount}',
                               isColor: true),
                           DottedLine(
                             dashColor: Color(0xFFE3EAF2),
@@ -114,7 +114,7 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                               title:
                                   '${AppLocalizations.of(context)!.textDiscount} (2)',
                               content:
-                                  'S/${controller.buyAnyPayModel.discount}',
+                                  'S/${controller.buyAnyPayCreateModel.discount}',
                               isColor: true),
                           DottedLine(
                             dashColor: Color(0xFFE3EAF2),
@@ -124,7 +124,8 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                           _itemInfor(
                               title:
                                   '${AppLocalizations.of(context)!.textTotalAPagar} (1-2)',
-                              content: 'S/${controller.buyAnyPayModel.total}',
+                              content:
+                                  'S/${controller.buyAnyPayCreateModel.total}',
                               isColor: true)
                         ]),
                   ),
@@ -219,7 +220,7 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                         text: AppLocalizations.of(context)!.textBuy,
                         onTap: () {
                           if (controller.isCheckBox) {
-                            controller.postConfirmBuyAnyPay(
+                            controller.postCreateBuyAnyPay(
                                 isSuccess: (isSuccess) {
                               if (isSuccess) {
                                 controller.setBuyAnyPayModel();
@@ -239,8 +240,8 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                             : const Color(0xFF415263).withOpacity(0.2)),
                   ),
                   InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     child: Container(
                       width: double.infinity,
                       margin:

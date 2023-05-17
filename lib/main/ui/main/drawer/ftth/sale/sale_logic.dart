@@ -60,8 +60,11 @@ class SaleLogic extends GetxController {
       fromDate = DateTime(now.year, now.month, now.day - 30).toIso8601String();
       toDate = now.toIso8601String();
     } else if (month == AppLocalizations.of(context)!.textLastMonth) {
-      fromDate = DateTime(now.year, now.month, now.day - 60).toIso8601String();
-      toDate = DateTime(now.year, now.month, now.day - 30).toIso8601String();
+      final int numberOfDaysInCurrentMonth =
+          DateTime(now.year, now.month, 0).day;
+      fromDate = DateTime(now.year, now.month - 1, 1).toIso8601String();
+      toDate = DateTime(now.year, now.month - 1, numberOfDaysInCurrentMonth)
+          .toIso8601String();
     } else if (month == AppLocalizations.of(context)!.textLast3Month) {
       fromDate = DateTime(now.year, now.month, now.day - 90).toIso8601String();
       toDate = now.toIso8601String();
@@ -117,8 +120,7 @@ class SaleLogic extends GetxController {
     // TODO: implement onInit
     super.onInit();
     toDate = now.toIso8601String();
-    fromDate = fromDate =
-        DateTime(now.year, now.month, now.day - 30).toIso8601String();
+    fromDate = fromDate = DateTime(now.year, now.month, 1).toIso8601String();
     getHomeSale();
   }
 

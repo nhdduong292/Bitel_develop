@@ -69,7 +69,7 @@ class FindServiceLogic extends GetxController {
         setActiveButton(false);
       } else if (currentIdentityType == 'CE' && currentEnter.length == 9) {
         setActiveButton(false);
-      } else if (currentIdentityType == 'PP' && currentEnter.length == 9) {
+      } else if (currentIdentityType == 'PP' && currentEnter.length > 5) {
         setActiveButton(false);
       } else {
         setActiveButton(true);
@@ -97,7 +97,7 @@ class FindServiceLogic extends GetxController {
     if (value == listIdentity[0]) {
       return 8;
     } else if (value == listIdentity[2]) {
-      return 9;
+      return 15;
     } else {
       return 9;
     }

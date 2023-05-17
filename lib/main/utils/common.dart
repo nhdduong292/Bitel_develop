@@ -302,12 +302,30 @@ class Common {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE049);
       } else if (errorCode == 'E050') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE050);
-      } else if (errorCode == 'E051') { 
+      } else if (errorCode == 'E051') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE051);
       } else if (errorCode == 'E052') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE052);
       } else if (errorCode == 'E053') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE053);
+      } else if (errorCode == 'E054') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE054);
+      } else if (errorCode == 'E055') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE055);
+      } else if (errorCode == 'E056') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE056);
+      } else if (errorCode == 'E057') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE057);
+      } else if (errorCode == 'E058') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE058);
+      } else if (errorCode == 'E059') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE059);
+      } else if (errorCode == 'E060') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE060);
+      } else if (errorCode == 'E061') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE016);
+      } else if (errorCode == 'E062') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE062);
       } else {
         showSystemErrorDialog(context, error.response!.data['errorMessage']);
       }

@@ -12,7 +12,7 @@ class CancelServiceInforModel {
 
   CancelServiceInforModel();
   CancelServiceInforModel.fromJson(Map<String, dynamic> json) {
-    _operationCode = json['_operationCode'];
+    _operationCode = json['operationCode'];
     _customer = json['customer'];
     _idType = json['idType'];
     _idNumber = json['idNumber'];

@@ -57,8 +57,8 @@ class DialogAdvancedSearchPage extends GetWidget {
                               fontWeight: FontWeight.w500),
                         )),
                         InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          splashColor: Colors.transparent,
                           onTap: () {
                             Get.back();
                           },
@@ -171,8 +171,8 @@ class DialogAdvancedSearchPage extends GetWidget {
                         Expanded(
                             flex: 5,
                             child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              splashColor: Colors.transparent,
                               onTap: () {
                                 if (controller.listProvince.isEmpty) {
                                   _onLoading(context);
@@ -251,36 +251,6 @@ class DialogAdvancedSearchPage extends GetWidget {
                         Expanded(
                             flex: 2,
                             child: Text(
-                              AppLocalizations.of(context)!.textStaffCode,
-                              style: AppStyles.r8.copyWith(
-                                  color: AppColors.colorText1.withOpacity(0.85),
-                                  fontWeight: FontWeight.w400),
-                            )),
-                        Expanded(
-                            flex: 5,
-                            child: spinnerFormV2(
-                                context: context,
-                                hint:
-                                    AppLocalizations.of(context)!.hintStaffCode,
-                                required: false,
-                                dropValue: "",
-                                controlTextField:
-                                    controller.controllerStaffCode,
-                                function: (value) {
-                                  controller.setStaffCode(value);
-                                },
-                                listDrop: []))
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding:
-                        const EdgeInsets.only(top: 16, right: 16, left: 16),
-                    child: Row(
-                      children: [
-                        Expanded(
-                            flex: 2,
-                            child: Text(
                               AppLocalizations.of(context)!.textRequestDate,
                               style: AppStyles.r8.copyWith(
                                   color: AppColors.colorText1.withOpacity(0.85),
@@ -294,8 +264,8 @@ class DialogAdvancedSearchPage extends GetWidget {
                                 Expanded(
                                   flex: 1,
                                   child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      splashColor: Colors.transparent,
                                       onTap: () {
                                         _selectDate(context, controller, true);
                                       },
@@ -351,8 +321,8 @@ class DialogAdvancedSearchPage extends GetWidget {
                                 Expanded(
                                   flex: 1,
                                   child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      splashColor: Colors.transparent,
                                       onTap: () {
                                         _selectDate(context, controller, false);
                                       },
@@ -408,8 +378,8 @@ class DialogAdvancedSearchPage extends GetWidget {
                     ),
                   ),
                   InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     onTap: () {
                       Future.delayed(const Duration(milliseconds: 600));
                       if (controller.checkValidate(context)) {
@@ -449,7 +419,7 @@ class DialogAdvancedSearchPage extends GetWidget {
       firstDate: DateTime(2000),
       lastDate: DateTime(2025),
     );
-    if(picked == null) return;
+    if (picked == null) return;
     if (from) {
       control.setFromDate(picked!);
     } else {

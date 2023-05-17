@@ -1,4 +1,5 @@
-import 'package:bitel_ventas/main/networks/model/buy_anypay_model.dart';
+import 'package:bitel_ventas/main/networks/model/buy_anypay_comfirm_model.dart';
+import 'package:bitel_ventas/main/networks/model/buy_anypay_create_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -6,6 +7,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
+import '../../../../../networks/model/buy_anypay_search_model.dart';
 import '../../../../../utils/common.dart';
 import '../../../../../utils/common_widgets.dart';
 
@@ -23,7 +25,7 @@ class OrderManagementLogic extends GetxController {
   bool isSearched = false;
   bool isLoading = true;
 
-  List<BuyAnyPayModel> listBuyAnyPay = [];
+  List<BuyAnyPaySearchModel> listBuyAnyPay = [];
 
   OrderManagementLogic({required this.context});
 
@@ -130,6 +132,7 @@ class OrderManagementLogic extends GetxController {
       required String from,
       required String to}) {
     isLoading = true;
+    update();
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_SEARCH_BUY_ANYPAY,
       params: {
@@ -144,8 +147,8 @@ class OrderManagementLogic extends GetxController {
       onSuccess: (response) {
         isLoading = false;
         if (response.isSuccess) {
-          listBuyAnyPay = (response.data['data']['data'] as List)
-              .map((postJson) => BuyAnyPayModel.fromJson(postJson))
+          listBuyAnyPay = (response.data['data'] as List)
+              .map((postJson) => BuyAnyPaySearchModel.fromJson(postJson))
               .toList();
           update();
         } else {}

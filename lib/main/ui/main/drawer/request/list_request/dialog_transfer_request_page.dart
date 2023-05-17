@@ -246,7 +246,7 @@ class DialogTransferRequest extends GetWidget {
                             builder: (context) {
                               return SuccessDialog(
                                 text: AppLocalizations.of(context)!
-                                    .textSuccessAPI,
+                                    .textTransferRequestSuccessfully,
                                 onOk: () {
                                   Get.until(
                                     (route) {
@@ -256,6 +256,7 @@ class DialogTransferRequest extends GetWidget {
                                   );
                                   ListRequestLogic listRequestLogic =
                                       Get.find();
+                                  listRequestLogic.updateSearchRequestToIndex(0);
                                   listRequestLogic.refreshListRequest();
                                 },
                               );

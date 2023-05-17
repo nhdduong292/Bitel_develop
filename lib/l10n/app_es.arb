@@ -551,7 +551,7 @@
   "textCode": "Código",
   "textCurrentAnypay": "Anypay actual",
   "textAmountToBuy": "Monto a comprar",
-  "textTheMinimumIs100": "El mínimo es 100 y el máximo, 10000.",
+  "textTheMinimumIs100": "El mínimo es {amountMin} y el máximo {amountMax}.",
   "textEnterTheAmount": "Ingresa el monto",
   "textLegalConditions": "Condiciones legales",
   "textIHaveReadAndAcceptTheTerms": "He leido y acepto los términos, condiciones y restricciones",
@@ -624,7 +624,7 @@
   "textFilter": "Filtrar: ",
   "textThisMonth": "Este mes",
   "textLastMonth": "El mes pasado",
-  "textLast3Month": "Últimos 3 meses",
+  "textLast3Month": "Últimos 90 días",
 "textE050": "Falló el desbloqueo de la infraestructura",
 "textE051": "La solicitud ya ha sido cancelada",
 "textE052": "No se puede cancelar la solicitud si hay un contrato",
@@ -639,6 +639,18 @@
 "textCancelAnyway": "Cancelar de todos modos",
 "textTheAccountHasUnfinished": "La cuenta tiene trabajos inacabados.",
 "textReasonOfTermination": "Motivo de la rescisión",
- "textNoResultIsFound": "No se encuentra ningún resultado"
+ "textNoResultIsFound": "No se encuentra ningún resultado",
+  "textTransferRequestSuccessfully": "Solicitud de transferencia exitosa",
+  "textCaptchaIsNotCorrect": "El captcha no es correcto. ¡Inténtalo de nuevo!",
+  "textFTTHAccount": "Cuenta FTTH",
+"textE054": "¡Fracaso al cancelar la transacción de AnyPay!",
+"textE055": "Error al revocar el suscriptor GPON",
+"textE056": "Error al revocar el suscriptor AAA",
+"textE057": "El suscriptor ya tiene una solicitud de cancelación de servicio",
+"textE058": "Error general al obtener información de compra de AnyPay",
+"textE059": "Fracaso al crear la orden de AnyPay",
+"textE060": "Fracaso al confirmar la orden de AnyPay",
+"textE061": "Fracaso al cancelar AnyPay",
+"textE062": "Fracaso al iniciar sesión en AnyPay"
   
 }

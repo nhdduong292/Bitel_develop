@@ -46,23 +46,26 @@ class ListRequestLogic extends GetxController
   }
 
   void refreshListRequest() {
-    if (index == 1) {
-      globalKeyCreateRequest.currentState!.getListRequest(keySearch);
-    } else if (index == 2) {
-      globalKeySucceedSurvey.currentState!.getListRequest(keySearch);
-      // } else if (index == 2) {
-      //   globalKey3.currentState!.getListRequest(key);
-      // } else if (index == 3) {
-      //   globalKey4.currentState!.getListRequest(key);
-    } else if (index == 3) {
-      globalKeyDeploying.currentState!.getListRequest(keySearch);
-    } else if (index == 4) {
-      globalKeyComplete.currentState!.getListRequest(keySearch);
-    } else if (index == 5) {
-      globalKeyCancel.currentState!.getListRequest(keySearch);
-    } else if (index == 0) {
-      globalKeyAll.currentState!.getListRequest(keySearch);
-    }
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      if (index == 1) {
+        globalKeyCreateRequest.currentState!.getListRequest(keySearch);
+      } else if (index == 2) {
+        globalKeySucceedSurvey.currentState!.getListRequest(keySearch);
+        // } else if (index == 2) {
+        //   globalKey3.currentState!.getListRequest(key);
+        // } else if (index == 3) {
+        //   globalKey4.currentState!.getListRequest(key);
+      } else if (index == 3) {
+        globalKeyDeploying.currentState!.getListRequest(keySearch);
+      } else if (index == 4) {
+        globalKeyComplete.currentState!.getListRequest(keySearch);
+      } else if (index == 5) {
+        globalKeyCancel.currentState!.getListRequest(keySearch);
+      } else if (index == 0) {
+        globalKeyAll.currentState!.getListRequest(keySearch);
+      }
+    });
   }
 
   String getStatus(int index) {
@@ -103,9 +106,17 @@ class ListRequestLogic extends GetxController
   //   return "";
   // }
 
+  void updateSearchRequestToIndex(int index) {
+    index = index;
+    tabController!
+        .animateTo(index, duration: const Duration(milliseconds: 500));
+    update();
+  }
+
   void updateSearchRequest(SearchRequest model, BuildContext context) {
     index = model.getPositionStatus(context);
-    tabController!.animateTo(index, duration: Duration(milliseconds: 500));
+    tabController!
+        .animateTo(index, duration: const Duration(milliseconds: 500));
     searchRequest = model;
     update();
   }

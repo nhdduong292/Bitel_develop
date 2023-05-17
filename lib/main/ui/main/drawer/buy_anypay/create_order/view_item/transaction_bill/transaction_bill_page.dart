@@ -115,8 +115,7 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                                           ),
                                           Text(
                                             controller
-                                                    .buyAnyPayModel.bankCode ??
-                                                '---',
+                                                .buyAnyPayCreateModel.bankCode,
                                             style: AppStyles.r00A5B1_13_500
                                                 .copyWith(fontSize: 16),
                                           )
@@ -124,11 +123,13 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                                       ),
                                     ),
                                     InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      splashColor: Colors.transparent,
                                       onTap: () async {
                                         await Clipboard.setData(ClipboardData(
-                                            text: "00105182879881"));
+                                            text: controller
+                                                .buyAnyPayCreateModel
+                                                .bankCode));
                                         Common.showToastCenter(
                                             AppLocalizations.of(context)!
                                                 .textCopySuccess);
@@ -178,7 +179,7 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                           ),
                           _itemInfor(
                               title: AppLocalizations.of(context)!.textCode,
-                              content: controller.buyAnyPayModel.code ?? '---',
+                              content: controller.buyAnyPayCreateModel.code,
                               isColor: false),
                           DottedLine(
                             dashColor: Color(0xFFE3EAF2),
@@ -187,8 +188,7 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                           ),
                           _itemInfor(
                               title: AppLocalizations.of(context)!.textIDNumber,
-                              content:
-                                  controller.buyAnyPayModel.idNumber ?? '---',
+                              content: controller.buyAnyPayCreateModel.idNumber,
                               isColor: false),
                           DottedLine(
                             dashColor: Color(0xFFE3EAF2),
@@ -197,7 +197,7 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                           ),
                           _itemInfor(
                               title: AppLocalizations.of(context)!.textName,
-                              content: controller.buyAnyPayModel.name ?? '---',
+                              content: controller.buyAnyPayCreateModel.name,
                               isColor: false),
                           DottedLine(
                             dashColor: Color(0xFFE3EAF2),
@@ -207,7 +207,8 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                           _itemInfor(
                               title:
                                   '${AppLocalizations.of(context)!.textAmount} (1)',
-                              content: 'S/${controller.buyAnyPayModel.amount}',
+                              content:
+                                  'S/${controller.buyAnyPayCreateModel.amount}',
                               isColor: true),
                           DottedLine(
                             dashColor: Color(0xFFE3EAF2),
@@ -218,7 +219,7 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                               title:
                                   '${AppLocalizations.of(context)!.textDiscount} (2)',
                               content:
-                                  'S/${controller.buyAnyPayModel.discount}',
+                                  'S/${controller.buyAnyPayCreateModel.discount}',
                               isColor: true),
                           DottedLine(
                             dashColor: Color(0xFFE3EAF2),
@@ -228,7 +229,8 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                           _itemInfor(
                               title:
                                   '${AppLocalizations.of(context)!.textTotalAPagar} (1-2)',
-                              content: 'S/${controller.buyAnyPayModel.total}',
+                              content:
+                                  'S/${controller.buyAnyPayCreateModel.total}',
                               isColor: true),
                           DottedLine(
                             dashColor: Color(0xFFE3EAF2),
@@ -238,8 +240,8 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                           _itemInfor(
                               title:
                                   AppLocalizations.of(context)!.textDateAndHour,
-                              content: controller
-                                  .getCreationDate('2023-04-06T10:30:00Z'),
+                              content: controller.getCreationDate(controller
+                                  .buyAnyPayCreateModel.transactionDate),
                               isColor: false)
                         ]),
                   ),
