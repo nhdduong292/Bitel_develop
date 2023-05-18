@@ -662,6 +662,9 @@
   "textE059": "Create order anypay fail", 
   "textE060": "Confirm order anypay fail", 
   "textE061": "Cancle anypay fail", 
-  "textE062": "Login anypay fail"
+  "textE062": "Login anypay fail",
+  "textPlanInfor": "Plan information",
+  "textPeriodOfForcedTerm": "Period of forced term",
+  "textCancelationDateRequested": "Cancelation date requested"
   
 }

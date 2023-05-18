@@ -109,175 +109,19 @@ class PenaltyInformationPage extends GetView<PenaltyInformationLogic> {
                             height: 24,
                           ),
                           Container(
-                            padding: const EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(24),
-                              border: Border.all(
-                                  width: 1, color: AppColors.colorLineDash),
-                              boxShadow: [
-                                const BoxShadow(
-                                  offset: Offset(0, 2),
-                                  blurRadius: 2,
-                                  color: AppColors.colorLineDash,
-                                ),
-                              ],
+                            padding: const EdgeInsets.only(left: 2),
+                            child: Text(
+                              AppLocalizations.of(context)!.textPlanInfor,
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'Barlow',
+                                  fontSize: 14),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                    flex: 1,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(bottom: 2),
-                                          child: Text(
-                                            AppLocalizations.of(context)!
-                                                .textTypeOfService,
-                                            style: AppStyles.r6C8AA1_13_400,
-                                          ),
-                                        ),
-                                        Text(
-                                          controller
-                                              .findAccountModel.typeOfService,
-                                          style: AppStyles.rText1_13_500,
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 10),
-                                          child: Text(
-                                            AppLocalizations.of(context)!
-                                                .textServiceNumber,
-                                            style: AppStyles.r6C8AA1_13_400,
-                                          ),
-                                        ),
-                                        Text(
-                                          controller
-                                              .findAccountModel.serviceNumber
-                                              .toString(),
-                                          style: AppStyles.rText1_13_500,
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 22),
-                                          child: Text(
-                                            AppLocalizations.of(context)!
-                                                .textIDType,
-                                            style: AppStyles.r6C8AA1_13_400,
-                                          ),
-                                        ),
-                                        Text(
-                                          Common.getIdentityType(controller
-                                              .findAccountModel.idType),
-                                          style: AppStyles.rText1_13_500,
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 10),
-                                          child: Text(
-                                            AppLocalizations.of(context)!
-                                                .textName,
-                                            style: AppStyles.r6C8AA1_13_400,
-                                          ),
-                                        ),
-                                        Text(
-                                          controller.findAccountModel.name,
-                                          style: AppStyles.rText1_13_500,
-                                        )
-                                      ],
-                                    )),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Expanded(
-                                    flex: 1,
-                                    child: Container(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 2),
-                                            child: Text(
-                                              AppLocalizations.of(context)!
-                                                  .textPlan,
-                                              style: AppStyles.r6C8AA1_13_400,
-                                            ),
-                                          ),
-                                          Text(
-                                            controller.findAccountModel.plan,
-                                            style: AppStyles.rText1_13_500,
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 10, bottom: 4),
-                                            child: Text(
-                                              AppLocalizations.of(context)!
-                                                  .textStatus,
-                                              style: AppStyles.r6C8AA1_13_400,
-                                            ),
-                                          ),
-                                          Container(
-                                            padding: const EdgeInsets.only(
-                                                left: 8, right: 8, bottom: 2),
-                                            decoration: BoxDecoration(
-                                              color: AppColors.colorBackground3,
-                                              borderRadius:
-                                                  BorderRadius.circular(9),
-                                            ),
-                                            child: Text(
-                                              'Active',
-                                              style: AppStyles.rText1_13_500
-                                                  .copyWith(
-                                                      color: Colors.white),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 22),
-                                            child: Text(
-                                              AppLocalizations.of(context)!
-                                                  .textIDNumber,
-                                              style: AppStyles.r6C8AA1_13_400,
-                                            ),
-                                          ),
-                                          Text(
-                                            controller
-                                                .findAccountModel.idNumber,
-                                            style: AppStyles.rText1_13_500,
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 10),
-                                            child: Text(
-                                              "",
-                                              style: AppStyles.r6C8AA1_13_400,
-                                            ),
-                                          ),
-                                          Text(
-                                            "",
-                                            style: AppStyles.rText1_13_500,
-                                          )
-                                        ],
-                                      ),
-                                    ))
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
                           ),
                           Container(
-                            margin: const EdgeInsets.only(top: 10),
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            padding: const EdgeInsets.all(15),
                             alignment: Alignment.centerLeft,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),
@@ -288,16 +132,153 @@ class PenaltyInformationPage extends GetView<PenaltyInformationLogic> {
                                   BoxShadow(
                                       color: Color(0xFFE3EAF2), blurRadius: 3)
                                 ]),
-                            child: Column(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
                               children: [
-                                _paymentElement(
-                                    AppLocalizations.of(context)!
-                                        .textTotalAmount,
-                                    'S/.${controller.cancelServiceModel.totalPenalty}',
-                                    const Color(0xFF9454C9)),
+                                Expanded(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        controller.cancelServiceModel.product
+                                                .productName ??
+                                            '---',
+                                        style: const TextStyle(
+                                            fontSize: 13,
+                                            fontFamily: 'Barlow',
+                                            color: AppColors.colorText1,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      Text(
+                                        controller.cancelServiceModel.product
+                                                .productCode ??
+                                            '---',
+                                        style: const TextStyle(
+                                            fontSize: 13,
+                                            fontFamily: 'Barlow',
+                                            color: AppColors.colorText1,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      Text(
+                                        '${controller.cancelServiceModel.product.speed ?? '---'} Mpbs',
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          fontFamily: 'Barlow',
+                                          color: AppColors.colorText1,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 30, vertical: 10),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.colorSubContent
+                                        .withOpacity(0.07),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Text(
+                                    '${500} /${AppLocalizations.of(context)!.textMonth}',
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        fontFamily: 'Barlow',
+                                        color: AppColors.colorText3,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                ),
                               ],
                             ),
-                          )
+                          ),
+                          Visibility(
+                            visible:
+                                controller.cancelServiceModel.commitmentMonth >
+                                    0,
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.only(left: 2),
+                                  child: Text(
+                                    AppLocalizations.of(context)!
+                                        .textPeriodOfForcedTerm,
+                                    style: const TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w700,
+                                        fontFamily: 'Barlow',
+                                        fontSize: 14),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 2),
+                                  child: Text(
+                                    '${controller.cancelServiceModel.commitmentMonth} ${AppLocalizations.of(context)!.textMonth} (${controller.cancelServiceModel.startDateCommit != '' ? Common.fromDate(DateTime.parse(controller.cancelServiceModel.startDateCommit), 'dd/MM/yyyy') : ''} - ${controller.cancelServiceModel.endDateCommit != '' ? Common.fromDate(DateTime.parse(controller.cancelServiceModel.endDateCommit), 'dd/MM/yyyy') : ''})',
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      fontFamily: 'Barlow',
+                                      color: AppColors.colorText1,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(left: 2),
+                            child: Text(
+                              AppLocalizations.of(context)!
+                                  .textCancelationDateRequested,
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'Barlow',
+                                  fontSize: 14),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 2),
+                            child: Text(
+                              controller.cancelServiceModel.cancelDate != ''
+                                  ? Common.fromDate(
+                                      DateTime.parse(controller
+                                          .cancelServiceModel.cancelDate),
+                                      'dd/MM/yyyy')
+                                  : '',
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontFamily: 'Barlow',
+                                color: AppColors.colorText1,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          const DottedLine(
+                            dashColor: Color(0xFFE3EAF2),
+                            dashGapLength: 3,
+                            dashLength: 4,
+                          ),
+                          _paymentElement(
+                              AppLocalizations.of(context)!.textTotalAmount,
+                              'S/.${controller.cancelServiceModel.totalPenalty}',
+                              const Color(0xFF9454C9)),
                         ],
                       ),
                     ),

@@ -6,6 +6,8 @@ class CancelServiceModel {
   bool? _isPenalty;
   ProductModel? _product;
   int? _commitmentMonth;
+  String? _startDateCommit;
+  String? _endDateCommit;
   String? _cancelDate;
   double? _totalPenalty;
   int? _cancelOrderId;
@@ -21,6 +23,8 @@ class CancelServiceModel {
     }
 
     _commitmentMonth = json['commitmentMonth'];
+    _startDateCommit = json['startDateCommit'];
+    _endDateCommit = json['endDateCommit'];
     _cancelDate = json['cancelDate'];
     _totalPenalty = json['totalPenalty'];
     _cancelOrderId = json['cancelOrderId'];
@@ -36,7 +40,11 @@ class CancelServiceModel {
 
   int get commitmentMonth => _commitmentMonth ?? 0;
 
-  String get cancelDate => _cancelDate ?? "---";
+  String get cancelDate => _cancelDate ?? "";
+
+  String get startDateCommit => _startDateCommit ?? "";
+
+  String get endDateCommit => _endDateCommit ?? "";
 
   double get totalPenalty => _totalPenalty ?? 0;
 

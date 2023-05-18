@@ -8,6 +8,9 @@ class FindAccountModel {
   int? _idType;
   String? _idNumber;
   String? _name;
+  String? _phone;
+  String? _account;
+  String? _address;
 
   FindAccountModel();
 
@@ -21,6 +24,9 @@ class FindAccountModel {
     _idType = json['idType'];
     _idNumber = json['idNumber'];
     _name = json['name'];
+    _phone = json['phone'];
+    _account = json['account'];
+    _address = json['address'];
   }
 
   int get subId {
@@ -57,5 +63,17 @@ class FindAccountModel {
 
   String get name {
     return _name ?? '---';
+  }
+
+  String get phone {
+    return _phone ?? '---';
+  }
+
+  String get account {
+    return _account ?? '---';
+  }
+
+  String get address {
+    return _address ?? '---';
   }
 }

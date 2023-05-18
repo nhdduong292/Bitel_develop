@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 
 class ProductModel {
   int? productId;
+  int? offerId;
+  String? productCode;
   String? productName;
   String? offerName;
   String? defaultValue;
@@ -17,6 +19,8 @@ class ProductModel {
     offerName = json['offerName'];
     defaultValue = json['defaultValue'];
     speed = json['speed'];
+    offerId = json['offerId'];
+    productCode = json['productCode'];
   }
 
   double get productValue {

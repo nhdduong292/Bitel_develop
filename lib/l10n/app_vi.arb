@@ -648,5 +648,8 @@
 "textE059": "Lỗi tạo đơn hàng anypay",
 "textE060": "Lỗi xác nhận đơn hàng anypay",
 "textE061": "Lỗi hủy anypay",
-"textE062": "Lỗi đăng nhập anypay"
+"textE062": "Lỗi đăng nhập anypay",
+"textPlanInfor": "Thông tin kế hoạch",
+"textPeriodOfForcedTerm": "Thời gian của khoảng thời hạn bắt buộc",
+"textCancelationDateRequested": "Ngày yêu cầu hủy bỏ"
 }

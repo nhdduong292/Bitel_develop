@@ -1,7 +1,4 @@
 import 'package:bitel_ventas/main/networks/model/reasons_cancel_service_model.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_search_logic.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/choose_service/choose_service_page.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/find_service/find_service_page.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_images.dart';
@@ -101,131 +98,167 @@ class DateCancelService extends GetWidget {
                           ),
                         ],
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                              flex: 1,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 2),
-                                    child: Text(
-                                      AppLocalizations.of(context)!
-                                          .textTypeOfService,
-                                      style: AppStyles.r6C8AA1_13_400,
-                                    ),
-                                  ),
-                                  Text(
-                                    controller.findAccountModel.typeOfService,
-                                    style: AppStyles.rText1_13_500,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Text(
-                                      AppLocalizations.of(context)!
-                                          .textServiceNumber,
-                                      style: AppStyles.r6C8AA1_13_400,
-                                    ),
-                                  ),
-                                  Text(
-                                    controller.findAccountModel.serviceNumber
-                                        .toString(),
-                                    style: AppStyles.rText1_13_500,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 22),
-                                    child: Text(
-                                      AppLocalizations.of(context)!.textIDType,
-                                      style: AppStyles.r6C8AA1_13_400,
-                                    ),
-                                  ),
-                                  Text(
-                                    Common.getIdentityType(
-                                        controller.findAccountModel.idType),
-                                    style: AppStyles.rText1_13_500,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Text(
-                                      AppLocalizations.of(context)!.textName,
-                                      style: AppStyles.r6C8AA1_13_400,
-                                    ),
-                                  ),
-                                  Text(
-                                    controller.findAccountModel.name,
-                                    style: AppStyles.rText1_13_500,
-                                  )
-                                ],
-                              )),
-                          const SizedBox(
-                            width: 10,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                  flex: 1,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 2),
+                                        child: Text(
+                                          AppLocalizations.of(context)!
+                                              .textName,
+                                          style: AppStyles.r6C8AA1_13_400,
+                                        ),
+                                      ),
+                                      Text(
+                                        controller.findAccountModel.name,
+                                        style: AppStyles.rText1_13_500,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: Text(
+                                          AppLocalizations.of(context)!
+                                              .textPhone,
+                                          style: AppStyles.r6C8AA1_13_400,
+                                        ),
+                                      ),
+                                      Text(
+                                        controller.findAccountModel.phone,
+                                        style: AppStyles.rText1_13_500,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: Text(
+                                          AppLocalizations.of(context)!
+                                              .textAccount,
+                                          style: AppStyles.r6C8AA1_13_400,
+                                        ),
+                                      ),
+                                      Text(
+                                        controller.findAccountModel.account,
+                                        style: AppStyles.rText1_13_500,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: Text(
+                                          AppLocalizations.of(context)!
+                                              .textServiceNumber,
+                                          style: AppStyles.r6C8AA1_13_400,
+                                        ),
+                                      ),
+                                      Text(
+                                        controller
+                                            .findAccountModel.serviceNumber
+                                            .toString(),
+                                        style: AppStyles.rText1_13_500,
+                                      ),
+                                      // Padding(
+                                      //   padding: const EdgeInsets.only(top: 10),
+                                      //   child: Text(
+                                      //     AppLocalizations.of(context)!.textPhoneNumber,
+                                      //     style: AppStyles.r6C8AA1_13_400,
+                                      //   ),
+                                      // ),
+                                      // Text(
+                                      //   model.serviceNumber.toString(),
+                                      //   style: AppStyles.rText1_13_500,
+                                      // ),
+                                      // Padding(
+                                      //   padding: const EdgeInsets.only(top: 10),
+                                      //   child: Text(
+                                      //     AppLocalizations.of(context)!.textName,
+                                      //     style: AppStyles.r6C8AA1_13_400,
+                                      //   ),
+                                      // ),
+                                      // Text(
+                                      //   model.name,
+                                      //   style: AppStyles.rText1_13_500,
+                                      // )
+                                    ],
+                                  )),
+                              Expanded(
+                                  flex: 1,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 2),
+                                        child: Text(
+                                          AppLocalizations.of(context)!
+                                              .textStatus,
+                                          style: AppStyles.r6C8AA1_13_400,
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.only(
+                                            left: 8, right: 8, bottom: 2),
+                                        decoration: BoxDecoration(
+                                          color: AppColors.colorBackground3,
+                                          borderRadius:
+                                              BorderRadius.circular(9),
+                                        ),
+                                        child: Text(
+                                          'Active',
+                                          style: AppStyles.rText1_13_500
+                                              .copyWith(color: Colors.white),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: Text(
+                                          AppLocalizations.of(context)!
+                                              .textIDNumber,
+                                          style: AppStyles.r6C8AA1_13_400,
+                                        ),
+                                      ),
+                                      Text(
+                                        controller.findAccountModel.idNumber,
+                                        style: AppStyles.rText1_13_500,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 10, bottom: 4),
+                                        child: Text(
+                                          AppLocalizations.of(context)!
+                                              .textPlan,
+                                          style: AppStyles.r6C8AA1_13_400,
+                                        ),
+                                      ),
+                                      Text(
+                                        controller.findAccountModel.plan,
+                                        style: AppStyles.rText1_13_500,
+                                      ),
+                                    ],
+                                  )),
+                            ],
                           ),
-                          Expanded(
-                              flex: 1,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 2),
-                                    child: Text(
-                                      AppLocalizations.of(context)!.textPlan,
-                                      style: AppStyles.r6C8AA1_13_400,
-                                    ),
-                                  ),
-                                  Text(
-                                    controller.findAccountModel.plan,
-                                    style: AppStyles.rText1_13_500,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 10, bottom: 4),
-                                    child: Text(
-                                      AppLocalizations.of(context)!.textStatus,
-                                      style: AppStyles.r6C8AA1_13_400,
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 8, right: 8, bottom: 2),
-                                    decoration: BoxDecoration(
-                                      color: AppColors.colorBackground3,
-                                      borderRadius: BorderRadius.circular(9),
-                                    ),
-                                    child: Text(
-                                      'Active',
-                                      style: AppStyles.rText1_13_500
-                                          .copyWith(color: Colors.white),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 22),
-                                    child: Text(
-                                      AppLocalizations.of(context)!
-                                          .textIDNumber,
-                                      style: AppStyles.r6C8AA1_13_400,
-                                    ),
-                                  ),
-                                  Text(
-                                    controller.findAccountModel.idNumber,
-                                    style: AppStyles.rText1_13_500,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Text(
-                                      "",
-                                      style: AppStyles.r6C8AA1_13_400,
-                                    ),
-                                  ),
-                                  Text(
-                                    "",
-                                    style: AppStyles.rText1_13_500,
-                                  )
-                                ],
-                              ))
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Text(
+                              AppLocalizations.of(context)!
+                                  .textInstallationAddress,
+                              style: AppStyles.r6C8AA1_13_400,
+                            ),
+                          ),
+                          Text(
+                            controller.findAccountModel.address,
+                            style: AppStyles.rText1_13_500,
+                          ),
                         ],
                       ),
                     ),

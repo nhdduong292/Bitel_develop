@@ -651,6 +651,9 @@
 "textE059": "Fracaso al crear la orden de AnyPay",
 "textE060": "Fracaso al confirmar la orden de AnyPay",
 "textE061": "Fracaso al cancelar AnyPay",
-"textE062": "Fracaso al iniciar sesión en AnyPay"
+"textE062": "Fracaso al iniciar sesión en AnyPay",
+ "textPlanInfor": "Información del plan",
+"textPeriodOfForcedTerm": "Período de término forzado",
+"textCancelationDateRequested": "Fecha de cancelación solicitada"
   
 }
