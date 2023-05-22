@@ -143,7 +143,7 @@ class CancelServicePDFPage extends GetView<CancelServicePDFLogic> {
                                   onTap: () {
                                     Get.toNamed(RouteConfig.validateFingerprint,
                                         arguments: [
-                                          '',
+                                          'STAFF',
                                           controller.findAccountModel.custId,
                                           Common.getIdentityType(controller
                                               .findAccountModel.idType),

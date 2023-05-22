@@ -870,7 +870,9 @@ Widget spinnerFormV3({
 }
 
 Widget spinnerFormV2(
-    {required BuildContext context,
+    {double? fontSize,
+    double? width,
+    required BuildContext context,
     required String hint,
     required bool required,
     required String dropValue,
@@ -886,6 +888,7 @@ Widget spinnerFormV2(
   return Column(
     children: [
       Container(
+        width: width,
         height: height > 45 ? height : 45,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
@@ -901,9 +904,14 @@ Widget spinnerFormV2(
                     keyboardType: inputType,
                     autofocus: required,
                     textInputAction: typeAction,
-                    style: AppStyles.r2.copyWith(
-                        color: AppColors.colorTitle,
-                        fontWeight: FontWeight.w500),
+                    style: fontSize != null
+                        ? AppStyles.r2.copyWith(
+                            color: AppColors.colorTitle,
+                            fontWeight: FontWeight.w500,
+                            fontSize: fontSize)
+                        : AppStyles.r2.copyWith(
+                            color: AppColors.colorTitle,
+                            fontWeight: FontWeight.w500),
                     onChanged: (value) {
                       if (function != null) {
                         function.call(value);
@@ -917,8 +925,9 @@ Widget spinnerFormV2(
                     decoration: InputDecoration(
                       hintText: hint,
                       hintStyle: AppStyles.r2.copyWith(
-                          color: AppColors.colorHint1,
-                          fontWeight: FontWeight.w400),
+                        color: AppColors.colorHint1,
+                        fontWeight: FontWeight.w400,
+                      ),
                       border: InputBorder.none,
                     )),
               )
@@ -948,8 +957,14 @@ Widget spinnerFormV2(
                 items: listDrop.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem(value: value, child: Text(value));
                 }).toList(),
-                style: AppStyles.r2.copyWith(
-                    color: AppColors.colorTitle, fontWeight: FontWeight.w500),
+                style: fontSize != null
+                    ? AppStyles.r2.copyWith(
+                        color: AppColors.colorTitle,
+                        fontWeight: FontWeight.w500,
+                        fontSize: fontSize)
+                    : AppStyles.r2.copyWith(
+                        color: AppColors.colorTitle,
+                        fontWeight: FontWeight.w500),
                 icon: SvgPicture.asset(AppImages.icDropdownSpinner),
                 hint: hint.isNotEmpty
                     ? Text(
@@ -1382,12 +1397,18 @@ Widget selectTypeSearchService(
           buttonHeight: 60,
           items: listStatus.map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem(
-                value: value, child: Center(child: Text(value)));
+                value: value,
+                child: Center(
+                    child: Text(
+                  value,
+                )));
           }).toList(),
+
           style: AppStyles.r2.copyWith(
-              color: AppColors.color_415263,
+              color: AppColors.colorTitle,
               fontWeight: FontWeight.w500,
-              fontSize: 14),
+              fontSize: 16),
+          focusColor: AppColors.colorTitle,
           icon: SvgPicture.asset(AppImages.icDropdownSpinner),
           validator: (value) {
             if (value == null) {
@@ -1408,6 +1429,7 @@ Widget selectTypeSearchService(
                         width: 100,
                         margin: EdgeInsets.only(right: 10),
                         child: spinnerFormV2(
+                            fontSize: 14,
                             context: context,
                             hint: "",
                             required: false,
@@ -1431,7 +1453,8 @@ Widget selectTypeSearchService(
                         textInputAction: TextInputAction.send,
                         style: AppStyles.r2.copyWith(
                             color: AppColors.colorTitle,
-                            fontWeight: FontWeight.w500),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14),
                         onSubmitted: (value) {
                           onSubmit(value);
                         },
@@ -1485,7 +1508,8 @@ Widget selectTypeSearchService(
                         textInputAction: TextInputAction.send,
                         style: AppStyles.r2.copyWith(
                             color: AppColors.colorTitle,
-                            fontWeight: FontWeight.w500),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14),
                         onChanged: (value) {
                           onChangeText(value);
                         },

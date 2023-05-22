@@ -219,6 +219,19 @@ class DateCancelService extends GetWidget {
                                         ),
                                       ),
                                       Padding(
+                                        padding: const EdgeInsets.only(top: 8),
+                                        child: Text(
+                                          AppLocalizations.of(context)!
+                                              .textIDType,
+                                          style: AppStyles.r6C8AA1_13_400,
+                                        ),
+                                      ),
+                                      Text(
+                                        Common.getIdentityType(
+                                            controller.findAccountModel.idType),
+                                        style: AppStyles.rText1_13_500,
+                                      ),
+                                      Padding(
                                         padding: const EdgeInsets.only(top: 10),
                                         child: Text(
                                           AppLocalizations.of(context)!
@@ -292,59 +305,19 @@ class DateCancelService extends GetWidget {
                           const SizedBox(
                             height: 8,
                           ),
-                          Container(
-                            width: 300,
-                            height: 45,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(24),
-                                border:
-                                    Border.all(color: const Color(0xFFE3EAF2))),
-                            child: DropdownButtonFormField2(
-                              decoration: const InputDecoration(
-                                isDense: true,
-                                contentPadding: EdgeInsets.zero,
-                                border: InputBorder.none,
-                              ),
-                              // selectedItemHighlightColor: Colors.red,
-                              buttonHeight: 60,
-                              buttonPadding:
-                                  const EdgeInsets.only(left: 0, right: 10),
-                              dropdownDecoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(24),
-                                  border: Border.all(
-                                      color: const Color(0xFFE3EAF2))),
-                              isExpanded: true,
-                              // value: controller.currentReason.isNotEmpty ? controller.currentReason : null,
-                              onChanged: (value) {
-                                controller.currentReason = value!.id!;
-                                controller.update();
+                          spinnerFormV2(
+                              width: 300,
+                              isMaxlenght: true,
+                              context: context,
+                              hint: AppLocalizations.of(context)!.hintNote,
+                              required: false,
+                              dropValue: "",
+                              function: (value) {
+                                controller.setNote(value);
                               },
-                              items: controller.listReasons.map<
-                                      DropdownMenuItem<
-                                          ReasonCancelServiceModel>>(
-                                  (ReasonCancelServiceModel value) {
-                                return DropdownMenuItem(
-                                    value: value, child: Text(value.content!));
-                              }).toList(),
-                              style: AppStyles.r2.copyWith(
-                                  color: AppColors.colorTitle,
-                                  fontWeight: FontWeight.w500),
-                              icon:
-                                  SvgPicture.asset(AppImages.icDropdownSpinner),
-                              hint: Text(
-                                AppLocalizations.of(context)!.hintReason,
-                                style: AppStyles.r2.copyWith(
-                                    color: AppColors.colorHint1,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                              validator: (value) {
-                                if (value == null) {
-                                  return AppLocalizations.of(context)!
-                                      .textPleaseSelect;
-                                }
-                              },
-                            ),
-                          )
+                              listDrop: [],
+                              controlTextField: controller.tfNote,
+                              height: 100)
                         ],
                       ),
                     ),
@@ -570,11 +543,12 @@ class DateCancelService extends GetWidget {
 
   _selectDate(
       BuildContext context, DateCancelServiceLogic control, bool from) async {
+    DateTime firstDate = control.getFirstDate();
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: control.selectDate,
-      firstDate: DateTime.now(),
-      lastDate: DateTime(3000),
+      initialDate: firstDate,
+      firstDate: control.getFirstDate(),
+      lastDate: DateTime(firstDate.year, firstDate.month + 1, firstDate.day),
     );
     if (picked != null) {
       if (from) {

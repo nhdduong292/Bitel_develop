@@ -158,9 +158,22 @@ class ChooseServiceItemPage extends GetWidget {
                               ),
                             ),
                             Padding(
+                              padding: const EdgeInsets.only(
+                                top: 8,
+                              ),
+                              child: Text(
+                                AppLocalizations.of(context)!.textIDType,
+                                style: AppStyles.r6C8AA1_13_400,
+                              ),
+                            ),
+                            Text(
+                              Common.getIdentityType(model.idType),
+                              style: AppStyles.rText1_13_500,
+                            ),
+                            Padding(
                               padding: const EdgeInsets.only(top: 10),
                               child: Text(
-                                AppLocalizations.of(context)!.textIDNumber,
+                                AppLocalizations.of(context)!.textPlan,
                                 style: AppStyles.r6C8AA1_13_400,
                               ),
                             ),
@@ -169,8 +182,7 @@ class ChooseServiceItemPage extends GetWidget {
                               style: AppStyles.rText1_13_500,
                             ),
                             Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 10, bottom: 4),
+                              padding: const EdgeInsets.only(top: 10),
                               child: Text(
                                 AppLocalizations.of(context)!.textPlan,
                                 style: AppStyles.r6C8AA1_13_400,

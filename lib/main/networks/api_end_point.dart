@@ -1,6 +1,6 @@
 class ApiEndPoints {
   static const String DOMAIN = "http://181.176.242.147:9901/ftth";
-  static const String DOMAIN_TEST = "http://10.121.14.196:9092";
+  static const String DOMAIN_TEST = "http://10.121.14.196:9901";
   static const bool isDev = true; //todo true là test false la that
   static const String API_LIST_REQUEST =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/requests";
@@ -104,4 +104,10 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/reasons/cancel-service";
   static const String API_CHECK_DEBT_WO =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/cancel-service/check-debt-wo";
+  static const String API_BEST_FINGER_STAFF =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/cancel-service/get-staff-sample-finger";
+  static const String API_VALIDATE_STAFF_FINGER =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/cancel-service/validate-staff-finger";
+  static const String API_CHECK_OLD_CANCEL_SERVICE =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/cancel-service/check-old-request/subId";
 }

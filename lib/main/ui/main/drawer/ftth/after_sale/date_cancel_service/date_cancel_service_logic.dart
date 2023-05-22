@@ -13,7 +13,7 @@ class DateCancelServiceLogic extends GetxController {
   BuildContext context;
   FindAccountModel findAccountModel = FindAccountModel();
   bool isActive = true;
-  DateTime selectDate = DateTime.now();
+  DateTime selectDate = DateTime.now().add(const Duration(days: 7));
   DateTime? datePicker;
   var fromDate = "".obs;
   var toDate = "".obs;
@@ -22,15 +22,30 @@ class DateCancelServiceLogic extends GetxController {
   DateCancelServiceLogic({required this.context});
   CancelServiceModel cancelServiceModel = CancelServiceModel();
   List<ReasonCancelServiceModel> listReasons = [];
-  int currentReason = 0;
+  TextEditingController tfNote = TextEditingController();
+  String reasonCancel = '';
 
   @override
-  void onReady() {
-    // TODO: implement onReady
-    super.onReady();
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
     var data = Get.arguments;
     findAccountModel = data[0];
-    getReasons();
+  }
+
+  DateTime getFirstDate() {
+    if (DateTime.now().weekday == DateTime.saturday) {
+      return DateTime.now().add(const Duration(days: 6));
+    } else if (DateTime.now().weekday == DateTime.sunday) {
+      return DateTime.now().add(const Duration(days: 5));
+    } else {
+      return DateTime.now().add(const Duration(days: 7));
+    }
+  }
+
+  void setNote(String note) {
+    reasonCancel = note;
+    update();
   }
 
   void requestCanncel(var onSuccess) {
@@ -38,7 +53,7 @@ class DateCancelServiceLogic extends GetxController {
     Map<String, dynamic> body = {
       'subId': findAccountModel.subId,
       'cancelDate': datePicker?.toIso8601String(),
-      'reasonId': currentReason
+      'note': reasonCancel.trim()
     };
     ApiUtil.getInstance()!.post(
       url: ApiEndPoints.API_REQUEST_CANNCEL
@@ -90,7 +105,7 @@ class DateCancelServiceLogic extends GetxController {
   }
 
   void setDateNow() {
-    selectDate = DateTime.now();
+    selectDate = DateTime.now().add(const Duration(days: 7));
   }
 
   void setCheckAgree(bool value) {
@@ -99,32 +114,12 @@ class DateCancelServiceLogic extends GetxController {
   }
 
   bool checkActiveContinue() {
-    if (cancelDate.isNotEmpty && isCheckAgree && currentReason != 0) {
+    if (cancelDate.isNotEmpty &&
+        isCheckAgree &&
+        reasonCancel.trim().isNotEmpty) {
       return true;
     } else {
       return false;
     }
-  }
-
-  void getReasons() {
-    _onLoading(context);
-    ApiUtil.getInstance()!.get(
-      url: ApiEndPoints.API_GET_REASONS_CANCEL_SERVICE,
-      onSuccess: (response) {
-        Get.back();
-        if (response.isSuccess) {
-          listReasons = (response.data['data'] as List)
-              .map((postJson) => ReasonCancelServiceModel.fromJson(postJson))
-              .toList();
-        } else {
-          print("error: ${response.status}");
-        }
-        update();
-      },
-      onError: (error) {
-        Get.back();
-        Common.showMessageError(error: error, context: context);
-      },
-    );
   }
 }

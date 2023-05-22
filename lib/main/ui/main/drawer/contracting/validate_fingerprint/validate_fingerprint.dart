@@ -129,43 +129,54 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                             SizedBox(
                               height: 18,
                             ),
-                            DottedBorder(
-                              borderType: BorderType.RRect,
-                              radius: Radius.circular(26),
-                              dashPattern: [2, 2],
-                              strokeWidth: 1,
-                              color: Color(0xFF9454C9),
-                              child: SizedBox(
-                                width: 234,
-                                height: 41,
-                                child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      RichText(
-                                        text: TextSpan(
-                                            text:
-                                                '${controller.typeCustomer}: ',
-                                            style: AppStyles.r9454C9_14_500
-                                                .copyWith(
-                                                    fontSize: 13,
-                                                    fontWeight:
-                                                        FontWeight.w700),
-                                            children: [
-                                              TextSpan(
-                                                text: controller.idNumber,
-                                                style: AppStyles.r2B3A4A_12_500
-                                                    .copyWith(
-                                                        fontSize: 13,
-                                                        fontWeight:
-                                                            FontWeight.w400),
-                                              )
-                                            ]),
-                                      )
-                                    ]),
+                            Visibility(
+                              visible: controller.type != 'STAFF',
+                              child: Column(
+                                children: [
+                                  DottedBorder(
+                                    borderType: BorderType.RRect,
+                                    radius: Radius.circular(26),
+                                    dashPattern: [2, 2],
+                                    strokeWidth: 1,
+                                    color: Color(0xFF9454C9),
+                                    child: SizedBox(
+                                      width: 234,
+                                      height: 41,
+                                      child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            RichText(
+                                              text: TextSpan(
+                                                  text:
+                                                      '${controller.typeCustomer}: ',
+                                                  style: AppStyles
+                                                      .r9454C9_14_500
+                                                      .copyWith(
+                                                          fontSize: 13,
+                                                          fontWeight:
+                                                              FontWeight.w700),
+                                                  children: [
+                                                    TextSpan(
+                                                      text: controller.idNumber,
+                                                      style: AppStyles
+                                                          .r2B3A4A_12_500
+                                                          .copyWith(
+                                                              fontSize: 13,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400),
+                                                    )
+                                                  ]),
+                                            )
+                                          ]),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                ],
                               ),
-                            ),
-                            SizedBox(
-                              height: 20,
                             ),
                             Obx(
                               () => SizedBox(
@@ -191,8 +202,11 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                       style: AppStyles.r405264_14_500,
                                       children: [
                                         TextSpan(
-                                          text: AppLocalizations.of(context)!
-                                              .textCustomerFingerprint,
+                                          text: controller.type != 'STAFF'
+                                              ? AppLocalizations.of(context)!
+                                                  .textCustomerFingerprint
+                                              : AppLocalizations.of(context)!
+                                                  .textStaffFingerprint,
                                           style: AppStyles.r9454C9_14_500,
                                         ),
                                         TextSpan(
@@ -307,6 +321,18 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                                   controller
                                                       .cancelServiceInforModel,
                                                 ]);
+                                          }
+                                        },
+                                      );
+                                      return;
+                                    }
+                                    if (controller.type == 'STAFF') {
+                                      controller.validateStaffFinger(
+                                        (isSuccess) {
+                                          if (isSuccess) {
+                                            controller.type = '';
+                                            controller.getBestFinger();
+                                            controller.update();
                                           }
                                         },
                                       );

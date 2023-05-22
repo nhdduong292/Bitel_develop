@@ -19,6 +19,8 @@ import '../../../../../networks/api_util.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../services/settings_service.dart';
+import '../../../../../utils/shared_preference.dart';
+import '../../utilitis/info_bussiness.dart';
 
 class ValidateFingerprintLogic extends GetxController {
   late BuildContext context;
@@ -45,6 +47,9 @@ class ValidateFingerprintLogic extends GetxController {
     super.onInit();
     var data = Get.arguments;
     type = data[0];
+    // type empty TH validate cancel service
+    // type là Main hoặc Lending validate đăng kí hợp đồng
+    // type là staff valiate của nhân viên
     if (type.isNotEmpty) {
       cusId = data[1];
       typeCustomer = data[2];
@@ -62,7 +67,11 @@ class ValidateFingerprintLogic extends GetxController {
   void onReady() {
     // TODO: implement onReady
     super.onReady();
-    getBestFinger();
+    if (type == 'STAFF') {
+      getBestFingerStaff();
+    } else {
+      getBestFinger();
+    }
   }
 
   void setCapture(String value) {
@@ -150,6 +159,26 @@ class ValidateFingerprintLogic extends GetxController {
     );
   }
 
+  void getBestFingerStaff() {
+    ApiUtil.getInstance()!.get(
+      url: ApiEndPoints.API_BEST_FINGER_STAFF,
+      params: {"staffCode": InfoBusiness.getInstance()!.getUser().staffCode},
+      onSuccess: (response) {
+        if (response.isSuccess) {
+          bestFinger = BestFingerModel.fromJson(response.data['data']);
+          pathFinger.value = findPathFinger();
+          isGetFingerSuccess = true;
+          update();
+        } else {
+          print("error: ${response.status}");
+        }
+      },
+      onError: (error) {
+        Common.showMessageError(error: error, context: context);
+      },
+    );
+  }
+
   String findPathFinger() {
     if (bestFinger.left != 0) {
       if (bestFinger.left == 6) {
@@ -219,9 +248,7 @@ class ValidateFingerprintLogic extends GetxController {
   void signCancelService(Function(bool) isSuccess) {
     try {
       _onLoading(context);
-      Completer<bool> completer = Completer();
       Map<String, dynamic> body = {
-        // "finger": bestFinger.right != 0 ? bestFinger.right : bestFinger.left,
         "finger": bestFinger.right != 0 ? bestFinger.right : bestFinger.left,
         "listImage": listFinger,
         "pk": pk
@@ -235,6 +262,39 @@ class ValidateFingerprintLogic extends GetxController {
           if (response.isSuccess) {
             cancelServiceInforModel =
                 CancelServiceInforModel.fromJson(response.data['data']);
+            isSuccess.call(true);
+          } else {
+            isSuccess.call(false);
+            print("error: ${response.status}");
+          }
+        },
+        onError: (error) {
+          Get.back();
+          isSuccess.call(false);
+          Common.showMessageError(error: error, context: context);
+        },
+      );
+    } catch (e) {
+      Get.back();
+      Common.showToastCenter(e.toString());
+    }
+  }
+
+  void validateStaffFinger(Function(bool) isSuccess) {
+    try {
+      _onLoading(context);
+      Map<String, dynamic> body = {
+        "finger": bestFinger.right != 0 ? bestFinger.right : bestFinger.left,
+        "listImage": listFinger,
+        "pk": pk
+      };
+      ApiUtil.getInstance()!.post(
+        url: ApiEndPoints.API_VALIDATE_STAFF_FINGER,
+        params: {"staffCode": InfoBusiness.getInstance()!.getUser().staffCode},
+        body: body,
+        onSuccess: (response) {
+          Get.back();
+          if (response.isSuccess) {
             isSuccess.call(true);
           } else {
             isSuccess.call(false);

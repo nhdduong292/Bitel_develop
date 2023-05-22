@@ -64,6 +64,28 @@ class ChooseServiceLogic extends GetxController {
     );
   }
 
+  void checkOldRequest(var onSuccess) {
+    _onLoading(context);
+    ApiUtil.getInstance()!.get(
+      url: ApiEndPoints.API_CHECK_OLD_CANCEL_SERVICE.replaceAll(
+          'subId', listAccount[valueService.value].subId.toString()),
+      onSuccess: (response) {
+        Get.back();
+        if (response.isSuccess) {
+          onSuccess(true);
+        } else {
+          onSuccess(false);
+        }
+        update();
+      },
+      onError: (error) {
+        Get.back();
+        onSuccess(false);
+        Common.showMessageError(error: error, context: context);
+      },
+    );
+  }
+
   void requestCanncel(var onSuccess) {
     _onLoading(context);
     Map<String, dynamic> body = {

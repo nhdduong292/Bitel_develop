@@ -55,7 +55,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                         child: Obx(
                           () => RichText(
                             text: TextSpan(
-                                text: 'S/${controller.balance} ',
+                                text: 'S/${controller.balance}',
                                 style: AppStyles.r9454C9_14_500.copyWith(
                                     fontSize: 13, fontWeight: FontWeight.w700),
                                 children: [
@@ -216,7 +216,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                     children: [
                       _paymentElement(
                           controller.billModel.paymentName,
-                          'S/.${controller.billModel.fee}',
+                          'S/${controller.billModel.fee}',
                           const Color(0xFF415263)),
                       const DottedLine(
                         dashColor: Color(0xFFE3EAF2),
@@ -225,7 +225,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                       ),
                       _paymentElement(
                           AppLocalizations.of(context)!.textInstallationFee,
-                          'S/.${controller.billModel.installationFee}',
+                          'S/${controller.billModel.installationFee}',
                           const Color(0xFF415263)),
                       const DottedLine(
                         dashColor: Color(0xFFE3EAF2),
@@ -234,7 +234,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                       ),
                       _paymentElement(
                           AppLocalizations.of(context)!.textDiscount,
-                          'S/.${controller.billModel.discount}',
+                          'S/${controller.billModel.discount}',
                           const Color(0xFFD91C02)),
                       const DottedLine(
                         dashColor: Color(0xFFE3EAF2),
@@ -243,7 +243,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                       ),
                       _paymentElement(
                           AppLocalizations.of(context)!.textTotalAmount,
-                          'S/.${controller.billModel.total}',
+                          'S/${controller.billModel.total}',
                           const Color(0xFF9454C9)),
                     ],
                   ),

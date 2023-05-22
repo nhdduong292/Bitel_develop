@@ -60,11 +60,16 @@ class ChooseServicePage extends GetWidget {
                 } else if (controller.afterSaleSearchLogic.type ==
                     'TRANSFER_SERVICE') {
                 } else {
-                  controller.checkDebtWO((value) {
+                  controller.checkOldRequest((value) {
                     if (value) {
-                      controller.onCheckDebtWO();
+                      controller.checkDebtWO((value) {
+                        if (value) {
+                          controller.onCheckDebtWO();
+                        }
+                      });
                     }
                   });
+
                   // Get.toNamed(RouteConfig.dateCancelService, arguments: [
                   //   controller.listAccount[controller.valueService.value]
                   // ]);

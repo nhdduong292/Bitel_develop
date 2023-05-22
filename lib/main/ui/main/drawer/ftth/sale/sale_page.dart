@@ -313,12 +313,12 @@ class SalePage extends GetWidget {
                                                       : AppColors.colorText5
                                                           .withOpacity(0.5),
                                                   fontWeight: FontWeight.w400,
-                                                  fontSize: 14),
+                                                  fontSize: 12),
                                             ),
                                             Container(
                                               margin: index == 1
                                                   ? const EdgeInsets.only(
-                                                      left: 8)
+                                                      left: 4)
                                                   : const EdgeInsets.only(
                                                       left: 0),
                                               padding: index == 1
@@ -331,14 +331,14 @@ class SalePage extends GetWidget {
                                               child: index == 1
                                                   ? Text(
                                                       "${controller.getPerformanceKPI()}%",
-                                                      style: AppStyles
-                                                          .r2
+                                                      style: AppStyles.r2
                                                           .copyWith(
                                                               color: AppColors
                                                                   .color_83BF6E,
                                                               fontWeight:
                                                                   FontWeight
-                                                                      .w600),
+                                                                      .w600,
+                                                              fontSize: 12),
                                                     )
                                                   : const Text(""),
                                             )
