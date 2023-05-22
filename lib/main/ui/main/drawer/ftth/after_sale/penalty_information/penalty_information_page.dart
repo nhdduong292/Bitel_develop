@@ -198,6 +198,7 @@ class PenaltyInformationPage extends GetView<PenaltyInformationLogic> {
                                 controller.cancelServiceModel.commitmentMonth >
                                     0,
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const SizedBox(
                                   height: 10,
