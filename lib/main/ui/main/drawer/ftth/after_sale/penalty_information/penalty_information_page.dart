@@ -182,7 +182,7 @@ class PenaltyInformationPage extends GetView<PenaltyInformationLogic> {
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: Text(
-                                    '${500} /${AppLocalizations.of(context)!.textMonth}',
+                                    '${controller.cancelServiceModel.product.defaultValue} /${AppLocalizations.of(context)!.textMonth}',
                                     style: const TextStyle(
                                         fontSize: 16,
                                         fontFamily: 'Barlow',
@@ -239,8 +239,7 @@ class PenaltyInformationPage extends GetView<PenaltyInformationLogic> {
                           Container(
                             padding: const EdgeInsets.only(left: 2),
                             child: Text(
-                              AppLocalizations.of(context)!
-                                  .textCancelationDateRequested,
+                              AppLocalizations.of(context)!.textCancelationDate,
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w700,
@@ -278,7 +277,7 @@ class PenaltyInformationPage extends GetView<PenaltyInformationLogic> {
                           ),
                           _paymentElement(
                               AppLocalizations.of(context)!.textTotalAmount,
-                              'S/.${controller.cancelServiceModel.totalPenalty}',
+                              'S/${controller.cancelServiceModel.totalPenalty}',
                               const Color(0xFF9454C9)),
                         ],
                       ),

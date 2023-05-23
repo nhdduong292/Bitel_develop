@@ -47,14 +47,16 @@ class SettingService extends GetxService {
 
   Future<SettingService> init() async {
     prefs = await SharedPreferences.getInstance();
+
     ///ThemeMode
-    String themeModeCode = prefs.getString("themeModeCode") ?? ThemeMode.system.code;
+    String themeModeCode =
+        prefs.getString("themeModeCode") ?? ThemeMode.system.code;
     final themeMode = ThemeModeExtension.fromCode(themeModeCode);
     currentThemeMode.value = themeMode;
     Get.changeThemeMode(themeMode);
 
     ///Language
-    String languageCode = prefs.getString("languageCode") ?? window.locale.languageCode;
+    String languageCode = prefs.getString("languageCode") ?? 'es';
     // var locale = S.delegate.supportedLocales.firstWhere(
     //       (element) => element.languageCode == languageCode,
     //   orElse: () => Locale.fromSubtags(languageCode: "en"),
@@ -64,10 +66,11 @@ class SettingService extends GetxService {
     Get.updateLocale(locale);
     // version.value = packageInfo.version;
 
-    int timeRefreshToken = prefs.getInt(SPrefCache.PREF_KEY_REFRESH_TOKEN) ?? DateTime.now().millisecondsSinceEpoch;
+    int timeRefreshToken = prefs.getInt(SPrefCache.PREF_KEY_REFRESH_TOKEN) ??
+        DateTime.now().millisecondsSinceEpoch;
     int timeCurrent = DateTime.now().millisecondsSinceEpoch;
     int result = timeCurrent - timeRefreshToken;
-    if(result < Common.DAY && result > 0) {
+    if (result < Common.DAY && result > 0) {
       token.value = prefs.getString(SPrefCache.KEY_TOKEN) ?? "";
       if (token.value.isNotEmpty) {
         Map<String, dynamic> payload = Jwt.parseJwt(token.value);
@@ -94,8 +97,8 @@ class SettingService extends GetxService {
     Get.updateLocale(locale);
   }
 
-  bool getToken(){
-    if(token.value.isEmpty) {
+  bool getToken() {
+    if (token.value.isEmpty) {
       return false;
     } else {
       return true;
