@@ -247,7 +247,7 @@ class SalePage extends GetWidget {
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 3,
-                                      childAspectRatio: (width / 350),
+                                      childAspectRatio: (width / 400),
                                       crossAxisSpacing: 6.0,
                                       mainAxisSpacing: 10.0),
                               itemBuilder: (BuildContext context, int index) {
@@ -300,49 +300,51 @@ class SalePage extends GetWidget {
                                         const SizedBox(
                                           height: 6,
                                         ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              optionSale.unit,
-                                              style: AppStyles.r2.copyWith(
-                                                  color: optionSale.index ==
-                                                          controller.indexSelect
-                                                      ? AppColors.colorTitle
-                                                      : AppColors.colorText5
-                                                          .withOpacity(0.5),
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 12),
-                                            ),
-                                            Container(
-                                              margin: index == 1
-                                                  ? const EdgeInsets.only(
-                                                      left: 4)
-                                                  : const EdgeInsets.only(
-                                                      left: 0),
-                                              padding: index == 1
-                                                  ? const EdgeInsets.all(2)
-                                                  : const EdgeInsets.all(0),
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(4),
-                                                  color: Colors.white),
-                                              child: index == 1
-                                                  ? Text(
-                                                      "${controller.getPerformanceKPI()}%",
-                                                      style: AppStyles.r2
-                                                          .copyWith(
-                                                              color: AppColors
-                                                                  .color_83BF6E,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              fontSize: 12),
-                                                    )
-                                                  : const Text(""),
-                                            )
-                                          ],
+                                        Center(
+                                          child: Wrap(
+                                            children: [
+                                              Text(
+                                                optionSale.unit,
+                                                style: AppStyles.r2.copyWith(
+                                                    color: optionSale.index ==
+                                                            controller
+                                                                .indexSelect
+                                                        ? AppColors.colorTitle
+                                                        : AppColors.colorText5
+                                                            .withOpacity(0.5),
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 14),
+                                              ),
+                                              Container(
+                                                margin: index == 1
+                                                    ? const EdgeInsets.only(
+                                                        left: 4)
+                                                    : const EdgeInsets.only(
+                                                        left: 0),
+                                                padding: index == 1
+                                                    ? const EdgeInsets.all(2)
+                                                    : const EdgeInsets.all(0),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                    color: Colors.white),
+                                                child: index == 1
+                                                    ? Text(
+                                                        "${controller.getPerformanceKPI()}%",
+                                                        style: AppStyles.r2
+                                                            .copyWith(
+                                                                color: AppColors
+                                                                    .color_83BF6E,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontSize: 14),
+                                                      )
+                                                    : const Text(""),
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ],
                                     ),
