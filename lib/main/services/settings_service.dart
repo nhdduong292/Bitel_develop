@@ -38,7 +38,8 @@ class SettingService extends GetxService {
   final Rx<ThemeMode> currentThemeMode = ThemeMode.system.obs;
 
   // Language
-  final Rx<Locale> currentLocate = window.locale.obs;
+  final Rx<Locale> currentLocate =
+      const Locale.fromSubtags(languageCode: 'es').obs;
 
   late SharedPreferences prefs;
 
@@ -56,7 +57,7 @@ class SettingService extends GetxService {
     Get.changeThemeMode(themeMode);
 
     ///Language
-    String languageCode = prefs.getString("languageCode") ?? 'es';
+    String languageCode = prefs.getString("languageCodeCurrent") ?? 'es';
     // var locale = S.delegate.supportedLocales.firstWhere(
     //       (element) => element.languageCode == languageCode,
     //   orElse: () => Locale.fromSubtags(languageCode: "en"),
@@ -92,7 +93,7 @@ class SettingService extends GetxService {
     //       (element) => element.languageCode == locale.languageCode,
     //   orElse: () => Locale.fromSubtags(languageCode: "en"),
     // );
-    prefs.setString('languageCode', locale.languageCode);
+    prefs.setString('languageCodeCurrent', locale.languageCode);
     currentLocate.value = locale;
     Get.updateLocale(locale);
   }

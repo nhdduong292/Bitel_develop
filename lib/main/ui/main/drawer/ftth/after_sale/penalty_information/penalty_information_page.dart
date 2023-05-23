@@ -152,16 +152,6 @@ class PenaltyInformationPage extends GetView<PenaltyInformationLogic> {
                                             fontWeight: FontWeight.w500),
                                       ),
                                       Text(
-                                        controller.cancelServiceModel.product
-                                                .productCode ??
-                                            '---',
-                                        style: const TextStyle(
-                                            fontSize: 13,
-                                            fontFamily: 'Barlow',
-                                            color: AppColors.colorText1,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                      Text(
                                         '${controller.cancelServiceModel.product.speed ?? '---'} Mpbs',
                                         style: const TextStyle(
                                           fontSize: 12,
@@ -182,7 +172,7 @@ class PenaltyInformationPage extends GetView<PenaltyInformationLogic> {
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: Text(
-                                    '${controller.cancelServiceModel.product.defaultValue} /${AppLocalizations.of(context)!.textMonth}',
+                                    '${controller.cancelServiceModel.product.defaultValue}/${AppLocalizations.of(context)!.textMonth}',
                                     style: const TextStyle(
                                         fontSize: 16,
                                         fontFamily: 'Barlow',

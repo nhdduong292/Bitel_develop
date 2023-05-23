@@ -5,11 +5,13 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../../res/app_colors.dart';
 import '../../../../res/app_styles.dart';
 import '../../../router/route_config.dart';
+import '../../../utils/common.dart';
 import '../drawer/utilitis/info_bussiness.dart';
 
 class HomePage extends GetView<HomeLogic> {
@@ -54,8 +56,8 @@ class HomePage extends GetView<HomeLogic> {
             ),
             toolbarHeight: 280,
             leading: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
               child: Stack(
                 children: [
                   Padding(
@@ -74,9 +76,9 @@ class HomePage extends GetView<HomeLogic> {
                   Padding(
                     padding: EdgeInsets.only(right: 20, top: 20),
                     child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
-                      onTap: () {
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      onTap: () async {
                         // Get.toNamed(RouteConfig.forgotPassword);
                       },
                       child: SvgPicture.asset(AppImages.icNotification),
@@ -91,7 +93,8 @@ class HomePage extends GetView<HomeLogic> {
                 children: [
                   Image.asset(AppImages.icAvatarDefault),
                   SizedBox(height: 10),
-                  Text(InfoBusiness.getInstance()!.getUser().sub, style: AppStyles.b2),
+                  Text(InfoBusiness.getInstance()!.getUser().sub,
+                      style: AppStyles.b2),
                   SizedBox(height: 12),
                   Row(
                     children: [
