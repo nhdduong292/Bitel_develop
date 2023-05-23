@@ -18,7 +18,9 @@ class ContractUploadingLogic extends GetxController {
   File? pdfLendingContract;
   final pdf = pw.Document();
   var loadSuccess = false.obs;
+  bool valueCheckBox = false;
   bool isCamera = true;
+  bool valueCheckBypass = false;
 
   uploadImage(BuildContext context, bool isMain) async {
     isCamera = false;

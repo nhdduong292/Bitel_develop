@@ -3,6 +3,7 @@ import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_informatio
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/view_item/contract_information/contract_information.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/view_item/contract_preview/contract_preview.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/view_item/additional_information/additional_information.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/view_item/contract_uploading/contract_uploading_page.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -173,24 +174,29 @@ class CustommerInformationPage extends GetView<CustomerInformationLogic> {
                               },
                             );
                           } else {
-                            return ContractPreviewWidget(
-                              callback: (value) {
-                                Get.toNamed(RouteConfig.validateFingerprint,
-                                    arguments: [
-                                      value,
-                                      controller.customer.custId,
-                                      controller.getTypeCustomer(),
-                                      controller.customer.idNumber,
-                                      controller.contract.contractId
-                                    ])?.then((value) {
-                                  if (value != null && value) {
-                                    controller.checkMainContract.value = false;
-                                    controller.checkLendingContract.value =
-                                        true;
-                                  }
-                                });
-                              },
-                            );
+                            if (controller.valueCheckBypass) {
+                              return ContractUploadingPage();
+                            } else {
+                              return ContractPreviewWidget(
+                                callback: (value) {
+                                  Get.toNamed(RouteConfig.validateFingerprint,
+                                      arguments: [
+                                        value,
+                                        controller.customer.custId,
+                                        controller.getTypeCustomer(),
+                                        controller.customer.idNumber,
+                                        controller.contract.contractId
+                                      ])?.then((value) {
+                                    if (value != null && value) {
+                                      controller.checkMainContract.value =
+                                          false;
+                                      controller.checkLendingContract.value =
+                                          true;
+                                    }
+                                  });
+                                },
+                              );
+                            }
                           }
                         }),
                   ),

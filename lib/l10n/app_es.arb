@@ -654,6 +654,12 @@
  "textPlanInfor": "Información del plan",
 "textPeriodOfForcedTerm": "Período de término forzado",
 "textCancelationDateRequested": "Fecha de cancelación solicitada",
-"textStaffFingerprint": "Huella dactilar del personal"
+"textStaffFingerprint": "Huella dactilar del personal",
+"textContractUploading": "Cargando contrato",
+"textScanOrUploadImagesForMainContract": "Escanear o subir imágenes para el contrato principal",
+"textUpload": "Subir",
+"textScanOrUploadImagesForLendingContract": "Escanear o subir imágenes para el contrato de préstamo",
+"textUploadContractLater": "Subir contrato más tarde",
+"textBypassFingerprint": "Saltar huella dactilar"
   
 }
