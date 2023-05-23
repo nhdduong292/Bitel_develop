@@ -652,5 +652,11 @@
 "textPlanInfor": "Thông tin kế hoạch",
 "textPeriodOfForcedTerm": "Thời gian của khoảng thời hạn bắt buộc",
 "textCancelationDateRequested": "Ngày yêu cầu hủy bỏ",
-"textStaffFingerprint": "Dấu vân tay của nhân viên "
+"textStaffFingerprint": "Dấu vân tay của nhân viên",
+"textContractUploading": "Đang tải lên hợp đồng",
+"textScanOrUploadImagesForMainContract": "Quét hoặc tải lên hình ảnh cho hợp đồng chính",
+"textUpload": "Tải lên",
+"textScanOrUploadImagesForLendingContract": "Quét hoặc tải lên hình ảnh cho hợp đồng cho vay",
+"textUploadContractLater": "Tải lên hợp đồng sau",
+"textBypassFingerprint": "Bỏ qua vân tay"
 }

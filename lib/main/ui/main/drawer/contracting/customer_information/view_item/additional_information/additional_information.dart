@@ -31,15 +31,16 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
     return FocusScope(
       node: controller.focusScopeNode,
       child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
         },
         child: SingleChildScrollView(
           child: Column(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
                   margin: EdgeInsets.only(left: 10, right: 10),
@@ -124,8 +125,8 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                           controller.showButtonContinue();
                         }),
                     InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
                       onTap: () {
                         showDialog(
                           barrierDismissible: false,
@@ -168,6 +169,29 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                       controller.checkOption.value = value;
                       controller.isActiveUpdate = value;
                     }),
+                Visibility(
+                  visible: controller.isShowBypass,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 2, right: 20),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Checkbox(
+                            activeColor: AppColors.colorText3,
+                            value: controller.valueCheckBypass,
+                            onChanged: (value) {
+                              controller.valueCheckBypass = value ?? false;
+                              controller.update();
+                            }),
+                        Text(
+                          '${AppLocalizations.of(context)!.textBypassFingerprint}.',
+                          style: AppStyles.r2B3A4A_12_500.copyWith(fontSize: 14),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
                 SizedBox(
                     width: width,
                     child: Row(
@@ -382,8 +406,8 @@ class BillAddressInformation extends Dialog {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
                   onTap: () {
                     Get.back(result: false);
                   },

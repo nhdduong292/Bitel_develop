@@ -1,3 +1,4 @@
+import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/view_item/contract_uploading/contract_uploading_page.dart';
 import 'package:bitel_ventas/main/ui/main/home/home_logic.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:flutter/material.dart';

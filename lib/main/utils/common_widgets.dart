@@ -1314,7 +1314,7 @@ Widget customRadioMutiple(
             width: width * 0.75,
             child: Text(
               text,
-              style: AppStyles.r2B3A4A_12_500,
+              style: AppStyles.r2B3A4A_12_500.copyWith(fontSize: 14),
             )),
       ]),
     ),

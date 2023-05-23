@@ -110,4 +110,8 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/cancel-service/validate-staff-finger";
   static const String API_CHECK_OLD_CANCEL_SERVICE =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/cancel-service/check-old-request/subId";
+  static const String API_CHECK_BUY_PASS =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/customers/check-bypass";
+  static const String API_UPLOAD_CONTRACT =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts/contractId/upload-contract";
 }

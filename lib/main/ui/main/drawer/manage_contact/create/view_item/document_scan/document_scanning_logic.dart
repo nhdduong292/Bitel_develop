@@ -120,7 +120,7 @@ class DocumentScanningLogic extends GetxController {
     Map<String, dynamic> body = {
       "requests": [
         {
-          "image": "${Common.convertImageFileToBase64(File(textPathScan))}",
+          "image": Common.convertImageFileToBase64(File(textPathScan)),
           "features": [
             {"type": "TEXT_DETECTION"}
           ]

@@ -11,13 +11,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:pdf/pdf.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:pdf/widgets.dart' as pw;
 
 import '../../../../../networks/model/address_model.dart';
 
@@ -77,6 +80,18 @@ class CustomerInformationLogic extends GetxController {
 
   final FocusScopeNode focusScopeNode = FocusScopeNode();
 
+  bool valueCheckBypass = false;
+  bool isShowBypass = false;
+
+  List<File> listFileMainContract = [];
+  List<File> listFileLendingContract = [];
+  File? pdfMainContract;
+  File? pdfLendingContract;
+  var pdf = pw.Document();
+  var loadSuccess = false.obs;
+  bool valueCheckBox = false;
+  bool isCamera = true;
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -118,6 +133,7 @@ class CustomerInformationLogic extends GetxController {
     // TODO: implement onReady
     super.onReady();
     titleScreen.value = AppLocalizations.of(context)!.textCustomerInformation;
+    checkBypass();
   }
 
   String getSex() {
@@ -450,32 +466,6 @@ class CustomerInformationLogic extends GetxController {
     }
   }
 
-  // Future<List<AddressModel>> getAreas(String query) {
-  //   Completer<List<AddressModel>> completer = Completer();
-  //   ApiUtil.getInstance()!.get(
-  //       url: ApiEndPoints.API_SEARCH_AREAS,
-  //       params: {'key': query},
-  //       onSuccess: (response) {
-  //         if (response.isSuccess) {
-  //           print("success");
-  //           listArea = (response.data['data'] as List)
-  //               .map((postJson) => AddressModel.fromJson(postJson))
-  //               .toList();
-  //           completer.complete(listArea);
-  //         } else {
-  //           print("error: ${response.status}");
-  //           completer.complete([]);
-  //         }
-  //       },
-  //       onError: (error) {
-  //         Get.back();
-  //         Common.showMessageError(error: error, context: context);
-  //         completer.complete([]);
-  //         // callBack.call(false);
-  //       });
-  //   return completer.future;
-  // }
-
   Future<List<AddressModel>> getAreas(String query) {
     Completer<List<AddressModel>> completer = Completer();
     ApiUtil.getInstance()!.get(
@@ -500,5 +490,172 @@ class CustomerInformationLogic extends GetxController {
           // callBack.call(false);
         });
     return completer.future;
+  }
+
+  void checkBypass() {
+    _onLoading(context);
+    Map<String, dynamic> params = {
+      "idType": customer.type,
+      "idNo": customer.idNumber
+    };
+    ApiUtil.getInstance()!.get(
+      url: ApiEndPoints.API_CHECK_BUY_PASS,
+      params: params,
+      onSuccess: (response) {
+        Get.back();
+        if (response.isSuccess) {
+          isShowBypass = true;
+          update();
+        } else {}
+      },
+      onError: (error) {
+        Get.back();
+        Common.showMessageError(error: error, context: context);
+      },
+    );
+  }
+
+  uploadImage(BuildContext context, bool isMain) async {
+    isCamera = false;
+    if (isMain) {
+      listFileMainContract.clear();
+    } else {
+      listFileLendingContract.clear();
+    }
+    try {
+      final List<XFile> selectedImages = await ImagePicker().pickMultiImage();
+      if (selectedImages.isNotEmpty) {
+        for (var image in selectedImages) {
+          if (isMain) {
+            listFileMainContract.add(File(image.path));
+          } else {
+            listFileLendingContract.add(File(image.path));
+          }
+        }
+        update();
+      }
+    } on Exception catch (e) {
+      // TODO
+      print(e.toString());
+      Common.showToastCenter(e.toString());
+    }
+  }
+
+  getFromGallery(BuildContext context, bool isMain) async {
+    if (!isCamera) {
+      if (isMain) {
+        listFileMainContract.clear();
+      } else {
+        listFileLendingContract.clear();
+      }
+    }
+    isCamera = true;
+    try {
+      final pickedFile =
+          await ImagePicker().pickImage(source: ImageSource.camera);
+      if (isMain) {
+        listFileMainContract.add(File(pickedFile!.path));
+      } else {
+        listFileLendingContract.add(File(pickedFile!.path));
+      }
+    } catch (e) {}
+    update();
+  }
+
+  createPDF(bool isMain) async {
+    pdf = pw.Document();
+    List<File> list = [];
+    if (isMain) {
+      list = listFileMainContract;
+    } else {
+      list = listFileLendingContract;
+    }
+    for (var img in list) {
+      final image = pw.MemoryImage(img.readAsBytesSync());
+      pdf.addPage(pw.Page(
+          pageFormat: PdfPageFormat.a4,
+          build: (pw.Context contex) {
+            return pw.Center(child: pw.Image(image));
+          }));
+    }
+  }
+
+  savePDF(bool isMain, var onSuccess) async {
+    try {
+      final dir = Platform.isAndroid
+          ? await getExternalStorageDirectory() //FOR ANDROID
+          : await getApplicationSupportDirectory(); //FOR iOS
+      if (isMain) {
+        final file = File('${dir?.path}/main_contract.pdf');
+        await file.writeAsBytes(await pdf.save());
+        pdfMainContract = file;
+      } else {
+        final file = File('${dir?.path}/lending_contract.pdf');
+        await file.writeAsBytes(await pdf.save());
+        pdfLendingContract = file;
+      }
+      onSuccess(true);
+    } catch (e) {
+      onSuccess(false);
+      print(e.toString());
+    }
+  }
+
+  void uploadContract(var onSuccess) {
+    _onLoading(context);
+    Map<String, dynamic> body = {
+      "mainContract": Common.convertImageFileToBase64(pdfMainContract!),
+      "lendingContract": Common.convertImageFileToBase64(pdfLendingContract!)
+    };
+    ApiUtil.getInstance()!.put(
+      url: ApiEndPoints.API_UPLOAD_CONTRACT
+          .replaceAll('contractId', contract.contractId.toString()),
+      body: body,
+      onSuccess: (response) {
+        Get.back();
+        if (response.isSuccess) {
+          onSuccess(true);
+        } else {}
+      },
+      onError: (error) {
+        Get.back();
+        onSuccess(false);
+        Common.showMessageError(error: error, context: context);
+      },
+    );
+  }
+
+  void signContract(Function(bool) isSuccess, String type) {
+    try {
+      _onLoading(context);
+      Completer<bool> completer = Completer();
+      Map<String, dynamic> body = {
+        "isBypass": true,
+      };
+      Map<String, dynamic> params = {"type": type};
+      ApiUtil.getInstance()!.put(
+        url: ApiEndPoints.API_SIGN_CONTRACT
+            .replaceAll('id', contract.contractId.toString()),
+        body: body,
+        params: params,
+        onSuccess: (response) {
+          Get.back();
+          if (response.isSuccess) {
+            isSuccess.call(true);
+          } else {
+            isSuccess.call(false);
+            print("error: ${response.status}");
+          }
+        },
+        onError: (error) {
+          Get.back();
+          isSuccess.call(false);
+          Common.showMessageError(error: error, context: context);
+        },
+      );
+    } catch (e) {
+      Get.back();
+      Common.showToastCenter(e.toString());
+    }
   }
 }
