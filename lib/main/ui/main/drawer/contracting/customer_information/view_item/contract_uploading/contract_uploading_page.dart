@@ -76,7 +76,6 @@ class ContractUploadingPage extends GetView<CustomerInformationLogic> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Expanded(flex: 1, child: SizedBox()),
                             Expanded(
                                 flex: 2,
                                 child: bottomButtonV2(
@@ -93,7 +92,6 @@ class ContractUploadingPage extends GetView<CustomerInformationLogic> {
                                     onTap: () {
                                       controller.uploadImage(context, true);
                                     })),
-                            const Expanded(flex: 1, child: SizedBox()),
                           ],
                         ),
                         Visibility(
@@ -175,7 +173,6 @@ class ContractUploadingPage extends GetView<CustomerInformationLogic> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Expanded(flex: 1, child: SizedBox()),
                             Expanded(
                                 flex: 2,
                                 child: bottomButtonV2(
@@ -192,7 +189,6 @@ class ContractUploadingPage extends GetView<CustomerInformationLogic> {
                                     onTap: () {
                                       controller.uploadImage(context, false);
                                     })),
-                            const Expanded(flex: 1, child: SizedBox()),
                           ],
                         ),
                         Visibility(
@@ -226,22 +222,31 @@ class ContractUploadingPage extends GetView<CustomerInformationLogic> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Checkbox(
-                          activeColor: AppColors.colorText3,
-                          value: controller.valueCheckBox,
-                          onChanged: (value) {
-                            controller.valueCheckBox = value ?? false;
-                            controller.update();
-                          }),
-                      Text(
-                        '${AppLocalizations.of(context)!.textUploadContractLater}.',
-                        style: AppStyles.r2B3A4A_12_500.copyWith(fontSize: 14),
-                      )
-                    ],
+                  child: InkWell(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    onTap: () {
+                      controller.valueCheckBox = !controller.valueCheckBox;
+                      controller.update();
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Checkbox(
+                            activeColor: AppColors.colorText3,
+                            value: controller.valueCheckBox,
+                            onChanged: (value) {
+                              controller.valueCheckBox = value ?? false;
+                              controller.update();
+                            }),
+                        Text(
+                          '${AppLocalizations.of(context)!.textUploadContractLater}.',
+                          style:
+                              AppStyles.r2B3A4A_12_500.copyWith(fontSize: 14),
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 Container(
@@ -257,27 +262,32 @@ class ContractUploadingPage extends GetView<CustomerInformationLogic> {
                         .toUpperCase(),
                     onTap: () {
                       if (controller.listFileMainContract.isEmpty ||
-                          controller.listFileLendingContract.isEmpty) {
+                          controller.listFileLendingContract.isEmpty ||
+                          controller.isLoadingConvertBase64) {
                         return;
                       }
-                      controller.createPDF(true);
-                      controller.savePDF(true, (isSuccessMain) {
-                        if (isSuccessMain) {
-                          controller.createPDF(false);
-                          controller.savePDF(false, (isSuccessLending) {
-                            if (isSuccessLending) {
-                              controller.createPDF(true);
-                              controller.savePDF(false, (isSuccess) {
-                                if (isSuccess) {
-                                  if (!controller.valueCheckBox) {
-                                    controller.uploadContract((isSuccess) {
-                                      if (isSuccess) {
-                                        controller.signContract(
-                                            (p0) => {
-                                                  if (p0)
-                                                    {
-                                                      controller.signContract(
-                                                          (p1) => {
+                      if (!controller.valueCheckBox) {
+                        controller.showLoading();
+                        controller.isLoadingConvertBase64 = true;
+                        controller.createPDF(true);
+                        controller.savePDF(true, (isSuccessMain) {
+                          if (isSuccessMain) {
+                            controller.createPDF(false);
+                            controller.savePDF(false, (isSuccessLending) {
+                              if (isSuccessLending) {
+                                Get.back();
+                                controller.isLoadingConvertBase64 = false;
+                                controller.createPDF(true);
+                                controller.uploadContract((isSuccess) {
+                                  if (isSuccess) {
+                                    controller.signContract(
+                                        (p0) => {
+                                              if (p0)
+                                                {
+                                                  controller.signContract(
+                                                      (p1) => {
+                                                            if (p1)
+                                                              {
                                                                 Get.toNamed(
                                                                     RouteConfig
                                                                         .ftthContracting,
@@ -286,40 +296,41 @@ class ContractUploadingPage extends GetView<CustomerInformationLogic> {
                                                                           .contract
                                                                           .contractId,
                                                                     ])
-                                                              },
-                                                          'LENDING')
-                                                    }
-                                                },
-                                            'MAIN');
-                                      }
-                                    });
-                                  } else {
-                                    controller.signContract(
-                                        (p0) => {
-                                              if (p0)
-                                                {
-                                                  controller.signContract(
-                                                      (p1) => {
-                                                            Get.toNamed(
-                                                                RouteConfig
-                                                                    .ftthContracting,
-                                                                arguments: [
-                                                                  controller
-                                                                      .contract
-                                                                      .contractId,
-                                                                ])
+                                                              }
                                                           },
                                                       'LENDING')
                                                 }
                                             },
                                         'MAIN');
                                   }
-                                }
-                              });
-                            }
-                          });
-                        }
-                      });
+                                });
+                              }
+                            });
+                          }
+                        });
+                      } else {
+                        controller.signContract(
+                            (p0) => {
+                                  if (p0)
+                                    {
+                                      controller.signContract(
+                                          (p1) => {
+                                                if (p1)
+                                                  {
+                                                    Get.toNamed(
+                                                        RouteConfig
+                                                            .ftthContracting,
+                                                        arguments: [
+                                                          controller.contract
+                                                              .contractId,
+                                                        ])
+                                                  }
+                                              },
+                                          'LENDING')
+                                    }
+                                },
+                            'MAIN');
+                      }
                     },
                   ),
                 )

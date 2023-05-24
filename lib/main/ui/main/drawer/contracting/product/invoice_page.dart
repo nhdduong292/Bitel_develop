@@ -55,7 +55,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                         child: Obx(
                           () => RichText(
                             text: TextSpan(
-                                text: 'S/${controller.balance}',
+                                text: 'S/${controller.balance} ',
                                 style: AppStyles.r9454C9_14_500.copyWith(
                                     fontSize: 13, fontWeight: FontWeight.w700),
                                 children: [
@@ -175,7 +175,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
-                          '${controller.billModel.product.defaultValue ?? 'null'} /${AppLocalizations.of(context)!.textMonth}',
+                          '${controller.billModel.product.defaultValue ?? 'null'}/${AppLocalizations.of(context)!.textMonth}',
                           style: const TextStyle(
                               fontSize: 16,
                               fontFamily: 'Barlow',

@@ -170,25 +170,35 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                       controller.isActiveUpdate = value;
                     }),
                 Visibility(
-                  visible: controller.isShowBypass,
+                  visible: controller.customer.type == 'DNI',
                   child: Padding(
                     padding: const EdgeInsets.only(left: 2, right: 20),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Checkbox(
-                            activeColor: AppColors.colorText3,
-                            value: controller.valueCheckBypass,
-                            onChanged: (value) {
-                              controller.valueCheckBypass = value ?? false;
-                              controller.update();
-                            }),
-                        Text(
-                          '${AppLocalizations.of(context)!.textBypassFingerprint}.',
-                          style: AppStyles.r2B3A4A_12_500.copyWith(fontSize: 14),
-                        )
-                      ],
+                    child: InkWell(
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      onTap: () {
+                        controller.valueCheckBypass =
+                            !controller.valueCheckBypass;
+                        controller.update();
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Checkbox(
+                              activeColor: AppColors.colorText3,
+                              value: controller.valueCheckBypass,
+                              onChanged: (value) {
+                                controller.valueCheckBypass = value ?? false;
+                                controller.update();
+                              }),
+                          Text(
+                            '${AppLocalizations.of(context)!.textBypassFingerprint}.',
+                            style:
+                                AppStyles.r2B3A4A_12_500.copyWith(fontSize: 14),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -225,11 +235,23 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                                       Common.showToastCenter(AppLocalizations
                                               .of(context)!
                                           .textUpdateCustomerInformationSuccessfully);
-                                      callback();
+                                      if (controller.valueCheckBypass) {
+                                        controller.checkBypass((isSuccess) {
+                                          callback();
+                                        });
+                                      } else {
+                                        callback();
+                                      }
                                     } else {}
                                   });
                                 } else {
-                                  callback();
+                                  if (controller.valueCheckBypass) {
+                                    controller.checkBypass((isSuccess) {
+                                      callback();
+                                    });
+                                  } else {
+                                    callback();
+                                  }
                                 }
                               },
                               color: !controller.isActiveContinue

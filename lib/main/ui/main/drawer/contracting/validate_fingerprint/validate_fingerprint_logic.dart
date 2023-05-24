@@ -146,6 +146,14 @@ class ValidateFingerprintLogic extends GetxController {
       onSuccess: (response) {
         if (response.isSuccess) {
           bestFinger = BestFingerModel.fromJson(response.data['data']);
+          if (bestFinger.left == 0 && bestFinger.right == 0) {
+            Common.showSystemErrorLoginDialog(
+                context, AppLocalizations.of(context)!.textBestFingerNotExit,
+                () {
+              Get.back();
+            });
+            return;
+          }
           pathFinger.value = findPathFinger();
           isGetFingerSuccess = true;
           update();
@@ -166,6 +174,11 @@ class ValidateFingerprintLogic extends GetxController {
       onSuccess: (response) {
         if (response.isSuccess) {
           bestFinger = BestFingerModel.fromJson(response.data['data']);
+          if (bestFinger.left == 0 && bestFinger.right == 0) {
+            Common.showSystemErrorDialog(
+                context, AppLocalizations.of(context)!.textBestFingerNotExit);
+            return;
+          }
           pathFinger.value = findPathFinger();
           isGetFingerSuccess = true;
           update();
@@ -212,9 +225,8 @@ class ValidateFingerprintLogic extends GetxController {
   void signContract(Function(bool) isSuccess) {
     try {
       _onLoading(context);
-      Completer<bool> completer = Completer();
       Map<String, dynamic> body = {
-        "finger": bestFinger.right != 0 ? bestFinger.right : bestFinger.left,
+        "finger": bestFinger.left != 0 ? bestFinger.left : bestFinger.right,
         "listImage": listFinger,
         "pk": pk
       };

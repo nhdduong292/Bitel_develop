@@ -42,6 +42,7 @@ class AfterSaleSearchPage extends GetWidget {
                       SvgPicture.asset(
                         AppImages.bgAppbar,
                         width: width,
+                        fit: BoxFit.fitHeight,
                       ),
                       Positioned(
                         top: 50,

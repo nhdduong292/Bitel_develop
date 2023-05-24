@@ -658,5 +658,6 @@
 "textUpload": "Tải lên",
 "textScanOrUploadImagesForLendingContract": "Quét hoặc tải lên hình ảnh cho hợp đồng cho vay",
 "textUploadContractLater": "Tải lên hợp đồng sau",
-"textBypassFingerprint": "Bỏ qua vân tay"
+"textBypassFingerprint": "Bỏ qua vân tay",
+"textBestFingerNotExit": "Vân tay tốt nhất không tồn tại"
 }

@@ -78,6 +78,10 @@ class FindServicePage extends GetWidget {
                       return;
                     }
 
+                    if (controller.checkValidate()) {
+                      return;
+                    }
+
                     FocusScope.of(context).requestFocus(FocusNode());
                     controller.getAccounts((isSuccess) {
                       if (isSuccess) {
@@ -114,7 +118,7 @@ class FindServicePage extends GetWidget {
                     ),
                     child: Center(
                         child: Text(
-                      AppLocalizations.of(context)!.textContinue.toUpperCase(),
+                      AppLocalizations.of(context)!.textSearch.toUpperCase(),
                       style: controller.isActive
                           ? AppStyles.r1.copyWith(fontWeight: FontWeight.w500)
                           : AppStyles.r5.copyWith(fontWeight: FontWeight.w500),

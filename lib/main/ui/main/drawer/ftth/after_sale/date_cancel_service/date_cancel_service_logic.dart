@@ -17,7 +17,7 @@ class DateCancelServiceLogic extends GetxController {
   DateTime? datePicker;
   var fromDate = "".obs;
   var toDate = "".obs;
-  bool isCheckAgree = true;
+  bool isCheckAgree = false;
   String cancelDate = '';
   DateCancelServiceLogic({required this.context});
   CancelServiceModel cancelServiceModel = CancelServiceModel();

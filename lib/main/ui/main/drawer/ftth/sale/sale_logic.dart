@@ -57,7 +57,7 @@ class SaleLogic extends GetxController {
 
   void setDate(String month) {
     if (month == AppLocalizations.of(context)!.textThisMonth) {
-      fromDate = DateTime(now.year, now.month, now.day - 30).toIso8601String();
+      fromDate = DateTime(now.year, now.month, 1).toIso8601String();
       toDate = now.toIso8601String();
     } else if (month == AppLocalizations.of(context)!.textLastMonth) {
       final int numberOfDaysInCurrentMonth =

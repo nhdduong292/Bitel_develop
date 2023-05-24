@@ -42,10 +42,13 @@ class CancelServicePDFPage extends GetView<CancelServicePDFLogic> {
                     Positioned(
                       top: 50,
                       left: 70,
-                      child: Text(
-                          AppLocalizations.of(context)!
-                              .textCancellationRequestForm,
-                          style: AppStyles.title),
+                      child: SizedBox(
+                        width: 250,
+                        child: Text(
+                            AppLocalizations.of(context)!
+                                .textCancellationRequestForm,
+                            style: AppStyles.title),
+                      ),
                     ),
                     Positioned(
                         top: 45,
@@ -141,6 +144,9 @@ class CancelServicePDFPage extends GetView<CancelServicePDFLogic> {
                                       .textSignContract
                                       .toUpperCase(),
                                   onTap: () {
+                                    if (!controller.checkOption.value) {
+                                      return;
+                                    }
                                     Get.toNamed(RouteConfig.validateFingerprint,
                                         arguments: [
                                           'STAFF',

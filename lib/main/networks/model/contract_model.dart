@@ -54,7 +54,7 @@ class ContractModel {
     _fullNameCus = value;
   }
 
-  String get operationCode => _operationCode ?? "";
+  String get operationCode => _operationCode ?? "---";
 
   set operationCode(String value) {
     _operationCode = value;

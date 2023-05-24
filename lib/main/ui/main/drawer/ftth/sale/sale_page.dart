@@ -149,7 +149,7 @@ class SalePage extends GetWidget {
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 3,
-                                      childAspectRatio: (width / 320),
+                                      childAspectRatio: (width / 330),
                                       crossAxisSpacing: 6.0,
                                       mainAxisSpacing: 10.0),
                               itemBuilder: (BuildContext context, int index) {

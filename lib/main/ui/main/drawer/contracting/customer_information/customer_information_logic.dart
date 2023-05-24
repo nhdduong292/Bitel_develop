@@ -91,6 +91,7 @@ class CustomerInformationLogic extends GetxController {
   var loadSuccess = false.obs;
   bool valueCheckBox = false;
   bool isCamera = true;
+  bool isLoadingConvertBase64 = false;
 
   @override
   void onInit() {
@@ -133,7 +134,6 @@ class CustomerInformationLogic extends GetxController {
     // TODO: implement onReady
     super.onReady();
     titleScreen.value = AppLocalizations.of(context)!.textCustomerInformation;
-    checkBypass();
   }
 
   String getSex() {
@@ -492,7 +492,7 @@ class CustomerInformationLogic extends GetxController {
     return completer.future;
   }
 
-  void checkBypass() {
+  void checkBypass(var onSuccess) {
     _onLoading(context);
     Map<String, dynamic> params = {
       "idType": customer.type,
@@ -505,11 +505,13 @@ class CustomerInformationLogic extends GetxController {
         Get.back();
         if (response.isSuccess) {
           isShowBypass = true;
-          update();
+          // update();
+          onSuccess(true);
         } else {}
       },
       onError: (error) {
         Get.back();
+        onSuccess(false);
         Common.showMessageError(error: error, context: context);
       },
     );
@@ -562,6 +564,10 @@ class CustomerInformationLogic extends GetxController {
     update();
   }
 
+  void showLoading() {
+    _onLoading(context);
+  }
+
   createPDF(bool isMain) async {
     pdf = pw.Document();
     List<File> list = [];
@@ -596,6 +602,9 @@ class CustomerInformationLogic extends GetxController {
       }
       onSuccess(true);
     } catch (e) {
+      isLoadingConvertBase64 = false;
+      Get.back();
+      Common.showMessageError(context: context, error: "");
       onSuccess(false);
       print(e.toString());
     }

@@ -306,7 +306,7 @@ class DateCancelService extends GetWidget {
                             height: 8,
                           ),
                           spinnerFormV2(
-                              width: 300,
+                              fontSize: 14,
                               isMaxlenght: true,
                               context: context,
                               hint: AppLocalizations.of(context)!.hintNote,

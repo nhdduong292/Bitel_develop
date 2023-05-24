@@ -98,6 +98,7 @@ class HomePage extends GetView<HomeLogic> {
                       style: AppStyles.b2),
                   SizedBox(height: 12),
                   Row(
+                    mainAxisSize: MainAxisSize.max,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,10 +114,11 @@ class HomePage extends GetView<HomeLogic> {
                           thickness: 1,
                           indent: 5,
                           endIndent: 0,
-                          width: 38,
+                          width: 20,
                         ),
                       ),
                       Column(
+                        mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text("USUARIO", style: AppStyles.b3),

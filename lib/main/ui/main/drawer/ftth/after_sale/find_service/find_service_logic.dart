@@ -103,6 +103,22 @@ class FindServiceLogic extends GetxController {
     }
   }
 
+  bool containsOnlyUpperCaseAndNumber(String text) {
+    RegExp upperCaseAndNumberRegExp = RegExp(r'^[A-Z0-9]*$');
+    return upperCaseAndNumberRegExp.hasMatch(text);
+  }
+
+  bool checkValidate() {
+    if (currentStatus == getListStatus()[0] &&
+        currentIdentityType == 'PP' &&
+        !containsOnlyUpperCaseAndNumber(currentEnter)) {
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textValidateIdentityPP);
+      return true;
+    }
+    return false;
+  }
+
   void getAccounts(var onSuccess) {
     _onLoading(context);
     ApiUtil.getInstance()!.get(
