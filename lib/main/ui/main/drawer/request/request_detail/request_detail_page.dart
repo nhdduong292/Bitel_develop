@@ -421,7 +421,7 @@ class RequestDetailPage extends GetWidget {
                                                       .requestModel
                                                       .contractModel
                                                       .signDate),
-                                                  'dd/MM/yyyy')
+                                                  'dd/MM/yyyy hh:MM:ss')
                                               : "---",
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,

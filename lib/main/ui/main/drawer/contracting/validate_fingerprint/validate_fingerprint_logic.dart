@@ -154,7 +154,6 @@ class ValidateFingerprintLogic extends GetxController {
             });
             return;
           }
-          pathFinger.value = findPathFinger();
           isGetFingerSuccess = true;
           update();
         } else {
@@ -179,7 +178,6 @@ class ValidateFingerprintLogic extends GetxController {
                 context, AppLocalizations.of(context)!.textBestFingerNotExit);
             return;
           }
-          pathFinger.value = findPathFinger();
           isGetFingerSuccess = true;
           update();
         } else {
@@ -192,8 +190,8 @@ class ValidateFingerprintLogic extends GetxController {
     );
   }
 
-  String findPathFinger() {
-    if (bestFinger.left != 0) {
+  String findPathFinger(bool isLeft) {
+    if (isLeft) {
       if (bestFinger.left == 6) {
         return AppImages.imgFingerLeftThumb;
       } else if (bestFinger.left == 7) {

@@ -12,6 +12,7 @@ import '../../../../../../res/app_images.dart';
 import '../../../../../../res/app_styles.dart';
 import '../../../../../router/route_config.dart';
 import '../../../../../utils/common_widgets.dart';
+import '../../request/list_request/list_request_logic.dart';
 import 'invoice_page.dart';
 
 class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
@@ -80,6 +81,15 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                                       .index ==
                                   0) {
                                 Get.back();
+                                bool isExit =
+                                    Get.isRegistered<ListRequestLogic>();
+                                if (isExit) {
+                                  ListRequestLogic listRequestLogic =
+                                      Get.find();
+                                  listRequestLogic
+                                      .updateSearchRequestToIndex(2);
+                                  listRequestLogic.refreshListRequest();
+                                }
                               } else {
                                 controller.isOnInvoicePage.value = false;
                                 controller.isOnMethodPage.value = true;

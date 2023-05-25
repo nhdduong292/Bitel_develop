@@ -31,8 +31,8 @@ class ListRequestPage extends GetWidget {
             leading: Padding(
               padding: const EdgeInsets.only(left: 18, bottom: 18, top: 2),
               child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
                 child: SvgPicture.asset(AppImages.icBack),
                 onTap: () {
                   Get.back();
@@ -42,8 +42,8 @@ class ListRequestPage extends GetWidget {
             elevation: 0.0,
             actions: [
               InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
                 onTap: () {
                   Get.toNamed(RouteConfig.createRequest);
                 },
@@ -154,8 +154,8 @@ class ListRequestPage extends GetWidget {
                         ),
                       ),
                       InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
                         onTap: () {
                           showDialogAdvanceSearch(context, controller);
                         },
@@ -273,6 +273,18 @@ class ListRequestPage extends GetWidget {
                                     fontWeight: FontWeight.w600),
                               ),
                             )),
+                            Expanded(
+                                child: Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 20, left: 16, right: 15),
+                              child: Text(
+                                textAlign: TextAlign.end,
+                                '${controller.currentTotal}/${controller.total}',
+                                style: AppStyles.r6.copyWith(
+                                    color: AppColors.colorText1,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ))
                             // InkWell(
                             // highlightColor: Colors.transparent,
                             // splashColor: Colors.transparent,
@@ -309,11 +321,21 @@ class ListRequestPage extends GetWidget {
                               status: RequestStatus.ALL,
                               listRequestLogic: controller,
                               key: controller.globalKeyAll,
+                              callbackTotalRequest: (currentTotal, total) {
+                                controller.currentTotal = currentTotal;
+                                controller.total = total;
+                                controller.update();
+                              },
                             ),
                             ListRequestTabPage(
                               status: RequestStatus.CREATE_REQUEST,
                               listRequestLogic: controller,
                               key: controller.globalKeyCreateRequest,
+                              callbackTotalRequest: (currentTotal, total) {
+                                controller.currentTotal = currentTotal;
+                                controller.total = total;
+                                controller.update();
+                              },
                             ),
                             // ListRequestTabPage(
                             //   status:
@@ -330,21 +352,41 @@ class ListRequestPage extends GetWidget {
                               status: RequestStatus.SUCCEED_SURVEY,
                               listRequestLogic: controller,
                               key: controller.globalKeySucceedSurvey,
+                              callbackTotalRequest: (currentTotal, total) {
+                                controller.currentTotal = currentTotal;
+                                controller.total = total;
+                                controller.update();
+                              },
                             ),
                             ListRequestTabPage(
                               status: RequestStatus.DEPLOYING,
                               listRequestLogic: controller,
                               key: controller.globalKeyDeploying,
+                              callbackTotalRequest: (currentTotal, total) {
+                                controller.currentTotal = currentTotal;
+                                controller.total = total;
+                                controller.update();
+                              },
                             ),
                             ListRequestTabPage(
                               status: RequestStatus.COMPLETE,
                               listRequestLogic: controller,
                               key: controller.globalKeyComplete,
+                              callbackTotalRequest: (currentTotal, total) {
+                                controller.currentTotal = currentTotal;
+                                controller.total = total;
+                                controller.update();
+                              },
                             ),
                             ListRequestTabPage(
                               status: RequestStatus.CANCEL,
                               listRequestLogic: controller,
                               key: controller.globalKeyCancel,
+                              callbackTotalRequest: (currentTotal, total) {
+                                controller.currentTotal = currentTotal;
+                                controller.total = total;
+                                controller.update();
+                              },
                             ),
                           ],
                         )),

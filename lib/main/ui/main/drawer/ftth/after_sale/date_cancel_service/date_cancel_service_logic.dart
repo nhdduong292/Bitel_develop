@@ -31,6 +31,7 @@ class DateCancelServiceLogic extends GetxController {
     super.onInit();
     var data = Get.arguments;
     findAccountModel = data[0];
+    setToDate(getFirstDate());
   }
 
   DateTime getFirstDate() {
@@ -114,9 +115,7 @@ class DateCancelServiceLogic extends GetxController {
   }
 
   bool checkActiveContinue() {
-    if (cancelDate.isNotEmpty &&
-        isCheckAgree &&
-        reasonCancel.trim().isNotEmpty) {
+    if (cancelDate.isNotEmpty && isCheckAgree) {
       return true;
     } else {
       return false;

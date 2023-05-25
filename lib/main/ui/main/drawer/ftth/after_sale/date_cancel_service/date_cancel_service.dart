@@ -10,6 +10,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../../../router/route_config.dart';
 import '../../../../../../utils/common.dart';
@@ -213,7 +214,8 @@ class DateCancelService extends GetWidget {
                                               BorderRadius.circular(9),
                                         ),
                                         child: Text(
-                                          'Active',
+                                          AppLocalizations.of(context)!
+                                              .textActive,
                                           style: AppStyles.rText1_13_500
                                               .copyWith(color: Colors.white),
                                         ),
@@ -546,9 +548,11 @@ class DateCancelService extends GetWidget {
     DateTime firstDate = control.getFirstDate();
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: firstDate,
+      initialDate:
+          control.cancelDate.isNotEmpty ? control.datePicker! : firstDate,
       firstDate: control.getFirstDate(),
-      lastDate: DateTime(firstDate.year, firstDate.month + 1, firstDate.day),
+      lastDate: DateTime(
+          DateTime.now().year, DateTime.now().month + 1, DateTime.now().day),
     );
     if (picked != null) {
       if (from) {

@@ -19,15 +19,19 @@ import '../../../../../../utils/common.dart';
 class ListRequestTabPage extends StatefulWidget {
   String status;
   ListRequestLogic listRequestLogic;
+  Function callbackTotalRequest;
 
   ListRequestTabPage(
-      {required this.status, required this.listRequestLogic, required Key key})
+      {required this.status,
+      required this.listRequestLogic,
+      required Key key,
+      required this.callbackTotalRequest})
       : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return ListRequestTabState(status, listRequestLogic);
+    return ListRequestTabState(status, listRequestLogic, callbackTotalRequest);
   }
 }
 
@@ -42,8 +46,10 @@ class ListRequestTabState extends State<ListRequestTabPage> {
   SaleLogic saleLogic = Get.find();
   static const int PAGE_NUM = 10;
   int page = 0;
+  Function callbackTotalRequest;
 
-  ListRequestTabState(this.status, this.listRequestLogic);
+  ListRequestTabState(
+      this.status, this.listRequestLogic, this.callbackTotalRequest);
 
   @override
   void initState() {
@@ -153,6 +159,7 @@ class ListRequestTabState extends State<ListRequestTabPage> {
             setState(() {
               listRequest.addAll(listRequestResponse.list);
             });
+            callbackTotalRequest(listRequest.length, listRequestResponse.total);
           } else {
             print("error: ${response.status}");
           }

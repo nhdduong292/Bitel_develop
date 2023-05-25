@@ -660,6 +660,8 @@
 "textUpload": "Subir",
 "textScanOrUploadImagesForLendingContract": "Escanear o subir imágenes para el contrato de préstamo",
 "textUploadContractLater": "Subir contrato más tarde",
-"textBypassFingerprint": "Saltar huella dactilar"
+"textBypassFingerprint": "Saltar huella dactilar",
+"textBestFingerNotExit": "Mejor dedo no salir.",
+"textActive" : "Activo"
   
 }

@@ -152,7 +152,7 @@ class ChooseServiceItemPage extends GetWidget {
                                 borderRadius: BorderRadius.circular(9),
                               ),
                               child: Text(
-                                'Active',
+                                AppLocalizations.of(context)!.textActive,
                                 style: AppStyles.rText1_13_500
                                     .copyWith(color: Colors.white),
                               ),

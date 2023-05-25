@@ -18,6 +18,7 @@ import '../../../../../../res/app_colors.dart';
 import '../../../../../../res/app_images.dart';
 import '../../../../../../res/app_styles.dart';
 import '../../../../../router/route_config.dart';
+import '../../utilitis/info_bussiness.dart';
 
 class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
   @override
@@ -129,64 +130,77 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                             SizedBox(
                               height: 18,
                             ),
-                            Visibility(
-                              visible: controller.type != 'STAFF',
-                              child: Column(
-                                children: [
-                                  DottedBorder(
-                                    borderType: BorderType.RRect,
-                                    radius: Radius.circular(26),
-                                    dashPattern: [2, 2],
-                                    strokeWidth: 1,
-                                    color: Color(0xFF9454C9),
-                                    child: SizedBox(
-                                      width: 234,
-                                      height: 41,
-                                      child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            RichText(
-                                              text: TextSpan(
-                                                  text:
-                                                      '${controller.typeCustomer}: ',
-                                                  style: AppStyles
-                                                      .r9454C9_14_500
-                                                      .copyWith(
-                                                          fontSize: 13,
-                                                          fontWeight:
-                                                              FontWeight.w700),
-                                                  children: [
-                                                    TextSpan(
-                                                      text: controller.idNumber,
-                                                      style: AppStyles
-                                                          .r2B3A4A_12_500
-                                                          .copyWith(
-                                                              fontSize: 13,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400),
-                                                    )
-                                                  ]),
-                                            )
-                                          ]),
-                                    ),
+                            Column(
+                              children: [
+                                DottedBorder(
+                                  borderType: BorderType.RRect,
+                                  radius: Radius.circular(26),
+                                  dashPattern: [2, 2],
+                                  strokeWidth: 1,
+                                  color: Color(0xFF9454C9),
+                                  child: SizedBox(
+                                    width: 234,
+                                    height: 41,
+                                    child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          RichText(
+                                            text: TextSpan(
+                                                text:
+                                                    '${controller.type == 'STAFF' ? Common.getIdentityType(InfoBusiness.getInstance()!.getUser().idType) : controller.typeCustomer}: ',
+                                                style: AppStyles.r9454C9_14_500
+                                                    .copyWith(
+                                                        fontSize: 13,
+                                                        fontWeight:
+                                                            FontWeight.w700),
+                                                children: [
+                                                  TextSpan(
+                                                    text: controller.type ==
+                                                            'STAFF'
+                                                        ? InfoBusiness
+                                                                .getInstance()!
+                                                            .getUser()
+                                                            .idNo
+                                                        : controller.idNumber,
+                                                    style: AppStyles
+                                                        .r2B3A4A_12_500
+                                                        .copyWith(
+                                                            fontSize: 13,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400),
+                                                  )
+                                                ]),
+                                          )
+                                        ]),
                                   ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                ],
-                              ),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                              ],
                             ),
-                            Obx(
-                              () => SizedBox(
-                                child: controller.pathFinger.value != ''
-                                    ? Image.asset(
-                                        controller.pathFinger.value,
-                                        fit: BoxFit.fitHeight,
-                                      )
-                                    : LoadingCirculApi(),
-                              ),
+                            SizedBox(
+                              child: controller.isGetFingerSuccess
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Image.asset(
+                                          controller.findPathFinger(true),
+                                          fit: BoxFit.fitHeight,
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Image.asset(
+                                          controller.findPathFinger(false),
+                                          fit: BoxFit.fitHeight,
+                                        ),
+                                      ],
+                                    )
+                                  : LoadingCirculApi(),
                             ),
                             SizedBox(
                               height: 12,

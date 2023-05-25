@@ -271,7 +271,9 @@ class CreateRequestLogic extends GetxController {
             print("success");
             customerModel = CustomerModel.fromJson(response.data["data"]);
 
-            textFieldName.text = customerModel.name;
+            textFieldName.text = customerModel.fullName.isNotEmpty
+                ? customerModel.fullName
+                : customerModel.name;
             currentName = customerModel.name;
             textFieldPhone.text = customerModel.telFax;
             currentPhone = customerModel.telFax;

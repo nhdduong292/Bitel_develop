@@ -673,6 +673,7 @@
   "textScanOrUploadImagesForLendingContract": "Scan or upload images for lending contract",
   "textUploadContractLater": "Upload contract later",
   "textBypassFingerprint": "Bypass fingerprint",
-  "textBestFingerNotExit": "Mejor dedo no salir"
+  "textBestFingerNotExit": "Best finger not exit.",
+  "textActive" : "Active"
   
 }

@@ -25,6 +25,8 @@ class ListRequestLogic extends GetxController
   GlobalKey<ListRequestTabState> globalKeyAll = GlobalKey();
 
   String keySearch = '';
+  int currentTotal = 0;
+  int total = 0;
   @override
   void onInit() {
     // TODO: implement onInit
