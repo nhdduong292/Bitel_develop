@@ -18,10 +18,10 @@ class HomeLogic extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    initConnectivity();
+    // initConnectivity();
 
-    _connectivitySubscription =
-        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    // _connectivitySubscription =
+    //     _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
   }
 
   Future<void> initConnectivity() async {

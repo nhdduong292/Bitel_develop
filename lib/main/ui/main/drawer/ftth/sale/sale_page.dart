@@ -466,7 +466,7 @@ class SalePage extends GetWidget {
                               children: [
                                 GridView.builder(
                                   itemCount: controller
-                                      .getListOptionSale(context)
+                                      .getListOptionSaleWithPermission()
                                       .length,
                                   shrinkWrap: true,
                                   physics: const ScrollPhysics(),
@@ -479,7 +479,8 @@ class SalePage extends GetWidget {
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     OptionSale optionSale = controller
-                                        .getListOptionSale(context)[index];
+                                            .getListOptionSaleWithPermission()[
+                                        index];
                                     return InkWell(
                                       highlightColor: Colors.transparent,
                                       splashColor: Colors.transparent,

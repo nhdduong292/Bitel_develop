@@ -7,6 +7,7 @@ class UserModel {
   int? _staffId;
   int? _shopId;
   String? _iss;
+  List<dynamic> functions = [];
   int? _iat;
   int? _exp;
   int? _idType;
@@ -25,6 +26,7 @@ class UserModel {
     _iat = json['iat'];
     _exp = json['exp'];
     _idType = json['ID_TYPE'];
+    functions = json['FUNCTIONS'];
     _idNo = json['ID_NO'];
   }
 
