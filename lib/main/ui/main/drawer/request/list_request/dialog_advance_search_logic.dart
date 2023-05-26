@@ -4,11 +4,13 @@ import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/address_model.dart';
 import 'package:bitel_ventas/main/networks/request/search_request.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_logic.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 
 class DialogAdvanceSearchLogic extends GetxController {
   BuildContext context;
@@ -25,6 +27,7 @@ class DialogAdvanceSearchLogic extends GetxController {
   TextEditingController controllerProvince = TextEditingController();
   DateTime fromDate = DateTime.now();
   DateTime toDate = DateTime.now();
+  ListRequestLogic listRequestLogic = Get.find();
 
   DialogAdvanceSearchLogic(this.context, this.searchRequest) {
     if (searchRequest.fromDate.isNotEmpty) {
@@ -37,6 +40,18 @@ class DialogAdvanceSearchLogic extends GetxController {
     }
     controllerCode.text = searchRequest.code;
     controllerStaffCode.text = searchRequest.staffCode;
+  }
+
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+    try {
+      setToDate(DateTime.parse(listRequestLogic.currentToDate));
+      setFromDate(DateTime.parse(listRequestLogic.currentFromDate));
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   void setProvince(AddressModel value) {

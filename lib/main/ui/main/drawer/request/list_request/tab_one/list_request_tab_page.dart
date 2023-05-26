@@ -125,15 +125,19 @@ class ListRequestTabState extends State<ListRequestTabPage> {
         isLoading = true;
       });
     }
-    Future.delayed(Duration(seconds: 1));
+    Future.delayed(const Duration(seconds: 1));
     Map<String, dynamic> params = {
       "service": key.isEmpty ? listRequestLogic.searchRequest.service : "",
       "code": key.isEmpty ? listRequestLogic.searchRequest.code : "",
       "status": status,
       "province": key.isEmpty ? listRequestLogic.searchRequest.province : "",
       "staffCode": key.isEmpty ? listRequestLogic.searchRequest.staffCode : "",
-      "fromDate": key.isEmpty ? listRequestLogic.searchRequest.fromDate : "",
-      "toDate": key.isEmpty ? listRequestLogic.searchRequest.toDate : "",
+      "fromDate": key.isEmpty
+          ? listRequestLogic.searchRequest.fromDate.substring(0, 10)
+          : "",
+      "toDate": key.isEmpty
+          ? listRequestLogic.searchRequest.toDate.substring(0, 10)
+          : "",
       "key": key,
       "page": "$page",
       "pageSize": "$PAGE_NUM",

@@ -39,186 +39,189 @@ class DialogCancelRequest extends GetWidget {
           ),
           elevation: 0.0,
           backgroundColor: Colors.white,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-                child: Stack(
-                  children: [
-                    Center(
-                        child: Text(
-                      AppLocalizations.of(context)!.textCancelRequest,
-                      style: AppStyles.r6.copyWith(
-                          color: AppColors.colorText1,
-                          fontWeight: FontWeight.w500),
-                    )),
-                    InkWell(
-                      highlightColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: Align(
-                          alignment: Alignment.centerRight,
-                          child: SvgPicture.asset(AppImages.icClose)),
-                    )
-                  ],
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+                  child: Stack(
+                    children: [
+                      Center(
+                          child: Text(
+                        AppLocalizations.of(context)!.textCancelRequest,
+                        style: AppStyles.r6.copyWith(
+                            color: AppColors.colorText1,
+                            fontWeight: FontWeight.w500),
+                      )),
+                      InkWell(
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Align(
+                            alignment: Alignment.centerRight,
+                            child: SvgPicture.asset(AppImages.icClose)),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              const LineDash(color: AppColors.colorLineDash),
-              Container(
-                padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
-                child: Row(
-                  children: [
-                    Expanded(
-                        flex: 2,
-                        child: Text(
-                          AppLocalizations.of(context)!.textReason,
-                          style: AppStyles.r8.copyWith(
-                              color: AppColors.colorText1.withOpacity(0.85),
-                              fontWeight: FontWeight.w400),
-                        )),
-                    Expanded(
-                      flex: 5,
-                      child: Container(
-                        height: 45,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(24),
-                            border: Border.all(color: const Color(0xFFE3EAF2))),
-                        child: DropdownButtonFormField2(
-                          decoration: const InputDecoration(
-                            isDense: true,
-                            contentPadding: EdgeInsets.zero,
-                            border: InputBorder.none,
-                          ),
-                          // selectedItemHighlightColor: Colors.red,
-                          buttonHeight: 60,
-                          buttonPadding:
-                              const EdgeInsets.only(left: 0, right: 10),
-                          dropdownDecoration: BoxDecoration(
+                const LineDash(color: AppColors.colorLineDash),
+                Container(
+                  padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
+                  child: Row(
+                    children: [
+                      Expanded(
+                          flex: 2,
+                          child: Text(
+                            AppLocalizations.of(context)!.textReason,
+                            style: AppStyles.r8.copyWith(
+                                color: AppColors.colorText1.withOpacity(0.85),
+                                fontWeight: FontWeight.w400),
+                          )),
+                      Expanded(
+                        flex: 5,
+                        child: Container(
+                          height: 45,
+                          decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(24),
                               border:
                                   Border.all(color: const Color(0xFFE3EAF2))),
-                          isExpanded: true,
-                          // value: controller.currentReason.isNotEmpty ? controller.currentReason : null,
-                          onChanged: (value) {
-                            controller.currentReason = value!.id!;
-                          },
-                          items: controller.listReason
-                              .map<DropdownMenuItem<ReasonModel>>(
-                                  (ReasonModel value) {
-                            return DropdownMenuItem(
-                                value: value, child: Text(value.content!));
-                          }).toList(),
-                          style: AppStyles.r2.copyWith(
-                              color: AppColors.colorTitle,
-                              fontWeight: FontWeight.w500),
-                          icon: SvgPicture.asset(AppImages.icDropdownSpinner),
-                          hint: Text(
-                            AppLocalizations.of(context)!.hintReason,
-                            style: AppStyles.r2.copyWith(
-                                color: AppColors.colorHint1,
-                                fontWeight: FontWeight.w400),
-                          ),
-                          validator: (value) {
-                            if (value == null) {
-                              return AppLocalizations.of(context)!
-                                  .textPleaseSelect;
-                            }
-                          },
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
-                child: Row(
-                  children: [
-                    Expanded(
-                        flex: 2,
-                        child: Text(
-                          AppLocalizations.of(context)!.textNote,
-                          style: AppStyles.r8.copyWith(
-                              color: AppColors.colorText1.withOpacity(0.85),
-                              fontWeight: FontWeight.w400),
-                        )),
-                    Expanded(
-                        flex: 5,
-                        child: spinnerFormV2(
-                            isMaxlenght: true,
-                            context: context,
-                            hint: AppLocalizations.of(context)!.hintNote,
-                            required: false,
-                            dropValue: "",
-                            function: (value) {
-                              controller.setNote(value);
+                          child: DropdownButtonFormField2(
+                            decoration: const InputDecoration(
+                              isDense: true,
+                              contentPadding: EdgeInsets.zero,
+                              border: InputBorder.none,
+                            ),
+                            // selectedItemHighlightColor: Colors.red,
+                            buttonHeight: 60,
+                            buttonPadding:
+                                const EdgeInsets.only(left: 0, right: 10),
+                            dropdownDecoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(24),
+                                border:
+                                    Border.all(color: const Color(0xFFE3EAF2))),
+                            isExpanded: true,
+                            // value: controller.currentReason.isNotEmpty ? controller.currentReason : null,
+                            onChanged: (value) {
+                              controller.currentReason = value!.id!;
                             },
-                            listDrop: [],
-                            controlTextField: controllerTextField,
-                            height: 150))
-                  ],
-                ),
-              ),
-              InkWell(
-                highlightColor: Colors.transparent,
-                splashColor: Colors.transparent,
-                onTap: () {
-                  if (controller.checkValidate(context)) return;
-                  _onLoading(context);
-                  controller.changeStatusRequest(
-                    id,
-                    controllerTextField.text,
-                    (isSuccess) {
-                      Get.back();
-                      if (isSuccess) {
-                        showDialog(
-                            barrierDismissible: false,
-                            context: context,
-                            builder: (context) {
-                              return SuccessDialog(
-                                text: AppLocalizations.of(context)!
-                                    .textCancelRequestSuccessfully,
-                                onOk: () {
-                                  Get.until(
-                                    (route) {
-                                      return Get.currentRoute ==
-                                          RouteConfig.listRequest;
-                                    },
-                                  );
-                                  ListRequestLogic listRequestLogic =
-                                      Get.find();
-                                  listRequestLogic
-                                      .updateSearchRequestToIndex(0);
-                                  listRequestLogic.refreshListRequest();
-                                },
-                              );
-                            });
-                      }
-                    },
-                  );
-                  onSubmit!.call();
-                },
-                child: Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.only(
-                      top: 30, bottom: 36, left: 16, right: 16),
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  decoration: BoxDecoration(
-                    color: AppColors.colorButton,
-                    borderRadius: BorderRadius.circular(24),
+                            items: controller.listReason
+                                .map<DropdownMenuItem<ReasonModel>>(
+                                    (ReasonModel value) {
+                              return DropdownMenuItem(
+                                  value: value, child: Text(value.content!));
+                            }).toList(),
+                            style: AppStyles.r2.copyWith(
+                                color: AppColors.colorTitle,
+                                fontWeight: FontWeight.w500),
+                            icon: SvgPicture.asset(AppImages.icDropdownSpinner),
+                            hint: Text(
+                              AppLocalizations.of(context)!.hintReason,
+                              style: AppStyles.r2.copyWith(
+                                  color: AppColors.colorHint1,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            validator: (value) {
+                              if (value == null) {
+                                return AppLocalizations.of(context)!
+                                    .textPleaseSelect;
+                              }
+                            },
+                          ),
+                        ),
+                      )
+                    ],
                   ),
-                  child: Center(
-                      child: Text(
-                    AppLocalizations.of(context)!.textCancel.toUpperCase(),
-                    style: AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
-                  )),
                 ),
-              )
-            ],
+                Container(
+                  padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
+                  child: Row(
+                    children: [
+                      Expanded(
+                          flex: 2,
+                          child: Text(
+                            AppLocalizations.of(context)!.textNote,
+                            style: AppStyles.r8.copyWith(
+                                color: AppColors.colorText1.withOpacity(0.85),
+                                fontWeight: FontWeight.w400),
+                          )),
+                      Expanded(
+                          flex: 5,
+                          child: spinnerFormV2(
+                              isMaxlenght: true,
+                              context: context,
+                              hint: AppLocalizations.of(context)!.hintNote,
+                              required: false,
+                              dropValue: "",
+                              function: (value) {
+                                controller.setNote(value);
+                              },
+                              listDrop: [],
+                              controlTextField: controllerTextField,
+                              height: 150))
+                    ],
+                  ),
+                ),
+                InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  onTap: () {
+                    if (controller.checkValidate(context)) return;
+                    _onLoading(context);
+                    controller.changeStatusRequest(
+                      id,
+                      controllerTextField.text,
+                      (isSuccess) {
+                        Get.back();
+                        if (isSuccess) {
+                          showDialog(
+                              barrierDismissible: false,
+                              context: context,
+                              builder: (context) {
+                                return SuccessDialog(
+                                  text: AppLocalizations.of(context)!
+                                      .textCancelRequestSuccessfully,
+                                  onOk: () {
+                                    Get.until(
+                                      (route) {
+                                        return Get.currentRoute ==
+                                            RouteConfig.listRequest;
+                                      },
+                                    );
+                                    ListRequestLogic listRequestLogic =
+                                        Get.find();
+                                    listRequestLogic
+                                        .updateSearchRequestToIndex(0);
+                                    listRequestLogic.refreshListRequest();
+                                  },
+                                );
+                              });
+                        }
+                      },
+                    );
+                    onSubmit!.call();
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    margin: const EdgeInsets.only(
+                        top: 30, bottom: 36, left: 16, right: 16),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    decoration: BoxDecoration(
+                      color: AppColors.colorButton,
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    child: Center(
+                        child: Text(
+                      AppLocalizations.of(context)!.textCancel.toUpperCase(),
+                      style: AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
+                    )),
+                  ),
+                )
+              ],
+            ),
           ),
         );
       },

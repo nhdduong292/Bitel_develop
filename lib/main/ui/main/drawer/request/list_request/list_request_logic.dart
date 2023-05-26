@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/request/search_request.dart';
 import 'package:bitel_ventas/main/networks/response/list_request_response.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/sale/sale_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/tab_one/list_request_tab_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/tab_one/list_request_tab_page.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
@@ -27,12 +28,17 @@ class ListRequestLogic extends GetxController
   String keySearch = '';
   int currentTotal = 0;
   int total = 0;
+  String currentToDate = '';
+  String currentFromDate = '';
+  SaleLogic saleLogic = Get.find();
   @override
   void onInit() {
     // TODO: implement onInit
     tabController = TabController(vsync: this, length: 6);
     super.onInit();
     index = Get.arguments;
+    currentFromDate = saleLogic.fromDate;
+    currentToDate = saleLogic.toDate;
     tabController!.animateTo(index, duration: Duration(milliseconds: 500));
     tabController!.addListener(
       () {
@@ -120,6 +126,8 @@ class ListRequestLogic extends GetxController
     tabController!
         .animateTo(index, duration: const Duration(milliseconds: 500));
     searchRequest = model;
+    currentFromDate = model.fromDate;
+    currentToDate = model.toDate;
     update();
   }
 

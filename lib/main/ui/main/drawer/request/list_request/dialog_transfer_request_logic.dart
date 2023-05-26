@@ -36,7 +36,7 @@ class DialogTransferRequestLogic extends GetxController {
 
   void getListReason() {
     Map<String, dynamic> params = {
-      "type": Reason.REASON_REQUEST,
+      "type": Reason.REASON_REQUEST_TRANSFER,
     };
     ApiUtil.getInstance()!.get(
       url: "${ApiEndPoints.API_REASONS}",

@@ -50,16 +50,16 @@ class ValidateFingerprintLogic extends GetxController {
     // type empty TH validate cancel service
     // type là Main hoặc Lending validate đăng kí hợp đồng
     // type là staff valiate của nhân viên
-    if (type.isNotEmpty) {
-      cusId = data[1];
-      typeCustomer = data[2];
-      idNumber = data[3];
-      contractId = data[4];
-    } else {
+    if (type == 'STAFF' || type.isEmpty) {
       cusId = data[1];
       typeCustomer = data[2];
       idNumber = data[3];
       orderId = data[4];
+    } else {
+      cusId = data[1];
+      typeCustomer = data[2];
+      idNumber = data[3];
+      contractId = data[4];
     }
   }
 
@@ -193,29 +193,31 @@ class ValidateFingerprintLogic extends GetxController {
   String findPathFinger(bool isLeft) {
     if (isLeft) {
       if (bestFinger.left == 6) {
-        return AppImages.imgFingerLeftThumb;
+        return AppImages.imgFingerLeftThumbUpdate;
       } else if (bestFinger.left == 7) {
-        return AppImages.imgFingerLeftIndex;
+        return AppImages.imgFingerLeftIndexUpdate;
       } else if (bestFinger.left == 8) {
-        return AppImages.imgFingerLeftMiddle;
+        return AppImages.imgFingerLeftMiddleUpdate;
       } else if (bestFinger.left == 9) {
-        return AppImages.imgFingerLeftRing;
+        return AppImages.imgFingerLeftRingUpdate;
+      } else if (bestFinger.left == 10) {
+        return AppImages.imgFingerLeftLittleUpdate;
       } else {
-        return AppImages.imgFingerLeftLittle;
+        return AppImages.imgHandleLeftUpdate;
       }
     } else {
       if (bestFinger.right == 1) {
-        return AppImages.imgFingerRightThumb;
+        return AppImages.imgFingerRightThumbUpdate;
       } else if (bestFinger.right == 2) {
-        return AppImages.imgFingerRightIndex;
+        return AppImages.imgFingerRightIndexUpdate;
       } else if (bestFinger.right == 3) {
-        return AppImages.imgFingerRightMiddle;
+        return AppImages.imgFingerRightMiddleUpdate;
       } else if (bestFinger.right == 4) {
-        return AppImages.imgFingerRightRing;
+        return AppImages.imgFingerRightRingUpdate;
       } else if (bestFinger.right == 5) {
-        return AppImages.imgFingerRightLittle;
+        return AppImages.imgFingerRightLittleUpdate;
       } else {
-        return AppImages.imgFingerRightMiddle;
+        return AppImages.imgHandleRightUpdate;
       }
     }
   }

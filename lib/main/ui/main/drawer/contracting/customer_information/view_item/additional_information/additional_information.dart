@@ -237,7 +237,9 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                                           .textUpdateCustomerInformationSuccessfully);
                                       if (controller.valueCheckBypass) {
                                         controller.checkBypass((isSuccess) {
-                                          callback();
+                                          if (isSuccess) {
+                                            callback();
+                                          }
                                         });
                                       } else {
                                         callback();
@@ -247,7 +249,9 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                                 } else {
                                   if (controller.valueCheckBypass) {
                                     controller.checkBypass((isSuccess) {
-                                      callback();
+                                      if (isSuccess) {
+                                        callback();
+                                      }
                                     });
                                   } else {
                                     callback();

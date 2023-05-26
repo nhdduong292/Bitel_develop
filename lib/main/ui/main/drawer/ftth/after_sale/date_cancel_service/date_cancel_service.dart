@@ -550,7 +550,7 @@ class DateCancelService extends GetWidget {
       context: context,
       initialDate:
           control.cancelDate.isNotEmpty ? control.datePicker! : firstDate,
-      firstDate: control.getFirstDate(),
+      firstDate: DateTime.now(),
       lastDate: DateTime(
           DateTime.now().year, DateTime.now().month + 1, DateTime.now().day),
     );

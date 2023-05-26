@@ -31,7 +31,7 @@ class DialogCancelRequestLogic extends GetxController {
 
   void getListReason() {
     Map<String, dynamic> params = {
-      "type": Reason.REASON_REQUEST,
+      "type": Reason.REASON_REQUEST_CANCEL,
     };
     ApiUtil.getInstance()!.get(
       url: "${ApiEndPoints.API_REASONS}",

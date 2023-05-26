@@ -415,7 +415,9 @@ class DialogAdvancedSearchPage extends GetWidget {
       BuildContext context, DialogAdvanceSearchLogic control, bool from) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: control.selectDate,
+      initialDate: from
+          ? DateTime.parse(control.searchRequest.fromDate)
+          : DateTime.parse(control.searchRequest.toDate),
       firstDate: DateTime(2000),
       lastDate: DateTime(2025),
     );

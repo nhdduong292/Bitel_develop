@@ -141,13 +141,17 @@ class SaleLogic extends GetxController {
     if (homeSaleModel.performance == 0 || homeSaleModel.kpi == 0) {
       return 0;
     }
-    return (homeSaleModel.performance / homeSaleModel.kpi) * 100;
+    return double.parse(((homeSaleModel.performance / homeSaleModel.kpi) * 100)
+        .toStringAsFixed(1));
   }
 
   void getHomeSale() {
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_HOME_SALE,
-      params: {"fromDate": fromDate, "toDate": toDate},
+      params: {
+        "fromDate": fromDate.substring(0, 10),
+        "toDate": toDate.substring(0, 10)
+      },
       onSuccess: (response) {
         // Get.back();
         if (response.isSuccess) {

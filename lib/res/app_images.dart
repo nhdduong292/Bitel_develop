@@ -175,4 +175,31 @@ class AppImages {
   static const String icCopyOrder = "assets/images/ic_copy.svg";
   static const String imgIdentityCEFont =
       'assets/images/img_identity_ce_font.jpg';
+  static const String imgHandleLeft = "assets/images/img_handle_left.png";
+  static const String imgHandleRight = 'assets/images/img_handle_right.png';
+
+  static const String imgHandleLeftUpdate =
+      "assets/images/img_handle_left_update.png";
+  static const String imgHandleRightUpdate =
+      'assets/images/img_handle_right_update.png';
+  static const String imgFingerLeftLittleUpdate =
+      "assets/images/img_finger_left_little_update.png";
+  static const String imgFingerLeftRingUpdate =
+      "assets/images/img_finger_left_ring_update.png";
+  static const String imgFingerLeftMiddleUpdate =
+      "assets/images/img_finger_left_middle_update.png";
+  static const String imgFingerLeftIndexUpdate =
+      "assets/images/img_finger_left_index_update.png";
+  static const String imgFingerLeftThumbUpdate =
+      "assets/images/img_finger_left_thumb_update.png";
+  static const String imgFingerRightLittleUpdate =
+      "assets/images/img_finger_right_little_update.png";
+  static const String imgFingerRightRingUpdate =
+      "assets/images/img_finger_right_ring_update.png";
+  static const String imgFingerRightMiddleUpdate =
+      "assets/images/img_finger_right_middle_update.png";
+  static const String imgFingerRightIndexUpdate =
+      "assets/images/img_finger_right_index_update.png";
+  static const String imgFingerRightThumbUpdate =
+      "assets/images/img_finger_right_thumb_update.png";
 }
