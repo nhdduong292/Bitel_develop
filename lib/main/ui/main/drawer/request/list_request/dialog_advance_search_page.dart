@@ -280,7 +280,7 @@ class DialogAdvancedSearchPage extends GetWidget {
                                             top: 11,
                                             bottom: 11,
                                             left: 16,
-                                            right: 16),
+                                            right: 14),
                                         child: Row(
                                           children: [
                                             Visibility(
@@ -337,7 +337,7 @@ class DialogAdvancedSearchPage extends GetWidget {
                                             top: 11,
                                             bottom: 11,
                                             left: 16,
-                                            right: 16),
+                                            right: 14),
                                         child: Row(
                                           children: [
                                             Visibility(

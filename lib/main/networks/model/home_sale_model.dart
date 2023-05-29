@@ -1,13 +1,13 @@
-class HomeSaleModel{
+class HomeSaleModel {
   int waitingOfflineSurvey = 0;
-  int cancelled =0;
-  int waitingDeployment=0;
-  int waitingConnection=0;
-  int completeInstallation=0;
-  int kpi=0;
-  int performance=0;
-  int commission=0;
-  double anyPayBalance=0;
+  int cancelled = 0;
+  int waitingDeployment = 0;
+  int waitingConnection = 0;
+  int completeInstallation = 0;
+  int kpi = 0;
+  int performance = 0;
+  double commission = 0;
+  double anyPayBalance = 0;
 
   HomeSaleModel();
 

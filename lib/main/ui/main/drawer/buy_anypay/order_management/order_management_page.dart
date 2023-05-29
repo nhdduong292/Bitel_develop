@@ -610,9 +610,8 @@ class _itemOrderSearch extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Text(
-                            Common.fromDate(
-                                DateTime.parse(buyAnyPayModel.saleOrderDate),
-                                'dd/MM/yyyy hh:mm'),
+                            Common.convertDateTime(
+                                buyAnyPayModel.saleOrderDate, 'HH:mm'),
                             style: AppStyles.bText1_13_300,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis),

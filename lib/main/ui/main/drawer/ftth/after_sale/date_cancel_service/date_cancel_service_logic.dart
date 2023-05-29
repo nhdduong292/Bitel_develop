@@ -53,7 +53,7 @@ class DateCancelServiceLogic extends GetxController {
     _onLoading(context);
     Map<String, dynamic> body = {
       'subId': findAccountModel.subId,
-      'cancelDate': datePicker?.toIso8601String(),
+      'cancelDate': datePicker?.toIso8601String().substring(0, 10),
       'note': reasonCancel.trim()
     };
     ApiUtil.getInstance()!.post(

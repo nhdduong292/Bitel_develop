@@ -5,6 +5,7 @@ class ContractModel {
   String? _billCycleFrom;
   String? _billCycleFromCharging;
   int? _status;
+  String? _account;
   String? _operationCode;
   String? _identityType;
   String? _idNumber;
@@ -28,9 +29,12 @@ class ContractModel {
     _phone = json['phone'];
     _productName = json['productName'];
     _promotionName = json['promotionName'];
+    _account = json['account'];
   }
 
   String get promotionName => _promotionName ?? "";
+
+  String get account => _account ?? "";
 
   set promotionName(String value) {
     _promotionName = value;

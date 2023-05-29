@@ -32,14 +32,15 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                         color: Color(0xFFF8FBFB),
                       ),
                       width: width,
-                      height: 254,
-                    ),
-                    SvgPicture.asset(
-                      AppImages.bgFtthContracting,
-                      width: width,
+                      height: 200,
+                      child: SvgPicture.asset(
+                        AppImages.bgFtthContracting,
+                        fit: BoxFit.fill,
+                        width: width,
+                      ),
                     ),
                     Positioned(
-                        top: 76,
+                        top: 46,
                         child: SizedBox(
                           width: width,
                           child: Column(
@@ -107,6 +108,20 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                             ),
                             inforContractRow(
                                 lable:
+                                    "${AppLocalizations.of(context)!.textAccount}:",
+                                richText: () {
+                                  return Text(
+                                    controller.contractModel.account,
+                                    style: AppStyles.r415263_13_500,
+                                  );
+                                }),
+                            DottedLine(
+                              dashColor: Color(0xFFE3EAF2),
+                              dashGapLength: 3,
+                              dashLength: 4,
+                            ),
+                            inforContractRow(
+                                lable:
                                     AppLocalizations.of(context)!.textCustomer,
                                 richText: () {
                                   return Text(
@@ -135,7 +150,7 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                             ),
                             inforContractRow(
                                 lable:
-                                    AppLocalizations.of(context)!.textProduct,
+                                    "${AppLocalizations.of(context)!.textProduct}:",
                                 richText: () {
                                   return Text(
                                     controller.contractModel.productName,
@@ -182,9 +197,7 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                             ),
                             inforContractRow(
                                 lable:
-                                    // ignore: prefer_interpolation_to_compose_strings
-                                    AppLocalizations.of(context)!.textSignDate +
-                                        ':',
+                                    "${AppLocalizations.of(context)!.textSignDate}:",
                                 richText: () {
                                   return Text(
                                     controller.contractModel.signDate != ''
@@ -233,7 +246,7 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                   saleLogic.viewWillAppear();
                                 })),
                         SizedBox(
-                          height: 126,
+                          height: 20,
                         )
                       ]),
                 )),

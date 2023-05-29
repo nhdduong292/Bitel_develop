@@ -660,5 +660,6 @@
 "textUploadContractLater": "Tải lên hợp đồng sau",
 "textBypassFingerprint": "Bỏ qua vân tay",
 "textBestFingerNotExit": "Vân tay tốt nhất không tồn tại.",
-"textActive" : "Hoạt động"
+"textActive" : "Hoạt động",
+ "textSuccessfulTerminationOfContract": "Chấm dứt hợp đồng thành công"
 }

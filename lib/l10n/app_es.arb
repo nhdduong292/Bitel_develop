@@ -138,7 +138,7 @@
   "textListOfRequest": "Lista de solicitudes",
   "textRequestDetail": "Detalle de solicitud",
   "textCancelRequest": "Cancelar solicitud",
-  "textReason" : "Razón*",
+  "textReason" : "Razón",
   "hintReason": "Selecciona el motivo",
   "textNote": "Nota",
   "hintNote": "Ingresar contenido",
@@ -662,6 +662,7 @@
 "textUploadContractLater": "Subir contrato más tarde",
 "textBypassFingerprint": "Saltar huella dactilar",
 "textBestFingerNotExit": "Mejor dedo no salir.",
-"textActive" : "Activo"
+"textActive" : "Activo",
+ "textSuccessfulTerminationOfContract": "Terminación exitosa del contrato"
   
 }

@@ -137,7 +137,7 @@
   "textListOfRequest": "List of request",
   "textRequestDetail": "Request detail",
   "textCancelRequest": "Cancel request",
-  "textReason": "Reason*",
+  "textReason": "Reason",
   "hintReason": "Select the reason",
   "textNote": "Note",
   "hintNote": "Enter content",
@@ -674,6 +674,7 @@
   "textUploadContractLater": "Upload contract later",
   "textBypassFingerprint": "Bypass fingerprint",
   "textBestFingerNotExit": "Best finger not exit.",
-  "textActive" : "Active"
+  "textActive" : "Active",
+   "textSuccessfulTerminationOfContract": "Successful termination of contract"
   
 }

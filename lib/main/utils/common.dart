@@ -28,6 +28,24 @@ class Common {
     }
   }
 
+  static String convertDateTime(String dateTimeString, [String? format]) {
+    // Khởi tạo đối tượng DateFormat để phân tích chuỗi ngày giờ
+    try {
+      DateTime dateTime = DateTime.parse(dateTimeString);
+      Duration timeZoneOffset = DateTime.now().timeZoneOffset;
+      DateTime convertedDateTime = dateTime.add(timeZoneOffset);
+      DateFormat outputFormat = format != null
+          ? DateFormat("dd-MM-yyyy $format")
+          : DateFormat("dd-MM-yyyy HH:mm:ss");
+      String formattedDateTime = outputFormat.format(convertedDateTime);
+
+      return formattedDateTime;
+    } on Exception catch (e) {
+      // TODO
+      return '---';
+    }
+  }
+
   static String fromDate(DateTime date, format) {
     try {
       String dateString = DateFormat(format).format(date);

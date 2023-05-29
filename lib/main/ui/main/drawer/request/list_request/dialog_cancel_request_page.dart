@@ -74,13 +74,24 @@ class DialogCancelRequest extends GetWidget {
                   child: Row(
                     children: [
                       Expanded(
-                          flex: 2,
-                          child: Text(
-                            AppLocalizations.of(context)!.textReason,
-                            style: AppStyles.r8.copyWith(
-                                color: AppColors.colorText1.withOpacity(0.85),
-                                fontWeight: FontWeight.w400),
-                          )),
+                        flex: 2,
+                        child: RichText(
+                          text: TextSpan(
+                              text: AppLocalizations.of(context)!.textReason,
+                              style: AppStyles.r8.copyWith(
+                                  color: AppColors.colorText1.withOpacity(0.85),
+                                  fontWeight: FontWeight.w400),
+                              children: [
+                                TextSpan(
+                                    text: ' *',
+                                    style: TextStyle(
+                                      color: AppColors.colorTextError,
+                                      fontFamily: 'Barlow',
+                                      fontSize: 14,
+                                    )),
+                              ]),
+                        ),
+                      ),
                       Expanded(
                         flex: 5,
                         child: Container(
@@ -141,13 +152,24 @@ class DialogCancelRequest extends GetWidget {
                   child: Row(
                     children: [
                       Expanded(
-                          flex: 2,
-                          child: Text(
-                            AppLocalizations.of(context)!.textNote,
-                            style: AppStyles.r8.copyWith(
-                                color: AppColors.colorText1.withOpacity(0.85),
-                                fontWeight: FontWeight.w400),
-                          )),
+                        flex: 2,
+                        child: RichText(
+                          text: TextSpan(
+                              text: AppLocalizations.of(context)!.textNote,
+                              style: AppStyles.r8.copyWith(
+                                  color: AppColors.colorText1.withOpacity(0.85),
+                                  fontWeight: FontWeight.w400),
+                              children: [
+                                TextSpan(
+                                    text: ' *',
+                                    style: TextStyle(
+                                      color: AppColors.colorTextError,
+                                      fontFamily: 'Barlow',
+                                      fontSize: 14,
+                                    )),
+                              ]),
+                        ),
+                      ),
                       Expanded(
                           flex: 5,
                           child: spinnerFormV2(
@@ -209,10 +231,15 @@ class DialogCancelRequest extends GetWidget {
                     margin: const EdgeInsets.only(
                         top: 30, bottom: 36, left: 16, right: 16),
                     padding: const EdgeInsets.symmetric(vertical: 16),
-                    decoration: BoxDecoration(
-                      color: AppColors.colorButton,
-                      borderRadius: BorderRadius.circular(24),
-                    ),
+                    decoration: controller.checkValidate(context)
+                        ? BoxDecoration(
+                            color: const Color(0xFF415263).withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(24),
+                          )
+                        : BoxDecoration(
+                            color: AppColors.colorButton,
+                            borderRadius: BorderRadius.circular(24),
+                          ),
                     child: Center(
                         child: Text(
                       AppLocalizations.of(context)!.textCancel.toUpperCase(),

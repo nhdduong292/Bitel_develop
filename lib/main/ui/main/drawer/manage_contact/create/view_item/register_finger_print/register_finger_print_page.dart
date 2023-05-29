@@ -216,8 +216,8 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                     height: 21,
                   ),
                   InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     onTap: () {
                       controller.countFinger.value = 3;
                       controller.listImageLeft.clear();
@@ -271,7 +271,7 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                               height: 12,
                             ),
                             Container(
-                              width: 150,
+                              width: 140,
                               height: 165,
                               padding: EdgeInsets.all(8),
                               decoration: BoxDecoration(
@@ -506,8 +506,8 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
     return Container(
       margin: EdgeInsets.only(left: 15, top: 24, right: 15, bottom: 10),
       child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
         onTap: onTap,
         child: Container(
           height: 50,
@@ -568,8 +568,8 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
       required var groupValue,
       required onChange}) {
     return InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       onTap: () {
         onChange(value);
         controller.pathFinger.value = controller.findPathFinger();
@@ -644,8 +644,8 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
             child: SvgPicture.asset(AppImages.icTickFingerPrint),
           ),
           InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             onTap: () {
               onDelete(value);
             },
@@ -725,8 +725,8 @@ class SuccessDialog extends Dialog {
                 borderRadius: BorderRadius.circular(24),
               ),
               child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
                 onTap: () {
                   onClick();
                 },

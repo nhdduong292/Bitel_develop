@@ -285,7 +285,7 @@ class SalePage extends GetWidget {
                                               fontSize: 14),
                                         ),
                                         const SizedBox(
-                                          height: 10,
+                                          height: 5,
                                         ),
                                         Text(
                                           optionSale.content,
@@ -298,7 +298,7 @@ class SalePage extends GetWidget {
                                               fontSize: 20),
                                         ),
                                         const SizedBox(
-                                          height: 6,
+                                          height: 5,
                                         ),
                                         Center(
                                           child: Wrap(

@@ -168,13 +168,24 @@ class DialogTransferRequest extends GetWidget {
                   child: Row(
                     children: [
                       Expanded(
-                          flex: 2,
-                          child: Text(
-                            AppLocalizations.of(context)!.textReason,
-                            style: AppStyles.r8.copyWith(
-                                color: AppColors.colorText1.withOpacity(0.85),
-                                fontWeight: FontWeight.w400),
-                          )),
+                        flex: 2,
+                        child: RichText(
+                          text: TextSpan(
+                              text: AppLocalizations.of(context)!.textReason,
+                              style: AppStyles.r8.copyWith(
+                                  color: AppColors.colorText1.withOpacity(0.85),
+                                  fontWeight: FontWeight.w400),
+                              children: [
+                                TextSpan(
+                                    text: ' *',
+                                    style: TextStyle(
+                                      color: AppColors.colorTextError,
+                                      fontFamily: 'Barlow',
+                                      fontSize: 14,
+                                    )),
+                              ]),
+                        ),
+                      ),
                       Expanded(
                         flex: 5,
                         child: Container(

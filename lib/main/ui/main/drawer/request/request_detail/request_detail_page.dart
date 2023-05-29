@@ -416,12 +416,9 @@ class RequestDetailPage extends GetWidget {
                                         child: Text(
                                           controller.requestModel.contractModel
                                                   .signDate.isNotEmpty
-                                              ? Common.fromDate(
-                                                  DateTime.parse(controller
-                                                      .requestModel
-                                                      .contractModel
-                                                      .signDate),
-                                                  'dd/MM/yyyy hh:MM:ss')
+                                              ? Common.convertDateTime(
+                                                  controller.requestModel
+                                                      .contractModel.signDate)
                                               : "---",
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
@@ -598,16 +595,12 @@ class RequestDetailPage extends GetWidget {
                                             controller.getStaffName(model),
                                             model.status,
                                             model.creationDate.isNotEmpty
-                                                ? Common.fromDate(
-                                                    DateTime.parse(
-                                                        model.creationDate),
-                                                    'dd/MM/yyyy')
+                                                ? Common.convertDateTime(
+                                                    model.creationDate)
                                                 : '---',
                                             model.expectedDate.isNotEmpty
-                                                ? Common.fromDate(
-                                                    DateTime.parse(
-                                                        model.expectedDate),
-                                                    'dd/MM/yyyy')
+                                                ? Common.convertDateTime(
+                                                    model.expectedDate)
                                                 : '---'
                                           ], false);
                                         }
@@ -777,10 +770,13 @@ class RequestDetailPage extends GetWidget {
   }
 
   TableRow buildRow(List<String> cells, bool isHeader) => TableRow(
-          children: cells.map(
+      decoration: BoxDecoration(
+        color: isHeader ? AppColors.colorBackground2 : Colors.white,
+      ),
+      children: cells.map(
         (e) {
           return Container(
-            color: isHeader ? AppColors.colorBackground2 : Colors.white,
+            // color: isHeader ? Color.fromARGB(255, 189, 189, 218) : Colors.white,
             padding: EdgeInsets.all(8),
             child: Center(
               child: Text(

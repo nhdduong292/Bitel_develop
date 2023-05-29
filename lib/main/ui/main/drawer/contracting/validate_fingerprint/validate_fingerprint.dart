@@ -148,7 +148,7 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                           RichText(
                                             text: TextSpan(
                                                 text:
-                                                    '${controller.type == 'STAFF' ? Common.getIdentityType(InfoBusiness.getInstance()!.getUser().idType) : controller.typeCustomer}: ',
+                                                    '${controller.type == 'STAFF' ? Common.getIdentityType(InfoBusiness.getInstance()!.getUser().idType) : controller.typeCustomer} ',
                                                 style: AppStyles.r9454C9_14_500
                                                     .copyWith(
                                                         fontSize: 13,
