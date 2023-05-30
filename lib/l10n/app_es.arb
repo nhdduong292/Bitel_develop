@@ -663,6 +663,8 @@
 "textBypassFingerprint": "Saltar huella dactilar",
 "textBestFingerNotExit": "Mejor dedo no salir.",
 "textActive" : "Activo",
- "textSuccessfulTerminationOfContract": "Terminación exitosa del contrato"
+ "textSuccessfulTerminationOfContract": "Terminación exitosa del contrato",
+ "textDoYouWantToContinueOrChooseTheProduct": "¿Desea continuar o elegir el producto nuevamente?",
+  "textAgain": "de nuevo"
   
 }

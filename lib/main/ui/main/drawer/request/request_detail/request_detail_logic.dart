@@ -73,7 +73,7 @@ class RequestDetailLogic extends GetxController {
       textConnect = AppLocalizations.of(context)!.textConnect;
       return true;
     } else if (status == RequestStatus.CONNECTED) {
-      textConnect = AppLocalizations.of(context)!.textCancel;
+      textConnect = AppLocalizations.of(context)!.textConnect;
       return true;
     } else if (status == RequestStatus.DEPLOYING) {
       textConnect = AppLocalizations.of(context)!.textClose;

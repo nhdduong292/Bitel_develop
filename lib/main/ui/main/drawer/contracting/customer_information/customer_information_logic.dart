@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:bitel_ventas/main/networks/model/contract_model.dart';
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/request_detail/request_detail_logic.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:dio/dio.dart';
@@ -90,8 +91,11 @@ class CustomerInformationLogic extends GetxController {
   var pdf = pw.Document();
   var loadSuccess = false.obs;
   bool valueCheckBox = false;
-  bool isCamera = true;
+  bool isCameraMain = true;
+  bool isCameraLending = true;
   bool isLoadingConvertBase64 = false;
+
+  RequestDetailLogic requestDetailLogic = Get.find();
 
   @override
   void onInit() {
@@ -238,6 +242,67 @@ class CustomerInformationLogic extends GetxController {
     };
     ApiUtil.getInstance()!.post(
       url: ApiEndPoints.API_CREATE_CONTRACT,
+      body: body,
+      onSuccess: (response) {
+        print('bxloc create contract success');
+        Get.back();
+        if (response.isSuccess) {
+          print(response.data['data']);
+          contract = ContractModel.fromJson(response.data['data']);
+          isSuccess.call(true);
+        } else {
+          print("error: ${response.status}");
+          isSuccess.call(false);
+        }
+      },
+      onError: (error) {
+        print('bxloc create contract false');
+        isSuccess.call(false);
+        Get.back();
+        Common.showMessageError(error: error, context: context);
+      },
+    );
+  }
+
+  void updateContract(BuildContext context, Function(bool) isSuccess) {
+    _onLoading(context);
+    Map<String, dynamic> body = {
+      "requestId": requestModel.id,
+      "productId": productId,
+      "reasonId": reasonId,
+      "packageId": packageId,
+      "promotionId": listPromotionId,
+      "contractType": isForcedTerm ? "FORCED_TERM" : "UNDETERMINED",
+      "numOfSubscriber": 1,
+      "signDate": signDate.value.trim(),
+      "billCycle": billCycle,
+      "changeNotification": "Email",
+      "printBill": "Email",
+      "currency": "SOL",
+      "language": contractLanguagetValue.value.toUpperCase(),
+      "province": billArea.province.isNotEmpty
+          ? billArea.province
+          : requestModel.province,
+      "district": billArea.district.isNotEmpty
+          ? billArea.district
+          : requestModel.district,
+      "precinct": billArea.precinct.isNotEmpty
+          ? billArea.precinct
+          : requestModel.precinct,
+      "address": billAddressSelect.isNotEmpty
+          ? billAddressSelect
+          : requestModel.address,
+      "phone": customer.telFax.trim(),
+      "email": customer.email.trim(),
+      "protectionFilter": checkOption1.value,
+      "receiveInfoByMail": checkOption2.value,
+      "receiveFromThirdParty": checkOption3.value,
+      "receiveFromBitel": checkOption4.value
+    };
+    ApiUtil.getInstance()!.put(
+      url:
+          "${ApiEndPoints.API_CREATE_CONTRACT}/${requestDetailLogic.requestModel.contractModel.contractId}",
+      params: {"id": requestDetailLogic.requestModel.contractModel.contractId},
       body: body,
       onSuccess: (response) {
         print('bxloc create contract success');
@@ -518,11 +583,14 @@ class CustomerInformationLogic extends GetxController {
   }
 
   uploadImage(BuildContext context, bool isMain) async {
-    isCamera = false;
     if (isMain) {
+      isCameraMain = false;
       listFileMainContract.clear();
+      update();
     } else {
+      isCameraLending = false;
       listFileLendingContract.clear();
+      update();
     }
     try {
       final List<XFile> selectedImages = await ImagePicker().pickMultiImage();
@@ -544,14 +612,18 @@ class CustomerInformationLogic extends GetxController {
   }
 
   getFromGallery(BuildContext context, bool isMain) async {
-    if (!isCamera) {
-      if (isMain) {
+    if (!isCameraMain || !isCameraLending) {
+      if (isMain && !isCameraMain) {
+        isCameraMain = true;
         listFileMainContract.clear();
+        update();
       } else {
+        isCameraLending = true;
         listFileLendingContract.clear();
+        update();
       }
     }
-    isCamera = true;
+
     try {
       final pickedFile =
           await ImagePicker().pickImage(source: ImageSource.camera);

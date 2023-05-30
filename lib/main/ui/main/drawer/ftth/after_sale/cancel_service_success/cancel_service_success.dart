@@ -91,8 +91,8 @@ class CancelServiceSuccess extends GetView<CancelServiceSuccessLogic> {
                           ),
                           child: Column(children: [
                             inforContractRow(
-                                lable:
-                                    "${AppLocalizations.of(context)!.textOperationCode}:",
+                                lable: AppLocalizations.of(context)!
+                                    .textOperationCode,
                                 richText: () {
                                   return Text(
                                     controller.model.operationCode,
@@ -120,7 +120,7 @@ class CancelServiceSuccess extends GetView<CancelServiceSuccessLogic> {
                             ),
                             inforContractRow(
                                 lable:
-                                    "${AppLocalizations.of(context)!.textCustomer}:",
+                                    AppLocalizations.of(context)!.textCustomer,
                                 richText: () {
                                   return Text(
                                     controller.model.customer,
@@ -133,8 +133,8 @@ class CancelServiceSuccess extends GetView<CancelServiceSuccessLogic> {
                               dashLength: 4,
                             ),
                             inforContractRow(
-                                lable:
-                                    "${AppLocalizations.of(context)!.textDocIdentity}:",
+                                lable: AppLocalizations.of(context)!
+                                    .textDocIdentity,
                                 richText: () {
                                   return Text(
                                     '${Common.getIdentityType(controller.model.idType)}-${controller.model.idNumber}',

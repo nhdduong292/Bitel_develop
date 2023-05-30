@@ -12,6 +12,7 @@ import '../../../../../../../../res/app_colors.dart';
 import '../../../../../../../../res/app_images.dart';
 import '../../../../../../../networks/model/address_model.dart';
 import '../../../../../../../utils/common_widgets.dart';
+import '../../../../../../../utils/values.dart';
 import '../../../../request/dialog_address_page.dart';
 
 typedef void TouchUpadte();
@@ -123,8 +124,8 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 dropdownValue: controller.contractLanguagetValue,
                 width: width * 0.55),
             InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
               onTap: () {
                 showDialog(
                   barrierDismissible: false,
@@ -243,17 +244,34 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                     flex: 1,
                     child: bottomButton(
                         onTap: () {
-                          controller.createContract(
-                            context,
-                            (p0) {
-                              if (p0) {
-                                callback();
-                              } else {
-                                // Common.showToastCenter(
-                                //     AppLocalizations.of(context)!.textErrorAPI);
-                              }
-                            },
-                          );
+                          //nếu trạng thái là connected thì gọi api update, ngược lại gọi api create
+                          if (controller
+                                  .requestDetailLogic.requestModel.status ==
+                              RequestStatus.CONNECTED) {
+                            controller.updateContract(
+                              context,
+                              (p0) {
+                                if (p0) {
+                                  callback();
+                                } else {
+                                  // Common.showToastCenter(
+                                  //     AppLocalizations.of(context)!.textErrorAPI);
+                                }
+                              },
+                            );
+                          } else {
+                            controller.createContract(
+                              context,
+                              (p0) {
+                                if (p0) {
+                                  callback();
+                                } else {
+                                  // Common.showToastCenter(
+                                  //     AppLocalizations.of(context)!.textErrorAPI);
+                                }
+                              },
+                            );
+                          }
                         },
                         text: AppLocalizations.of(context)!
                             .textContinue
@@ -446,8 +464,8 @@ class BillAddressInformation extends Dialog {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
                   onTap: () {
                     Get.back(result: false);
                   },

@@ -3,6 +3,7 @@ import 'package:bitel_ventas/main/networks/model/plan_reason_model.dart';
 import 'package:bitel_ventas/main/networks/model/product_model.dart';
 import 'package:bitel_ventas/main/networks/model/promotion_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_logic.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -352,10 +353,10 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                   if ((controller.valueMethod.value > -1 &&
                           controller.valueProduct.value > -1 &&
                           controller.valuePackage.value > -1 &&
-                          controller.status == 'CREATE') ||
+                          controller.status != ProductStatus.Change) ||
                       (controller.valueMethod.value > -1 &&
                           controller.valueProduct.value > -1 &&
-                          controller.status == 'CHANGE' &&
+                          controller.status == ProductStatus.Change &&
                           controller.checkChangePackage())) {
                     controller.isOnMethodPage.value = false;
                     controller.isOnInvoicePage.value = true;
@@ -374,10 +375,10 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                 color: !(controller.valueMethod.value > -1 &&
                             controller.valueProduct.value > -1 &&
                             controller.valuePackage.value > -1 &&
-                            controller.status == 'CREATE') &&
+                            controller.status != ProductStatus.Change) &&
                         !(controller.valueMethod.value > -1 &&
                             controller.valueProduct.value > -1 &&
-                            controller.status == 'CHANGE' &&
+                            controller.status == ProductStatus.Change &&
                             controller.checkChangePackage())
                     ? const Color(0xFF415263).withOpacity(0.2)
                     : null),
@@ -460,8 +461,8 @@ Widget _itemPackage(
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
     child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       onTap: () {
         groupValue.value != value ? onChange(value) : onChange(-1);
       },
@@ -514,8 +515,8 @@ Widget _itemMethod(
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
     child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       onTap: () {
         groupValue.value != value ? onChange(value) : onChange(-1);
       },
@@ -558,8 +559,8 @@ Widget _itemPromotion(
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
     child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,

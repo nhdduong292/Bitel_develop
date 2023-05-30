@@ -625,13 +625,13 @@ class RequestDetailPage extends GetWidget {
                                       Get.toNamed(RouteConfig.productPayment,
                                           arguments: [
                                             controller.requestModel,
-                                            'CREATE'
+                                            ProductStatus.Create
                                           ]);
                                     } else if (controller.requestModel.status ==
                                         RequestStatus.CONNECTED) {
                                       //todo show dialog cancel
-                                      showDialogCancelRequest(
-                                          context, controller.requestModel.id);
+                                      showDialogChooseProduct(
+                                          context, controller);
                                     } else if (controller.requestModel.status ==
                                             RequestStatus.DEPLOYING ||
                                         controller.requestModel.status ==
@@ -769,6 +769,25 @@ class RequestDetailPage extends GetWidget {
         });
   }
 
+  void showDialogChooseProduct(
+      BuildContext context, RequestDetailLogic controller) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return ChooseProductAgainDialog(
+            context: context,
+            onAgain: () {
+              Get.toNamed(RouteConfig.productPayment,
+                  arguments: [controller.requestModel, ProductStatus.ReSelect]);
+            },
+            onContinue: () {
+              Get.toNamed(RouteConfig.resignContract);
+            },
+          );
+        });
+  }
+
   TableRow buildRow(List<String> cells, bool isHeader) => TableRow(
       decoration: BoxDecoration(
         color: isHeader ? AppColors.colorBackground2 : Colors.white,
@@ -788,4 +807,80 @@ class RequestDetailPage extends GetWidget {
           );
         },
       ).toList());
+}
+
+class ChooseProductAgainDialog extends Dialog {
+  BuildContext context;
+  Function onContinue;
+  Function onAgain;
+  ChooseProductAgainDialog({
+    required this.context,
+    required this.onContinue,
+    required this.onAgain,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: Wrap(children: [
+        Column(
+          children: [
+            const SizedBox(
+              height: 22,
+            ),
+            SvgPicture.asset(AppImages.imgNotify),
+            const SizedBox(
+              height: 15,
+            ),
+            const DottedLine(
+              dashColor: AppColors.colorLineDash,
+              dashGapLength: 3,
+              dashLength: 4,
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 22, right: 22),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                      AppLocalizations.of(context)!
+                          .textDoYouWantToContinueOrChooseTheProduct,
+                      style: AppStyles.r415263_14_600.copyWith(fontSize: 16)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                          child: bottomButtonV2(
+                              text: AppLocalizations.of(context)!.textAgain,
+                              onTap: () {
+                                Get.back();
+                                onAgain();
+                              })),
+                      Expanded(
+                          child: bottomButton(
+                              text: AppLocalizations.of(context)!.textContinue,
+                              onTap: () {
+                                Get.back();
+                                onContinue();
+                              }))
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ]),
+    );
+  }
 }

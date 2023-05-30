@@ -661,5 +661,7 @@
 "textBypassFingerprint": "Bỏ qua vân tay",
 "textBestFingerNotExit": "Vân tay tốt nhất không tồn tại.",
 "textActive" : "Hoạt động",
- "textSuccessfulTerminationOfContract": "Chấm dứt hợp đồng thành công"
+ "textSuccessfulTerminationOfContract": "Chấm dứt hợp đồng thành công",
+ "textDoYouWantToContinueOrChooseTheProduct": "Bạn muốn tiếp tục hay chọn lại sản phẩm?",
+  "textAgain": "Chọn lại"
 }

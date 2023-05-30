@@ -1,6 +1,7 @@
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/method_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/receipt_information_page.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
@@ -53,10 +54,11 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                                   controller.isOnMethodPage.value
                                       ? AppLocalizations.of(context)!
                                           .textProductPaymentMethod
-                                      : controller.status == 'CREATE'
-                                          ? AppLocalizations.of(context)!
-                                              .textInvoiceInfo
-                                          : 'Receipt information',
+                                      : controller.status ==
+                                              ProductStatus.Change
+                                          ? 'Receipt information'
+                                          : AppLocalizations.of(context)!
+                                              .textInvoiceInfo,
                                   style: AppStyles.title),
                             ),
                             const SizedBox(height: 5),
@@ -81,14 +83,17 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                                       .index ==
                                   0) {
                                 Get.back();
-                                bool isExit =
-                                    Get.isRegistered<ListRequestLogic>();
-                                if (isExit) {
-                                  ListRequestLogic listRequestLogic =
-                                      Get.find();
-                                  listRequestLogic
-                                      .updateSearchRequestToIndex(2);
-                                  listRequestLogic.refreshListRequest();
+                                // nếu status là create thì reload lại màn list request
+                                if (controller.status == ProductStatus.Create) {
+                                  bool isExit =
+                                      Get.isRegistered<ListRequestLogic>();
+                                  if (isExit) {
+                                    ListRequestLogic listRequestLogic =
+                                        Get.find();
+                                    listRequestLogic
+                                        .updateSearchRequestToIndex(2);
+                                    listRequestLogic.refreshListRequest();
+                                  }
                                 }
                               } else {
                                 controller.isOnInvoicePage.value = false;
@@ -165,7 +170,8 @@ class ProductPaymentMethodPage extends GetView<ProductPaymentMethodLogic> {
                                 if (index == 0) {
                                   return MethodPage(controller: controller);
                                 } else {
-                                  if (controller.status == 'CREATE') {
+                                  if (controller.status !=
+                                      ProductStatus.Change) {
                                     return InvoicePage(controller: controller);
                                   } else {
                                     return ReceiptInformationPage(

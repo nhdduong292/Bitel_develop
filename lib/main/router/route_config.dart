@@ -7,6 +7,7 @@ import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/buy_anypay_page.dart
 import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/create_order/create_oder_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/order_management/order_management_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/contracting/resign_contract/resign_contract_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_search_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/cancel_service_pdf/cancel_service_pdf_page.dart';
@@ -76,6 +77,8 @@ class RouteConfig {
       "/menu/ftth/aftersale/cancelServiceInfor";
   static const String penaltyInfor =
       "/menu/ftth/aftersale/cancelService/penaltyInfor";
+  static const String resignContract =
+      "/menu/ftth/sale/contract/resignContract";
 
   ///page
   static final List<GetPage> getPages = [
@@ -109,6 +112,7 @@ class RouteConfig {
     GetPage(name: dateCancelService, page: () => DateCancelService()),
     GetPage(name: cancelServiceInfor, page: () => CancelServiceSuccess()),
     GetPage(name: penaltyInfor, page: () => PenaltyInformationPage()),
+    GetPage(name: resignContract, page: () => ReSignContractPage()),
   ];
 
   ///language

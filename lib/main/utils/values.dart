@@ -24,3 +24,9 @@ class RequestStatus {
   static final String CANCEL = "CANCEL";
   static final String ALL = "";
 }
+
+class ProductStatus {
+  static final String Create = "CREATE";
+  static final String ReSelect = "RESELECT";
+  static final String Change = "CHANGE";
+}
