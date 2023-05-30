@@ -398,7 +398,8 @@ class CustomerInformationLogic extends GetxController {
   bool validateAddress() {
     if (currentArea.province.isNotEmpty &&
         currentArea.district.isNotEmpty &&
-        currentArea.precinct.isNotEmpty) {
+        currentArea.precinct.isNotEmpty &&
+        textFieldAddress.text.isNotEmpty) {
       return true;
     }
     Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
@@ -408,7 +409,8 @@ class CustomerInformationLogic extends GetxController {
   bool validateBillAddress() {
     if (billArea.province.isNotEmpty &&
         billArea.district.isNotEmpty &&
-        billArea.precinct.isNotEmpty) {
+        billArea.precinct.isNotEmpty &&
+        textFieldAddress.text.isNotEmpty) {
       return true;
     }
     Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
@@ -717,6 +719,7 @@ class CustomerInformationLogic extends GetxController {
       Completer<bool> completer = Completer();
       Map<String, dynamic> body = {
         "isBypass": true,
+        "isUploadContractLate": valueCheckBox
       };
       Map<String, dynamic> params = {"type": type};
       ApiUtil.getInstance()!.put(

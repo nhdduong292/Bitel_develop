@@ -22,7 +22,7 @@ class ApiUtil {
       dio = Dio();
       dio!.options.connectTimeout = const Duration(seconds: 120);
       // dio!.options.receiveTimeout = Duration(seconds: 60);
-      dio!.options.receiveTimeout = const Duration(seconds: 300);
+      dio!.options.receiveTimeout = const Duration(seconds: 120);
       dio!.interceptors.add(ApiInterceptors());
     }
     cancelToken ??= CancelToken();
@@ -93,7 +93,7 @@ class ApiUtil {
       queryParameters: params,
       options: Options(
         responseType: ResponseType.bytes,
-        followRedirects: false,   
+        followRedirects: false,
       ),
     )
         .then((res) {

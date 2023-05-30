@@ -420,6 +420,9 @@ class BillAddressInformation extends Dialog {
 
   @override
   Widget build(BuildContext context) {
+    controller.currentArea.province = "";
+    controller.currentArea.district = "";
+    controller.currentArea.precinct = "";
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: SizedBox(
