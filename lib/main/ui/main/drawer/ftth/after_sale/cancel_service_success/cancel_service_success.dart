@@ -110,7 +110,7 @@ class CancelServiceSuccess extends GetView<CancelServiceSuccessLogic> {
                                 richText: () {
                                   return Text(
                                     controller.model.account,
-                                    style: AppStyles.rF76F5A_13_500,
+                                    style: AppStyles.r415263_13_500,
                                   );
                                 }),
                             DottedLine(

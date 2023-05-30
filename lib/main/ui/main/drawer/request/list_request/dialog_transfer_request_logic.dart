@@ -60,6 +60,9 @@ class DialogTransferRequestLogic extends GetxController {
               .toList();
           if (list.isNotEmpty) {
             listReason.addAll(list);
+            if (listReason.isNotEmpty) {
+              currentReason = listReason[0].id ?? 0;
+            }
             update();
           }
         } else {}
