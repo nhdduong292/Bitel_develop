@@ -15,6 +15,7 @@ import 'package:get/get.dart';
 class LoginPage extends GetWidget {
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
     // TODO: implement build
     return GetBuilder(
       init: LoginLogic(),
@@ -27,8 +28,8 @@ class LoginPage extends GetWidget {
                 image: DecorationImage(
                     image: AssetImage(AppImages.bgLogin), fit: BoxFit.cover),
               ),
-              child: SingleChildScrollView(
-                child: Column(
+              child: Stack(children: [
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Center(
@@ -39,34 +40,29 @@ class LoginPage extends GetWidget {
                         ),
                       ),
                     ),
-                    KeyboardVisibilityBuilder(builder: (context, visible) {
-                      if (!visible) {
-                        return Center(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 30),
-                            child: Image.asset(
-                              AppImages.icConceptLogin,
-                              // height: 240,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        );
-                      } else {
-                        return Container();
-                      }
-                    }),
-                    KeyboardVisibilityBuilder(builder: (context, visible) {
-                      if (!visible) {
-                        return const SizedBox(
-                          height: 100,
-                        );
-                      } else {
-                        return Container();
-                      }
-                    }),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 30),
+                        child: Image.asset(
+                          AppImages.icConceptLogin,
+                          // height: 240,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+
                     const SizedBox(
                       height: 50,
                     ),
+
+                    // const SizedBox(
+                    //   height: 100,
+                    // ),
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
                     Container(
                       width: double.infinity,
                       margin:
@@ -281,14 +277,20 @@ class LoginPage extends GetWidget {
                           ],
                         ),
                       ),
-                    )
-
-                    // const SizedBox(
-                    //   height: 100,
-                    // ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    KeyboardVisibilityBuilder(builder: (context, visible) {
+                      if (visible) {
+                        return SizedBox(height: height * (1 / 4));
+                      } else {
+                        return Container();
+                      }
+                    }),
                   ],
-                ),
-              ),
+                )
+              ]),
             ));
       },
     );
