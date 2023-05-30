@@ -100,6 +100,8 @@ class HomePage extends GetView<HomeLogic> {
                   SizedBox(height: 12),
                   Row(
                     mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
