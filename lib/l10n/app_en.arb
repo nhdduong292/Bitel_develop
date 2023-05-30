@@ -689,6 +689,8 @@
    "textE068": "Validate staff's finger fail",
    "textE069": "Customer has not been approved to bypass fingerprint validation",
    "textE070": "Sign contract failed due to can not generate operation code",
-   "textE071": "Failed to upload document to profile service"
+   "textE071": "Failed to upload document to profile service",
+   "textCurrentPlan": "Current plan",
+   "textNewPlan": "New plan"
   
 }

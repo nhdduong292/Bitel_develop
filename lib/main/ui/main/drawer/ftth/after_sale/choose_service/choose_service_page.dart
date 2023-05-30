@@ -55,8 +55,9 @@ class ChooseServicePage extends GetWidget {
                 // _onLoading(context);
                 if (controller.afterSaleSearchLogic.type == 'CHANGE_PLAN') {
                   RequestDetailModel requestModel = RequestDetailModel();
-                  Get.toNamed(RouteConfig.productPayment,
-                      arguments: [requestModel, 'CHANGE']);
+                  Get.toNamed(RouteConfig.chooseChangePlan, arguments: [
+                    controller.listAccount[controller.valueService.value].subId
+                  ]);
                 } else if (controller.afterSaleSearchLogic.type ==
                     'TRANSFER_SERVICE') {
                 } else {

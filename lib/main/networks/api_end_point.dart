@@ -116,4 +116,6 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts/contractId/upload-contract";
   static const String API_UPLOAD_IDENTITY_NEW =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/file/identify-card-base64";
+  static const String API_GET_PRODUCT_CHANGE_PLAN =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/change-plan/get-product";
 }
