@@ -94,8 +94,8 @@ class CustomerInformationLogic extends GetxController {
   bool isCameraMain = true;
   bool isCameraLending = true;
   bool isLoadingConvertBase64 = false;
-
-  RequestDetailLogic requestDetailLogic = Get.find();
+  String statusRequest = '';
+  int contractRequestId = 0;
 
   @override
   void onInit() {
@@ -129,6 +129,14 @@ class CustomerInformationLogic extends GetxController {
     emailController.text = email;
     emailController.selection =
         TextSelection.fromPosition(TextPosition(offset: email.length));
+
+    bool isExit = Get.isRegistered<RequestDetailLogic>();
+    if (isExit) {
+      RequestDetailLogic requestDetailLogic = Get.find();
+      statusRequest = requestDetailLogic.requestModel.status;
+      contractRequestId =
+          requestDetailLogic.requestModel.contractModel.contractId;
+    }
 
     showButtonContinue();
   }
@@ -244,7 +252,6 @@ class CustomerInformationLogic extends GetxController {
       url: ApiEndPoints.API_CREATE_CONTRACT,
       body: body,
       onSuccess: (response) {
-        print('bxloc create contract success');
         Get.back();
         if (response.isSuccess) {
           print(response.data['data']);
@@ -256,7 +263,6 @@ class CustomerInformationLogic extends GetxController {
         }
       },
       onError: (error) {
-        print('bxloc create contract false');
         isSuccess.call(false);
         Get.back();
         Common.showMessageError(error: error, context: context);
@@ -300,9 +306,8 @@ class CustomerInformationLogic extends GetxController {
       "receiveFromBitel": checkOption4.value
     };
     ApiUtil.getInstance()!.put(
-      url:
-          "${ApiEndPoints.API_CREATE_CONTRACT}/${requestDetailLogic.requestModel.contractModel.contractId}",
-      params: {"id": requestDetailLogic.requestModel.contractModel.contractId},
+      url: "${ApiEndPoints.API_CREATE_CONTRACT}/$contractRequestId",
+      params: {"id": contractRequestId},
       body: body,
       onSuccess: (response) {
         print('bxloc create contract success');

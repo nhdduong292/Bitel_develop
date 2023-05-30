@@ -245,8 +245,7 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                     child: bottomButton(
                         onTap: () {
                           //nếu trạng thái là connected thì gọi api update, ngược lại gọi api create
-                          if (controller
-                                  .requestDetailLogic.requestModel.status ==
+                          if (controller.statusRequest ==
                               RequestStatus.CONNECTED) {
                             controller.updateContract(
                               context,
