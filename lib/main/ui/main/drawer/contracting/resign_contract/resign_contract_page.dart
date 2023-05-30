@@ -249,7 +249,7 @@ class ReSignContractPage extends GetView {
                                   onTap: () {
                                     Get.toNamed(RouteConfig.validateFingerprint,
                                         arguments: [
-                                          controller.checkOption.value
+                                          controller.checkMainContract.value
                                               ? 'MAIN'
                                               : 'LENDING',
                                           controller

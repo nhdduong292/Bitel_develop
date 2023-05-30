@@ -52,7 +52,7 @@ class HomePage extends GetView<HomeLogic> {
               constraints: BoxConstraints.expand(),
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage(AppImages.bgHome), fit: BoxFit.cover),
+                    image: AssetImage(AppImages.bgHome), fit: BoxFit.fill),
               ),
             ),
             toolbarHeight: 280,
@@ -94,7 +94,8 @@ class HomePage extends GetView<HomeLogic> {
                 children: [
                   Image.asset(AppImages.icAvatarDefault),
                   SizedBox(height: 10),
-                  Text(InfoBusiness.getInstance()!.getUser().sub,
+                  Text(
+                      "${AppLocalizations.of(context)!.textHello.toUpperCase()}, ${InfoBusiness.getInstance()!.getUser().name}",
                       style: AppStyles.b2),
                   SizedBox(height: 12),
                   Row(
@@ -103,8 +104,13 @@ class HomePage extends GetView<HomeLogic> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("USUARIO", style: AppStyles.b3),
-                          Text("GUADALUPECC-LI4", style: AppStyles.b1)
+                          Text(
+                              AppLocalizations.of(context)!
+                                  .textUser
+                                  .toUpperCase(),
+                              style: AppStyles.b3),
+                          Text(InfoBusiness.getInstance()!.getUser().sub,
+                              style: AppStyles.b1)
                         ],
                       ),
                       const SizedBox(
@@ -121,8 +127,14 @@ class HomePage extends GetView<HomeLogic> {
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("USUARIO", style: AppStyles.b3),
-                          Text("GUADALUPECC-LI4", style: AppStyles.b1)
+                          Text(
+                              AppLocalizations.of(context)!
+                                  .textDateAndTime
+                                  .toUpperCase(),
+                              style: AppStyles.b3),
+                          Text(
+                              "${Common.getStringTimeToday()} - V.${Common.getVersionApp()}",
+                              style: AppStyles.b1)
                         ],
                       ),
                     ],
@@ -135,39 +147,39 @@ class HomePage extends GetView<HomeLogic> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Padding(
-                padding:
-                    EdgeInsets.only(left: 20, right: 20, top: 17, bottom: 24),
-                child: Container(
-                  alignment: Alignment.topLeft,
-                  child: Text("Hola, Diego Guadalupe", style: AppStyles.b2),
-                ),
-              ),
-              Expanded(
-                child: PageView.builder(
-                  controller: controller.controllerPage,
-                  // itemCount: pages.length,
-                  itemBuilder: (_, index) {
-                    return pages[index % pages.length];
-                  },
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              SmoothPageIndicator(
-                controller: controller.controllerPage,
-                count: pages.length,
-                effect: const WormEffect(
-                  dotHeight: 8,
-                  dotWidth: 16,
-                  spacing: 10,
-                  activeDotColor: AppColors.colorSelectBottomBar,
-                  dotColor: AppColors.colorDotIndicator,
-                  type: WormType.thin,
-                  // strokeWidth: 5,
-                ),
-              ),
+              // Padding(
+              //   padding:
+              //       EdgeInsets.only(left: 20, right: 20, top: 17, bottom: 24),
+              //   child: Container(
+              //     alignment: Alignment.topLeft,
+              //     child: Text("Hola, Diego Guadalupe", style: AppStyles.b2),
+              //   ),
+              // ),
+              // Expanded(
+              //   child: PageView.builder(
+              //     controller: controller.controllerPage,
+              //     // itemCount: pages.length,
+              //     itemBuilder: (_, index) {
+              //       return pages[index % pages.length];
+              //     },
+              //   ),
+              // ),
+              // const SizedBox(
+              //   height: 20,
+              // ),
+              // SmoothPageIndicator(
+              //   controller: controller.controllerPage,
+              //   count: pages.length,
+              //   effect: const WormEffect(
+              //     dotHeight: 8,
+              //     dotWidth: 16,
+              //     spacing: 10,
+              //     activeDotColor: AppColors.colorSelectBottomBar,
+              //     dotColor: AppColors.colorDotIndicator,
+              //     type: WormType.thin,
+              //     // strokeWidth: 5,
+              //   ),
+              // ),
             ],
           ),
         );

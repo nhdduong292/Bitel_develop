@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as Math;
 
+import 'package:bitel_ventas/main/services/settings_service.dart';
 import 'package:bitel_ventas/main/utils/dialog_util.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:dio/dio.dart';
@@ -12,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../router/route_config.dart';
 
@@ -402,5 +404,10 @@ class Common {
       return 'CPP';
     }
     return '---';
+  }
+
+  static getVersionApp() {
+    SettingService settingService = Get.find();
+    return settingService.version.value;
   }
 }

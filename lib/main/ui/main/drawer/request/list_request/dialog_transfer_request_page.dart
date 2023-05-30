@@ -209,7 +209,9 @@ class DialogTransferRequest extends GetWidget {
                                 border:
                                     Border.all(color: const Color(0xFFE3EAF2))),
                             isExpanded: true,
-                            // value: controller.currentReason.isNotEmpty ? controller.currentReason : null,
+                            value: controller.listReason.isNotEmpty
+                                ? controller.listReason[0]
+                                : null,
                             onChanged: (value) {
                               controller.currentReason = value!.id!;
                             },

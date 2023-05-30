@@ -665,6 +665,9 @@
 "textActive" : "Activo",
  "textSuccessfulTerminationOfContract": "Terminación exitosa del contrato",
  "textDoYouWantToContinueOrChooseTheProduct": "¿Desea continuar o elegir el producto nuevamente?",
-  "textAgain": "de nuevo"
+  "textAgain": "de nuevo",
+  "textHello": "Hola",
+"textUser": "Usuario",
+"textDateAndTime": "Fecha y hora"
   
 }
