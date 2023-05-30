@@ -666,5 +666,14 @@
   "textAgain": "Chọn lại",
   "textHello": "Xin chào",
  "textUser": "Người dùng",
-"textDateAndTime": "Ngày và giờ"
+"textDateAndTime": "Ngày và giờ",
+"textE063": "Loại giảm giá khuyến mãi nhanh không hợp lệ",
+"textE064": "Không thể thay đổi thương hiệu thuê bao FTTH",
+"textE065": "Không hỗ trợ ưu đãi tốc độ mới cho thuê bao FTTH",
+"textE066": "Thuê bao không hoạt động",
+"textE067": "Gỡ bỏ công việc trên VSMART không thành công",
+"textE068": "Xác thực dấu vân tay của nhân viên thất bại",
+"textE069": "Khách hàng chưa được phê duyệt để bỏ qua xác thực dấu vân tay",
+"textE070": "Lỗi khi ký hợp đồng do không thể tạo mã thao tác",
+"textE071": "Không thể tải tài liệu lên dịch vụ hồ sơ"
 }

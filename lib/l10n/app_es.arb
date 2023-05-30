@@ -668,6 +668,15 @@
   "textAgain": "de nuevo",
   "textHello": "Hola",
 "textUser": "Usuario",
-"textDateAndTime": "Fecha y hora"
+"textDateAndTime": "Fecha y hora",
+"textE063": "El tipo de descuento de promoción de velocidad no es válido",
+"textE064": "Error al cambiar la marca del suscriptor FTTH",
+"textE065": "No hay oferta de productos que admita la nueva velocidad de promoción del suscriptor FTTH",
+"textE066": "El suscriptor no está activo",
+"textE067": "Error al eliminar la tarea en VSMART",
+"textE068": "Error al validar el dedo del personal",
+"textE069": "El cliente no ha sido aprobado para omitir la validación de huellas dactilares",
+"textE070": "Error al firmar el contrato debido a que no se puede generar el código de operación",
+"textE071": "Error al cargar el documento en el servicio de perfil"
   
 }

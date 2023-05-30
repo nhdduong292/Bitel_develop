@@ -680,6 +680,15 @@
    "textAgain": "Again",
    "textHello": "Hello",
    "textUser": "User",
-   "textDateAndTime": "Date and time"
+   "textDateAndTime": "Date and time",
+   "textE063": "Speed promotion discount type invalid",
+   "textE064": "Failed to change FTTH subscriber brand",
+   "textE065": "No product offer support new promotion speed of FTTH subscriber",
+   "textE066": "Subscriber is not active",
+   "textE067": "Remove task on VSMART failed",
+   "textE068": "Validate staff's finger fail",
+   "textE069": "Customer has not been approved to bypass fingerprint validation",
+   "textE070": "Sign contract failed due to can not generate operation code",
+   "textE071": "Failed to upload document to profile service"
   
 }
