@@ -135,7 +135,6 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                                   controller.checkLoading();
                                   controller.resetPlanReason();
                                   if (value > -1) {
-                                    controller.isChanged = true;
                                     controller.getPlanReasons();
                                   }
                                   controller.resetPromotions();
@@ -350,14 +349,9 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
             () => bottomButton(
                 text: AppLocalizations.of(context)!.textContinue,
                 onTap: () {
-                  if ((controller.valueMethod.value > -1 &&
-                          controller.valueProduct.value > -1 &&
-                          controller.valuePackage.value > -1 &&
-                          controller.status != ProductStatus.Change) ||
-                      (controller.valueMethod.value > -1 &&
-                          controller.valueProduct.value > -1 &&
-                          controller.status == ProductStatus.Change &&
-                          controller.checkChangePackage())) {
+                  if (controller.valueMethod.value > -1 &&
+                      controller.valueProduct.value > -1 &&
+                      controller.valuePackage.value > -1) {
                     controller.isOnMethodPage.value = false;
                     controller.isOnInvoicePage.value = true;
 
@@ -373,13 +367,8 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                   }
                 },
                 color: !(controller.valueMethod.value > -1 &&
-                            controller.valueProduct.value > -1 &&
-                            controller.valuePackage.value > -1 &&
-                            controller.status != ProductStatus.Change) &&
-                        !(controller.valueMethod.value > -1 &&
-                            controller.valueProduct.value > -1 &&
-                            controller.status == ProductStatus.Change &&
-                            controller.checkChangePackage())
+                        controller.valueProduct.value > -1 &&
+                        controller.valuePackage.value > -1)
                     ? const Color(0xFF415263).withOpacity(0.2)
                     : null),
           ),

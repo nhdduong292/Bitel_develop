@@ -80,6 +80,7 @@ class ApiUtil {
   Future<void> postPDF({
     required String url,
     Map<String, dynamic> params = const {},
+    Map<String, dynamic>? body,
     required Function(Response success) onSuccess,
     required Function(dynamic error) onError,
   }) async {
@@ -91,6 +92,7 @@ class ApiUtil {
         .post(
       url,
       queryParameters: params,
+      data: body,
       options: Options(
         responseType: ResponseType.bytes,
         followRedirects: false,

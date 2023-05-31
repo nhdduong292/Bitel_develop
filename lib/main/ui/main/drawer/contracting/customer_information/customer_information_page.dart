@@ -5,6 +5,7 @@ import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_informatio
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/view_item/additional_information/additional_information.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/view_item/contract_uploading/contract_uploading_page.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -159,6 +160,10 @@ class CustommerInformationPage extends GetView<CustomerInformationLogic> {
                                   duration: const Duration(milliseconds: 200),
                                 );
                                 controller.getCurrentTime();
+                                if (controller.statusContract ==
+                                    ContractStatus.Change_plan) {
+                                  controller.getContractInfor();
+                                }
                               },
                             );
                           } else if (index == 1) {

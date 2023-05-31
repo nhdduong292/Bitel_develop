@@ -675,5 +675,12 @@
 "textE068": "Xác thực dấu vân tay của nhân viên thất bại",
 "textE069": "Khách hàng chưa được phê duyệt để bỏ qua xác thực dấu vân tay",
 "textE070": "Lỗi khi ký hợp đồng do không thể tạo mã thao tác",
-"textE071": "Không thể tải tài liệu lên dịch vụ hồ sơ"
+"textE071": "Không thể tải tài liệu lên dịch vụ hồ sơ",
+"textCurrentPlan": "Gói hiện tại",
+"textNewPlan": "Gói mới",
+"textPrepaidMonth": "Nạp trước {month} tháng",
+"textPaymentOfCurrentInvoice": "Thanh toán hóa đơn hiện tại",
+"textReceiptInformation": "Thông tin nhận hàng",
+"textActionType": "Loại hành động",
+"textConnectNewSubscriber": "Kết nối thuê bao mới"
 }

@@ -4,9 +4,11 @@ import 'dart:io';
 import 'package:bitel_ventas/main/networks/model/contract_model.dart';
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/change_plan/information/infor_change_plan_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/request_detail/request_detail_logic.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -97,6 +99,9 @@ class CustomerInformationLogic extends GetxController {
   String statusRequest = '';
   int contractRequestId = 0;
 
+  String statusContract = '';
+  int subId = 0;
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -107,8 +112,21 @@ class CustomerInformationLogic extends GetxController {
     productId = data[2];
     reasonId = data[3];
     isForcedTerm = data[4];
-    listPromotionId = data[5];
+    if (data[5] != null) {
+      listPromotionId = data[5];
+    } else {
+      listPromotionId = [];
+    }
     packageId = data[6];
+    statusContract = data[7];
+
+    if (statusContract == ContractStatus.Change_plan) {
+      bool isExit = Get.isRegistered<InforChangePlanLogic>();
+      if (isExit) {
+        InforChangePlanLogic inforChangePlanLogic = Get.find();
+        subId = inforChangePlanLogic.subId;
+      }
+    }
     phone = customer.telFax;
     email = customer.email;
     if (customer.address.isNotEmpty ||
@@ -170,7 +188,13 @@ class CustomerInformationLogic extends GetxController {
     update();
   }
 
-  String getBillCycle(String billCycle) {
+  String getBillCycle() {
+    if (statusContract == ContractStatus.Change_plan) {
+      billCycle = contract.billCycleFrom;
+    }
+    if (billCycle.isEmpty) {
+      return '---';
+    }
     if (billCycle == 'CYCLE6') {
       return '${AppLocalizations.of(context)!.textCircle} 6';
     } else if (billCycle == 'CYCLE16') {
@@ -315,6 +339,52 @@ class CustomerInformationLogic extends GetxController {
         if (response.isSuccess) {
           print(response.data['data']);
           contract = ContractModel.fromJson(response.data['data']);
+          isSuccess.call(true);
+        } else {
+          print("error: ${response.status}");
+          isSuccess.call(false);
+        }
+      },
+      onError: (error) {
+        print('bxloc create contract false');
+        isSuccess.call(false);
+        Get.back();
+        Common.showMessageError(error: error, context: context);
+      },
+    );
+  }
+
+  void updateContractChangePlan(
+      BuildContext context, Function(bool) isSuccess) {
+    _onLoading(context);
+    Map<String, dynamic> body = {
+      "language": contractLanguagetValue.value.toUpperCase(),
+      "province": billArea.province.isNotEmpty
+          ? billArea.province
+          : requestModel.province,
+      "district": billArea.district.isNotEmpty
+          ? billArea.district
+          : requestModel.district,
+      "precinct": billArea.precinct.isNotEmpty
+          ? billArea.precinct
+          : requestModel.precinct,
+      "address": billAddressSelect.isNotEmpty
+          ? billAddressSelect
+          : requestModel.address,
+      "protectionFilter": checkOption1.value,
+      "receiveInfoByMail": checkOption2.value,
+      "receiveFromThirdParty": checkOption3.value,
+      "receiveFromBitel": checkOption4.value
+    };
+    ApiUtil.getInstance()!.put(
+      url:
+          "${ApiEndPoints.API_UPADTE_CONTRACT_CHANGE_PLAN}/${contract.contractId}",
+      params: {"id": contract.contractId},
+      body: body,
+      onSuccess: (response) {
+        print('bxloc create contract success');
+        Get.back();
+        if (response.isSuccess) {
           isSuccess.call(true);
         } else {
           print("error: ${response.status}");
@@ -485,12 +555,15 @@ class CustomerInformationLogic extends GetxController {
       "rightImage": null
     };
     ApiUtil.getInstance()!.put(
-      url: '${ApiEndPoints.API_CREATE_CUSTOMER}/${customer.custId}',
+      url:
+          '${statusContract == ContractStatus.Change_plan ? ApiEndPoints.API_UPADTE_CUSTOMER_CHANGE_PLAN : ApiEndPoints.API_CREATE_CUSTOMER}/${customer.custId}',
       body: body,
       onSuccess: (response) {
         Get.back();
         if (response.isSuccess) {
-          customer = CustomerModel.fromJson(response.data['data']);
+          if (statusContract != ContractStatus.Change_plan) {
+            customer = CustomerModel.fromJson(response.data['data']);
+          }
           callBack.call(true);
         } else {
           callBack.call(false);
@@ -556,7 +629,6 @@ class CustomerInformationLogic extends GetxController {
           }
         },
         onError: (error) {
-          Get.back();
           Common.showMessageError(error: error, context: context);
           completer.complete([]);
           // callBack.call(false);
@@ -745,6 +817,79 @@ class CustomerInformationLogic extends GetxController {
     } catch (e) {
       Get.back();
       Common.showToastCenter(e.toString());
+    }
+  }
+
+  void getContractInfor() {
+    _onLoading(context);
+    ApiUtil.getInstance()!.get(
+      url: ApiEndPoints.API_GET_CONTRACT_INFO,
+      params: {"subId": subId},
+      onSuccess: (response) {
+        Get.back();
+        if (response.isSuccess) {
+          contract = ContractModel.fromJson(response.data['data']);
+          contractLanguagetValue.value = contract.language;
+          billAddress = contract.getInstalAddress();
+          billAddressSelect = contract.address;
+          billArea.province = contract.province;
+          billArea.district = contract.district;
+          billArea.precinct = contract.precinct;
+          update();
+        } else {}
+      },
+      onError: (error) {
+        Get.back();
+
+        Common.showMessageError(error: error, context: context);
+      },
+    );
+  }
+
+  String getSignDate() {
+    String date = '---';
+    if (statusContract == ContractStatus.Change_plan) {
+      signDate.value = contract.signDate;
+    }
+    if (signDate.value.isNotEmpty) {
+      date = Common.fromDate(DateTime.parse(signDate.value), 'dd/MM/yyyy');
+    }
+    return date;
+  }
+
+  String getQuantitySubscriber() {
+    if (statusContract == ContractStatus.Change_plan) {
+      if (contract.numOfSubscriber != 0) {
+        return contract.numOfSubscriber.toString();
+      } else {
+        return '---';
+      }
+    } else {
+      return '1';
+    }
+  }
+
+  String getChangeNotification() {
+    if (statusContract == ContractStatus.Change_plan) {
+      return contract.changeNotification;
+    } else {
+      return AppLocalizations.of(context)!.textEmail;
+    }
+  }
+
+  String getPrintBillDetail() {
+    if (statusContract == ContractStatus.Change_plan) {
+      return contract.printBill;
+    } else {
+      return AppLocalizations.of(context)!.textEmail;
+    }
+  }
+
+  String getCurrency() {
+    if (statusContract == ContractStatus.Change_plan) {
+      return contract.currency;
+    } else {
+      return 'SOL';
     }
   }
 }

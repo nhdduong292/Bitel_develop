@@ -353,7 +353,6 @@ class CreateRequestLogic extends GetxController {
           }
         },
         onError: (error) {
-          Get.back();
           Common.showMessageError(error: error, context: context);
           completer.complete([]);
           // callBack.call(false);

@@ -6,6 +6,7 @@ import 'dart:typed_data';
 
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/customer_information_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -75,8 +76,8 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 16),
                       child: Text(
@@ -89,8 +90,8 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
                     ),
                   ),
                   InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     child: Padding(
                       padding: const EdgeInsets.only(right: 16),
                       child: Text(
@@ -108,8 +109,8 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
               height: 18,
             ),
             InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
               onTap: () {
                 if (controller.checkMainContract.value) {
                   Get.to(PDFPreviewPage(),
@@ -148,9 +149,9 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
                 onTap: () {
                   if (controller.checkOption.value) {
                     if (controller.checkMainContract.value) {
-                      callback('MAIN');
+                      callback(ValidateFingerStatus.MAIN);
                     } else {
-                      callback('LENDING');
+                      callback(ValidateFingerStatus.LENDING);
                     }
                   }
                 },

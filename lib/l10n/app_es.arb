@@ -677,6 +677,13 @@
 "textE068": "Error al validar el dedo del personal",
 "textE069": "El cliente no ha sido aprobado para omitir la validación de huellas dactilares",
 "textE070": "Error al firmar el contrato debido a que no se puede generar el código de operación",
-"textE071": "Error al cargar el documento en el servicio de perfil"
+"textE071": "Error al cargar el documento en el servicio de perfil",
+"textCurrentPlan": "Plan actual",
+"textNewPlan": "Plan nuevo",
+"textPrepaidMonth": "Prepago {month} mes",
+"textPaymentOfCurrentInvoice": "Pago de factura actual",
+"textReceiptInformation": "Información del recibo",
+"textActionType": "Tipo de acción",
+"textConnectNewSubscriber": "Conectar nuevo suscriptor"
   
 }

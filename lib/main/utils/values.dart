@@ -30,3 +30,20 @@ class ProductStatus {
   static final String ReSelect = "RESELECT";
   static final String Change = "CHANGE";
 }
+
+class ContractStatus {
+  static final String New = "NEW";
+  static final String Change_plan = "CHANGE_PLAN";
+}
+
+class ActionType {
+  static final String type_00 = "00";
+  static final String type_90 = "90";
+}
+
+class ValidateFingerStatus {
+  static final String STAFF_CANCEL_SERVICE = "STAFF_CANCEL_SERVICE";
+  static final String STAFF_CHANGE_PLAN = "STAFF_CHANGE_PLAN";
+  static final String MAIN = "MAIN";
+  static final String LENDING = "LENDING";
+}

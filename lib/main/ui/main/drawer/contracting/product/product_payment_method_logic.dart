@@ -39,7 +39,6 @@ class ProductPaymentMethodLogic extends GetxController {
   String status = 'CREATE';
   int currentProduct = 2;
   int currentReason = 2;
-  bool isChanged = false;
 
   ProductPaymentMethodLogic({required this.context});
 
@@ -254,9 +253,6 @@ class ProductPaymentMethodLogic extends GetxController {
             listPlanReason = (response.data['data'] as List)
                 .map((postJson) => PlanReasonModel.fromJson(postJson))
                 .toList();
-            if (valueProduct.value == currentProduct && !isChanged) {
-              valueMethod.value = currentReason;
-            }
             update();
           } else {
             print("error: ${response.status}");
@@ -332,14 +328,6 @@ class ProductPaymentMethodLogic extends GetxController {
       },
     );
     return completer.future;
-  }
-
-  bool checkChangePackage() {
-    if ((valueProduct.value == currentProduct) &&
-        (valueMethod.value == currentReason)) {
-      return false;
-    }
-    return true;
   }
 
   void _onLoading(BuildContext context) {

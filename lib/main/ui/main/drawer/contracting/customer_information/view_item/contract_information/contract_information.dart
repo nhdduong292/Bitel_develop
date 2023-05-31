@@ -77,40 +77,37 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
             //     isIcon: false,
             //     width: width * 0.55),
             lockedBoxV1(
-                content: '1',
+                content: controller.getQuantitySubscriber(),
                 label: AppLocalizations.of(context)!.textQuantitySubscriber,
                 required: true,
                 isIcon: false,
                 width: width * 0.55),
             Obx(() => lockedBoxV1(
-                content: controller.signDate.value != ''
-                    ? Common.fromDate(
-                        DateTime.parse(controller.signDate.value), 'dd/MM/yyyy')
-                    : "---",
+                content: controller.getSignDate(),
                 label: AppLocalizations.of(context)!.textSignDate,
                 required: false,
                 isIcon: false,
                 width: width * 0.55)),
             lockedBoxV1(
-                content: controller.getBillCycle(controller.billCycle),
+                content: controller.getBillCycle(),
                 label: AppLocalizations.of(context)!.textBillCycle,
                 required: true,
                 isIcon: true,
                 width: width * 0.55),
             lockedBoxV1(
-                content: AppLocalizations.of(context)!.textEmail,
+                content: controller.getChangeNotification(),
                 label: AppLocalizations.of(context)!.textChangeNotification,
                 required: false,
                 isIcon: true,
                 width: width * 0.55),
             lockedBoxV1(
-                content: AppLocalizations.of(context)!.textEmail,
+                content: controller.getPrintBillDetail(),
                 label: AppLocalizations.of(context)!.textPrintBillDetail,
                 required: false,
                 isIcon: true,
                 width: width * 0.55),
             lockedBoxV1(
-                content: 'SOL',
+                content: controller.getCurrency(),
                 label: AppLocalizations.of(context)!.textCurrency,
                 required: true,
                 isIcon: true,

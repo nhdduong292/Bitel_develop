@@ -11,6 +11,7 @@ import '../../../../../../res/app_images.dart';
 import '../../../../../../res/app_styles.dart';
 import '../../../../../router/route_config.dart';
 import '../../../../../utils/common_widgets.dart';
+import '../../../../../utils/values.dart';
 
 class InvoicePage extends GetView<ProductPaymentMethodLogic> {
   ProductPaymentMethodLogic controller;
@@ -264,7 +265,8 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                               controller.getPlanReason().id,
                               controller.isForcedTerm(),
                               controller.listIdPromotion,
-                              controller.getPackage().packageId
+                              controller.getPackage().packageId,
+                              ContractStatus.New
                             ]);
                       } else {
                         Get.toNamed(RouteConfig.createContact, arguments: [
