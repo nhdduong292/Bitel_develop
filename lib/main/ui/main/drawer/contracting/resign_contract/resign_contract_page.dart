@@ -18,6 +18,7 @@ import '../../../../../../res/app_styles.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../../../router/route_config.dart';
+import '../../../../../utils/values.dart';
 import '../customer_information/pdf_preview_page.dart';
 
 class ReSignContractPage extends GetView {
@@ -250,8 +251,8 @@ class ReSignContractPage extends GetView {
                                     Get.toNamed(RouteConfig.validateFingerprint,
                                         arguments: [
                                           controller.checkMainContract.value
-                                              ? 'MAIN'
-                                              : 'LENDING',
+                                              ? ValidateFingerStatus.MAIN
+                                              : ValidateFingerStatus.LENDING,
                                           controller
                                               .requestDetailLogic
                                               .requestModel

@@ -29,6 +29,7 @@ class PenaltyInformationLogic extends GetxController {
   FindAccountModel findAccountModel = FindAccountModel();
   CancelServiceModel cancelServiceModel = CancelServiceModel();
   DateCancelServiceLogic dateCancelServiceLogic = Get.find();
+  int subId = 0;
 
   @override
   void onInit() {
@@ -36,6 +37,7 @@ class PenaltyInformationLogic extends GetxController {
     super.onInit();
     findAccountModel = dateCancelServiceLogic.findAccountModel;
     cancelServiceModel = dateCancelServiceLogic.cancelServiceModel;
+    subId = findAccountModel.subId;
   }
 
   @override

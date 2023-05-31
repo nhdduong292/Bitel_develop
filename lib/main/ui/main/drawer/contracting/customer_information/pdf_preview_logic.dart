@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/date_cancel_service/date_cancel_service.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/date_cancel_service/date_cancel_service_logic.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,7 +22,9 @@ class PDFPreviewLogic extends GetxController {
   var loadSuccess = false.obs;
   var type = '';
   int contractId = 0;
-  int orderId = 0;
+  int subId = 0;
+  String cancelDate = '';
+  String note = '';
 
   PDFPreviewLogic({required this.context});
 
@@ -35,8 +39,16 @@ class PDFPreviewLogic extends GetxController {
       contractId = data[1];
       getPDF();
     } else {
-      orderId = data[1];
-      getPDFByOrderId();
+      bool isExit = Get.isRegistered<DateCancelServiceLogic>();
+      if (isExit) {
+        DateCancelServiceLogic dateCancelServiceLogic = Get.find();
+        cancelDate = dateCancelServiceLogic.datePicker!
+            .toIso8601String()
+            .substring(0, 10);
+        note = dateCancelServiceLogic.reasonCancel.trim();
+      }
+      subId = data[1];
+      getPDFBySubId();
     }
   }
 
@@ -79,13 +91,15 @@ class PDFPreviewLogic extends GetxController {
     }
   }
 
-  getPDFByOrderId() async {
+  getPDFBySubId() async {
     // To open from assets, you can copy them to the app storage folder, and the access them "locally"
 
     try {
       ApiUtil.getInstance()!.postPDF(
         url: ApiEndPoints.API_CONTRACT_PREVIEW_ORDER_ID
-            .replaceAll("orderId", orderId.toString()),
+            .replaceAll("subId", subId.toString()),
+        params: {"subId": subId.toString()},
+        body: {"cancelDate": cancelDate, "note": note},
         onSuccess: (response) async {
           bytesPDF = response.data;
           loadSuccess.value = true;

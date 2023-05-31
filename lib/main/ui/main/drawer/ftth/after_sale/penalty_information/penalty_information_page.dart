@@ -281,9 +281,7 @@ class PenaltyInformationPage extends GetView<PenaltyInformationLogic> {
                           controller.checkBalance((value) {
                             if (value) {
                               Get.toNamed(RouteConfig.cancelServicePDF,
-                                  arguments: [
-                                    controller.cancelServiceModel.cancelOrderId
-                                  ]);
+                                  arguments: [controller.subId]);
                             } else {
                               showDialog(
                                   context: context,

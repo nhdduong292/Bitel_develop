@@ -6,6 +6,7 @@ import 'package:bitel_ventas/main/networks/model/cancel_service_infor_model.dart
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/validate_fingerprint/validate_fingerprint_logic.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
@@ -148,7 +149,7 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                           RichText(
                                             text: TextSpan(
                                                 text:
-                                                    '${controller.type == 'STAFF' ? Common.getIdentityType(InfoBusiness.getInstance()!.getUser().idType) : controller.typeCustomer} ',
+                                                    '${controller.isStaff() ? Common.getIdentityType(InfoBusiness.getInstance()!.getUser().idType) : controller.typeCustomer} ',
                                                 style: AppStyles.r9454C9_14_500
                                                     .copyWith(
                                                         fontSize: 13,
@@ -156,8 +157,7 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                                             FontWeight.w700),
                                                 children: [
                                                   TextSpan(
-                                                    text: controller.type ==
-                                                            'STAFF'
+                                                    text: controller.isStaff()
                                                         ? InfoBusiness
                                                                 .getInstance()!
                                                             .getUser()
@@ -216,7 +216,7 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                       style: AppStyles.r405264_14_500,
                                       children: [
                                         TextSpan(
-                                          text: controller.type != 'STAFF'
+                                          text: !controller.isStaff()
                                               ? AppLocalizations.of(context)!
                                                   .textCustomerFingerprint
                                               : AppLocalizations.of(context)!
@@ -340,12 +340,28 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                       );
                                       return;
                                     }
-                                    if (controller.type == 'STAFF') {
+                                    if (controller.type ==
+                                        ValidateFingerStatus
+                                            .STAFF_CHANGE_PLAN) {
+                                      controller.validateStaffFingerChangePlan(
+                                        (isSuccess) {
+                                          if (isSuccess) {
+                                            Get.back(result: true);
+                                          }
+                                        },
+                                      );
+                                      return;
+                                    }
+
+                                    if (controller.type ==
+                                        ValidateFingerStatus
+                                            .STAFF_CANCEL_SERVICE) {
                                       controller.validateStaffFinger(
                                         (isSuccess) {
                                           if (isSuccess) {
                                             controller.type = '';
                                             controller.pk = '';
+                                            controller.textCapture = '';
                                             controller.listFinger = [];
                                             controller.getBestFinger();
                                             controller.update();
@@ -354,7 +370,9 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                       );
                                       return;
                                     }
-                                    if (controller.type == 'LENDING') {
+
+                                    if (controller.type ==
+                                        ValidateFingerStatus.LENDING) {
                                       controller.signContract(
                                         (p0) {
                                           if (p0) {

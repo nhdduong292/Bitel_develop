@@ -6,7 +6,7 @@ import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ListRequestTabItem extends StatelessWidget{
+class ListRequestTabItem extends StatelessWidget {
   RequestDetailModel requestModel;
 
   ListRequestTabItem(this.requestModel, {super.key});
@@ -15,26 +15,73 @@ class ListRequestTabItem extends StatelessWidget{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      margin: EdgeInsets.only(top: 16,bottom: 10),
+      margin: EdgeInsets.only(top: 16, bottom: 10),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           const LineDash(color: AppColors.colorLineDash),
           Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16,top: 16),
+            padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
             child: Row(
               children: [
-                Text(AppLocalizations.of(context)!.textRequestCode, style: AppStyles.r8.copyWith(fontWeight: FontWeight.w400, color: AppColors.colorText2.withOpacity(0.85)),),
-                Expanded(child: Text(requestModel.code.toString(), style: AppStyles.r8.copyWith(fontWeight: FontWeight.w500, color: AppColors.colorText4,),textAlign: TextAlign.right,))
+                Text(
+                  AppLocalizations.of(context)!.textActionType,
+                  style: AppStyles.r8.copyWith(
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.colorText2.withOpacity(0.85)),
+                ),
+                Expanded(
+                    child: Text(
+                  requestModel.getActionType(context),
+                  style: AppStyles.r8.copyWith(
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.colorText4,
+                  ),
+                  textAlign: TextAlign.right,
+                ))
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16,top: 12),
+            padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
             child: Row(
               children: [
-                Text(AppLocalizations.of(context)!.textCustomerInformation, style: AppStyles.r8.copyWith(fontWeight: FontWeight.w400, color: AppColors.colorText2.withOpacity(0.85)),),
-                Expanded(child: Text("${requestModel.customerModel.name}, ${requestModel.customerModel.telFax}", style: AppStyles.r8.copyWith(fontWeight: FontWeight.w500, color: AppColors.colorText4),textAlign: TextAlign.right))
+                Text(
+                  AppLocalizations.of(context)!.textRequestCode,
+                  style: AppStyles.r8.copyWith(
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.colorText2.withOpacity(0.85)),
+                ),
+                Expanded(
+                    child: Text(
+                  requestModel.code.toString(),
+                  style: AppStyles.r8.copyWith(
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.colorText4,
+                  ),
+                  textAlign: TextAlign.right,
+                ))
+              ],
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.only(left: 16, right: 16, top: 12),
+            child: Row(
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.textCustomerInformation,
+                  style: AppStyles.r8.copyWith(
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.colorText2.withOpacity(0.85)),
+                ),
+                Expanded(
+                    child: Text(
+                        "${requestModel.customerModel.name}, ${requestModel.customerModel.telFax}",
+                        style: AppStyles.r8.copyWith(
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.colorText4),
+                        textAlign: TextAlign.right))
               ],
             ),
           ),
@@ -48,22 +95,44 @@ class ListRequestTabItem extends StatelessWidget{
           //   ),
           // ),
           Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16,top: 12),
+            padding: const EdgeInsets.only(left: 16, right: 16, top: 12),
             child: Row(
               children: [
-                Text(AppLocalizations.of(context)!.textStatus, style: AppStyles.r8.copyWith(fontWeight: FontWeight.w400, color: AppColors.colorText2.withOpacity(0.85)),),
-                Expanded(child: Text(requestModel.getStatus(context), style: AppStyles.r8.copyWith(fontWeight: FontWeight.w500, color: AppColors.colorContent),textAlign: TextAlign.right))
+                Text(
+                  AppLocalizations.of(context)!.textStatus,
+                  style: AppStyles.r8.copyWith(
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.colorText2.withOpacity(0.85)),
+                ),
+                Expanded(
+                    child: Text(requestModel.getStatus(context),
+                        style: AppStyles.r8.copyWith(
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.colorContent),
+                        textAlign: TextAlign.right))
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16,top: 12),
+            padding: const EdgeInsets.only(left: 16, right: 16, top: 12),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(AppLocalizations.of(context)!.textInstallationAddress,style: AppStyles.r8.copyWith(fontWeight: FontWeight.w400, color: AppColors.colorText2.withOpacity(0.85)),),
-                SizedBox(width: 8,),
-                Expanded(child: Text(requestModel.getInstalAddress(), style: AppStyles.r8.copyWith(fontWeight: FontWeight.w500, color: AppColors.colorText4),textAlign: TextAlign.right))
+                Text(
+                  AppLocalizations.of(context)!.textInstallationAddress,
+                  style: AppStyles.r8.copyWith(
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.colorText2.withOpacity(0.85)),
+                ),
+                SizedBox(
+                  width: 8,
+                ),
+                Expanded(
+                    child: Text(requestModel.getInstalAddress(),
+                        style: AppStyles.r8.copyWith(
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.colorText4),
+                        textAlign: TextAlign.right))
               ],
             ),
           ),

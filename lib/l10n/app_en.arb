@@ -691,6 +691,11 @@
    "textE070": "Sign contract failed due to can not generate operation code",
    "textE071": "Failed to upload document to profile service",
    "textCurrentPlan": "Current plan",
-   "textNewPlan": "New plan"
+   "textNewPlan": "New plan",
+   "textPrepaidMonth": "Prepaid {month} month",
+   "textPaymentOfCurrentInvoie": "Payment of current invoice",
+   "textReceiptInformation": "Receipt information",
+   "textActionType": "Action type",
+   "textConnectNewSubscriber": "Connect new subscriber"
   
 }

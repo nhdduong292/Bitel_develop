@@ -677,5 +677,10 @@
 "textE070": "Lỗi khi ký hợp đồng do không thể tạo mã thao tác",
 "textE071": "Không thể tải tài liệu lên dịch vụ hồ sơ",
 "textCurrentPlan": "Gói hiện tại",
-"textNewPlan": "Gói mới"
+"textNewPlan": "Gói mới",
+"textPrepaidMonth": "Nạp trước {month} tháng",
+"textPaymentOfCurrentInvoice": "Thanh toán hóa đơn hiện tại",
+"textReceiptInformation": "Thông tin nhận hàng",
+"textActionType": "Loại hành động",
+"textConnectNewSubscriber": "Kết nối thuê bao mới"
 }

@@ -20,6 +20,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../services/settings_service.dart';
 import '../../../../../utils/shared_preference.dart';
+import '../../../../../utils/values.dart';
+import '../../ftth/after_sale/date_cancel_service/date_cancel_service_logic.dart';
 import '../../utilitis/info_bussiness.dart';
 
 class ValidateFingerprintLogic extends GetxController {
@@ -28,7 +30,7 @@ class ValidateFingerprintLogic extends GetxController {
   String type = '';
   int cusId = 0;
   int contractId = 0;
-  int orderId = 0;
+  int subId = 0;
   String typeCustomer = '';
   String idNumber = '';
   BestFingerModel bestFinger = BestFingerModel();
@@ -38,6 +40,9 @@ class ValidateFingerprintLogic extends GetxController {
 
   bool isGetFingerSuccess = false;
   String pk = "";
+
+  String cancelDate = '';
+  String note = '';
 
   ValidateFingerprintLogic(this.context);
 
@@ -50,24 +55,34 @@ class ValidateFingerprintLogic extends GetxController {
     // type empty TH validate cancel service
     // type là Main hoặc Lending validate đăng kí hợp đồng
     // type là staff valiate của nhân viên
-    if (type == 'STAFF' || type.isEmpty) {
+    if (type == ValidateFingerStatus.STAFF_CANCEL_SERVICE || type.isEmpty) {
       cusId = data[1];
       typeCustomer = data[2];
       idNumber = data[3];
-      orderId = data[4];
-    } else {
+      subId = data[4];
+      bool isExit = Get.isRegistered<DateCancelServiceLogic>();
+      if (isExit) {
+        DateCancelServiceLogic dateCancelServiceLogic = Get.find();
+        cancelDate = dateCancelServiceLogic.datePicker!
+            .toIso8601String()
+            .substring(0, 10);
+        note = dateCancelServiceLogic.reasonCancel.trim();
+      }
+    } else if (type == ValidateFingerStatus.MAIN ||
+        type == ValidateFingerStatus.LENDING) {
       cusId = data[1];
       typeCustomer = data[2];
       idNumber = data[3];
       contractId = data[4];
-    }
+    } else if (type == ValidateFingerStatus.STAFF_CHANGE_PLAN) {}
   }
 
   @override
   void onReady() {
     // TODO: implement onReady
     super.onReady();
-    if (type == 'STAFF') {
+    if (type == ValidateFingerStatus.STAFF_CANCEL_SERVICE ||
+        type == ValidateFingerStatus.STAFF_CHANGE_PLAN) {
       getBestFingerStaff();
     } else {
       getBestFinger();
@@ -261,13 +276,16 @@ class ValidateFingerprintLogic extends GetxController {
     try {
       _onLoading(context);
       Map<String, dynamic> body = {
+        "cancelDate": cancelDate,
+        "note": note,
         "finger": bestFinger.right != 0 ? bestFinger.right : bestFinger.left,
         "listImage": listFinger,
         "pk": pk
       };
       ApiUtil.getInstance()!.post(
         url: ApiEndPoints.API_SIGN_CANCEL_SERVICE
-            .replaceAll('orderId', orderId.toString()),
+            .replaceAll('subId', subId.toString()),
+        params: {'subId': subId.toString()},
         body: body,
         onSuccess: (response) {
           Get.back();
@@ -325,6 +343,41 @@ class ValidateFingerprintLogic extends GetxController {
     }
   }
 
+  void validateStaffFingerChangePlan(Function(bool) isSuccess) {
+    try {
+      _onLoading(context);
+      Map<String, dynamic> body = {
+        "isBypass": true,
+        "isUploadContractLate": true,
+        "finger": bestFinger.right != 0 ? bestFinger.right : bestFinger.left,
+        "listImage": listFinger,
+        "pk": pk
+      };
+      ApiUtil.getInstance()!.post(
+        url: ApiEndPoints.API_VALIDATE_STAFF_FINGER_CHANGE_PLAN,
+        params: {"staffCode": InfoBusiness.getInstance()!.getUser().staffCode},
+        body: body,
+        onSuccess: (response) {
+          Get.back();
+          if (response.isSuccess) {
+            isSuccess.call(true);
+          } else {
+            isSuccess.call(false);
+            print("error: ${response.status}");
+          }
+        },
+        onError: (error) {
+          Get.back();
+          isSuccess.call(false);
+          Common.showMessageError(error: error, context: context);
+        },
+      );
+    } catch (e) {
+      Get.back();
+      Common.showToastCenter(e.toString());
+    }
+  }
+
   void _onLoading(BuildContext context) {
     showDialog(
       context: context,
@@ -337,5 +390,14 @@ class ValidateFingerprintLogic extends GetxController {
         );
       },
     );
+  }
+
+  bool isStaff() {
+    if (type == ValidateFingerStatus.STAFF_CANCEL_SERVICE ||
+        type == ValidateFingerStatus.STAFF_CHANGE_PLAN) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

@@ -8,11 +8,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-import '../../../../../../../res/app_colors.dart';
-import '../../../../../../../res/app_images.dart';
-import '../../../../../../../res/app_styles.dart';
-import '../../../../../../networks/model/product_model.dart';
-import '../../../../../../utils/common_widgets.dart';
+import '../../../../../../../../res/app_colors.dart';
+import '../../../../../../../../res/app_images.dart';
+import '../../../../../../../../res/app_styles.dart';
+import '../../../../../../../networks/model/product_model.dart';
+import '../../../../../../../router/route_config.dart';
+import '../../../../../../../utils/common_widgets.dart';
 import 'choose_change_plan_logic.dart';
 
 class ChooseChangePlanPage extends GetView {
@@ -222,6 +223,7 @@ class ChooseChangePlanPage extends GetView {
                                             onChange: (value) {
                                               controller.valueProduct.value =
                                                   value;
+                                              controller.update();
                                             }),
                                     separatorBuilder:
                                         (BuildContext context, int index) =>
@@ -302,8 +304,16 @@ class ChooseChangePlanPage extends GetView {
                           ),
                           bottomButton(
                               text: AppLocalizations.of(context)!.textContinue,
-                              onTap: () {},
-                              color: true
+                              onTap: () {
+                                if (controller.checkValidate()) {
+                                  controller.getPayment((isSuccess) {
+                                    if (isSuccess) {
+                                      Get.toNamed(RouteConfig.inforChangePlan);
+                                    }
+                                  });
+                                }
+                              },
+                              color: !controller.checkValidate()
                                   ? const Color(0xFF415263).withOpacity(0.2)
                                   : null),
                           SizedBox(
