@@ -346,6 +346,7 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                           if (isSuccess) {
                                             controller.type = '';
                                             controller.pk = '';
+                                            controller.textCapture = '';
                                             controller.listFinger = [];
                                             controller.getBestFinger();
                                             controller.update();
