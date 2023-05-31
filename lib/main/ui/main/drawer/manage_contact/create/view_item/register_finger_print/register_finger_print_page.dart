@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/register_finger_print/register_finger_print_logic.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -441,7 +442,8 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                                       controller.isForcedTerm,
                                                       controller
                                                           .listPromotionId,
-                                                      controller.packageId
+                                                      controller.packageId,
+                                                      ContractStatus.New
                                                     ]);
                                               },
                                             );
