@@ -429,4 +429,21 @@ class Common {
     SettingService settingService = Get.find();
     return settingService.version.value;
   }
+
+  static String numberFormat(var content) {
+    var number;
+    if (content is String) {
+      number = double.parse(content);
+    } else if (content is double) {
+      number = content;
+      number = double.parse(number.toStringAsFixed(1));
+    } else if (content is int) {
+      number = content;
+    } else {
+      return '---';
+    }
+    String formattedNumber =
+        NumberFormat.decimalPattern('en_US').format(number);
+    return formattedNumber;
+  }
 }
