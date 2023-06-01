@@ -696,6 +696,8 @@
    "textPaymentOfCurrentInvoie": "Payment of current invoice",
    "textReceiptInformation": "Receipt information",
    "textActionType": "Action type",
-   "textConnectNewSubscriber": "Connect new subscriber"
+   "textConnectNewSubscriber": "Connect new subscriber",
+   "textChangePlanRequestForm": "Change plan request form",
+   "textStartOfNewPlan": "Start of new plan"
   
 }

@@ -78,6 +78,10 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
                   InkWell(
                     highlightColor: Colors.transparent,
                     splashColor: Colors.transparent,
+                    onTap: () {
+                      controller.checkLendingContract.value = false;
+                      controller.checkMainContract.value = true;
+                    },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 16),
                       child: Text(
@@ -92,10 +96,19 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
                   InkWell(
                     highlightColor: Colors.transparent,
                     splashColor: Colors.transparent,
+                    onTap: () {
+                      controller.checkLendingContract.value = true;
+                      controller.checkMainContract.value = false;
+                    },
                     child: Padding(
                       padding: const EdgeInsets.only(right: 16),
                       child: Text(
-                          AppLocalizations.of(context)!.textLendingContract,
+                          controller.statusContract ==
+                                  ContractStatus.Change_plan
+                              ? AppLocalizations.of(context)!
+                                  .textChangePlanRequestForm
+                              : AppLocalizations.of(context)!
+                                  .textLendingContract,
                           style: controller.checkLendingContract.value
                               ? AppStyles.rU9454C9_12_500
                               : AppStyles.rU9454C9_12_500.copyWith(
@@ -113,11 +126,15 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
               splashColor: Colors.transparent,
               onTap: () {
                 if (controller.checkMainContract.value) {
-                  Get.to(PDFPreviewPage(),
-                      arguments: ['MAIN', controller.contract.contractId]);
+                  Get.to(PDFPreviewPage(), arguments: [
+                    ValidateFingerStatus.MAIN,
+                    controller.contract.contractId
+                  ]);
                 } else {
-                  Get.to(PDFPreviewPage(),
-                      arguments: ['LENDING', controller.contract.contractId]);
+                  Get.to(PDFPreviewPage(), arguments: [
+                    ValidateFingerStatus.LENDING,
+                    controller.contract.contractId
+                  ]);
                 }
               },
               child: Image.asset(
@@ -147,6 +164,15 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
                     .textSignContract
                     .toUpperCase(),
                 onTap: () {
+                  if (controller.statusContract == ContractStatus.Change_plan) {
+                    Get.toNamed(RouteConfig.validateFingerprint, arguments: [
+                      ValidateFingerStatus.CUSTOMER_CHANGE_PLAN,
+                      controller.customer.custId,
+                      controller.getTypeCustomer(),
+                      controller.customer.idNumber,
+                      controller.contract.contractId
+                    ]);
+                  }
                   if (controller.checkOption.value) {
                     if (controller.checkMainContract.value) {
                       callback(ValidateFingerStatus.MAIN);

@@ -358,19 +358,15 @@ class CustomerInformationLogic extends GetxController {
       BuildContext context, Function(bool) isSuccess) {
     _onLoading(context);
     Map<String, dynamic> body = {
-      "language": contractLanguagetValue.value.toUpperCase(),
-      "province": billArea.province.isNotEmpty
-          ? billArea.province
-          : requestModel.province,
-      "district": billArea.district.isNotEmpty
-          ? billArea.district
-          : requestModel.district,
-      "precinct": billArea.precinct.isNotEmpty
-          ? billArea.precinct
-          : requestModel.precinct,
-      "address": billAddressSelect.isNotEmpty
-          ? billAddressSelect
-          : requestModel.address,
+      // "language": contractLanguagetValue.value.toUpperCase(),
+      "province":
+          billArea.province.isNotEmpty ? billArea.province : contract.province,
+      "district":
+          billArea.district.isNotEmpty ? billArea.district : contract.district,
+      "precinct":
+          billArea.precinct.isNotEmpty ? billArea.precinct : contract.precinct,
+      "address":
+          billAddressSelect.isNotEmpty ? billAddressSelect : contract.address,
       "protectionFilter": checkOption1.value,
       "receiveInfoByMail": checkOption2.value,
       "receiveFromThirdParty": checkOption3.value,

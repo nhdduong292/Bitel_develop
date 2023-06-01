@@ -249,9 +249,16 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                               (p0) {
                                 if (p0) {
                                   callback();
-                                } else {
-                                  // Common.showToastCenter(
-                                  //     AppLocalizations.of(context)!.textErrorAPI);
+                                }
+                              },
+                            );
+                          } else if (controller.statusContract ==
+                              ContractStatus.Change_plan) {
+                            controller.updateContractChangePlan(
+                              context,
+                              (p0) {
+                                if (p0) {
+                                  callback();
                                 }
                               },
                             );
@@ -261,9 +268,6 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                               (p0) {
                                 if (p0) {
                                   callback();
-                                } else {
-                                  // Common.showToastCenter(
-                                  //     AppLocalizations.of(context)!.textErrorAPI);
                                 }
                               },
                             );

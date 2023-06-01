@@ -130,4 +130,8 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/change-plan/update-customer";
   static const String API_UPADTE_CONTRACT_CHANGE_PLAN =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/change-plan/update-contract";
+  static const String API_CHANGE_PLAN_PREVIEW =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/change-plan/preview-contract";
+  static const String API_CHANGE_PLAN_SIGN =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/change-plan/sign";
 }

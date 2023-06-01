@@ -684,6 +684,8 @@
 "textPaymentOfCurrentInvoice": "Pago de factura actual",
 "textReceiptInformation": "Información del recibo",
 "textActionType": "Tipo de acción",
-"textConnectNewSubscriber": "Conectar nuevo suscriptor"
+"textConnectNewSubscriber": "Conectar nuevo suscriptor",
+"textChangePlanRequestForm": "Formulario de solicitud de cambio de plan",
+"textStartOfNewPlan": "Comienzo del nuevo plan"
   
 }

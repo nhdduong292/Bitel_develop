@@ -682,5 +682,7 @@
 "textPaymentOfCurrentInvoice": "Thanh toán hóa đơn hiện tại",
 "textReceiptInformation": "Thông tin nhận hàng",
 "textActionType": "Loại hành động",
-"textConnectNewSubscriber": "Kết nối thuê bao mới"
+"textConnectNewSubscriber": "Kết nối thuê bao mới",
+"textChangePlanRequestForm": "Mẫu yêu cầu thay đổi kế hoạch",
+"textStartOfNewPlan": "Bắt đầu kế hoạch mới"
 }
