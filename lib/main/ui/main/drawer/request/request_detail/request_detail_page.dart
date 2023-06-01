@@ -323,7 +323,10 @@ class RequestDetailPage extends GetWidget {
                                                       .pricePlan <
                                                   1
                                               ? "---"
-                                              : "${controller.requestModel.subscriptionModel.pricePlan}",
+                                              : Common.numberFormat(controller
+                                                  .requestModel
+                                                  .subscriptionModel
+                                                  .pricePlan),
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),

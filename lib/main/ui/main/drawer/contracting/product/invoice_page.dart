@@ -10,6 +10,7 @@ import '../../../../../../res/app_colors.dart';
 import '../../../../../../res/app_images.dart';
 import '../../../../../../res/app_styles.dart';
 import '../../../../../router/route_config.dart';
+import '../../../../../utils/common.dart';
 import '../../../../../utils/common_widgets.dart';
 import '../../../../../utils/values.dart';
 
@@ -56,7 +57,8 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                         child: Obx(
                           () => RichText(
                             text: TextSpan(
-                                text: 'S/${controller.balance} ',
+                                text:
+                                    'S/${Common.numberFormat(controller.balance.value)} ',
                                 style: AppStyles.r9454C9_14_500.copyWith(
                                     fontSize: 13, fontWeight: FontWeight.w700),
                                 children: [
@@ -176,7 +178,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
-                          '${controller.billModel.product.defaultValue ?? 'null'}/${AppLocalizations.of(context)!.textMonth}',
+                          '${Common.numberFormat(controller.billModel.product.defaultValue)}/${AppLocalizations.of(context)!.textMonth}',
                           style: const TextStyle(
                               fontSize: 16,
                               fontFamily: 'Barlow',
@@ -215,7 +217,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                     children: [
                       _paymentElement(
                           controller.billModel.paymentName,
-                          'S/${controller.billModel.fee}',
+                          'S/${Common.numberFormat(controller.billModel.fee)}',
                           const Color(0xFF415263)),
                       const DottedLine(
                         dashColor: Color(0xFFE3EAF2),
@@ -224,7 +226,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                       ),
                       _paymentElement(
                           AppLocalizations.of(context)!.textInstallationFee,
-                          'S/${controller.billModel.installationFee}',
+                          'S/${Common.numberFormat(controller.billModel.installationFee)}',
                           const Color(0xFF415263)),
                       const DottedLine(
                         dashColor: Color(0xFFE3EAF2),
@@ -233,7 +235,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                       ),
                       _paymentElement(
                           AppLocalizations.of(context)!.textDiscount,
-                          'S/${controller.billModel.discount}',
+                          'S/${Common.numberFormat(controller.billModel.discount)}',
                           const Color(0xFFD91C02)),
                       const DottedLine(
                         dashColor: Color(0xFFE3EAF2),
@@ -242,7 +244,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                       ),
                       _paymentElement(
                           AppLocalizations.of(context)!.textTotalAmount,
-                          'S/${controller.billModel.total}',
+                          'S/${Common.numberFormat(controller.billModel.total)}',
                           const Color(0xFF9454C9)),
                     ],
                   ),

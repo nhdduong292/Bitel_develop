@@ -112,12 +112,8 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                               itemTextFieldLock(
                                   title: AppLocalizations.of(context)!
                                       .textCurrentAnypay,
-                                  content: controller
-                                              .buyAnyPayComfirmModel.balance !=
-                                          null
-                                      ? controller.buyAnyPayComfirmModel.balance
-                                          .toString()
-                                      : '---',
+                                  content: Common.numberFormat(
+                                      controller.buyAnyPayComfirmModel.balance),
                                   textColor: AppColors.color_9454C9),
                               Padding(
                                 padding:

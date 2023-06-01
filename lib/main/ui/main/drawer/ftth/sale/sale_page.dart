@@ -288,7 +288,8 @@ class SalePage extends GetWidget {
                                           height: 5,
                                         ),
                                         Text(
-                                          optionSale.content,
+                                          Common.numberFormat(
+                                              optionSale.content),
                                           style: AppStyles.b4.copyWith(
                                               color: optionSale.index ==
                                                       controller.indexSelect
@@ -413,7 +414,8 @@ class SalePage extends GetWidget {
                                           height: 10,
                                         ),
                                         Text(
-                                          optionSale.content,
+                                          Common.numberFormat(
+                                              optionSale.content),
                                           style: AppStyles.b4.copyWith(
                                               color: optionSale.index ==
                                                       controller.indexSelect
