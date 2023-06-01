@@ -233,7 +233,9 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 Expanded(
                     flex: 1,
                     child: bottomButtonV2(
-                        onTap: () {},
+                        onTap: () {
+                          controller.backToCustomerInfor();
+                        },
                         text: AppLocalizations.of(context)!
                             .textCancel
                             .toUpperCase())),

@@ -910,4 +910,14 @@ class CustomerInformationLogic extends GetxController {
     }
     return false;
   }
+
+  void backToCustomerInfor() {
+    checkItem1.value = true;
+    checkItem2.value = false;
+    titleScreen.value = AppLocalizations.of(context)!.textCustomerInformation;
+    scrollController.scrollTo(
+      index: 0,
+      duration: const Duration(milliseconds: 200),
+    );
+  }
 }
