@@ -686,6 +686,8 @@
 "textActionType": "Tipo de acción",
 "textConnectNewSubscriber": "Conectar nuevo suscriptor",
   "textContracting": "Contratación",
-  "textE072": "¡Generar contrato fallido!"
+  "textE072": "¡Generar contrato fallido!",
+"textChangePlanRequestForm": "Formulario de solicitud de cambio de plan",
+"textStartOfNewPlan": "Comienzo del nuevo plan"
   
 }

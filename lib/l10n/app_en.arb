@@ -698,6 +698,8 @@
    "textActionType": "Action type",
    "textConnectNewSubscriber": "Connect new subscriber",
    "textContracting": "Contracting",
-   "textE072": "Generate contract fail!"
+   "textE072": "Generate contract fail!",
+   "textChangePlanRequestForm": "Change plan request form",
+   "textStartOfNewPlan": "Start of new plan"
   
 }

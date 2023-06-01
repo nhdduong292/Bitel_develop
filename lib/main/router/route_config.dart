@@ -14,6 +14,7 @@ import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/cancel_service_
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/cancel_service_success/cancel_service_success.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/change_plan/information/infor_change_plan_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/change_plan/information/infor_change_plan_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/change_plan_success/change_plan_success_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/clear_penalty/clear_penalty_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/date_cancel_service/date_cancel_service.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/dialog_cancel_service/dialog_cancel_service.dart';
@@ -86,6 +87,8 @@ class RouteConfig {
       "/menu/ftth/afterSale/changePlan/chooseChangePlan";
   static const String inforChangePlan =
       "/menu/ftth/afterSale/changePlan/inforChangePlan";
+  static const String successChangePlan =
+      "/menu/ftth/afterSale/changePlan/successChangePlan";
 
   ///page
   static final List<GetPage> getPages = [
@@ -122,6 +125,7 @@ class RouteConfig {
     GetPage(name: resignContract, page: () => ReSignContractPage()),
     GetPage(name: chooseChangePlan, page: () => ChooseChangePlanPage()),
     GetPage(name: inforChangePlan, page: () => InforChangePlanPage()),
+    GetPage(name: successChangePlan, page: () => ChangePlanSuccessPage()),
   ];
 
   ///language

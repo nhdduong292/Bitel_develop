@@ -192,7 +192,8 @@ class Common {
               context, AppLocalizations.of(context)!.textErrorAPI);
           return;
         }
-        if (error.type == DioErrorType.connectionTimeout) {
+        if (error.type == DioErrorType.connectionTimeout ||
+            error.type == DioErrorType.receiveTimeout) {
           showSystemErrorDialog(
               context, AppLocalizations.of(context)!.textTheSystemIsOverloaded);
           return;

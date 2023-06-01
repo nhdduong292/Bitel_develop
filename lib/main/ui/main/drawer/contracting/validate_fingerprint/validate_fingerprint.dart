@@ -322,77 +322,7 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                   highlightColor: Colors.transparent,
                                   splashColor: Colors.transparent,
                                   onTap: () {
-                                    if (controller.listFinger.isEmpty) {
-                                      return;
-                                    }
-                                    if (controller.type.isEmpty) {
-                                      controller.signCancelService(
-                                        (isSuccess) {
-                                          if (isSuccess) {
-                                            Get.toNamed(
-                                                RouteConfig.cancelServiceInfor,
-                                                arguments: [
-                                                  controller
-                                                      .cancelServiceInforModel,
-                                                ]);
-                                          }
-                                        },
-                                      );
-                                      return;
-                                    }
-                                    if (controller.type ==
-                                        ValidateFingerStatus
-                                            .STAFF_CHANGE_PLAN) {
-                                      controller.validateStaffFingerChangePlan(
-                                        (isSuccess) {
-                                          if (isSuccess) {
-                                            Get.back(result: true);
-                                          }
-                                        },
-                                      );
-                                      return;
-                                    }
-
-                                    if (controller.type ==
-                                        ValidateFingerStatus
-                                            .STAFF_CANCEL_SERVICE) {
-                                      controller.validateStaffFinger(
-                                        (isSuccess) {
-                                          if (isSuccess) {
-                                            controller.type = '';
-                                            controller.pk = '';
-                                            controller.textCapture = '';
-                                            controller.listFinger = [];
-                                            controller.getBestFinger();
-                                            controller.update();
-                                          }
-                                        },
-                                      );
-                                      return;
-                                    }
-
-                                    if (controller.type ==
-                                        ValidateFingerStatus.LENDING) {
-                                      controller.signContract(
-                                        (p0) {
-                                          if (p0) {
-                                            Get.toNamed(
-                                                RouteConfig.ftthContracting,
-                                                arguments: [
-                                                  controller.contractId,
-                                                ]);
-                                          }
-                                        },
-                                      );
-                                    } else {
-                                      controller.signContract(
-                                        (p0) {
-                                          if (p0) {
-                                            Get.back(result: true);
-                                          }
-                                        },
-                                      );
-                                    }
+                                    controller.onSign();
                                   },
                                   child: Container(
                                     height: 50,
