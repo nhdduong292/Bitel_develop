@@ -147,8 +147,4 @@ class ContractModel {
   String get precinct => _precinct ?? "";
 
   String get address => _address ?? "";
-
-  String getInstalAddress() {
-    return "$address, $precinctName, $districtName, $provinceName";
-  }
 }

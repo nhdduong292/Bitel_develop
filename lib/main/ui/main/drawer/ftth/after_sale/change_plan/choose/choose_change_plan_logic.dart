@@ -1,6 +1,7 @@
 import 'package:bitel_ventas/main/networks/model/find_account_model.dart';
 import 'package:bitel_ventas/main/networks/model/product_change_plan_model.dart';
 import 'package:bitel_ventas/main/networks/model/reasons_cancel_service_model.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,6 +23,7 @@ class ChooseChangePlanLogic extends GetxController {
   var valueProduct = (-1).obs; // index cua product
 
   int subId = 0;
+  bool isForcedTerm = false;
 
   @override
   void onInit() {
@@ -109,5 +111,18 @@ class ChooseChangePlanLogic extends GetxController {
       return false;
     }
     return true;
+  }
+
+  bool isUndetermined(String type) {
+    if (productChangePlanModel.contractType == type) {
+      if (type == ContractType.FORCED_TERM) {
+        isForcedTerm = true;
+      } else {
+        isForcedTerm = false;
+      }
+      return true;
+    } else {
+      return false;
+    }
   }
 }

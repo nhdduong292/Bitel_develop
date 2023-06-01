@@ -78,22 +78,46 @@ class ContractUploadingPage extends GetView<CustomerInformationLogic> {
                           children: [
                             Expanded(
                                 flex: 2,
-                                child: bottomButtonV2(
+                                child: bottomButton(
+                                    color: controller.isLoadingMain ||
+                                            controller.isLoadingLending
+                                        ? const Color(0xFF415263)
+                                            .withOpacity(0.2)
+                                        : null,
                                     text:
                                         AppLocalizations.of(context)!.textScan,
                                     onTap: () {
+                                      if (controller.isLoadingMain ||
+                                          controller.isLoadingLending) {
+                                        return;
+                                      }
                                       controller.getFromGallery(context, true);
                                     })),
                             Expanded(
                                 flex: 2,
                                 child: bottomButton(
+                                    color: controller.isLoadingMain ||
+                                            controller.isLoadingLending
+                                        ? const Color(0xFF415263)
+                                            .withOpacity(0.2)
+                                        : null,
                                     text: AppLocalizations.of(context)!
                                         .textUpload,
                                     onTap: () {
+                                      if (controller.isLoadingMain ||
+                                          controller.isLoadingLending) {
+                                        return;
+                                      }
                                       controller.uploadImage(context, true);
                                     })),
                           ],
                         ),
+                        Visibility(
+                            visible: controller.isLoadingMain,
+                            child: SizedBox(
+                              height: 120,
+                              child: LoadingCirculApi(),
+                            )),
                         Visibility(
                           visible: controller.listFileMainContract.isNotEmpty,
                           child: Padding(
@@ -175,22 +199,46 @@ class ContractUploadingPage extends GetView<CustomerInformationLogic> {
                           children: [
                             Expanded(
                                 flex: 2,
-                                child: bottomButtonV2(
+                                child: bottomButton(
+                                    color: controller.isLoadingMain ||
+                                            controller.isLoadingLending
+                                        ? const Color(0xFF415263)
+                                            .withOpacity(0.2)
+                                        : null,
                                     text:
                                         AppLocalizations.of(context)!.textScan,
                                     onTap: () {
+                                      if (controller.isLoadingMain ||
+                                          controller.isLoadingLending) {
+                                        return;
+                                      }
                                       controller.getFromGallery(context, false);
                                     })),
                             Expanded(
                                 flex: 2,
                                 child: bottomButton(
+                                    color: controller.isLoadingMain ||
+                                            controller.isLoadingLending
+                                        ? const Color(0xFF415263)
+                                            .withOpacity(0.2)
+                                        : null,
                                     text: AppLocalizations.of(context)!
                                         .textUpload,
                                     onTap: () {
+                                      if (controller.isLoadingMain ||
+                                          controller.isLoadingLending) {
+                                        return;
+                                      }
                                       controller.uploadImage(context, false);
                                     })),
                           ],
                         ),
+                        Visibility(
+                            visible: controller.isLoadingLending,
+                            child: SizedBox(
+                              height: 120,
+                              child: LoadingCirculApi(),
+                            )),
                         Visibility(
                           visible:
                               controller.listFileLendingContract.isNotEmpty,

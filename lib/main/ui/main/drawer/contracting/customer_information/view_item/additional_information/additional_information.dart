@@ -170,7 +170,7 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                       controller.isActiveUpdate = value;
                     }),
                 Visibility(
-                  visible: controller.customer.type == 'DNI',
+                  visible: controller.showBypass(),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 2, right: 20),
                     child: InkWell(

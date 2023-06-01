@@ -102,6 +102,9 @@ class CustomerInformationLogic extends GetxController {
   String statusContract = '';
   int subId = 0;
 
+  bool isLoadingMain = false;
+  bool isLoadingLending = false;
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -365,8 +368,9 @@ class CustomerInformationLogic extends GetxController {
           billArea.district.isNotEmpty ? billArea.district : contract.district,
       "precinct":
           billArea.precinct.isNotEmpty ? billArea.precinct : contract.precinct,
-      "address":
-          billAddressSelect.isNotEmpty ? billAddressSelect : contract.address,
+      "address": billAddressSelect.isNotEmpty && billArea.fullName.isNotEmpty
+          ? '$billAddressSelect, ${billArea.fullName}'
+          : contract.address,
       "protectionFilter": checkOption1.value,
       "receiveInfoByMail": checkOption2.value,
       "receiveFromThirdParty": checkOption3.value,
@@ -658,11 +662,16 @@ class CustomerInformationLogic extends GetxController {
   }
 
   uploadImage(BuildContext context, bool isMain) async {
+    if (isLoadingMain || isLoadingLending) {
+      return;
+    }
     if (isMain) {
+      isLoadingMain = true;
       isCameraMain = false;
       listFileMainContract.clear();
       update();
     } else {
+      isLoadingLending = true;
       isCameraLending = false;
       listFileLendingContract.clear();
       update();
@@ -677,8 +686,10 @@ class CustomerInformationLogic extends GetxController {
             listFileLendingContract.add(File(image.path));
           }
         }
-        update();
       }
+      isLoadingMain = false;
+      isLoadingLending = false;
+      update();
     } on Exception catch (e) {
       // TODO
       print(e.toString());
@@ -826,7 +837,7 @@ class CustomerInformationLogic extends GetxController {
         if (response.isSuccess) {
           contract = ContractModel.fromJson(response.data['data']);
           contractLanguagetValue.value = contract.language;
-          billAddress = contract.getInstalAddress();
+          billAddress = contract.address;
           billAddressSelect = contract.address;
           billArea.province = contract.province;
           billArea.district = contract.district;
@@ -887,5 +898,16 @@ class CustomerInformationLogic extends GetxController {
     } else {
       return 'SOL';
     }
+  }
+
+  bool showBypass() {
+    if (statusContract == ContractStatus.Change_plan) {
+      return false;
+    } else {
+      if (customer.type == 'DNI') {
+        return true;
+      }
+    }
+    return false;
   }
 }

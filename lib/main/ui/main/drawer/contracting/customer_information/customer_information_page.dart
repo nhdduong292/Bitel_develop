@@ -179,7 +179,7 @@ class CustommerInformationPage extends GetView<CustomerInformationLogic> {
                               },
                             );
                           } else {
-                            if (controller.isShowBypass) {
+                            if (controller.valueCheckBypass) {
                               return ContractUploadingPage();
                             } else {
                               return ContractPreviewWidget(

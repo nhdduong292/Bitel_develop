@@ -419,7 +419,8 @@ class InforChangePlanPage extends GetView {
                                           RequestDetailModel(),
                                           0,
                                           0,
-                                          false,
+                                          controller.chooseChangePlanLogic
+                                              .isForcedTerm,
                                           null,
                                           0,
                                           ContractStatus.Change_plan

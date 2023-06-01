@@ -3,6 +3,7 @@ import 'package:bitel_ventas/main/networks/model/product_model.dart';
 class ProductChangePlanModel {
   ProductModel? _currentPlan;
   List<ProductModel>? _newPlan;
+  String? _contractType;
 
   ProductChangePlanModel();
 
@@ -15,6 +16,7 @@ class ProductChangePlanModel {
           .map((postJson) => ProductModel.fromJson(postJson))
           .toList();
     }
+    _contractType = json['contractType'];
   }
 
   ProductModel get currentPlan {
@@ -23,5 +25,9 @@ class ProductChangePlanModel {
 
   List<ProductModel> get newPlan {
     return _newPlan ?? [];
+  }
+
+  String get contractType {
+    return _contractType ?? '';
   }
 }

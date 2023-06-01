@@ -190,7 +190,7 @@ class ChooseChangePlanPage extends GetView {
                                   fontSize: 16),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Container(
@@ -284,13 +284,15 @@ class ChooseChangePlanPage extends GetView {
                                     children: [
                                       Expanded(
                                           child: typeContact(
-                                              check: true,
+                                              check: controller.isUndetermined(
+                                                  ContractType.UNDETERMINED),
                                               content:
                                                   AppLocalizations.of(context)!
                                                       .textUndetermined)),
                                       Expanded(
                                           child: typeContact(
-                                              check: false,
+                                              check: controller.isUndetermined(
+                                                  ContractType.FORCED_TERM),
                                               content:
                                                   AppLocalizations.of(context)!
                                                       .textForcedTerm))
@@ -317,7 +319,7 @@ class ChooseChangePlanPage extends GetView {
                               color: !controller.checkValidate()
                                   ? const Color(0xFF415263).withOpacity(0.2)
                                   : null),
-                          SizedBox(
+                          const SizedBox(
                             height: 30,
                           )
                         ]),

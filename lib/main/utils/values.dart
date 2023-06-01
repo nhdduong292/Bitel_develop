@@ -48,3 +48,8 @@ class ValidateFingerStatus {
   static final String MAIN = "MAIN";
   static final String LENDING = "LENDING";
 }
+
+class ContractType {
+  static final String UNDETERMINED = "UNDETERMINED";
+  static final String FORCED_TERM = "FORCED_TERM";
+}

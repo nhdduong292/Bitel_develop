@@ -21,13 +21,17 @@ class ContractUploadingLogic extends GetxController {
   bool valueCheckBox = false;
   bool isCamera = true;
   bool valueCheckBypass = false;
+  bool isLoadingMain = false;
+  bool isLoadingLending = false;
 
   uploadImage(BuildContext context, bool isMain) async {
     isCamera = false;
     if (isMain) {
       listFileMainContract.clear();
+      isLoadingMain = true;
     } else {
       listFileLendingContract.clear();
+      isLoadingLending = true;
     }
     try {
       final List<XFile> selectedImages = await ImagePicker().pickMultiImage();
@@ -35,8 +39,10 @@ class ContractUploadingLogic extends GetxController {
         for (var image in selectedImages) {
           if (isMain) {
             listFileMainContract.add(File(image.path));
+            isLoadingMain = false;
           } else {
             listFileLendingContract.add(File(image.path));
+            isLoadingLending = false;
           }
         }
         update();
