@@ -90,17 +90,15 @@ class AfterSalePage extends StatelessWidget {
               ),
             ),
             onTap: () {
-              // Get.toNamed(RouteConfig.validateFingerprint,
-              //         arguments: [ValidateFingerStatus.STAFF_CHANGE_PLAN])
-              //     ?.then((value) {
-              //   if (value) {
-              //     Get.to(AfterSaleSearchPage(
-              //         AppLocalizations.of(context)!.textChangePlan,
-              //         'CHANGE_PLAN'));
-              //   }
-              // });
-              Get.to(AfterSaleSearchPage(
-                  AppLocalizations.of(context)!.textChangePlan, 'CHANGE_PLAN'));
+              Get.toNamed(RouteConfig.validateFingerprint,
+                      arguments: [ValidateFingerStatus.STAFF_CHANGE_PLAN])
+                  ?.then((value) {
+                if (value != null) {
+                  Get.to(AfterSaleSearchPage(
+                      AppLocalizations.of(context)!.textChangePlan,
+                      'CHANGE_PLAN'));
+                }
+              });
             },
           ),
           InkWell(

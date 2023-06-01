@@ -474,7 +474,7 @@
    "textE015": "El cliente ya existe, no puede crearse como nuevo cliente.",
    "textE016": "Huella digital del cliente no registrada.",
    "textE017": "El contrato no existe.",
-   "textE018": "Sub_adsl_ll no existe.",
+   "textE018": "Suscriptor no existe.",
    "textE019": "Los contratos puede ser creados solo cuando el estado de la solicitud es \"CREATE_REQUEST_WITHOUT_SURVEY\" o \"SURVEY_OFFLINE_SUCCESSFULLY\".",
    "textE020": "Get the best finger error.",
    "textE021": "Tipo de servicio es requerido.",

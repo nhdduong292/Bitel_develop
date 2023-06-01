@@ -88,7 +88,8 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
                                 fontSize: 13, fontWeight: FontWeight.w400),
                             children: [
                               TextSpan(
-                                text: ' S/${controller.totalService}',
+                                text:
+                                    ' S/${Common.numberFormat(controller.totalService)}',
                                 style: AppStyles.r9454C9_14_500.copyWith(
                                     fontSize: 13, fontWeight: FontWeight.w700),
                               )
@@ -282,8 +283,8 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
                   onTap: () {
                     check.value = !check.value;
                     onChange(value, check.value);
@@ -305,7 +306,7 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
                             style: AppStyles.r6C8AA1_13_400,
                           ),
                           Text(
-                            'S/ ${model.amount}',
+                            'S/${Common.numberFormat(model.amount)}',
                             style:
                                 AppStyles.r9454C9_14_500.copyWith(fontSize: 17),
                           ),
@@ -413,7 +414,7 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
                                       style: AppStyles.r6C8AA1_13_400),
                                   Text(
                                       model.productName != null
-                                          ? '${model.productName} + ${model.amount}'
+                                          ? '${model.productName} + ${Common.numberFormat(model.amount)}'
                                           : '---',
                                       style: AppStyles.r2B3A4A_12_500
                                           .copyWith(fontSize: 13)),
@@ -498,7 +499,7 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
                                             style: AppStyles.r6C8AA1_13_400),
                                         Text(
                                             model.productName != null
-                                                ? '${model.productName} + ${model.amount}'
+                                                ? '${model.productName} + ${Common.numberFormat(model.amount)}'
                                                 : '---',
                                             style: AppStyles.r2B3A4A_12_500
                                                 .copyWith(fontSize: 13)),

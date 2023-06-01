@@ -13,6 +13,7 @@ import '../../../../../../../../res/app_images.dart';
 import '../../../../../../../../res/app_styles.dart';
 import '../../../../../../../networks/model/product_model.dart';
 import '../../../../../../../router/route_config.dart';
+import '../../../../../../../utils/common.dart';
 import '../../../../../../../utils/common_widgets.dart';
 import 'choose_change_plan_logic.dart';
 
@@ -164,7 +165,7 @@ class ChooseChangePlanPage extends GetView {
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: Text(
-                                    '${controller.productChangePlanModel.currentPlan.defaultValue ?? 'null'}/${AppLocalizations.of(context)!.textMonth}',
+                                    '${Common.numberFormat(controller.productChangePlanModel.currentPlan.defaultValue)}/${AppLocalizations.of(context)!.textMonth}',
                                     style: const TextStyle(
                                         fontSize: 16,
                                         fontFamily: 'Barlow',
@@ -376,7 +377,7 @@ class ChooseChangePlanPage extends GetView {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Text(
-                '${product.defaultValue ?? 'null'}/${AppLocalizations.of(context)!.textMonth}',
+                '${Common.numberFormat(product.defaultValue)}/${AppLocalizations.of(context)!.textMonth}',
                 style: AppStyles.r9454C9_14_500
                     .copyWith(fontWeight: FontWeight.w700, fontSize: 16),
               ),

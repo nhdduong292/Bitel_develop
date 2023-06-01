@@ -775,7 +775,6 @@ class RequestDetailPage extends GetWidget {
   void showDialogChooseProduct(
       BuildContext context, RequestDetailLogic controller) {
     showDialog(
-        barrierDismissible: false,
         context: context,
         builder: (context) {
           return ChooseProductAgainDialog(

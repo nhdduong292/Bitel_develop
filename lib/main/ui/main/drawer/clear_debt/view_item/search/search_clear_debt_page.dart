@@ -12,6 +12,7 @@ import '../../../../../../../../res/app_colors.dart';
 import '../../../../../../../res/app_images.dart';
 import '../../../../../../../res/app_styles.dart';
 import '../../../../../../networks/model/captcha_model.dart';
+import '../../../../../../utils/common.dart';
 import '../../../../../../utils/common_widgets.dart';
 import 'search_clear_debt_logic.dart';
 
@@ -27,8 +28,8 @@ class SearchClearDebtPage extends GetView<SearchClearDebtLogic> {
           return FocusScope(
             node: controller.focusScopeNode,
             child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
               onTap: () {
                 FocusScope.of(context).requestFocus(FocusNode());
               },
@@ -80,7 +81,8 @@ class SearchClearDebtPage extends GetView<SearchClearDebtLogic> {
                                               fontWeight: FontWeight.w400),
                                           children: [
                                             TextSpan(
-                                              text: ' S/${controller.balance} ',
+                                              text:
+                                                  ' S/${Common.numberFormat(controller.balance.value)} ',
                                               style: AppStyles.r9454C9_14_500
                                                   .copyWith(
                                                       fontSize: 13,
@@ -173,15 +175,15 @@ class SearchClearDebtPage extends GetView<SearchClearDebtLogic> {
                                               fit: BoxFit.fill,
                                               controller.convertImageCaptcha(),
                                               gaplessPlayback: true)
-                                          : LoadingCirculApi(), 
+                                          : LoadingCirculApi(),
                                     ),
                                   ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(right: 7.04),
                                   child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    splashColor: Colors.transparent,
                                     onTap: () {
                                       controller.captchaModel = CaptchaModel();
                                       controller.update();

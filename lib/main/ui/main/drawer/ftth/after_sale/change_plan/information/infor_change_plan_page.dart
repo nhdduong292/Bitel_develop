@@ -16,6 +16,7 @@ import '../../../../../../../../res/app_styles.dart';
 import '../../../../../../../networks/model/product_model.dart';
 import '../../../../../../../networks/model/request_detail_model.dart';
 import '../../../../../../../router/route_config.dart';
+import '../../../../../../../utils/common.dart';
 import '../../../../../../../utils/common_widgets.dart';
 import '../../../../contracting/product/invoice_page.dart';
 import 'infor_change_plan_logic.dart';
@@ -131,7 +132,8 @@ class InforChangePlanPage extends GetView {
                                     child: Obx(
                                       () => RichText(
                                         text: TextSpan(
-                                            text: 'S/${controller.balance} ',
+                                            text:
+                                                'S/${Common.numberFormat(controller.balance.value)} ',
                                             style: AppStyles.r9454C9_14_500
                                                 .copyWith(
                                                     fontSize: 13,
@@ -232,7 +234,7 @@ class InforChangePlanPage extends GetView {
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: Text(
-                                      '${controller.currentPlan.defaultValue ?? 'null'}/${AppLocalizations.of(context)!.textMonth}',
+                                      '${Common.numberFormat(controller.currentPlan.defaultValue)}/${AppLocalizations.of(context)!.textMonth}',
                                       style: const TextStyle(
                                           fontSize: 16,
                                           fontFamily: 'Barlow',
@@ -322,7 +324,7 @@ class InforChangePlanPage extends GetView {
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: Text(
-                                      '${controller.newPlan.defaultValue ?? 'null'}/${AppLocalizations.of(context)!.textMonth}',
+                                      '${Common.numberFormat(controller.newPlan.defaultValue)}/${AppLocalizations.of(context)!.textMonth}',
                                       style: const TextStyle(
                                           fontSize: 16,
                                           fontFamily: 'Barlow',
@@ -366,7 +368,7 @@ class InforChangePlanPage extends GetView {
                                           .textPrepaidMonth(controller
                                               .checkPaymentChangePlanModel
                                               .prepaidMonth),
-                                      'S/${controller.checkPaymentChangePlanModel.prepaidMoney}',
+                                      'S/${Common.numberFormat(controller.checkPaymentChangePlanModel.prepaidMoney)}',
                                       const Color(0xFF415263)),
                                   const DottedLine(
                                     dashColor: Color(0xFFE3EAF2),
@@ -376,7 +378,7 @@ class InforChangePlanPage extends GetView {
                                   _paymentElement(
                                       AppLocalizations.of(context)!
                                           .textPaymentOfCurrentInvoie,
-                                      'S/${controller.checkPaymentChangePlanModel.paymentCurrentInvoice}',
+                                      'S/${Common.numberFormat(controller.checkPaymentChangePlanModel.paymentCurrentInvoice)}',
                                       const Color(0xFF415263)),
                                   const DottedLine(
                                     dashColor: Color(0xFFE3EAF2),
@@ -386,7 +388,7 @@ class InforChangePlanPage extends GetView {
                                   _paymentElement(
                                       AppLocalizations.of(context)!
                                           .textDiscount,
-                                      'S/${controller.checkPaymentChangePlanModel.discount}',
+                                      'S/${Common.numberFormat(controller.checkPaymentChangePlanModel.discount)}',
                                       const Color(0xFFD91C02)),
                                   const DottedLine(
                                     dashColor: Color(0xFFE3EAF2),
@@ -396,7 +398,7 @@ class InforChangePlanPage extends GetView {
                                   _paymentElement(
                                       AppLocalizations.of(context)!
                                           .textTotalAmount,
-                                      'S/${controller.checkPaymentChangePlanModel.totalAmount}',
+                                      'S/${Common.numberFormat(controller.checkPaymentChangePlanModel.totalAmount)}',
                                       const Color(0xFF9454C9)),
                                 ],
                               ),

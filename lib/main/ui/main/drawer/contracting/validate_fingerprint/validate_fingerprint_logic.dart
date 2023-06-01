@@ -363,8 +363,6 @@ class ValidateFingerprintLogic extends GetxController {
     try {
       _onLoading(context);
       Map<String, dynamic> body = {
-        "isBypass": true,
-        "isUploadContractLate": true,
         "finger": bestFinger.right != 0 ? bestFinger.right : bestFinger.left,
         "listImage": listFinger,
         "pk": pk
@@ -376,8 +374,6 @@ class ValidateFingerprintLogic extends GetxController {
         onSuccess: (response) {
           Get.back();
           if (response.isSuccess) {
-            changePlanInforModel =
-                ChangePlanInforModel.fromJson(response.data['data']);
             isSuccess.call(true);
           } else {
             isSuccess.call(false);
@@ -436,6 +432,8 @@ class ValidateFingerprintLogic extends GetxController {
           Get.back();
           if (response.isSuccess) {
             isSuccess.call(true);
+            changePlanInforModel =
+                ChangePlanInforModel.fromJson(response.data['data']);
           } else {
             isSuccess.call(false);
             print("error: ${response.status}");
