@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
-
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as Math;
@@ -192,7 +190,8 @@ class Common {
               context, AppLocalizations.of(context)!.textErrorAPI);
           return;
         }
-        if (error.type == DioErrorType.connectionTimeout) {
+        if (error.type == DioErrorType.connectionTimeout ||
+            error.type == DioErrorType.receiveTimeout) {
           showSystemErrorDialog(
               context, AppLocalizations.of(context)!.textTheSystemIsOverloaded);
           return;
@@ -366,8 +365,6 @@ class Common {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE070);
       } else if (errorCode == 'E071') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE071);
-      } else if (errorCode == 'E072') {
-        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE072);
       } else {
         showSystemErrorDialog(context, error.response!.data['errorMessage']);
       }
@@ -431,22 +428,5 @@ class Common {
   static getVersionApp() {
     SettingService settingService = Get.find();
     return settingService.version.value;
-  }
-
-  static String numberFormat(var content) {
-    var number;
-    if (content is String) {
-      number = double.parse(content);
-    } else if (content is double) {
-      number = content;
-      number = double.parse(number.toStringAsFixed(1));
-    } else if (content is int) {
-      number = content;
-    } else {
-      return '---';
-    }
-    String formattedNumber =
-        NumberFormat.decimalPattern('en_US').format(number);
-    return formattedNumber;
   }
 }
