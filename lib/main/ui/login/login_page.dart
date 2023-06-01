@@ -283,7 +283,7 @@ class LoginPage extends GetWidget {
                     ),
                     KeyboardVisibilityBuilder(builder: (context, visible) {
                       if (visible) {
-                        return SizedBox(height: height * (1 / 4));
+                        return SizedBox(height: height * (1/3));
                       } else {
                         return Container();
                       }

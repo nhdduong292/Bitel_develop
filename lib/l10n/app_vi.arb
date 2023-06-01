@@ -682,5 +682,7 @@
 "textPaymentOfCurrentInvoice": "Thanh toán hóa đơn hiện tại",
 "textReceiptInformation": "Thông tin nhận hàng",
 "textActionType": "Loại hành động",
-"textConnectNewSubscriber": "Kết nối thuê bao mới"
+"textConnectNewSubscriber": "Kết nối thuê bao mới",
+  "textContracting": "Ký kết hợp đồng",
+  "textE072": "Tạo hợp đồng thất bại!"
 }

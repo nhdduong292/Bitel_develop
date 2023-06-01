@@ -628,7 +628,7 @@ class RequestDetailPage extends GetWidget {
                                             ProductStatus.Create
                                           ]);
                                     } else if (controller.requestModel.status ==
-                                        RequestStatus.CONNECTED) {
+                                        RequestStatus.CONTRACTING) {
                                       //todo show dialog cancel
                                       showDialogChooseProduct(
                                           context, controller);

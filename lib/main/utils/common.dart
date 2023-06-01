@@ -364,6 +364,8 @@ class Common {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE070);
       } else if (errorCode == 'E071') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE071);
+      } else if (errorCode == 'E072') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE072);
       } else {
         showSystemErrorDialog(context, error.response!.data['errorMessage']);
       }

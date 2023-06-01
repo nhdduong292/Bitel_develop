@@ -183,8 +183,8 @@ class RequestDetailModel {
         return AppLocalizations.of(context)!.textCreateRequestWithout;
       } else if (_status == RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY) {
         return AppLocalizations.of(context)!.textSurveyOfflineSuccess;
-      } else if (_status == RequestStatus.CONNECTED) {
-        return AppLocalizations.of(context)!.textConnected;
+      } else if (_status == RequestStatus.CONTRACTING) {
+        return AppLocalizations.of(context)!.textContracting;
       } else if (_status == RequestStatus.DEPLOYING) {
         return AppLocalizations.of(context)!.textDeploying;
       } else if (_status == RequestStatus.COMPLETE) {

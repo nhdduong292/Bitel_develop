@@ -684,6 +684,8 @@
 "textPaymentOfCurrentInvoice": "Pago de factura actual",
 "textReceiptInformation": "Información del recibo",
 "textActionType": "Tipo de acción",
-"textConnectNewSubscriber": "Conectar nuevo suscriptor"
+"textConnectNewSubscriber": "Conectar nuevo suscriptor",
+  "textContracting": "Contratación",
+  "textE072": "¡Generar contrato fallido!"
   
 }
