@@ -431,9 +431,9 @@ class ValidateFingerprintLogic extends GetxController {
         onSuccess: (response) {
           Get.back();
           if (response.isSuccess) {
-            isSuccess.call(true);
             changePlanInforModel =
                 ChangePlanInforModel.fromJson(response.data['data']);
+            isSuccess.call(true);
           } else {
             isSuccess.call(false);
             print("error: ${response.status}");

@@ -700,6 +700,7 @@
    "textContracting": "Contracting",
    "textE072": "Generate contract fail!",
    "textChangePlanRequestForm": "Change plan request form",
-   "textStartOfNewPlan": "Start of new plan"
+   "textStartOfNewPlan": "Start of new plan",
+   "textSuccessfulFTTHMigration": "Successful FTTH migration!"
   
 }

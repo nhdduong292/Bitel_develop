@@ -55,7 +55,7 @@ class ChangePlanSuccessPage extends GetView {
                               ),
                               Text(
                                 AppLocalizations.of(context)!
-                                    .textSuccessfulTerminationOfContract,
+                                    .textSuccessfulFTTHMigration,
                                 style: AppStyles.r007689_14_500,
                               )
                             ],

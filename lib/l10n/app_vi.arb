@@ -686,5 +686,6 @@
   "textContracting": "Ký kết hợp đồng",
   "textE072": "Tạo hợp đồng thất bại!",
 "textChangePlanRequestForm": "Mẫu yêu cầu thay đổi kế hoạch",
-"textStartOfNewPlan": "Bắt đầu kế hoạch mới"
+"textStartOfNewPlan": "Bắt đầu kế hoạch mới",
+"textSuccessfulFTTHMigration": "Di chuyển FTTH thành công!"
 }

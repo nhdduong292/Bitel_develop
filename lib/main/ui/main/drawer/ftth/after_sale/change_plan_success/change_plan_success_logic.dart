@@ -25,8 +25,10 @@ class ChangePlanSuccessLogic extends GetxController {
       return '${AppLocalizations.of(context)!.textCiclo} 6';
     } else if (model.billCycle == 'CYCLE16') {
       return '${AppLocalizations.of(context)!.textCiclo} 16';
-    } else {
+    } else if (model.billCycle == 'CYCLE26') {
       return '${AppLocalizations.of(context)!.textCiclo} 26';
+    } else {
+      return '---';
     }
   }
 }

@@ -404,7 +404,7 @@ class DateCancelService extends GetWidget {
                             } else {
                               Get.toNamed(RouteConfig.cancelServicePDF,
                                   arguments: [
-                                    controller.cancelServiceModel.cancelOrderId
+                                    controller.findAccountModel.subId
                                   ]);
                             }
                           }
