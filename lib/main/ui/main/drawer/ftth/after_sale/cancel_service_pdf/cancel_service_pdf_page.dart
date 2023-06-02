@@ -142,7 +142,7 @@ class CancelServicePDFPage extends GetView<CancelServicePDFLogic> {
                             child: Obx(
                               () => bottomButton(
                                   text: AppLocalizations.of(context)!
-                                      .textSignContract
+                                      .textSignRequest
                                       .toUpperCase(),
                                   onTap: () {
                                     if (!controller.checkOption.value) {

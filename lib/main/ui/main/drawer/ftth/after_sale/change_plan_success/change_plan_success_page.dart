@@ -194,7 +194,7 @@ class ChangePlanSuccessPage extends GetView {
                             ),
                             inforContractRow(
                                 lable:
-                                    "${AppLocalizations.of(context)!.textPromotion}:",
+                                    AppLocalizations.of(context)!.textPromotion,
                                 richText: () {
                                   return Text(
                                     '---',

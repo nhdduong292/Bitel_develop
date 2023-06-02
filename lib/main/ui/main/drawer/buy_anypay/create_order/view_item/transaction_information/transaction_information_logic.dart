@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:typed_data';
 
 import 'package:bitel_ventas/main/networks/model/buy_anypay_comfirm_model.dart';

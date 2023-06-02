@@ -689,6 +689,7 @@
   "textE072": "¡Generar contrato fallido!",
 "textChangePlanRequestForm": "Formulario de solicitud de cambio de plan",
 "textStartOfNewPlan": "Comienzo del nuevo plan",
-"textSuccessfulFTTHMigration": "Migración FTTH exitosa!"
+"textSuccessfulFTTHMigration": "Migración FTTH exitosa!",
+"textSignRequest": "Solicitud de firma"
   
 }

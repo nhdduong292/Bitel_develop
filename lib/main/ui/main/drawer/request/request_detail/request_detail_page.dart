@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:async';
 
 import 'package:bitel_ventas/main/networks/model/work_order_model.dart';
@@ -645,21 +647,32 @@ class RequestDetailPage extends GetWidget {
                                     }
                                   },
                                   child: Container(
-                                    width: double.infinity,
-                                    margin: const EdgeInsets.only(
-                                        top: 30, left: 15, right: 15),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 14),
-                                    decoration: BoxDecoration(
-                                      color: AppColors.colorButton,
-                                      borderRadius: BorderRadius.circular(24),
+                                    margin: EdgeInsets.only(
+                                        left: 15,
+                                        top: 24,
+                                        right: 15,
+                                        bottom: 10),
+                                    child: Container(
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                          color: AppColors.colorText3,
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: Color(0xFFB3BBC5),
+                                                blurRadius: 5)
+                                          ]),
+                                      child: Center(
+                                          child: Text(
+                                        controller.textConnect.toUpperCase(),
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      )),
                                     ),
-                                    child: Center(
-                                        child: Text(
-                                      controller.textConnect.toUpperCase(),
-                                      style: AppStyles.r5.copyWith(
-                                          fontWeight: FontWeight.w500),
-                                    )),
                                   ),
                                 )
                               : Container(),
