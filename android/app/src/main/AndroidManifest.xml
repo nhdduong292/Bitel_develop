@@ -14,7 +14,7 @@
 <!--    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>-->
 <!--    <uses-feature android:name="android.hardware.camera.flash" android:required="false"/>-->
    <application
-        android:label="Bitel"
+        android:label="Bitel Ventas FTTH"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
