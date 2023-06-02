@@ -83,7 +83,7 @@ class CustomerInformationLogic extends GetxController {
 
   final FocusScopeNode focusScopeNode = FocusScopeNode();
 
-  bool valueCheckBypass = false;
+  bool valueCheckBypass = true;
   bool isShowBypass = false;
 
   List<File> listFileMainContract = [];
@@ -92,7 +92,7 @@ class CustomerInformationLogic extends GetxController {
   File? pdfLendingContract;
   var pdf = pw.Document();
   var loadSuccess = false.obs;
-  bool valueCheckBox = false;
+  bool valueCheckBox = true;
   bool isCameraMain = true;
   bool isCameraLending = true;
   bool isLoadingConvertBase64 = false;
@@ -226,10 +226,10 @@ class CustomerInformationLogic extends GetxController {
     return customer.type;
   }
 
-  var checkOption1 = false.obs;
-  var checkOption2 = false.obs;
-  var checkOption3 = false.obs;
-  var checkOption4 = false.obs;
+  var checkOption1 = true.obs;
+  var checkOption2 = true.obs;
+  var checkOption3 = true.obs;
+  var checkOption4 = true.obs;
 
   Rx<String> contractLanguagetValue = 'SPANISH'.toUpperCase().obs;
   final contractLanguages = [

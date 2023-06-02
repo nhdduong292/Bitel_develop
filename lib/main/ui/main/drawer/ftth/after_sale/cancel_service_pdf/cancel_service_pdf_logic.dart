@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 class CancelServicePDFLogic extends GetxController {
   BuildContext context;
 
-  var checkOption = false.obs;
+  var checkOption = true.obs;
   int subId = 0;
   FindAccountModel findAccountModel = FindAccountModel();
   CancelServicePDFLogic({required this.context});

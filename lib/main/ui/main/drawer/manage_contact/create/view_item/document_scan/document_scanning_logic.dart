@@ -31,8 +31,8 @@ import 'package:pdf/widgets.dart' as pw;
 
 class DocumentScanningLogic extends GetxController {
   late BuildContext context;
-  var checkOption1 = false.obs;
-  var checkOption2 = false.obs;
+  var checkOption1 = true.obs;
+  var checkOption2 = true.obs;
 
   String textPathScan = "";
   // bool _canProcess = true;

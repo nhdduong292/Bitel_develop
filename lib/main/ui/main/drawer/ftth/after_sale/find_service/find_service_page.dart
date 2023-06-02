@@ -70,61 +70,35 @@ class FindServicePage extends GetWidget {
                   ),
                 ),
                 Expanded(child: Container()),
-                InkWell(
-                  highlightColor: Colors.transparent,
-                  splashColor: Colors.transparent,
-                  onTap: () {
-                    if (controller.isActive) {
-                      return;
-                    }
-
-                    if (controller.checkValidate()) {
-                      return;
-                    }
-
-                    FocusScope.of(context).requestFocus(FocusNode());
-                    controller.getAccounts((isSuccess) {
-                      if (isSuccess) {
-                        if (controller.listAccount.isEmpty) {
-                          Common.showToastCenter(AppLocalizations.of(context)!
-                              .textNoResultIsFound);
-                          return;
-                        }
-                        AfterSaleSearchLogic logic =
-                            Get.find<AfterSaleSearchLogic>();
-                        logic.isTabTwo.value = true;
-                        logic.isTabOne.value = false;
-                        logic.nextPage(1);
+                bottomButton(
+                    isBoxShadow: true,
+                    color: controller.isActive ? Colors.white : null,
+                    text: AppLocalizations.of(context)!.textSearch,
+                    onTap: () {
+                      if (controller.isActive) {
+                        return;
                       }
-                    });
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    margin:
-                        const EdgeInsets.only(bottom: 50, left: 25, right: 25),
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    decoration: BoxDecoration(
-                      color: controller.isActive
-                          ? Colors.white
-                          : AppColors.colorButton,
-                      borderRadius: BorderRadius.circular(24),
-                      boxShadow: [
-                        BoxShadow(
-                          offset: const Offset(0, 1),
-                          blurRadius: 2,
-                          color: Colors.black.withOpacity(0.3),
-                        ),
-                      ],
-                    ),
-                    child: Center(
-                        child: Text(
-                      AppLocalizations.of(context)!.textSearch.toUpperCase(),
-                      style: controller.isActive
-                          ? AppStyles.r1.copyWith(fontWeight: FontWeight.w500)
-                          : AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
-                    )),
-                  ),
-                )
+
+                      if (controller.checkValidate()) {
+                        return;
+                      }
+
+                      FocusScope.of(context).requestFocus(FocusNode());
+                      controller.getAccounts((isSuccess) {
+                        if (isSuccess) {
+                          if (controller.listAccount.isEmpty) {
+                            Common.showToastCenter(AppLocalizations.of(context)!
+                                .textNoResultIsFound);
+                            return;
+                          }
+                          AfterSaleSearchLogic logic =
+                              Get.find<AfterSaleSearchLogic>();
+                          logic.isTabTwo.value = true;
+                          logic.isTabOne.value = false;
+                          logic.nextPage(1);
+                        }
+                      });
+                    })
               ],
             ),
           ),
