@@ -98,7 +98,10 @@ class FindServicePage extends GetWidget {
                           logic.nextPage(1);
                         }
                       });
-                    })
+                    }),
+                const SizedBox(
+                  height: 20,
+                )
               ],
             ),
           ),
