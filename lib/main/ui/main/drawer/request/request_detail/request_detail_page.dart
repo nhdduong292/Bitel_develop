@@ -681,72 +681,24 @@ class RequestDetailPage extends GetWidget {
                                   children: [
                                     Expanded(
                                         flex: 1,
-                                        child: InkWell(
-                                          highlightColor: Colors.transparent,
-                                          splashColor: Colors.transparent,
-                                          onTap: () {
-                                            showDialogCancelRequest(context,
-                                                controller.requestModel.id);
-                                          },
-                                          child: Container(
-                                            width: double.infinity,
-                                            margin: const EdgeInsets.only(
-                                                top: 30, left: 25, right: 15),
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 14),
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(24),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  offset: const Offset(0, 1),
-                                                  blurRadius: 2,
-                                                  color: Colors.black
-                                                      .withOpacity(0.3),
-                                                ),
-                                              ],
-                                            ),
-                                            child: Center(
-                                                child: Text(
-                                              AppLocalizations.of(context)!
-                                                  .textCancel
-                                                  .toUpperCase(),
-                                              style: AppStyles.r1.copyWith(
-                                                  fontWeight: FontWeight.w500),
-                                            )),
-                                          ),
-                                        )),
+                                        child: bottomButton(
+                                            isBoxShadow: true,
+                                            color: Colors.white,
+                                            text: AppLocalizations.of(context)!
+                                                .textCancel,
+                                            onTap: () {
+                                              showDialogCancelRequest(context,
+                                                  controller.requestModel.id);
+                                            })),
                                     Expanded(
                                         flex: 1,
-                                        child: InkWell(
-                                          highlightColor: Colors.transparent,
-                                          splashColor: Colors.transparent,
-                                          onTap: () {
-                                            showDialogTransferRequest(context,
-                                                controller.requestModel.id);
-                                          },
-                                          child: Container(
-                                            width: double.infinity,
-                                            margin: const EdgeInsets.only(
-                                                top: 30, left: 15, right: 25),
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 14),
-                                            decoration: BoxDecoration(
-                                              color: AppColors.colorButton,
-                                              borderRadius:
-                                                  BorderRadius.circular(24),
-                                            ),
-                                            child: Center(
-                                                child: Text(
-                                              AppLocalizations.of(context)!
-                                                  .textTransfer
-                                                  .toUpperCase(),
-                                              style: AppStyles.r5.copyWith(
-                                                  fontWeight: FontWeight.w500),
-                                            )),
-                                          ),
-                                        ))
+                                        child: bottomButton(
+                                            text: AppLocalizations.of(context)!
+                                                .textTransfer,
+                                            onTap: () {
+                                              showDialogTransferRequest(context,
+                                                  controller.requestModel.id);
+                                            }))
                                   ],
                                 )
                               : Container(),

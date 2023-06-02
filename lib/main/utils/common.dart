@@ -197,9 +197,8 @@ class Common {
           return;
         }
       } else {
-        showSystemErrorDialog(
-            context, AppLocalizations.of(context)!.textErrorAPI);
-        return;
+          showSystemErrorDialog(
+              context, AppLocalizations.of(context)!.textErrorAPI);
       }
       final statusCode = error.response?.statusCode;
       if (statusCode == 401) {

@@ -1,6 +1,7 @@
 import 'package:bitel_ventas/main/networks/model/find_account_model.dart';
 import 'package:bitel_ventas/main/networks/model/product_change_plan_model.dart';
 import 'package:bitel_ventas/main/networks/model/reasons_cancel_service_model.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_search_logic.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,6 +25,9 @@ class ChooseChangePlanLogic extends GetxController {
 
   int subId = 0;
   bool isForcedTerm = false;
+  int fingerId = 0;
+
+  AfterSaleSearchLogic afterSaleSearchLogic = Get.find();
 
   @override
   void onInit() {
@@ -32,6 +36,7 @@ class ChooseChangePlanLogic extends GetxController {
 
     var data = Get.arguments;
     subId = data[0];
+    fingerId = afterSaleSearchLogic.fingerId;
   }
 
   @override

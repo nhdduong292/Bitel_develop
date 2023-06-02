@@ -47,6 +47,7 @@ class ValidateFingerprintLogic extends GetxController {
   String cancelDate = '';
   String note = '';
   String newPlan = '';
+  int fingerId = 0;
   ChangePlanInforModel changePlanInforModel = ChangePlanInforModel();
 
   ValidateFingerprintLogic(this.context);
@@ -73,8 +74,7 @@ class ValidateFingerprintLogic extends GetxController {
             .substring(0, 10);
         note = dateCancelServiceLogic.reasonCancel.trim();
       }
-    }
-    if (type == ValidateFingerStatus.CUSTOMER_CHANGE_PLAN) {
+    } else if (type == ValidateFingerStatus.CUSTOMER_CHANGE_PLAN) {
       cusId = data[1];
       typeCustomer = data[2];
       idNumber = data[3];
@@ -83,6 +83,7 @@ class ValidateFingerprintLogic extends GetxController {
         InforChangePlanLogic inforChangePlanLogic = Get.find();
         subId = inforChangePlanLogic.subId;
         newPlan = inforChangePlanLogic.newPlan.productCode ?? "";
+        fingerId = inforChangePlanLogic.fingerId;
       }
     } else if (type == ValidateFingerStatus.MAIN ||
         type == ValidateFingerStatus.LENDING) {
@@ -292,6 +293,7 @@ class ValidateFingerprintLogic extends GetxController {
     try {
       _onLoading(context);
       Map<String, dynamic> body = {
+        "staffFingerId": fingerId,
         "cancelDate": cancelDate,
         "note": note,
         "finger": bestFinger.right != 0 ? bestFinger.right : bestFinger.left,
@@ -341,6 +343,7 @@ class ValidateFingerprintLogic extends GetxController {
         onSuccess: (response) {
           Get.back();
           if (response.isSuccess) {
+            fingerId = response.data['data']['fingerId'];
             isSuccess.call(true);
           } else {
             isSuccess.call(false);
@@ -374,6 +377,7 @@ class ValidateFingerprintLogic extends GetxController {
         onSuccess: (response) {
           Get.back();
           if (response.isSuccess) {
+            fingerId = response.data['data']['fingerId'];
             isSuccess.call(true);
           } else {
             isSuccess.call(false);
@@ -419,6 +423,7 @@ class ValidateFingerprintLogic extends GetxController {
     try {
       _onLoading(context);
       Map<String, dynamic> body = {
+        "staffFingerId": fingerId,
         "newPlan": newPlan,
         "finger": bestFinger.right != 0 ? bestFinger.right : bestFinger.left,
         "listImage": listFinger,
@@ -484,7 +489,7 @@ class ValidateFingerprintLogic extends GetxController {
       validateStaffFingerChangePlan(
         (isSuccess) {
           if (isSuccess) {
-            Get.back(result: true);
+            Get.back(result: fingerId);
           }
         },
       );

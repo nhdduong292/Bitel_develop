@@ -53,3 +53,9 @@ class ContractType {
   static final String UNDETERMINED = "UNDETERMINED";
   static final String FORCED_TERM = "FORCED_TERM";
 }
+
+class AfterSaleStatus {
+  static final String CHANGE_PLAN = "CHANGE_PLAN";
+  static final String TRANSFER_SERVICE = "TRANSFER_SERVICE";
+  static final String CANCEL_SERVICE = "CANCEL_SERVICE";
+}

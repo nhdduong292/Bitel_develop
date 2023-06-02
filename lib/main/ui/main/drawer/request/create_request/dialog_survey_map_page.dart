@@ -46,8 +46,8 @@ class DialogSurveyMapPage extends GetWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     onTap: () {
                       Get.back();
                     },
@@ -156,104 +156,36 @@ class DialogSurveyMapPage extends GetWidget {
                   ),
                   Row(
                     children: [
-                      // Expanded(
-                      //     flex: 1,
-                      //     child: Container(
-                      //       width: double.infinity,
-                      //       margin: const EdgeInsets.only(top: 30),
-                      //       padding: const EdgeInsets.symmetric(vertical: 14),
-                      //       decoration: BoxDecoration(
-                      //         color: controller.isConnect ? AppColors.colorButton :Colors.white,
-                      //         borderRadius: BorderRadius.circular(24),
-                      //         boxShadow: [
-                      //           BoxShadow(
-                      //             offset: const Offset(0, 1),
-                      //             blurRadius: 2,
-                      //             color: Colors.black.withOpacity(0.3),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //
-                      //       child: InkWell(
-                      //       highlightColor: Colors.transparent,
-                      //       splashColor: Colors.transparent,
-                      //         onTap: () {
-                      //           if(controller.isConnect){
-                      //             Get.back();
-                      //             Timer(Duration(milliseconds: 600), () {
-                      //               Get.offNamed(RouteConfig.productPayment,
-                      //                   arguments:
-                      //                   int.parse(requestId));
-                      //             },);
-                      //
-                      //           }
-                      //         },
-                      //         child:  Center(
-                      //             child: Text(
-                      //               AppLocalizations.of(context)!.textConnect.toUpperCase(),
-                      //               style: controller.isConnect ? AppStyles.r5.copyWith(fontWeight: FontWeight.w500) : AppStyles.r1.copyWith(fontWeight: FontWeight.w500),
-                      //             )),
-                      //       ),
-                      //     )),
-                      // const SizedBox(width: 15,),
                       Expanded(
                           flex: 1,
-                          child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
-                            onTap: () {
-                              if (controller.isActive ||
-                                  controller.checkValidate(context)) {
-                                return;
-                              }
-                              FocusScope.of(context).unfocus();
-                              _onLoading(context);
-                              controller.createSurvey(
-                                (isSuccess) {
-                                  // onSubmit.call(isSuccess);
-                                  if (isSuccess) {
-                                    showDialogSurveySuccessful(context);
-                                  } else {
-                                    try {
-                                      showDialogSurveyUnsuccessful(
-                                          context, requestModel.id);
-                                    } catch (e) {
-                                      print(e.toString());
+                          child: bottomButton(
+                              color: controller.isActive
+                                  ? Colors.white
+                                  : AppColors.colorButton,
+                              text: AppLocalizations.of(context)!.textSurvey,
+                              onTap: () {
+                                if (controller.isActive ||
+                                    controller.checkValidate(context)) {
+                                  return;
+                                }
+                                FocusScope.of(context).unfocus();
+                                _onLoading(context);
+                                controller.createSurvey(
+                                  (isSuccess) {
+                                    // onSubmit.call(isSuccess);
+                                    if (isSuccess) {
+                                      showDialogSurveySuccessful(context);
+                                    } else {
+                                      try {
+                                        showDialogSurveyUnsuccessful(
+                                            context, requestModel.id);
+                                      } catch (e) {
+                                        print(e.toString());
+                                      }
                                     }
-                                  }
-                                },
-                              );
-                            },
-                            child: Container(
-                              width: double.infinity,
-                              margin: const EdgeInsets.only(top: 30),
-                              padding: const EdgeInsets.symmetric(vertical: 14),
-                              decoration: BoxDecoration(
-                                color: controller.isActive
-                                    ? Colors.white
-                                    : AppColors.colorButton,
-                                borderRadius: BorderRadius.circular(24),
-                                boxShadow: [
-                                  BoxShadow(
-                                    offset: const Offset(0, 1),
-                                    blurRadius: 2,
-                                    color: Colors.black.withOpacity(0.3),
-                                  ),
-                                ],
-                              ),
-                              child: Center(
-                                  child: Text(
-                                AppLocalizations.of(context)!
-                                    .textSurvey
-                                    .toUpperCase(),
-                                style: controller.isActive
-                                    ? AppStyles.r1
-                                        .copyWith(fontWeight: FontWeight.w500)
-                                    : AppStyles.r5
-                                        .copyWith(fontWeight: FontWeight.w500),
-                              )),
-                            ),
-                          ))
+                                  },
+                                );
+                              }))
                     ],
                   ),
                 ],

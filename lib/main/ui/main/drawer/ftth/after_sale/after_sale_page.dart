@@ -94,9 +94,11 @@ class AfterSalePage extends StatelessWidget {
                       arguments: [ValidateFingerStatus.STAFF_CHANGE_PLAN])
                   ?.then((value) {
                 if (value != null) {
-                  Get.to(AfterSaleSearchPage(
-                      AppLocalizations.of(context)!.textChangePlan,
-                      'CHANGE_PLAN'));
+                  Get.to(
+                      AfterSaleSearchPage(
+                          AppLocalizations.of(context)!.textChangePlan,
+                          AfterSaleStatus.CHANGE_PLAN),
+                      arguments: [value]);
                 }
               });
             },
@@ -142,7 +144,7 @@ class AfterSalePage extends StatelessWidget {
             onTap: () {
               Get.to(AfterSaleSearchPage(
                   AppLocalizations.of(context)!.textTransferService,
-                  'TRANSFER_SERVICE'));
+                  AfterSaleStatus.TRANSFER_SERVICE));
             },
           ),
           InkWell(
@@ -186,7 +188,7 @@ class AfterSalePage extends StatelessWidget {
             onTap: () {
               Get.to(AfterSaleSearchPage(
                   AppLocalizations.of(context)!.textCancelService,
-                  'CANCEL_SERVICE'));
+                  AfterSaleStatus.CANCEL_SERVICE));
             },
           ),
         ],

@@ -530,52 +530,21 @@ class CreateRequestPage extends GetWidget {
                   children: [
                     Expanded(
                         flex: 1,
-                        child: Container(
-                          width: double.infinity,
-                          margin: const EdgeInsets.only(
-                              top: 30, left: 25, right: 5),
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          decoration: BoxDecoration(
+                        child: bottomButton(
+                            isBoxShadow: true,
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(24),
-                            boxShadow: [
-                              BoxShadow(
-                                offset: const Offset(0, 1),
-                                blurRadius: 2,
-                                color: Colors.black.withOpacity(0.3),
-                              ),
-                            ],
-                          ),
-                          child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                            text: AppLocalizations.of(context)!
+                                .textCancel
+                                .toUpperCase(),
                             onTap: () {
                               Get.back();
-                            },
-                            child: Center(
-                                child: Text(
-                              AppLocalizations.of(context)!
-                                  .textCancel
-                                  .toUpperCase(),
-                              style: AppStyles.r1
-                                  .copyWith(fontWeight: FontWeight.w500),
-                            )),
-                          ),
-                        )),
+                            })),
                     Expanded(
                         flex: 1,
-                        child: Container(
-                          width: double.infinity,
-                          margin: const EdgeInsets.only(
-                              top: 30, left: 5, right: 25),
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          decoration: BoxDecoration(
-                            color: AppColors.colorButton,
-                            borderRadius: BorderRadius.circular(24),
-                          ),
-                          child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                        child: bottomButton(
+                            text: AppLocalizations.of(context)!
+                                .textSurvey
+                                .toUpperCase(),
                             onTap: () {
                               if (controller.checkValidateCreate(context)) {
                                 return;
@@ -589,17 +558,7 @@ class CreateRequestPage extends GetWidget {
                                   }
                                 },
                               );
-                            },
-                            child: Center(
-                                child: Text(
-                              AppLocalizations.of(context)!
-                                  .textSurvey
-                                  .toUpperCase(),
-                              style: AppStyles.r5
-                                  .copyWith(fontWeight: FontWeight.w500),
-                            )),
-                          ),
-                        ))
+                            }))
                   ],
                 ),
                 const SizedBox(
