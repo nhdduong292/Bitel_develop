@@ -556,7 +556,7 @@
   "textAreYouSureToCancel": "Are you sure to cancel buy anypay ",
   "textCancelBuyAnyPaySuccess": "Cancel buy anypay successfully",
   "textInvalidDate": "Invalid date",
-  "textTheAccountIsConditioned": "The account is conditioned to a forced term contract.",
+  "textTheAccountIsConditioned": "To continue with the cancellation request, the customer will need to pay the penalty.",
   "textToContinueWithTheCancelation": "To continue with the cancellation request, the customer will need to pay the penalty.",
   "textDoesTheCustomerStill": "Does the customer still want to cancel the service?",
   "textYes": "Yes",

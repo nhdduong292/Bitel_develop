@@ -137,8 +137,8 @@ class CancelServicePDFPage extends GetView<CancelServicePDFLogic> {
                             ]),
                           ),
                           Container(
-                            width: width - 62,
-                            margin: EdgeInsets.only(left: 31, right: 31),
+                            width: width, /*- 62,
+                            margin: EdgeInsets.only(left: 31, right: 31),*/
                             child: Obx(
                               () => bottomButton(
                                   text: AppLocalizations.of(context)!

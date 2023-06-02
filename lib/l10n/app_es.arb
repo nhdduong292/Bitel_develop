@@ -574,7 +574,7 @@
   "textAreYouSureToCancel": "¿Estás seguro de cancelar comprar anypay? ",
   "textCancelBuyAnyPaySuccess": "Cancelar comprar anypay con éxito",
     "textInvalidDate": "Fecha invalida",
-      "textTheAccountIsConditioned": "La cuenta está condicionada a un contrato a plazo forzoso.",
+      "textTheAccountIsConditioned": "Para continuar con la solicitud de cancelación, el cliente deberá pagar la penalización.",
   "textToContinueWithTheCancelation": "Para continuar con la solicitud de cancelación, el cliente deberá pagar la penalización.",
   "textDoesTheCustomerStill": "¿El cliente todavía quiere cancelar el servicio?",
   "textYes": "Sí",

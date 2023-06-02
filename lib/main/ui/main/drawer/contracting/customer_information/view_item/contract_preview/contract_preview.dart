@@ -156,8 +156,8 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
           ]),
         ),
         Container(
-          width: width - 62,
-          margin: EdgeInsets.only(left: 31, right: 31),
+          width: width,
+          // margin: EdgeInsets.only(left: 15, right: 15),
           child: Obx(
             () => bottomButton(
                 text: AppLocalizations.of(context)!
