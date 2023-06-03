@@ -247,7 +247,8 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                                     } else {}
                                   });
                                 } else {
-                                  if (controller.valueCheckBypass) {
+                                  if (controller.valueCheckBypass &&
+                                      controller.showBypass()) {
                                     controller.checkBypass((isSuccess) {
                                       if (isSuccess) {
                                         callback();

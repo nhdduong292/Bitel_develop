@@ -557,7 +557,7 @@
   "textCancelBuyAnyPaySuccess": "Cancel buy anypay successfully",
   "textInvalidDate": "Invalid date",
   "textTheAccountIsConditioned": "The account is conditioned to a forced term contract.",
-  "textToContinueWithTheCancelation": "To continue with the cancellation request, the customer will need to pay the penalty.",
+  "textToContinueWithTheCancelation": "To continue with the cancellation request on the date requested, the customer will need to pay the penalty.",
   "textDoesTheCustomerStill": "Does the customer still want to cancel the service?",
   "textYes": "Yes",
   "textClearPenalty": "Clear penalty",
@@ -636,7 +636,7 @@
   "textFilter": "Filter: ",
   "textThisMonth": "This month",
   "textLastMonth": "Last month",
-  "textLast3Month": "Last 90 days", 
+  "textLast3Month": "Last 3 months", 
   "textE050": "Unlock infrastructure failed",
   "textE051": "Request already cancel",
   "textE052": "Can not cancel request has contract",
@@ -702,6 +702,7 @@
    "textChangePlanRequestForm": "Change plan request form",
    "textStartOfNewPlan": "Start of new plan",
    "textSuccessfulFTTHMigration": "Successful FTTH migration!",
-   "textSignRequest": "Sign request"
+   "textSignRequest": "Sign request",
+   "textE073": "Failed to adjust debt subscriber."
   
 }

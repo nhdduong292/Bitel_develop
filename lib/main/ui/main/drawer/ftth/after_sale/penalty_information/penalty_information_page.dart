@@ -279,24 +279,8 @@ class PenaltyInformationPage extends GetView<PenaltyInformationLogic> {
                     bottomButton(
                         text: AppLocalizations.of(context)!.textContinue,
                         onTap: () {
-                          controller.checkBalance((value) {
-                            if (value) {
-                              Get.toNamed(RouteConfig.cancelServicePDF,
-                                  arguments: [controller.subId]);
-                            } else {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return RechargeDialog(
-                                      height: 340,
-                                      onCanncel: () {},
-                                      onContinue: () {
-                                        Get.toNamed(RouteConfig.createOrder);
-                                      },
-                                    );
-                                  });
-                            }
-                          });
+                          Get.toNamed(RouteConfig.cancelServicePDF,
+                              arguments: [controller.subId]);
                         }),
                   ],
                 ),

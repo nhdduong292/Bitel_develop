@@ -1365,6 +1365,7 @@ Widget selectTypeSearchService(
     required var onChangeText}) {
   bool isPP = false;
   bool isPhone = false;
+  bool isNumberService = false;
   if (currentIdentityType == listIdentity[2]) {
     isPP = true;
   }
@@ -1377,6 +1378,7 @@ Widget selectTypeSearchService(
   } else if (currentStatus == listStatus[2]) {
     hintText = AppLocalizations.of(context)!.hintEnterPhone;
   } else {
+    isNumberService = true;
     hintText = AppLocalizations.of(context)!.textEnterServiceNumber;
   }
   return Column(
@@ -1512,8 +1514,9 @@ Widget selectTypeSearchService(
                     flex: 4,
                     child: TextField(
                         controller: controller,
-                        keyboardType:
-                            isPhone ? TextInputType.number : TextInputType.text,
+                        keyboardType: isPhone || isNumberService
+                            ? TextInputType.number
+                            : TextInputType.text,
                         textInputAction: TextInputAction.send,
                         style: AppStyles.r2.copyWith(
                             color: AppColors.colorTitle,

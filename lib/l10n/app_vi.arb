@@ -573,7 +573,7 @@
 "textCancelBuyAnyPaySuccess": "Hủy mua anypay thành công",
 "textInvalidDate": "Ngày không hợp lệ",
 "textTheAccountIsConditioned": "Tài khoản được quy định trong một hợp đồng có thời hạn bắt buộc.",
-"textToContinueWithTheCancelation": "Để tiếp tục yêu cầu hủy bỏ, khách hàng sẽ cần thanh toán khoản phạt.",
+"textToContinueWithTheCancelation": "Để tiếp tục yêu cầu hủy vào ngày được yêu cầu, khách hàng sẽ phải trả tiền phạt.",
 "textDoesTheCustomerStill": "Khách hàng vẫn muốn hủy dịch vụ?",
 "textYes": "Có",
 "textClearPenalty": "Hủy phạt",
@@ -621,7 +621,7 @@
   "textFilter": "Lọc: ",
   "textThisMonth": "Tháng này",
   "textLastMonth": "Tháng trước",
-  "textLast3Month": "90 ngày trước",
+  "textLast3Month": "3 tháng trước",
   "textE050": "Mở khóa cơ sở hạ tầng thất bại.",
   "textE051": "Yêu cầu đã bị hủy.",
   "textE052": "Không thể hủy yêu cầu đã có hợp đồng.",
@@ -688,5 +688,6 @@
 "textChangePlanRequestForm": "Mẫu yêu cầu thay đổi kế hoạch",
 "textStartOfNewPlan": "Bắt đầu kế hoạch mới",
 "textSuccessfulFTTHMigration": "Di chuyển FTTH thành công!",
-"textSignRequest": "Ký yêu cầu  "
+"textSignRequest": "Ký yêu cầu",
+"textE073": "Không điều chỉnh được thuê bao nợ."
 }

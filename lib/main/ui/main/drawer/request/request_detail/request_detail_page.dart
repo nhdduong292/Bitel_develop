@@ -690,15 +690,20 @@ class RequestDetailPage extends GetWidget {
                                               showDialogCancelRequest(context,
                                                   controller.requestModel.id);
                                             })),
-                                    Expanded(
-                                        flex: 1,
-                                        child: bottomButton(
-                                            text: AppLocalizations.of(context)!
-                                                .textTransfer,
-                                            onTap: () {
-                                              showDialogTransferRequest(context,
-                                                  controller.requestModel.id);
-                                            }))
+                                    Visibility(
+                                      visible: controller.isShowTransfrer,
+                                      child: Expanded(
+                                          flex: 1,
+                                          child: bottomButton(
+                                              text:
+                                                  AppLocalizations.of(context)!
+                                                      .textTransfer,
+                                              onTap: () {
+                                                showDialogTransferRequest(
+                                                    context,
+                                                    controller.requestModel.id);
+                                              })),
+                                    )
                                   ],
                                 )
                               : Container(),
