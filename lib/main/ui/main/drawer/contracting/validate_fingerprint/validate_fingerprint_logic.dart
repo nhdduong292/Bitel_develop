@@ -522,7 +522,7 @@ class ValidateFingerprintLogic extends GetxController {
           }
         },
       );
-    } else {
+    } else if (type == ValidateFingerStatus.MAIN) {
       signContract(
         (p0) {
           if (p0) {
@@ -530,6 +530,7 @@ class ValidateFingerprintLogic extends GetxController {
           }
         },
       );
+      return;
     }
   }
 }

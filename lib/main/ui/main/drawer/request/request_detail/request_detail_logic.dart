@@ -21,7 +21,7 @@ class RequestDetailLogic extends GetxController {
   bool isShowBtnCancelTransfer = false;
   bool isShowBtnConnect = false;
   String textConnect = "";
-  bool isShowTransfrer = true;
+  bool isShowCancel = false;
 
   BuildContext context;
 
@@ -75,6 +75,7 @@ class RequestDetailLogic extends GetxController {
       return true;
     } else if (status == RequestStatus.CONTRACTING) {
       textConnect = AppLocalizations.of(context)!.textContracting;
+      isShowCancel = true;
       return true;
     } else if (status == RequestStatus.DEPLOYING) {
       textConnect = AppLocalizations.of(context)!.textClose;
@@ -98,8 +99,7 @@ class RequestDetailLogic extends GetxController {
     } else if (status == RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY) {
       return true;
     } else if (status == RequestStatus.CONTRACTING) {
-      isShowTransfrer = false;
-      return true;
+      return false;
     } else if (status == RequestStatus.DEPLOYING) {
       return false;
     } else if (status == RequestStatus.COMPLETE) {

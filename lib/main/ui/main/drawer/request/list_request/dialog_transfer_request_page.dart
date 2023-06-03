@@ -243,64 +243,49 @@ class DialogTransferRequest extends GetWidget {
                     ],
                   ),
                 ),
-                InkWell(
-                  highlightColor: Colors.transparent,
-                  splashColor: Colors.transparent,
-                  onTap: () {
-                    if (controller.checkValidate(context)) return;
-                    _onLoading(context);
-                    controller.transferRequest(
-                      id,
-                      controller.currentStaffCode,
-                      context,
-                      (isSuccess) {
-                        Get.back();
-                        if (isSuccess) {
-                          showDialog(
-                              barrierDismissible: false,
-                              context: context,
-                              builder: (context) {
-                                return SuccessDialog(
-                                  text: AppLocalizations.of(context)!
-                                      .textTransferRequestSuccessfully,
-                                  onOk: () {
-                                    Get.until(
-                                      (route) {
-                                        return Get.currentRoute ==
-                                            RouteConfig.listRequest;
-                                      },
-                                    );
-                                    ListRequestLogic listRequestLogic =
-                                        Get.find();
-                                    listRequestLogic
-                                        .updateSearchRequestToIndex(0);
-                                    listRequestLogic.refreshListRequest();
-                                  },
-                                );
-                              });
-                        } else {
-                          Common.showToastCenter(
-                              AppLocalizations.of(context)!.textErrorAPI);
-                        }
-                      },
-                    );
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    margin: const EdgeInsets.only(
-                        top: 30, bottom: 36, left: 16, right: 16),
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    decoration: BoxDecoration(
-                      color: AppColors.colorButton,
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    child: Center(
-                        child: Text(
-                      AppLocalizations.of(context)!.textTransfer.toUpperCase(),
-                      style: AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
-                    )),
-                  ),
-                )
+                bottomButton(
+                    text: AppLocalizations.of(context)!
+                        .textTransfer
+                        .toUpperCase(),
+                    onTap: () {
+                      if (controller.checkValidate(context)) return;
+                      _onLoading(context);
+                      controller.transferRequest(
+                        id,
+                        controller.currentStaffCode,
+                        context,
+                        (isSuccess) {
+                          Get.back();
+                          if (isSuccess) {
+                            showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) {
+                                  return SuccessDialog(
+                                    text: AppLocalizations.of(context)!
+                                        .textTransferRequestSuccessfully,
+                                    onOk: () {
+                                      Get.until(
+                                        (route) {
+                                          return Get.currentRoute ==
+                                              RouteConfig.listRequest;
+                                        },
+                                      );
+                                      ListRequestLogic listRequestLogic =
+                                          Get.find();
+                                      listRequestLogic
+                                          .updateSearchRequestToIndex(0);
+                                      listRequestLogic.refreshListRequest();
+                                    },
+                                  );
+                                });
+                          } else {
+                            Common.showToastCenter(
+                                AppLocalizations.of(context)!.textErrorAPI);
+                          }
+                        },
+                      );
+                    })
               ],
             ),
           ),

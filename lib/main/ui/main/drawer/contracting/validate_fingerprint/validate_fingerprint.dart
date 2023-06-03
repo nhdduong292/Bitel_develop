@@ -272,7 +272,7 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                     // } else {
                                     //   Common.showToastCenter(
                                     //       "Chờ hiển thị ngón tay cần lấy");
-                                    // }
+                                    //
                                     if (controller.isGetFingerSuccess) {
                                       if (Platform.isAndroid) {
                                         controller.getCapture(context);
