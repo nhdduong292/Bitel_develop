@@ -235,7 +235,8 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                                       Common.showToastCenter(AppLocalizations
                                               .of(context)!
                                           .textUpdateCustomerInformationSuccessfully);
-                                      if (controller.valueCheckBypass) {
+                                      if (controller.valueCheckBypass &&
+                                          controller.showBypass()) {
                                         controller.checkBypass((isSuccess) {
                                           if (isSuccess) {
                                             callback();
