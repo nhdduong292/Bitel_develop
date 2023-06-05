@@ -137,7 +137,8 @@ class CancelServicePDFPage extends GetView<CancelServicePDFLogic> {
                             ]),
                           ),
                           Container(
-                            width: width, /*- 62,
+                            width: width,
+                            /*- 62,
                             margin: EdgeInsets.only(left: 31, right: 31),*/
                             child: Obx(
                               () => bottomButton(
@@ -151,7 +152,7 @@ class CancelServicePDFPage extends GetView<CancelServicePDFLogic> {
                                     Get.toNamed(RouteConfig.validateFingerprint,
                                         arguments: [
                                           ValidateFingerStatus
-                                              .STAFF_CANCEL_SERVICE,
+                                              .CUSTOMER_CANCEL_SERVICE,
                                           controller.findAccountModel.custId,
                                           Common.getIdentityType(controller
                                               .findAccountModel.idType),

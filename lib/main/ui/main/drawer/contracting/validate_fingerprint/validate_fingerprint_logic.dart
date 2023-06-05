@@ -61,7 +61,7 @@ class ValidateFingerprintLogic extends GetxController {
     // type empty TH validate cancel service
     // type là Main hoặc Lending validate đăng kí hợp đồng
     // type là staff valiate của nhân viên
-    if (type == ValidateFingerStatus.STAFF_CANCEL_SERVICE || type.isEmpty) {
+    if (type == ValidateFingerStatus.CUSTOMER_CANCEL_SERVICE) {
       cusId = data[1];
       typeCustomer = data[2];
       idNumber = data[3];
@@ -73,6 +73,7 @@ class ValidateFingerprintLogic extends GetxController {
             .toIso8601String()
             .substring(0, 10);
         note = dateCancelServiceLogic.reasonCancel.trim();
+        fingerId = dateCancelServiceLogic.fingerId;
       }
     } else if (type == ValidateFingerStatus.CUSTOMER_CHANGE_PLAN) {
       cusId = data[1];
@@ -328,7 +329,7 @@ class ValidateFingerprintLogic extends GetxController {
     }
   }
 
-  void validateStaffFinger(Function(bool) isSuccess) {
+  void validateStaffFingerCancelService(Function(bool) isSuccess) {
     try {
       _onLoading(context);
       Map<String, dynamic> body = {
@@ -460,7 +461,7 @@ class ValidateFingerprintLogic extends GetxController {
     if (listFinger.isEmpty) {
       return;
     }
-    if (type.isEmpty) {
+    if (type == ValidateFingerStatus.CUSTOMER_CANCEL_SERVICE) {
       signCancelService(
         (isSuccess) {
           if (isSuccess) {
@@ -497,15 +498,10 @@ class ValidateFingerprintLogic extends GetxController {
     }
 
     if (type == ValidateFingerStatus.STAFF_CANCEL_SERVICE) {
-      validateStaffFinger(
+      validateStaffFingerCancelService(
         (isSuccess) {
           if (isSuccess) {
-            type = '';
-            pk = '';
-            textCapture = '';
-            listFinger = [];
-            getBestFinger();
-            update();
+            Get.back(result: fingerId);
           }
         },
       );

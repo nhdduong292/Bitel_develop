@@ -167,7 +167,7 @@ public class SecugenFingerPrintScanner extends FingerPrintScannerBase implements
 //            CommonActivity.createAlertDialog(getMainActivity(),
 //                    getString(R.string.warning_usb_device_not_available),
 //                    getString(R.string.error) ).show();
-            Utilities.showToastMessage(activity, "Không tìm thấy thiết bị lấy dấu vân tay, hay quay lại bước trước và cắm máy vân tay");
+            // Utilities.showToastMessage(activity, "Không tìm thấy thiết bị lấy dấu vân tay, hay quay lại bước trước và cắm máy vân tay");
         }
     }
 

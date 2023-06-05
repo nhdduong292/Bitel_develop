@@ -186,9 +186,20 @@ class AfterSalePage extends StatelessWidget {
               ),
             ),
             onTap: () {
-              Get.to(AfterSaleSearchPage(
-                  AppLocalizations.of(context)!.textCancelService,
-                  AfterSaleStatus.CANCEL_SERVICE));
+              Get.toNamed(RouteConfig.validateFingerprint,
+                      arguments: [ValidateFingerStatus.STAFF_CANCEL_SERVICE])
+                  ?.then((value) {
+                if (value != null) {
+                  Get.to(
+                      AfterSaleSearchPage(
+                          AppLocalizations.of(context)!.textCancelService,
+                          AfterSaleStatus.CANCEL_SERVICE),
+                      arguments: [value]);
+                }
+              });
+              // Get.to(AfterSaleSearchPage(
+              //     AppLocalizations.of(context)!.textCancelService,
+              //     AfterSaleStatus.CANCEL_SERVICE));
             },
           ),
         ],

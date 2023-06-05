@@ -1,5 +1,6 @@
 import 'package:bitel_ventas/main/networks/model/find_account_model.dart';
 import 'package:bitel_ventas/main/networks/model/reasons_cancel_service_model.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_search_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,6 +25,8 @@ class DateCancelServiceLogic extends GetxController {
   List<ReasonCancelServiceModel> listReasons = [];
   TextEditingController tfNote = TextEditingController();
   String reasonCancel = '';
+  int fingerId = 0;
+  AfterSaleSearchLogic afterSaleSearchLogic = Get.find();
 
   @override
   void onInit() {
@@ -31,6 +34,7 @@ class DateCancelServiceLogic extends GetxController {
     super.onInit();
     var data = Get.arguments;
     findAccountModel = data[0];
+    fingerId = afterSaleSearchLogic.fingerId;
     setToDate(getFirstDate());
   }
 
