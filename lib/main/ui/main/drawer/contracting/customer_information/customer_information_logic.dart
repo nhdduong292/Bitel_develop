@@ -907,7 +907,7 @@ class CustomerInformationLogic extends GetxController {
     } else {
       if (customer.type == 'DNI') {
         var listPermission = InfoBusiness.getInstance()!.getUser().functions;
-        if (listPermission.contains(Permission.BUYPASS_FINGER)) {
+        if (listPermission.contains(Permission.BYPASS_FINGER)) {
           return true;
         }
         return false;
