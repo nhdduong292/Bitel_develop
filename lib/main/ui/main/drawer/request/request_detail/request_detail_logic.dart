@@ -21,6 +21,7 @@ class RequestDetailLogic extends GetxController {
   bool isShowBtnCancelTransfer = false;
   bool isShowBtnConnect = false;
   String textConnect = "";
+  bool isShowCancel = false;
 
   BuildContext context;
 
@@ -72,8 +73,9 @@ class RequestDetailLogic extends GetxController {
     } else if (status == RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY) {
       textConnect = AppLocalizations.of(context)!.textConnect;
       return true;
-    } else if (status == RequestStatus.CONNECTED) {
-      textConnect = AppLocalizations.of(context)!.textCancel;
+    } else if (status == RequestStatus.CONTRACTING) {
+      textConnect = AppLocalizations.of(context)!.textContracting;
+      isShowCancel = true;
       return true;
     } else if (status == RequestStatus.DEPLOYING) {
       textConnect = AppLocalizations.of(context)!.textClose;
@@ -96,7 +98,7 @@ class RequestDetailLogic extends GetxController {
       return true;
     } else if (status == RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY) {
       return true;
-    } else if (status == RequestStatus.CONNECTED) {
+    } else if (status == RequestStatus.CONTRACTING) {
       return false;
     } else if (status == RequestStatus.DEPLOYING) {
       return false;
@@ -112,7 +114,7 @@ class RequestDetailLogic extends GetxController {
     if (status == RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY ||
         status == RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY) {
       Get.toNamed(RouteConfig.productPayment);
-    } else if (status == RequestStatus.CONNECTED) {
+    } else if (status == RequestStatus.CONTRACTING) {
       //todo show dialog cancel
     } else if (status == RequestStatus.DEPLOYING ||
         status == RequestStatus.COMPLETE ||
@@ -122,7 +124,7 @@ class RequestDetailLogic extends GetxController {
   }
 
   String getStatusContract() {
-    if (requestModel.status != RequestStatus.CONNECTED &&
+    if (requestModel.status != RequestStatus.CONTRACTING &&
         requestModel.status != RequestStatus.DEPLOYING &&
         requestModel.status != RequestStatus.COMPLETE) {
       return '---';

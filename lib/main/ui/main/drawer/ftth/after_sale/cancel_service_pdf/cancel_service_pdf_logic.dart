@@ -8,8 +8,8 @@ import 'package:get/get.dart';
 class CancelServicePDFLogic extends GetxController {
   BuildContext context;
 
-  var checkOption = false.obs;
-  int orderId = 0;
+  var checkOption = true.obs;
+  int subId = 0;
   FindAccountModel findAccountModel = FindAccountModel();
   CancelServicePDFLogic({required this.context});
   DateCancelServiceLogic dateCancelServiceLogic = Get.find();
@@ -19,7 +19,7 @@ class CancelServicePDFLogic extends GetxController {
     // TODO: implement onInit
     super.onInit();
     var data = Get.arguments;
-    orderId = data[0];
+    subId = data[0];
     findAccountModel = dateCancelServiceLogic.findAccountModel;
   }
 }

@@ -45,9 +45,13 @@ class ChooseServicePage extends GetWidget {
                 },
               ),
             ),
-            InkWell(
-              highlightColor: Colors.transparent,
-              splashColor: Colors.transparent,
+
+            bottomButton(
+              color: controller.isActive
+                      ? Colors.white
+                      : AppColors.colorButton,
+              isBoxShadow: true,
+              text: AppLocalizations.of(context)!.textContinue,
               onTap: () {
                 if (controller.isActive) {
                   return;
@@ -55,8 +59,9 @@ class ChooseServicePage extends GetWidget {
                 // _onLoading(context);
                 if (controller.afterSaleSearchLogic.type == 'CHANGE_PLAN') {
                   RequestDetailModel requestModel = RequestDetailModel();
-                  Get.toNamed(RouteConfig.productPayment,
-                      arguments: [requestModel, 'CHANGE']);
+                  Get.toNamed(RouteConfig.chooseChangePlan, arguments: [
+                    controller.listAccount[controller.valueService.value].subId
+                  ]);
                 } else if (controller.afterSaleSearchLogic.type ==
                     'TRANSFER_SERVICE') {
                 } else {
@@ -75,32 +80,8 @@ class ChooseServicePage extends GetWidget {
                   // ]);
                 }
               },
-              child: Container(
-                width: double.infinity,
-                margin: const EdgeInsets.only(bottom: 50, left: 25, right: 25),
-                padding: const EdgeInsets.symmetric(vertical: 14),
-                decoration: BoxDecoration(
-                  color: controller.isActive
-                      ? Colors.white
-                      : AppColors.colorButton,
-                  borderRadius: BorderRadius.circular(24),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: const Offset(0, 1),
-                      blurRadius: 2,
-                      color: Colors.black.withOpacity(0.3),
-                    ),
-                  ],
-                ),
-                child: Center(
-                    child: Text(
-                  AppLocalizations.of(context)!.textContinue.toUpperCase(),
-                  style: controller.isActive
-                      ? AppStyles.r1.copyWith(fontWeight: FontWeight.w500)
-                      : AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
-                )),
-              ),
-            )
+            ),
+            const SizedBox(height: 20,)
           ]),
         );
       },
@@ -112,6 +93,7 @@ class NotiCancelDialog extends Dialog {
   CheckDebtModel model;
   Function onOk;
   bool isDebt;
+
   NotiCancelDialog(
       {super.key,
       required this.model,

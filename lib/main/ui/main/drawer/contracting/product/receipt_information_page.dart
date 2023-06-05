@@ -215,7 +215,7 @@ class ReceiptInformationPage extends GetView<ProductPaymentMethodLogic> {
                   showDialog(
                       context: context,
                       builder: (context) {
-                        return const RechargeDialog(height: 340);
+                        return const RechargeDialogReceipt(height: 340);
                       });
                 } else {
                   controller.checkRegisterCustomer(context).then((value) {
@@ -270,10 +270,10 @@ Widget _paymentElement(String label, String value, Color color) {
   );
 }
 
-class RechargeDialog extends Dialog {
+class RechargeDialogReceipt extends Dialog {
   final double height;
 
-  const RechargeDialog({super.key, required this.height});
+  const RechargeDialogReceipt({super.key, required this.height});
 
   @override
   Widget build(BuildContext context) {

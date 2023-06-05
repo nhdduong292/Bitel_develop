@@ -2,6 +2,7 @@ import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_search_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/request_detail/request_detail_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
@@ -24,8 +25,8 @@ class AfterSalePage extends StatelessWidget {
         leading: Padding(
           padding: const EdgeInsets.only(left: 18, bottom: 18, top: 2),
           child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             child: SvgPicture.asset(AppImages.icBack),
             onTap: () {
               Get.back();
@@ -51,8 +52,8 @@ class AfterSalePage extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             child: Container(
               width: double.infinity,
               margin: const EdgeInsets.only(top: 15, left: 10, right: 10),
@@ -89,13 +90,22 @@ class AfterSalePage extends StatelessWidget {
               ),
             ),
             onTap: () {
-              Get.to(AfterSaleSearchPage(
-                  AppLocalizations.of(context)!.textChangePlan, 'CHANGE_PLAN'));
+              Get.toNamed(RouteConfig.validateFingerprint,
+                      arguments: [ValidateFingerStatus.STAFF_CHANGE_PLAN])
+                  ?.then((value) {
+                if (value != null) {
+                  Get.to(
+                      AfterSaleSearchPage(
+                          AppLocalizations.of(context)!.textChangePlan,
+                          AfterSaleStatus.CHANGE_PLAN),
+                      arguments: [value]);
+                }
+              });
             },
           ),
           InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             child: Container(
               width: double.infinity,
               margin: const EdgeInsets.only(top: 15, left: 10, right: 10),
@@ -134,12 +144,12 @@ class AfterSalePage extends StatelessWidget {
             onTap: () {
               Get.to(AfterSaleSearchPage(
                   AppLocalizations.of(context)!.textTransferService,
-                  'TRANSFER_SERVICE'));
+                  AfterSaleStatus.TRANSFER_SERVICE));
             },
           ),
           InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             child: Container(
               width: double.infinity,
               margin: const EdgeInsets.only(top: 15, left: 10, right: 10),
@@ -178,7 +188,7 @@ class AfterSalePage extends StatelessWidget {
             onTap: () {
               Get.to(AfterSaleSearchPage(
                   AppLocalizations.of(context)!.textCancelService,
-                  'CANCEL_SERVICE'));
+                  AfterSaleStatus.CANCEL_SERVICE));
             },
           ),
         ],

@@ -3,6 +3,7 @@ import 'package:bitel_ventas/main/networks/model/plan_reason_model.dart';
 import 'package:bitel_ventas/main/networks/model/product_model.dart';
 import 'package:bitel_ventas/main/networks/model/promotion_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_logic.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 
 import '../../../../../networks/model/method_model.dart';
+import '../../../../../utils/common.dart';
 import '../../../../../utils/common_widgets.dart';
 
 class MethodPage extends GetView<ProductPaymentMethodLogic> {
@@ -134,7 +136,6 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                                   controller.checkLoading();
                                   controller.resetPlanReason();
                                   if (value > -1) {
-                                    controller.isChanged = true;
                                     controller.getPlanReasons();
                                   }
                                   controller.resetPromotions();
@@ -349,14 +350,9 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
             () => bottomButton(
                 text: AppLocalizations.of(context)!.textContinue,
                 onTap: () {
-                  if ((controller.valueMethod.value > -1 &&
-                          controller.valueProduct.value > -1 &&
-                          controller.valuePackage.value > -1 &&
-                          controller.status == 'CREATE') ||
-                      (controller.valueMethod.value > -1 &&
-                          controller.valueProduct.value > -1 &&
-                          controller.status == 'CHANGE' &&
-                          controller.checkChangePackage())) {
+                  if (controller.valueMethod.value > -1 &&
+                      controller.valueProduct.value > -1 &&
+                      controller.valuePackage.value > -1) {
                     controller.isOnMethodPage.value = false;
                     controller.isOnInvoicePage.value = true;
 
@@ -372,13 +368,8 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                   }
                 },
                 color: !(controller.valueMethod.value > -1 &&
-                            controller.valueProduct.value > -1 &&
-                            controller.valuePackage.value > -1 &&
-                            controller.status == 'CREATE') &&
-                        !(controller.valueMethod.value > -1 &&
-                            controller.valueProduct.value > -1 &&
-                            controller.status == 'CHANGE' &&
-                            controller.checkChangePackage())
+                        controller.valueProduct.value > -1 &&
+                        controller.valuePackage.value > -1)
                     ? const Color(0xFF415263).withOpacity(0.2)
                     : null),
           ),
@@ -439,7 +430,7 @@ Widget _itemProduct(
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
-              '${product.defaultValue ?? 'null'}/${AppLocalizations.of(context)!.textMonth}',
+              '${Common.numberFormat(product.defaultValue)}/${AppLocalizations.of(context)!.textMonth}',
               style: AppStyles.r9454C9_14_500
                   .copyWith(fontWeight: FontWeight.w700, fontSize: 16),
             ),
@@ -460,8 +451,8 @@ Widget _itemPackage(
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
     child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       onTap: () {
         groupValue.value != value ? onChange(value) : onChange(-1);
       },
@@ -491,7 +482,7 @@ Widget _itemPackage(
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
-              (fee * (package.numMonthPay ?? 0)).toString(),
+              Common.numberFormat(fee * (package.numMonthPay ?? 0)),
               style: const TextStyle(
                   fontSize: 16,
                   fontFamily: 'Barlow',
@@ -514,8 +505,8 @@ Widget _itemMethod(
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
     child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       onTap: () {
         groupValue.value != value ? onChange(value) : onChange(-1);
       },
@@ -540,7 +531,7 @@ Widget _itemMethod(
                     '${AppLocalizations.of(context)!.textReasonCode} ${reason.reasonCode}',
                     style: AppStyles.r2B3A4A_12_500),
                 Text(
-                  '${AppLocalizations.of(context)!.textInstallationFee} ${reason.feeInstallation}',
+                  '${AppLocalizations.of(context)!.textInstallationFee} ${Common.numberFormat(reason.feeInstallation)}',
                   style: AppStyles.r6C8AA1_13_400
                       .copyWith(fontSize: 12, fontWeight: FontWeight.w500),
                 ),
@@ -558,8 +549,8 @@ Widget _itemPromotion(
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
     child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,

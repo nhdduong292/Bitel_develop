@@ -285,10 +285,11 @@ class SalePage extends GetWidget {
                                               fontSize: 14),
                                         ),
                                         const SizedBox(
-                                          height: 10,
+                                          height: 5,
                                         ),
                                         Text(
-                                          optionSale.content,
+                                          Common.numberFormat(
+                                              optionSale.content),
                                           style: AppStyles.b4.copyWith(
                                               color: optionSale.index ==
                                                       controller.indexSelect
@@ -298,7 +299,7 @@ class SalePage extends GetWidget {
                                               fontSize: 20),
                                         ),
                                         const SizedBox(
-                                          height: 6,
+                                          height: 5,
                                         ),
                                         Center(
                                           child: Wrap(
@@ -413,7 +414,8 @@ class SalePage extends GetWidget {
                                           height: 10,
                                         ),
                                         Text(
-                                          optionSale.content,
+                                          Common.numberFormat(
+                                              optionSale.content),
                                           style: AppStyles.b4.copyWith(
                                               color: optionSale.index ==
                                                       controller.indexSelect

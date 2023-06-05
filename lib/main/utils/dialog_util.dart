@@ -20,8 +20,8 @@ class SystemErrorDialog extends Dialog {
       alignment: Alignment.bottomCenter,
       insetPadding: const EdgeInsets.only(bottom: 24, left: 20, right: 20),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: Wrap(children: [
-        Column(
+      child: SingleChildScrollView(
+        child: Column(
           children: [
             const SizedBox(
               height: 22,
@@ -69,7 +69,7 @@ class SystemErrorDialog extends Dialog {
             )
           ],
         ),
-      ]),
+      ),
     );
   }
 }

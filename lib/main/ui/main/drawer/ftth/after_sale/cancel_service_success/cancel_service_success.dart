@@ -30,14 +30,15 @@ class CancelServiceSuccess extends GetView<CancelServiceSuccessLogic> {
                         color: Color(0xFFF8FBFB),
                       ),
                       width: width,
-                      height: 254,
-                    ),
-                    SvgPicture.asset(
-                      AppImages.bgFtthContracting,
-                      width: width,
+                      height: 200,
+                      child: SvgPicture.asset(
+                        AppImages.bgFtthContracting,
+                        fit: BoxFit.fill,
+                        width: width,
+                      ),
                     ),
                     Positioned(
-                        top: 76,
+                        top: 46,
                         child: SizedBox(
                           width: width,
                           child: Column(
@@ -54,7 +55,7 @@ class CancelServiceSuccess extends GetView<CancelServiceSuccessLogic> {
                               ),
                               Text(
                                 AppLocalizations.of(context)!
-                                    .textSuccessfulFTTHContracting,
+                                    .textSuccessfulTerminationOfContract,
                                 style: AppStyles.r007689_14_500,
                               )
                             ],
@@ -105,6 +106,20 @@ class CancelServiceSuccess extends GetView<CancelServiceSuccessLogic> {
                             ),
                             inforContractRow(
                                 lable:
+                                    "${AppLocalizations.of(context)!.textAccount}:",
+                                richText: () {
+                                  return Text(
+                                    controller.model.account,
+                                    style: AppStyles.r415263_13_500,
+                                  );
+                                }),
+                            DottedLine(
+                              dashColor: Color(0xFFE3EAF2),
+                              dashGapLength: 3,
+                              dashLength: 4,
+                            ),
+                            inforContractRow(
+                                lable:
                                     AppLocalizations.of(context)!.textCustomer,
                                 richText: () {
                                   return Text(
@@ -132,8 +147,8 @@ class CancelServiceSuccess extends GetView<CancelServiceSuccessLogic> {
                               dashLength: 4,
                             ),
                             inforContractRow(
-                                lable: AppLocalizations.of(context)!
-                                    .textServiceNumber,
+                                lable:
+                                    "${AppLocalizations.of(context)!.textServiceNumber}:",
                                 richText: () {
                                   return Text(
                                     controller.model.serviceNumber,
@@ -146,8 +161,8 @@ class CancelServiceSuccess extends GetView<CancelServiceSuccessLogic> {
                               dashLength: 4,
                             ),
                             inforContractRow(
-                                lable: AppLocalizations.of(context)!
-                                    .textPhoneNumber,
+                                lable:
+                                    "${AppLocalizations.of(context)!.textPhoneNumber}:",
                                 richText: () {
                                   return Text(
                                     controller.model.phone,
@@ -161,7 +176,7 @@ class CancelServiceSuccess extends GetView<CancelServiceSuccessLogic> {
                             ),
                             inforContractRow(
                                 lable:
-                                    AppLocalizations.of(context)!.textProduct,
+                                    "${AppLocalizations.of(context)!.textProduct}:",
                                 richText: () {
                                   return RichText(
                                       text: TextSpan(
@@ -176,10 +191,7 @@ class CancelServiceSuccess extends GetView<CancelServiceSuccessLogic> {
                             ),
                             inforContractRow(
                                 lable:
-                                    // ignore: prefer_interpolation_to_compose_strings
-                                    AppLocalizations.of(context)!
-                                            .textDateOfRequest +
-                                        ':',
+                                    "${AppLocalizations.of(context)!.textDateOfRequest}:",
                                 richText: () {
                                   return Text(
                                     controller.model.requestDate != '---'
@@ -198,10 +210,7 @@ class CancelServiceSuccess extends GetView<CancelServiceSuccessLogic> {
                             ),
                             inforContractRow(
                                 lable:
-                                    // ignore: prefer_interpolation_to_compose_strings
-                                    AppLocalizations.of(context)!
-                                            .textCancelationDate +
-                                        ':',
+                                    "${AppLocalizations.of(context)!.textCancelationDate}:",
                                 richText: () {
                                   return Text(
                                     controller.model.cancelDate != '---'
@@ -248,7 +257,7 @@ class CancelServiceSuccess extends GetView<CancelServiceSuccessLogic> {
                                   );
                                 })),
                         SizedBox(
-                          height: 126,
+                          height: 20,
                         )
                       ]),
                 )),

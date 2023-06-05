@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as Math;
 
+import 'package:bitel_ventas/main/services/settings_service.dart';
 import 'package:bitel_ventas/main/utils/dialog_util.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:dio/dio.dart';
@@ -12,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../router/route_config.dart';
 
@@ -25,6 +27,24 @@ class Common {
       return DateFormat(format).parse(date!);
     } catch (e) {
       return null;
+    }
+  }
+
+  static String convertDateTime(String dateTimeString, [String? format]) {
+    // Khởi tạo đối tượng DateFormat để phân tích chuỗi ngày giờ
+    try {
+      DateTime dateTime = DateTime.parse(dateTimeString);
+      Duration timeZoneOffset = DateTime.now().timeZoneOffset;
+      DateTime convertedDateTime = dateTime.add(timeZoneOffset);
+      DateFormat outputFormat = format != null
+          ? DateFormat("dd-MM-yyyy $format")
+          : DateFormat("dd-MM-yyyy HH:mm:ss");
+      String formattedDateTime = outputFormat.format(convertedDateTime);
+
+      return formattedDateTime;
+    } on Exception catch (e) {
+      // TODO
+      return '---';
     }
   }
 
@@ -170,15 +190,15 @@ class Common {
               context, AppLocalizations.of(context)!.textErrorAPI);
           return;
         }
-        if (error.type == DioErrorType.connectionTimeout) {
+        if (error.type == DioErrorType.connectionTimeout ||
+            error.type == DioErrorType.receiveTimeout) {
           showSystemErrorDialog(
               context, AppLocalizations.of(context)!.textTheSystemIsOverloaded);
           return;
         }
       } else {
-        showSystemErrorDialog(
-            context, AppLocalizations.of(context)!.textErrorAPI);
-        return;
+          showSystemErrorDialog(
+              context, AppLocalizations.of(context)!.textErrorAPI);
       }
       final statusCode = error.response?.statusCode;
       if (statusCode == 401) {
@@ -323,9 +343,29 @@ class Common {
       } else if (errorCode == 'E060') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE060);
       } else if (errorCode == 'E061') {
-        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE016);
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE061);
       } else if (errorCode == 'E062') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE062);
+      } else if (errorCode == 'E063') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE063);
+      } else if (errorCode == 'E064') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE064);
+      } else if (errorCode == 'E065') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE065);
+      } else if (errorCode == 'E066') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE066);
+      } else if (errorCode == 'E067') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE067);
+      } else if (errorCode == 'E068') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE068);
+      } else if (errorCode == 'E069') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE069);
+      } else if (errorCode == 'E070') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE070);
+      } else if (errorCode == 'E071') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE071);
+      } else if (errorCode == 'E072') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE072);
       } else {
         showSystemErrorDialog(context, error.response!.data['errorMessage']);
       }
@@ -384,5 +424,27 @@ class Common {
       return 'CPP';
     }
     return '---';
+  }
+
+  static getVersionApp() {
+    SettingService settingService = Get.find();
+    return settingService.version.value;
+  }
+
+  static String numberFormat(var content) {
+    var number;
+    if (content is String) {
+      number = double.parse(content);
+    } else if (content is double) {
+      number = content;
+      number = double.parse(number.toStringAsFixed(1));
+    } else if (content is int) {
+      number = content;
+    } else {
+      return '---';
+    }
+    String formattedNumber =
+        NumberFormat.decimalPattern('en_US').format(number);
+    return formattedNumber;
   }
 }

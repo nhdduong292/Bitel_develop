@@ -1,4 +1,5 @@
 import 'package:bitel_ventas/main/networks/model/find_account_model.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,11 +14,18 @@ class AfterSaleSearchLogic extends GetxController
   List<FindAccountModel> listAccount = [];
   BuildContext context;
 
+  int fingerId = 0;
+
   AfterSaleSearchLogic(this.title, this.context, this.type);
 
   @override
   void onInit() {
     // TODO: implement onInit
+    if (type == AfterSaleStatus.CHANGE_PLAN) {
+      var data = Get.arguments;
+      fingerId = data[0];
+    }
+
     tabController = TabController(vsync: this, length: 2);
     super.onInit();
     // tabController!.animateTo(index, duration: Duration(milliseconds: 500));

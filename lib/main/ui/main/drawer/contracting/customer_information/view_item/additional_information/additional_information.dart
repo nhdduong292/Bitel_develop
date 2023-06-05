@@ -170,7 +170,7 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                       controller.isActiveUpdate = value;
                     }),
                 Visibility(
-                  visible: controller.customer.type == 'DNI',
+                  visible: controller.showBypass(),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 2, right: 20),
                     child: InkWell(
@@ -235,7 +235,8 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                                       Common.showToastCenter(AppLocalizations
                                               .of(context)!
                                           .textUpdateCustomerInformationSuccessfully);
-                                      if (controller.valueCheckBypass) {
+                                      if (controller.valueCheckBypass &&
+                                          controller.showBypass()) {
                                         controller.checkBypass((isSuccess) {
                                           if (isSuccess) {
                                             callback();
@@ -247,7 +248,8 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                                     } else {}
                                   });
                                 } else {
-                                  if (controller.valueCheckBypass) {
+                                  if (controller.valueCheckBypass &&
+                                      controller.showBypass()) {
                                     controller.checkBypass((isSuccess) {
                                       if (isSuccess) {
                                         callback();
@@ -420,6 +422,9 @@ class BillAddressInformation extends Dialog {
 
   @override
   Widget build(BuildContext context) {
+    controller.currentArea.province = "";
+    controller.currentArea.district = "";
+    controller.currentArea.precinct = "";
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: SizedBox(

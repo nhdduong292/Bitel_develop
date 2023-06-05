@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 // ;
-import 'dart:ffi';
-
 import 'package:bitel_ventas/main/networks/model/captcha_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/create_order/view_item/transaction_information/transaction_information_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/clear_debt_logic.dart';
@@ -112,12 +110,8 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                               itemTextFieldLock(
                                   title: AppLocalizations.of(context)!
                                       .textCurrentAnypay,
-                                  content: controller
-                                              .buyAnyPayComfirmModel.balance !=
-                                          null
-                                      ? controller.buyAnyPayComfirmModel.balance
-                                          .toString()
-                                      : '---',
+                                  content: Common.numberFormat(
+                                      controller.buyAnyPayComfirmModel.balance),
                                   textColor: AppColors.color_9454C9),
                               Padding(
                                 padding:

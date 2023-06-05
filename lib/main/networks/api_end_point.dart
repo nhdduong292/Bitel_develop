@@ -1,7 +1,7 @@
 class ApiEndPoints {
   static const String DOMAIN = "http://181.176.242.147:9901/ftth";
   static const String DOMAIN_TEST = "http://10.121.14.196:9901";
-  static const bool isDev = true; //todo true là test false la that
+  static const bool isDev = false; //todo true là test false la that
   static const String API_LIST_REQUEST =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/requests";
   static const String API_CREATE_REQUEST =
@@ -97,9 +97,9 @@ class ApiEndPoints {
   static const String API_REQUEST_CANNCEL =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/cancel-service/request-cancel/subId";
   static const String API_CONTRACT_PREVIEW_ORDER_ID =
-      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/cancel-service/request-cancel/preview/orderId";
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/cancel-service/request-cancel/preview/subId";
   static const String API_SIGN_CANCEL_SERVICE =
-      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/cancel-service/request-cancel/sign/orderId";
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/cancel-service/request-cancel/sign/subId";
   static const String API_GET_REASONS_CANCEL_SERVICE =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/reasons/cancel-service";
   static const String API_CHECK_DEBT_WO =
@@ -114,4 +114,24 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/customers/check-bypass";
   static const String API_UPLOAD_CONTRACT =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts/contractId/upload-contract";
+  static const String API_UPLOAD_IDENTITY_NEW =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/file/identify-card-base64";
+  static const String API_GET_PRODUCT_CHANGE_PLAN =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/change-plan/get-product";
+  static const String API_GET_PAYMENT_CHANGE_PLAN =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/change-plan/check-payment";
+  static const String API_GET_CUSTOMER_INFO =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/change-plan/get-customer-info";
+  static const String API_GET_CONTRACT_INFO =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/change-plan/get-contract-info";
+  static const String API_VALIDATE_STAFF_FINGER_CHANGE_PLAN =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/change-plan/validate-staff-finger";
+  static const String API_UPADTE_CUSTOMER_CHANGE_PLAN =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/change-plan/update-customer";
+  static const String API_UPADTE_CONTRACT_CHANGE_PLAN =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/change-plan/update-contract";
+  static const String API_CHANGE_PLAN_PREVIEW =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/change-plan/preview-contract";
+  static const String API_CHANGE_PLAN_SIGN =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/change-plan/sign";
 }

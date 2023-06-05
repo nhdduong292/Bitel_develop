@@ -761,7 +761,8 @@ Widget inputFormPassword(
   );
 }
 
-Widget bottomButton({required String text, required onTap, color}) {
+Widget bottomButton(
+    {required String text, required onTap, color, isBoxShadow}) {
   return Container(
     margin: EdgeInsets.only(left: 15, top: 24, right: 15, bottom: 10),
     child: InkWell(
@@ -774,15 +775,23 @@ Widget bottomButton({required String text, required onTap, color}) {
             borderRadius: BorderRadius.circular(25),
             color: color ?? AppColors.colorText3,
             boxShadow: [
-              BoxShadow(
-                  color: color == null ? Color(0xFFB3BBC5) : Colors.transparent,
-                  blurRadius: 5)
+              isBoxShadow != null && isBoxShadow
+                  ? BoxShadow(
+                      offset: const Offset(0, 1),
+                      blurRadius: 2,
+                      color: Colors.black.withOpacity(0.3),
+                    )
+                  : BoxShadow(
+                      color: color == null
+                          ? Color(0xFFB3BBC5)
+                          : Colors.transparent,
+                      blurRadius: 5)
             ]),
         child: Center(
             child: Text(
           text.toUpperCase(),
           style: TextStyle(
-            color: Colors.white,
+            color: color == Colors.white ? Colors.black : Colors.white,
             fontSize: 15,
             fontWeight: FontWeight.w500,
           ),
@@ -1356,6 +1365,7 @@ Widget selectTypeSearchService(
     required var onChangeText}) {
   bool isPP = false;
   bool isPhone = false;
+  bool isNumberService = false;
   if (currentIdentityType == listIdentity[2]) {
     isPP = true;
   }
@@ -1368,6 +1378,7 @@ Widget selectTypeSearchService(
   } else if (currentStatus == listStatus[2]) {
     hintText = AppLocalizations.of(context)!.hintEnterPhone;
   } else {
+    isNumberService = true;
     hintText = AppLocalizations.of(context)!.textEnterServiceNumber;
   }
   return Column(
@@ -1503,8 +1514,9 @@ Widget selectTypeSearchService(
                     flex: 4,
                     child: TextField(
                         controller: controller,
-                        keyboardType:
-                            isPhone ? TextInputType.number : TextInputType.text,
+                        keyboardType: isPhone || isNumberService
+                            ? TextInputType.number
+                            : TextInputType.text,
                         textInputAction: TextInputAction.send,
                         style: AppStyles.r2.copyWith(
                             color: AppColors.colorTitle,

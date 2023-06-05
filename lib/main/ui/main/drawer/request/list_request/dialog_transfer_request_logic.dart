@@ -8,8 +8,11 @@ import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../../../utils/common_widgets.dart';
 
 class DialogTransferRequestLogic extends GetxController {
   BuildContext context;
@@ -26,6 +29,13 @@ class DialogTransferRequestLogic extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    // getListReason();
+  }
+
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
     getListReason();
   }
 
@@ -35,6 +45,7 @@ class DialogTransferRequestLogic extends GetxController {
   }
 
   void getListReason() {
+    _onLoading(context);
     Map<String, dynamic> params = {
       "type": Reason.REASON_REQUEST_TRANSFER,
     };
@@ -42,12 +53,16 @@ class DialogTransferRequestLogic extends GetxController {
       url: "${ApiEndPoints.API_REASONS}",
       params: params,
       onSuccess: (response) {
+        Get.back();
         if (response.isSuccess) {
           List<ReasonModel> list = (response.data['data'] as List)
               .map((postJson) => ReasonModel.fromJson(postJson))
               .toList();
           if (list.isNotEmpty) {
             listReason.addAll(list);
+            if (listReason.isNotEmpty) {
+              currentReason = listReason[0].id ?? 0;
+            }
             update();
           }
         } else {}
@@ -118,5 +133,19 @@ class DialogTransferRequestLogic extends GetxController {
           // callBack.call(false);
         });
     return completer.future;
+  }
+
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
+      },
+    );
   }
 }

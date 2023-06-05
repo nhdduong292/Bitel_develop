@@ -22,7 +22,7 @@ class ApiUtil {
       dio = Dio();
       dio!.options.connectTimeout = const Duration(seconds: 120);
       // dio!.options.receiveTimeout = Duration(seconds: 60);
-      dio!.options.receiveTimeout = const Duration(seconds: 300);
+      dio!.options.receiveTimeout = const Duration(seconds: 120);
       dio!.interceptors.add(ApiInterceptors());
     }
     cancelToken ??= CancelToken();
@@ -80,6 +80,7 @@ class ApiUtil {
   Future<void> postPDF({
     required String url,
     Map<String, dynamic> params = const {},
+    Map<String, dynamic>? body,
     required Function(Response success) onSuccess,
     required Function(dynamic error) onError,
   }) async {
@@ -91,9 +92,10 @@ class ApiUtil {
         .post(
       url,
       queryParameters: params,
+      data: body,
       options: Options(
         responseType: ResponseType.bytes,
-        followRedirects: false,   
+        followRedirects: false,
       ),
     )
         .then((res) {
@@ -102,6 +104,8 @@ class ApiUtil {
       if (onError != null) onError(error);
     });
   }
+
+
 
   Future<void> put({
     required String url,

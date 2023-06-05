@@ -20,7 +20,7 @@ class AddressModel {
 
   set name(String value) {
     _name = value;
-  }
+  } 
 
   String get areaCode => _areaCode ?? "";
 

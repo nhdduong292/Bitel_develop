@@ -12,6 +12,7 @@ import '../../../../../../../../res/app_colors.dart';
 import '../../../../../../../../res/app_images.dart';
 import '../../../../../../../networks/model/address_model.dart';
 import '../../../../../../../utils/common_widgets.dart';
+import '../../../../../../../utils/values.dart';
 import '../../../../request/dialog_address_page.dart';
 
 typedef void TouchUpadte();
@@ -76,40 +77,37 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
             //     isIcon: false,
             //     width: width * 0.55),
             lockedBoxV1(
-                content: '1',
+                content: controller.getQuantitySubscriber(),
                 label: AppLocalizations.of(context)!.textQuantitySubscriber,
                 required: true,
                 isIcon: false,
                 width: width * 0.55),
             Obx(() => lockedBoxV1(
-                content: controller.signDate.value != ''
-                    ? Common.fromDate(
-                        DateTime.parse(controller.signDate.value), 'dd/MM/yyyy')
-                    : "---",
+                content: controller.getSignDate(),
                 label: AppLocalizations.of(context)!.textSignDate,
                 required: false,
                 isIcon: false,
                 width: width * 0.55)),
             lockedBoxV1(
-                content: controller.getBillCycle(controller.billCycle),
+                content: controller.getBillCycle(),
                 label: AppLocalizations.of(context)!.textBillCycle,
                 required: true,
                 isIcon: true,
                 width: width * 0.55),
             lockedBoxV1(
-                content: AppLocalizations.of(context)!.textEmail,
+                content: controller.getChangeNotification(),
                 label: AppLocalizations.of(context)!.textChangeNotification,
                 required: false,
                 isIcon: true,
                 width: width * 0.55),
             lockedBoxV1(
-                content: AppLocalizations.of(context)!.textEmail,
+                content: controller.getPrintBillDetail(),
                 label: AppLocalizations.of(context)!.textPrintBillDetail,
                 required: false,
                 isIcon: true,
                 width: width * 0.55),
             lockedBoxV1(
-                content: 'SOL',
+                content: controller.getCurrency(),
                 label: AppLocalizations.of(context)!.textCurrency,
                 required: true,
                 isIcon: true,
@@ -123,8 +121,8 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 dropdownValue: controller.contractLanguagetValue,
                 width: width * 0.55),
             InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
               onTap: () {
                 showDialog(
                   barrierDismissible: false,
@@ -235,7 +233,9 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                 Expanded(
                     flex: 1,
                     child: bottomButtonV2(
-                        onTap: () {},
+                        onTap: () {
+                          controller.backToCustomerInfor();
+                        },
                         text: AppLocalizations.of(context)!
                             .textCancel
                             .toUpperCase())),
@@ -243,17 +243,37 @@ class ContractInformationWidget extends GetView<CustomerInformationLogic> {
                     flex: 1,
                     child: bottomButton(
                         onTap: () {
-                          controller.createContract(
-                            context,
-                            (p0) {
-                              if (p0) {
-                                callback();
-                              } else {
-                                // Common.showToastCenter(
-                                //     AppLocalizations.of(context)!.textErrorAPI);
-                              }
-                            },
-                          );
+                          //nếu trạng thái là connected thì gọi api update, ngược lại gọi api create
+                          if (controller.statusRequest ==
+                              RequestStatus.CONTRACTING) {
+                            controller.updateContract(
+                              context,
+                              (p0) {
+                                if (p0) {
+                                  callback();
+                                }
+                              },
+                            );
+                          } else if (controller.statusContract ==
+                              ContractStatus.Change_plan) {
+                            controller.updateContractChangePlan(
+                              context,
+                              (p0) {
+                                if (p0) {
+                                  callback();
+                                }
+                              },
+                            );
+                          } else {
+                            controller.createContract(
+                              context,
+                              (p0) {
+                                if (p0) {
+                                  callback();
+                                }
+                              },
+                            );
+                          }
                         },
                         text: AppLocalizations.of(context)!
                             .textContinue
@@ -434,6 +454,9 @@ class BillAddressInformation extends Dialog {
 
   @override
   Widget build(BuildContext context) {
+    controller.billArea.province = "";
+    controller.billArea.district = "";
+    controller.billArea.precinct = "";
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: SizedBox(
@@ -446,8 +469,8 @@ class BillAddressInformation extends Dialog {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
                   onTap: () {
                     Get.back(result: false);
                   },

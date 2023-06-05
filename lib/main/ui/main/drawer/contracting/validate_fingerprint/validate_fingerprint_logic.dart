@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:bitel_ventas/main/networks/model/best_finger_model.dart';
 import 'package:bitel_ventas/main/networks/model/cancel_service_infor_model.dart';
+import 'package:bitel_ventas/main/networks/model/change_plan_infor_model.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
@@ -18,8 +19,12 @@ import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../../router/route_config.dart';
 import '../../../../../services/settings_service.dart';
 import '../../../../../utils/shared_preference.dart';
+import '../../../../../utils/values.dart';
+import '../../ftth/after_sale/change_plan/information/infor_change_plan_logic.dart';
+import '../../ftth/after_sale/date_cancel_service/date_cancel_service_logic.dart';
 import '../../utilitis/info_bussiness.dart';
 
 class ValidateFingerprintLogic extends GetxController {
@@ -28,7 +33,7 @@ class ValidateFingerprintLogic extends GetxController {
   String type = '';
   int cusId = 0;
   int contractId = 0;
-  int orderId = 0;
+  int subId = 0;
   String typeCustomer = '';
   String idNumber = '';
   BestFingerModel bestFinger = BestFingerModel();
@@ -38,6 +43,12 @@ class ValidateFingerprintLogic extends GetxController {
 
   bool isGetFingerSuccess = false;
   String pk = "";
+
+  String cancelDate = '';
+  String note = '';
+  String newPlan = '';
+  int fingerId = 0;
+  ChangePlanInforModel changePlanInforModel = ChangePlanInforModel();
 
   ValidateFingerprintLogic(this.context);
 
@@ -50,24 +61,45 @@ class ValidateFingerprintLogic extends GetxController {
     // type empty TH validate cancel service
     // type là Main hoặc Lending validate đăng kí hợp đồng
     // type là staff valiate của nhân viên
-    if (type == 'STAFF' || type.isEmpty) {
+    if (type == ValidateFingerStatus.STAFF_CANCEL_SERVICE || type.isEmpty) {
       cusId = data[1];
       typeCustomer = data[2];
       idNumber = data[3];
-      orderId = data[4];
-    } else {
+      subId = data[4];
+      bool isExit = Get.isRegistered<DateCancelServiceLogic>();
+      if (isExit) {
+        DateCancelServiceLogic dateCancelServiceLogic = Get.find();
+        cancelDate = dateCancelServiceLogic.datePicker!
+            .toIso8601String()
+            .substring(0, 10);
+        note = dateCancelServiceLogic.reasonCancel.trim();
+      }
+    } else if (type == ValidateFingerStatus.CUSTOMER_CHANGE_PLAN) {
+      cusId = data[1];
+      typeCustomer = data[2];
+      idNumber = data[3];
+      bool isExit = Get.isRegistered<InforChangePlanLogic>();
+      if (isExit) {
+        InforChangePlanLogic inforChangePlanLogic = Get.find();
+        subId = inforChangePlanLogic.subId;
+        newPlan = inforChangePlanLogic.newPlan.productCode ?? "";
+        fingerId = inforChangePlanLogic.fingerId;
+      }
+    } else if (type == ValidateFingerStatus.MAIN ||
+        type == ValidateFingerStatus.LENDING) {
       cusId = data[1];
       typeCustomer = data[2];
       idNumber = data[3];
       contractId = data[4];
-    }
+    } else if (type == ValidateFingerStatus.STAFF_CHANGE_PLAN) {}
   }
 
   @override
   void onReady() {
     // TODO: implement onReady
     super.onReady();
-    if (type == 'STAFF') {
+    if (type == ValidateFingerStatus.STAFF_CANCEL_SERVICE ||
+        type == ValidateFingerStatus.STAFF_CHANGE_PLAN) {
       getBestFingerStaff();
     } else {
       getBestFinger();
@@ -261,13 +293,17 @@ class ValidateFingerprintLogic extends GetxController {
     try {
       _onLoading(context);
       Map<String, dynamic> body = {
+        "staffFingerId": fingerId,
+        "cancelDate": cancelDate,
+        "note": note,
         "finger": bestFinger.right != 0 ? bestFinger.right : bestFinger.left,
         "listImage": listFinger,
         "pk": pk
       };
       ApiUtil.getInstance()!.post(
         url: ApiEndPoints.API_SIGN_CANCEL_SERVICE
-            .replaceAll('orderId', orderId.toString()),
+            .replaceAll('subId', subId.toString()),
+        params: {'subId': subId.toString()},
         body: body,
         onSuccess: (response) {
           Get.back();
@@ -307,6 +343,41 @@ class ValidateFingerprintLogic extends GetxController {
         onSuccess: (response) {
           Get.back();
           if (response.isSuccess) {
+            fingerId = response.data['data']['fingerId'];
+            isSuccess.call(true);
+          } else {
+            isSuccess.call(false);
+            print("error: ${response.status}");
+          }
+        },
+        onError: (error) {
+          Get.back();
+          isSuccess.call(false);
+          Common.showMessageError(error: error, context: context);
+        },
+      );
+    } catch (e) {
+      Get.back();
+      Common.showToastCenter(e.toString());
+    }
+  }
+
+  void validateStaffFingerChangePlan(Function(bool) isSuccess) {
+    try {
+      _onLoading(context);
+      Map<String, dynamic> body = {
+        "finger": bestFinger.right != 0 ? bestFinger.right : bestFinger.left,
+        "listImage": listFinger,
+        "pk": pk
+      };
+      ApiUtil.getInstance()!.post(
+        url: ApiEndPoints.API_VALIDATE_STAFF_FINGER_CHANGE_PLAN,
+        params: {"staffCode": InfoBusiness.getInstance()!.getUser().staffCode},
+        body: body,
+        onSuccess: (response) {
+          Get.back();
+          if (response.isSuccess) {
+            fingerId = response.data['data']['fingerId'];
             isSuccess.call(true);
           } else {
             isSuccess.call(false);
@@ -337,5 +408,129 @@ class ValidateFingerprintLogic extends GetxController {
         );
       },
     );
+  }
+
+  bool isStaff() {
+    if (type == ValidateFingerStatus.STAFF_CANCEL_SERVICE ||
+        type == ValidateFingerStatus.STAFF_CHANGE_PLAN) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void validateCustomerChangePlan(Function(bool) isSuccess) {
+    try {
+      _onLoading(context);
+      Map<String, dynamic> body = {
+        "staffFingerId": fingerId,
+        "newPlan": newPlan,
+        "finger": bestFinger.right != 0 ? bestFinger.right : bestFinger.left,
+        "listImage": listFinger,
+        "pk": pk
+      };
+      ApiUtil.getInstance()!.put(
+        url: ApiEndPoints.API_CHANGE_PLAN_SIGN,
+        params: {"subId": subId},
+        body: body,
+        onSuccess: (response) {
+          Get.back();
+          if (response.isSuccess) {
+            changePlanInforModel =
+                ChangePlanInforModel.fromJson(response.data['data']);
+            isSuccess.call(true);
+          } else {
+            isSuccess.call(false);
+            print("error: ${response.status}");
+          }
+        },
+        onError: (error) {
+          Get.back();
+          isSuccess.call(false);
+          Common.showMessageError(error: error, context: context);
+        },
+      );
+    } catch (e) {
+      Get.back();
+      Common.showToastCenter(e.toString());
+    }
+  }
+
+  void onSign() {
+    if (listFinger.isEmpty) {
+      return;
+    }
+    if (type.isEmpty) {
+      signCancelService(
+        (isSuccess) {
+          if (isSuccess) {
+            Get.toNamed(RouteConfig.cancelServiceInfor, arguments: [
+              cancelServiceInforModel,
+            ]);
+          }
+        },
+      );
+      return;
+    }
+
+    if (type == ValidateFingerStatus.CUSTOMER_CHANGE_PLAN) {
+      validateCustomerChangePlan(
+        (isSuccess) {
+          if (isSuccess) {
+            Get.toNamed(RouteConfig.successChangePlan,
+                arguments: [changePlanInforModel]);
+          }
+        },
+      );
+      return;
+    }
+
+    if (type == ValidateFingerStatus.STAFF_CHANGE_PLAN) {
+      validateStaffFingerChangePlan(
+        (isSuccess) {
+          if (isSuccess) {
+            Get.back(result: fingerId);
+          }
+        },
+      );
+      return;
+    }
+
+    if (type == ValidateFingerStatus.STAFF_CANCEL_SERVICE) {
+      validateStaffFinger(
+        (isSuccess) {
+          if (isSuccess) {
+            type = '';
+            pk = '';
+            textCapture = '';
+            listFinger = [];
+            getBestFinger();
+            update();
+          }
+        },
+      );
+      return;
+    }
+
+    if (type == ValidateFingerStatus.LENDING) {
+      signContract(
+        (p0) {
+          if (p0) {
+            Get.toNamed(RouteConfig.ftthContracting, arguments: [
+              contractId,
+            ]);
+          }
+        },
+      );
+    } else if (type == ValidateFingerStatus.MAIN) {
+      signContract(
+        (p0) {
+          if (p0) {
+            Get.back(result: true);
+          }
+        },
+      );
+      return;
+    }
   }
 }

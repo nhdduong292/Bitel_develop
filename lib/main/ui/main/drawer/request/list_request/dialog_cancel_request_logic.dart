@@ -5,8 +5,11 @@ import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../../../utils/common_widgets.dart';
 
 class DialogCancelRequestLogic extends GetxController {
   BuildContext context;
@@ -21,6 +24,12 @@ class DialogCancelRequestLogic extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+  }
+
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
     getListReason();
   }
 
@@ -30,6 +39,7 @@ class DialogCancelRequestLogic extends GetxController {
   }
 
   void getListReason() {
+    _onLoading(context);
     Map<String, dynamic> params = {
       "type": Reason.REASON_REQUEST_CANCEL,
     };
@@ -37,25 +47,30 @@ class DialogCancelRequestLogic extends GetxController {
       url: "${ApiEndPoints.API_REASONS}",
       params: params,
       onSuccess: (response) {
+        Get.back();
         if (response.isSuccess) {
           List<ReasonModel> list = (response.data['data'] as List)
               .map((postJson) => ReasonModel.fromJson(postJson))
               .toList();
           if (list.isNotEmpty) {
             listReason.addAll(list);
+            if (listReason.isNotEmpty) {
+              currentReason = listReason[0].id ?? 0;
+            }
             update();
           }
         } else {}
       },
       onError: (error) {
+        Get.back();
         Common.showMessageError(error: error, context: context);
       },
     );
   }
 
   bool checkValidate(BuildContext context) {
-    if (currentReason == 0) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
+    if (currentReason == 0 || currentNote.isEmpty) {
+      // Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
       return true;
     }
     return false;
@@ -89,5 +104,19 @@ class DialogCancelRequestLogic extends GetxController {
           Get.back();
           Common.showMessageError(error: error, context: context);
         });
+  }
+
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
+      },
+    );
   }
 }

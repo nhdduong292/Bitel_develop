@@ -27,10 +27,45 @@ class RequestStatus {
       "CREATE_REQUEST_WITHOUT_SURVEY";
   static const String SURVEY_OFFLINE_SUCCESSFULLY =
       "SURVEY_OFFLINE_SUCCESSFULLY";
-  static const String SUCCEED_SURVEY = "SUCCEED_SURVEY";
-  static const String CONNECTED = "CONNECTED";
-  static const String DEPLOYING = "DEPLOYING";
-  static const String COMPLETE = "COMPLETE";
-  static const String CANCEL = "CANCEL";
-  static const String ALL = "";
+  static final String SUCCEED_SURVEY = "SUCCEED_SURVEY";
+  static final String CONTRACTING = "CONTRACTING";
+  static final String DEPLOYING = "DEPLOYING";
+  static final String COMPLETE = "COMPLETE";
+  static final String CANCEL = "CANCEL";
+  static final String ALL = "";
+}
+
+class ProductStatus {
+  static final String Create = "CREATE";
+  static final String ReSelect = "RESELECT";
+  static final String Change = "CHANGE";
+}
+
+class ContractStatus {
+  static final String New = "NEW";
+  static final String Change_plan = "CHANGE_PLAN";
+}
+
+class ActionType {
+  static final String type_00 = "00";
+  static final String type_90 = "90";
+}
+
+class ValidateFingerStatus {
+  static final String STAFF_CANCEL_SERVICE = "STAFF_CANCEL_SERVICE";
+  static final String STAFF_CHANGE_PLAN = "STAFF_CHANGE_PLAN";
+  static final String CUSTOMER_CHANGE_PLAN = "CUSTOMER_CHANGE_PLAN";
+  static final String MAIN = "MAIN";
+  static final String LENDING = "LENDING";
+}
+
+class ContractType {
+  static final String UNDETERMINED = "UNDETERMINED";
+  static final String FORCED_TERM = "FORCED_TERM";
+}
+
+class AfterSaleStatus {
+  static final String CHANGE_PLAN = "CHANGE_PLAN";
+  static final String TRANSFER_SERVICE = "TRANSFER_SERVICE";
+  static final String CANCEL_SERVICE = "CANCEL_SERVICE";
 }

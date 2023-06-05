@@ -5,6 +5,7 @@ class ContractModel {
   String? _billCycleFrom;
   String? _billCycleFromCharging;
   int? _status;
+  String? _account;
   String? _operationCode;
   String? _identityType;
   String? _idNumber;
@@ -12,6 +13,18 @@ class ContractModel {
   String? _phone;
   String? _productName;
   String? _promotionName;
+  String? _language;
+  int? _numOfSubscriber;
+  String? _changeNotification;
+  String? _printBill;
+  String? _currency;
+  String? _provinceName;
+  String? _province;
+  String? _districtName;
+  String? _district;
+  String? _precinctName;
+  String? _precinct;
+  String? _address;
 
   ContractModel();
   ContractModel.fromJson(Map<String, dynamic> json) {
@@ -28,9 +41,24 @@ class ContractModel {
     _phone = json['phone'];
     _productName = json['productName'];
     _promotionName = json['promotionName'];
+    _account = json['account'];
+    _language = json['language'];
+    _numOfSubscriber = json['numOfSubscriber'];
+    _changeNotification = json['changeNotification'];
+    _printBill = json['printBill'];
+    _currency = json['currency'];
+    _provinceName = json['provinceName'];
+    _province = json['province'];
+    _districtName = json['districtName'];
+    _district = json['district'];
+    _precinctName = json['precinctName'];
+    _precinct = json['precinct'];
+    _address = json['address'];
   }
 
   String get promotionName => _promotionName ?? "";
+
+  String get account => _account ?? "";
 
   set promotionName(String value) {
     _promotionName = value;
@@ -95,4 +123,28 @@ class ContractModel {
   set idNumber(String value) {
     _idNumber = value;
   }
+
+  String get language => _language ?? "";
+
+  int get numOfSubscriber => _numOfSubscriber ?? 0;
+
+  String get changeNotification => _changeNotification ?? "";
+
+  String get printBill => _printBill ?? "";
+
+  String get currency => _currency ?? "";
+
+  String get provinceName => _provinceName ?? "";
+
+  String get province => _province ?? "";
+
+  String get districtName => _districtName ?? "";
+
+  String get district => _district ?? "";
+
+  String get precinctName => _precinctName ?? "";
+
+  String get precinct => _precinct ?? "";
+
+  String get address => _address ?? "";
 }

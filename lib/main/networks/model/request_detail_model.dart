@@ -6,7 +6,7 @@ import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class RequestDetailModel{
+class RequestDetailModel {
   int? _id;
   String? _code;
   String? _service;
@@ -24,6 +24,7 @@ class RequestDetailModel{
   String? _precinctName;
   CustomerModel? _customerModel;
   SubscriptionModel? _subscriptionModel;
+  String? _actionType;
   ContractModel? _contractModel;
   List<WorkOrderModel>? _listWO;
 
@@ -44,22 +45,22 @@ class RequestDetailModel{
     _provinceName = json['provinceName'];
     _districtName = json['districtName'];
     _precinctName = json['precinctName'];
-    if(json['customer'] != null){
+    _actionType = json['actionType'];
+    if (json['customer'] != null) {
       _customerModel = CustomerModel.fromJson(json['customer']);
     }
-    if(json['subscription'] != null) {
+    if (json['subscription'] != null) {
       _subscriptionModel = SubscriptionModel.fromJson(json['subscription']);
     }
-    if(json['contract'] != null) {
+    if (json['contract'] != null) {
       _contractModel = ContractModel.fromJson(json['contract']);
     }
-    if(json['workOrder'] != null) {
+    if (json['workOrder'] != null) {
       _listWO = (json['workOrder'] as List)
           .map((postJson) => WorkOrderModel.fromJson(postJson))
           .toList();
     }
   }
-
 
   String get service => _service ?? "";
 
@@ -85,7 +86,8 @@ class RequestDetailModel{
     _contractModel = value;
   }
 
-  SubscriptionModel get subscriptionModel => _subscriptionModel ?? SubscriptionModel();
+  SubscriptionModel get subscriptionModel =>
+      _subscriptionModel ?? SubscriptionModel();
   //
   // set subscriptionModel(SubscriptionModel value) {
   //   _subscriptionModel = value;
@@ -147,7 +149,7 @@ class RequestDetailModel{
 
   int get id => _id ?? 0;
 
-  String getInstalAddress(){
+  String getInstalAddress() {
     return "$address, $_precinctName, $_districtName, $_provinceName";
   }
 
@@ -159,28 +161,38 @@ class RequestDetailModel{
 
   String get code => _code ?? "";
 
-  String getStatus(BuildContext context){
+  String get actionType => _actionType ?? "";
 
-    if(_status == null) {
+  String getActionType(BuildContext context) {
+    if (actionType == ActionType.type_00) {
+      return AppLocalizations.of(context)!.textConnectNewSubscriber;
+    } else if (actionType == ActionType.type_90) {
+      return AppLocalizations.of(context)!.textCancelService;
+    } else {
+      return '---';
+    }
+  }
+
+  String getStatus(BuildContext context) {
+    if (_status == null) {
       return "";
     } else {
-      if(_status == RequestStatus.CREATE_REQUEST){
+      if (_status == RequestStatus.CREATE_REQUEST) {
         return AppLocalizations.of(context)!.textCreateRequest;
-      } else if(_status == RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY){
+      } else if (_status == RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY) {
         return AppLocalizations.of(context)!.textCreateRequestWithout;
-      } else if(_status == RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY){
+      } else if (_status == RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY) {
         return AppLocalizations.of(context)!.textSurveyOfflineSuccess;
-      } else if(_status == RequestStatus.CONNECTED){
-        return AppLocalizations.of(context)!.textConnected;
-      } else if(_status == RequestStatus.DEPLOYING){
+      } else if (_status == RequestStatus.CONTRACTING) {
+        return AppLocalizations.of(context)!.textContracting;
+      } else if (_status == RequestStatus.DEPLOYING) {
         return AppLocalizations.of(context)!.textDeploying;
-      } else if(_status == RequestStatus.COMPLETE){
+      } else if (_status == RequestStatus.COMPLETE) {
         return AppLocalizations.of(context)!.textComplete;
-      } else if(_status == RequestStatus.CANCEL){
+      } else if (_status == RequestStatus.CANCEL) {
         return AppLocalizations.of(context)!.textCancel;
       }
       return "";
     }
   }
-
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:async';
 
 import 'package:bitel_ventas/main/networks/model/work_order_model.dart';
@@ -323,7 +325,10 @@ class RequestDetailPage extends GetWidget {
                                                       .pricePlan <
                                                   1
                                               ? "---"
-                                              : "${controller.requestModel.subscriptionModel.pricePlan}",
+                                              : Common.numberFormat(controller
+                                                  .requestModel
+                                                  .subscriptionModel
+                                                  .pricePlan),
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
                                         ),
@@ -416,12 +421,9 @@ class RequestDetailPage extends GetWidget {
                                         child: Text(
                                           controller.requestModel.contractModel
                                                   .signDate.isNotEmpty
-                                              ? Common.fromDate(
-                                                  DateTime.parse(controller
-                                                      .requestModel
-                                                      .contractModel
-                                                      .signDate),
-                                                  'dd/MM/yyyy hh:MM:ss')
+                                              ? Common.convertDateTime(
+                                                  controller.requestModel
+                                                      .contractModel.signDate)
                                               : "---",
                                           textAlign: TextAlign.right,
                                           style: AppStyles.r415263_13_500,
@@ -598,16 +600,12 @@ class RequestDetailPage extends GetWidget {
                                             controller.getStaffName(model),
                                             model.status,
                                             model.creationDate.isNotEmpty
-                                                ? Common.fromDate(
-                                                    DateTime.parse(
-                                                        model.creationDate),
-                                                    'dd/MM/yyyy')
+                                                ? Common.convertDateTime(
+                                                    model.creationDate)
                                                 : '---',
                                             model.expectedDate.isNotEmpty
-                                                ? Common.fromDate(
-                                                    DateTime.parse(
-                                                        model.expectedDate),
-                                                    'dd/MM/yyyy')
+                                                ? Common.convertDateTime(
+                                                    model.expectedDate)
                                                 : '---'
                                           ], false);
                                         }
@@ -618,126 +616,114 @@ class RequestDetailPage extends GetWidget {
                               ],
                             ),
                           ),
-                          controller.isShowBtnConnect
-                              ? InkWell(
-                                  highlightColor: Colors.transparent,
-                                  splashColor: Colors.transparent,
-                                  onTap: () {
-                                    if (controller.requestModel.status ==
-                                            RequestStatus
-                                                .CREATE_REQUEST_WITHOUT_SURVEY ||
-                                        controller.requestModel.status ==
-                                            RequestStatus
-                                                .SURVEY_OFFLINE_SUCCESSFULLY) {
-                                      Get.toNamed(RouteConfig.productPayment,
-                                          arguments: [
-                                            controller.requestModel,
-                                            'CREATE'
-                                          ]);
-                                    } else if (controller.requestModel.status ==
-                                        RequestStatus.CONNECTED) {
-                                      //todo show dialog cancel
-                                      showDialogCancelRequest(
-                                          context, controller.requestModel.id);
-                                    } else if (controller.requestModel.status ==
-                                            RequestStatus.DEPLOYING ||
-                                        controller.requestModel.status ==
-                                            RequestStatus.COMPLETE ||
-                                        controller.requestModel.status ==
-                                            RequestStatus.CANCEL) {
-                                      Get.back();
-                                    }
-                                  },
-                                  child: Container(
-                                    width: double.infinity,
-                                    margin: const EdgeInsets.only(
-                                        top: 30, left: 15, right: 15),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 14),
-                                    decoration: BoxDecoration(
-                                      color: AppColors.colorButton,
-                                      borderRadius: BorderRadius.circular(24),
-                                    ),
-                                    child: Center(
-                                        child: Text(
-                                      controller.textConnect.toUpperCase(),
-                                      style: AppStyles.r5.copyWith(
-                                          fontWeight: FontWeight.w500),
-                                    )),
-                                  ),
-                                )
-                              : Container(),
+                          Row(
+                            children: [
+                              Visibility(
+                                visible: controller.isShowCancel,
+                                child: Expanded(
+                                    flex: 1,
+                                    child: bottomButton(
+                                        isBoxShadow: true,
+                                        color: Colors.white,
+                                        text: AppLocalizations.of(context)!
+                                            .textCancel,
+                                        onTap: () {
+                                          showDialogCancelRequest(context,
+                                              controller.requestModel.id);
+                                        })),
+                              ),
+                              controller.isShowBtnConnect
+                                  ? Expanded(
+                                      flex: 1,
+                                      child: InkWell(
+                                        highlightColor: Colors.transparent,
+                                        splashColor: Colors.transparent,
+                                        onTap: () {
+                                          if (controller.requestModel.status ==
+                                                  RequestStatus
+                                                      .CREATE_REQUEST_WITHOUT_SURVEY ||
+                                              controller.requestModel.status ==
+                                                  RequestStatus
+                                                      .SURVEY_OFFLINE_SUCCESSFULLY) {
+                                            Get.toNamed(
+                                                RouteConfig.productPayment,
+                                                arguments: [
+                                                  controller.requestModel,
+                                                  ProductStatus.Create
+                                                ]);
+                                          } else if (controller
+                                                  .requestModel.status ==
+                                              RequestStatus.CONTRACTING) {
+                                            //todo show dialog cancel
+                                            showDialogChooseProduct(
+                                                context, controller);
+                                          } else if (controller
+                                                      .requestModel.status ==
+                                                  RequestStatus.DEPLOYING ||
+                                              controller.requestModel.status ==
+                                                  RequestStatus.COMPLETE ||
+                                              controller.requestModel.status ==
+                                                  RequestStatus.CANCEL) {
+                                            Get.back();
+                                          }
+                                        },
+                                        child: Container(
+                                          margin: EdgeInsets.only(
+                                              left: 15,
+                                              top: 24,
+                                              right: 15,
+                                              bottom: 10),
+                                          child: Container(
+                                            height: 50,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(25),
+                                                color: AppColors.colorText3,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      color: Color(0xFFB3BBC5),
+                                                      blurRadius: 5)
+                                                ]),
+                                            child: Center(
+                                                child: Text(
+                                              controller.textConnect
+                                                  .toUpperCase(),
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            )),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  : Container(),
+                            ],
+                          ),
                           controller.isShowBtnCancelTransfer
                               ? Row(
                                   children: [
                                     Expanded(
                                         flex: 1,
-                                        child: InkWell(
-                                          highlightColor: Colors.transparent,
-                                          splashColor: Colors.transparent,
-                                          onTap: () {
-                                            showDialogCancelRequest(context,
-                                                controller.requestModel.id);
-                                          },
-                                          child: Container(
-                                            width: double.infinity,
-                                            margin: const EdgeInsets.only(
-                                                top: 30, left: 25, right: 15),
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 14),
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(24),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  offset: const Offset(0, 1),
-                                                  blurRadius: 2,
-                                                  color: Colors.black
-                                                      .withOpacity(0.3),
-                                                ),
-                                              ],
-                                            ),
-                                            child: Center(
-                                                child: Text(
-                                              AppLocalizations.of(context)!
-                                                  .textCancel
-                                                  .toUpperCase(),
-                                              style: AppStyles.r1.copyWith(
-                                                  fontWeight: FontWeight.w500),
-                                            )),
-                                          ),
-                                        )),
+                                        child: bottomButton(
+                                            isBoxShadow: true,
+                                            color: Colors.white,
+                                            text: AppLocalizations.of(context)!
+                                                .textCancel,
+                                            onTap: () {
+                                              showDialogCancelRequest(context,
+                                                  controller.requestModel.id);
+                                            })),
                                     Expanded(
                                         flex: 1,
-                                        child: InkWell(
-                                          highlightColor: Colors.transparent,
-                                          splashColor: Colors.transparent,
-                                          onTap: () {
-                                            showDialogTransferRequest(context,
-                                                controller.requestModel.id);
-                                          },
-                                          child: Container(
-                                            width: double.infinity,
-                                            margin: const EdgeInsets.only(
-                                                top: 30, left: 15, right: 25),
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 14),
-                                            decoration: BoxDecoration(
-                                              color: AppColors.colorButton,
-                                              borderRadius:
-                                                  BorderRadius.circular(24),
-                                            ),
-                                            child: Center(
-                                                child: Text(
-                                              AppLocalizations.of(context)!
-                                                  .textTransfer
-                                                  .toUpperCase(),
-                                              style: AppStyles.r5.copyWith(
-                                                  fontWeight: FontWeight.w500),
-                                            )),
-                                          ),
-                                        ))
+                                        child: bottomButton(
+                                            text: AppLocalizations.of(context)!
+                                                .textTransfer,
+                                            onTap: () {
+                                              showDialogTransferRequest(context,
+                                                  controller.requestModel.id);
+                                            }))
                                   ],
                                 )
                               : Container(),
@@ -776,11 +762,32 @@ class RequestDetailPage extends GetWidget {
         });
   }
 
+  void showDialogChooseProduct(
+      BuildContext context, RequestDetailLogic controller) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return ChooseProductAgainDialog(
+            context: context,
+            onAgain: () {
+              Get.toNamed(RouteConfig.productPayment,
+                  arguments: [controller.requestModel, ProductStatus.ReSelect]);
+            },
+            onContinue: () {
+              Get.toNamed(RouteConfig.resignContract);
+            },
+          );
+        });
+  }
+
   TableRow buildRow(List<String> cells, bool isHeader) => TableRow(
-          children: cells.map(
+      decoration: BoxDecoration(
+        color: isHeader ? AppColors.colorBackground2 : Colors.white,
+      ),
+      children: cells.map(
         (e) {
           return Container(
-            color: isHeader ? AppColors.colorBackground2 : Colors.white,
+            // color: isHeader ? Color.fromARGB(255, 189, 189, 218) : Colors.white,
             padding: EdgeInsets.all(8),
             child: Center(
               child: Text(
@@ -792,4 +799,80 @@ class RequestDetailPage extends GetWidget {
           );
         },
       ).toList());
+}
+
+class ChooseProductAgainDialog extends Dialog {
+  BuildContext context;
+  Function onContinue;
+  Function onAgain;
+  ChooseProductAgainDialog({
+    required this.context,
+    required this.onContinue,
+    required this.onAgain,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: Wrap(children: [
+        Column(
+          children: [
+            const SizedBox(
+              height: 22,
+            ),
+            SvgPicture.asset(AppImages.imgNotify),
+            const SizedBox(
+              height: 15,
+            ),
+            const DottedLine(
+              dashColor: AppColors.colorLineDash,
+              dashGapLength: 3,
+              dashLength: 4,
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 22, right: 22),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                      AppLocalizations.of(context)!
+                          .textDoYouWantToContinueOrChooseTheProduct,
+                      style: AppStyles.r415263_14_600.copyWith(fontSize: 16)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                          child: bottomButtonV2(
+                              text: AppLocalizations.of(context)!.textAgain,
+                              onTap: () {
+                                Get.back();
+                                onAgain();
+                              })),
+                      Expanded(
+                          child: bottomButton(
+                              text: AppLocalizations.of(context)!.textContinue,
+                              onTap: () {
+                                Get.back();
+                                onContinue();
+                              }))
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ]),
+    );
+  }
 }

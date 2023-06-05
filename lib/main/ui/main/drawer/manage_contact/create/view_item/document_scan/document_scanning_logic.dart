@@ -21,15 +21,18 @@ import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf/pdf.dart';
 import '../../../../../../../networks/model/ce.dart';
 import '../../../../../../../networks/model/pp.dart';
 import '../client_data/customer_detect_mode.dart';
 import 'package:image/image.dart' as img;
+import 'package:pdf/widgets.dart' as pw;
 
 class DocumentScanningLogic extends GetxController {
   late BuildContext context;
-  var checkOption1 = false.obs;
-  var checkOption2 = false.obs;
+  var checkOption1 = true.obs;
+  var checkOption2 = true.obs;
 
   String textPathScan = "";
   // bool _canProcess = true;
@@ -51,6 +54,9 @@ class DocumentScanningLogic extends GetxController {
   CreateContactPageLogic logicCreateContact = Get.find();
 
   List<GoogleDetectItem> listGoogleDetect = [];
+
+  final pdf = pw.Document();
+  File? pdfIdentify;
 
   CE ce = CE();
   PP pp = PP();
@@ -175,13 +181,12 @@ class DocumentScanningLogic extends GetxController {
   void uploadFile(String path, String name,
       Function(bool isSuccess, String path) function) {
     _onLoading(context);
-    ApiUtil.getInstance()!.postFile(
-        url: ApiEndPoints.API_UPLOAD_IDENTIFY_CARD,
-        path: path,
-        name: name,
-        data: {
+    ApiUtil.getInstance()!.post(
+        url: ApiEndPoints.API_UPLOAD_IDENTITY_NEW,
+        body: {
           "idType": currentIdentity,
-          "idNumber": logicCreateContact.requestModel.customerModel.idNumber
+          "idNumber": logicCreateContact.requestModel.customerModel.idNumber,
+          "fileContent": Common.convertImageFileToBase64(pdfIdentify!),
         },
         onSuccess: (response) {
           Get.back();
@@ -273,10 +278,15 @@ class DocumentScanningLogic extends GetxController {
               pp.getDocumentItems(listGoogleDetect[0].fullTextAnnotation!.text);
             }
             if (ce.checkIdentify() || pp.checkIdentify()) {
-              uploadFile(textPathScan, 'image_back', (isSuccess, path) {
-                if (isSuccess) {
-                  pathImageBack = path;
-                  onContiue();
+              createPDF();
+              savePDF((isSuccessPDF) {
+                if (isSuccessPDF) {
+                  uploadFile(textPathScan, 'image_back', (isSuccess, path) {
+                    if (isSuccess) {
+                      pathImageBack = path;
+                      onContiue();
+                    }
+                  });
                 }
               });
             } else {
@@ -332,5 +342,29 @@ class DocumentScanningLogic extends GetxController {
         } catch (e) {}
       },
     );
+  }
+
+  createPDF() async {
+    final image = pw.MemoryImage(File(textPathScan).readAsBytesSync());
+    pdf.addPage(pw.Page(
+        pageFormat: PdfPageFormat.a4,
+        build: (pw.Context contex) {
+          return pw.Center(child: pw.Image(image));
+        }));
+  }
+
+  savePDF(var onSuccess) async {
+    try {
+      final dir = Platform.isAndroid
+          ? await getExternalStorageDirectory() //FOR ANDROID
+          : await getApplicationSupportDirectory(); //FOR iOS
+      final file = File('${dir?.path}/identify_back.pdf');
+      await file.writeAsBytes(await pdf.save());
+      pdfIdentify = file;
+      onSuccess(true);
+    } catch (e) {
+      onSuccess(true);
+      print(e.toString());
+    }
   }
 }

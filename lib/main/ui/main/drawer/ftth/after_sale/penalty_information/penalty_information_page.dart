@@ -87,7 +87,8 @@ class PenaltyInformationPage extends GetView<PenaltyInformationLogic> {
                                       horizontal: 15, vertical: 12),
                                   child: RichText(
                                     text: TextSpan(
-                                        text: 'S/${controller.balance} ',
+                                        text:
+                                            'S/${Common.numberFormat(controller.balance)} ',
                                         style: AppStyles.r9454C9_14_500
                                             .copyWith(
                                                 fontSize: 13,
@@ -172,7 +173,7 @@ class PenaltyInformationPage extends GetView<PenaltyInformationLogic> {
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: Text(
-                                    '${controller.cancelServiceModel.product.defaultValue}/${AppLocalizations.of(context)!.textMonth}',
+                                    '${Common.numberFormat(controller.cancelServiceModel.product.defaultValue)}/${AppLocalizations.of(context)!.textMonth}',
                                     style: const TextStyle(
                                         fontSize: 16,
                                         fontFamily: 'Barlow',
@@ -267,7 +268,7 @@ class PenaltyInformationPage extends GetView<PenaltyInformationLogic> {
                           ),
                           _paymentElement(
                               AppLocalizations.of(context)!.textTotalAmount,
-                              'S/${controller.cancelServiceModel.totalPenalty}',
+                              'S/${Common.numberFormat(controller.cancelServiceModel.totalPenalty)}',
                               const Color(0xFF9454C9)),
                         ],
                       ),
@@ -278,26 +279,8 @@ class PenaltyInformationPage extends GetView<PenaltyInformationLogic> {
                     bottomButton(
                         text: AppLocalizations.of(context)!.textContinue,
                         onTap: () {
-                          controller.checkBalance((value) {
-                            if (value) {
-                              Get.toNamed(RouteConfig.cancelServicePDF,
-                                  arguments: [
-                                    controller.cancelServiceModel.cancelOrderId
-                                  ]);
-                            } else {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return RechargeDialog(
-                                      height: 340,
-                                      onCanncel: () {},
-                                      onContinue: () {
-                                        Get.toNamed(RouteConfig.createOrder);
-                                      },
-                                    );
-                                  });
-                            }
-                          });
+                          Get.toNamed(RouteConfig.cancelServicePDF,
+                              arguments: [controller.subId]);
                         }),
                   ],
                 ),

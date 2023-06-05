@@ -11,6 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../../../res/app_colors.dart';
 import '../../../../../../router/route_config.dart';
 import '../../../../../../utils/common.dart';
+import '../../../../../../utils/values.dart';
 import '../../../contracting/customer_information/pdf_preview_page.dart';
 import 'cancel_service_pdf_logic.dart';
 
@@ -114,7 +115,7 @@ class CancelServicePDFPage extends GetView<CancelServicePDFLogic> {
                                 splashColor: Colors.transparent,
                                 onTap: () {
                                   Get.to(PDFPreviewPage(),
-                                      arguments: ['', controller.orderId]);
+                                      arguments: ['', controller.subId]);
                                 },
                                 child: Image.asset(
                                   AppImages.imgDemoContract,
@@ -136,12 +137,12 @@ class CancelServicePDFPage extends GetView<CancelServicePDFLogic> {
                             ]),
                           ),
                           Container(
-                            width: width - 62,
-                            margin: EdgeInsets.only(left: 31, right: 31),
+                            width: width, /*- 62,
+                            margin: EdgeInsets.only(left: 31, right: 31),*/
                             child: Obx(
                               () => bottomButton(
                                   text: AppLocalizations.of(context)!
-                                      .textSignContract
+                                      .textSignRequest
                                       .toUpperCase(),
                                   onTap: () {
                                     if (!controller.checkOption.value) {
@@ -149,12 +150,13 @@ class CancelServicePDFPage extends GetView<CancelServicePDFLogic> {
                                     }
                                     Get.toNamed(RouteConfig.validateFingerprint,
                                         arguments: [
-                                          'STAFF',
+                                          ValidateFingerStatus
+                                              .STAFF_CANCEL_SERVICE,
                                           controller.findAccountModel.custId,
                                           Common.getIdentityType(controller
                                               .findAccountModel.idType),
                                           controller.findAccountModel.idNumber,
-                                          controller.orderId
+                                          controller.subId
                                         ]);
                                   },
                                   color: !(controller.checkOption.value)

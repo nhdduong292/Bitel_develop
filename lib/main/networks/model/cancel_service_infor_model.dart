@@ -9,6 +9,7 @@ class CancelServiceInforModel {
   String? _product;
   String? _requestDate;
   String? _cancelDate;
+  String? _account;
 
   CancelServiceInforModel();
   CancelServiceInforModel.fromJson(Map<String, dynamic> json) {
@@ -22,7 +23,10 @@ class CancelServiceInforModel {
     _product = json['product'];
     _requestDate = json['requestDate'];
     _cancelDate = json['cancelDate'];
+    _account = json['account'];
   }
+
+  String get account => _account ?? "---";
 
   String get product => _product ?? "---";
 

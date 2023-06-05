@@ -80,8 +80,11 @@ class SaleLogic extends GetxController {
       toDate = DateTime(now.year, now.month - 1, numberOfDaysInCurrentMonth)
           .toIso8601String();
     } else if (month == AppLocalizations.of(context)!.textLast3Month) {
-      fromDate = DateTime(now.year, now.month, now.day - 90).toIso8601String();
-      toDate = now.toIso8601String();
+      final int numberOfDaysInCurrentMonth =
+          DateTime(now.year, now.month, 0).day;
+      fromDate = DateTime(now.year, now.month - 3, 1).toIso8601String();
+      toDate = DateTime(now.year, now.month - 1, numberOfDaysInCurrentMonth)
+          .toIso8601String();
     }
     isLoading = false;
     update();

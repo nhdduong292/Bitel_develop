@@ -74,13 +74,24 @@ class DialogCancelRequest extends GetWidget {
                   child: Row(
                     children: [
                       Expanded(
-                          flex: 2,
-                          child: Text(
-                            AppLocalizations.of(context)!.textReason,
-                            style: AppStyles.r8.copyWith(
-                                color: AppColors.colorText1.withOpacity(0.85),
-                                fontWeight: FontWeight.w400),
-                          )),
+                        flex: 2,
+                        child: RichText(
+                          text: TextSpan(
+                              text: AppLocalizations.of(context)!.textReason,
+                              style: AppStyles.r8.copyWith(
+                                  color: AppColors.colorText1.withOpacity(0.85),
+                                  fontWeight: FontWeight.w400),
+                              children: [
+                                TextSpan(
+                                    text: ' *',
+                                    style: TextStyle(
+                                      color: AppColors.colorTextError,
+                                      fontFamily: 'Barlow',
+                                      fontSize: 14,
+                                    )),
+                              ]),
+                        ),
+                      ),
                       Expanded(
                         flex: 5,
                         child: Container(
@@ -104,7 +115,9 @@ class DialogCancelRequest extends GetWidget {
                                 border:
                                     Border.all(color: const Color(0xFFE3EAF2))),
                             isExpanded: true,
-                            // value: controller.currentReason.isNotEmpty ? controller.currentReason : null,
+                            value: controller.listReason.isNotEmpty
+                                ? controller.listReason[0]
+                                : null,
                             onChanged: (value) {
                               controller.currentReason = value!.id!;
                             },
@@ -141,13 +154,24 @@ class DialogCancelRequest extends GetWidget {
                   child: Row(
                     children: [
                       Expanded(
-                          flex: 2,
-                          child: Text(
-                            AppLocalizations.of(context)!.textNote,
-                            style: AppStyles.r8.copyWith(
-                                color: AppColors.colorText1.withOpacity(0.85),
-                                fontWeight: FontWeight.w400),
-                          )),
+                        flex: 2,
+                        child: RichText(
+                          text: TextSpan(
+                              text: AppLocalizations.of(context)!.textNote,
+                              style: AppStyles.r8.copyWith(
+                                  color: AppColors.colorText1.withOpacity(0.85),
+                                  fontWeight: FontWeight.w400),
+                              children: [
+                                TextSpan(
+                                    text: ' *',
+                                    style: TextStyle(
+                                      color: AppColors.colorTextError,
+                                      fontFamily: 'Barlow',
+                                      fontSize: 14,
+                                    )),
+                              ]),
+                        ),
+                      ),
                       Expanded(
                           flex: 5,
                           child: spinnerFormV2(
@@ -165,61 +189,48 @@ class DialogCancelRequest extends GetWidget {
                     ],
                   ),
                 ),
-                InkWell(
-                  highlightColor: Colors.transparent,
-                  splashColor: Colors.transparent,
-                  onTap: () {
-                    if (controller.checkValidate(context)) return;
-                    _onLoading(context);
-                    controller.changeStatusRequest(
-                      id,
-                      controllerTextField.text,
-                      (isSuccess) {
-                        Get.back();
-                        if (isSuccess) {
-                          showDialog(
-                              barrierDismissible: false,
-                              context: context,
-                              builder: (context) {
-                                return SuccessDialog(
-                                  text: AppLocalizations.of(context)!
-                                      .textCancelRequestSuccessfully,
-                                  onOk: () {
-                                    Get.until(
-                                      (route) {
-                                        return Get.currentRoute ==
-                                            RouteConfig.listRequest;
-                                      },
-                                    );
-                                    ListRequestLogic listRequestLogic =
-                                        Get.find();
-                                    listRequestLogic
-                                        .updateSearchRequestToIndex(0);
-                                    listRequestLogic.refreshListRequest();
-                                  },
-                                );
-                              });
-                        }
-                      },
-                    );
-                    onSubmit!.call();
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    margin: const EdgeInsets.only(
-                        top: 30, bottom: 36, left: 16, right: 16),
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    decoration: BoxDecoration(
-                      color: AppColors.colorButton,
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    child: Center(
-                        child: Text(
-                      AppLocalizations.of(context)!.textCancel.toUpperCase(),
-                      style: AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
-                    )),
-                  ),
-                )
+                bottomButton(
+                    color: controller.checkValidate(context)
+                        ? const Color(0xFF415263).withOpacity(0.2)
+                        : null,
+                    text:
+                        AppLocalizations.of(context)!.textCancel.toUpperCase(),
+                    onTap: () {
+                      if (controller.checkValidate(context)) return;
+                      _onLoading(context);
+                      controller.changeStatusRequest(
+                        id,
+                        controllerTextField.text,
+                        (isSuccess) {
+                          Get.back();
+                          if (isSuccess) {
+                            showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) {
+                                  return SuccessDialog(
+                                    text: AppLocalizations.of(context)!
+                                        .textCancelRequestSuccessfully,
+                                    onOk: () {
+                                      Get.until(
+                                        (route) {
+                                          return Get.currentRoute ==
+                                              RouteConfig.listRequest;
+                                        },
+                                      );
+                                      ListRequestLogic listRequestLogic =
+                                          Get.find();
+                                      listRequestLogic
+                                          .updateSearchRequestToIndex(0);
+                                      listRequestLogic.refreshListRequest();
+                                    },
+                                  );
+                                });
+                          }
+                        },
+                      );
+                      onSubmit!.call();
+                    })
               ],
             ),
           ),

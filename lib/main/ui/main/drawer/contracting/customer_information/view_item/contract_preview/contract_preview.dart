@@ -6,6 +6,7 @@ import 'dart:typed_data';
 
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/customer_information_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -75,8 +76,12 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    onTap: () {
+                      controller.checkLendingContract.value = false;
+                      controller.checkMainContract.value = true;
+                    },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 16),
                       child: Text(
@@ -89,12 +94,21 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
                     ),
                   ),
                   InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    onTap: () {
+                      controller.checkLendingContract.value = true;
+                      controller.checkMainContract.value = false;
+                    },
                     child: Padding(
                       padding: const EdgeInsets.only(right: 16),
                       child: Text(
-                          AppLocalizations.of(context)!.textLendingContract,
+                          controller.statusContract ==
+                                  ContractStatus.Change_plan
+                              ? AppLocalizations.of(context)!
+                                  .textChangePlanRequestForm
+                              : AppLocalizations.of(context)!
+                                  .textLendingContract,
                           style: controller.checkLendingContract.value
                               ? AppStyles.rU9454C9_12_500
                               : AppStyles.rU9454C9_12_500.copyWith(
@@ -108,15 +122,19 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
               height: 18,
             ),
             InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
               onTap: () {
                 if (controller.checkMainContract.value) {
-                  Get.to(PDFPreviewPage(),
-                      arguments: ['MAIN', controller.contract.contractId]);
+                  Get.to(PDFPreviewPage(), arguments: [
+                    ValidateFingerStatus.MAIN,
+                    controller.contract.contractId
+                  ]);
                 } else {
-                  Get.to(PDFPreviewPage(),
-                      arguments: ['LENDING', controller.contract.contractId]);
+                  Get.to(PDFPreviewPage(), arguments: [
+                    ValidateFingerStatus.LENDING,
+                    controller.contract.contractId
+                  ]);
                 }
               },
               child: Image.asset(
@@ -138,19 +156,28 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
           ]),
         ),
         Container(
-          width: width - 62,
-          margin: EdgeInsets.only(left: 31, right: 31),
+          width: width,
+          // margin: EdgeInsets.only(left: 15, right: 15),
           child: Obx(
             () => bottomButton(
                 text: AppLocalizations.of(context)!
                     .textSignContract
                     .toUpperCase(),
                 onTap: () {
+                  if (controller.statusContract == ContractStatus.Change_plan) {
+                    Get.toNamed(RouteConfig.validateFingerprint, arguments: [
+                      ValidateFingerStatus.CUSTOMER_CHANGE_PLAN,
+                      controller.customer.custId,
+                      controller.getTypeCustomer(),
+                      controller.customer.idNumber,
+                      controller.contract.contractId
+                    ]);
+                  }
                   if (controller.checkOption.value) {
                     if (controller.checkMainContract.value) {
-                      callback('MAIN');
+                      callback(ValidateFingerStatus.MAIN);
                     } else {
-                      callback('LENDING');
+                      callback(ValidateFingerStatus.LENDING);
                     }
                   }
                 },

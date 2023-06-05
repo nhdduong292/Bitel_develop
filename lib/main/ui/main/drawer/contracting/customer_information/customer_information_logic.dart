@@ -4,8 +4,11 @@ import 'dart:io';
 import 'package:bitel_ventas/main/networks/model/contract_model.dart';
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/change_plan/information/infor_change_plan_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/request_detail/request_detail_logic.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +83,7 @@ class CustomerInformationLogic extends GetxController {
 
   final FocusScopeNode focusScopeNode = FocusScopeNode();
 
-  bool valueCheckBypass = false;
+  bool valueCheckBypass = true;
   bool isShowBypass = false;
 
   List<File> listFileMainContract = [];
@@ -89,9 +92,18 @@ class CustomerInformationLogic extends GetxController {
   File? pdfLendingContract;
   var pdf = pw.Document();
   var loadSuccess = false.obs;
-  bool valueCheckBox = false;
-  bool isCamera = true;
+  bool valueCheckBox = true;
+  bool isCameraMain = true;
+  bool isCameraLending = true;
   bool isLoadingConvertBase64 = false;
+  String statusRequest = '';
+  int contractRequestId = 0;
+
+  String statusContract = '';
+  int subId = 0;
+
+  bool isLoadingMain = false;
+  bool isLoadingLending = false;
 
   @override
   void onInit() {
@@ -103,8 +115,21 @@ class CustomerInformationLogic extends GetxController {
     productId = data[2];
     reasonId = data[3];
     isForcedTerm = data[4];
-    listPromotionId = data[5];
+    if (data[5] != null) {
+      listPromotionId = data[5];
+    } else {
+      listPromotionId = [];
+    }
     packageId = data[6];
+    statusContract = data[7];
+
+    if (statusContract == ContractStatus.Change_plan) {
+      bool isExit = Get.isRegistered<InforChangePlanLogic>();
+      if (isExit) {
+        InforChangePlanLogic inforChangePlanLogic = Get.find();
+        subId = inforChangePlanLogic.subId;
+      }
+    }
     phone = customer.telFax;
     email = customer.email;
     if (customer.address.isNotEmpty ||
@@ -125,6 +150,14 @@ class CustomerInformationLogic extends GetxController {
     emailController.text = email;
     emailController.selection =
         TextSelection.fromPosition(TextPosition(offset: email.length));
+
+    bool isExit = Get.isRegistered<RequestDetailLogic>();
+    if (isExit) {
+      RequestDetailLogic requestDetailLogic = Get.find();
+      statusRequest = requestDetailLogic.requestModel.status;
+      contractRequestId =
+          requestDetailLogic.requestModel.contractModel.contractId;
+    }
 
     showButtonContinue();
   }
@@ -158,7 +191,13 @@ class CustomerInformationLogic extends GetxController {
     update();
   }
 
-  String getBillCycle(String billCycle) {
+  String getBillCycle() {
+    if (statusContract == ContractStatus.Change_plan) {
+      billCycle = contract.billCycleFrom;
+    }
+    if (billCycle.isEmpty) {
+      return '---';
+    }
     if (billCycle == 'CYCLE6') {
       return '${AppLocalizations.of(context)!.textCircle} 6';
     } else if (billCycle == 'CYCLE16') {
@@ -187,10 +226,10 @@ class CustomerInformationLogic extends GetxController {
     return customer.type;
   }
 
-  var checkOption1 = false.obs;
-  var checkOption2 = false.obs;
-  var checkOption3 = false.obs;
-  var checkOption4 = false.obs;
+  var checkOption1 = true.obs;
+  var checkOption2 = true.obs;
+  var checkOption3 = true.obs;
+  var checkOption4 = true.obs;
 
   Rx<String> contractLanguagetValue = 'SPANISH'.toUpperCase().obs;
   final contractLanguages = [
@@ -240,11 +279,112 @@ class CustomerInformationLogic extends GetxController {
       url: ApiEndPoints.API_CREATE_CONTRACT,
       body: body,
       onSuccess: (response) {
+        Get.back();
+        if (response.isSuccess) {
+          print(response.data['data']);
+          contract = ContractModel.fromJson(response.data['data']);
+          isSuccess.call(true);
+        } else {
+          print("error: ${response.status}");
+          isSuccess.call(false);
+        }
+      },
+      onError: (error) {
+        isSuccess.call(false);
+        Get.back();
+        Common.showMessageError(error: error, context: context);
+      },
+    );
+  }
+
+  void updateContract(BuildContext context, Function(bool) isSuccess) {
+    _onLoading(context);
+    Map<String, dynamic> body = {
+      "requestId": requestModel.id,
+      "productId": productId,
+      "reasonId": reasonId,
+      "packageId": packageId,
+      "promotionId": listPromotionId,
+      "contractType": isForcedTerm ? "FORCED_TERM" : "UNDETERMINED",
+      "numOfSubscriber": 1,
+      "signDate": signDate.value.trim(),
+      "billCycle": billCycle,
+      "changeNotification": "Email",
+      "printBill": "Email",
+      "currency": "SOL",
+      "language": contractLanguagetValue.value.toUpperCase(),
+      "province": billArea.province.isNotEmpty
+          ? billArea.province
+          : requestModel.province,
+      "district": billArea.district.isNotEmpty
+          ? billArea.district
+          : requestModel.district,
+      "precinct": billArea.precinct.isNotEmpty
+          ? billArea.precinct
+          : requestModel.precinct,
+      "address": billAddressSelect.isNotEmpty
+          ? billAddressSelect
+          : requestModel.address,
+      "phone": customer.telFax.trim(),
+      "email": customer.email.trim(),
+      "protectionFilter": checkOption1.value,
+      "receiveInfoByMail": checkOption2.value,
+      "receiveFromThirdParty": checkOption3.value,
+      "receiveFromBitel": checkOption4.value
+    };
+    ApiUtil.getInstance()!.put(
+      url: "${ApiEndPoints.API_CREATE_CONTRACT}/$contractRequestId",
+      params: {"id": contractRequestId},
+      body: body,
+      onSuccess: (response) {
         print('bxloc create contract success');
         Get.back();
         if (response.isSuccess) {
           print(response.data['data']);
           contract = ContractModel.fromJson(response.data['data']);
+          isSuccess.call(true);
+        } else {
+          print("error: ${response.status}");
+          isSuccess.call(false);
+        }
+      },
+      onError: (error) {
+        print('bxloc create contract false');
+        isSuccess.call(false);
+        Get.back();
+        Common.showMessageError(error: error, context: context);
+      },
+    );
+  }
+
+  void updateContractChangePlan(
+      BuildContext context, Function(bool) isSuccess) {
+    _onLoading(context);
+    Map<String, dynamic> body = {
+      // "language": contractLanguagetValue.value.toUpperCase(),
+      "province":
+          billArea.province.isNotEmpty ? billArea.province : contract.province,
+      "district":
+          billArea.district.isNotEmpty ? billArea.district : contract.district,
+      "precinct":
+          billArea.precinct.isNotEmpty ? billArea.precinct : contract.precinct,
+      "address": billAddressSelect.isNotEmpty && billArea.fullName.isNotEmpty
+          ? '$billAddressSelect, ${billArea.fullName}'
+          : contract.address,
+      "protectionFilter": checkOption1.value,
+      "receiveInfoByMail": checkOption2.value,
+      "receiveFromThirdParty": checkOption3.value,
+      "receiveFromBitel": checkOption4.value
+    };
+    ApiUtil.getInstance()!.put(
+      url:
+          "${ApiEndPoints.API_UPADTE_CONTRACT_CHANGE_PLAN}/${contract.contractId}",
+      params: {"id": contract.contractId},
+      body: body,
+      onSuccess: (response) {
+        print('bxloc create contract success');
+        Get.back();
+        if (response.isSuccess) {
           isSuccess.call(true);
         } else {
           print("error: ${response.status}");
@@ -328,7 +468,8 @@ class CustomerInformationLogic extends GetxController {
   bool validateAddress() {
     if (currentArea.province.isNotEmpty &&
         currentArea.district.isNotEmpty &&
-        currentArea.precinct.isNotEmpty) {
+        currentArea.precinct.isNotEmpty &&
+        textFieldAddress.text.isNotEmpty) {
       return true;
     }
     Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
@@ -338,7 +479,8 @@ class CustomerInformationLogic extends GetxController {
   bool validateBillAddress() {
     if (billArea.province.isNotEmpty &&
         billArea.district.isNotEmpty &&
-        billArea.precinct.isNotEmpty) {
+        billArea.precinct.isNotEmpty &&
+        textFieldAddress.text.isNotEmpty) {
       return true;
     }
     Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
@@ -413,12 +555,15 @@ class CustomerInformationLogic extends GetxController {
       "rightImage": null
     };
     ApiUtil.getInstance()!.put(
-      url: '${ApiEndPoints.API_CREATE_CUSTOMER}/${customer.custId}',
+      url:
+          '${statusContract == ContractStatus.Change_plan ? ApiEndPoints.API_UPADTE_CUSTOMER_CHANGE_PLAN : ApiEndPoints.API_CREATE_CUSTOMER}/${customer.custId}',
       body: body,
       onSuccess: (response) {
         Get.back();
         if (response.isSuccess) {
-          customer = CustomerModel.fromJson(response.data['data']);
+          if (statusContract != ContractStatus.Change_plan) {
+            customer = CustomerModel.fromJson(response.data['data']);
+          }
           callBack.call(true);
         } else {
           callBack.call(false);
@@ -484,7 +629,6 @@ class CustomerInformationLogic extends GetxController {
           }
         },
         onError: (error) {
-          Get.back();
           Common.showMessageError(error: error, context: context);
           completer.complete([]);
           // callBack.call(false);
@@ -518,11 +662,19 @@ class CustomerInformationLogic extends GetxController {
   }
 
   uploadImage(BuildContext context, bool isMain) async {
-    isCamera = false;
+    if (isLoadingMain || isLoadingLending) {
+      return;
+    }
     if (isMain) {
+      isLoadingMain = true;
+      isCameraMain = false;
       listFileMainContract.clear();
+      update();
     } else {
+      isLoadingLending = true;
+      isCameraLending = false;
       listFileLendingContract.clear();
+      update();
     }
     try {
       final List<XFile> selectedImages = await ImagePicker().pickMultiImage();
@@ -534,8 +686,10 @@ class CustomerInformationLogic extends GetxController {
             listFileLendingContract.add(File(image.path));
           }
         }
-        update();
       }
+      isLoadingMain = false;
+      isLoadingLending = false;
+      update();
     } on Exception catch (e) {
       // TODO
       print(e.toString());
@@ -544,14 +698,18 @@ class CustomerInformationLogic extends GetxController {
   }
 
   getFromGallery(BuildContext context, bool isMain) async {
-    if (!isCamera) {
-      if (isMain) {
+    if (!isCameraMain || !isCameraLending) {
+      if (isMain && !isCameraMain) {
+        isCameraMain = true;
         listFileMainContract.clear();
+        update();
       } else {
+        isCameraLending = true;
         listFileLendingContract.clear();
+        update();
       }
     }
-    isCamera = true;
+
     try {
       final pickedFile =
           await ImagePicker().pickImage(source: ImageSource.camera);
@@ -640,6 +798,7 @@ class CustomerInformationLogic extends GetxController {
       Completer<bool> completer = Completer();
       Map<String, dynamic> body = {
         "isBypass": true,
+        "isUploadContractLate": valueCheckBox
       };
       Map<String, dynamic> params = {"type": type};
       ApiUtil.getInstance()!.put(
@@ -666,5 +825,99 @@ class CustomerInformationLogic extends GetxController {
       Get.back();
       Common.showToastCenter(e.toString());
     }
+  }
+
+  void getContractInfor() {
+    _onLoading(context);
+    ApiUtil.getInstance()!.get(
+      url: ApiEndPoints.API_GET_CONTRACT_INFO,
+      params: {"subId": subId},
+      onSuccess: (response) {
+        Get.back();
+        if (response.isSuccess) {
+          contract = ContractModel.fromJson(response.data['data']);
+          contractLanguagetValue.value = contract.language;
+          billAddress = contract.address;
+          billAddressSelect = contract.address;
+          billArea.province = contract.province;
+          billArea.district = contract.district;
+          billArea.precinct = contract.precinct;
+          update();
+        } else {}
+      },
+      onError: (error) {
+        Get.back();
+
+        Common.showMessageError(error: error, context: context);
+      },
+    );
+  }
+
+  String getSignDate() {
+    String date = '---';
+    if (statusContract == ContractStatus.Change_plan) {
+      signDate.value = contract.signDate;
+    }
+    if (signDate.value.isNotEmpty) {
+      date = Common.fromDate(DateTime.parse(signDate.value), 'dd/MM/yyyy');
+    }
+    return date;
+  }
+
+  String getQuantitySubscriber() {
+    if (statusContract == ContractStatus.Change_plan) {
+      if (contract.numOfSubscriber != 0) {
+        return contract.numOfSubscriber.toString();
+      } else {
+        return '---';
+      }
+    } else {
+      return '1';
+    }
+  }
+
+  String getChangeNotification() {
+    if (statusContract == ContractStatus.Change_plan) {
+      return contract.changeNotification;
+    } else {
+      return AppLocalizations.of(context)!.textEmail;
+    }
+  }
+
+  String getPrintBillDetail() {
+    if (statusContract == ContractStatus.Change_plan) {
+      return contract.printBill;
+    } else {
+      return AppLocalizations.of(context)!.textEmail;
+    }
+  }
+
+  String getCurrency() {
+    if (statusContract == ContractStatus.Change_plan) {
+      return contract.currency;
+    } else {
+      return 'SOL';
+    }
+  }
+
+  bool showBypass() {
+    if (statusContract == ContractStatus.Change_plan) {
+      return false;
+    } else {
+      if (customer.type == 'DNI') {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  void backToCustomerInfor() {
+    checkItem1.value = true;
+    checkItem2.value = false;
+    titleScreen.value = AppLocalizations.of(context)!.textCustomerInformation;
+    scrollController.scrollTo(
+      index: 0,
+      duration: const Duration(milliseconds: 200),
+    );
   }
 }
