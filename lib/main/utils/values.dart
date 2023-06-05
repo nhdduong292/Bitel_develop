@@ -19,6 +19,13 @@ class Permission {
   static const String MBCCS_FTTH_SURVEY = "MBCCS_FTTH.SURVEY";
   static const String SURVEY_ONLINE = "SURVEY_ONLINE";
   static const String MBCCS_FTTH_CONTRACT = "MBCCS_FTTH.CONTRACT";
+  static const String CANCEL_REQUEST = "CANCEL_REQUEST";
+  static const String BUYPASS_FINGER = "BUYPASS_FINGER";
+  static const String CANCEL_SERVICE = "CANCEL_SERVICE";
+  static const String CHANGE_PLAN = "CHANGE_PLAN";
+  static const String TRANSFER_SERVICE = "TRANSFER_SERVICE";
+  static const String BUY_ANYPAY = "BUY_ANYPAY";
+  static const String CLEAR_DEBT = "CLEAR_DEBT";
 }
 
 class RequestStatus {

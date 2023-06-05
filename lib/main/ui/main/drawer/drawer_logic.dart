@@ -8,6 +8,7 @@ import 'package:bitel_ventas/main/ui/main/drawer/demo_google_map.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/demo_native_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/create_request_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_map_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/utilitis/info_bussiness.dart';
 import 'package:bitel_ventas/main/utils/shared_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -15,12 +16,11 @@ import 'package:get/get.dart';
 
 import '../../../../res/app_images.dart';
 import '../../../router/route_config.dart';
+import '../../../utils/values.dart';
 import '../../login/login_page.dart';
 
 class DrawerLogic extends GetxController {
   RxList<DrawerItem>? listItem = RxList<DrawerItem>();
-
-
 
   void logOut() {
     SharedPreferenceUtil.clearData();
@@ -44,7 +44,6 @@ class DrawerLogic extends GetxController {
           // Get.to(DemoNativePage());
           // Get.toNamed(RouteConfig.validateFingerprint);
           break;
-
       }
     });
   }
@@ -97,8 +96,21 @@ class DrawerLogic extends GetxController {
     ];
   }
 
-  void showDialogSurveyMap(
-      BuildContext context) {
+  List<DrawerItem> getListItemWithPermission(BuildContext context) {
+    var list = getListItem(context);
+    var listPermission = InfoBusiness.getInstance()!.getUser().functions;
+    if (!listPermission.contains(Permission.BUY_ANYPAY)) {
+      list.removeWhere((element) =>
+          element.label == AppLocalizations.of(context)!.textBuyAnypay);
+    }
+    if (!listPermission.contains(Permission.CLEAR_DEBT)) {
+      list.removeWhere((element) =>
+          element.label == AppLocalizations.of(context)!.textClearDebt);
+    }
+    return list;
+  }
+
+  void showDialogSurveyMap(BuildContext context) {
     showDialog(
         barrierDismissible: false,
         context: context,
@@ -110,7 +122,9 @@ class DrawerLogic extends GetxController {
               // } else {
               //   showDialogSurveyUnsuccessful(context, controller);
               // }
-            },requestModel: RequestDetailModel(),);
+            },
+            requestModel: RequestDetailModel(),
+          );
         });
   }
 }

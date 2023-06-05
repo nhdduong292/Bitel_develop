@@ -61,10 +61,20 @@ class SaleLogic extends GetxController {
     var list = getListOptionSale(context);
     var listPermission = InfoBusiness.getInstance()!.getUser().functions;
     if (!listPermission.contains(Permission.CONTRACTING)) {
-      list.removeAt(1);
+      list.removeWhere((element) =>
+          element.title == AppLocalizations.of(context)!.textConnectSubscriber);
     }
     if (!listPermission.contains(Permission.CREATE_REQUEST)) {
-      list.removeAt(0);
+      list.removeWhere((element) =>
+          element.title == AppLocalizations.of(context)!.textCreateRequest);
+    }
+    if (!listPermission.contains(Permission.BUY_ANYPAY)) {
+      list.removeWhere((element) =>
+          element.title == AppLocalizations.of(context)!.textRechargeAnypay);
+    }
+    if (!listPermission.contains(Permission.CLEAR_DEBT)) {
+      list.removeWhere((element) =>
+          element.title == AppLocalizations.of(context)!.textClearDebt);
     }
     return list;
   }

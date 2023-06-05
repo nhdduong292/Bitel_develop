@@ -11,6 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../networks/model/work_order_model.dart';
 import '../../../../../utils/common.dart';
+import '../../utilitis/info_bussiness.dart';
 
 class RequestDetailLogic extends GetxController {
   RequestDetailModel requestModel = RequestDetailModel();
@@ -175,6 +176,24 @@ class RequestDetailLogic extends GetxController {
       } else {
         return model.staffCode;
       }
+    }
+  }
+
+  bool isShowCancelWithPermission() {
+    var listPermission = InfoBusiness.getInstance()!.getUser().functions;
+    if (listPermission.contains(Permission.CANCEL_REQUEST)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool isShowTransferWithPermission() {
+    var listPermission = InfoBusiness.getInstance()!.getUser().functions;
+    if (listPermission.contains(Permission.TRANSFER_REQUEST)) {
+      return true;
+    } else {
+      return false;
     }
   }
 }
