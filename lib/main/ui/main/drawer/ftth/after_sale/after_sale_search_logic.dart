@@ -21,7 +21,8 @@ class AfterSaleSearchLogic extends GetxController
   @override
   void onInit() {
     // TODO: implement onInit
-    if (type == AfterSaleStatus.CHANGE_PLAN) {
+    if (type == AfterSaleStatus.CHANGE_PLAN ||
+        type == AfterSaleStatus.CANCEL_SERVICE) {
       var data = Get.arguments;
       fingerId = data[0];
     }

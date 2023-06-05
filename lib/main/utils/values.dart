@@ -62,6 +62,7 @@ class ValidateFingerStatus {
   static final String STAFF_CANCEL_SERVICE = "STAFF_CANCEL_SERVICE";
   static final String STAFF_CHANGE_PLAN = "STAFF_CHANGE_PLAN";
   static final String CUSTOMER_CHANGE_PLAN = "CUSTOMER_CHANGE_PLAN";
+  static final String CUSTOMER_CANCEL_SERVICE = "CUSTOMER_CANCEL_SERVICE";
   static final String MAIN = "MAIN";
   static final String LENDING = "LENDING";
 }
