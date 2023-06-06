@@ -4,6 +4,7 @@ class HomeSaleModel {
   int waitingDeployment = 0;
   int waitingConnection = 0;
   int completeInstallation = 0;
+  int waitingRecovery = 0;
   int kpi = 0;
   int performance = 0;
   double commission = 0;
@@ -17,6 +18,7 @@ class HomeSaleModel {
     waitingDeployment = json['waitingDeployment'];
     waitingConnection = json['waitingConnection'];
     completeInstallation = json['completeInstallation'];
+    waitingRecovery = json['waitingRecovery'];
     kpi = json['kpi'];
     performance = json['performance'];
     commission = json['commission'];

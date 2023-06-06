@@ -60,3 +60,13 @@ class AfterSaleStatus {
   static final String TRANSFER_SERVICE = "TRANSFER_SERVICE";
   static final String CANCEL_SERVICE = "CANCEL_SERVICE";
 }
+
+class ActionCode {
+  static final String NEW_CONNECT = "NEW_CONNECT";
+  static final String CANCEL_CONTRACT = "CANCEL_CONTRACT";
+}
+
+class ActionType1 {
+  static final String NEW_CONNECT = "NEW_CONNECT";
+  static final String CANCEL_CONTRACT = "CANCEL_CONTRACT";
+}

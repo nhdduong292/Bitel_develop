@@ -69,8 +69,8 @@ class DrawerPage extends GetView<DrawerLogic> {
                               controller.getListItem(context)[index];
                           if (drawerItem.list!.isEmpty) {
                             return InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              splashColor: Colors.transparent,
                               onTap: () {
                                 controller.onItemClick(
                                     index: index, context: context);
@@ -142,8 +142,8 @@ class DrawerPage extends GetView<DrawerLogic> {
                   bottom: 35,
                   left: 35,
                   child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     onTap: () => controller.logOut(),
                     child: Row(
                       children: [
