@@ -6,6 +6,7 @@ import 'package:bitel_ventas/main/networks/model/address_model.dart';
 import 'package:bitel_ventas/main/networks/request/search_request.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/list_request_logic.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,6 +29,7 @@ class DialogAdvanceSearchLogic extends GetxController {
   DateTime fromDate = DateTime.now();
   DateTime toDate = DateTime.now();
   ListRequestLogic listRequestLogic = Get.find();
+  String currentActionCode = '';
 
   DialogAdvanceSearchLogic(this.context, this.searchRequest) {
     if (searchRequest.fromDate.isNotEmpty) {
@@ -85,6 +87,18 @@ class DialogAdvanceSearchLogic extends GetxController {
 
   void setStatus(String value) {
     searchRequest.status = value;
+    update();
+  }
+
+  void setActionCode(String value) {
+    currentActionCode = value;
+    if (value == AppLocalizations.of(context)!.textNewConnect) {
+      searchRequest.actionCode = ActionCode.NEW_CONNECT;
+    } else if (value == AppLocalizations.of(context)!.textCancelRequest) {
+      searchRequest.actionCode = ActionCode.CANCEL_CONTRACT;
+    } else {
+      searchRequest.actionCode = '';
+    }
     update();
   }
 

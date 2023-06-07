@@ -15,6 +15,7 @@ class ListRequestLogic extends GetxController
   TabController? tabController;
   SearchRequest searchRequest = SearchRequest();
   int index = 0;
+  String actionType = '';
   Timer? _debounce;
   GlobalKey<ListRequestTabState> globalKeyCreateRequest = GlobalKey();
   GlobalKey<ListRequestTabState> globalKey2 = GlobalKey();
@@ -36,7 +37,8 @@ class ListRequestLogic extends GetxController
     // TODO: implement onInit
     tabController = TabController(vsync: this, length: 6);
     super.onInit();
-    index = Get.arguments;
+    index = int.parse(Get.arguments[0]);
+    actionType = Get.arguments[1];
     currentFromDate = saleLogic.fromDate;
     currentToDate = saleLogic.toDate;
     tabController!.animateTo(index, duration: Duration(milliseconds: 500));

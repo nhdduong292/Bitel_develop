@@ -4,6 +4,7 @@ import 'package:bitel_ventas/main/services/settings_service.dart';
 import 'package:bitel_ventas/main/ui/login/login_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
+import 'package:bitel_ventas/res/app_fonts.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:flutter/material.dart';
@@ -78,6 +79,7 @@ class LoginPage extends GetWidget {
                             autofocus: true,
                             controller: controller.controllerUser,
                             focusNode: controller.focusUser,
+                            textCapitalization: TextCapitalization.characters,
                             onChanged: (value) {
                               controller.setStateUser(false);
                             },
@@ -257,7 +259,11 @@ class LoginPage extends GetWidget {
                         child: Center(
                             child: Text(
                           AppLocalizations.of(context)!.btnLogin.toUpperCase(),
-                          style: AppStyles.r5,
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: AppFonts.Barlow,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700),
                         )),
                       ),
                     ),
@@ -283,7 +289,7 @@ class LoginPage extends GetWidget {
                     ),
                     KeyboardVisibilityBuilder(builder: (context, visible) {
                       if (visible) {
-                        return SizedBox(height: height * (1/3));
+                        return SizedBox(height: height * (1 / 3));
                       } else {
                         return Container();
                       }

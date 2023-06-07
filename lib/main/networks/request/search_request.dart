@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class SearchRequest {
   String service = "FTTH";
   String code = "";
+  String actionCode = "";
   String status = "";
   String province = "";
   String staffCode = "";
@@ -21,6 +22,14 @@ class SearchRequest {
       AppLocalizations.of(context)!.textDeploying,
       AppLocalizations.of(context)!.textComplete,
       AppLocalizations.of(context)!.textCancel
+    ];
+  }
+
+  List<String> listActionCode(BuildContext context) {
+    return [
+      AppLocalizations.of(context)!.textNewConnect,
+      AppLocalizations.of(context)!.textCancelRequest,
+
     ];
   }
 
@@ -70,6 +79,7 @@ class SearchRequest {
   void reset() {
     service = "FTTH";
     code = "";
+    actionCode = "";
     status = "";
     province = "";
     staffCode = "";

@@ -113,6 +113,8 @@ class SaleLogic extends GetxController {
           "${homeSaleModel.completeInstallation}", "", 4),
       OptionSale("", AppLocalizations.of(context)!.textCancelled,
           "${homeSaleModel.cancelled}", "", 5),
+      OptionSale("", AppLocalizations.of(context)!.textWaittingRecovery,
+          "${homeSaleModel.waitingRecovery}", "", 6),
     ];
   }
 
@@ -123,22 +125,22 @@ class SaleLogic extends GetxController {
           AppLocalizations.of(context)!.textKPI,
           "${homeSaleModel.kpi}",
           AppLocalizations.of(context)!.textContractMonth,
-          6),
+          7),
       OptionSale(
           "",
           AppLocalizations.of(context)!.textPerformance,
           "${homeSaleModel.performance}",
           AppLocalizations.of(context)!.textSubscriber,
-          7),
+          8),
       OptionSale("", AppLocalizations.of(context)!.textCommission,
-          "${homeSaleModel.commission}", "S", 8),
+          "${homeSaleModel.commission}", "S", 9),
     ];
   }
 
   List<OptionSale> getListWalletControl(BuildContext context) {
     return [
       OptionSale("", AppLocalizations.of(context)!.textAnyPay,
-          "${homeSaleModel.anyPayBalance}", "S", 9),
+          "${homeSaleModel.anyPayBalance}", "S", 10),
     ];
   }
 

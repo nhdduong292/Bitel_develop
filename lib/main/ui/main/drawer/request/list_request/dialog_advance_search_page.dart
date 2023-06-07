@@ -135,6 +135,35 @@ class DialogAdvancedSearchPage extends GetWidget {
                         Expanded(
                             flex: 2,
                             child: Text(
+                              AppLocalizations.of(context)!.textActionCode,
+                              style: AppStyles.r8.copyWith(
+                                  color: AppColors.colorText1.withOpacity(0.85),
+                                  fontWeight: FontWeight.w400),
+                            )),
+                        Expanded(
+                            flex: 5,
+                            child: spinnerFormV2(
+                                context: context,
+                                hint: AppLocalizations.of(context)!
+                                    .hintActionCode,
+                                required: false,
+                                dropValue: controller.currentActionCode,
+                                function: (value) {
+                                  controller.setActionCode(value);
+                                },
+                                listDrop: controller.searchRequest
+                                    .listActionCode(context)))
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding:
+                        const EdgeInsets.only(top: 16, right: 16, left: 16),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            flex: 2,
+                            child: Text(
                               AppLocalizations.of(context)!.textStatus,
                               style: AppStyles.r8.copyWith(
                                   color: AppColors.colorText1.withOpacity(0.85),

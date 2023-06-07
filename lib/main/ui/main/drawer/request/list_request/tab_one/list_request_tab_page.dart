@@ -15,6 +15,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 
 import '../../../../../../utils/common.dart';
+import '../../../../../../utils/values.dart';
 
 class ListRequestTabPage extends StatefulWidget {
   String status;
@@ -125,10 +126,22 @@ class ListRequestTabState extends State<ListRequestTabPage> {
         isLoading = true;
       });
     }
+    String actionCode = '';
+    if (key.isEmpty) {
+      if (listRequestLogic.searchRequest.actionCode.isNotEmpty) {
+        actionCode = listRequestLogic.searchRequest.actionCode;
+      } else if (listRequestLogic.index == 3 &&
+          listRequestLogic.actionType.isNotEmpty) {
+        actionCode = listRequestLogic.actionType;
+      }
+    } else {
+      actionCode = '';
+    }
     Future.delayed(const Duration(seconds: 1));
     Map<String, dynamic> params = {
       "service": key.isEmpty ? listRequestLogic.searchRequest.service : "",
       "code": key.isEmpty ? listRequestLogic.searchRequest.code : "",
+      "actionCode": actionCode,
       "status": status,
       "province": key.isEmpty ? listRequestLogic.searchRequest.province : "",
       "staffCode": key.isEmpty ? listRequestLogic.searchRequest.staffCode : "",

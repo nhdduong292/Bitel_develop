@@ -689,5 +689,9 @@
 "textStartOfNewPlan": "Bắt đầu kế hoạch mới",
 "textSuccessfulFTTHMigration": "Di chuyển FTTH thành công!",
 "textSignRequest": "Ký yêu cầu",
-"textE073": "Không điều chỉnh được thuê bao nợ."
+"textE073": "Không điều chỉnh được thuê bao nợ.",
+  "textActionCode": "Mã hành động",
+  "hintActionCode": "Chọn mã hành động",
+  "textNewConnect": "Kết nối mới",
+  "textWaittingRecovery": "Chờ phục hồi"
 }

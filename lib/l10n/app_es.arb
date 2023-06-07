@@ -691,6 +691,9 @@
 "textStartOfNewPlan": "Comienzo del nuevo plan",
 "textSuccessfulFTTHMigration": "Migración FTTH exitosa!",
 "textSignRequest": "Solicitud de firma",
-"textE073": "No se pudo ajustar la deuda del suscriptor."
-  
+"textE073": "No se pudo ajustar la deuda del suscriptor.",
+  "textActionCode": "Código de acción",
+  "hintActionCode": "Seleccionar código de acción",
+  "textNewConnect": "Nueva conexión",
+  "textWaittingRecovery": "Esperando recuperación"
 }

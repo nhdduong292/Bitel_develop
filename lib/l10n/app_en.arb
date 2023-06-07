@@ -703,6 +703,9 @@
    "textStartOfNewPlan": "Start of new plan",
    "textSuccessfulFTTHMigration": "Successful FTTH migration!",
    "textSignRequest": "Sign request",
-   "textE073": "Failed to adjust debt subscriber."
-  
+   "textE073": "Failed to adjust debt subscriber.",
+  "textActionCode": "Action code",
+  "hintActionCode": "Select action code",
+  "textNewConnect": "New connect",
+  "textWaittingRecovery": "Waiting recovery"
 }
