@@ -1,6 +1,7 @@
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/home_sale_model.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../utils/common.dart';
+import '../../utilitis/info_bussiness.dart';
 
 class SaleLogic extends GetxController {
   HomeSaleModel homeSaleModel = HomeSaleModel();
@@ -53,6 +55,28 @@ class SaleLogic extends GetxController {
       // OptionSale(AppImages.icSaleCreateContact,
       //     AppLocalizations.of(context)!.textCreateContact, "", "", 0),
     ];
+  }
+
+  List<OptionSale> getListOptionSaleWithPermission() {
+    var list = getListOptionSale(context);
+    var listPermission = InfoBusiness.getInstance()!.getUser().functions;
+    if (!listPermission.contains(Permission.CONTRACTING)) {
+      list.removeWhere((element) =>
+          element.title == AppLocalizations.of(context)!.textConnectSubscriber);
+    }
+    if (!listPermission.contains(Permission.CREATE_REQUEST)) {
+      list.removeWhere((element) =>
+          element.title == AppLocalizations.of(context)!.textCreateRequest);
+    }
+    if (!listPermission.contains(Permission.BUY_ANYPAY)) {
+      list.removeWhere((element) =>
+          element.title == AppLocalizations.of(context)!.textRechargeAnypay);
+    }
+    if (!listPermission.contains(Permission.CLEAR_DEBT)) {
+      list.removeWhere((element) =>
+          element.title == AppLocalizations.of(context)!.textClearDebt);
+    }
+    return list;
   }
 
   void setDate(String month) {

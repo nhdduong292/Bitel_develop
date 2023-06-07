@@ -619,7 +619,14 @@ class RequestDetailPage extends GetWidget {
                           Row(
                             children: [
                               Visibility(
-                                visible: controller.isShowCancel,
+                                visible: controller.isShowCancel &&
+                                        controller
+                                            .isShowCancelWithPermission() ||
+                                    controller.isShowBtnCancelTransfer &&
+                                        controller
+                                            .isShowCancelWithPermission() &&
+                                        !controller
+                                            .isShowTransferWithPermission(),
                                 child: Expanded(
                                     flex: 1,
                                     child: bottomButton(
@@ -629,6 +636,22 @@ class RequestDetailPage extends GetWidget {
                                             .textCancel,
                                         onTap: () {
                                           showDialogCancelRequest(context,
+                                              controller.requestModel.id);
+                                        })),
+                              ),
+                              Visibility(
+                                visible: controller.isShowBtnCancelTransfer &&
+                                    !controller.isShowCancelWithPermission() &&
+                                    controller.isShowTransferWithPermission(),
+                                child: Expanded(
+                                    flex: 1,
+                                    child: bottomButton(
+                                        isBoxShadow: true,
+                                        color: Colors.white,
+                                        text: AppLocalizations.of(context)!
+                                            .textTransfer,
+                                        onTap: () {
+                                          showDialogTransferRequest(context,
                                               controller.requestModel.id);
                                         })),
                               ),
@@ -701,7 +724,9 @@ class RequestDetailPage extends GetWidget {
                                   : Container(),
                             ],
                           ),
-                          controller.isShowBtnCancelTransfer
+                          controller.isShowBtnCancelTransfer &&
+                                  controller.isShowCancelWithPermission() &&
+                                  controller.isShowTransferWithPermission()
                               ? Row(
                                   children: [
                                     Expanded(

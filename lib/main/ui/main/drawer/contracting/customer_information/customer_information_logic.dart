@@ -26,6 +26,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import '../../../../../networks/model/address_model.dart';
+import '../../utilitis/info_bussiness.dart';
 
 class CustomerInformationLogic extends GetxController {
   late BuildContext context;
@@ -905,7 +906,11 @@ class CustomerInformationLogic extends GetxController {
       return false;
     } else {
       if (customer.type == 'DNI') {
-        return true;
+        var listPermission = InfoBusiness.getInstance()!.getUser().functions;
+        if (listPermission.contains(Permission.BYPASS_FINGER)) {
+          return true;
+        }
+        return false;
       }
     }
     return false;

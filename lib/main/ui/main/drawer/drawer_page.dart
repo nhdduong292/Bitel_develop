@@ -24,7 +24,7 @@ class DrawerPage extends GetView<DrawerLogic> {
     return GetBuilder(
       init: DrawerLogic(),
       builder: (controller) {
-        controller.listItem = controller.getListItem(context).obs;
+        controller.listItem = controller.getListItemWithPermission(context).obs;
         return Scaffold(
           body: Container(
             // decoration: BoxDecoration(
@@ -65,8 +65,8 @@ class DrawerPage extends GetView<DrawerLogic> {
                       child: ListView.builder(
                         itemCount: controller.listItem?.length,
                         itemBuilder: (context, index) {
-                          DrawerItem drawerItem =
-                              controller.getListItem(context)[index];
+                          DrawerItem drawerItem = controller
+                              .getListItemWithPermission(context)[index];
                           if (drawerItem.list!.isEmpty) {
                             return InkWell(
                               highlightColor: Colors.transparent,

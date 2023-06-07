@@ -1,21 +1,38 @@
 class Values {
-  static final String KEY_GOOGLE_DETECT =
+  static const String KEY_GOOGLE_DETECT =
       "931E36A11718B4CB29813F343916B97EBE28982C0B5EB8B2E9CB4A1803738F1A4B0D7F2D5254079D47FD707F1500795B";
 }
 
 class Reason {
-  static final String REASON_REQUEST = "REQUEST";
-  static final String REASON_REQUEST_CANCEL = "CANCEL";
-  static final String REASON_REQUEST_TRANSFER = "TRANSFER";
-  static final String REASON_SURVEY = "SURVEY";
-  static final String REASON_DEPLOYMENT = "DEPLOYMENT";
+  static const String REASON_REQUEST = "REQUEST";
+  static const String REASON_REQUEST_CANCEL = "CANCEL";
+  static const String REASON_REQUEST_TRANSFER = "TRANSFER";
+  static const String REASON_SURVEY = "SURVEY";
+  static const String REASON_DEPLOYMENT = "DEPLOYMENT";
+}
+
+class Permission {
+  static const String CONTRACTING = "CONTRACTING";
+  static const String TRANSFER_REQUEST = "TRANSFER_REQUEST";
+  static const String MBCCS_FTTH_REQUEST = "MBCCS_FTTH.REQUEST";
+  static const String CREATE_REQUEST = "CREATE_REQUEST";
+  static const String MBCCS_FTTH_SURVEY = "MBCCS_FTTH.SURVEY";
+  static const String SURVEY_ONLINE = "SURVEY_ONLINE";
+  static const String MBCCS_FTTH_CONTRACT = "MBCCS_FTTH.CONTRACT";
+  static const String CANCEL_REQUEST = "CANCEL_REQUEST";
+  static const String BYPASS_FINGER = "BYPASS_FINGER";
+  static const String CANCEL_SERVICE = "CANCEL_SERVICE";
+  static const String CHANGE_PLAN = "CHANGE_PLAN";
+  static const String TRANSFER_SERVICE = "TRANSFER_SERVICE";
+  static const String BUY_ANYPAY = "BUY_ANYPAY";
+  static const String CLEAR_DEBT = "CLEAR_DEBT";
 }
 
 class RequestStatus {
-  static final String CREATE_REQUEST = "CREATE_REQUEST";
-  static final String CREATE_REQUEST_WITHOUT_SURVEY =
+  static const String CREATE_REQUEST = "CREATE_REQUEST";
+  static const String CREATE_REQUEST_WITHOUT_SURVEY =
       "CREATE_REQUEST_WITHOUT_SURVEY";
-  static final String SURVEY_OFFLINE_SUCCESSFULLY =
+  static const String SURVEY_OFFLINE_SUCCESSFULLY =
       "SURVEY_OFFLINE_SUCCESSFULLY";
   static final String SUCCEED_SURVEY = "SUCCEED_SURVEY";
   static final String CONTRACTING = "CONTRACTING";
