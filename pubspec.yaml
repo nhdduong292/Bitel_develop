@@ -152,6 +152,9 @@ flutter:
         - asset: assets/fonts/barlow/Barlow-Thin.ttf
         - asset: assets/fonts/barlow/Barlow-Medium.ttf
         - asset: assets/fonts/barlow/Barlow-Light.ttf
+    - family: Hallelujah
+      fonts:
+        - asset: assets/fonts/hallelujah/GloriaHallelujah-Regular.ttf
   #        weight: 700
   #   - family: Trajan Pro
   #     fonts:

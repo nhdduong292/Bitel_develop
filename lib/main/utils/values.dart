@@ -20,6 +20,7 @@ class RequestStatus {
   static final String SUCCEED_SURVEY = "SUCCEED_SURVEY";
   static final String CONTRACTING = "CONTRACTING";
   static final String DEPLOYING = "DEPLOYING";
+  static final String RECOVERING = "RECOVERING";
   static final String COMPLETE = "COMPLETE";
   static final String CANCEL = "CANCEL";
   static final String ALL = "";
@@ -69,4 +70,11 @@ class ActionCode {
 class ActionType1 {
   static final String NEW_CONNECT = "NEW_CONNECT";
   static final String CANCEL_CONTRACT = "CANCEL_CONTRACT";
+}
+
+class ClearDebtSearchType {
+  static final String SERVICE_CODE = "SERVICE_CODE";
+  static final String ACCOUNT = "ACCOUNT";
+  static final String ID_NUMBER = "ID_NUMBER";
+  static final String PHONE_NUMBER = "PHONE_NUMBER";
 }

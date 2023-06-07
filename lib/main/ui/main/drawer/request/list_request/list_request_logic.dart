@@ -22,6 +22,7 @@ class ListRequestLogic extends GetxController
   GlobalKey<ListRequestTabState> globalKey3 = GlobalKey();
   GlobalKey<ListRequestTabState> globalKeySucceedSurvey = GlobalKey();
   GlobalKey<ListRequestTabState> globalKeyDeploying = GlobalKey();
+  GlobalKey<ListRequestTabState> globalKeyWaitingRecovery = GlobalKey();
   GlobalKey<ListRequestTabState> globalKeyComplete = GlobalKey();
   GlobalKey<ListRequestTabState> globalKeyCancel = GlobalKey();
   GlobalKey<ListRequestTabState> globalKeyAll = GlobalKey();
@@ -35,10 +36,9 @@ class ListRequestLogic extends GetxController
   @override
   void onInit() {
     // TODO: implement onInit
-    tabController = TabController(vsync: this, length: 6);
     super.onInit();
-    index = int.parse(Get.arguments[0]);
-    actionType = Get.arguments[1];
+    tabController = TabController(vsync: this, length: 7);
+    index = Get.arguments;
     currentFromDate = saleLogic.fromDate;
     currentToDate = saleLogic.toDate;
     tabController!.animateTo(index, duration: Duration(milliseconds: 500));
@@ -71,6 +71,8 @@ class ListRequestLogic extends GetxController
       } else if (index == 4) {
         globalKeyComplete.currentState!.getListRequest(keySearch);
       } else if (index == 5) {
+        globalKeyWaitingRecovery.currentState!.getListRequest(keySearch);
+      } else if (index == 6) {
         globalKeyCancel.currentState!.getListRequest(keySearch);
       } else if (index == 0) {
         globalKeyAll.currentState!.getListRequest(keySearch);
@@ -90,8 +92,10 @@ class ListRequestLogic extends GetxController
     } else if (index == 2) {
       return RequestStatus.DEPLOYING;
     } else if (index == 3) {
-      return RequestStatus.COMPLETE;
+      return RequestStatus.RECOVERING;
     } else if (index == 4) {
+      return RequestStatus.COMPLETE;
+    } else if (index == 5) {
       return RequestStatus.CANCEL;
     }
     return "";
@@ -148,8 +152,10 @@ class ListRequestLogic extends GetxController
       } else if (index == 3) {
         globalKeyDeploying.currentState!.getListRequest(key);
       } else if (index == 4) {
-        globalKeyComplete.currentState!.getListRequest(key);
+        globalKeyWaitingRecovery.currentState!.getListRequest(key);
       } else if (index == 5) {
+        globalKeyComplete.currentState!.getListRequest(key);
+      } else if (index == 6) {
         globalKeyCancel.currentState!.getListRequest(key);
       } else if (index == 0) {
         globalKeyAll.currentState!.getListRequest(key);

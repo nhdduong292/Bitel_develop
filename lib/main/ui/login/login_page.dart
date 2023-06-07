@@ -134,6 +134,7 @@ class LoginPage extends GetWidget {
                             obscureText: controller.isShowPass.value,
                             focusNode: controller.focusPass,
                             controller: controller.controllerPass,
+                            textCapitalization: TextCapitalization.none,
                             cursorColor: AppColors.colorText1,
                             onChanged: (value) {
                               controller.setStatePass(false);

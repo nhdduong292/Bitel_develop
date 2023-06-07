@@ -108,4 +108,14 @@ class ContractUploadingLogic extends GetxController {
       print(e.toString());
     }
   }
+
+  bool isShowContinue() {
+    if ((listFileMainContract.isNotEmpty &&
+            listFileLendingContract.isNotEmpty) ||
+        valueCheckBox) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

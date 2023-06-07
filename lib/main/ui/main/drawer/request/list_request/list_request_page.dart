@@ -230,6 +230,12 @@ class ListRequestPage extends GetWidget {
                       )),
                       Tab(
                           child: Text(
+                              AppLocalizations.of(context)!
+                                  .textWaittingRecovery,
+                              style: AppStyles.r7)),
+
+                      Tab(
+                          child: Text(
                               AppLocalizations.of(context)!.textComplete,
                               style: AppStyles.r7)),
                       Tab(
@@ -369,6 +375,16 @@ class ListRequestPage extends GetWidget {
                               },
                             ),
                             ListRequestTabPage(
+                              status: RequestStatus.RECOVERING,
+                              listRequestLogic: controller,
+                              key: controller.globalKeyWaitingRecovery,
+                              callbackTotalRequest: (currentTotal, total) {
+                                controller.currentTotal = currentTotal;
+                                controller.total = total;
+                                controller.update();
+                              },
+                            ),
+                            ListRequestTabPage(
                               status: RequestStatus.COMPLETE,
                               listRequestLogic: controller,
                               key: controller.globalKeyComplete,
@@ -449,9 +465,12 @@ class ListRequestPage extends GetWidget {
                     controller.globalKeyDeploying.currentState!
                         .getListRequest("");
                   } else if (controller.index == 4) {
-                    controller.globalKeyComplete.currentState!
+                    controller.globalKeyWaitingRecovery.currentState!
                         .getListRequest("");
                   } else if (controller.index == 5) {
+                    controller.globalKeyComplete.currentState!
+                        .getListRequest("");
+                  } else if (controller.index == 6) {
                     controller.globalKeyCancel.currentState!.getListRequest("");
                   } else if (controller.index == 0) {
                     controller.globalKeyAll.currentState!.getListRequest("");

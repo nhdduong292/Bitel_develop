@@ -1,44 +1,48 @@
 class ClearDebtModel {
   String? subId;
-  String? service;
-  String? productName;
-  String? productCode;
   String? isdn;
+  String? productCode;
+  String? serviceType;
+  String? serviceTypeCode;
+  String? actStatus;
+  String? actStatusCode;
+  String? activeDate;
+  String? idNo;
   String? idType;
-  String? idNumber;
-  String? fullName;
-  String? status;
-  double? amount;
-  String? expireDate;
+  String? custName;
+  String? isControl;
+  String? phone;
 
   ClearDebtModel();
   ClearDebtModel.fromJson(Map<String, dynamic> json) {
     subId = json['subId'];
-    service = json['service'];
-    productName = json['productName'];
+    serviceTypeCode = json['serviceTypeCode'];
+    serviceType = json['serviceType'];
     productCode = json['productCode'];
     isdn = json['isdn'];
-    amount = json['amount'];
+    phone = json['phone'];
     idType = json['idType'];
-    idNumber = json['idNumber'];
-    fullName = json['fullName'];
-    status = json['status'];
-    expireDate = json['expireDate'];
+    idNo = json['idNo'];
+    custName = json['custName'];
+    actStatus = json['actStatus'];
+    activeDate = json['activeDate'];
+    actStatusCode = json['actStatusCode'];
+    isControl = json['isControl'];
   }
 
   Map<String, dynamic> toJson() {
     return {
       'subId': subId,
-      'service': service,
-      'productName': productName,
+      'service': serviceTypeCode,
+      'productName': serviceType,
       'productCode': productCode,
       'isdn': isdn,
-      'amount': amount,
+      'amount': phone,
       'idType': idType,
-      'idNumber': idNumber,
-      'fullName': fullName,
-      'status': status,
-      'expireDate': expireDate,
+      'idNumber': idNo,
+      'fullName': custName,
+      'status': actStatus,
+      'expireDate': activeDate,
     };
   }
 }

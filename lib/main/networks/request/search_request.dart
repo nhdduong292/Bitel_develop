@@ -20,6 +20,7 @@ class SearchRequest {
       // AppLocalizations.of(context)!.textConnected,
       AppLocalizations.of(context)!.textSucceedSurvey,
       AppLocalizations.of(context)!.textDeploying,
+      AppLocalizations.of(context)!.textWaittingRecovery,
       AppLocalizations.of(context)!.textComplete,
       AppLocalizations.of(context)!.textCancel
     ];
@@ -29,7 +30,6 @@ class SearchRequest {
     return [
       AppLocalizations.of(context)!.textNewConnect,
       AppLocalizations.of(context)!.textCancelRequest,
-
     ];
   }
 
@@ -47,10 +47,12 @@ class SearchRequest {
       //   return 3;
     } else if (status == AppLocalizations.of(context)!.textDeploying) {
       return 3;
-    } else if (status == AppLocalizations.of(context)!.textComplete) {
+    } else if (status == AppLocalizations.of(context)!.textWaittingRecovery) {
       return 4;
-    } else if (status == AppLocalizations.of(context)!.textCancel) {
+    } else if (status == AppLocalizations.of(context)!.textComplete) {
       return 5;
+    } else if (status == AppLocalizations.of(context)!.textCancel) {
+      return 6;
     }
     return 0;
   }
@@ -103,6 +105,8 @@ class SearchRequest {
         return RequestStatus.SUCCEED_SURVEY;
       } else if (status == AppLocalizations.of(context)!.textDeploying) {
         return RequestStatus.DEPLOYING;
+      } else if (status == AppLocalizations.of(context)!.textWaittingRecovery) {
+        return RequestStatus.RECOVERING;
       } else if (status == AppLocalizations.of(context)!.textComplete) {
         return RequestStatus.COMPLETE;
       } else if (status == AppLocalizations.of(context)!.textCancel) {
