@@ -166,25 +166,22 @@ class SalePage extends GetWidget {
                                       () {
                                         if (index == 0) {
                                           Get.toNamed(RouteConfig.listRequest,
-                                              arguments: ['1', '']);
+                                              arguments: 1);
                                         } else if (index == 1) {
                                           Get.toNamed(RouteConfig.listRequest,
-                                              arguments: ['2', '']);
+                                              arguments: 2);
                                         } else if (index == 2) {
                                           Get.toNamed(RouteConfig.listRequest,
-                                              arguments: ['3', '']);
+                                              arguments: 3);
                                         } else if (index == 3) {
                                           Get.toNamed(RouteConfig.listRequest,
-                                              arguments: ['4', '']);
+                                              arguments: 5);
                                         } else if (index == 4) {
                                           Get.toNamed(RouteConfig.listRequest,
-                                              arguments: ['5', '']);
+                                              arguments: 6);
                                         } else if (index == 5) {
                                           Get.toNamed(RouteConfig.listRequest,
-                                              arguments: [
-                                                '3',
-                                                ActionType1.CANCEL_CONTRACT
-                                              ]);
+                                              arguments: 4);
                                         }
                                       },
                                     );
@@ -503,12 +500,12 @@ class SalePage extends GetWidget {
                                             AppLocalizations.of(context)!
                                                 .textSearchRequest) {
                                           Get.toNamed(RouteConfig.listRequest,
-                                              arguments: ['0', '']);
+                                              arguments: 0);
                                         } else if (optionSale.title ==
                                             AppLocalizations.of(context)!
                                                 .textConnectSubscriber) {
                                           Get.toNamed(RouteConfig.listRequest,
-                                              arguments: ['2', '']);
+                                              arguments: 2);
                                         } else if (optionSale.title ==
                                             AppLocalizations.of(context)!
                                                 .textClearDebt) {

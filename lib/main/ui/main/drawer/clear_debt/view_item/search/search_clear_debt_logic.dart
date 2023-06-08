@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:bitel_ventas/main/networks/model/clear_debt_model.dart';
 import 'package:bitel_ventas/main/networks/model/search_clear_debt_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/clear_debt_logic.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -24,7 +26,7 @@ class SearchClearDebtLogic extends GetxController {
   SearchClearDebtLogic({required this.context});
 
   bool isActive = true;
-  List<String> listIdentity = ["DNI", "CE", "PP", "PTP"];
+  List<String> listIdentity = ["DNI", "CE", "PP"];
   String currentStatus = "";
   String currentIdentityType = "";
   String currentPhone = "";
@@ -37,12 +39,15 @@ class SearchClearDebtLogic extends GetxController {
   CaptchaModel captchaModel = CaptchaModel();
   SearchClearDebtModel searchClearDebtModel = SearchClearDebtModel();
   List<ClearDebtModel> listClearDebt = [];
-
+  bool isGetCaptchaDone = false;
+  String generatedCaptcha = '';
+  String searchType = '';
   List<String> getListStatus() {
     return [
       AppLocalizations.of(context)!.textIdentityNumber,
       AppLocalizations.of(context)!.textFTTHAccount,
-      AppLocalizations.of(context)!.textPhoneNumber
+      AppLocalizations.of(context)!.textPhoneNumber,
+      AppLocalizations.of(context)!.textServiceNumber
     ];
   }
 
@@ -150,17 +155,22 @@ class SearchClearDebtLogic extends GetxController {
   }
 
   void getCaptcha() {
+    isGetCaptchaDone = false;
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_GET_CAPTCHA,
       params: {'action': 'CLEAR_DEBT'},
       onSuccess: (response) {
         if (response.isSuccess) {
           captchaModel = CaptchaModel.fromJson(response.data['data']);
+          isGetCaptchaDone = true;
           update();
         } else {}
       },
       onError: (error) {
-        Common.showMessageError(error: error, context: context);
+        // Common.showMessageError(error: error, context: context);
+        isGetCaptchaDone = true;
+        generatedCaptcha = generateCaptchaString();
+        update();
       },
     );
   }
@@ -186,20 +196,16 @@ class SearchClearDebtLogic extends GetxController {
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_SEARCH_CLEAR_DEBT,
       params: {
-        'type': isStatusIdentity() ? currentIdentityType : '',
-        'idNumber': currentIdNumber,
-        'phone': currentPhone,
-        'account': currentAccount,
+        'type': searchType,
+        'idType': isStatusIdentity() ? currentIdentityType : '',
+        'value': currentEnter.trim(),
         'captcha': currentCapcha,
-        'page': 0,
-        'pageSize': 10,
-        'sort': 'createdDate'
       },
       onSuccess: (response) {
         Get.back();
         if (response.isSuccess) {
-          searchClearDebtModel = SearchClearDebtModel.fromJson(response.data);
-          listClearDebt = (searchClearDebtModel.data as List)
+          // searchClearDebtModel = SearchClearDebtModel.fromJson(response.data);
+          listClearDebt = (response.data["data"] as List)
               .map((postJson) => ClearDebtModel.fromJson(postJson))
               .toList();
           isSuccess(true);
@@ -213,5 +219,33 @@ class SearchClearDebtLogic extends GetxController {
         Common.showMessageError(error: error, context: context);
       },
     );
+  }
+
+  String generateCaptchaString() {
+    String chars =
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    Random random = Random();
+    String captcha = '';
+
+    for (int i = 0; i < 4; i++) {
+      int index = random.nextInt(chars.length);
+      captcha += chars[index];
+    }
+
+    return captcha;
+  }
+
+  String getSearchType() {
+    if (currentStatus == AppLocalizations.of(context)!.textIdentityNumber) {
+      searchType = ClearDebtSearchType.ID_NUMBER;
+    } else if (currentStatus == AppLocalizations.of(context)!.textFTTHAccount) {
+      searchType = ClearDebtSearchType.ACCOUNT;
+    } else if (currentStatus == AppLocalizations.of(context)!.textPhoneNumber) {
+      searchType = ClearDebtSearchType.PHONE_NUMBER;
+    } else if (currentStatus ==
+        AppLocalizations.of(context)!.textServiceNumber) {
+      searchType = ClearDebtSearchType.SERVICE_CODE;
+    }
+    return searchType;
   }
 }

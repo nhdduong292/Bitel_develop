@@ -93,7 +93,7 @@ class CustomerInformationLogic extends GetxController {
   File? pdfLendingContract;
   var pdf = pw.Document();
   var loadSuccess = false.obs;
-  bool valueCheckBox = true;
+  bool valueCheckBox = false;
   bool isCameraMain = true;
   bool isCameraLending = true;
   bool isLoadingConvertBase64 = false;
@@ -924,5 +924,15 @@ class CustomerInformationLogic extends GetxController {
       index: 0,
       duration: const Duration(milliseconds: 200),
     );
+  }
+
+  bool isShowContinue() {
+    if ((listFileMainContract.isNotEmpty &&
+            listFileLendingContract.isNotEmpty) ||
+        valueCheckBox) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

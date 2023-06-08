@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 // ;
 import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/clear_debt_logic.dart';
+import 'package:bitel_ventas/res/app_fonts.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -165,18 +166,36 @@ class SearchClearDebtPage extends GetView<SearchClearDebtLogic> {
                                         borderRadius:
                                             BorderRadius.circular(20)),
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(20),
-                                      child: controller
-                                                      .captchaModel.base64Img !=
-                                                  null &&
-                                              controller.captchaModel.base64Img!
-                                                  .isNotEmpty
-                                          ? Image.memory(
-                                              fit: BoxFit.fill,
-                                              controller.convertImageCaptcha(),
-                                              gaplessPlayback: true)
-                                          : LoadingCirculApi(),
-                                    ),
+                                        borderRadius: BorderRadius.circular(20),
+                                        child: controller.isGetCaptchaDone
+                                            ? controller.captchaModel
+                                                            .base64Img !=
+                                                        null &&
+                                                    controller.captchaModel
+                                                        .base64Img!.isNotEmpty
+                                                ? Image.memory(
+                                                    fit: BoxFit.fill,
+                                                    controller
+                                                        .convertImageCaptcha(),
+                                                    gaplessPlayback: true)
+                                                : Container(
+                                                    alignment: Alignment.center,
+                                                    decoration: BoxDecoration(
+                                                        color: AppColors
+                                                            .colorBackground),
+                                                    child: Text(
+                                                      controller
+                                                          .generatedCaptcha,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontFamily: AppFonts
+                                                              .Hallelujha,
+                                                          fontSize: 24),
+                                                    ),
+                                                  )
+                                            : LoadingCirculApi()),
                                   ),
                                 ),
                                 Padding(

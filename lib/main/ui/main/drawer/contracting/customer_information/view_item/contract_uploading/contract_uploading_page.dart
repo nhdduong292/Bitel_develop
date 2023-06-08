@@ -301,19 +301,25 @@ class ContractUploadingPage extends GetView<CustomerInformationLogic> {
                   width: width - 62,
                   margin: const EdgeInsets.only(left: 31, right: 31),
                   child: bottomButton(
-                    color: controller.listFileMainContract.isEmpty ||
-                            controller.listFileLendingContract.isEmpty
+                    color: !controller.isShowContinue()
                         ? const Color(0xFF415263).withOpacity(0.2)
                         : null,
                     text: AppLocalizations.of(context)!
                         .textContinue
                         .toUpperCase(),
                     onTap: () {
-                      if (controller.listFileMainContract.isEmpty ||
-                          controller.listFileLendingContract.isEmpty ||
-                          controller.isLoadingConvertBase64) {
-                        return;
+                      if (!controller.isShowContinue()) {
+                        if (controller.listFileMainContract.isEmpty ||
+                            controller.listFileLendingContract.isEmpty ||
+                            controller.isLoadingConvertBase64) {
+                          return;
+                        }
                       }
+                      // if (controller.listFileMainContract.isEmpty ||
+                      //     controller.listFileLendingContract.isEmpty ||
+                      //     controller.isLoadingConvertBase64) {
+                      //   return;
+                      // }
                       if (!controller.valueCheckBox) {
                         controller.showLoading();
                         controller.isLoadingConvertBase64 = true;
