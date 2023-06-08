@@ -84,7 +84,7 @@ class CustomerInformationLogic extends GetxController {
 
   final FocusScopeNode focusScopeNode = FocusScopeNode();
 
-  bool valueCheckBypass = true;
+  bool valueCheckBypass = false;
   bool isShowBypass = false;
 
   List<File> listFileMainContract = [];
