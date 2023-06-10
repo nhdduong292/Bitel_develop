@@ -134,4 +134,10 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/change-plan/preview-contract";
   static const String API_CHANGE_PLAN_SIGN =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/change-plan/sign";
+  static const String API_GET_DEBT =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/clear-debt";
+  static const String API_RESEND_OTP =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/clear-debt/resend-otp";
+  static const String API_PAYMENT =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/clear-debt/payment";
 }

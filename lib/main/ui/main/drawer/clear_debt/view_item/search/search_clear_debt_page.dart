@@ -166,7 +166,7 @@ class SearchClearDebtPage extends GetView<SearchClearDebtLogic> {
                                         borderRadius:
                                             BorderRadius.circular(20)),
                                     child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(20),
+                                        // borderRadius: BorderRadius.circular(20),
                                         child: controller.isGetCaptchaDone
                                             ? controller.captchaModel
                                                             .base64Img !=

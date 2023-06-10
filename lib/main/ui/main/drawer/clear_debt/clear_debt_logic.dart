@@ -12,7 +12,8 @@ class ClearDebtLogic extends GetxController with SingleGetTickerProviderMixin {
 
   double balance = 0.0;
   List<ClearDebtModel> listClearDebt = [];
-  List<ClearDebtModel> listSelectClearDebt = [];
+  ClearDebtModel clearDebtModel = ClearDebtModel();
+  double totalService = 0;
 
   ClearDebtLogic({required this.context});
 
@@ -40,9 +41,10 @@ class ClearDebtLogic extends GetxController with SingleGetTickerProviderMixin {
     listClearDebt = list;
   }
 
-  void setListSelectClearDebt(List<ClearDebtModel> list) {
-    listSelectClearDebt.clear();
-    listSelectClearDebt = list;
+  void setClearDebtSelect(
+      {required ClearDebtModel model, required double total}) {
+    clearDebtModel = model;
+    totalService = total;
   }
 
   void nextPage(int value) {

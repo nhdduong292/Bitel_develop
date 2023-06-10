@@ -1,3 +1,6 @@
+import 'package:bitel_ventas/main/networks/model/debt_model.dart';
+import 'package:expandable/expandable.dart';
+
 class ClearDebtModel {
   String? subId;
   String? isdn;
@@ -12,6 +15,10 @@ class ClearDebtModel {
   String? custName;
   String? isControl;
   String? phone;
+  bool isLoadingListDebt = true;
+  List<int> listValue = [];
+  List<DebtModel> list = [];
+  ExpandableController? controller;
 
   ClearDebtModel();
   ClearDebtModel.fromJson(Map<String, dynamic> json) {
