@@ -693,5 +693,6 @@
   "textActionCode": "Mã hành động",
   "hintActionCode": "Chọn mã hành động",
   "textNewConnect": "Kết nối mới",
-  "textWaittingRecovery": "Chờ phục hồi"
+  "textWaittingRecovery": "Chờ phục hồi",
+   "textDebtFreeAccount": "Tài khoản không có nợ"
 }

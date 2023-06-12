@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/sale/sale_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
@@ -29,8 +30,8 @@ class OTPClearDebtPage extends GetView<OTPClearDebtLogic> {
         init: OTPClearDebtLogic(context: context),
         builder: (controller) {
           return InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             onTap: () {
               FocusScope.of(context).requestFocus(FocusNode());
             },
@@ -154,8 +155,12 @@ class OTPClearDebtPage extends GetView<OTPClearDebtLogic> {
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
                                         if (controller.countDown.value == 0) {
-                                          controller.countDown.value = 120;
-                                          controller.startTimer();
+                                          controller.resendOTP((value) {
+                                            if (value) {
+                                              controller.countDown.value = 120;
+                                              controller.startTimer();
+                                            }
+                                          });
                                         }
                                       },
                                     text: AppLocalizations.of(context)!
@@ -183,7 +188,7 @@ class OTPClearDebtPage extends GetView<OTPClearDebtLogic> {
                             if (!controller.isActiveButton) {
                               return;
                             }
-                            controller.putClearDebt(isSuccess: (value) {
+                            controller.onPayment(isSuccess: (value) {
                               if (value) {
                                 showDialog(
                                   context: context,
@@ -192,10 +197,19 @@ class OTPClearDebtPage extends GetView<OTPClearDebtLogic> {
                                       height: 292,
                                       isSuccess: true,
                                       onContinue: () {
-                                        Get.until((route) {
-                                          return Get.currentRoute ==
-                                              RouteConfig.sale;
-                                        });
+                                        bool isExit =
+                                            Get.isRegistered<SaleLogic>();
+                                        if (isExit) {
+                                          Get.until((route) {
+                                            return Get.currentRoute ==
+                                                RouteConfig.sale;
+                                          });
+                                        } else {
+                                          Get.until((route) {
+                                            return Get.currentRoute ==
+                                                RouteConfig.main;
+                                          });
+                                        }
                                       },
                                     );
                                   },
@@ -277,8 +291,8 @@ class SuccessDialog extends Dialog {
                 borderRadius: BorderRadius.circular(24),
               ),
               child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
                 onTap: () {
                   onContinue();
                 },

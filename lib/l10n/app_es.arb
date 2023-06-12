@@ -695,5 +695,6 @@
   "textActionCode": "Código de acción",
   "hintActionCode": "Seleccionar código de acción",
   "textNewConnect": "Nueva conexión",
-  "textWaittingRecovery": "Esperando recuperación"
+  "textWaittingRecovery": "Esperando recuperación",
+   "textDebtFreeAccount": "Cuenta libre de deudas"
 }

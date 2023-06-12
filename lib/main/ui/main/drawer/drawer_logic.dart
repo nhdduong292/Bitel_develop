@@ -30,20 +30,12 @@ class DrawerLogic extends GetxController {
   void onItemClick({required int index, required BuildContext context}) {
     listItem![index].isSelected = true;
     Timer(Duration(milliseconds: 300), () {
-      switch (index) {
-        case 3:
-          // Get.to(() => FindCustomerPage());
-          // Get.toNamed(RouteConfig.validateFingerprint);
-          // showDialogSurveyMap(context);
-          // Get.to(DemoGoogleMap());
-          break;
-        case 2:
-          Get.toNamed(RouteConfig.buyAnyPay);
-          break;
-        case 4:
-          // Get.to(DemoNativePage());
-          // Get.toNamed(RouteConfig.validateFingerprint);
-          break;
+      if (getListItemWithPermission(context)[index].label ==
+          AppLocalizations.of(context)!.textBuyAnypay) {
+        Get.toNamed(RouteConfig.buyAnyPay);
+      } else if (getListItemWithPermission(context)[index].label ==
+          AppLocalizations.of(context)!.textClearDebt) {
+        Get.toNamed(RouteConfig.clearDebt);
       }
     });
   }

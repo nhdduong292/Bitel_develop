@@ -707,5 +707,6 @@
   "textActionCode": "Action code",
   "hintActionCode": "Select action code",
   "textNewConnect": "New connect",
-  "textWaittingRecovery": "Waiting recovery"
+  "textWaittingRecovery": "Waiting recovery",
+  "textDebtFreeAccount": "Debt-free account"
 }

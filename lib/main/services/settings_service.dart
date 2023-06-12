@@ -44,7 +44,7 @@ class SettingService extends GetxService {
   late SharedPreferences prefs;
 
   final Rx<String> token = "".obs;
-  Rx<String> version = "1.0.2".obs;
+  Rx<String> version = "1.0.4".obs;
 
   Future<SettingService> init() async {
     prefs = await SharedPreferences.getInstance();

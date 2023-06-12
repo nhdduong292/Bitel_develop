@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:bitel_ventas/main/networks/model/clear_debt_model.dart';
+import 'package:bitel_ventas/main/networks/model/debt_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/clear_debt_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/clear_debt/view_item/search/search_clear_debt_logic.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,9 @@ class ClearDebtDetailLogic extends GetxController {
 
   ClearDebtDetailLogic({required this.context});
 
+  int oldSelect = -1;
+  int newSelect = -1;
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -51,6 +55,27 @@ class ClearDebtDetailLogic extends GetxController {
     }).toList();
   }
 
+  void getDebt({required int index}) {
+    listClearDebt[index].isLoadingListDebt = true;
+    listClearDebt[index].list = [];
+    update();
+    ApiUtil.getInstance()!.get(
+      url: '${ApiEndPoints.API_GET_DEBT}/${listClearDebt[index].isdn}',
+      onSuccess: (response) {
+        if (response.isSuccess) {
+          listClearDebt[index].isLoadingListDebt = false;
+          listClearDebt[index].list = (response.data["data"] as List)
+              .map((postJson) => DebtModel.fromJson(postJson))
+              .toList();
+          update();
+        } else {}
+      },
+      onError: (error) {
+        Common.showMessageError(error: error, context: context);
+      },
+    );
+  }
+
   void postClearDebt({required var isSuccess}) {
     _onLoading(context);
     setupListSelect();
@@ -68,7 +93,53 @@ class ClearDebtDetailLogic extends GetxController {
       onError: (error) {
         Get.back();
         isSuccess(false);
-       Common.showMessageError(error: error, context: context);
+        Common.showMessageError(error: error, context: context);
+      },
+    );
+  }
+
+  void checkBalance(var onSuccess) {
+    _onLoading(context);
+    ApiUtil.getInstance()!.get(
+      url: ApiEndPoints.API_CHECK_BALANCE,
+      params: {"amount": totalService},
+      onSuccess: (response) {
+        Get.back();
+        if (response.isSuccess) {
+          onSuccess(true);
+        } else {
+          onSuccess(false);
+        }
+      },
+      onError: (error) {
+        Get.back();
+        Common.showMessageError(error: error, context: context);
+        try {
+          String errorCode = error.response!.data['errorCode'];
+          if (errorCode == 'E028') {
+            onSuccess(false);
+          }
+          // ignore: empty_catches
+        } catch (e) {}
+      },
+    );
+  }
+
+  void resendOTP(var onSuccess) {
+    _onLoading(context);
+    ApiUtil.getInstance()!.post(
+      url: ApiEndPoints.API_RESEND_OTP,
+      onSuccess: (response) {
+        Get.back();
+        if (response.isSuccess) {
+          onSuccess(true);
+        } else {
+          onSuccess(false);
+        }
+      },
+      onError: (error) {
+        Get.back();
+        Common.showMessageError(error: error, context: context);
       },
     );
   }

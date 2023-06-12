@@ -39,6 +39,7 @@ class SearchClearDebtLogic extends GetxController {
   CaptchaModel captchaModel = CaptchaModel();
   SearchClearDebtModel searchClearDebtModel = SearchClearDebtModel();
   List<ClearDebtModel> listClearDebt = [];
+
   bool isGetCaptchaDone = false;
   String generatedCaptcha = '';
   String searchType = '';
@@ -196,7 +197,7 @@ class SearchClearDebtLogic extends GetxController {
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_SEARCH_CLEAR_DEBT,
       params: {
-        'type': searchType,
+        'type': getSearchType(),
         'idType': isStatusIdentity() ? currentIdentityType : '',
         'value': currentEnter.trim(),
         'captcha': currentCapcha,
@@ -204,10 +205,10 @@ class SearchClearDebtLogic extends GetxController {
       onSuccess: (response) {
         Get.back();
         if (response.isSuccess) {
-          // searchClearDebtModel = SearchClearDebtModel.fromJson(response.data);
           listClearDebt = (response.data["data"] as List)
               .map((postJson) => ClearDebtModel.fromJson(postJson))
               .toList();
+
           isSuccess(true);
         } else {
           isSuccess(false);

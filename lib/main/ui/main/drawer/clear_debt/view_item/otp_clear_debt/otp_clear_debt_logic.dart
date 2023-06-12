@@ -17,7 +17,8 @@ class OTPClearDebtLogic extends GetxController {
   BuildContext context;
   var countDown = 120.obs;
   bool isActiveButton = false;
-  List<ClearDebtModel> listSelectClearDebt = [];
+  ClearDebtModel clearDebtModel = ClearDebtModel();
+  double totalService = 0;
   ClearDebtLogic clearDebtLogic = Get.find();
   String otp = '';
 
@@ -27,7 +28,8 @@ class OTPClearDebtLogic extends GetxController {
     // TODO: implement onInit
     super.onInit();
     startTimer();
-    listSelectClearDebt = clearDebtLogic.listSelectClearDebt;
+    clearDebtModel = clearDebtLogic.clearDebtModel;
+    totalService = clearDebtLogic.totalService;
   }
 
   void startTimer() {
@@ -44,11 +46,35 @@ class OTPClearDebtLogic extends GetxController {
     );
   }
 
-  void putClearDebt({required var isSuccess}) {
+  void resendOTP(var onSuccess) {
     _onLoading(context);
-    ApiUtil.getInstance()!.put(
-      url: ApiEndPoints.API_PUT_CLEAR_DEBT,
-      body: {'lst': json.decode(jsonEncode(listSelectClearDebt)), 'opt': otp},
+    ApiUtil.getInstance()!.post(
+      url: ApiEndPoints.API_RESEND_OTP,
+      onSuccess: (response) {
+        Get.back();
+        if (response.isSuccess) {
+          onSuccess(true);
+        } else {
+          onSuccess(false);
+        }
+      },
+      onError: (error) {
+        Get.back();
+        Common.showMessageError(error: error, context: context);
+      },
+    );
+  }
+
+  void onPayment({required var isSuccess}) {
+    _onLoading(context);
+    ApiUtil.getInstance()!.post(
+      url: ApiEndPoints.API_PAYMENT,
+      body: {
+        "isdn": clearDebtModel.isdn,
+        "serviceType": clearDebtModel.serviceType,
+        "amount": totalService,
+        'opt': otp
+      },
       onSuccess: (response) {
         Get.back();
         if (response.isSuccess) {
@@ -60,7 +86,7 @@ class OTPClearDebtLogic extends GetxController {
       onError: (error) {
         Get.back();
         isSuccess(false);
-       Common.showMessageError(error: error, context: context);
+        Common.showMessageError(error: error, context: context);
       },
     );
   }
