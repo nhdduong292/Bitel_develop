@@ -119,8 +119,7 @@ class OrderManagementPage extends GetWidget {
                           ),
                           spinnerFormV2(
                               context: context,
-                              hint: AppLocalizations.of(context)!
-                                  .textIngresaUnCodigo,
+                              hint: AppLocalizations.of(context)!.hintEnterCode,
                               required: false,
                               dropValue: "",
                               function: (value) {
@@ -428,8 +427,9 @@ class OrderManagementPage extends GetWidget {
                                     );
                                   },
                                   itemCount: controller.listBuyAnyPay.length)
-                              : const Center(
-                                  child: Text('null'),
+                              : Center(
+                                  child: Text(AppLocalizations.of(context)!
+                                      .textNoResultIsFound),
                                 ),
                     ),
                   ),

@@ -41,6 +41,7 @@ class CustomerInformationLogic extends GetxController {
   var checkMainContract = true.obs;
   var checkLendingContract = false.obs;
   var billCycle = '';
+  var checkConfirmContract = true.obs;
   int productId = 0;
   int reasonId = 0;
   List<int> listPromotionId = [];
@@ -270,7 +271,7 @@ class CustomerInformationLogic extends GetxController {
           ? billAddressSelect
           : requestModel.address,
       "phone": customer.telFax.trim(),
-      "email": customer.email.trim(),
+      "email": emailController.text.trim(),
       "protectionFilter": checkOption1.value,
       "receiveInfoByMail": checkOption2.value,
       "receiveFromThirdParty": checkOption3.value,
@@ -327,7 +328,7 @@ class CustomerInformationLogic extends GetxController {
           ? billAddressSelect
           : requestModel.address,
       "phone": customer.telFax.trim(),
-      "email": customer.email.trim(),
+      "email": emailController.text.trim(),
       "protectionFilter": checkOption1.value,
       "receiveInfoByMail": checkOption2.value,
       "receiveFromThirdParty": checkOption3.value,

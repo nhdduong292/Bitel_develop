@@ -251,10 +251,10 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                     height: 25,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 57, right: 20),
+                    padding: const EdgeInsets.only(left: 20, right: 20),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -290,80 +290,90 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                             ),
                           ],
                         ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Visibility(
-                                  visible:
-                                      (controller.listImageLeft.isNotEmpty ||
+                        (controller.listImageLeft.isEmpty &&
+                                controller.listImageRight.isEmpty)
+                            ? SizedBox(
+                                width: 133,
+                              )
+                            : Column(
+                                children: [
+                                  Visibility(
+                                      visible: (controller
+                                              .listImageLeft.isNotEmpty ||
                                           controller.listImageRight.isNotEmpty),
-                                  child: fingerPrintView(
-                                      link: controller.listPathFinger.isNotEmpty
-                                          ? controller.listPathFinger[0]
-                                          : '',
-                                      value: 0,
-                                      onDelete: (value) {
-                                        if (controller.indexLeft != 0) {
-                                          controller.listImageLeft
-                                              .removeAt(value);
-                                        } else {
-                                          controller.listImageRight
-                                              .removeAt(value);
-                                        }
-                                        controller.listPathFinger
-                                            .removeAt(value);
-                                        controller.countFinger.value++;
-                                        controller.update();
-                                      })),
-                              Visibility(
-                                  visible: (controller.listImageLeft.length >=
-                                          2 ||
-                                      controller.listImageRight.length >= 2),
-                                  child: fingerPrintView(
-                                      link:
-                                          controller.listPathFinger.length >= 2
+                                      child: fingerPrintView(
+                                          link: controller
+                                                  .listPathFinger.isNotEmpty
+                                              ? controller.listPathFinger[0]
+                                              : '',
+                                          value: 0,
+                                          onDelete: (value) {
+                                            if (controller.indexLeft != 0) {
+                                              controller.listImageLeft
+                                                  .removeAt(value);
+                                            } else {
+                                              controller.listImageRight
+                                                  .removeAt(value);
+                                            }
+                                            controller.listPathFinger
+                                                .removeAt(value);
+                                            controller.countFinger.value++;
+                                            controller.update();
+                                          })),
+                                  Visibility(
+                                      visible: (controller
+                                                  .listImageLeft.length >=
+                                              2 ||
+                                          controller.listImageRight.length >=
+                                              2),
+                                      child: fingerPrintView(
+                                          link: controller
+                                                      .listPathFinger.length >=
+                                                  2
                                               ? controller.listPathFinger[1]
                                               : '',
-                                      value: 1,
-                                      onDelete: (value) {
-                                        if (controller.indexLeft != 0) {
-                                          controller.listImageLeft
-                                              .removeAt(value);
-                                        } else {
-                                          controller.listImageRight
-                                              .removeAt(value);
-                                        }
-                                        controller.listPathFinger
-                                            .removeAt(value);
-                                        controller.countFinger.value++;
-                                        controller.update();
-                                      })),
-                              Visibility(
-                                  visible: (controller.listImageLeft.length >=
-                                          3 ||
-                                      controller.listImageRight.length >= 3),
-                                  child: fingerPrintView(
-                                      link:
-                                          controller.listPathFinger.length == 3
+                                          value: 1,
+                                          onDelete: (value) {
+                                            if (controller.indexLeft != 0) {
+                                              controller.listImageLeft
+                                                  .removeAt(value);
+                                            } else {
+                                              controller.listImageRight
+                                                  .removeAt(value);
+                                            }
+                                            controller.listPathFinger
+                                                .removeAt(value);
+                                            controller.countFinger.value++;
+                                            controller.update();
+                                          })),
+                                  Visibility(
+                                      visible: (controller
+                                                  .listImageLeft.length >=
+                                              3 ||
+                                          controller.listImageRight.length >=
+                                              3),
+                                      child: fingerPrintView(
+                                          link: controller
+                                                      .listPathFinger.length ==
+                                                  3
                                               ? controller.listPathFinger[2]
                                               : '',
-                                      value: 2,
-                                      onDelete: (value) {
-                                        if (controller.indexLeft != 0) {
-                                          controller.listImageLeft
-                                              .removeAt(value);
-                                        } else {
-                                          controller.listImageRight
-                                              .removeAt(value);
-                                        }
-                                        controller.listPathFinger
-                                            .removeAt(value);
-                                        controller.countFinger.value++;
-                                        controller.update();
-                                      })),
-                            ],
-                          ),
-                        )
+                                          value: 2,
+                                          onDelete: (value) {
+                                            if (controller.indexLeft != 0) {
+                                              controller.listImageLeft
+                                                  .removeAt(value);
+                                            } else {
+                                              controller.listImageRight
+                                                  .removeAt(value);
+                                            }
+                                            controller.listPathFinger
+                                                .removeAt(value);
+                                            controller.countFinger.value++;
+                                            controller.update();
+                                          })),
+                                ],
+                              )
                       ],
                     ),
                   ),

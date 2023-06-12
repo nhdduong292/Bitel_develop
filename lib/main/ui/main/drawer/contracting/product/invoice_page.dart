@@ -104,89 +104,90 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              controller.billModel.product.productName ??
-                                  'null',
-                              style: const TextStyle(
-                                  fontSize: 13,
-                                  fontFamily: 'Barlow',
-                                  color: AppColors.colorText1,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Text(
-                                  '${AppLocalizations.of(context)!.textSpeed}: ',
-                                  style: const TextStyle(
-                                      fontSize: 12,
-                                      fontFamily: 'Barlow',
-                                      color: AppColors.colorText1,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                                controller.billModel.speedNew != 0
-                                    ? Text(
-                                        '${controller.billModel.product.speed ?? '---'} Mpbs ',
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          decoration: BoxDecoration(
+                            color: AppColors.colorSubContent.withOpacity(0.07),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Text(
+                            '${Common.numberFormat(controller.billModel.product.defaultValue)}/${AppLocalizations.of(context)!.textMonth}',
+                            style: const TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'Barlow',
+                                color: AppColors.colorText3,
+                                fontWeight: FontWeight.w700),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            controller.billModel.product.productName ?? 'null',
+                            style: const TextStyle(
+                                fontSize: 13,
+                                fontFamily: 'Barlow',
+                                color: AppColors.colorText1,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Text(
+                                '${AppLocalizations.of(context)!.textSpeed}: ',
+                                style: const TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'Barlow',
+                                    color: AppColors.colorText1,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              controller.billModel.speedNew != 0
+                                  ? Text(
+                                      '${controller.billModel.product.speed ?? '---'} Mpbs ',
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        fontFamily: 'Barlow',
+                                        color: AppColors.colorText1,
+                                        fontWeight: FontWeight.w400,
+                                        decoration: TextDecoration.lineThrough,
+                                        decorationStyle:
+                                            TextDecorationStyle.solid,
+                                      ),
+                                    )
+                                  : Expanded(
+                                      child: Text(
+                                        '${controller.billModel.product.speed ?? '---'} Mpbs',
                                         style: const TextStyle(
                                           fontSize: 12,
                                           fontFamily: 'Barlow',
                                           color: AppColors.colorText1,
                                           fontWeight: FontWeight.w400,
-                                          decoration:
-                                              TextDecoration.lineThrough,
-                                          decorationStyle:
-                                              TextDecorationStyle.solid,
-                                        ),
-                                      )
-                                    : Expanded(
-                                        child: Text(
-                                          '${controller.billModel.product.speed ?? '---'} Mpbs',
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                            fontFamily: 'Barlow',
-                                            color: AppColors.colorText1,
-                                            fontWeight: FontWeight.w400,
-                                          ),
                                         ),
                                       ),
-                                Visibility(
-                                  visible: controller.billModel.speedNew != 0,
-                                  child: Text(
-                                    '${controller.billModel.speedNew} Mpbs',
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                      fontFamily: 'Barlow',
-                                      color: AppColors.colorText1,
-                                      fontWeight: FontWeight.w400,
                                     ),
+                              Visibility(
+                                visible: controller.billModel.speedNew != 0,
+                                child: Text(
+                                  '${controller.billModel.speedNew} Mpbs',
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'Barlow',
+                                    color: AppColors.colorText1,
+                                    fontWeight: FontWeight.w400,
                                   ),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
                       ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 30, vertical: 10),
-                        decoration: BoxDecoration(
-                          color: AppColors.colorSubContent.withOpacity(0.07),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Text(
-                          '${Common.numberFormat(controller.billModel.product.defaultValue)}/${AppLocalizations.of(context)!.textMonth}',
-                          style: const TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Barlow',
-                              color: AppColors.colorText3,
-                              fontWeight: FontWeight.w700),
-                        ),
-                      ),
-                    ],
+                    ].reversed.toList(),
                   ),
                 ),
                 const SizedBox(

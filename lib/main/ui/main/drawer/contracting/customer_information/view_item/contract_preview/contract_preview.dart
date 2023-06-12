@@ -146,9 +146,9 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
             customRadioMutiple(
                 width: width,
                 text: AppLocalizations.of(context)!.textIConfirmThat,
-                check: controller.checkOption,
+                check: controller.checkConfirmContract,
                 changeValue: (value) {
-                  controller.checkOption.value = value;
+                  controller.checkConfirmContract.value = value;
                 }),
             SizedBox(
               height: 24,
@@ -173,7 +173,7 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
                       controller.contract.contractId
                     ]);
                   }
-                  if (controller.checkOption.value) {
+                  if (controller.checkConfirmContract.value) {
                     if (controller.checkMainContract.value) {
                       callback(ValidateFingerStatus.MAIN);
                     } else {
@@ -181,7 +181,7 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
                     }
                   }
                 },
-                color: !(controller.checkOption.value)
+                color: !(controller.checkConfirmContract.value)
                     ? const Color(0xFF415263).withOpacity(0.2)
                     : null),
           ),
