@@ -157,6 +157,8 @@ class OTPClearDebtPage extends GetView<OTPClearDebtLogic> {
                                         if (controller.countDown.value == 0) {
                                           controller.resendOTP((value) {
                                             if (value) {
+                                              controller.isClickResendOTP
+                                                  .value = true;
                                               controller.countDown.value = 120;
                                               controller.startTimer();
                                             }
@@ -165,7 +167,14 @@ class OTPClearDebtPage extends GetView<OTPClearDebtLogic> {
                                       },
                                     text: AppLocalizations.of(context)!
                                         .textResendOTP,
-                                    style: AppStyles.rF76F5A_13_500),
+                                    style: controller.isClickResendOTP.value
+                                        ? AppStyles.rF76F5A_13_500.apply(
+                                            decoration:
+                                                TextDecoration.underline)
+                                        : AppStyles.rF76F5A_13_500.apply(
+                                            decoration:
+                                                TextDecoration.underline,
+                                            color: AppColors.color_9454C9)),
                                 TextSpan(
                                     text: AppLocalizations.of(context)!
                                         .textOnceTheRemainingTimes,

@@ -42,6 +42,7 @@ class ValidateFingerprintLogic extends GetxController {
   List<String> listFinger = [];
 
   bool isGetFingerSuccess = false;
+  bool isGetFingerFail = false;
   String pk = "";
 
   String cancelDate = '';
@@ -194,6 +195,8 @@ class ValidateFingerprintLogic extends GetxController {
         }
       },
       onError: (error) {
+        isGetFingerFail = true;
+        update();
         Common.showMessageError(error: error, context: context);
       },
     );
@@ -207,8 +210,8 @@ class ValidateFingerprintLogic extends GetxController {
         if (response.isSuccess) {
           bestFinger = BestFingerModel.fromJson(response.data['data']);
           if (bestFinger.left == 0 && bestFinger.right == 0) {
-            Common.showSystemErrorDialog(
-                context, AppLocalizations.of(context)!.textBestFingerNotExit);
+            Common.showSystemErrorDialog(context,
+                AppLocalizations.of(context)!.textStaffBestFingerNotExit);
             return;
           }
           isGetFingerSuccess = true;
@@ -218,6 +221,8 @@ class ValidateFingerprintLogic extends GetxController {
         }
       },
       onError: (error) {
+        isGetFingerFail = true;
+        update();
         Common.showMessageError(error: error, context: context);
       },
     );

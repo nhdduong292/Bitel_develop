@@ -708,5 +708,10 @@
   "hintActionCode": "Select action code",
   "textNewConnect": "New connect",
   "textWaittingRecovery": "Waiting recovery",
-  "textDebtFreeAccount": "Debt-free account"
+  "textDebtFreeAccount": "Debt-free account",
+  "textStaffBestFingerNotExit": "Staff's best fingerprint does not exist",
+  "textRecovering": "Recovering",
+  "textWaitingChangePlan": "Waiting change plan",
+  "textWaitingTransfer": "Waiting transfer",
+  "textE077": "Buy anypay has reached the limit"
 }

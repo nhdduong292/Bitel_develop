@@ -21,6 +21,7 @@ class OTPClearDebtLogic extends GetxController {
   double totalService = 0;
   ClearDebtLogic clearDebtLogic = Get.find();
   String otp = '';
+  var isClickResendOTP = false.obs;
 
   OTPClearDebtLogic({required this.context});
   @override

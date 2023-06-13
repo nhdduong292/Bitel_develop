@@ -696,5 +696,10 @@
   "hintActionCode": "Seleccionar código de acción",
   "textNewConnect": "Nueva conexión",
   "textWaittingRecovery": "Esperando recuperación",
-   "textDebtFreeAccount": "Cuenta libre de deudas"
+   "textDebtFreeAccount": "Cuenta libre de deudas",
+   "textStaffBestFingerNotExit": "La mejor huella dactilar del personal no existe",
+   "textRecovering": "Recovering",
+  "textWaitingChangePlan": "Waiting change plan",
+  "textWaitingTransfer": "Waiting transfer",
+  "textE077": "Comprar anypay ha alcanzado el límite"
 }

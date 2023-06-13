@@ -197,8 +197,8 @@ class Common {
           return;
         }
       } else {
-          showSystemErrorDialog(
-              context, AppLocalizations.of(context)!.textErrorAPI);
+        showSystemErrorDialog(
+            context, AppLocalizations.of(context)!.textErrorAPI);
       }
       final statusCode = error.response?.statusCode;
       if (statusCode == 401) {
@@ -366,6 +366,8 @@ class Common {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE071);
       } else if (errorCode == 'E072') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE072);
+      } else if (errorCode == 'E077') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE077);
       } else {
         showSystemErrorDialog(context, error.response!.data['errorMessage']);
       }

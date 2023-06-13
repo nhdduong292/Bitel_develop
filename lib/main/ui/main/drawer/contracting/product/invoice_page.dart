@@ -104,6 +104,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(
+                        flex: 1,
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           decoration: BoxDecoration(
@@ -124,44 +125,47 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                       const SizedBox(
                         width: 10,
                       ),
-                      Column(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            controller.billModel.product.productName ?? 'null',
-                            style: const TextStyle(
-                                fontSize: 13,
-                                fontFamily: 'Barlow',
-                                color: AppColors.colorText1,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                '${AppLocalizations.of(context)!.textSpeed}: ',
-                                style: const TextStyle(
-                                    fontSize: 12,
-                                    fontFamily: 'Barlow',
-                                    color: AppColors.colorText1,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                              controller.billModel.speedNew != 0
-                                  ? Text(
-                                      '${controller.billModel.product.speed ?? '---'} Mpbs ',
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                        fontFamily: 'Barlow',
-                                        color: AppColors.colorText1,
-                                        fontWeight: FontWeight.w400,
-                                        decoration: TextDecoration.lineThrough,
-                                        decorationStyle:
-                                            TextDecorationStyle.solid,
-                                      ),
-                                    )
-                                  : Expanded(
-                                      child: Text(
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              controller.billModel.product.productName ??
+                                  'null',
+                              style: const TextStyle(
+                                  fontSize: 13,
+                                  fontFamily: 'Barlow',
+                                  color: AppColors.colorText1,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Text(
+                                  '${AppLocalizations.of(context)!.textSpeed}: ',
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      fontFamily: 'Barlow',
+                                      color: AppColors.colorText1,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                                controller.billModel.speedNew != 0
+                                    ? Text(
+                                        '${controller.billModel.product.speed ?? '---'} Mpbs ',
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          fontFamily: 'Barlow',
+                                          color: AppColors.colorText1,
+                                          fontWeight: FontWeight.w400,
+                                          decoration:
+                                              TextDecoration.lineThrough,
+                                          decorationStyle:
+                                              TextDecorationStyle.solid,
+                                        ),
+                                      )
+                                    : Text(
                                         '${controller.billModel.product.speed ?? '---'} Mpbs',
                                         style: const TextStyle(
                                           fontSize: 12,
@@ -170,22 +174,22 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                                           fontWeight: FontWeight.w400,
                                         ),
                                       ),
+                                Visibility(
+                                  visible: controller.billModel.speedNew != 0,
+                                  child: Text(
+                                    '${controller.billModel.speedNew} Mpbs',
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      fontFamily: 'Barlow',
+                                      color: AppColors.colorText1,
+                                      fontWeight: FontWeight.w400,
                                     ),
-                              Visibility(
-                                visible: controller.billModel.speedNew != 0,
-                                child: Text(
-                                  '${controller.billModel.speedNew} Mpbs',
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    fontFamily: 'Barlow',
-                                    color: AppColors.colorText1,
-                                    fontWeight: FontWeight.w400,
                                   ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ].reversed.toList(),
                   ),

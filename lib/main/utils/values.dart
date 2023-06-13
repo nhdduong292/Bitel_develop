@@ -40,6 +40,8 @@ class RequestStatus {
   static final String RECOVERING = "RECOVERING";
   static final String COMPLETE = "COMPLETE";
   static final String CANCEL = "CANCEL";
+  static final String WAITING_CHANGE_PLAN = "WAITING_CHANGE_PLAN";
+  static final String WAITING_TRANSFER = "WAITING_TRANSFER";
   static final String ALL = "";
 }
 

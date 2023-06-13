@@ -694,5 +694,10 @@
   "hintActionCode": "Chọn mã hành động",
   "textNewConnect": "Kết nối mới",
   "textWaittingRecovery": "Chờ phục hồi",
-   "textDebtFreeAccount": "Tài khoản không có nợ"
+   "textDebtFreeAccount": "Tài khoản không có nợ",
+   "textStaffBestFingerNotExit": "Dấu vân tay tốt nhất của nhân viên không tồn tại",
+   "textRecovering": "Recovering",
+  "textWaitingChangePlan": "Waiting change plan",
+  "textWaitingTransfer": "Waiting transfer",
+  "textE077": "Mua anypay đã đạt đến giới hạn"
 }

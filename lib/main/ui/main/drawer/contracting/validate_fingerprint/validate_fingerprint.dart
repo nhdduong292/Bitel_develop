@@ -200,7 +200,9 @@ class ValidateFingerprintPage extends GetView<ValidateFingerprintLogic> {
                                         ),
                                       ],
                                     )
-                                  : LoadingCirculApi(),
+                                  : !controller.isGetFingerFail
+                                      ? LoadingCirculApi()
+                                      : Container(),
                             ),
                             SizedBox(
                               height: 12,

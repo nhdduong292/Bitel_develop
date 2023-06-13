@@ -191,6 +191,12 @@ class RequestDetailModel {
         return AppLocalizations.of(context)!.textComplete;
       } else if (_status == RequestStatus.CANCEL) {
         return AppLocalizations.of(context)!.textCancel;
+      } else if (_status == RequestStatus.RECOVERING) {
+        return AppLocalizations.of(context)!.textRecovering;
+      } else if (_status == RequestStatus.WAITING_CHANGE_PLAN) {
+        return AppLocalizations.of(context)!.textWaitingChangePlan;
+      } else if (_status == RequestStatus.WAITING_TRANSFER) {
+        return AppLocalizations.of(context)!.textWaitingTransfer;
       }
       return "";
     }
