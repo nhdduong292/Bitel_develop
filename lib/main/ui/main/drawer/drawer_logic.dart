@@ -54,11 +54,15 @@ class DrawerLogic extends GetxController {
           label: AppLocalizations.of(context)!.textFTTH,
           selectedImg: AppImages.icActivatePostpaidSelected,
           isSelected: false,
-          list: [
-            AppLocalizations.of(context)!.textSale,
-            AppLocalizations.of(context)!.textAfterSale,
-            // AppLocalizations.of(context)!.textManageWO,
-          ]),
+          list: isShowAfterSale()
+              ? [
+                  AppLocalizations.of(context)!.textSale,
+                  AppLocalizations.of(context)!.textAfterSale,
+                  // AppLocalizations.of(context)!.textManageWO,
+                ]
+              : [
+                  AppLocalizations.of(context)!.textSale,
+                ]),
       DrawerItem(
           unselectedImg: AppImages.icPortabilityUnselected,
           label: AppLocalizations.of(context)!.textMobile,
@@ -118,6 +122,17 @@ class DrawerLogic extends GetxController {
             requestModel: RequestDetailModel(),
           );
         });
+  }
+
+  bool isShowAfterSale() {
+    var listPermission = InfoBusiness.getInstance()!.getUser().functions;
+    if (!listPermission.contains(Permission.CANCEL_SERVICE) &&
+        !listPermission.contains(Permission.CHANGE_PLAN) &&
+        !listPermission.contains(Permission.TRANSFER_SERVICE)) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }
 
