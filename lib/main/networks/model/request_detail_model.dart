@@ -168,6 +168,10 @@ class RequestDetailModel {
       return AppLocalizations.of(context)!.textConnectNewSubscriber;
     } else if (actionType == ActionType.type_90) {
       return AppLocalizations.of(context)!.textCancelService;
+    } else if (actionType == ActionType.type_195) {
+      return AppLocalizations.of(context)!.textTransferService;
+    } else if (actionType == ActionType.type_196) {
+      return AppLocalizations.of(context)!.textChangePlan;
     } else {
       return '---';
     }

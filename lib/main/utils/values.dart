@@ -59,6 +59,8 @@ class ContractStatus {
 class ActionType {
   static final String type_00 = "00";
   static final String type_90 = "90";
+  static final String type_195 = "195";
+  static final String type_196 = "196";
 }
 
 class ValidateFingerStatus {
