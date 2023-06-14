@@ -19,6 +19,10 @@ import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/clear_penalty/c
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/date_cancel_service/date_cancel_service.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/dialog_cancel_service/dialog_cancel_service.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/penalty_information/penalty_information_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/transfer_service/bill_transfer_service_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/transfer_service/create_transfer_service_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/transfer_service/transfer_service_pdf.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/transfer_service/transfer_service_success_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/manage_wo/manage_wo_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/manage_contact/create/view_item/client_data/id_card_scanner.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/sale/sale_page.dart';
@@ -34,6 +38,7 @@ import 'package:bitel_ventas/main/ui/forgotPassword/forgot_password.dart';
 import '../ui/main/drawer/contracting/customer_information/customer_information_page.dart';
 import '../ui/main/drawer/contracting/ftth_contracting/ftth_contracting_page.dart';
 import '../ui/main/drawer/ftth/after_sale/change_plan/choose/choose_change_plan_page.dart';
+import '../ui/main/drawer/ftth/after_sale/transfer_service/bill_transfer_service_page.dart';
 import '../ui/main/drawer/manage_contact/create/view_item/register_finger_print/register_finger_print_page.dart';
 import '../ui/main/drawer/contracting/validate_fingerprint/validate_fingerprint.dart';
 import '../ui/main/drawer/manage_contact/create/create_contact_page.dart';
@@ -89,6 +94,14 @@ class RouteConfig {
       "/menu/ftth/afterSale/changePlan/inforChangePlan";
   static const String successChangePlan =
       "/menu/ftth/afterSale/changePlan/successChangePlan";
+  static const String createTransferService =
+      "/menu/ftth/afterSale/transferService/createTransferService";
+  static const String billTransferService =
+      "/menu/ftth/afterSale/transferService/billTransferService";
+  static const String pdfTransferService =
+      "/menu/ftth/afterSale/transferService/pdfTransferService";
+  static const String inforTransferService =
+      "/menu/ftth/afterSale/transferService/inforTransferService";
 
   ///page
   static final List<GetPage> getPages = [
@@ -126,6 +139,12 @@ class RouteConfig {
     GetPage(name: chooseChangePlan, page: () => ChooseChangePlanPage()),
     GetPage(name: inforChangePlan, page: () => InforChangePlanPage()),
     GetPage(name: successChangePlan, page: () => ChangePlanSuccessPage()),
+    GetPage(
+        name: createTransferService, page: () => CreateTransferServicePage()),
+    GetPage(name: billTransferService, page: () => BillTransferServicePage()),
+    GetPage(name: pdfTransferService, page: () => TransferServicePDF()),
+    GetPage(
+        name: inforTransferService, page: () => TransferServiceSuccessPage()),
   ];
 
   ///language

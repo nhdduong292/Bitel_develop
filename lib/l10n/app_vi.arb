@@ -699,5 +699,13 @@
    "textRecovering": "Recovering",
   "textWaitingChangePlan": "Waiting change plan",
   "textWaitingTransfer": "Waiting transfer",
-  "textE077": "Mua anypay đã đạt đến giới hạn"
+  "textE077": "Mua anypay đã đạt đến giới hạn",
+  "textCurrentInstallationAddress": "Địa chỉ cài đặt hiện tại",
+"textNewInstallationAddress": "Địa chỉ cài đặt mới",
+"textReasonOfTransfer": "Lý do chuyển đổi",
+"textTransferFee": "Phí chuyển đổi",
+"textTransferServiceRequestForm": "Biểu mẫu yêu cầu chuyển dịch vụ",
+"textIConfirmThatServiceTransfer": "Tôi xác nhận khách hàng đã đọc và xác minh biểu mẫu yêu cầu chuyển dịch vụ.",
+"textDateOfTransfer": "Ngày chuyển đổi",
+"textSuccessfulFTTHTransferRequest": "Yêu cầu chuyển dịch vụ FTTH thành công!"
 }

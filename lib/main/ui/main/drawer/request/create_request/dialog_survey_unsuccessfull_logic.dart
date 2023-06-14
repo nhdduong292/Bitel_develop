@@ -43,4 +43,25 @@ class DialogSurveyUnsuccessfullLogic extends GetxController {
           Common.showMessageError(error: error, context: context);
         });
   }
+
+  void createSurveyOfflineTransfer(Function(bool isSuccess) callBack) {
+    ApiUtil.getInstance()!.post(
+        url: ApiEndPoints.API_SURVEY_OFFLINE_TRANSFER
+            .replaceAll("requestId", id.toString()),
+        params: {"requestId": id},
+        onSuccess: (response) {
+          if (response.isSuccess) {
+            print("success");
+            // requestModel = RequestModel.fromJson(response.data);
+            callBack.call(true);
+          } else {
+            print("error: ${response.status}");
+            callBack.call(false);
+          }
+        },
+        onError: (error) {
+          callBack.call(false);
+          Common.showMessageError(error: error, context: context);
+        });
+  }
 }

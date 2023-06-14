@@ -157,9 +157,21 @@ class AfterSalePage extends GetView {
                       ),
                     ),
                     onTap: () {
-                      Get.to(AfterSaleSearchPage(
-                          AppLocalizations.of(context)!.textTransferService,
-                          AfterSaleStatus.TRANSFER_SERVICE));
+                      Get.toNamed(RouteConfig.validateFingerprint, arguments: [
+                        ValidateFingerStatus.STAFF_TRANSFER_SERVICE
+                      ])?.then((value) {
+                        if (value != null) {
+                          Get.to(
+                              AfterSaleSearchPage(
+                                  AppLocalizations.of(context)!
+                                      .textTransferService,
+                                  AfterSaleStatus.TRANSFER_SERVICE),
+                              arguments: [value]);
+                        }
+                      });
+                      // Get.to(AfterSaleSearchPage(
+                      //     AppLocalizations.of(context)!.textTransferService,
+                      //     AfterSaleStatus.TRANSFER_SERVICE));
                     },
                   ),
                 ),

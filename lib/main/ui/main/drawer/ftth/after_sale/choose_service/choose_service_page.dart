@@ -3,6 +3,7 @@ import 'package:bitel_ventas/main/networks/model/find_account_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/choose_service/choose_service_item_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/choose_service/choose_service_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/dialog_cancel_service/dialog_cancel_service.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -45,11 +46,8 @@ class ChooseServicePage extends GetWidget {
                 },
               ),
             ),
-
             bottomButton(
-              color: controller.isActive
-                      ? Colors.white
-                      : AppColors.colorButton,
+              color: controller.isActive ? Colors.white : AppColors.colorButton,
               isBoxShadow: true,
               text: AppLocalizations.of(context)!.textContinue,
               onTap: () {
@@ -57,13 +55,17 @@ class ChooseServicePage extends GetWidget {
                   return;
                 }
                 // _onLoading(context);
-                if (controller.afterSaleSearchLogic.type == 'CHANGE_PLAN') {
+                if (controller.afterSaleSearchLogic.type ==
+                    AfterSaleStatus.CHANGE_PLAN) {
                   RequestDetailModel requestModel = RequestDetailModel();
                   Get.toNamed(RouteConfig.chooseChangePlan, arguments: [
                     controller.listAccount[controller.valueService.value].subId
                   ]);
                 } else if (controller.afterSaleSearchLogic.type ==
-                    'TRANSFER_SERVICE') {
+                    AfterSaleStatus.TRANSFER_SERVICE) {
+                  Get.toNamed(RouteConfig.createTransferService, arguments: [
+                    controller.listAccount[controller.valueService.value]
+                  ]);
                 } else {
                   controller.checkOldRequest((value) {
                     if (value) {
@@ -81,7 +83,9 @@ class ChooseServicePage extends GetWidget {
                 }
               },
             ),
-            const SizedBox(height: 20,)
+            const SizedBox(
+              height: 20,
+            )
           ]),
         );
       },

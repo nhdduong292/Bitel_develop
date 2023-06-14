@@ -64,8 +64,10 @@ class ActionType {
 class ValidateFingerStatus {
   static final String STAFF_CANCEL_SERVICE = "STAFF_CANCEL_SERVICE";
   static final String STAFF_CHANGE_PLAN = "STAFF_CHANGE_PLAN";
+  static final String STAFF_TRANSFER_SERVICE = "STAFF_TRANSFER_SERVICE";
   static final String CUSTOMER_CHANGE_PLAN = "CUSTOMER_CHANGE_PLAN";
   static final String CUSTOMER_CANCEL_SERVICE = "CUSTOMER_CANCEL_SERVICE";
+  static final String CUSTOMER_TRANSFER_SERVICE = "CUSTOMER_TRANSFER_SERVICE";
   static final String MAIN = "MAIN";
   static final String LENDING = "LENDING";
 }
@@ -96,4 +98,12 @@ class ClearDebtSearchType {
   static final String ACCOUNT = "ACCOUNT";
   static final String ID_NUMBER = "ID_NUMBER";
   static final String PHONE_NUMBER = "PHONE_NUMBER";
+}
+
+class PDFType {
+  static final String CANCEL_SERVICE = "CANCEL_SERVICE";
+  static final String CHANGE_PLAN = "CHANGE_PLAN";
+  static final String TRANSFER_SERVICE = "TRANSFER_SERVICE";
+  static final String MAIN = "MAIN";
+  static final String LENDING = "LENDING";
 }

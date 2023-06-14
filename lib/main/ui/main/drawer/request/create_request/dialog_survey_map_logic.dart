@@ -219,6 +219,39 @@ class DialogSurveyMapLogic extends GetxController {
         });
   }
 
+  void createSurveyTransfer(Function(bool isSuccess) function) async {
+    Future.delayed(Duration(seconds: 2));
+    Map<String, dynamic> body = {
+      "requestId": requestModel.id,
+      "lat": "$lat",
+      "lng": "$long",
+      "type": currentTechnology,
+      "radius": currentRadius,
+      "address": "string"
+    };
+
+    print("post");
+    ApiUtil.getInstance()!.post(
+        url: ApiEndPoints.API_SURVEY_TRANSFER,
+        body: body,
+        onSuccess: (response) {
+          Get.back();
+          if (response.isSuccess) {
+            print("success");
+            function.call(true);
+          } else {
+            print("error: ${response.status}");
+            function.call(false);
+          }
+        },
+        onError: (error) {
+          Get.back();
+          function.call(false);
+          Common.showMessageError(
+              error: error, context: context, isShow: false);
+        });
+  }
+
   void setStateConnect(bool value) {
     isConnect = value;
     update();

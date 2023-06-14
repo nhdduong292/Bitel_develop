@@ -1,4 +1,5 @@
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_search_logic.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -122,7 +123,9 @@ class FindServiceLogic extends GetxController {
   void getAccounts(var onSuccess) {
     _onLoading(context);
     ApiUtil.getInstance()!.get(
-      url: ApiEndPoints.API_FIND_ACCOUNT,
+      url: afterSaleSearchLogic.type == AfterSaleStatus.TRANSFER_SERVICE
+          ? ApiEndPoints.API_FIND_ACCOUNT_TRANSFRER
+          : ApiEndPoints.API_FIND_ACCOUNT,
       params: {
         'type': getStatusCode(),
         'idType': currentIdentityType,

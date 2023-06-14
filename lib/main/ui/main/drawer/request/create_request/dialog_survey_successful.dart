@@ -2,6 +2,7 @@ import 'package:bitel_ventas/main/custom_views/line_dash.dart';
 import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_succesful_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
@@ -39,8 +40,8 @@ class DialogSurveySuccessful extends GetWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
                   onTap: () {
                     Get.back();
                   },
@@ -69,8 +70,8 @@ class DialogSurveySuccessful extends GetWidget {
                       color: AppColors.colorText4, fontWeight: FontWeight.w500),
                 ),
                 InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
                   onTap: () {
                     controller.setSurveyOffline(!controller.isSelectOffline);
                   },
@@ -104,10 +105,23 @@ class DialogSurveySuccessful extends GetWidget {
                     Expanded(
                         flex: 1,
                         child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          splashColor: Colors.transparent,
                           onTap: () {
                             if (controller.isSelectOffline) {
+                              if (controller.type ==
+                                  AfterSaleStatus.TRANSFER_SERVICE) {
+                                Get.until(
+                                  (route) {
+                                    return Get.currentRoute ==
+                                        RouteConfig.afterSale;
+                                  },
+                                );
+                                Get.toNamed(RouteConfig.sale);
+                                Get.toNamed(RouteConfig.listRequest,
+                                    arguments: 1);
+                                return;
+                              }
                               _onLoading(context);
                               controller.createSurveyOffline(
                                 (isSuccess) {
@@ -153,9 +167,15 @@ class DialogSurveySuccessful extends GetWidget {
                     Expanded(
                         flex: 1,
                         child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          splashColor: Colors.transparent,
                           onTap: () {
+                            if (controller.type ==
+                                AfterSaleStatus.TRANSFER_SERVICE) {
+                              Get.toNamed(RouteConfig.billTransferService,
+                                  arguments: [requestModel]);
+                              return;
+                            }
                             if (!controller.isSelectOffline) {
                               _onLoading(context);
                               controller.createSurveyOnline(

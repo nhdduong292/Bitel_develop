@@ -127,12 +127,12 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
               onTap: () {
                 if (controller.checkMainContract.value) {
                   Get.to(PDFPreviewPage(), arguments: [
-                    ValidateFingerStatus.MAIN,
+                    PDFType.MAIN,
                     controller.contract.contractId
                   ]);
                 } else {
                   Get.to(PDFPreviewPage(), arguments: [
-                    ValidateFingerStatus.LENDING,
+                    PDFType.LENDING,
                     controller.contract.contractId
                   ]);
                 }

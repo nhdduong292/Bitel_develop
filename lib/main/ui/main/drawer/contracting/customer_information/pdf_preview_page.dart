@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/pdf_preview_logic.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
@@ -76,16 +77,7 @@ class PDFPreviewPage extends GetView<PDFPreviewLogic> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                                controller.type.isNotEmpty
-                                    ? controller.type == 'MAIN'
-                                        ? AppLocalizations.of(context)!
-                                            .textMainContract
-                                        : AppLocalizations.of(context)!
-                                            .textLendingContract
-                                    : AppLocalizations.of(context)!
-                                        .textCancelService,
-                                style: AppStyles.title),
+                            Text(controller.titlePDF(), style: AppStyles.title),
                             const SizedBox(height: 5),
                           ],
                         ),
@@ -118,11 +110,7 @@ class PDFPreviewPage extends GetView<PDFPreviewLogic> {
                         height: 52,
                         child: Center(
                           child: Text(
-                            controller.type.isNotEmpty
-                                ? AppLocalizations.of(context)!
-                                    .textContractPreview
-                                : AppLocalizations.of(context)!
-                                    .textCancellationRequestForm,
+                            controller.titleFormPDF(),
                             style: AppStyles.r00A5B1_15d5_500,
                           ),
                         ),

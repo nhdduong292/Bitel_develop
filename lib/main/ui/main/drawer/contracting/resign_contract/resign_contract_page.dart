@@ -208,13 +208,13 @@ class ReSignContractPage extends GetView {
                                 onTap: () {
                                   if (controller.checkMainContract.value) {
                                     Get.to(PDFPreviewPage(), arguments: [
-                                      'MAIN',
+                                      PDFType.MAIN,
                                       controller.requestDetailLogic.requestModel
                                           .contractModel.contractId
                                     ]);
                                   } else {
                                     Get.to(PDFPreviewPage(), arguments: [
-                                      'LENDING',
+                                      PDFType.LENDING,
                                       controller.requestDetailLogic.requestModel
                                           .contractModel.contractId
                                     ]);

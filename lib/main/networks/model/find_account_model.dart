@@ -11,6 +11,12 @@ class FindAccountModel {
   String? _phone;
   String? _account;
   String? _address;
+  String? _provinceName;
+  String? _districtName;
+  String? _precinctName;
+  String? _province;
+  String? _district;
+  String? _precinct;
 
   FindAccountModel();
 
@@ -27,6 +33,12 @@ class FindAccountModel {
     _phone = json['phone'];
     _account = json['account'];
     _address = json['address'];
+    _provinceName = json['provinceName'];
+    _districtName = json['districtName'];
+    _precinctName = json['precinctName'];
+    _province = json['province'];
+    _district = json['district'];
+    _precinct = json['precinct'];
   }
 
   int get subId {
@@ -75,5 +87,21 @@ class FindAccountModel {
 
   String get address {
     return _address ?? '---';
+  }
+
+  String get precinct => _precinct ?? "";
+
+  String get district => _district ?? "";
+
+  String get province => _province ?? "";
+
+  String get provinceName => _provinceName ?? "";
+
+  String get districtName => _districtName ?? "";
+
+  String get precinctName => _precinctName ?? "";
+
+  String getInstalAddress() {
+    return "$precinctName, $districtName, $provinceName";
   }
 }

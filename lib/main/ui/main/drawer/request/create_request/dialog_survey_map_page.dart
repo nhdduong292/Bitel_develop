@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/router/route_config.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/transfer_service/create_transfer_service_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_map_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_successful.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_unsuccesful.dart';
@@ -169,6 +170,29 @@ class DialogSurveyMapPage extends GetWidget {
                                   return;
                                 }
                                 FocusScope.of(context).unfocus();
+
+                                bool isExit = Get.isRegistered<
+                                    CreateTransferServiceLogic>();
+                                if (isExit) {
+                                  _onLoading(context);
+                                  controller.createSurveyTransfer(
+                                    (isSuccess) {
+                                      // onSubmit.call(isSuccess);
+                                      if (isSuccess) {
+                                        showDialogSurveySuccessful(context);
+                                      } else {
+                                        try {
+                                          showDialogSurveyUnsuccessful(
+                                              context, requestModel.id);
+                                        } catch (e) {
+                                          print(e.toString());
+                                        }
+                                      }
+                                    },
+                                  );
+                                  return;
+                                }
+
                                 _onLoading(context);
                                 controller.createSurvey(
                                   (isSuccess) {

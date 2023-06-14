@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:bitel_ventas/main/networks/model/best_finger_model.dart';
 import 'package:bitel_ventas/main/networks/model/cancel_service_infor_model.dart';
 import 'package:bitel_ventas/main/networks/model/change_plan_infor_model.dart';
+import 'package:bitel_ventas/main/networks/model/transfer_service_infor_model.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/transfer_service/bill_transfer_service_logic.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
@@ -49,7 +51,11 @@ class ValidateFingerprintLogic extends GetxController {
   String note = '';
   String newPlan = '';
   int fingerId = 0;
+
+  int requestId = 0;
   ChangePlanInforModel changePlanInforModel = ChangePlanInforModel();
+  TransferServiceInforModel transferServiceInforModel =
+      TransferServiceInforModel();
 
   ValidateFingerprintLogic(this.context);
 
@@ -93,15 +99,26 @@ class ValidateFingerprintLogic extends GetxController {
       typeCustomer = data[2];
       idNumber = data[3];
       contractId = data[4];
-    } else if (type == ValidateFingerStatus.STAFF_CHANGE_PLAN) {}
+    } else if (type == ValidateFingerStatus.STAFF_CHANGE_PLAN) {
+    } else if (type == ValidateFingerStatus.STAFF_TRANSFER_SERVICE) {
+    } else if (type == ValidateFingerStatus.CUSTOMER_TRANSFER_SERVICE) {
+      cusId = data[1];
+      typeCustomer = data[2];
+      idNumber = data[3];
+      requestId = data[4];
+      bool isExit = Get.isRegistered<BillTransferServiceLogic>();
+      if (isExit) {
+        BillTransferServiceLogic billTransferServiceLogic = Get.find();
+        fingerId = billTransferServiceLogic.fingerId;
+      }
+    }
   }
 
   @override
   void onReady() {
     // TODO: implement onReady
     super.onReady();
-    if (type == ValidateFingerStatus.STAFF_CANCEL_SERVICE ||
-        type == ValidateFingerStatus.STAFF_CHANGE_PLAN) {
+    if (isStaff()) {
       getBestFingerStaff();
     } else {
       getBestFinger();
@@ -334,6 +351,43 @@ class ValidateFingerprintLogic extends GetxController {
     }
   }
 
+  void signTransferService(Function(bool) isSuccess) {
+    try {
+      _onLoading(context);
+      Map<String, dynamic> body = {
+        "staffFingerId": fingerId,
+        "finger": bestFinger.right != 0 ? bestFinger.right : bestFinger.left,
+        "listImage": listFinger,
+        "pk": pk
+      };
+      ApiUtil.getInstance()!.post(
+        url: ApiEndPoints.API_SIGN_TRANSFER_SERVICE
+            .replaceAll('requestId', requestId.toString()),
+        params: {'requestId': requestId.toString()},
+        body: body,
+        onSuccess: (response) {
+          Get.back();
+          if (response.isSuccess) {
+            transferServiceInforModel =
+                TransferServiceInforModel.fromJson(response.data['data']);
+            isSuccess.call(true);
+          } else {
+            isSuccess.call(false);
+            print("error: ${response.status}");
+          }
+        },
+        onError: (error) {
+          Get.back();
+          isSuccess.call(false);
+          Common.showMessageError(error: error, context: context);
+        },
+      );
+    } catch (e) {
+      Get.back();
+      Common.showToastCenter(e.toString());
+    }
+  }
+
   void validateStaffFingerCancelService(Function(bool) isSuccess) {
     try {
       _onLoading(context);
@@ -402,6 +456,40 @@ class ValidateFingerprintLogic extends GetxController {
     }
   }
 
+  void validateStaffFingerTransferService(Function(bool) isSuccess) {
+    try {
+      _onLoading(context);
+      Map<String, dynamic> body = {
+        "finger": bestFinger.right != 0 ? bestFinger.right : bestFinger.left,
+        "listImage": listFinger,
+        "pk": pk
+      };
+      ApiUtil.getInstance()!.post(
+        url: ApiEndPoints.API_VALIDATE_STAFF_FINGER_TRANSFER_SERVICE,
+        params: {"staffCode": InfoBusiness.getInstance()!.getUser().staffCode},
+        body: body,
+        onSuccess: (response) {
+          Get.back();
+          if (response.isSuccess) {
+            fingerId = response.data['data']['fingerId'];
+            isSuccess.call(true);
+          } else {
+            isSuccess.call(false);
+            print("error: ${response.status}");
+          }
+        },
+        onError: (error) {
+          Get.back();
+          isSuccess.call(false);
+          Common.showMessageError(error: error, context: context);
+        },
+      );
+    } catch (e) {
+      Get.back();
+      Common.showToastCenter(e.toString());
+    }
+  }
+
   void _onLoading(BuildContext context) {
     showDialog(
       context: context,
@@ -418,7 +506,8 @@ class ValidateFingerprintLogic extends GetxController {
 
   bool isStaff() {
     if (type == ValidateFingerStatus.STAFF_CANCEL_SERVICE ||
-        type == ValidateFingerStatus.STAFF_CHANGE_PLAN) {
+        type == ValidateFingerStatus.STAFF_CHANGE_PLAN ||
+        type == ValidateFingerStatus.STAFF_TRANSFER_SERVICE) {
       return true;
     } else {
       return false;
@@ -466,6 +555,20 @@ class ValidateFingerprintLogic extends GetxController {
     if (listFinger.isEmpty) {
       return;
     }
+
+    if (type == ValidateFingerStatus.CUSTOMER_TRANSFER_SERVICE) {
+      signTransferService(
+        (isSuccess) {
+          if (isSuccess) {
+            Get.toNamed(RouteConfig.inforTransferService, arguments: [
+              transferServiceInforModel,
+            ]);
+          }
+        },
+      );
+      return;
+    }
+
     if (type == ValidateFingerStatus.CUSTOMER_CANCEL_SERVICE) {
       signCancelService(
         (isSuccess) {
@@ -493,6 +596,17 @@ class ValidateFingerprintLogic extends GetxController {
 
     if (type == ValidateFingerStatus.STAFF_CHANGE_PLAN) {
       validateStaffFingerChangePlan(
+        (isSuccess) {
+          if (isSuccess) {
+            Get.back(result: fingerId);
+          }
+        },
+      );
+      return;
+    }
+
+    if (type == ValidateFingerStatus.STAFF_TRANSFER_SERVICE) {
+      validateStaffFingerTransferService(
         (isSuccess) {
           if (isSuccess) {
             Get.back(result: fingerId);

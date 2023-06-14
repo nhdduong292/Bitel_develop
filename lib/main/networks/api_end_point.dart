@@ -140,4 +140,20 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/clear-debt/resend-otp";
   static const String API_PAYMENT =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/clear-debt/payment";
+  static const String API_FIND_ACCOUNT_TRANSFRER =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/transfer/find-account";
+  static const String API_CREATE_TRANSFER =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/transfer/create-request";
+  static const String API_SURVEY_TRANSFER =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/transfer/survey-online";
+  static const String API_SURVEY_OFFLINE_TRANSFER =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/transfer/create-survey-offline/requestId";
+  static const String API_BILL_INFOR_TRANSFER_SERVICE =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/transfer/bill-information/requestId";
+  static const String API_TRANSFER_SERVICE_PDF =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/transfer/preview/requestId";
+  static const String API_SIGN_TRANSFER_SERVICE =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/transfer/sign/requestId";
+  static const String API_VALIDATE_STAFF_FINGER_TRANSFER_SERVICE =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/transfer/validate-staff-finger";
 }

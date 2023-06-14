@@ -5,6 +5,7 @@ import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_informatio
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/change_plan/information/infor_change_plan_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/date_cancel_service/date_cancel_service.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/date_cancel_service/date_cancel_service_logic.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,6 +17,7 @@ import 'dart:convert';
 import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
 import '../../../../../utils/common_widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PDFPreviewLogic extends GetxController {
   BuildContext context;
@@ -28,6 +30,7 @@ class PDFPreviewLogic extends GetxController {
   String cancelDate = '';
   String note = '';
   String newPlan = '';
+  int requestId = 0;
 
   PDFPreviewLogic({required this.context});
 
@@ -38,7 +41,11 @@ class PDFPreviewLogic extends GetxController {
 
     var data = Get.arguments;
     type = data[0];
-    if (type.isNotEmpty) {
+    if (type == PDFType.TRANSFER_SERVICE) {
+      requestId = data[1];
+      getPDFTransfer();
+      return;
+    } else if (type == PDFType.MAIN || type == PDFType.LENDING) {
       contractId = data[1];
       bool isExit = Get.isRegistered<InforChangePlanLogic>();
       if (isExit) {
@@ -49,7 +56,7 @@ class PDFPreviewLogic extends GetxController {
       } else {
         getPDF();
       }
-    } else {
+    } else if (type == PDFType.CANCEL_SERVICE) {
       bool isExit = Get.isRegistered<DateCancelServiceLogic>();
       if (isExit) {
         DateCancelServiceLogic dateCancelServiceLogic = Get.find();
@@ -142,5 +149,50 @@ class PDFPreviewLogic extends GetxController {
     } catch (e) {
       throw Exception('Error parsing asset file!');
     }
+  }
+
+  getPDFTransfer() async {
+    // To open from assets, you can copy them to the app storage folder, and the access them "locally"
+
+    try {
+      ApiUtil.getInstance()!.postPDF(
+        url: ApiEndPoints.API_TRANSFER_SERVICE_PDF
+            .replaceAll("requestId", requestId.toString()),
+        params: {"requestId": requestId.toString()},
+        onSuccess: (response) async {
+          bytesPDF = response.data;
+          loadSuccess.value = true;
+        },
+        onError: (error) {
+          loadSuccess.value = true;
+        },
+      );
+    } catch (e) {
+      throw Exception('Error parsing asset file!');
+    }
+  }
+
+  String titlePDF() {
+    if (type == PDFType.MAIN) {
+      return AppLocalizations.of(context)!.textMainContract;
+    } else if (type == PDFType.LENDING) {
+      return AppLocalizations.of(context)!.textLendingContract;
+    } else if (type == PDFType.TRANSFER_SERVICE) {
+      return AppLocalizations.of(context)!.textTransferService;
+    } else if (type == PDFType.CANCEL_SERVICE) {
+      return AppLocalizations.of(context)!.textCancelService;
+    }
+    return AppLocalizations.of(context)!.textMainContract;
+  }
+
+  String titleFormPDF() {
+    if (type == PDFType.MAIN || type == PDFType.LENDING) {
+      return AppLocalizations.of(context)!.textContractPreview;
+    } else if (type == PDFType.TRANSFER_SERVICE) {
+      return AppLocalizations.of(context)!.textTransferServiceRequestForm;
+    } else if (type == PDFType.CANCEL_SERVICE) {
+      return AppLocalizations.of(context)!.textCancellationRequestForm;
+    }
+    return '---';
   }
 }

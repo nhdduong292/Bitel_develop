@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/transfer_service/transfer_service_pdf_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
@@ -13,14 +14,13 @@ import '../../../../../../router/route_config.dart';
 import '../../../../../../utils/common.dart';
 import '../../../../../../utils/values.dart';
 import '../../../contracting/customer_information/pdf_preview_page.dart';
-import 'cancel_service_pdf_logic.dart';
 
-class CancelServicePDFPage extends GetView<CancelServicePDFLogic> {
+class TransferServicePDF extends GetView<TransferServicePDFLogic> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return GetBuilder(
-        init: CancelServicePDFLogic(context: context),
+        init: TransferServicePDFLogic(context: context),
         builder: (controller) {
           return Scaffold(
             backgroundColor: Colors.white,
@@ -46,8 +46,7 @@ class CancelServicePDFPage extends GetView<CancelServicePDFLogic> {
                       child: SizedBox(
                         width: 250,
                         child: Text(
-                            AppLocalizations.of(context)!
-                                .textCancellationRequestForm,
+                            AppLocalizations.of(context)!.textTransferService,
                             style: AppStyles.title),
                       ),
                     ),
@@ -115,8 +114,8 @@ class CancelServicePDFPage extends GetView<CancelServicePDFLogic> {
                                 splashColor: Colors.transparent,
                                 onTap: () {
                                   Get.to(PDFPreviewPage(), arguments: [
-                                    PDFType.CANCEL_SERVICE,
-                                    controller.subId
+                                    PDFType.TRANSFER_SERVICE,
+                                    controller.requestId
                                   ]);
                                 },
                                 child: Image.asset(
@@ -138,10 +137,8 @@ class CancelServicePDFPage extends GetView<CancelServicePDFLogic> {
                               )
                             ]),
                           ),
-                          Container(
+                          SizedBox(
                             width: width,
-                            /*- 62,
-                            margin: EdgeInsets.only(left: 31, right: 31),*/
                             child: Obx(
                               () => bottomButton(
                                   text: AppLocalizations.of(context)!
@@ -154,12 +151,14 @@ class CancelServicePDFPage extends GetView<CancelServicePDFLogic> {
                                     Get.toNamed(RouteConfig.validateFingerprint,
                                         arguments: [
                                           ValidateFingerStatus
-                                              .CUSTOMER_CANCEL_SERVICE,
-                                          controller.findAccountModel.custId,
-                                          Common.getIdentityType(controller
-                                              .findAccountModel.idType),
-                                          controller.findAccountModel.idNumber,
-                                          controller.subId
+                                              .CUSTOMER_TRANSFER_SERVICE,
+                                          controller.requestDetailModel
+                                              .customerModel.custId,
+                                          controller.requestDetailModel
+                                              .customerModel.type,
+                                          controller.requestDetailModel
+                                              .customerModel.idNumber,
+                                          controller.requestId
                                         ]);
                                   },
                                   color: !(controller.checkOption.value)

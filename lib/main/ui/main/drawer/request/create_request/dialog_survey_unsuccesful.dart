@@ -13,6 +13,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:get/get.dart';
 
+import '../../ftth/after_sale/transfer_service/create_transfer_service_logic.dart';
+
 class DialogSurveyUnsuccessful extends GetWidget {
   final Function? onSubmit;
   int id;
@@ -102,6 +104,30 @@ class DialogSurveyUnsuccessful extends GetWidget {
                   splashColor: Colors.transparent,
                   onTap: () {
                     _onLoading(context);
+
+                    bool isExit =
+                        Get.isRegistered<CreateTransferServiceLogic>();
+                    if (isExit) {
+                      controller.createSurveyOfflineTransfer(
+                        (isSuccess) {
+                          if (isSuccess) {
+                            Get.back();
+                            Get.until(
+                              (route) {
+                                return Get.currentRoute ==
+                                    RouteConfig.afterSale;
+                              },
+                            );
+                            Get.toNamed(RouteConfig.sale);
+                            Get.toNamed(RouteConfig.listRequest, arguments: 1);
+                          } else {
+                            Get.back();
+                          }
+                        },
+                      );
+                      return;
+                    }
+
                     controller.createSurveyOffline(
                       (isSuccess) {
                         if (isSuccess) {
