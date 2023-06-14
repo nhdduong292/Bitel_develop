@@ -675,7 +675,7 @@
   "textBypassFingerprint": "Bypass fingerprint",
   "textBestFingerNotExit": "Best finger not exit.",
   "textActive" : "Active",
-   "textSuccessfulTerminationOfContract": "Successful termination of contract",
+   "textSuccessfulTerminationOfContract": "Successful termination of contract!",
    "textDoYouWantToContinueOrChooseTheProduct": "Do you want to continue or choose product again?",
    "textAgain": "Again",
    "textHello": "Hello",
