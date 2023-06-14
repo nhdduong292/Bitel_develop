@@ -125,11 +125,14 @@ class RequestDetailLogic extends GetxController {
   }
 
   String getStatusContract() {
-    if (requestModel.status != RequestStatus.CONTRACTING &&
-        requestModel.status != RequestStatus.DEPLOYING &&
-        requestModel.status != RequestStatus.COMPLETE) {
-      return '---';
-    }
+    // if (requestModel.status != RequestStatus.CONTRACTING &&
+    //     requestModel.status != RequestStatus.DEPLOYING &&
+    //     requestModel.status != RequestStatus.COMPLETE &&
+    //     requestModel.status != RequestStatus.CANCEL &&
+    //     requestModel.status != RequestStatus.RECOVERING &&
+    //     requestModel.status != RequestStatus.CREATE_REQUEST) {
+    //   return '---';
+    // }
     if (requestModel.contractModel.status == 0) {
       return AppLocalizations.of(context)!.textStatusContractDelete;
     } else if (requestModel.contractModel.status == 1) {
