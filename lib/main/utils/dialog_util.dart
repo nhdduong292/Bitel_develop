@@ -207,3 +207,71 @@ class SuccessDialog extends Dialog {
     );
   }
 }
+
+class ConnectionErrorDialog extends Dialog {
+  String text;
+
+  ConnectionErrorDialog({super.key, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      alignment: Alignment.bottomCenter,
+      insetPadding: const EdgeInsets.only(bottom: 24, left: 20, right: 20),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 22,
+            ),
+            Image.asset(
+              AppImages.icNoConnection,
+              fit: BoxFit.fitHeight,
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Text(
+              AppLocalizations.of(context)!.textConnectionError,
+              style: AppStyles.r16,
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            const DottedLine(
+              dashColor: AppColors.colorLineDash,
+              dashGapLength: 3,
+              dashLength: 4,
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 30, right: 30),
+              child: Text(
+                text,
+                style: AppStyles.r15,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                    child: bottomButton(
+                        text: AppLocalizations.of(context)!.textCancel,
+                        onTap: () {
+                          Get.back();
+                        })),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}

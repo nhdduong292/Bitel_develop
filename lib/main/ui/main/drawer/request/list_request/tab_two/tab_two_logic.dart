@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../../../services/connection_service.dart';
 import '../../../../../../utils/common.dart';
 
 class TabTwoLogic extends GetxController {
@@ -27,6 +28,11 @@ class TabTwoLogic extends GetxController {
   }
 
   void getListRequest(String status) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     isLoading = true;
     update();
     Future.delayed(Duration(seconds: 1));

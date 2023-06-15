@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../../../../networks/api_end_point.dart';
 import '../../../../../../../networks/api_util.dart';
+import '../../../../../../../services/connection_service.dart';
 import '../../../../../../../utils/common.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -26,7 +27,12 @@ class ContractInformationLogic extends GetxController {
     'QUECHUA'
   ];
 
-  void createContract() {
+  void createContract() async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     Map<String, dynamic> body = {
       "requestId": 0,
       "productId": 0,

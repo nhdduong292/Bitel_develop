@@ -411,6 +411,16 @@ class Common {
         });
   }
 
+  static void showConnectionErrorDialog(BuildContext context, String text) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return ConnectionErrorDialog(
+            text: text,
+          );
+        });
+  }
+
   static String getIdentityType(int idType) {
     if (idType == 1) {
       return 'DNI';

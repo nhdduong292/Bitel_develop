@@ -4,6 +4,7 @@ import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../services/connection_service.dart';
 import '../../../../../utils/common.dart';
 
 class DialogSurveyUnsuccessfullLogic extends GetxController {
@@ -18,7 +19,12 @@ class DialogSurveyUnsuccessfullLogic extends GetxController {
     update();
   }
 
-  void createSurveyOffline(Function(bool isSuccess) callBack) {
+  void createSurveyOffline(Function(bool isSuccess) callBack) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     Map<String, dynamic> body = {
       "status": RequestStatus.CREATE_REQUEST,
       "reasonId": "",
@@ -44,7 +50,12 @@ class DialogSurveyUnsuccessfullLogic extends GetxController {
         });
   }
 
-  void createSurveyOfflineTransfer(Function(bool isSuccess) callBack) {
+  void createSurveyOfflineTransfer(Function(bool isSuccess) callBack) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     ApiUtil.getInstance()!.post(
         url: ApiEndPoints.API_SURVEY_OFFLINE_TRANSFER
             .replaceAll("requestId", id.toString()),

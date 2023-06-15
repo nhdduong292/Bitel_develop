@@ -262,7 +262,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
               onTap: () {
                 controller.checkBalance((value) {
                   if (value) {
-                    controller.checkRegisterCustomer(context).then((value) {
+                    controller.checkRegisterCustomer(context, (value) {
                       if (value) {
                         Get.toNamed(RouteConfig.customerInformation,
                             arguments: [

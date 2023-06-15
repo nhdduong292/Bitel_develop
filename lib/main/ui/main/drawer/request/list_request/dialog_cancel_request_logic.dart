@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../../services/connection_service.dart';
 import '../../../../../utils/common_widgets.dart';
 
 class DialogCancelRequestLogic extends GetxController {
@@ -38,7 +39,12 @@ class DialogCancelRequestLogic extends GetxController {
     update();
   }
 
-  void getListReason() {
+  void getListReason() async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     Map<String, dynamic> params = {
       "type": Reason.REASON_REQUEST_CANCEL,
@@ -78,6 +84,11 @@ class DialogCancelRequestLogic extends GetxController {
 
   void changeStatusRequest(
       int id, String note, Function(bool isSuccess) callBack) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     Future.delayed(Duration(seconds: 1));
     Map<String, dynamic> body = {
       "status": RequestStatus.CANCEL,

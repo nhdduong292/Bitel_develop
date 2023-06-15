@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../../../../networks/api_end_point.dart';
 import '../../../../../../../networks/api_util.dart';
+import '../../../../../../../services/connection_service.dart';
 
 class AdditionalInformationLogic extends GetxController {
   late BuildContext context;
@@ -18,7 +19,12 @@ class AdditionalInformationLogic extends GetxController {
     getCustomer();
   }
 
-  void getCustomer() {
+  void getCustomer() async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     ApiUtil.getInstance()!.get(
       url: '${ApiEndPoints.API_CUSTOMER}/54/',
       onSuccess: (response) {

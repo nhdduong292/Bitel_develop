@@ -13,6 +13,8 @@ import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../../services/connection_service.dart';
+
 class DialogAdvanceSearchLogic extends GetxController {
   BuildContext context;
 
@@ -131,6 +133,11 @@ class DialogAdvanceSearchLogic extends GetxController {
   }
 
   void getListProvince(Function(bool isSuccess) function) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_PROVINCES,
         onSuccess: (response) {

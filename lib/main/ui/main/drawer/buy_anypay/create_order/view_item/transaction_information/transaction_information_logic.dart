@@ -12,6 +12,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../../../networks/api_end_point.dart';
 import '../../../../../../../networks/api_util.dart';
+import '../../../../../../../services/connection_service.dart';
 import '../../../../../../../utils/common.dart';
 import '../../../../../../../utils/common_widgets.dart';
 
@@ -88,7 +89,12 @@ class TransactionInformationLogic extends GetxController {
     return true;
   }
 
-  void getBuyAnyPay() {
+  void getBuyAnyPay() async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_GET_BUY_ANYPAY,
@@ -107,7 +113,12 @@ class TransactionInformationLogic extends GetxController {
     );
   }
 
-  void postBuyAnyPayComfirm({var isSuccess}) {
+  void postBuyAnyPayComfirm({var isSuccess}) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     Map<String, dynamic> body = {
       "idType": buyAnyPayComfirmModel.idType,
@@ -137,7 +148,12 @@ class TransactionInformationLogic extends GetxController {
     );
   }
 
-  void getCaptcha() {
+  void getCaptcha() async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_GET_CAPTCHA,
       params: {'action': 'BUY_ANYPAY'},

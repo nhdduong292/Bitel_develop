@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../networks/model/work_order_model.dart';
+import '../../../../../services/connection_service.dart';
 import '../../../../../utils/common.dart';
 import '../../utilitis/info_bussiness.dart';
 
@@ -42,6 +43,11 @@ class RequestDetailLogic extends GetxController {
   }
 
   void getRequestDetail(String id) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     Future.delayed(Duration(seconds: 1));
     ApiUtil.getInstance()!.get(
         url: "${ApiEndPoints.API_REQUEST_DETAIL}/$id",

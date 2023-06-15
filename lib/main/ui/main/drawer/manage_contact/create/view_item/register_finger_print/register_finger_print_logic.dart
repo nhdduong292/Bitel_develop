@@ -16,6 +16,7 @@ import 'package:get/get.dart';
 
 import '../../../../../../../networks/api_end_point.dart';
 import '../../../../../../../networks/api_util.dart';
+import '../../../../../../../services/connection_service.dart';
 import '../../../../../../../services/settings_service.dart';
 import '../../../../../../../utils/common_widgets.dart';
 import '../../cretate_contact_page_logic.dart';
@@ -112,9 +113,13 @@ class RegisterFingerPrintLogic extends GetxController {
     body = clientDataLogic.body;
   }
 
-  Future<bool> registerFinger() async {
+  void registerFinger(var isSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
-    Completer<bool> completer = Completer();
     Map<String, dynamic> body = {
       "left": indexLeft,
       "leftImage": listImageLeft,
@@ -129,19 +134,18 @@ class RegisterFingerPrintLogic extends GetxController {
       onSuccess: (response) {
         Get.back();
         if (response.isSuccess) {
-          completer.complete(true);
+          isSuccess(true);
         } else {
-          completer.complete(false);
+          isSuccess(false);
           print("error: ${response.status}");
         }
       },
       onError: (error) {
         Get.back();
-        completer.complete(false);
+        isSuccess(false);
         Common.showMessageError(error: error, context: context);
       },
     );
-    return completer.future;
   }
 
   Future<void> getCapture() async {
@@ -192,7 +196,12 @@ class RegisterFingerPrintLogic extends GetxController {
     );
   }
 
-  void createCustomer(Function(bool isSuccess) callBack) {
+  void createCustomer(Function(bool isSuccess) callBack) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     body['left'] = indexLeft;
     body['leftImage'] = listImageLeft;

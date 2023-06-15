@@ -709,5 +709,7 @@
 "textTransferServiceRequestForm": "Formulario de solicitud de transferencia de servicio",
 "textIConfirmThatServiceTransfer": "Confirmo que el cliente ha leído y verificado el formulario de solicitud de transferencia de servicio.",
 "textDateOfTransfer": "Fecha de transferencia",
-"textSuccessfulFTTHTransferRequest": "¡Solicitud de transferencia de servicio FTTH exitosa!"
+"textSuccessfulFTTHTransferRequest": "¡Solicitud de transferencia de servicio FTTH exitosa!",
+"textConnectionError": "¡Error de conexión!",
+"textNoInternetConnection": "Sin conexión a Internet"
 }

@@ -16,6 +16,7 @@ import 'dart:convert';
 
 import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
+import '../../../../../services/connection_service.dart';
 import '../../../../../utils/common_widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -90,7 +91,12 @@ class PDFPreviewLogic extends GetxController {
 
   getPDF() async {
     // To open from assets, you can copy them to the app storage folder, and the access them "locally"
-
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      loadSuccess.value = true;
+      return;
+    }
     try {
       ApiUtil.getInstance()!.getPDF(
         url: ApiEndPoints.API_CONTRACT_PREVIEW
@@ -111,7 +117,12 @@ class PDFPreviewLogic extends GetxController {
 
   getPDFBySubId() async {
     // To open from assets, you can copy them to the app storage folder, and the access them "locally"
-
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      loadSuccess.value = true;
+      return;
+    }
     try {
       ApiUtil.getInstance()!.postPDF(
         url: ApiEndPoints.API_CONTRACT_PREVIEW_ORDER_ID
@@ -133,7 +144,12 @@ class PDFPreviewLogic extends GetxController {
 
   getPDFChangePlan() async {
     // To open from assets, you can copy them to the app storage folder, and the access them "locally"
-
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      loadSuccess.value = true;
+      return;
+    }
     try {
       ApiUtil.getInstance()!.getPDF(
         url: ApiEndPoints.API_CHANGE_PLAN_PREVIEW,
@@ -153,7 +169,12 @@ class PDFPreviewLogic extends GetxController {
 
   getPDFTransfer() async {
     // To open from assets, you can copy them to the app storage folder, and the access them "locally"
-
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      loadSuccess.value = true;
+      return;
+    }
     try {
       ApiUtil.getInstance()!.postPDF(
         url: ApiEndPoints.API_TRANSFER_SERVICE_PDF

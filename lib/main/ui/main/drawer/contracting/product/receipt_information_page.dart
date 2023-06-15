@@ -218,7 +218,7 @@ class ReceiptInformationPage extends GetView<ProductPaymentMethodLogic> {
                         return const RechargeDialogReceipt(height: 340);
                       });
                 } else {
-                  controller.checkRegisterCustomer(context).then((value) {
+                  controller.checkRegisterCustomer(context, (value) {
                     if (value) {
                       Get.toNamed(RouteConfig.customerInformation, arguments: [
                         controller.customer,

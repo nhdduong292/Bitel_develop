@@ -20,6 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+import '../../../../../../services/connection_service.dart';
 import '../../../../../../utils/common.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -56,7 +57,12 @@ class BillTransferServiceLogic extends GetxController {
     getBillInfor();
   }
 
-  void getWallet() {
+  void getWallet() async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_WALLET,
@@ -90,7 +96,12 @@ class BillTransferServiceLogic extends GetxController {
     );
   }
 
-  void checkBalance(var onSuccess) {
+  void checkBalance(var onSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_CHECK_BALANCE,
@@ -117,7 +128,12 @@ class BillTransferServiceLogic extends GetxController {
     );
   }
 
-  void getBillInfor() {
+  void getBillInfor() async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_BILL_INFOR_TRANSFER_SERVICE

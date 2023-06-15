@@ -721,5 +721,7 @@
   "textTransferServiceRequestForm": "Transfer service request form",
   "textIConfirmThatServiceTransfer": "I comfirm that the customer has read and verified the request form for service transfer.",
   "textDateOfTransfer": "Date of transfer", 
-  "textSuccessfulFTTHTransferRequest": "Successful FTTH service transfer request!"
+  "textSuccessfulFTTHTransferRequest": "Successful FTTH service transfer request!",
+  "textConnectionError": "Connection error!",
+  "textNoInternetConnection": "No Internet connection"
 }

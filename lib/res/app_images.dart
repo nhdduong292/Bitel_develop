@@ -202,4 +202,5 @@ class AppImages {
       "assets/images/img_finger_right_index_update.png";
   static const String imgFingerRightThumbUpdate =
       "assets/images/img_finger_right_thumb_update.png";
+  static const String icNoConnection = "assets/icons/ic_no_connection.png";
 }

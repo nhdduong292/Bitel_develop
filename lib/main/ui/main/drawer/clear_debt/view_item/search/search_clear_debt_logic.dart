@@ -13,6 +13,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../../networks/api_end_point.dart';
 import '../../../../../../networks/api_util.dart';
 import '../../../../../../networks/model/captcha_model.dart';
+import '../../../../../../services/connection_service.dart';
 import '../../../../../../utils/common.dart';
 import '../../../../../../utils/common_widgets.dart';
 
@@ -106,7 +107,12 @@ class SearchClearDebtLogic extends GetxController {
     update();
   }
 
-  void getWallet() {
+  void getWallet() async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_WALLET,
@@ -155,7 +161,14 @@ class SearchClearDebtLogic extends GetxController {
     currentPhone = '';
   }
 
-  void getCaptcha() {
+  void getCaptcha() async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      isGetCaptchaDone = true;
+      update();
+      return;
+    }
     isGetCaptchaDone = false;
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_GET_CAPTCHA,
@@ -192,7 +205,12 @@ class SearchClearDebtLogic extends GetxController {
     return false;
   }
 
-  void searchClearDebt({required var isSuccess}) {
+  void searchClearDebt({required var isSuccess}) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_SEARCH_CLEAR_DEBT,

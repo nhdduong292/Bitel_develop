@@ -26,6 +26,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import '../../../../../networks/model/address_model.dart';
+import '../../../../../services/connection_service.dart';
 import '../../utilitis/info_bussiness.dart';
 
 class CustomerInformationLogic extends GetxController {
@@ -242,7 +243,12 @@ class CustomerInformationLogic extends GetxController {
     'QUECHUA'
   ];
 
-  void createContract(BuildContext context, Function(bool) isSuccess) {
+  void createContract(BuildContext context, Function(bool) isSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     Map<String, dynamic> body = {
       "requestId": requestModel.id,
@@ -299,7 +305,12 @@ class CustomerInformationLogic extends GetxController {
     );
   }
 
-  void updateContract(BuildContext context, Function(bool) isSuccess) {
+  void updateContract(BuildContext context, Function(bool) isSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     Map<String, dynamic> body = {
       "requestId": requestModel.id,
@@ -360,7 +371,12 @@ class CustomerInformationLogic extends GetxController {
   }
 
   void updateContractChangePlan(
-      BuildContext context, Function(bool) isSuccess) {
+      BuildContext context, Function(bool) isSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     Map<String, dynamic> body = {
       // "language": contractLanguagetValue.value.toUpperCase(),
@@ -517,7 +533,12 @@ class CustomerInformationLogic extends GetxController {
     listArea.clear();
   }
 
-  void updateCustomer(Function(bool isSuccess) callBack) {
+  void updateCustomer(Function(bool isSuccess) callBack) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     Map<String, dynamic> body = {
       "type": customer.type,
@@ -613,8 +634,14 @@ class CustomerInformationLogic extends GetxController {
     }
   }
 
-  Future<List<AddressModel>> getAreas(String query) {
+  Future<List<AddressModel>> getAreas(String query) async {
     Completer<List<AddressModel>> completer = Completer();
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      FocusScope.of(context).requestFocus(FocusNode());
+      return completer.future;
+    }
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_SEARCH_AREAS,
         params: {'key': query},
@@ -638,7 +665,12 @@ class CustomerInformationLogic extends GetxController {
     return completer.future;
   }
 
-  void checkBypass(var onSuccess) {
+  void checkBypass(var onSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     Map<String, dynamic> params = {
       "idType": customer.type,
@@ -770,7 +802,12 @@ class CustomerInformationLogic extends GetxController {
     }
   }
 
-  void uploadContract(var onSuccess) {
+  void uploadContract(var onSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     Map<String, dynamic> body = {
       "mainContract": Common.convertImageFileToBase64(pdfMainContract!),
@@ -794,7 +831,12 @@ class CustomerInformationLogic extends GetxController {
     );
   }
 
-  void signContract(Function(bool) isSuccess, String type) {
+  void signContract(Function(bool) isSuccess, String type) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     try {
       _onLoading(context);
       Completer<bool> completer = Completer();
@@ -829,7 +871,12 @@ class CustomerInformationLogic extends GetxController {
     }
   }
 
-  void getContractInfor() {
+  void getContractInfor() async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_GET_CONTRACT_INFO,

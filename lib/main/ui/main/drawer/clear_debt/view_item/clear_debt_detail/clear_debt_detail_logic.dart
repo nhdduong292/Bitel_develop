@@ -11,6 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../../networks/api_end_point.dart';
 import '../../../../../../networks/api_util.dart';
+import '../../../../../../services/connection_service.dart';
 import '../../../../../../utils/common.dart';
 import '../../../../../../utils/common_widgets.dart';
 
@@ -55,7 +56,12 @@ class ClearDebtDetailLogic extends GetxController {
     }).toList();
   }
 
-  void getDebt({required int index}) {
+  void getDebt({required int index}) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     listClearDebt[index].isLoadingListDebt = true;
     listClearDebt[index].list = [];
     update();
@@ -76,7 +82,12 @@ class ClearDebtDetailLogic extends GetxController {
     );
   }
 
-  void postClearDebt({required var isSuccess}) {
+  void postClearDebt({required var isSuccess}) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     setupListSelect();
     ApiUtil.getInstance()!.post(
@@ -98,7 +109,12 @@ class ClearDebtDetailLogic extends GetxController {
     );
   }
 
-  void checkBalance(var onSuccess) {
+  void checkBalance(var onSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_CHECK_BALANCE,
@@ -125,7 +141,12 @@ class ClearDebtDetailLogic extends GetxController {
     );
   }
 
-  void resendOTP(var onSuccess) {
+  void resendOTP(var onSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.post(
       url: ApiEndPoints.API_RESEND_OTP,

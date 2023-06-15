@@ -707,5 +707,7 @@
 "textTransferServiceRequestForm": "Biểu mẫu yêu cầu chuyển dịch vụ",
 "textIConfirmThatServiceTransfer": "Tôi xác nhận khách hàng đã đọc và xác minh biểu mẫu yêu cầu chuyển dịch vụ.",
 "textDateOfTransfer": "Ngày chuyển đổi",
-"textSuccessfulFTTHTransferRequest": "Yêu cầu chuyển dịch vụ FTTH thành công!"
+"textSuccessfulFTTHTransferRequest": "Yêu cầu chuyển dịch vụ FTTH thành công!",
+"textConnectionError": "Lỗi kết nối!",
+"textNoInternetConnection": "Không có kết nỗi Internet"
 }

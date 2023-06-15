@@ -12,6 +12,7 @@ import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../../../services/connection_service.dart';
 import '../../../../../utils/common_widgets.dart';
 
 class CreateRequestLogic extends GetxController {
@@ -145,7 +146,12 @@ class CreateRequestLogic extends GetxController {
   }
 
   void createRequest(
-      Function(bool isSuccess, RequestDetailModel model) function) {
+      Function(bool isSuccess, RequestDetailModel model) function) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     Map<String, dynamic> body = {
       "address": currentAddress.trim(),
       "district": currentArea.district.trim(),
@@ -181,7 +187,12 @@ class CreateRequestLogic extends GetxController {
     update();
   }
 
-  void searchNumberContact(String id) {
+  void searchNumberContact(String id) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     Map<String, dynamic> params = {
       "phone": "",
       "identityType": currentIdentityType,
@@ -213,7 +224,12 @@ class CreateRequestLogic extends GetxController {
         });
   }
 
-  void createSurveyOffline(Function(bool isSuccess) callBack) {
+  void createSurveyOffline(Function(bool isSuccess) callBack) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     Map<String, dynamic> body = {
       "status": RequestStatus.CREATE_REQUEST,
       "reasonId": "",
@@ -239,7 +255,12 @@ class CreateRequestLogic extends GetxController {
         });
   }
 
-  void createSurveyOnline(Function(bool isSuccess) callBack) {
+  void createSurveyOnline(Function(bool isSuccess) callBack) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     ApiUtil.getInstance()!.get(
         url:
             "${ApiEndPoints.API_SURVEY}/${requestModel.id}${ApiEndPoints.API_SURVEY_ONLINE}",
@@ -258,7 +279,12 @@ class CreateRequestLogic extends GetxController {
         });
   }
 
-  void getCustomerExist() {
+  void getCustomerExist() async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_GET_CUSTOMER_EXIST,
@@ -335,8 +361,14 @@ class CreateRequestLogic extends GetxController {
     );
   }
 
-  Future<List<AddressModel>> getAreas(String query) {
+  Future<List<AddressModel>> getAreas(String query) async {
     Completer<List<AddressModel>> completer = Completer();
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      FocusScope.of(context).requestFocus(FocusNode());
+      return completer.future;
+    }
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_SEARCH_AREAS,
         params: {'key': query},

@@ -9,6 +9,7 @@ import '../../../../../../networks/api_end_point.dart';
 import '../../../../../../networks/api_util.dart';
 import '../../../../../../networks/model/check_debt_model.dart';
 import '../../../../../../router/route_config.dart';
+import '../../../../../../services/connection_service.dart';
 import '../../../../../../utils/common_widgets.dart';
 import 'choose_service_page.dart';
 
@@ -37,7 +38,12 @@ class ChooseServiceLogic extends GetxController {
     update();
   }
 
-  void checkDebtWO(var onSuccess) {
+  void checkDebtWO(var onSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     Map<String, dynamic> body = {
       'subId': listAccount[valueService.value].subId,
@@ -64,7 +70,12 @@ class ChooseServiceLogic extends GetxController {
     );
   }
 
-  void checkOldRequest(var onSuccess) {
+  void checkOldRequest(var onSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_CHECK_OLD_CANCEL_SERVICE.replaceAll(
@@ -86,7 +97,12 @@ class ChooseServiceLogic extends GetxController {
     );
   }
 
-  void requestCanncel(var onSuccess) {
+  void requestCanncel(var onSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     Map<String, dynamic> body = {
       'subId': listAccount[valueService.value].subId,

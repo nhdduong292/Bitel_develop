@@ -22,6 +22,7 @@ import '../../../../../networks/api_util.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../router/route_config.dart';
+import '../../../../../services/connection_service.dart';
 import '../../../../../services/settings_service.dart';
 import '../../../../../utils/shared_preference.dart';
 import '../../../../../utils/values.dart';
@@ -191,7 +192,14 @@ class ValidateFingerprintLogic extends GetxController {
     }
   }
 
-  void getBestFinger() {
+  void getBestFinger() async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      isGetFingerSuccess = true;
+      update();
+      return;
+    }
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_BEST_FINGER.replaceAll('id', cusId.toString()),
       onSuccess: (response) {
@@ -219,7 +227,14 @@ class ValidateFingerprintLogic extends GetxController {
     );
   }
 
-  void getBestFingerStaff() {
+  void getBestFingerStaff() async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      isGetFingerSuccess = true;
+      update();
+      return;
+    }
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_BEST_FINGER_STAFF,
       params: {"staffCode": InfoBusiness.getInstance()!.getUser().staffCode},
@@ -277,7 +292,12 @@ class ValidateFingerprintLogic extends GetxController {
     }
   }
 
-  void signContract(Function(bool) isSuccess) {
+  void signContract(Function(bool) isSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     try {
       _onLoading(context);
       Map<String, dynamic> body = {
@@ -312,7 +332,12 @@ class ValidateFingerprintLogic extends GetxController {
     }
   }
 
-  void signCancelService(Function(bool) isSuccess) {
+  void signCancelService(Function(bool) isSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     try {
       _onLoading(context);
       Map<String, dynamic> body = {
@@ -351,7 +376,12 @@ class ValidateFingerprintLogic extends GetxController {
     }
   }
 
-  void signTransferService(Function(bool) isSuccess) {
+  void signTransferService(Function(bool) isSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     try {
       _onLoading(context);
       Map<String, dynamic> body = {
@@ -388,7 +418,12 @@ class ValidateFingerprintLogic extends GetxController {
     }
   }
 
-  void validateStaffFingerCancelService(Function(bool) isSuccess) {
+  void validateStaffFingerCancelService(Function(bool) isSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     try {
       _onLoading(context);
       Map<String, dynamic> body = {
@@ -422,7 +457,12 @@ class ValidateFingerprintLogic extends GetxController {
     }
   }
 
-  void validateStaffFingerChangePlan(Function(bool) isSuccess) {
+  void validateStaffFingerChangePlan(Function(bool) isSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     try {
       _onLoading(context);
       Map<String, dynamic> body = {
@@ -456,7 +496,12 @@ class ValidateFingerprintLogic extends GetxController {
     }
   }
 
-  void validateStaffFingerTransferService(Function(bool) isSuccess) {
+  void validateStaffFingerTransferService(Function(bool) isSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     try {
       _onLoading(context);
       Map<String, dynamic> body = {
@@ -514,7 +559,12 @@ class ValidateFingerprintLogic extends GetxController {
     }
   }
 
-  void validateCustomerChangePlan(Function(bool) isSuccess) {
+  void validateCustomerChangePlan(Function(bool) isSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     try {
       _onLoading(context);
       Map<String, dynamic> body = {

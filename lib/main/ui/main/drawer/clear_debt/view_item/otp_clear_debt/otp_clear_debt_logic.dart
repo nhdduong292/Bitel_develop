@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import '../../../../../../networks/api_end_point.dart';
 import '../../../../../../networks/api_util.dart';
 import '../../../../../../networks/model/clear_debt_model.dart';
+import '../../../../../../services/connection_service.dart';
 import '../../../../../../utils/common.dart';
 import '../../../../../../utils/common_widgets.dart';
 import '../../clear_debt_logic.dart';
@@ -47,7 +48,12 @@ class OTPClearDebtLogic extends GetxController {
     );
   }
 
-  void resendOTP(var onSuccess) {
+  void resendOTP(var onSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.post(
       url: ApiEndPoints.API_RESEND_OTP,
@@ -66,7 +72,12 @@ class OTPClearDebtLogic extends GetxController {
     );
   }
 
-  void onPayment({required var isSuccess}) {
+  void onPayment({required var isSuccess}) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.post(
       url: ApiEndPoints.API_PAYMENT,

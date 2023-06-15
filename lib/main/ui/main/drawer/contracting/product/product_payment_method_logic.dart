@@ -18,6 +18,7 @@ import '../../../../../networks/model/customer_model.dart';
 import '../../../../../networks/model/method_model.dart';
 import '../../../../../networks/model/plan_reason_model.dart';
 import '../../../../../networks/model/product_model.dart';
+import '../../../../../services/connection_service.dart';
 import '../../../../../utils/common.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -88,7 +89,14 @@ class ProductPaymentMethodLogic extends GetxController {
   List<int> listIdPromotion = [];
   BillModel billModel = BillModel();
 
-  void getProduts(int requestId) {
+  void getProduts(int requestId) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      isLoadingProduct = false;
+      update();
+      return;
+    }
     ApiUtil.getInstance()!.get(
       url: '${ApiEndPoints.API_LIST_PRODUCT}/$requestId',
       onSuccess: (response) {
@@ -114,7 +122,14 @@ class ProductPaymentMethodLogic extends GetxController {
     );
   }
 
-  void getPackages(int requestId) {
+  void getPackages(int requestId) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      isLoadingPackage = false;
+      update();
+      return;
+    }
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_GET_PACKAGE,
       onSuccess: (response) {
@@ -152,7 +167,14 @@ class ProductPaymentMethodLogic extends GetxController {
     }
   }
 
-  void getPromotions() {
+  void getPromotions() async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      isLoadingPromotion = false;
+      checkLoading();
+      return;
+    }
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_LIST_PROMOTION,
       params: {
@@ -238,7 +260,14 @@ class ProductPaymentMethodLogic extends GetxController {
     return true;
   }
 
-  void getPlanReasons() {
+  void getPlanReasons() async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      isLoadingReason = false;
+      checkLoading();
+      return;
+    }
     try {
       ApiUtil.getInstance()!.get(
         url: '${ApiEndPoints.API_PLAN_REASON}/${getProduct().productId}',
@@ -270,7 +299,14 @@ class ProductPaymentMethodLogic extends GetxController {
     }
   }
 
-  void getWallet(BuildContext context) {
+  void getWallet(BuildContext context) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      isLoadingReason = false;
+      checkLoading();
+      return;
+    }
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_WALLET,
       onSuccess: (response) {
@@ -290,18 +326,23 @@ class ProductPaymentMethodLogic extends GetxController {
     );
   }
 
-  Future<bool> checkRegisterCustomer(BuildContext context) async {
+  void checkRegisterCustomer(BuildContext context, var isSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
-    Completer<bool> completer = Completer();
     ApiUtil.getInstance()!.get(
       url: '${ApiEndPoints.API_CUSTOMER}/${requestModel.id}/',
       onSuccess: (response) {
         Get.back();
         if (response.isSuccess) {
           customer = CustomerModel.fromJson(response.data['data']);
-          completer.complete(true);
+          isSuccess(true);
         } else {
           print("error: ${response.status}");
+          isSuccess(false);
         }
       },
       onError: (error) {
@@ -313,7 +354,7 @@ class ProductPaymentMethodLogic extends GetxController {
                 error.response!.data['errorCode'] != null) {
               //neu tra ve code E012 la chua dang ky khach hang
               if (error.response!.data['errorCode'] == 'E012') {
-                completer.complete(false);
+                isSuccess(false);
               } else {
                 Common.showMessageError(error: error, context: context);
               }
@@ -327,7 +368,6 @@ class ProductPaymentMethodLogic extends GetxController {
         }
       },
     );
-    return completer.future;
   }
 
   void _onLoading(BuildContext context) {
@@ -362,7 +402,14 @@ class ProductPaymentMethodLogic extends GetxController {
     return false; //<-- SEE HERE
   }
 
-  void postContractInformation() {
+  void postContractInformation() async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      isLoadingReason = false;
+      checkLoading();
+      return;
+    }
     Map<String, dynamic> body = {
       "requestId": requestModel.id,
       "productId": getProduct().productId,
@@ -410,7 +457,12 @@ class ProductPaymentMethodLogic extends GetxController {
     );
   }
 
-  void checkBalance(var onSuccess) {
+  void checkBalance(var onSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_CHECK_BALANCE,

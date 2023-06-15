@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
 import '../../../../../networks/model/buy_anypay_search_model.dart';
+import '../../../../../services/connection_service.dart';
 import '../../../../../utils/common.dart';
 import '../../../../../utils/common_widgets.dart';
 
@@ -130,7 +131,12 @@ class OrderManagementLogic extends GetxController {
       {String? bankCode,
       required status,
       required String from,
-      required String to}) {
+      required String to}) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     isLoading = true;
     update();
     ApiUtil.getInstance()!.get(
@@ -161,7 +167,13 @@ class OrderManagementLogic extends GetxController {
     );
   }
 
-  void deleteBuyAnyPay({required String saleOrderId, required var isSuccess}) {
+  void deleteBuyAnyPay(
+      {required String saleOrderId, required var isSuccess}) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.delete(
       url: ApiEndPoints.API_DELETE_BUY_ANYPAY

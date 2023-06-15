@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import '../../../../../../../networks/api_end_point.dart';
 import '../../../../../../../networks/api_util.dart';
 import '../../../../../../../networks/model/check_payment_change_plan_model.dart';
+import '../../../../../../../services/connection_service.dart';
 import '../../../../../../../utils/common.dart';
 import '../../../../../../../utils/common_widgets.dart';
 
@@ -60,7 +61,12 @@ class ChooseChangePlanLogic extends GetxController {
     );
   }
 
-  void getProduct() {
+  void getProduct() async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_GET_PRODUCT_CHANGE_PLAN,
@@ -83,7 +89,12 @@ class ChooseChangePlanLogic extends GetxController {
     );
   }
 
-  void getPayment(var onSuccess) {
+  void getPayment(var onSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_GET_PAYMENT_CHANGE_PLAN,

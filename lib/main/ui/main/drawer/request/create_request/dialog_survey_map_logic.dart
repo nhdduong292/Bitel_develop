@@ -16,6 +16,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../../../services/connection_service.dart';
 import '../../../../../utils/common_widgets.dart';
 
 class DialogSurveyMapLogic extends GetxController {
@@ -189,6 +190,11 @@ class DialogSurveyMapLogic extends GetxController {
   }
 
   void createSurvey(Function(bool isSuccess) function) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     Future.delayed(Duration(seconds: 2));
     Map<String, dynamic> body = {
       "requestId": requestModel.id,
@@ -220,6 +226,11 @@ class DialogSurveyMapLogic extends GetxController {
   }
 
   void createSurveyTransfer(Function(bool isSuccess) function) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     Future.delayed(Duration(seconds: 2));
     Map<String, dynamic> body = {
       "requestId": requestModel.id,

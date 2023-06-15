@@ -11,6 +11,7 @@ import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart
 
 import '../../../../../../../networks/api_end_point.dart';
 import '../../../../../../../networks/api_util.dart';
+import '../../../../../../../services/connection_service.dart';
 import '../../../../../../../utils/common.dart';
 import '../../../../../../../utils/common_widgets.dart';
 import '../../../../../../../utils/values.dart';
@@ -96,6 +97,11 @@ class ClientDataLogic extends GetxController {
   }
 
   void detectID(BuildContext context) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     Map<String, dynamic> body = {
       "requests": [

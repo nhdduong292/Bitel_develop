@@ -5,6 +5,7 @@ import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../services/connection_service.dart';
 import '../../../../../utils/common.dart';
 
 class DialogSurveySuccessfulLogic extends GetxController {
@@ -35,7 +36,12 @@ class DialogSurveySuccessfulLogic extends GetxController {
     update();
   }
 
-  void createSurveyOnline(Function(bool isSuccess) callBack) {
+  void createSurveyOnline(Function(bool isSuccess) callBack) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     ApiUtil.getInstance()!.get(
         url:
             "${ApiEndPoints.API_SURVEY}/${id}${ApiEndPoints.API_SURVEY_ONLINE}",
@@ -54,7 +60,12 @@ class DialogSurveySuccessfulLogic extends GetxController {
         });
   }
 
-  void createSurveyOffline(Function(bool isSuccess) callBack) {
+  void createSurveyOffline(Function(bool isSuccess) callBack) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     Map<String, dynamic> body = {
       "status": RequestStatus.CREATE_REQUEST,
       "reasonId": "",
@@ -80,7 +91,12 @@ class DialogSurveySuccessfulLogic extends GetxController {
         });
   }
 
-  void createSurveyOfflineTransfer(Function(bool isSuccess) callBack) {
+  void createSurveyOfflineTransfer(Function(bool isSuccess) callBack) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     ApiUtil.getInstance()!.post(
         url: ApiEndPoints.API_SURVEY_OFFLINE_TRANSFER
             .replaceAll("requestId", id.toString()),

@@ -13,6 +13,7 @@ import '../../../../../../networks/api_end_point.dart';
 import '../../../../../../networks/api_util.dart';
 import '../../../../../../networks/model/address_model.dart';
 import '../../../../../../networks/model/cancel_service_model.dart';
+import '../../../../../../services/connection_service.dart';
 import '../../../../../../utils/common.dart';
 import '../../../../../../utils/common_widgets.dart';
 
@@ -64,7 +65,12 @@ class CreateTransferServiceLogic extends GetxController {
     update();
   }
 
-  void createTransfer(var onSuccess) {
+  void createTransfer(var onSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     Map<String, dynamic> body = {
       'subId': findAccountModel.subId,
@@ -144,8 +150,13 @@ class CreateTransferServiceLogic extends GetxController {
     }
   }
 
-  Future<List<AddressModel>> getAreas(String query) {
+  Future<List<AddressModel>> getAreas(String query) async {
     Completer<List<AddressModel>> completer = Completer();
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return completer.future;
+    }
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_SEARCH_AREAS,
         params: {'key': query},

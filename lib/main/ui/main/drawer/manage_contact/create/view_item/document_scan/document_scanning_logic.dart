@@ -25,6 +25,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import '../../../../../../../networks/model/ce.dart';
 import '../../../../../../../networks/model/pp.dart';
+import '../../../../../../../services/connection_service.dart';
 import '../client_data/customer_detect_mode.dart';
 import 'package:image/image.dart' as img;
 import 'package:pdf/widgets.dart' as pw;
@@ -122,6 +123,11 @@ class DocumentScanningLogic extends GetxController {
   }
 
   void detectID(BuildContext context) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     Map<String, dynamic> body = {
       "requests": [
@@ -179,7 +185,12 @@ class DocumentScanningLogic extends GetxController {
   }
 
   void uploadFile(String path, String name,
-      Function(bool isSuccess, String path) function) {
+      Function(bool isSuccess, String path) function) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.post(
         url: ApiEndPoints.API_UPLOAD_IDENTITY_NEW,
@@ -305,7 +316,12 @@ class DocumentScanningLogic extends GetxController {
     }
   }
 
-  void detectImage(var onSuccess) {
+  void detectImage(var onSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     Map<String, dynamic> body = {
       "requests": [
         {

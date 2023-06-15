@@ -16,6 +16,8 @@ import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
+import '../../services/connection_service.dart';
+
 class LoginLogic extends GetxController {
   TextEditingController controllerUser = TextEditingController();
   TextEditingController controllerPass = TextEditingController();
@@ -78,11 +80,17 @@ class LoginLogic extends GetxController {
       SharedPreferenceUtil.savePassWord(controllerPass.text.trim());
     }
     // Get.offAllNamed(RouteConfig.main);
-    _onLoading(context);
+
     login(context);
   }
 
   void login(BuildContext context) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
+    _onLoading(context);
     SharedPreferenceUtil.saveToken("");
     Map<String, dynamic> body = {
       "username": controllerUser.text.trim(),

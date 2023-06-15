@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../../services/connection_service.dart';
 import '../../../../../utils/common_widgets.dart';
 
 class DialogTransferRequestLogic extends GetxController {
@@ -44,7 +45,12 @@ class DialogTransferRequestLogic extends GetxController {
     update();
   }
 
-  void getListReason() {
+  void getListReason() async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     Map<String, dynamic> params = {
       "type": Reason.REASON_REQUEST_TRANSFER,
@@ -82,7 +88,12 @@ class DialogTransferRequestLogic extends GetxController {
   }
 
   void transferRequest(int id, String staffCode, BuildContext context,
-      Function(bool isSuccess) callBack) {
+      Function(bool isSuccess) callBack) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     // Future.delayed(Duration(seconds: 1));
     Map<String, dynamic> body = {
       "staffCode": staffCode,
@@ -109,8 +120,14 @@ class DialogTransferRequestLogic extends GetxController {
         });
   }
 
-  Future<List<StaffModel>> getStaffs(String query) {
+  Future<List<StaffModel>> getStaffs(String query) async {
     Completer<List<StaffModel>> completer = Completer();
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      FocusScope.of(context).requestFocus(FocusNode());
+      return completer.future;
+    }
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_LIST_STAFF,
         params: {'key': query},

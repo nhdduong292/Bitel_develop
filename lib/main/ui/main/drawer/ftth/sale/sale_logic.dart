@@ -9,6 +9,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../../services/connection_service.dart';
 import '../../../../../utils/common.dart';
 import '../../utilitis/info_bussiness.dart';
 
@@ -174,7 +175,14 @@ class SaleLogic extends GetxController {
         .toStringAsFixed(1));
   }
 
-  void getHomeSale() {
+  void getHomeSale() async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      isLoading = true;
+      update();
+      return;
+    }
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_HOME_SALE,
       params: {

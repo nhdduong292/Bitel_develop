@@ -8,6 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../../../networks/api_end_point.dart';
 import '../../../../../../../networks/api_util.dart';
 import '../../../../../../../networks/model/buy_anypay_create_model.dart';
+import '../../../../../../../services/connection_service.dart';
 import '../../../../../../../utils/common.dart';
 import '../../../../../../../utils/common_widgets.dart';
 
@@ -29,7 +30,12 @@ class TransactionDetailLogic extends GetxController {
     buyAnyPayCreateModel = createOrderLogic.buyAnyPayCreateModel;
   }
 
-  void postCreateBuyAnyPay({var isSuccess}) {
+  void postCreateBuyAnyPay({var isSuccess}) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.post(
       url: ApiEndPoints.API_CONFIRM_POST_BUY_ANYPAY,

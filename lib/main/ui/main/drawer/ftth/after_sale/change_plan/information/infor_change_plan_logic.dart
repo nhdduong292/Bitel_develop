@@ -10,6 +10,7 @@ import '../../../../../../../networks/api_end_point.dart';
 import '../../../../../../../networks/api_util.dart';
 import '../../../../../../../networks/model/check_payment_change_plan_model.dart';
 import '../../../../../../../networks/model/customer_model.dart';
+import '../../../../../../../services/connection_service.dart';
 import '../../../../../../../utils/common.dart';
 import '../../../../../../../utils/common_widgets.dart';
 
@@ -62,7 +63,12 @@ class InforChangePlanLogic extends GetxController {
     );
   }
 
-  void getWallet(BuildContext context) {
+  void getWallet(BuildContext context) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_WALLET,
@@ -81,7 +87,12 @@ class InforChangePlanLogic extends GetxController {
     );
   }
 
-  void checkBalance(var onSuccess) {
+  void checkBalance(var onSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_CHECK_BALANCE,
@@ -108,7 +119,12 @@ class InforChangePlanLogic extends GetxController {
     );
   }
 
-  void getCustomer(var onSuccess) {
+  void getCustomer(var onSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_GET_CUSTOMER_INFO,

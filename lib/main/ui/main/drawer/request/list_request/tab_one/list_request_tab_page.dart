@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 
+import '../../../../../../services/connection_service.dart';
 import '../../../../../../utils/common.dart';
 import '../../../../../../utils/values.dart';
 
@@ -119,6 +120,11 @@ class ListRequestTabState extends State<ListRequestTabPage> {
   }
 
   void getListRequest(String key, {int page = 0}) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     this.page = page;
     if (page == 0) {
       isLoadMore = true;

@@ -12,6 +12,7 @@ import 'package:intl/intl.dart';
 import '../../../../../../../networks/api_end_point.dart';
 import '../../../../../../../networks/api_util.dart';
 import '../../../../../../../networks/model/address_model.dart';
+import '../../../../../../../services/connection_service.dart';
 import '../../../../../../../utils/common.dart';
 import '../../../../../../../utils/common_widgets.dart';
 import '../../cretate_contact_page_logic.dart';
@@ -320,7 +321,12 @@ class ClientDataDNILogic extends GetxController {
     return true;
   }
 
-  void getListProvince(Function(bool isSuccess) function) {
+  void getListProvince(Function(bool isSuccess) function) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_PROVINCES,
         onSuccess: (response) {
@@ -344,7 +350,13 @@ class ClientDataDNILogic extends GetxController {
         });
   }
 
-  void getListPrecincts(String areaCode, Function(bool isSuccess) function) {
+  void getListPrecincts(
+      String areaCode, Function(bool isSuccess) function) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     Map<String, dynamic> params = {"areaCode": areaCode};
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_PRECINCTS,
@@ -370,7 +382,13 @@ class ClientDataDNILogic extends GetxController {
         });
   }
 
-  void getListDistrict(String areaCode, Function(bool isSuccess) function) {
+  void getListDistrict(
+      String areaCode, Function(bool isSuccess) function) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     Map<String, dynamic> params = {"areaCode": areaCode};
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_DISTRICTS,
@@ -454,7 +472,12 @@ class ClientDataDNILogic extends GetxController {
     return upperCaseAndNumberRegExp.hasMatch(text);
   }
 
-  void checkFingerExit(Function(bool isSuccess) function) {
+  void checkFingerExit(Function(bool isSuccess) function) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_CHECK_FINGER_EXIT,
@@ -481,7 +504,12 @@ class ClientDataDNILogic extends GetxController {
         });
   }
 
-  void createCustomer(Function(bool isSuccess) callBack) {
+  void createCustomer(Function(bool isSuccess) callBack) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     body['left'] = null;
     body['leftImage'] = null;
     body['right'] = null;
