@@ -708,5 +708,6 @@
   "textDateOfTransfer": "Fecha de transferencia",
   "textSuccessfulFTTHTransferRequest": "¡Solicitud de transferencia de servicio FTTH exitosa!",
   "textConnectionError": "¡Error de conexión!",
-  "textNoInternetConnection": "Sin conexión a Internet"
+  "textNoInternetConnection": "Sin conexión a Internet",
+  "textE090": "[ERROR RENIEC] [DNI] Ha alcanzado el máximo de 5 veces de validación dactilar del día, no se podrá realizar esta operación hasta el día siguiente."
 }
