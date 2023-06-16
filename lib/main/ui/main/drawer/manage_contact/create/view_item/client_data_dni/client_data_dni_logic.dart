@@ -268,50 +268,54 @@ class ClientDataDNILogic extends GetxController {
     if (!containsOnlyUpperCaseAndNumber(tfIdNumber.text)) {
       fcIdNumber.requestFocus();
       Common.showToastCenter(
-          AppLocalizations.of(context)!.textValidateIdentityPP);
+          AppLocalizations.of(context)!.textValidateIdentityPP, context);
       return false;
     }
     if (tfIdNumber.text != requestModel.customerModel.idNumber) {
       fcIdNumber.requestFocus();
       Common.showToastCenter(
-          AppLocalizations.of(context)!.textTheIDNumberDoseNotMatch);
+          AppLocalizations.of(context)!.textTheIDNumberDoseNotMatch, context);
       return false;
     }
     if (!tfLastName.text.isNotEmpty) {
       Common.showToastCenter(
-          AppLocalizations.of(context)!.textLastFatherNameNotEmpty);
+          AppLocalizations.of(context)!.textLastFatherNameNotEmpty, context);
       return false;
     } else if (!tfMidelName.text.isNotEmpty) {
       Common.showToastCenter(
-          AppLocalizations.of(context)!.textLastMotherNameNotEmpty);
+          AppLocalizations.of(context)!.textLastMotherNameNotEmpty, context);
       return false;
     } else if (!tfName.text.isNotEmpty) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyName);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotEmptyName, context);
       return false;
     } else if (!tfFullName.text.isNotEmpty) {
       Common.showToastCenter(
-          AppLocalizations.of(context)!.textFullNameNotEmpty);
+          AppLocalizations.of(context)!.textFullNameNotEmpty, context);
       return false;
     } else if (!tfNationality.text.isNotEmpty) {
       Common.showToastCenter(
-          AppLocalizations.of(context)!.textNotEmptyNationality);
+          AppLocalizations.of(context)!.textNotEmptyNationality, context);
       return false;
     } else if (!dob.isNotEmpty) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyDob);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotEmptyDob, context);
       return false;
     } else if (!exd.isNotEmpty) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyExd);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotEmptyExd, context);
       return false;
     } else if (compareToDateNow()) {
       Common.showToastCenter(
-          AppLocalizations.of(context)!.textToastValidateDob);
+          AppLocalizations.of(context)!.textToastValidateDob, context);
       return false;
     } else if (compareToDate()) {
       Common.showToastCenter(
-          AppLocalizations.of(context)!.textToastValidateExd);
+          AppLocalizations.of(context)!.textToastValidateExd, context);
       return false;
     } else if (!issue.isNotEmpty) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyIssue);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotEmptyIssue, context);
       return false;
     }
     // else if (address.isEmpty) {
@@ -453,7 +457,8 @@ class ClientDataDNILogic extends GetxController {
         textFieldAddress.text.isNotEmpty) {
       return true;
     }
-    Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
+    Common.showToastCenter(
+        AppLocalizations.of(context)!.textInputInfo, context);
     return false;
   }
 

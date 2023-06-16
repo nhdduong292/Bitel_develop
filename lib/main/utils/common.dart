@@ -14,6 +14,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 import '../router/route_config.dart';
 
@@ -150,14 +151,16 @@ class Common {
   //   Share.share(content);
   // }
 
-  static void showToastCenter(String content) {
-    Fluttertoast.showToast(
-        msg: content,
-        toastLength: Toast.LENGTH_LONG,
+  static void showToastCenter(String content, BuildContext? context) {
+    showToast(content,
+        context: context,
+        alignment: Alignment.center,
+        animDuration: Duration(milliseconds: 0),
+        duration: Duration(seconds: 3),
+        animation: StyledToastAnimation.fade,
         backgroundColor: AppColors.colorBackground1,
-        textColor: AppColors.colorText1,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 5);
+        textStyle: TextStyle(color: AppColors.colorText1),
+        position: StyledToastPosition(align: Alignment.center, offset: 20.0));
   }
 
   static String convertImageFileToBase64(File file) {
@@ -373,7 +376,13 @@ class Common {
       }
     } catch (e) {
       if (kDebugMode) {
-        Common.showToastCenter(e.toString());
+        Fluttertoast.showToast(
+            msg: e.toString(),
+            toastLength: Toast.LENGTH_LONG,
+            backgroundColor: AppColors.colorBackground1,
+            textColor: AppColors.colorText1,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 5);
       }
     }
   }

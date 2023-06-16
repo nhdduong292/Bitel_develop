@@ -87,8 +87,10 @@ class FindServicePage extends GetWidget {
                       controller.getAccounts((isSuccess) {
                         if (isSuccess) {
                           if (controller.listAccount.isEmpty) {
-                            Common.showToastCenter(AppLocalizations.of(context)!
-                                .textNoResultIsFound);
+                            Common.showToastCenter(
+                                AppLocalizations.of(context)!
+                                    .textNoResultIsFound,
+                                context);
                             return;
                           }
                           AfterSaleSearchLogic logic =

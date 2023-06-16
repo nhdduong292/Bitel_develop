@@ -50,7 +50,7 @@ class ContractUploadingLogic extends GetxController {
     } on Exception catch (e) {
       // TODO
       print(e.toString());
-      Common.showToastCenter(e.toString());
+      Common.showToastCenter(e.toString(), context);
     }
   }
 

@@ -67,7 +67,8 @@ class OrderManagementLogic extends GetxController {
     var date = "${picked.day}/${picked.month}/${picked.year}";
     // searchRequest.toDate = picked.toIso8601String();
     if (!compareToDate(to: date)) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textInvalidDate);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textInvalidDate, context);
       return;
     }
     to.value = date;
@@ -80,7 +81,8 @@ class OrderManagementLogic extends GetxController {
     fromDate = picked;
     var date = "${picked.day}/${picked.month}/${picked.year}";
     if (!compareToDate(from: date)) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textInvalidDate);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textInvalidDate, context);
       return;
     } else {}
     // searchRequest.fromDate = picked.toIso8601String();

@@ -172,7 +172,8 @@ class RegisterFingerPrintLogic extends GetxController {
       currentPathFinger = textCapture;
       currentImageFinger = imageBase64;
     } else {
-      Common.showToastCenter(AppLocalizations.of(context)!.textGetNoSuccess);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textGetNoSuccess, context);
     }
 
     update();

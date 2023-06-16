@@ -105,13 +105,14 @@ class CreateRequestLogic extends GetxController {
         (textFieldIdNumber.value.text.length < 9 &&
             currentIdentityType == 'CE')) {
       focusIdNumber.requestFocus();
-      Common.showToastCenter(AppLocalizations.of(context)!.textTheIDNumber);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textTheIDNumber, context);
       return true;
     }
     if (!containsOnlyUpperCaseAndNumber(textFieldIdNumber.text)) {
       focusIdNumber.requestFocus();
       Common.showToastCenter(
-          AppLocalizations.of(context)!.textValidateIdentityPP);
+          AppLocalizations.of(context)!.textValidateIdentityPP, context);
       return true;
     }
     if (textFieldName.value.text.isEmpty) {
@@ -121,25 +122,28 @@ class CreateRequestLogic extends GetxController {
     if (textFieldPhone.value.text.isEmpty ||
         textFieldPhone.value.text.length < 9) {
       focusPhone.requestFocus();
-      Common.showToastCenter(AppLocalizations.of(context)!.textPhoneMin9Number);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textPhoneMin9Number, context);
       return true;
     }
     if (currentArea.province.isEmpty ||
         currentArea.district.isEmpty ||
         currentArea.precinct.isEmpty) {
       Common.showToastCenter(
-          AppLocalizations.of(context)!.textNotEmptyPrecinct);
+          AppLocalizations.of(context)!.textNotEmptyPrecinct, context);
       return true;
     }
 
     if (textFieldAddress.value.text.trim().isEmpty) {
       focusAddress.requestFocus();
-      Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyAddress);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotEmptyAddress, context);
       return true;
     }
 
     if (!isCheckAgree) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textInputInfo, context);
       return true;
     }
     return false;

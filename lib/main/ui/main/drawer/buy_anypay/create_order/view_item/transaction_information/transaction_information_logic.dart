@@ -83,7 +83,8 @@ class TransactionInformationLogic extends GetxController {
 
   bool validateEmail() {
     if (!Common.validateEmail(textEmailController.text)) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textValidateEmail);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textValidateEmail, context);
       return false;
     }
     return true;

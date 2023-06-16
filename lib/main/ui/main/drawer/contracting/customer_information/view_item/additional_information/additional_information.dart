@@ -232,9 +232,10 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                                         .checkChangeAdditionalInformation()) {
                                   controller.updateCustomer((isSuccess) {
                                     if (isSuccess) {
-                                      Common.showToastCenter(AppLocalizations
-                                              .of(context)!
-                                          .textUpdateCustomerInformationSuccessfully);
+                                      Common.showToastCenter(
+                                          AppLocalizations.of(context)!
+                                              .textUpdateCustomerInformationSuccessfully,
+                                          context);
                                       if (controller.valueCheckBypass &&
                                           controller.showBypass()) {
                                         controller.checkBypass((isSuccess) {

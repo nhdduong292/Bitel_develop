@@ -182,13 +182,14 @@ class ValidateFingerprintLogic extends GetxController {
       update();
       if (listFinger.isNotEmpty) {
         Common.showToastCenter(
-            AppLocalizations.of(context)!.textCaptureFingerprintSuccessfully);
+            AppLocalizations.of(context)!.textCaptureFingerprintSuccessfully,
+            context);
       } else {
         Common.showToastCenter(
-            AppLocalizations.of(context)!.textNotifyFingerFail);
+            AppLocalizations.of(context)!.textNotifyFingerFail, context);
       }
     } catch (e) {
-      Common.showToastCenter(e.toString());
+      Common.showToastCenter(e.toString(), context);
     }
   }
 
@@ -328,7 +329,7 @@ class ValidateFingerprintLogic extends GetxController {
       );
     } catch (e) {
       Get.back();
-      Common.showToastCenter(e.toString());
+      Common.showToastCenter(e.toString(), context);
     }
   }
 
@@ -372,7 +373,7 @@ class ValidateFingerprintLogic extends GetxController {
       );
     } catch (e) {
       Get.back();
-      Common.showToastCenter(e.toString());
+      Common.showToastCenter(e.toString(), context);
     }
   }
 
@@ -414,7 +415,7 @@ class ValidateFingerprintLogic extends GetxController {
       );
     } catch (e) {
       Get.back();
-      Common.showToastCenter(e.toString());
+      Common.showToastCenter(e.toString(), context);
     }
   }
 
@@ -453,7 +454,7 @@ class ValidateFingerprintLogic extends GetxController {
       );
     } catch (e) {
       Get.back();
-      Common.showToastCenter(e.toString());
+      Common.showToastCenter(e.toString(), context);
     }
   }
 
@@ -492,7 +493,7 @@ class ValidateFingerprintLogic extends GetxController {
       );
     } catch (e) {
       Get.back();
-      Common.showToastCenter(e.toString());
+      Common.showToastCenter(e.toString(), context);
     }
   }
 
@@ -531,7 +532,7 @@ class ValidateFingerprintLogic extends GetxController {
       );
     } catch (e) {
       Get.back();
-      Common.showToastCenter(e.toString());
+      Common.showToastCenter(e.toString(), context);
     }
   }
 
@@ -597,7 +598,7 @@ class ValidateFingerprintLogic extends GetxController {
       );
     } catch (e) {
       Get.back();
-      Common.showToastCenter(e.toString());
+      Common.showToastCenter(e.toString(), context);
     }
   }
 

@@ -409,7 +409,8 @@ class OrderManagementPage extends GetWidget {
                                                         Common.showToastCenter(
                                                             AppLocalizations.of(
                                                                     context)!
-                                                                .textCancelBuyAnyPaySuccess);
+                                                                .textCancelBuyAnyPaySuccess,
+                                                            context);
                                                       }
                                                     });
                                               },
@@ -580,7 +581,8 @@ class _itemOrderSearch extends StatelessWidget {
                                       text: buyAnyPayModel.saleOrderCode));
                                   Common.showToastCenter(
                                       AppLocalizations.of(context)!
-                                          .textCopySuccess);
+                                          .textCopySuccess,
+                                      context);
                                 },
                                 child: Row(
                                   children: [

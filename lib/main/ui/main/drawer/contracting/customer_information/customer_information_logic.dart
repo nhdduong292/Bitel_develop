@@ -420,13 +420,16 @@ class CustomerInformationLogic extends GetxController {
 
   bool checkValidateAddInfo() {
     if (phone.isEmpty) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyPhone);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotEmptyPhone, context);
       return true;
     } else if (email.isEmpty) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyEmail);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotEmptyEmail, context);
       return true;
     } else if (address.isEmpty) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textNotEmptyAddress);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textNotEmptyAddress, context);
       return true;
     }
     return false;
@@ -457,10 +460,11 @@ class CustomerInformationLogic extends GetxController {
   bool checkValidate() {
     if (!Common.validatePhone(phone)) {
       Common.showToastCenter(
-          AppLocalizations.of(context)!.textValidatePhoneNumber);
+          AppLocalizations.of(context)!.textValidatePhoneNumber, context);
       return false;
     } else if (!Common.validateEmail(email)) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textValidateEmail);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textValidateEmail, context);
       return false;
     }
     return true;
@@ -490,7 +494,8 @@ class CustomerInformationLogic extends GetxController {
         textFieldAddress.text.isNotEmpty) {
       return true;
     }
-    Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
+    Common.showToastCenter(
+        AppLocalizations.of(context)!.textInputInfo, context);
     return false;
   }
 
@@ -501,7 +506,8 @@ class CustomerInformationLogic extends GetxController {
         textFieldAddress.text.isNotEmpty) {
       return true;
     }
-    Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
+    Common.showToastCenter(
+        AppLocalizations.of(context)!.textInputInfo, context);
     return false;
   }
 
@@ -727,7 +733,7 @@ class CustomerInformationLogic extends GetxController {
     } on Exception catch (e) {
       // TODO
       print(e.toString());
-      Common.showToastCenter(e.toString());
+      Common.showToastCenter(e.toString(), context);
     }
   }
 
@@ -867,7 +873,7 @@ class CustomerInformationLogic extends GetxController {
       );
     } catch (e) {
       Get.back();
-      Common.showToastCenter(e.toString());
+      Common.showToastCenter(e.toString(), context);
     }
   }
 

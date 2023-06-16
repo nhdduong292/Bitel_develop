@@ -115,7 +115,7 @@ class FindServiceLogic extends GetxController {
         currentIdentityType == 'PP' &&
         !containsOnlyUpperCaseAndNumber(currentEnter)) {
       Common.showToastCenter(
-          AppLocalizations.of(context)!.textValidateIdentityPP);
+          AppLocalizations.of(context)!.textValidateIdentityPP, context);
       return true;
     }
     return false;

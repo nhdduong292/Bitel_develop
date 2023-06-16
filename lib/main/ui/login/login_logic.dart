@@ -113,7 +113,8 @@ class LoginLogic extends GetxController {
               DateTime.now().millisecondsSinceEpoch);
           Get.offAllNamed(RouteConfig.main);
         } else {
-          Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
+          Common.showToastCenter(
+              AppLocalizations.of(context)!.textErrorAPI, context);
         }
       },
       onError: (error) {
@@ -122,7 +123,8 @@ class LoginLogic extends GetxController {
           final statusCode = error.response?.statusCode;
           if (statusCode == 401) {
             Common.showToastCenter(
-                AppLocalizations.of(context)!.textUsernameOrPasswordInvalid);
+                AppLocalizations.of(context)!.textUsernameOrPasswordInvalid,
+                context);
             return;
           }
         } catch (e) {}

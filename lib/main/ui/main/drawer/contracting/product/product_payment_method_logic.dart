@@ -295,7 +295,7 @@ class ProductPaymentMethodLogic extends GetxController {
       );
     } catch (e) {
       Get.back();
-      Common.showToastCenter(e.toString());
+      Common.showToastCenter(e.toString(), context);
     }
   }
 
@@ -360,11 +360,12 @@ class ProductPaymentMethodLogic extends GetxController {
               }
             } else {
               Common.showToastCenter(
-                  AppLocalizations.of(context)!.textErrorAPI);
+                  AppLocalizations.of(context)!.textErrorAPI, context);
             }
           }
         } catch (e) {
-          Common.showToastCenter(AppLocalizations.of(context)!.textErrorAPI);
+          Common.showToastCenter(
+              AppLocalizations.of(context)!.textErrorAPI, context);
         }
       },
     );

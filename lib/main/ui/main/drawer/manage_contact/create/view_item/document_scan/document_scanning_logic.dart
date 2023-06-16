@@ -226,7 +226,7 @@ class DocumentScanningLogic extends GetxController {
     } on Exception catch (e) {
       // TODO
       print(e.toString());
-      Common.showToastCenter(e.toString());
+      Common.showToastCenter(e.toString(), context);
     }
   }
 
@@ -312,7 +312,8 @@ class DocumentScanningLogic extends GetxController {
         onScan();
       }
     } else {
-      Common.showToastCenter(AppLocalizations.of(context)!.textAcceptTheRules);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textAcceptTheRules, context);
     }
   }
 

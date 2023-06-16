@@ -81,7 +81,8 @@ class DialogTransferRequestLogic extends GetxController {
 
   bool checkValidate(BuildContext context) {
     if (currentStaffCode.isEmpty || currentReason == 0) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textInputInfo);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textInputInfo, context);
       return true;
     }
     return false;

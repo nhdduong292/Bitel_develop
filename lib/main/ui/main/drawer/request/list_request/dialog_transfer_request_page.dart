@@ -281,7 +281,8 @@ class DialogTransferRequest extends GetWidget {
                                 });
                           } else {
                             Common.showToastCenter(
-                                AppLocalizations.of(context)!.textErrorAPI);
+                                AppLocalizations.of(context)!.textErrorAPI,
+                                context);
                           }
                         },
                       );

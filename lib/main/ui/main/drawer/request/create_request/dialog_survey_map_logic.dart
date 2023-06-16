@@ -178,12 +178,14 @@ class DialogSurveyMapLogic extends GetxController {
     } catch (e) {}
     if (currentTechnology == "GPON" && (radius > 500 || radius < 1)) {
       // setRadius("500");
-      Common.showToastCenter(AppLocalizations.of(context)!.textRadiusLimit);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textRadiusLimit, context);
       return true;
     }
     if (currentTechnology == "AON" && (radius > 500 || radius < 1)) {
       // setRadius("300");
-      Common.showToastCenter(AppLocalizations.of(context)!.textRadiusLimit);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textRadiusLimit, context);
       return true;
     }
     return false;
@@ -296,7 +298,7 @@ class DialogSurveyMapLogic extends GetxController {
       }
     } catch (e) {
       Get.back();
-      Common.showToastCenter(e.toString());
+      Common.showToastCenter(e.toString(), context);
     }
   }
 

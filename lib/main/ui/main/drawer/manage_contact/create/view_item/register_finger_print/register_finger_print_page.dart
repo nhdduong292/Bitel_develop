@@ -397,7 +397,8 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                     controller.listImageRight.length == 3) {
                                   Common.showToastCenter(
                                       AppLocalizations.of(context)!
-                                          .textGetThree);
+                                          .textGetThree,
+                                      context);
                                   return;
                                 }
                                 if (controller.listImageLeft.length < 3 ||
@@ -462,7 +463,8 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                       } else {
                                         Common.showToastCenter(
                                             AppLocalizations.of(context)!
-                                                .textErrorAPI);
+                                                .textErrorAPI,
+                                            context);
                                       }
                                     },
                                   );
@@ -476,7 +478,8 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                         .add(controller.currentPathFinger);
                                     controller.countFinger.value--;
                                     Common.showToastCenter(
-                                        '${AppLocalizations.of(context)!.textGetSuccess} ${controller.listImageLeft.length}');
+                                        '${AppLocalizations.of(context)!.textGetSuccess} ${controller.listImageLeft.length}',
+                                        context);
                                   } else {
                                     controller.listImageRight
                                         .add(controller.currentImageFinger);
@@ -484,12 +487,14 @@ class RegisterFingerPrintPage extends GetView<RegisterFingerPrintLogic> {
                                         .add(controller.currentPathFinger);
                                     controller.countFinger.value--;
                                     Common.showToastCenter(
-                                        "${AppLocalizations.of(context)!.textGetSuccess} ${controller.listImageRight.length}");
+                                        "${AppLocalizations.of(context)!.textGetSuccess} ${controller.listImageRight.length}",
+                                        context);
                                   }
                                 } else {
                                   Common.showToastCenter(
                                       AppLocalizations.of(context)!
-                                          .textLimitFingerRegister);
+                                          .textLimitFingerRegister,
+                                      context);
                                 }
                                 controller.currentPathFinger = '';
                                 controller.currentImageFinger = '';

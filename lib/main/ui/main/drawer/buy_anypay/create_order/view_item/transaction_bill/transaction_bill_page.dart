@@ -132,7 +132,8 @@ class TransactionBillPage extends GetView<TransactionBillLogic> {
                                                 .bankCode));
                                         Common.showToastCenter(
                                             AppLocalizations.of(context)!
-                                                .textCopySuccess);
+                                                .textCopySuccess,
+                                            context);
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(

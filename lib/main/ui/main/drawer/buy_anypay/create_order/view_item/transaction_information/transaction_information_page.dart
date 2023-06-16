@@ -311,7 +311,8 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                   controller.textCaptchaController.text = '';
                                   Common.showToastCenter(
                                       AppLocalizations.of(context)!
-                                          .textCaptchaIsNotCorrect);
+                                          .textCaptchaIsNotCorrect,
+                                      context);
                                   controller.focusCaptcha.canRequestFocus;
                                   controller.update();
                                   return;

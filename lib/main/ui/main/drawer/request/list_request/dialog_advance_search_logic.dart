@@ -126,7 +126,8 @@ class DialogAdvanceSearchLogic extends GetxController {
     int result = timeTo - timeFrom;
     print("time: $result");
     if (result < 0) {
-      Common.showToastCenter(AppLocalizations.of(context)!.textValidateFromTo);
+      Common.showToastCenter(
+          AppLocalizations.of(context)!.textValidateFromTo, context);
       return false;
     }
     return true;
