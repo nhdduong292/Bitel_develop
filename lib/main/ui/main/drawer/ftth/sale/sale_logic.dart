@@ -116,6 +116,10 @@ class SaleLogic extends GetxController {
           "${homeSaleModel.cancelled}", "", 5),
       OptionSale("", AppLocalizations.of(context)!.textWaittingRecovery,
           "${homeSaleModel.waitingRecovery}", "", 6),
+      OptionSale("", AppLocalizations.of(context)!.textWaitingChangePlan,
+          "${homeSaleModel.waitingChangePlan}", "", 7),
+      OptionSale("", AppLocalizations.of(context)!.textWaitingTransfer,
+          "${homeSaleModel.waitingTransfer}", "", 8),
     ];
   }
 
@@ -126,15 +130,15 @@ class SaleLogic extends GetxController {
           AppLocalizations.of(context)!.textKPI,
           "${homeSaleModel.kpi}",
           AppLocalizations.of(context)!.textContractMonth,
-          7),
+          9),
       OptionSale(
           "",
           AppLocalizations.of(context)!.textPerformance,
           "${homeSaleModel.performance}",
           AppLocalizations.of(context)!.textSubscriber,
-          8),
+          10),
       OptionSale("", AppLocalizations.of(context)!.textCommission,
-          "${homeSaleModel.commission}", "S", 9),
+          "${homeSaleModel.commission}", "S", 11),
     ];
   }
 

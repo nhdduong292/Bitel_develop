@@ -18,11 +18,11 @@ class ListRequestLogic extends GetxController
   String actionType = '';
   Timer? _debounce;
   GlobalKey<ListRequestTabState> globalKeyCreateRequest = GlobalKey();
-  GlobalKey<ListRequestTabState> globalKey2 = GlobalKey();
-  GlobalKey<ListRequestTabState> globalKey3 = GlobalKey();
   GlobalKey<ListRequestTabState> globalKeySucceedSurvey = GlobalKey();
   GlobalKey<ListRequestTabState> globalKeyDeploying = GlobalKey();
   GlobalKey<ListRequestTabState> globalKeyWaitingRecovery = GlobalKey();
+  GlobalKey<ListRequestTabState> globalKeyWaitingChangePlan = GlobalKey();
+  GlobalKey<ListRequestTabState> globalKeyWaitingTransfer = GlobalKey();
   GlobalKey<ListRequestTabState> globalKeyComplete = GlobalKey();
   GlobalKey<ListRequestTabState> globalKeyCancel = GlobalKey();
   GlobalKey<ListRequestTabState> globalKeyAll = GlobalKey();
@@ -37,7 +37,7 @@ class ListRequestLogic extends GetxController
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    tabController = TabController(vsync: this, length: 7);
+    tabController = TabController(vsync: this, length: 9);
     index = Get.arguments;
     currentFromDate = saleLogic.fromDate;
     currentToDate = saleLogic.toDate;
@@ -62,10 +62,6 @@ class ListRequestLogic extends GetxController
         globalKeyCreateRequest.currentState!.getListRequest(keySearch);
       } else if (index == 2) {
         globalKeySucceedSurvey.currentState!.getListRequest(keySearch);
-        // } else if (index == 2) {
-        //   globalKey3.currentState!.getListRequest(key);
-        // } else if (index == 3) {
-        //   globalKey4.currentState!.getListRequest(key);
       } else if (index == 3) {
         globalKeyDeploying.currentState!.getListRequest(keySearch);
       } else if (index == 4) {
@@ -73,6 +69,10 @@ class ListRequestLogic extends GetxController
       } else if (index == 5) {
         globalKeyWaitingRecovery.currentState!.getListRequest(keySearch);
       } else if (index == 6) {
+        globalKeyWaitingChangePlan.currentState!.getListRequest(keySearch);
+      } else if (index == 7) {
+        globalKeyWaitingTransfer.currentState!.getListRequest(keySearch);
+      } else if (index == 8) {
         globalKeyCancel.currentState!.getListRequest(keySearch);
       } else if (index == 0) {
         globalKeyAll.currentState!.getListRequest(keySearch);
@@ -83,19 +83,19 @@ class ListRequestLogic extends GetxController
   String getStatus(int index) {
     if (index == 0) {
       return RequestStatus.CREATE_REQUEST;
-      // } else if (index == 1) {
-      //   return RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY;
     } else if (index == 1) {
       return RequestStatus.SUCCEED_SURVEY;
-      // } else if (index == 3) {
-      //   return RequestStatus.CONNECTED;
     } else if (index == 2) {
       return RequestStatus.DEPLOYING;
     } else if (index == 3) {
       return RequestStatus.RECOVERING;
     } else if (index == 4) {
-      return RequestStatus.COMPLETE;
+      return RequestStatus.WAITING_CHANGE_PLAN;
     } else if (index == 5) {
+      return RequestStatus.WAITING_TRANSFER;
+    } else if (index == 6) {
+      return RequestStatus.COMPLETE;
+    } else if (index == 7) {
       return RequestStatus.CANCEL;
     }
     return "";
@@ -145,14 +145,14 @@ class ListRequestLogic extends GetxController
         globalKeyCreateRequest.currentState!.getListRequest(key);
       } else if (index == 2) {
         globalKeySucceedSurvey.currentState!.getListRequest(key);
-        // } else if (index == 2) {
-        //   globalKey3.currentState!.getListRequest(key);
-        // } else if (index == 3) {
-        //   globalKey4.currentState!.getListRequest(key);
       } else if (index == 3) {
         globalKeyDeploying.currentState!.getListRequest(key);
       } else if (index == 4) {
         globalKeyWaitingRecovery.currentState!.getListRequest(key);
+      } else if (index == 4) {
+        globalKeyWaitingChangePlan.currentState!.getListRequest(key);
+      } else if (index == 4) {
+        globalKeyWaitingTransfer.currentState!.getListRequest(key);
       } else if (index == 5) {
         globalKeyComplete.currentState!.getListRequest(key);
       } else if (index == 6) {

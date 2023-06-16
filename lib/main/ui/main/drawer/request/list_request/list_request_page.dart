@@ -233,7 +233,15 @@ class ListRequestPage extends GetWidget {
                               AppLocalizations.of(context)!
                                   .textWaittingRecovery,
                               style: AppStyles.r7)),
-
+                      Tab(
+                          child: Text(
+                              AppLocalizations.of(context)!
+                                  .textWaitingChangePlan,
+                              style: AppStyles.r7)),
+                      Tab(
+                          child: Text(
+                              AppLocalizations.of(context)!.textWaitingTransfer,
+                              style: AppStyles.r7)),
                       Tab(
                           child: Text(
                               AppLocalizations.of(context)!.textComplete,
@@ -343,17 +351,6 @@ class ListRequestPage extends GetWidget {
                                 controller.update();
                               },
                             ),
-                            // ListRequestTabPage(
-                            //   status:
-                            //       RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY,
-                            //   listRequestLogic: controller,
-                            //   key: controller.globalKey2,
-                            // ),
-                            // ListRequestTabPage(
-                            //   status: RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY,
-                            //   listRequestLogic: controller,
-                            //   key: controller.globalKey3,
-                            // ),
                             ListRequestTabPage(
                               status: RequestStatus.SUCCEED_SURVEY,
                               listRequestLogic: controller,
@@ -378,6 +375,26 @@ class ListRequestPage extends GetWidget {
                               status: RequestStatus.RECOVERING,
                               listRequestLogic: controller,
                               key: controller.globalKeyWaitingRecovery,
+                              callbackTotalRequest: (currentTotal, total) {
+                                controller.currentTotal = currentTotal;
+                                controller.total = total;
+                                controller.update();
+                              },
+                            ),
+                            ListRequestTabPage(
+                              status: RequestStatus.WAITING_CHANGE_PLAN,
+                              listRequestLogic: controller,
+                              key: controller.globalKeyWaitingChangePlan,
+                              callbackTotalRequest: (currentTotal, total) {
+                                controller.currentTotal = currentTotal;
+                                controller.total = total;
+                                controller.update();
+                              },
+                            ),
+                            ListRequestTabPage(
+                              status: RequestStatus.WAITING_TRANSFER,
+                              listRequestLogic: controller,
+                              key: controller.globalKeyWaitingTransfer,
                               callbackTotalRequest: (currentTotal, total) {
                                 controller.currentTotal = currentTotal;
                                 controller.total = total;
@@ -457,10 +474,6 @@ class ListRequestPage extends GetWidget {
                   } else if (controller.index == 2) {
                     controller.globalKeySucceedSurvey.currentState!
                         .getListRequest("");
-                    // } else if (controller.index == 2) {
-                    //   controller.globalKey3.currentState!.getListRequest("");
-                    // } else if (controller.index == 3) {
-                    //   controller.globalKey4.currentState!.getListRequest("");
                   } else if (controller.index == 3) {
                     controller.globalKeyDeploying.currentState!
                         .getListRequest("");
@@ -468,9 +481,15 @@ class ListRequestPage extends GetWidget {
                     controller.globalKeyWaitingRecovery.currentState!
                         .getListRequest("");
                   } else if (controller.index == 5) {
-                    controller.globalKeyComplete.currentState!
+                    controller.globalKeyWaitingChangePlan.currentState!
                         .getListRequest("");
                   } else if (controller.index == 6) {
+                    controller.globalKeyWaitingTransfer.currentState!
+                        .getListRequest("");
+                  } else if (controller.index == 7) {
+                    controller.globalKeyComplete.currentState!
+                        .getListRequest("");
+                  } else if (controller.index == 8) {
                     controller.globalKeyCancel.currentState!.getListRequest("");
                   } else if (controller.index == 0) {
                     controller.globalKeyAll.currentState!.getListRequest("");
