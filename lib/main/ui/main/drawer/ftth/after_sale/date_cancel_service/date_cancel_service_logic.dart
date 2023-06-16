@@ -40,12 +40,12 @@ class DateCancelServiceLogic extends GetxController {
   }
 
   DateTime getFirstDate() {
-    if (DateTime.now().weekday == DateTime.saturday) {
-      return DateTime.now().add(const Duration(days: 6));
+    if (DateTime.now().weekday == DateTime.monday) {
+      return DateTime.now().add(const Duration(days: 4));
     } else if (DateTime.now().weekday == DateTime.sunday) {
       return DateTime.now().add(const Duration(days: 5));
     } else {
-      return DateTime.now().add(const Duration(days: 7));
+      return DateTime.now().add(const Duration(days: 6));
     }
   }
 
