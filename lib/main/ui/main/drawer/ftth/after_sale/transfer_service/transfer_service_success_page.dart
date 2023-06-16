@@ -198,11 +198,9 @@ class TransferServiceSuccessPage extends GetView<TransferServiceSuccessLogic> {
                                 richText: () {
                                   return Text(
                                     controller.model.requestDate != '---'
-                                        ? Common.fromDate(
-                                            DateTime.parse(
-                                                controller.model.requestDate),
-                                            'dd/MM/yyyy')
-                                        : '---',
+                                        ? Common.convertDateTime(
+                                            controller.model.requestDate)
+                                        : "---",
                                     style: AppStyles.r415263_13_500,
                                   );
                                 }),
@@ -217,11 +215,9 @@ class TransferServiceSuccessPage extends GetView<TransferServiceSuccessLogic> {
                                 richText: () {
                                   return Text(
                                     controller.model.operationDate != '---'
-                                        ? Common.fromDate(
-                                            DateTime.parse(
-                                                controller.model.operationDate),
-                                            'dd/MM/yyyy')
-                                        : '---',
+                                        ? Common.convertDateTime(
+                                            controller.model.operationDate)
+                                        : "---",
                                     style: AppStyles.r415263_13_500,
                                   );
                                 }),

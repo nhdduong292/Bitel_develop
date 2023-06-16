@@ -195,11 +195,9 @@ class CancelServiceSuccess extends GetView<CancelServiceSuccessLogic> {
                                 richText: () {
                                   return Text(
                                     controller.model.requestDate != '---'
-                                        ? Common.fromDate(
-                                            DateTime.parse(
-                                                controller.model.requestDate),
-                                            'dd/MM/yyyy')
-                                        : '---',
+                                        ? Common.convertDateTime(
+                                            controller.model.requestDate)
+                                        : "---",
                                     style: AppStyles.r415263_13_500,
                                   );
                                 }),
@@ -214,11 +212,9 @@ class CancelServiceSuccess extends GetView<CancelServiceSuccessLogic> {
                                 richText: () {
                                   return Text(
                                     controller.model.cancelDate != '---'
-                                        ? Common.fromDate(
-                                            DateTime.parse(
-                                                controller.model.cancelDate),
-                                            'dd/MM/yyyy')
-                                        : '---',
+                                        ? Common.convertDateTime(
+                                            controller.model.cancelDate)
+                                        : "---",
                                     style: AppStyles.r415263_13_500,
                                   );
                                 }),

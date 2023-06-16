@@ -201,11 +201,9 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                                 richText: () {
                                   return Text(
                                     controller.contractModel.signDate != ''
-                                        ? Common.fromDate(
-                                            DateTime.parse(controller
-                                                .contractModel.signDate),
-                                            'dd/MM/yyyy')
-                                        : '',
+                                        ? Common.convertDateTime(
+                                            controller.contractModel.signDate)
+                                        : "---",
                                     style: AppStyles.r415263_13_500,
                                   );
                                 }),

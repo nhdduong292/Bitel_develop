@@ -226,11 +226,9 @@ class ChangePlanSuccessPage extends GetView {
                                 richText: () {
                                   return Text(
                                     controller.model.dateOfRequest != '---'
-                                        ? Common.fromDate(
-                                            DateTime.parse(
-                                                controller.model.dateOfRequest),
-                                            'dd/MM/yyyy')
-                                        : '---',
+                                        ? Common.convertDateTime(
+                                            controller.model.dateOfRequest)
+                                        : "---",
                                     style: AppStyles.r415263_13_500,
                                   );
                                 }),
@@ -245,11 +243,9 @@ class ChangePlanSuccessPage extends GetView {
                                 richText: () {
                                   return Text(
                                     controller.model.startOfNewPlan != '---'
-                                        ? Common.fromDate(
-                                            DateTime.parse(controller
-                                                .model.startOfNewPlan),
-                                            'dd/MM/yyyy')
-                                        : '---',
+                                        ? Common.convertDateTime(
+                                            controller.model.startOfNewPlan)
+                                        : "---",
                                     style: AppStyles.r415263_13_500,
                                   );
                                 }),
