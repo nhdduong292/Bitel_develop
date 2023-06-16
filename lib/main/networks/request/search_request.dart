@@ -15,12 +15,11 @@ class SearchRequest {
   List<String> listStatus(BuildContext context) {
     return [
       AppLocalizations.of(context)!.textCreateRequest,
-      // AppLocalizations.of(context)!.textCreateRequestWithout,
-      // AppLocalizations.of(context)!.textSurveyOfflineSuccess,
-      // AppLocalizations.of(context)!.textConnected,
       AppLocalizations.of(context)!.textSucceedSurvey,
       AppLocalizations.of(context)!.textDeploying,
       AppLocalizations.of(context)!.textWaittingRecovery,
+      AppLocalizations.of(context)!.textWaitingChangePlan,
+      AppLocalizations.of(context)!.textWaitingTransfer,
       AppLocalizations.of(context)!.textComplete,
       AppLocalizations.of(context)!.textCancel
     ];
@@ -38,21 +37,20 @@ class SearchRequest {
   int getPositionStatus(BuildContext context) {
     if (status == AppLocalizations.of(context)!.textCreateRequest) {
       return 1;
-      // } else if (status ==
-      //     AppLocalizations.of(context)!.textCreateRequestWithout) {
-      //   return 1;
     } else if (status == AppLocalizations.of(context)!.textSucceedSurvey) {
       return 2;
-      // } else if (status == AppLocalizations.of(context)!.textConnected) {
-      //   return 3;
     } else if (status == AppLocalizations.of(context)!.textDeploying) {
       return 3;
     } else if (status == AppLocalizations.of(context)!.textWaittingRecovery) {
       return 4;
-    } else if (status == AppLocalizations.of(context)!.textComplete) {
+    } else if (status == AppLocalizations.of(context)!.textWaitingChangePlan) {
       return 5;
-    } else if (status == AppLocalizations.of(context)!.textCancel) {
+    } else if (status == AppLocalizations.of(context)!.textWaitingTransfer) {
       return 6;
+    } else if (status == AppLocalizations.of(context)!.textComplete) {
+      return 7;
+    } else if (status == AppLocalizations.of(context)!.textCancel) {
+      return 8;
     }
     return 0;
   }
@@ -87,32 +85,5 @@ class SearchRequest {
     staffCode = "";
     fromDate = "";
     toDate = "";
-  }
-
-  String getStatus(BuildContext context) {
-    if (status == null) {
-      return "";
-    } else {
-      if (status == AppLocalizations.of(context)!.textCreateRequest) {
-        return RequestStatus.CREATE_REQUEST;
-        // } else if (status ==
-        //     AppLocalizations.of(context)!.textCreateRequestWithout) {
-        //   return RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY;
-        // } else if (status ==
-        //     AppLocalizations.of(context)!.textSurveyOfflineSuccess) {
-        //   return RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY;
-      } else if (status == AppLocalizations.of(context)!.textSucceedSurvey) {
-        return RequestStatus.SUCCEED_SURVEY;
-      } else if (status == AppLocalizations.of(context)!.textDeploying) {
-        return RequestStatus.DEPLOYING;
-      } else if (status == AppLocalizations.of(context)!.textWaittingRecovery) {
-        return RequestStatus.RECOVERING;
-      } else if (status == AppLocalizations.of(context)!.textComplete) {
-        return RequestStatus.COMPLETE;
-      } else if (status == AppLocalizations.of(context)!.textCancel) {
-        return RequestStatus.CANCEL;
-      }
-      return "";
-    }
   }
 }

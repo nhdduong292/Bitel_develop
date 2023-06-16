@@ -175,13 +175,19 @@ class SalePage extends GetWidget {
                                               arguments: 3);
                                         } else if (index == 3) {
                                           Get.toNamed(RouteConfig.listRequest,
-                                              arguments: 5);
+                                              arguments: 7);
                                         } else if (index == 4) {
                                           Get.toNamed(RouteConfig.listRequest,
-                                              arguments: 6);
+                                              arguments: 8);
                                         } else if (index == 5) {
                                           Get.toNamed(RouteConfig.listRequest,
                                               arguments: 4);
+                                        } else if (index == 6) {
+                                          Get.toNamed(RouteConfig.listRequest,
+                                              arguments: 5);
+                                        } else if (index == 7) {
+                                          Get.toNamed(RouteConfig.listRequest,
+                                              arguments: 6);
                                         }
                                       },
                                     );
