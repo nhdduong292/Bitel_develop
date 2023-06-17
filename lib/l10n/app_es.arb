@@ -672,7 +672,7 @@
   "textE066": "El suscriptor no está activo",
   "textE067": "La eliminación de la tarea en Vsmart ha fallado",
   "textE068": "La validación de la huella del agente ha fallado",
-  "textE069": "No se ha aprobado el bupass para la validación de huella del cliente",
+  "textE069": "No se ha aprobado el bypass para la validación de huella del cliente",
   "textE070": "La firma del contato ha fallado porque no se pudo generar el codigo de operación",
   "textE071": "No se pudo cargar el documento al perfil del servicio",
   "textCurrentPlan": "Plan actual",
