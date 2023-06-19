@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:bitel_ventas/main/networks/model/contract_model.dart';
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
+import 'package:bitel_ventas/main/networks/model/request_ott_service_model.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/change_plan/information/infor_change_plan_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/request_detail/request_detail_logic.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
@@ -108,6 +110,8 @@ class CustomerInformationLogic extends GetxController {
   bool isLoadingMain = false;
   bool isLoadingLending = false;
 
+  List<RequestOTTServiceModel>? listRequestOTT;
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -160,6 +164,11 @@ class CustomerInformationLogic extends GetxController {
       statusRequest = requestDetailLogic.requestModel.status;
       contractRequestId =
           requestDetailLogic.requestModel.contractModel.contractId;
+    }
+    bool isExitChooseProduct = Get.isRegistered<ProductPaymentMethodLogic>();
+    if (isExitChooseProduct) {
+      ProductPaymentMethodLogic productPaymentMethodLogic = Get.find();
+      listRequestOTT = productPaymentMethodLogic.getJsonOTTService();
     }
 
     showButtonContinue();
@@ -281,7 +290,8 @@ class CustomerInformationLogic extends GetxController {
       "protectionFilter": checkOption1.value,
       "receiveInfoByMail": checkOption2.value,
       "receiveFromThirdParty": checkOption3.value,
-      "receiveFromBitel": checkOption4.value
+      "receiveFromBitel": checkOption4.value,
+      "ottServices": listRequestOTT
     };
     ApiUtil.getInstance()!.post(
       url: ApiEndPoints.API_CREATE_CONTRACT,
@@ -343,7 +353,8 @@ class CustomerInformationLogic extends GetxController {
       "protectionFilter": checkOption1.value,
       "receiveInfoByMail": checkOption2.value,
       "receiveFromThirdParty": checkOption3.value,
-      "receiveFromBitel": checkOption4.value
+      "receiveFromBitel": checkOption4.value,
+      "ottServices": listRequestOTT
     };
     ApiUtil.getInstance()!.put(
       url: "${ApiEndPoints.API_CREATE_CONTRACT}/$contractRequestId",

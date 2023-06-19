@@ -9,9 +9,12 @@ import 'package:get/get.dart';
 import '../../../../../../../networks/api_end_point.dart';
 import '../../../../../../../networks/api_util.dart';
 import '../../../../../../../networks/model/check_payment_change_plan_model.dart';
+import '../../../../../../../networks/model/plan_ott_model.dart';
+import '../../../../../../../networks/model/request_ott_service_model.dart';
 import '../../../../../../../services/connection_service.dart';
 import '../../../../../../../utils/common.dart';
 import '../../../../../../../utils/common_widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChooseChangePlanLogic extends GetxController {
   BuildContext context;
@@ -27,6 +30,10 @@ class ChooseChangePlanLogic extends GetxController {
   int subId = 0;
   bool isForcedTerm = false;
   int fingerId = 0;
+
+  List<PlanOttModel> listPlanOTT = [];
+  List<int> listSelectOtt = [];
+  var valueOTT = (-1).obs; //index cua promotion
 
   AfterSaleSearchLogic afterSaleSearchLogic = Get.find();
 
@@ -101,7 +108,8 @@ class ChooseChangePlanLogic extends GetxController {
       params: {
         "subId": subId,
         "newPlan":
-            productChangePlanModel.newPlan[valueProduct.value].productCode
+            productChangePlanModel.newPlan[valueProduct.value].productCode,
+        "ottServices": getListOTTService()
       },
       onSuccess: (response) {
         Get.back();
@@ -140,5 +148,110 @@ class ChooseChangePlanLogic extends GetxController {
     } else {
       return false;
     }
+  }
+
+  void checkSim(String value, var isSuccess) {
+    _onLoading(context);
+    ApiUtil.getInstance()!.get(
+      url: ApiEndPoints.API_CHECK_SIM,
+      params: {
+        "isdn": value,
+      },
+      onSuccess: (response) {
+        Get.back();
+        if (response.isSuccess) {
+          isSuccess(true);
+        } else {
+          isSuccess(false);
+          print("error: ${response.status}");
+        }
+      },
+      onError: (error) {
+        Get.back();
+        isSuccess(false);
+        Common.showMessageError(error: error, context: context);
+      },
+    );
+  }
+
+  void getOTTService() async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
+    _onLoading(context);
+    try {
+      ApiUtil.getInstance()!.get(
+        url:
+            '${ApiEndPoints.API_GET_OTT}/${productChangePlanModel.newPlan[valueProduct.value].productId}',
+        params: {
+          "planId":
+              productChangePlanModel.newPlan[valueProduct.value].productId,
+        },
+        onSuccess: (response) {
+          Get.back();
+          if (response.isSuccess) {
+            listPlanOTT = (response.data['data'] as List)
+                .map((postJson) => PlanOttModel.fromJson(postJson))
+                .toList();
+            update();
+          } else {
+            print("error: ${response.status}");
+          }
+        },
+        onError: (error) {
+          Get.back();
+          Common.showMessageError(error: error, context: context);
+        },
+      );
+    } catch (e) {
+      Get.back();
+      Common.showToastCenter(e.toString(), context);
+    }
+  }
+
+  void onChangePhoneNumber(String value, PlanOttModel ott) {
+    if (value.length == 9) {
+      checkSim(value, (isSuccess) {
+        if (!isSuccess) {
+          ott.focusNode!.requestFocus();
+          ott.isSuccess = false;
+          ott.errorText = AppLocalizations.of(context)!.textISdnIsNotFromBitel;
+        } else {
+          FocusScope.of(context).requestFocus(FocusNode());
+          ott.errorText = null;
+          ott.isSuccess = true;
+          ott.isdn = value;
+        }
+        update();
+      });
+    }
+  }
+
+  void resetPlanOTTs() {
+    listSelectOtt.clear();
+    listPlanOTT.clear();
+    valueOTT.value = -1;
+  }
+
+  List<RequestOTTServiceModel> getJsonOTTService() {
+    List<RequestOTTServiceModel> list = [];
+    for (int value in listSelectOtt) {
+      list.add(RequestOTTServiceModel(
+          ottService: listPlanOTT[value].ottService,
+          ottCode: listPlanOTT[value].listSubOtt[0].ottCode,
+          isdn: listPlanOTT[value].isdn,
+          promotionIds: []));
+    }
+    return list;
+  }
+
+  List<String> getListOTTService() {
+    List<String> list = [];
+    for (int value in listSelectOtt) {
+      list.add(listPlanOTT[value].ottService);
+    }
+    return list;
   }
 }

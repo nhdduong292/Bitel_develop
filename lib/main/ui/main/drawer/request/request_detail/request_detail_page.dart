@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:bitel_ventas/main/networks/model/sub_ott_model.dart';
 import 'package:bitel_ventas/main/networks/model/work_order_model.dart';
 import 'package:bitel_ventas/main/router/route_config.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/dialog_cancel_request_page.dart';
@@ -19,6 +20,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../../networks/model/plan_ott_model.dart';
 import '../../../../../utils/common.dart';
 
 class RequestDetailPage extends GetWidget {
@@ -334,6 +336,48 @@ class RequestDetailPage extends GetWidget {
                                         ),
                                       )
                                     ],
+                                  ),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(
+                                      top: 12, left: 15, right: 15),
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Table(
+                                      border: TableBorder.all(),
+                                      columnWidths: const {
+                                        0: FixedColumnWidth(100),
+                                        1: FixedColumnWidth(150),
+                                        2: FixedColumnWidth(150),
+                                        3: FixedColumnWidth(100),
+                                      },
+                                      children: List.generate(
+                                          controller.requestModel.ottServices
+                                                  .listSubOtt.length +
+                                              1, (index) {
+                                        if (index == 0) {
+                                          return buildRow([
+                                            AppLocalizations.of(context)!
+                                                .textService,
+                                            AppLocalizations.of(context)!
+                                                .textRegisterPhoneEmail,
+                                            AppLocalizations.of(context)!
+                                                .textMonthlyFee,
+                                            AppLocalizations.of(context)!
+                                                .textStatus,
+                                          ], true);
+                                        } else {
+                                          PlanOttModel model = controller
+                                              .requestModel.ottServices;
+                                          return buildRow([
+                                            model.listSubOtt[0].subOttName,
+                                            controller.requestModel.isdnAccount,
+                                            model.listSubOtt[0].fee.toString(),
+                                            model.listSubOtt[0].status,
+                                          ], false);
+                                        }
+                                      }),
+                                    ),
                                   ),
                                 ),
                               ],

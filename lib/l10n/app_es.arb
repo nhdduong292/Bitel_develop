@@ -708,5 +708,9 @@
   "textDateOfTransfer": "Fecha de transferencia",
   "textSuccessfulFTTHTransferRequest": "¡Solicitud de transferencia de servicio FTTH exitosa!",
   "textConnectionError": "¡Error de conexión!",
-  "textNoInternetConnection": "Sin conexión a Internet"
+  "textNoInternetConnection": "Sin conexión a Internet",
+  "textOTTService": "Servicio OTT",
+  "textEnterBitelPhoneNumber": "Ingrese el número de teléfono de Bitel para recibir el beneficio de video de Bitel",
+  "textISdnIsNotFromBitel": "Isdn no es de Bitel",
+  "textRegisterPhoneEmail": "Regístrese teléfono/correo electrónico"
 }

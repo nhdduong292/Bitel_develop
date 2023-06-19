@@ -103,23 +103,21 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          decoration: BoxDecoration(
-                            color: AppColors.colorSubContent.withOpacity(0.07),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Text(
-                            '${Common.numberFormat(controller.billModel.product.defaultValue)}/${AppLocalizations.of(context)!.textMonth}',
-                            style: const TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'Barlow',
-                                color: AppColors.colorText3,
-                                fontWeight: FontWeight.w700),
-                            textAlign: TextAlign.center,
-                          ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 10),
+                        decoration: BoxDecoration(
+                          color: AppColors.colorSubContent.withOpacity(0.07),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          '${Common.numberFormat(controller.billModel.product.defaultValue)}/${AppLocalizations.of(context)!.textMonth}',
+                          style: const TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Barlow',
+                              color: AppColors.colorText3,
+                              fontWeight: FontWeight.w700),
+                          textAlign: TextAlign.center,
                         ),
                       ),
                       const SizedBox(
@@ -232,6 +230,15 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                       _paymentElement(
                           AppLocalizations.of(context)!.textInstallationFee,
                           'S/${Common.numberFormat(controller.billModel.installationFee)}',
+                          const Color(0xFF415263)),
+                      const DottedLine(
+                        dashColor: Color(0xFFE3EAF2),
+                        dashGapLength: 3,
+                        dashLength: 4,
+                      ),
+                      _paymentElement(
+                          AppLocalizations.of(context)!.textOTTService,
+                          'S/${Common.numberFormat(controller.billModel.ottFee)}',
                           const Color(0xFF415263)),
                       const DottedLine(
                         dashColor: Color(0xFFE3EAF2),

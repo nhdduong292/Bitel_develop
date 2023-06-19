@@ -1,5 +1,7 @@
 import 'package:bitel_ventas/main/networks/model/contract_model.dart';
 import 'package:bitel_ventas/main/networks/model/customer_model.dart';
+import 'package:bitel_ventas/main/networks/model/plan_ott_model.dart';
+import 'package:bitel_ventas/main/networks/model/sub_ott_model.dart';
 import 'package:bitel_ventas/main/networks/model/subscription_model.dart';
 import 'package:bitel_ventas/main/networks/model/work_order_model.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
@@ -27,6 +29,7 @@ class RequestDetailModel {
   String? _actionType;
   ContractModel? _contractModel;
   List<WorkOrderModel>? _listWO;
+  PlanOttModel? _ottServices;
 
   RequestDetailModel();
 
@@ -60,6 +63,9 @@ class RequestDetailModel {
           .map((postJson) => WorkOrderModel.fromJson(postJson))
           .toList();
     }
+    if (json['ottServices'] != null) {
+      _ottServices = PlanOttModel.fromJson(json['ottServices']);
+    }
   }
 
   String get service => _service ?? "";
@@ -92,6 +98,8 @@ class RequestDetailModel {
   // set subscriptionModel(SubscriptionModel value) {
   //   _subscriptionModel = value;
   // }
+
+  PlanOttModel get ottServices => _ottServices ?? PlanOttModel();
 
   String get technology => _technology ?? "";
 

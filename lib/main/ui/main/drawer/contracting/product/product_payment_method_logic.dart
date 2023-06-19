@@ -1,11 +1,14 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/bill_model.dart';
 import 'package:bitel_ventas/main/networks/model/package_model.dart';
+import 'package:bitel_ventas/main/networks/model/plan_ott_model.dart';
 import 'package:bitel_ventas/main/networks/model/promotion_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
+import 'package:bitel_ventas/main/networks/model/request_ott_service_model.dart';
 import 'package:bitel_ventas/main/networks/response/product_response.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/request_detail/request_detail_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
@@ -28,6 +31,7 @@ class ProductPaymentMethodLogic extends GetxController {
   BuildContext context;
   bool isLoadingReason = true;
   bool isLoadingPromotion = true;
+  bool isLoadingOTTService = true;
   bool isLoadingWallet = true;
   bool isLoadingBill = true;
 
@@ -38,8 +42,8 @@ class ProductPaymentMethodLogic extends GetxController {
   RequestDetailModel requestModel = RequestDetailModel();
 
   String status = 'CREATE';
-  int currentProduct = 2;
-  int currentReason = 2;
+
+  List<int> listSelectOtt = [];
 
   ProductPaymentMethodLogic({required this.context});
 
@@ -65,11 +69,14 @@ class ProductPaymentMethodLogic extends GetxController {
   var valuePackage = (-1).obs; // index cua package
   var valueMethod = (-1).obs; // index cua reason
   var valuePromotion = (-1).obs; //index cua promotion
+  var valueOTT = (-1).obs; //index cua promotion
   var totalPayment = 0; // tong tien phai thanh toan
 
   CustomerModel customer = CustomerModel();
 
   List<PlanReasonModel> listPlanReason = [];
+
+  List<PlanOttModel> listPlanOTT = [];
 
   ProductModel selectedProduct = ProductModel();
   void setSelectedProduct(ProductModel product) {
@@ -104,10 +111,6 @@ class ProductPaymentMethodLogic extends GetxController {
           listProduct = (response.data['data'] as List)
               .map((postJson) => ProductModel.fromJson(postJson))
               .toList();
-          if (status == 'CHANGE') {
-            valueProduct.value = currentProduct;
-            getPlanReasons();
-          }
         } else {
           print("error: ${response.status}");
         }
@@ -152,10 +155,10 @@ class ProductPaymentMethodLogic extends GetxController {
   }
 
   void checkLoading() {
-    if (!isLoadingReason && !isLoadingPromotion) {
-      Get.back();
-    } else if (isLoadingReason && isLoadingPromotion) {
-      _onLoading(context);
+    if (!isLoadingReason && !isLoadingPromotion && !isLoadingOTTService) {
+      // Get.back();
+    } else if (isLoadingReason && isLoadingPromotion && isLoadingOTTService) {
+      // _onLoading(context);
     }
   }
 
@@ -175,6 +178,8 @@ class ProductPaymentMethodLogic extends GetxController {
       checkLoading();
       return;
     }
+    isLoadingPromotion = true;
+    update();
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_LIST_PROMOTION,
       params: {
@@ -183,6 +188,7 @@ class ProductPaymentMethodLogic extends GetxController {
       },
       onSuccess: (response) {
         isLoadingPromotion = false;
+        update();
         checkLoading();
         if (response.isSuccess) {
           listPromotion = (response.data['data'] as List)
@@ -252,6 +258,12 @@ class ProductPaymentMethodLogic extends GetxController {
     valuePromotion.value = -1;
   }
 
+  void resetPlanOTTs() {
+    listSelectOtt.clear();
+    listPlanOTT.clear();
+    valueOTT.value = -1;
+  }
+
   bool isForcedTerm() {
     if (getPlanReason().feeInstallation != null &&
         getPlanReason().feeInstallation! > 0.0) {
@@ -268,6 +280,8 @@ class ProductPaymentMethodLogic extends GetxController {
       checkLoading();
       return;
     }
+    isLoadingReason = true;
+    update();
     try {
       ApiUtil.getInstance()!.get(
         url: '${ApiEndPoints.API_PLAN_REASON}/${getProduct().productId}',
@@ -277,6 +291,7 @@ class ProductPaymentMethodLogic extends GetxController {
         },
         onSuccess: (response) {
           isLoadingReason = false;
+          update();
           checkLoading();
           if (response.isSuccess) {
             listPlanReason = (response.data['data'] as List)
@@ -289,12 +304,16 @@ class ProductPaymentMethodLogic extends GetxController {
         },
         onError: (error) {
           isLoadingReason = false;
+          update();
           checkLoading();
           Common.showMessageError(error: error, context: context);
         },
       );
     } catch (e) {
       Get.back();
+      isLoadingReason = false;
+      update();
+      checkLoading();
       Common.showToastCenter(e.toString(), context);
     }
   }
@@ -303,10 +322,11 @@ class ProductPaymentMethodLogic extends GetxController {
     bool isConnect =
         await ConnectionService.getInstance()?.checkConnect(context) ?? true;
     if (!isConnect) {
-      isLoadingReason = false;
-      checkLoading();
+      isLoadingWallet = false;
+      checkLoadingBill();
       return;
     }
+    isLoadingWallet = true;
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_WALLET,
       onSuccess: (response) {
@@ -407,10 +427,11 @@ class ProductPaymentMethodLogic extends GetxController {
     bool isConnect =
         await ConnectionService.getInstance()?.checkConnect(context) ?? true;
     if (!isConnect) {
-      isLoadingReason = false;
-      checkLoading();
+      isLoadingBill = false;
+      checkLoadingBill();
       return;
     }
+    isLoadingBill = true;
     Map<String, dynamic> body = {
       "requestId": requestModel.id,
       "productId": getProduct().productId,
@@ -434,7 +455,8 @@ class ProductPaymentMethodLogic extends GetxController {
       "protectionFilter": null,
       "receiveInfoByMail": null,
       "receiveFromThirdParty": null,
-      "receiveFromBitel": null
+      "receiveFromBitel": null,
+      "ottServices": getJsonOTTService()
     };
     ApiUtil.getInstance()!.post(
       url: ApiEndPoints.API_POST_CONTRACT_INFORMATION,
@@ -453,7 +475,7 @@ class ProductPaymentMethodLogic extends GetxController {
       onError: (error) {
         isLoadingBill = false;
         checkLoadingBill();
-        Common.showMessageError(error: error, context: context);
+        // Common.showMessageError(error: error, context: context);
       },
     );
   }
@@ -488,5 +510,119 @@ class ProductPaymentMethodLogic extends GetxController {
         } catch (e) {}
       },
     );
+  }
+
+  void getOTTService() async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      isLoadingOTTService = false;
+      checkLoading();
+      return;
+    }
+    isLoadingOTTService = true;
+    update();
+    try {
+      ApiUtil.getInstance()!.get(
+        url: '${ApiEndPoints.API_GET_OTT}/${getProduct().productId}',
+        params: {
+          "planId": getProduct().productId,
+        },
+        onSuccess: (response) {
+          isLoadingOTTService = false;
+          update();
+          checkLoading();
+          if (response.isSuccess) {
+            listPlanOTT = (response.data['data'] as List)
+                .map((postJson) => PlanOttModel.fromJson(postJson))
+                .toList();
+            update();
+          } else {
+            print("error: ${response.status}");
+          }
+        },
+        onError: (error) {
+          isLoadingOTTService = false;
+          update();
+          checkLoading();
+          Common.showMessageError(error: error, context: context);
+        },
+      );
+    } catch (e) {
+      isLoadingOTTService = false;
+      update();
+      checkLoading();
+      Common.showToastCenter(e.toString(), context);
+    }
+  }
+
+  void onChangePhoneNumber(String value, PlanOttModel ott) {
+    if (value.length == 9) {
+      checkSim(value, (isSuccess) {
+        if (!isSuccess) {
+          ott.focusNode!.requestFocus();
+          ott.isSuccess = false;
+          ott.errorText = AppLocalizations.of(context)!.textISdnIsNotFromBitel;
+        } else {
+          FocusScope.of(context).requestFocus(FocusNode());
+          ott.errorText = null;
+          ott.isSuccess = true;
+          ott.isdn = value;
+        }
+        update();
+      });
+    }
+  }
+
+  void checkSim(String value, var isSuccess) {
+    _onLoading(context);
+    ApiUtil.getInstance()!.get(
+      url: ApiEndPoints.API_CHECK_SIM,
+      params: {
+        "isdn": value,
+      },
+      onSuccess: (response) {
+        Get.back();
+        if (response.isSuccess) {
+          isSuccess(true);
+        } else {
+          isSuccess(false);
+          print("error: ${response.status}");
+        }
+      },
+      onError: (error) {
+        Get.back();
+        isSuccess(false);
+        Common.showMessageError(error: error, context: context);
+      },
+    );
+  }
+
+  bool checkBtnContinue() {
+    if (valueMethod.value > -1 &&
+        valueProduct.value > -1 &&
+        valuePackage.value > -1) {
+      for (int value in listSelectOtt) {
+        if (!listPlanOTT[value].isSuccess) {
+          listPlanOTT[value].focusNode!.requestFocus();
+          return false;
+        }
+      }
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  List<RequestOTTServiceModel> getJsonOTTService() {
+    List<RequestOTTServiceModel> list = [];
+    for (int value in listSelectOtt) {
+      list.add(RequestOTTServiceModel(
+          ottService: listPlanOTT[value].ottService,
+          ottCode: listPlanOTT[value].listSubOtt[0].ottCode,
+          isdn: listPlanOTT[value].isdn,
+          promotionIds: []));
+    }
+    return list;
   }
 }

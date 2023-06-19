@@ -169,9 +169,6 @@ class AfterSalePage extends GetView {
                               arguments: [value]);
                         }
                       });
-                      // Get.to(AfterSaleSearchPage(
-                      //     AppLocalizations.of(context)!.textTransferService,
-                      //     AfterSaleStatus.TRANSFER_SERVICE));
                     },
                   ),
                 ),

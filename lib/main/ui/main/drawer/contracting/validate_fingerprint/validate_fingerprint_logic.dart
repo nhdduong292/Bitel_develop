@@ -4,7 +4,9 @@ import 'dart:convert';
 import 'package:bitel_ventas/main/networks/model/best_finger_model.dart';
 import 'package:bitel_ventas/main/networks/model/cancel_service_infor_model.dart';
 import 'package:bitel_ventas/main/networks/model/change_plan_infor_model.dart';
+import 'package:bitel_ventas/main/networks/model/request_ott_service_model.dart';
 import 'package:bitel_ventas/main/networks/model/transfer_service_infor_model.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/change_plan/choose/choose_change_plan_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/transfer_service/bill_transfer_service_logic.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
@@ -58,6 +60,8 @@ class ValidateFingerprintLogic extends GetxController {
   TransferServiceInforModel transferServiceInforModel =
       TransferServiceInforModel();
 
+  List<RequestOTTServiceModel> listRequestOTT = [];
+
   ValidateFingerprintLogic(this.context);
 
   @override
@@ -93,6 +97,12 @@ class ValidateFingerprintLogic extends GetxController {
         subId = inforChangePlanLogic.subId;
         newPlan = inforChangePlanLogic.newPlan.productCode ?? "";
         fingerId = inforChangePlanLogic.fingerId;
+      }
+
+      bool isExitChooseProduct = Get.isRegistered<ChooseChangePlanLogic>();
+      if (isExitChooseProduct) {
+        ChooseChangePlanLogic chooseChangePlanLogic = Get.find();
+        listRequestOTT = chooseChangePlanLogic.getJsonOTTService();
       }
     } else if (type == ValidateFingerStatus.MAIN ||
         type == ValidateFingerStatus.LENDING) {
@@ -571,6 +581,7 @@ class ValidateFingerprintLogic extends GetxController {
       Map<String, dynamic> body = {
         "staffFingerId": fingerId,
         "newPlan": newPlan,
+        "ottServices": listRequestOTT,
         "finger": bestFinger.right != 0 ? bestFinger.right : bestFinger.left,
         "listImage": listFinger,
         "pk": pk

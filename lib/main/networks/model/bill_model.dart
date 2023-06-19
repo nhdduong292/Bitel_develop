@@ -5,6 +5,7 @@ class BillModel {
   double? _speedNew;
   String? _paymentName;
   double? _fee;
+  double? _ottFee;
   double? _installationFee;
   double? _discount;
   double? _total;
@@ -14,6 +15,7 @@ class BillModel {
     _speedNew = json['speedNew'];
     _paymentName = json['paymentName'];
     _fee = json['fee'];
+    _ottFee = json['ottFee'];
     _installationFee = json['installationFee'];
     _discount = json['discount'];
     _total = json['total'];
@@ -36,6 +38,10 @@ class BillModel {
 
   double get fee {
     return _fee ?? 0;
+  }
+
+  double get ottFee {
+    return _ottFee ?? 0;
   }
 
   double get installationFee {

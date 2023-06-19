@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class TransferServiceInforModel {
   String? _operationCode;
   String? _customer;
