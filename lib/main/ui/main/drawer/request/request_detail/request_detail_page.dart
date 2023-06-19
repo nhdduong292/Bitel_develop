@@ -49,8 +49,18 @@ class RequestDetailPage extends GetWidget {
             elevation: 0.0,
             title: Container(
               margin: const EdgeInsets.only(bottom: 20),
-              child: Text(AppLocalizations.of(context)!.textRequestDetail,
-                  style: AppStyles.title),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(AppLocalizations.of(context)!.textRequestDetail,
+                      style: AppStyles.title),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text("ID: ${controller.currentId}",
+                      style: AppStyles.title.copyWith(fontSize: 12)),
+                ],
+              ),
             ),
             toolbarHeight: 100,
             flexibleSpace: Container(

@@ -711,5 +711,6 @@
   "textOTTService": "Dịch vụ OTT",
   "textEnterBitelPhoneNumber": "Nhập số điện thoại Bitel để nhận ưu đãi video Bitel",
   "textISdnIsNotFromBitel": "Isdn không phải của Bitel",
-  "textRegisterPhoneEmail": "Đăng ký điện thoại/email"
+  "textRegisterPhoneEmail": "Đăng ký điện thoại/email",
+  "textE090": "[LỖI RENIEC] [DNI] Bạn đã đạt tối đa 5 lần xác thực dấu vân tay trong ngày, thao tác này không thể thực hiện được cho đến ngày hôm sau."
 }

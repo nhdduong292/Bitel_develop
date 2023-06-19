@@ -660,7 +660,7 @@
   "textBypassFingerprint": "Saltar huella dactilar",
   "textBestFingerNotExit": "Mejor dedo no salir.",
   "textActive": "Activo",
-  "textSuccessfulTerminationOfContract": "¡Terminación exitosa del contrato!",
+  "textSuccessfulTerminationOfContract": "Terminación exitosa del contrato",
   "textDoYouWantToContinueOrChooseTheProduct": "¿Desea continuar o elegir el producto nuevamente?",
   "textAgain": "Otra vez",
   "textHello": "Hola",
@@ -672,7 +672,7 @@
   "textE066": "El suscriptor no está activo",
   "textE067": "La eliminación de la tarea en Vsmart ha fallado",
   "textE068": "La validación de la huella del agente ha fallado",
-  "textE069": "No se ha aprobado el bupass para la validación de huella del cliente",
+  "textE069": "No se ha aprobado el bypass para la validación de huella del cliente",
   "textE070": "La firma del contato ha fallado porque no se pudo generar el codigo de operación",
   "textE071": "No se pudo cargar el documento al perfil del servicio",
   "textCurrentPlan": "Plan actual",
@@ -712,5 +712,6 @@
   "textOTTService": "Servicio OTT",
   "textEnterBitelPhoneNumber": "Ingrese el número de teléfono de Bitel para recibir el beneficio de video de Bitel",
   "textISdnIsNotFromBitel": "Isdn no es de Bitel",
-  "textRegisterPhoneEmail": "Regístrese teléfono/correo electrónico"
+  "textRegisterPhoneEmail": "Regístrese teléfono/correo electrónico",
+  "textE090": "[ERROR RENIEC] [DNI] Ha alcanzado el máximo de 5 veces de validación dactilar del día, no se podrá realizar esta operación hasta el día siguiente."
 }
