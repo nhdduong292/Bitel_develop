@@ -88,6 +88,6 @@ class TransferServiceInforModel {
   }
 
   String getInstalAddressOld() {
-    return "$oldAddress, $oldPrecinctName, $oldDistrictName, $oldProvinceName";
+    return "$oldAddress";
   }
 }
