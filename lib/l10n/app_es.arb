@@ -713,5 +713,6 @@
   "textEnterBitelPhoneNumber": "Ingrese el número de teléfono de Bitel para recibir el beneficio de video de Bitel",
   "textISdnIsNotFromBitel": "Isdn no es de Bitel",
   "textRegisterPhoneEmail": "Regístrese teléfono/correo electrónico",
-  "textE090": "[ERROR RENIEC] [DNI] Ha alcanzado el máximo de 5 veces de validación dactilar del día, no se podrá realizar esta operación hasta el día siguiente."
+  "textE090": "[ERROR RENIEC] [DNI] Ha alcanzado el máximo de 5 veces de validación dactilar del día, no se podrá realizar esta operación hasta el día siguiente.",
+  "textNoOTTService": "No OTT servicio"
 }

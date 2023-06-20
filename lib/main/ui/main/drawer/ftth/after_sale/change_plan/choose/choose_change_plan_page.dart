@@ -361,47 +361,61 @@ class ChooseChangePlanPage extends GetView {
                                         dashGapLength: 3,
                                         dashLength: 4,
                                       ),
-                                      ListView.separated(
-                                          padding:
-                                              const EdgeInsets.only(top: 0),
-                                          shrinkWrap: true,
-                                          primary: false,
-                                          itemBuilder: (BuildContext context,
-                                                  int index) =>
-                                              _itemOTT(
-                                                context: context,
-                                                ott: controller
-                                                    .listPlanOTT[index],
-                                                value: index,
-                                                listValue:
-                                                    controller.listSelectOtt,
-                                                onChange: (value) {
-                                                  if (controller.listSelectOtt
-                                                      .contains(value)) {
-                                                    controller.listSelectOtt
-                                                        .removeWhere(
-                                                            (element) =>
-                                                                element ==
-                                                                value);
-                                                  } else {
-                                                    controller.listSelectOtt
-                                                        .add(value);
-                                                  }
-                                                  controller.update();
-                                                },
-                                                controller: controller,
-                                              ),
-                                          separatorBuilder:
-                                              (BuildContext context,
+                                      controller.listPlanOTT.isNotEmpty
+                                          ? ListView.separated(
+                                              padding:
+                                                  const EdgeInsets.only(top: 0),
+                                              shrinkWrap: true,
+                                              primary: false,
+                                              itemBuilder: (BuildContext
+                                                          context,
                                                       int index) =>
-                                                  const Divider(
-                                                    color:
-                                                        AppColors.colorLineDash,
-                                                    height: 1,
-                                                    thickness: 1,
+                                                  _itemOTT(
+                                                    context: context,
+                                                    ott: controller
+                                                        .listPlanOTT[index],
+                                                    value: index,
+                                                    listValue: controller
+                                                        .listSelectOtt,
+                                                    onChange: (value) {
+                                                      if (controller
+                                                          .listSelectOtt
+                                                          .contains(value)) {
+                                                        controller.listSelectOtt
+                                                            .removeWhere(
+                                                                (element) =>
+                                                                    element ==
+                                                                    value);
+                                                      } else {
+                                                        controller.listSelectOtt
+                                                            .add(value);
+                                                      }
+                                                      controller.update();
+                                                    },
+                                                    controller: controller,
                                                   ),
-                                          itemCount:
-                                              controller.listPlanOTT.length)
+                                              separatorBuilder:
+                                                  (BuildContext context,
+                                                          int index) =>
+                                                      const Divider(
+                                                        color: AppColors
+                                                            .colorLineDash,
+                                                        height: 1,
+                                                        thickness: 1,
+                                                      ),
+                                              itemCount:
+                                                  controller.listPlanOTT.length)
+                                          : Column(children: [
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                  AppLocalizations.of(context)!
+                                                      .textNoOTTService,
+                                                  style: AppStyles
+                                                      .r2B3A4A_12_500
+                                                      .copyWith(fontSize: 13))
+                                            ])
                                     ],
                                   ),
                                 ),

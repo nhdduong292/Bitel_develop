@@ -726,5 +726,6 @@
   "textEnterBitelPhoneNumber": "Enter Bitel phone number to receive Bitel video benefit",
   "textISdnIsNotFromBitel": "Isdn is not from Bitel",
   "textRegisterPhoneEmail": "Register phone/email",
-  "textE090": "[RENIEC ERROR] [DNI] You have reached the maximum of 5 times of fingerprint validation of the day, this operation cannot be carried out until the following day."
+  "textE090": "[RENIEC ERROR] [DNI] You have reached the maximum of 5 times of fingerprint validation of the day, this operation cannot be carried out until the following day.",
+  "textNoOTTService": "No OTT service"
 }

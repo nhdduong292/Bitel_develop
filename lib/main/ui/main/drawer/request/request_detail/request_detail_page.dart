@@ -51,10 +51,11 @@ class RequestDetailPage extends GetWidget {
               margin: const EdgeInsets.only(bottom: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(AppLocalizations.of(context)!.textRequestDetail,
                       style: AppStyles.title),
-                  SizedBox(
+                  Container(
                     height: 5,
                   ),
                   Text("ID: ${controller.currentId}",
@@ -363,7 +364,7 @@ class RequestDetailPage extends GetWidget {
                                       },
                                       children: List.generate(
                                           controller.requestModel.ottServices
-                                                  .listSubOtt.length +
+                                                  .length +
                                               1, (index) {
                                         if (index == 0) {
                                           return buildRow([
@@ -377,13 +378,14 @@ class RequestDetailPage extends GetWidget {
                                                 .textStatus,
                                           ], true);
                                         } else {
-                                          PlanOttModel model = controller
-                                              .requestModel.ottServices;
+                                          SubOTTModel model = controller
+                                              .requestModel
+                                              .ottServices[index - 1];
                                           return buildRow([
-                                            model.listSubOtt[0].subOttName,
-                                            controller.requestModel.isdnAccount,
-                                            model.listSubOtt[0].fee.toString(),
-                                            model.listSubOtt[0].status,
+                                            model.subOttName,
+                                            model.isdn,
+                                            Common.numberFormat(model.fee),
+                                            model.status,
                                           ], false);
                                         }
                                       }),

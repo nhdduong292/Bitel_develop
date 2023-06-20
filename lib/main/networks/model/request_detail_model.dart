@@ -29,7 +29,7 @@ class RequestDetailModel {
   String? _actionType;
   ContractModel? _contractModel;
   List<WorkOrderModel>? _listWO;
-  PlanOttModel? _ottServices;
+  List<SubOTTModel>? _ottServices;
 
   RequestDetailModel();
 
@@ -64,7 +64,9 @@ class RequestDetailModel {
           .toList();
     }
     if (json['ottServices'] != null) {
-      _ottServices = PlanOttModel.fromJson(json['ottServices']);
+      _ottServices = (json['ottServices'] as List)
+          .map((postJson) => SubOTTModel.fromJson(postJson))
+          .toList();
     }
   }
 
@@ -99,7 +101,7 @@ class RequestDetailModel {
   //   _subscriptionModel = value;
   // }
 
-  PlanOttModel get ottServices => _ottServices ?? PlanOttModel();
+  List<SubOTTModel> get ottServices => _ottServices ?? [];
 
   String get technology => _technology ?? "";
 

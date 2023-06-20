@@ -4,6 +4,7 @@ class SubOTTModel {
   String? _ottCode;
   String? _subOttName;
   String? _status;
+  String? _isdn;
   String? _description;
   double? _fee;
   List<PromotionModel>? _promotions;
@@ -21,6 +22,7 @@ class SubOTTModel {
     _subOttName = json['subOttName'];
     _description = json['description'];
     _fee = json['fee'];
+    _isdn = json['isdn'];
   }
 
   List<PromotionModel> get promotions {
@@ -41,6 +43,10 @@ class SubOTTModel {
 
   String get description {
     return _description ?? '---';
+  }
+
+  String get isdn {
+    return _isdn ?? '---';
   }
 
   double get fee {
