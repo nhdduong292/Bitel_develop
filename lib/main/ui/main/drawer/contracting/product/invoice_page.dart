@@ -237,7 +237,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                         dashLength: 4,
                       ),
                       _paymentElement(
-                          AppLocalizations.of(context)!.textOTTService,
+                          AppLocalizations.of(context)!.textOTTServices,
                           'S/${Common.numberFormat(controller.billModel.ottFee)}',
                           const Color(0xFF415263)),
                       const DottedLine(

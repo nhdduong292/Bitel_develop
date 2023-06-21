@@ -713,7 +713,14 @@ Widget _itemOTT(
             collapsed: ExpandableButton(
               child: Row(
                 children: [
-                  Obx(() => check.value ? iconChecked() : iconUnchecked()),
+                  SizedBox(
+                    height: 22.0,
+                    width: 22.0,
+                    child: Obx(() => Checkbox(
+                        activeColor: AppColors.colorSubContent,
+                        value: check.value,
+                        onChanged: (value) {})),
+                  ),
                   const SizedBox(
                     width: 16,
                   ),
@@ -743,7 +750,14 @@ Widget _itemOTT(
                 ExpandableButton(
                   child: Row(
                     children: [
-                      Obx(() => check.value ? iconChecked() : iconUnchecked()),
+                      SizedBox(
+                        height: 22.0,
+                        width: 22.0,
+                        child: Obx(() => Checkbox(
+                            activeColor: AppColors.colorSubContent,
+                            value: check.value,
+                            onChanged: (value) {})),
+                      ),
                       const SizedBox(
                         width: 16,
                       ),

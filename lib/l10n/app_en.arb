@@ -723,9 +723,15 @@
   "textConnectionError": "Connection error!",
   "textNoInternetConnection": "No Internet connection",
   "textOTTService": "OTT service",
-  "textEnterBitelPhoneNumber": "Enter Bitel phone number to receive Bitel video benefit",
   "textISdnIsNotFromBitel": "Isdn is not from Bitel",
   "textRegisterPhoneEmail": "Register phone/email",
   "textE090": "[RENIEC ERROR] [DNI] You have reached the maximum of 5 times of fingerprint validation of the day, this operation cannot be carried out until the following day.",
-  "textNoOTTService": "No OTT service"
+  "textNoOTTService": "No OTT service",
+  "textOTTServices": "OTT services",
+  "textEnterBitelPhoneNumber": "Enter Bitel phone number",
+  "textE074": "Send otp fail!",
+  "textE075": "Payment isdn fail!",
+  "textE076": "Get captcha fail.",
+  "textE077": "Buy anypay has reached the limit.",
+  "textE078": "Please enter Bitel phone number to receive this benifit."
 }

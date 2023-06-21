@@ -351,6 +351,22 @@ class RequestDetailPage extends GetWidget {
                                 ),
                                 Container(
                                   margin: const EdgeInsets.only(
+                                      bottom: 15, left: 15, right: 15, top: 15),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        AppLocalizations.of(context)!
+                                            .textOTTServices,
+                                        style: const TextStyle(
+                                            color: AppColors.colorText2,
+                                            fontSize: 15,
+                                            fontFamily: 'Barlow'),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(
                                       top: 12, left: 15, right: 15),
                                   child: SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,

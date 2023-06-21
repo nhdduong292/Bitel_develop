@@ -709,9 +709,16 @@
   "textConnectionError": "Lỗi kết nối!",
   "textNoInternetConnection": "Không có kết nỗi Internet",
   "textOTTService": "Dịch vụ OTT",
-  "textEnterBitelPhoneNumber": "Nhập số điện thoại Bitel để nhận ưu đãi video Bitel",
   "textISdnIsNotFromBitel": "Isdn không phải của Bitel",
   "textRegisterPhoneEmail": "Đăng ký điện thoại/email",
   "textE090": "[LỖI RENIEC] [DNI] Bạn đã đạt tối đa 5 lần xác thực dấu vân tay trong ngày, thao tác này không thể thực hiện được cho đến ngày hôm sau.",
-  "textNoOTTService": "Không có dịch vụ OTT"
+  "textNoOTTService": "Không có dịch vụ OTT",
+  "textOTTServices": "Dịch vụ OTT",
+  "textEnterBitelPhoneNumber": "Nhập số điện thoại Bitel",
+  "textE074": "Gửi OTP thất bại!",
+  "textE075": "Thanh toán số điện thoại không thành công!",
+  "textE076": "Lấy captcha thất bại.",
+  "textE077": "Mua anypay đã đạt đến giới hạn.",
+  "textE078": "Vui lòng nhập số điện thoại Bitel để nhận ưu đãi này."
+
 }
