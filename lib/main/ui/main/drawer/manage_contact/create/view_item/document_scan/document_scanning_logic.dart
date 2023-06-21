@@ -214,8 +214,7 @@ class DocumentScanningLogic extends GetxController {
         });
   }
 
-  uploadImage(BuildContext context, DocumentScanningLogic controller,
-      bool isScanningFont) async {
+  uploadImage(DocumentScanningLogic controller, bool isScanningFont) async {
     try {
       final pickedFile =
           await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -226,7 +225,7 @@ class DocumentScanningLogic extends GetxController {
     } on Exception catch (e) {
       // TODO
       print(e.toString());
-      Common.showToastCenter(e.toString(), context);
+      // Common.showToastCenter(e.toString(), context);
     }
   }
 

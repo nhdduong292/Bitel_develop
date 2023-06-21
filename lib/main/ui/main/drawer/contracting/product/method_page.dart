@@ -713,14 +713,15 @@ Widget _itemOTT(
             collapsed: ExpandableButton(
               child: Row(
                 children: [
-                  SizedBox(
-                    height: 22.0,
-                    width: 22.0,
-                    child: Obx(() => Checkbox(
-                        activeColor: AppColors.colorSubContent,
-                        value: check.value,
-                        onChanged: (value) {})),
-                  ),
+                  Obx(() => check.value
+                      ? const Icon(
+                          Icons.check_box,
+                          color: AppColors.colorSubContent,
+                        )
+                      : const Icon(
+                          Icons.check_box_outline_blank,
+                          color: AppColors.colorSubContent,
+                        )),
                   const SizedBox(
                     width: 16,
                   ),
@@ -750,14 +751,16 @@ Widget _itemOTT(
                 ExpandableButton(
                   child: Row(
                     children: [
-                      SizedBox(
-                        height: 22.0,
-                        width: 22.0,
-                        child: Obx(() => Checkbox(
-                            activeColor: AppColors.colorSubContent,
-                            value: check.value,
-                            onChanged: (value) {})),
-                      ),
+                      Obx(() => check.value
+                          ? const Icon(
+                              Icons.check_box,
+                              color: AppColors.colorSubContent,
+                            )
+                          : const Icon(
+                              Icons.check_box_outline_blank,
+                              // color: Colors.white,
+                              color: AppColors.colorSubContent,
+                            )),
                       const SizedBox(
                         width: 16,
                       ),

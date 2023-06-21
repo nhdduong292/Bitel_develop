@@ -349,14 +349,18 @@ class RequestDetailPage extends GetWidget {
                                     ],
                                   ),
                                 ),
+                                const DottedLine(
+                                  dashColor: Color(0xFFE3EAF2),
+                                  dashGapLength: 3,
+                                  dashLength: 4,
+                                ),
                                 Container(
                                   margin: const EdgeInsets.only(
                                       bottom: 15, left: 15, right: 15, top: 15),
                                   child: Row(
                                     children: [
                                       Text(
-                                        AppLocalizations.of(context)!
-                                            .textOTTServices,
+                                        "*${AppLocalizations.of(context)!.textOTTServices}",
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
                                             fontSize: 15,

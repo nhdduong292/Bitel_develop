@@ -550,14 +550,15 @@ class ChooseChangePlanPage extends GetView {
               collapsed: ExpandableButton(
                 child: Row(
                   children: [
-                    SizedBox(
-                      height: 22.0,
-                      width: 22.0,
-                      child: Obx(() => Checkbox(
-                          activeColor: AppColors.colorSubContent,
-                          value: check.value,
-                          onChanged: (value) {})),
-                    ),
+                    Obx(() => check.value
+                        ? const Icon(
+                            Icons.check_box,
+                            color: AppColors.colorSubContent,
+                          )
+                        : const Icon(
+                            Icons.check_box_outline_blank,
+                            color: AppColors.colorSubContent,
+                          )),
                     const SizedBox(
                       width: 16,
                     ),
@@ -588,14 +589,15 @@ class ChooseChangePlanPage extends GetView {
                   ExpandableButton(
                     child: Row(
                       children: [
-                        SizedBox(
-                          height: 22.0,
-                          width: 22.0,
-                          child: Obx(() => Checkbox(
-                              activeColor: AppColors.colorSubContent,
-                              value: check.value,
-                              onChanged: (value) {})),
-                        ),
+                        Obx(() => check.value
+                            ? const Icon(
+                                Icons.check_box,
+                                color: AppColors.colorSubContent,
+                              )
+                            : const Icon(
+                                Icons.check_box_outline_blank,
+                                color: AppColors.colorSubContent,
+                              )),
                         const SizedBox(
                           width: 16,
                         ),

@@ -253,7 +253,7 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                                       onGellary: () {
                                         Get.back();
                                         controller.uploadImage(
-                                            context, controller, true);
+                                            controller, true);
                                       },
                                     );
                                   });
@@ -298,9 +298,7 @@ class DocumentScanningWidget extends GetView<DocumentScanningLogic> {
                                       },
                                       onGellary: () {
                                         Get.back();
-                                        controller.uploadImage(
-                                            context,
-                                            controller,
+                                        controller.uploadImage(controller,
                                             controller.textPathScan.isEmpty);
                                       },
                                     );

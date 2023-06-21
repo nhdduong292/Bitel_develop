@@ -896,23 +896,90 @@ Widget spinnerFormV2(
     bool? isMaxlenght}) {
   return Column(
     children: [
-      Container(
-        width: width,
-        height: height > 45 ? height : 45,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24),
-            border: Border.all(color: Color(0xFFE3EAF2))),
-        child: listDrop.isEmpty
-            ? Padding(
-                padding: EdgeInsets.only(left: 12, top: 6, bottom: 6, right: 6),
-                child: TextField(
-                    maxLines: isMaxlenght ?? false ? null : 1,
-                    expands: isMaxlenght ?? false,
-                    maxLength: isMaxlenght ?? false ? 500 : null,
-                    controller: controlTextField,
-                    keyboardType: inputType,
-                    autofocus: required,
-                    textInputAction: typeAction,
+      Stack(
+        children: [
+          height > 45
+              ? Container(
+                  width: width,
+                  height: height - 20,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(color: Color(0xFFE3EAF2))),
+                )
+              : Container(),
+          Container(
+            width: width,
+            height: height > 45 ? height : 45,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24),
+                border:
+                    height <= 45 ? Border.all(color: Color(0xFFE3EAF2)) : null),
+            child: listDrop.isEmpty
+                ? Padding(
+                    padding:
+                        EdgeInsets.only(left: 12, top: 6, bottom: 6, right: 6),
+                    child: TextField(
+                        maxLines: isMaxlenght ?? false ? null : 1,
+                        expands: isMaxlenght ?? false,
+                        maxLength: isMaxlenght ?? false ? 500 : null,
+                        controller: controlTextField,
+                        keyboardType: inputType,
+                        autofocus: required,
+                        textInputAction: typeAction,
+                        style: fontSize != null
+                            ? AppStyles.r2.copyWith(
+                                color: AppColors.colorTitle,
+                                fontWeight: FontWeight.w500,
+                                fontSize: fontSize)
+                            : AppStyles.r2.copyWith(
+                                color: AppColors.colorTitle,
+                                fontWeight: FontWeight.w500),
+                        onChanged: (value) {
+                          if (function != null) {
+                            function.call(value);
+                          }
+                        },
+                        onSubmitted: (value) {
+                          if (onSubmit != null) {
+                            onSubmit.call(value);
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: hint,
+                          hintStyle: AppStyles.r2.copyWith(
+                            color: AppColors.colorHint1,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          border: InputBorder.none,
+                        )),
+                  )
+                : DropdownButtonFormField2(
+                    decoration: InputDecoration(
+                      isDense: true,
+                      contentPadding: EdgeInsets.zero,
+                      border: InputBorder.none,
+                    ),
+                    // selectedItemHighlightColor: Colors.red,
+                    buttonHeight: 60,
+                    focusNode: focusNode,
+                    buttonPadding: const EdgeInsets.only(left: 0, right: 10),
+                    dropdownDecoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(24),
+                        border: Border.all(color: Color(0xFFE3EAF2))),
+                    isExpanded: true,
+                    value: dropValue.isNotEmpty ? dropValue : null,
+                    onChanged: (value) {
+                      if (value == "DEFAULT") {
+                        function!.call("");
+                      } else {
+                        function!.call(value!);
+                      }
+                    },
+
+                    items:
+                        listDrop.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem(value: value, child: Text(value));
+                    }).toList(),
                     style: fontSize != null
                         ? AppStyles.r2.copyWith(
                             color: AppColors.colorTitle,
@@ -921,74 +988,23 @@ Widget spinnerFormV2(
                         : AppStyles.r2.copyWith(
                             color: AppColors.colorTitle,
                             fontWeight: FontWeight.w500),
-                    onChanged: (value) {
-                      if (function != null) {
-                        function.call(value);
+                    icon: SvgPicture.asset(AppImages.icDropdownSpinner),
+                    hint: hint.isNotEmpty
+                        ? Text(
+                            hint,
+                            style: AppStyles.r2.copyWith(
+                                color: AppColors.colorHint1,
+                                fontWeight: FontWeight.w400),
+                          )
+                        : Text(""),
+                    validator: (value) {
+                      if (value == null) {
+                        return 'Please select gender.';
                       }
                     },
-                    onSubmitted: (value) {
-                      if (onSubmit != null) {
-                        onSubmit.call(value);
-                      }
-                    },
-                    decoration: InputDecoration(
-                      hintText: hint,
-                      hintStyle: AppStyles.r2.copyWith(
-                        color: AppColors.colorHint1,
-                        fontWeight: FontWeight.w400,
-                      ),
-                      border: InputBorder.none,
-                    )),
-              )
-            : DropdownButtonFormField2(
-                decoration: InputDecoration(
-                  isDense: true,
-                  contentPadding: EdgeInsets.zero,
-                  border: InputBorder.none,
-                ),
-                // selectedItemHighlightColor: Colors.red,
-                buttonHeight: 60,
-                focusNode: focusNode,
-                buttonPadding: const EdgeInsets.only(left: 0, right: 10),
-                dropdownDecoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24),
-                    border: Border.all(color: Color(0xFFE3EAF2))),
-                isExpanded: true,
-                value: dropValue.isNotEmpty ? dropValue : null,
-                onChanged: (value) {
-                  if (value == "DEFAULT") {
-                    function!.call("");
-                  } else {
-                    function!.call(value!);
-                  }
-                },
-
-                items: listDrop.map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem(value: value, child: Text(value));
-                }).toList(),
-                style: fontSize != null
-                    ? AppStyles.r2.copyWith(
-                        color: AppColors.colorTitle,
-                        fontWeight: FontWeight.w500,
-                        fontSize: fontSize)
-                    : AppStyles.r2.copyWith(
-                        color: AppColors.colorTitle,
-                        fontWeight: FontWeight.w500),
-                icon: SvgPicture.asset(AppImages.icDropdownSpinner),
-                hint: hint.isNotEmpty
-                    ? Text(
-                        hint,
-                        style: AppStyles.r2.copyWith(
-                            color: AppColors.colorHint1,
-                            fontWeight: FontWeight.w400),
-                      )
-                    : Text(""),
-                validator: (value) {
-                  if (value == null) {
-                    return 'Please select gender.';
-                  }
-                },
-              ),
+                  ),
+          ),
+        ],
       ),
     ],
   );
