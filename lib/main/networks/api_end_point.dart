@@ -160,4 +160,6 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/plan-otts";
   static const String API_CHECK_SIM =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/plan-otts/check-isdn-bitel";
+  static const String API_LOCK_TRANSFER_SERVICE =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/transfer/lock-infra/requestId";
 }

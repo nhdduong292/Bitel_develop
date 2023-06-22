@@ -733,5 +733,6 @@
   "textE075": "Payment isdn fail!",
   "textE076": "Get captcha fail.",
   "textE077": "Buy anypay has reached the limit.",
-  "textE078": "Please enter Bitel phone number to receive this benifit."
+  "textE078": "Please enter Bitel phone number to receive this benifit.",
+  "textSignTransferRequest": "Sign transfer request"
 }

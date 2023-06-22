@@ -170,11 +170,19 @@ class DialogSurveySuccessful extends GetWidget {
                           highlightColor: Colors.transparent,
                           splashColor: Colors.transparent,
                           onTap: () {
-                            if (controller.type ==
-                                AfterSaleStatus.TRANSFER_SERVICE) {
-                              Get.toNamed(RouteConfig.billTransferService,
-                                  arguments: [requestModel]);
-                              return;
+                            if (!controller.isSelectOffline) {
+                              if (controller.type ==
+                                  AfterSaleStatus.TRANSFER_SERVICE) {
+                                _onLoading(context);
+                                controller.lockTransferService((isSuccess) {
+                                  Get.back();
+                                  if (isSuccess) {
+                                    Get.toNamed(RouteConfig.billTransferService,
+                                        arguments: [requestModel]);
+                                  }
+                                });
+                                return;
+                              }
                             }
                             if (!controller.isSelectOffline) {
                               _onLoading(context);

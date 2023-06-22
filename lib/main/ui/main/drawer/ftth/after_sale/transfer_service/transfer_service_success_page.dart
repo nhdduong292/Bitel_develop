@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/transfer_service/transfer_service_success_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -11,6 +12,7 @@ import '../../../../../../../res/app_images.dart';
 import '../../../../../../../res/app_styles.dart';
 import '../../../../../../router/route_config.dart';
 import '../../../../../../utils/common.dart';
+import '../../sale/sale_logic.dart';
 
 class TransferServiceSuccessPage extends GetView<TransferServiceSuccessLogic> {
   @override
@@ -248,12 +250,25 @@ class TransferServiceSuccessPage extends GetView<TransferServiceSuccessLogic> {
                                     .textClose
                                     .toUpperCase(),
                                 onTap: () {
-                                  Get.until(
-                                    (route) {
-                                      return Get.currentRoute ==
-                                          RouteConfig.afterSale;
-                                    },
-                                  );
+                                  bool isExit =
+                                      Get.isRegistered<AfterSaleLogic>();
+                                  if (isExit) {
+                                    Get.until(
+                                      (route) {
+                                        return Get.currentRoute ==
+                                            RouteConfig.afterSale;
+                                      },
+                                    );
+                                  } else {
+                                    Get.until(
+                                      (route) {
+                                        return Get.currentRoute ==
+                                            RouteConfig.sale;
+                                      },
+                                    );
+                                    SaleLogic saleLogic = Get.find();
+                                    saleLogic.viewWillAppear();
+                                  }
                                 })),
                         SizedBox(
                           height: 20,

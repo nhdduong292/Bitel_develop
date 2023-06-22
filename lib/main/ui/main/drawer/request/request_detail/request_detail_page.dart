@@ -22,6 +22,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../networks/model/plan_ott_model.dart';
 import '../../../../../utils/common.dart';
+import '../../ftth/after_sale/after_sale_search_page.dart';
 
 class RequestDetailPage extends GetWidget {
   const RequestDetailPage({super.key});
@@ -744,6 +745,27 @@ class RequestDetailPage extends GetWidget {
                                               controller.requestModel.status ==
                                                   RequestStatus
                                                       .SURVEY_OFFLINE_SUCCESSFULLY) {
+                                            if (controller
+                                                    .requestModel.actionType ==
+                                                ActionType.type_195) {
+                                              Get.toNamed(
+                                                  RouteConfig
+                                                      .validateFingerprint,
+                                                  arguments: [
+                                                    ValidateFingerStatus
+                                                        .STAFF_CHANGE_PLAN
+                                                  ])?.then((value) {
+                                                if (value != null) {
+                                                  Get.toNamed(
+                                                      RouteConfig
+                                                          .billTransferService,
+                                                      arguments: [
+                                                        controller.requestModel
+                                                      ]);
+                                                }
+                                              });
+                                              return;
+                                            }
                                             Get.toNamed(
                                                 RouteConfig.productPayment,
                                                 arguments: [
