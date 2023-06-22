@@ -47,7 +47,7 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
                               onChange: (value, check) {
                                 if (controller.newSelect < 0) {
                                   controller.newSelect = index;
-                                } else if (controller.oldSelect < 0) {
+                                } else {
                                   if (index != controller.newSelect) {
                                     controller.oldSelect = controller.newSelect;
                                     controller.newSelect = index;
@@ -70,7 +70,8 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
                                 } else {
                                   controller.listClearDebt[controller.newSelect]
                                       .listValue
-                                      .remove(value);
+                                      .removeWhere(
+                                          (element) => element == value);
                                   controller.totalService =
                                       controller.totalService -
                                           controller.listClearDebt[index]
@@ -125,6 +126,9 @@ class ClearDebtDetailPage extends GetView<ClearDebtDetailLogic> {
                     child: bottomButton(
                         text: AppLocalizations.of(context)!.textContinue,
                         onTap: () {
+                          if (controller.listClearDebt.isEmpty) {
+                            return;
+                          }
                           if (controller.listClearDebt[controller.newSelect]
                               .listValue.isEmpty) {
                             return;
