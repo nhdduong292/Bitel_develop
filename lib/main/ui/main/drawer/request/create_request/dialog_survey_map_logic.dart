@@ -8,7 +8,9 @@ import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -114,22 +116,28 @@ class DialogSurveyMapLogic extends GetxController {
     currentPoint = point;
     lat = point.latitude;
     long = point.longitude;
-    List<Placemark> placemarks =
-        await placemarkFromCoordinates(lat, long, localeIdentifier: "en_US");
-    setMarker(point);
-    GoogleMapController controller = await controllerMap.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(target: point, zoom: 14.4746)));
-    circles.add(Circle(
-        circleId: CircleId('raj'),
-        center: point,
-        fillColor: Colors.blue.withOpacity(0.1),
-        radius: radiusValue,
-        strokeColor: Colors.blue,
-        strokeWidth: 1));
-    isActive = false;
-    update();
-    Get.back();
+    try {
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(lat, long, localeIdentifier: "en_US");
+      setMarker(point);
+      GoogleMapController controller = await controllerMap.future;
+      controller.animateCamera(CameraUpdate.newCameraPosition(
+          CameraPosition(target: point, zoom: 14.4746)));
+      circles.add(Circle(
+          circleId: CircleId('raj'),
+          center: point,
+          fillColor: Colors.blue.withOpacity(0.1),
+          radius: radiusValue,
+          strokeColor: Colors.blue,
+          strokeWidth: 1));
+      isActive = false;
+      update();
+      Get.back();
+    } catch (e) {
+      if (kDebugMode) {
+        Common.showToastCenter(e.toString(), context);
+      }
+    }
   }
 
   void setTechnology(String value) {

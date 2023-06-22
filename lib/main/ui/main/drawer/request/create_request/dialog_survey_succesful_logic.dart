@@ -60,6 +60,31 @@ class DialogSurveySuccessfulLogic extends GetxController {
         });
   }
 
+  void lockTransferService(Function(bool isSuccess) callBack) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
+    ApiUtil.getInstance()!.post(
+        url: ApiEndPoints.API_LOCK_TRANSFER_SERVICE
+            .replaceAll("requestId", id.toString()),
+        params: {"requestId": id},
+        onSuccess: (response) {
+          if (response.isSuccess) {
+            print("success");
+            callBack.call(true);
+          } else {
+            print("error: ${response.status}");
+            callBack.call(false);
+          }
+        },
+        onError: (error) {
+          callBack.call(false);
+          Common.showMessageError(error: error, context: context);
+        });
+  }
+
   void createSurveyOffline(Function(bool isSuccess) callBack) async {
     bool isConnect =
         await ConnectionService.getInstance()?.checkConnect(context) ?? true;

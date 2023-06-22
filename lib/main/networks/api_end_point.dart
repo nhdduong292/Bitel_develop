@@ -156,4 +156,6 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/transfer/sign/requestId";
   static const String API_VALIDATE_STAFF_FINGER_TRANSFER_SERVICE =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/transfer/validate-staff-finger";
+  static const String API_LOCK_TRANSFER_SERVICE =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/transfer/lock-infra/requestId";
 }
