@@ -722,5 +722,6 @@
   "textSuccessfulFTTHTransferRequest": "Successful FTTH service transfer request!",
   "textConnectionError": "Connection error!",
   "textNoInternetConnection": "No Internet connection",
-  "textE090": "[RENIEC ERROR] [DNI] You have reached the maximum of 5 times of fingerprint validation of the day, this operation cannot be carried out until the following day."
+  "textE090": "[RENIEC ERROR] [DNI] You have reached the maximum of 5 times of fingerprint validation of the day, this operation cannot be carried out until the following day.",
+  "textSignTransferRequest": "Sign transfer request"
 }

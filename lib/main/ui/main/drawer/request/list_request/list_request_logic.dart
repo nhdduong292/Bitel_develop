@@ -149,13 +149,13 @@ class ListRequestLogic extends GetxController
         globalKeyDeploying.currentState!.getListRequest(key);
       } else if (index == 4) {
         globalKeyWaitingRecovery.currentState!.getListRequest(key);
-      } else if (index == 4) {
-        globalKeyWaitingChangePlan.currentState!.getListRequest(key);
-      } else if (index == 4) {
-        globalKeyWaitingTransfer.currentState!.getListRequest(key);
       } else if (index == 5) {
-        globalKeyComplete.currentState!.getListRequest(key);
+        globalKeyWaitingChangePlan.currentState!.getListRequest(key);
       } else if (index == 6) {
+        globalKeyWaitingTransfer.currentState!.getListRequest(key);
+      } else if (index == 7) {
+        globalKeyComplete.currentState!.getListRequest(key);
+      } else if (index == 8) {
         globalKeyCancel.currentState!.getListRequest(key);
       } else if (index == 0) {
         globalKeyAll.currentState!.getListRequest(key);

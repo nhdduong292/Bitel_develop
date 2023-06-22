@@ -12,6 +12,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../networks/model/work_order_model.dart';
 import '../../../../../services/connection_service.dart';
 import '../../../../../utils/common.dart';
+import '../../ftth/after_sale/after_sale_search_page.dart';
 import '../../utilitis/info_bussiness.dart';
 
 class RequestDetailLogic extends GetxController {
@@ -76,9 +77,17 @@ class RequestDetailLogic extends GetxController {
       return false;
     } else if (status == RequestStatus.CREATE_REQUEST_WITHOUT_SURVEY) {
       textConnect = AppLocalizations.of(context)!.textConnect;
+      if (requestModel.actionType == ActionType.type_195) {
+        textConnect = AppLocalizations.of(context)!.textSignTransferRequest;
+        return true;
+      }
       return true;
     } else if (status == RequestStatus.SURVEY_OFFLINE_SUCCESSFULLY) {
       textConnect = AppLocalizations.of(context)!.textConnect;
+      if (requestModel.actionType == ActionType.type_195) {
+        textConnect = AppLocalizations.of(context)!.textSignTransferRequest;
+        return true;
+      }
       return true;
     } else if (status == RequestStatus.CONTRACTING) {
       textConnect = AppLocalizations.of(context)!.textContracting;
