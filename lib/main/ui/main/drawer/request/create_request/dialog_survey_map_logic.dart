@@ -52,6 +52,7 @@ class DialogSurveyMapLogic extends GetxController {
 
   bool isActive = true;
   Timer? _debounce;
+  bool isSuccessGetLocation = true;
 
   DialogSurveyMapLogic({required this.context, required this.requestModel});
 
@@ -73,7 +74,6 @@ class DialogSurveyMapLogic extends GetxController {
   void onReady() {
     // TODO: implement onReady
     super.onReady();
-    _onLoading(context);
     _getCurrentLocation().then(
       (value) {
         getLocationAddress();
@@ -286,6 +286,7 @@ class DialogSurveyMapLogic extends GetxController {
 
   void getLocationAddress() async {
     try {
+      _onLoading(context);
       print(requestModel.getInstalAddress());
       List<Location> locations = await locationFromAddress(
           requestModel.getInstalAddress(),
@@ -301,11 +302,17 @@ class DialogSurveyMapLogic extends GetxController {
         currentPoint = LatLng(lat, long);
         print("lat: $lat long: $long");
         setCircleFirst(currentPoint);
+        isSuccessGetLocation = true;
+        update();
       } else {
         Get.back();
+        isSuccessGetLocation = false;
+        update();
       }
     } catch (e) {
       Get.back();
+      isSuccessGetLocation = false;
+      update();
       Common.showToastCenter(e.toString(), context);
     }
   }
