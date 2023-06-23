@@ -721,5 +721,6 @@
   "textE077": "Mua anypay đã đạt đến giới hạn.",
   "textE078": "Vui lòng nhập số điện thoại Bitel để nhận ưu đãi này.",
 
-  "textSignTransferRequest": "Ký yêu cầu chuyển nhượng"
+  "textSignTransferRequest": "Ký yêu cầu chuyển nhượng",
+  "textReload": "Tải lại"
 }

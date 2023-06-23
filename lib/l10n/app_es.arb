@@ -721,5 +721,6 @@
   "textE076": "Captcha tukuyta chaskiyta.",
   "textE077": "Anypay yanapaq huchasqanku tukuyta.",
   "textE078": "Ingrese el número de teléfono de Bitel para recibir este beneficio.",
-  "textSignTransferRequest": "Firmar solicitud de transferencia"
+  "textSignTransferRequest": "Firmar solicitud de transferencia",
+  "textReload": "Recargar"
 }
