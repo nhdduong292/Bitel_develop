@@ -195,6 +195,10 @@ class ChooseChangePlanLogic extends GetxController {
             listPlanOTT = (response.data['data'] as List)
                 .map((postJson) => PlanOttModel.fromJson(postJson))
                 .toList();
+            for (var model in listPlanOTT) {
+              int index = listPlanOTT.indexOf(model);
+              listSelectOtt.add(index);
+            }
             update();
           } else {
             print("error: ${response.status}");

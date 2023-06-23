@@ -5,6 +5,7 @@ import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_native_splash/cli_commands.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -1382,6 +1383,7 @@ Widget selectTypeSearchService(
   bool isPP = false;
   bool isPhone = false;
   bool isNumberService = false;
+  bool isFTTHAcount = false;
   if (currentIdentityType == listIdentity[2]) {
     isPP = true;
   }
@@ -1391,6 +1393,7 @@ Widget selectTypeSearchService(
   var hintText = '';
   if (currentStatus == listStatus[1]) {
     hintText = AppLocalizations.of(context)!.textEnterAccount;
+    isFTTHAcount = true;
   } else if (currentStatus == listStatus[2]) {
     hintText = AppLocalizations.of(context)!.hintEnterPhone;
   } else {
@@ -1529,6 +1532,12 @@ Widget selectTypeSearchService(
                 Expanded(
                     flex: 4,
                     child: TextField(
+                        inputFormatters: isFTTHAcount
+                            ? [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'[a-zA-Z0-9_]+')),
+                              ]
+                            : [],
                         controller: controller,
                         keyboardType: isPhone || isNumberService
                             ? TextInputType.number

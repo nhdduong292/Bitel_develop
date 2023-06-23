@@ -547,7 +547,7 @@ class ChooseChangePlanPage extends GetView {
             ExpandablePanel(
               controller: ott.controller,
               theme: const ExpandableThemeData(hasIcon: false),
-              collapsed: ExpandableButton(
+              expanded: ExpandableButton(
                 child: Row(
                   children: [
                     Obx(() => check.value
@@ -584,7 +584,7 @@ class ChooseChangePlanPage extends GetView {
                   ],
                 ),
               ),
-              expanded: Column(
+              collapsed: Column(
                 children: [
                   ExpandableButton(
                     child: Row(

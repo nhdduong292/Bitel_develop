@@ -710,7 +710,7 @@ Widget _itemOTT(
           ExpandablePanel(
             controller: ott.controller,
             theme: const ExpandableThemeData(hasIcon: false),
-            collapsed: ExpandableButton(
+            expanded: ExpandableButton(
               child: Row(
                 children: [
                   Obx(() => check.value
@@ -746,7 +746,7 @@ Widget _itemOTT(
                 ],
               ),
             ),
-            expanded: Column(
+            collapsed: Column(
               children: [
                 ExpandableButton(
                   child: Row(
