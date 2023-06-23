@@ -71,20 +71,38 @@ class DialogSurveyMapPage extends GetWidget {
                         ),
                       ],
                     ),
-                    child: !controller.isLocation
-                        ? Container()
-                        : GoogleMap(
-                            mapType: MapType.normal,
-                            onMapCreated: (GoogleMapController control) {
-                              controller.controllerMap.complete(control);
-                            },
-                            initialCameraPosition: controller.kGooglePlex,
-                            circles: controller.circles,
-                            markers: controller.markers,
-                            onTap: (argument) {
-                              controller.setCircle(argument);
-                            },
+                    child: Stack(
+                      children: [
+                        GoogleMap(
+                          mapType: MapType.normal,
+                          onMapCreated: (GoogleMapController control) {
+                            controller.controllerMap.complete(control);
+                          },
+                          initialCameraPosition: controller.kGooglePlex,
+                          circles: controller.circles,
+                          markers: controller.markers,
+                          onTap: (argument) {
+                            controller.setCircle(argument);
+                          },
+                        ),
+                        Visibility(
+                          visible: !controller.isSuccessGetLocation,
+                          child: Container(
+                            color: Colors.black.withOpacity(0.2),
+                            child: Center(
+                                child: InkWell(
+                                    onTap: () {
+                                      controller.getLocationAddress();
+                                    },
+                                    child: const Icon(
+                                      Icons.replay_outlined,
+                                      size: 40,
+                                      color: Colors.white,
+                                    ))),
                           ),
+                        )
+                      ],
+                    ),
                   ),
                   Container(
                     padding: const EdgeInsets.only(top: 18),
@@ -155,27 +173,48 @@ class DialogSurveyMapPage extends GetWidget {
                       ],
                     ),
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                          flex: 1,
-                          child: bottomButton(
-                              color: controller.isActive
-                                  ? Colors.white
-                                  : AppColors.colorButton,
-                              text: AppLocalizations.of(context)!.textSurvey,
-                              onTap: () {
-                                if (controller.isActive ||
-                                    controller.checkValidate(context)) {
-                                  return;
-                                }
-                                FocusScope.of(context).unfocus();
+                  Visibility(
+                    visible: controller.isSuccessGetLocation,
+                    child: Row(
+                      children: [
+                        Expanded(
+                            flex: 1,
+                            child: bottomButton(
+                                color: controller.isActive
+                                    ? Colors.white
+                                    : AppColors.colorButton,
+                                text: AppLocalizations.of(context)!.textSurvey,
+                                onTap: () {
+                                  if (controller.isActive ||
+                                      controller.checkValidate(context)) {
+                                    return;
+                                  }
+                                  FocusScope.of(context).unfocus();
 
-                                bool isExit = Get.isRegistered<
-                                    CreateTransferServiceLogic>();
-                                if (isExit) {
+                                  bool isExit = Get.isRegistered<
+                                      CreateTransferServiceLogic>();
+                                  if (isExit) {
+                                    _onLoading(context);
+                                    controller.createSurveyTransfer(
+                                      (isSuccess) {
+                                        // onSubmit.call(isSuccess);
+                                        if (isSuccess) {
+                                          showDialogSurveySuccessful(context);
+                                        } else {
+                                          try {
+                                            showDialogSurveyUnsuccessful(
+                                                context, requestModel.id);
+                                          } catch (e) {
+                                            print(e.toString());
+                                          }
+                                        }
+                                      },
+                                    );
+                                    return;
+                                  }
+
                                   _onLoading(context);
-                                  controller.createSurveyTransfer(
+                                  controller.createSurvey(
                                     (isSuccess) {
                                       // onSubmit.call(isSuccess);
                                       if (isSuccess) {
@@ -190,27 +229,9 @@ class DialogSurveyMapPage extends GetWidget {
                                       }
                                     },
                                   );
-                                  return;
-                                }
-
-                                _onLoading(context);
-                                controller.createSurvey(
-                                  (isSuccess) {
-                                    // onSubmit.call(isSuccess);
-                                    if (isSuccess) {
-                                      showDialogSurveySuccessful(context);
-                                    } else {
-                                      try {
-                                        showDialogSurveyUnsuccessful(
-                                            context, requestModel.id);
-                                      } catch (e) {
-                                        print(e.toString());
-                                      }
-                                    }
-                                  },
-                                );
-                              }))
-                    ],
+                                }))
+                      ],
+                    ),
                   ),
                 ],
               ),
