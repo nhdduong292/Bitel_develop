@@ -163,7 +163,7 @@ class DialogSurveyMapPage extends GetWidget {
                                 color: AppColors.colorButton,
                                 text: AppLocalizations.of(context)!.textReload,
                                 onTap: () {
-                                  controller.getLocationAddress();
+                                  controller.getLocationAddress(true);
                                 }))
                       ],
                     ),
