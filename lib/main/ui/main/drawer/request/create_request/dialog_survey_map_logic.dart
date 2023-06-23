@@ -74,9 +74,10 @@ class DialogSurveyMapLogic extends GetxController {
   void onReady() {
     // TODO: implement onReady
     super.onReady();
+    _onLoading(context);
     _getCurrentLocation().then(
       (value) {
-        getLocationAddress();
+        getLocationAddress(false);
         // Get.back();
       },
     );
@@ -284,9 +285,12 @@ class DialogSurveyMapLogic extends GetxController {
     super.dispose();
   }
 
-  void getLocationAddress() async {
+  void getLocationAddress(bool isReload) async {
     try {
-      _onLoading(context);
+      if (isReload) {
+        _onLoading(context);
+      }
+
       print(requestModel.getInstalAddress());
       List<Location> locations = await locationFromAddress(
           requestModel.getInstalAddress(),
