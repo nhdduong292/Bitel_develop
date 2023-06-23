@@ -71,37 +71,17 @@ class DialogSurveyMapPage extends GetWidget {
                         ),
                       ],
                     ),
-                    child: Stack(
-                      children: [
-                        GoogleMap(
-                          mapType: MapType.normal,
-                          onMapCreated: (GoogleMapController control) {
-                            controller.controllerMap.complete(control);
-                          },
-                          initialCameraPosition: controller.kGooglePlex,
-                          circles: controller.circles,
-                          markers: controller.markers,
-                          onTap: (argument) {
-                            controller.setCircle(argument);
-                          },
-                        ),
-                        Visibility(
-                          visible: !controller.isSuccessGetLocation,
-                          child: Container(
-                            color: Colors.black.withOpacity(0.2),
-                            child: Center(
-                                child: InkWell(
-                                    onTap: () {
-                                      controller.getLocationAddress();
-                                    },
-                                    child: const Icon(
-                                      Icons.replay_outlined,
-                                      size: 40,
-                                      color: Colors.white,
-                                    ))),
-                          ),
-                        )
-                      ],
+                    child: GoogleMap(
+                      mapType: MapType.normal,
+                      onMapCreated: (GoogleMapController control) {
+                        controller.controllerMap.complete(control);
+                      },
+                      initialCameraPosition: controller.kGooglePlex,
+                      circles: controller.circles,
+                      markers: controller.markers,
+                      onTap: (argument) {
+                        controller.setCircle(argument);
+                      },
                     ),
                   ),
                   Container(
@@ -170,6 +150,21 @@ class DialogSurveyMapPage extends GetWidget {
                                           .withOpacity(0.85),
                                       fontWeight: FontWeight.w400)),
                             ))
+                      ],
+                    ),
+                  ),
+                  Visibility(
+                    visible: !controller.isSuccessGetLocation,
+                    child: Row(
+                      children: [
+                        Expanded(
+                            flex: 1,
+                            child: bottomButton(
+                                color: AppColors.colorButton,
+                                text: AppLocalizations.of(context)!.textReload,
+                                onTap: () {
+                                  controller.getLocationAddress();
+                                }))
                       ],
                     ),
                   ),
