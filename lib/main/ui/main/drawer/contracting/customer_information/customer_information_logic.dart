@@ -970,7 +970,9 @@ class CustomerInformationLogic extends GetxController {
     if (statusContract == ContractStatus.Change_plan) {
       return false;
     } else {
-      if (customer.type == 'DNI') {
+      if (customer.type == 'DNI' ||
+          customer.type == 'CE' ||
+          customer.type == 'PP') {
         var listPermission = InfoBusiness.getInstance()!.getUser().functions;
         if (listPermission.contains(Permission.BYPASS_FINGER)) {
           return true;
