@@ -49,14 +49,16 @@ class CreateTransferServiceLogic extends GetxController {
     var data = Get.arguments;
     findAccountModel = data[0];
     fingerId = afterSaleSearchLogic.fingerId;
-    setToDate(DateTime.now());
+    setToDate(getCurrentDate());
   }
 
   DateTime getCurrentDate() {
-    if (datePicker != null) {
-      return datePicker!;
+    if (DateTime.now().weekday == DateTime.monday) {
+      return DateTime.now().add(const Duration(days: 4));
+    } else if (DateTime.now().weekday == DateTime.sunday) {
+      return DateTime.now().add(const Duration(days: 5));
     } else {
-      return DateTime.now();
+      return DateTime.now().add(const Duration(days: 6));
     }
   }
 

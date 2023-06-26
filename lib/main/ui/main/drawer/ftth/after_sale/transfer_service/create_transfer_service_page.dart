@@ -529,9 +529,12 @@ class CreateTransferServicePage extends GetWidget {
       bool from) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: control.getCurrentDate(),
+      initialDate: control.cancelDate.isNotEmpty
+          ? control.datePicker!
+          : control.getCurrentDate(),
       firstDate: DateTime.now(),
-      lastDate: DateTime(3000),
+      lastDate: DateTime(
+          DateTime.now().year, DateTime.now().month, DateTime.now().day + 15),
     );
     if (picked != null) {
       if (from) {
