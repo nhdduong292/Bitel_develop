@@ -534,7 +534,7 @@ class CreateTransferServicePage extends GetWidget {
           : control.getCurrentDate(),
       firstDate: DateTime.now(),
       lastDate: DateTime(
-          DateTime.now().year, DateTime.now().month, DateTime.now().day + 15),
+          DateTime.now().year, DateTime.now().month, DateTime.now().day + 14),
     );
     if (picked != null) {
       if (from) {
