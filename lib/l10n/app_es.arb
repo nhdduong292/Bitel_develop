@@ -711,5 +711,6 @@
   "textNoInternetConnection": "Sin conexión a Internet",
   "textE090": "[ERROR RENIEC] [DNI] Ha alcanzado el máximo de 5 veces de validación dactilar del día, no se podrá realizar esta operación hasta el día siguiente.",
   "textSignTransferRequest": "Firmar solicitud de transferencia",
-  "textReload": "Recargar"
+  "textReload": "Recargar",
+  "textRemainingOfAdvanced": "Restante de avanzado"
 }

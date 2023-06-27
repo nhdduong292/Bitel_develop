@@ -158,4 +158,6 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/transfer/validate-staff-finger";
   static const String API_LOCK_TRANSFER_SERVICE =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/transfer/lock-infra/requestId";
+  static const String API_GET_PROMOTION_CHANGE_PLAN =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/change-plan/get-list-promotion";
 }

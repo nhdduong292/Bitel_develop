@@ -52,6 +52,7 @@ class ValidateFingerprintLogic extends GetxController {
   String note = '';
   String newPlan = '';
   int fingerId = 0;
+  List<int> listIdPromotion = [];
 
   int requestId = 0;
   ChangePlanInforModel changePlanInforModel = ChangePlanInforModel();
@@ -93,6 +94,7 @@ class ValidateFingerprintLogic extends GetxController {
         subId = inforChangePlanLogic.subId;
         newPlan = inforChangePlanLogic.newPlan.productCode ?? "";
         fingerId = inforChangePlanLogic.fingerId;
+        listIdPromotion = inforChangePlanLogic.listIdPromotion;
       }
     } else if (type == ValidateFingerStatus.MAIN ||
         type == ValidateFingerStatus.LENDING) {
@@ -571,6 +573,7 @@ class ValidateFingerprintLogic extends GetxController {
       Map<String, dynamic> body = {
         "staffFingerId": fingerId,
         "newPlan": newPlan,
+        "promotionId": listIdPromotion,
         "finger": bestFinger.right != 0 ? bestFinger.right : bestFinger.left,
         "listImage": listFinger,
         "pk": pk

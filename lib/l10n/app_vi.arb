@@ -710,5 +710,6 @@
   "textNoInternetConnection": "Không có kết nỗi Internet",
   "textE090": "[LỖI RENIEC] [DNI] Bạn đã đạt tối đa 5 lần xác thực dấu vân tay trong ngày, thao tác này không thể thực hiện được cho đến ngày hôm sau.",
   "textSignTransferRequest": "Ký yêu cầu chuyển nhượng",
-  "textReload": "Tải lại"
+  "textReload": "Tải lại",
+  "textRemainingOfAdvanced": "Nâng cao còn lại"
 }
