@@ -722,5 +722,6 @@
   "textE077": "Anypay yanapaq huchasqanku tukuyta.",
   "textE078": "Ingrese el número de teléfono de Bitel para recibir este beneficio.",
   "textSignTransferRequest": "Firmar solicitud de transferencia",
-  "textReload": "Recargar"
+  "textReload": "Recargar",
+  "textRemainingOfAdvanced": "Restante de avanzado"
 }

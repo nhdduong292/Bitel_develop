@@ -1,8 +1,9 @@
 class CheckPaymentChangePlanModel {
   int? _prepaidMonth;
-  double? _paymentCurrentInvoice;
   double? _prepaidMoney;
+  double? _paymentCurrentInvoice;
   double? _ottFee;
+  double? _penalty;
   double? _discount;
   double? _totalAmount;
 
@@ -14,6 +15,7 @@ class CheckPaymentChangePlanModel {
     _discount = json['discount'];
     _totalAmount = json['totalAmount'];
     _ottFee = json['ottFee'];
+    _penalty = json['penalty'];
   }
 
   int get prepaidMonth {
@@ -33,7 +35,11 @@ class CheckPaymentChangePlanModel {
   }
 
   double get totalAmount {
-    return _totalAmount ?? 0;
+    return _ottFee ?? 0;
+  }
+
+  double get penalty {
+    return _penalty ?? 0;
   }
 
   double get ottFee {

@@ -54,6 +54,7 @@ class ValidateFingerprintLogic extends GetxController {
   String note = '';
   String newPlan = '';
   int fingerId = 0;
+  List<int> listIdPromotion = [];
 
   int requestId = 0;
   ChangePlanInforModel changePlanInforModel = ChangePlanInforModel();
@@ -97,6 +98,7 @@ class ValidateFingerprintLogic extends GetxController {
         subId = inforChangePlanLogic.subId;
         newPlan = inforChangePlanLogic.newPlan.productCode ?? "";
         fingerId = inforChangePlanLogic.fingerId;
+        listIdPromotion = inforChangePlanLogic.listIdPromotion;
       }
 
       bool isExitChooseProduct = Get.isRegistered<ChooseChangePlanLogic>();
@@ -582,6 +584,7 @@ class ValidateFingerprintLogic extends GetxController {
         "staffFingerId": fingerId,
         "newPlan": newPlan,
         "ottServices": listRequestOTT,
+        "promotionId": listIdPromotion,
         "finger": bestFinger.right != 0 ? bestFinger.right : bestFinger.left,
         "listImage": listFinger,
         "pk": pk

@@ -365,6 +365,16 @@ class InforChangePlanPage extends GetView {
                                 children: [
                                   _paymentElement(
                                       AppLocalizations.of(context)!
+                                          .textRemainingOfAdvanced,
+                                      'S/${Common.numberFormat(controller.checkPaymentChangePlanModel.paymentCurrentInvoice)}',
+                                      const Color(0xFF415263)),
+                                  const DottedLine(
+                                    dashColor: Color(0xFFE3EAF2),
+                                    dashGapLength: 3,
+                                    dashLength: 4,
+                                  ),
+                                  _paymentElement(
+                                      AppLocalizations.of(context)!
                                           .textPrepaidMonth(controller
                                               .checkPaymentChangePlanModel
                                               .prepaidMonth),
@@ -376,9 +386,8 @@ class InforChangePlanPage extends GetView {
                                     dashLength: 4,
                                   ),
                                   _paymentElement(
-                                      AppLocalizations.of(context)!
-                                          .textPaymentOfCurrentInvoie,
-                                      'S/${Common.numberFormat(controller.checkPaymentChangePlanModel.paymentCurrentInvoice)}',
+                                      AppLocalizations.of(context)!.textPenalty,
+                                      'S/${Common.numberFormat(controller.checkPaymentChangePlanModel.penalty)}',
                                       const Color(0xFF415263)),
                                   const DottedLine(
                                     dashColor: Color(0xFFE3EAF2),

@@ -735,5 +735,6 @@
   "textE077": "Buy anypay has reached the limit.",
   "textE078": "Please enter Bitel phone number to receive this benifit.",
   "textSignTransferRequest": "Sign transfer request",
-  "textReload": "Reload"
+  "textReload": "Reload",
+  "textRemainingOfAdvanced": "Remaining of advanced"
 }

@@ -11,6 +11,7 @@ import '../../../../../../../networks/api_util.dart';
 import '../../../../../../../networks/model/check_payment_change_plan_model.dart';
 import '../../../../../../../networks/model/plan_ott_model.dart';
 import '../../../../../../../networks/model/request_ott_service_model.dart';
+import '../../../../../../../networks/model/promotion_model.dart';
 import '../../../../../../../services/connection_service.dart';
 import '../../../../../../../utils/common.dart';
 import '../../../../../../../utils/common_widgets.dart';
@@ -34,6 +35,9 @@ class ChooseChangePlanLogic extends GetxController {
   List<PlanOttModel> listPlanOTT = [];
   List<int> listSelectOtt = [];
   var valueOTT = (-1).obs; //index cua promotion
+  bool isLoadingPromotion = true;
+  List<PromotionModel> listPromotion = [];
+  List<int> listIdPromotion = [];
 
   AfterSaleSearchLogic afterSaleSearchLogic = Get.find();
 
@@ -174,7 +178,7 @@ class ChooseChangePlanLogic extends GetxController {
     );
   }
 
-  void getOTTService() async {
+  void getPromotions() async {
     bool isConnect =
         await ConnectionService.getInstance()?.checkConnect(context) ?? true;
     if (!isConnect) {
@@ -257,5 +261,46 @@ class ChooseChangePlanLogic extends GetxController {
       list.add(listPlanOTT[value].ottService);
     }
     return list;
+  }
+
+  void getOTTService() async {
+    isLoadingPromotion = true;
+    update();
+    ApiUtil.getInstance()!.get(
+      url: ApiEndPoints.API_GET_PROMOTION_CHANGE_PLAN,
+      params: {
+        'productId':
+            productChangePlanModel.newPlan[valueProduct.value].productId,
+        'subId': subId
+      },
+      onSuccess: (response) {
+        isLoadingPromotion = false;
+        if (response.isSuccess) {
+          listPromotion = (response.data['data'] as List)
+              .map((postJson) => PromotionModel.fromJson(postJson))
+              .toList();
+          getListIdPromotion();
+        } else {
+          print("error: ${response.status}");
+        }
+        update();
+      },
+      onError: (error) {
+        isLoadingPromotion = false;
+        update();
+        Common.showMessageError(error: error, context: context);
+      },
+    );
+  }
+
+  void getListIdPromotion() {
+    listIdPromotion.clear();
+    for (var promotion in listPromotion) {
+      listIdPromotion.add(promotion.proId ?? 0);
+    }
+  }
+
+  void resetPromotions() {
+    listPromotion.clear();
   }
 }

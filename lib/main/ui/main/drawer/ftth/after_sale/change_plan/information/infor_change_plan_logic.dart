@@ -28,6 +28,7 @@ class InforChangePlanLogic extends GetxController {
   int subId = 0;
   var balance = (0.0).obs; //
   int fingerId = 0;
+  List<int> listIdPromotion = [];
 
   @override
   void onInit() {
@@ -40,6 +41,7 @@ class InforChangePlanLogic extends GetxController {
         .newPlan[chooseChangePlanLogic.valueProduct.value];
     subId = chooseChangePlanLogic.subId;
     fingerId = chooseChangePlanLogic.fingerId;
+    listIdPromotion = chooseChangePlanLogic.listIdPromotion;
   }
 
   @override
