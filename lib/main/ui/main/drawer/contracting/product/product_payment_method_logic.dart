@@ -561,12 +561,17 @@ class ProductPaymentMethodLogic extends GetxController {
   }
 
   void onChangePhoneNumber(String value, PlanOttModel ott) {
-    if (value.length == 9) {
+    if (value.isEmpty) {
+      ott.errorText = AppLocalizations.of(context)!.textCannotBeBlank;
+    } else if (value.length < 9) {
+      ott.errorText = AppLocalizations.of(context)!.textMustBeA9DigitsNumbers;
+    } else if (value.length == 9) {
+      ott.errorText = null;
       checkSim(value, (isSuccess) {
         if (!isSuccess) {
           ott.focusNode!.requestFocus();
           ott.isSuccess = false;
-          ott.errorText = AppLocalizations.of(context)!.textISdnIsNotFromBitel;
+          ott.errorText = AppLocalizations.of(context)!.textMustBeBitelNumber;
         } else {
           FocusScope.of(context).requestFocus(FocusNode());
           ott.errorText = null;
@@ -576,6 +581,7 @@ class ProductPaymentMethodLogic extends GetxController {
         update();
       });
     }
+    update();
   }
 
   void checkSim(String value, var isSuccess) {

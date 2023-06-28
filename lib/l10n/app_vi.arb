@@ -722,5 +722,8 @@
   "textE078": "Vui lòng nhập số điện thoại Bitel để nhận ưu đãi này.",
 
   "textSignTransferRequest": "Ký yêu cầu chuyển nhượng",
-  "textReload": "Tải lại"
+  "textReload": "Tải lại",
+  "textMustBeBitelNumber": "Phải là số Bitel",
+  "textMustBeA9DigitsNumbers": "Phải là số có 9 chữ số",
+  "textCannotBeBlank": "Không được để trống"
 }

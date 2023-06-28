@@ -35,458 +35,468 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: SingleChildScrollView(
-            child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              margin: const EdgeInsets.only(left: 15, right: 15),
-              padding: const EdgeInsets.only(top: 15),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  border: Border.all(color: const Color(0xFFE3EAF2)),
-                  color: Colors.white,
-                  boxShadow: const [
-                    BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
-                  ]),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.textSelectProduct,
-                    style: const TextStyle(
-                        color: AppColors.colorContent,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'Barlow'),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const DottedLine(
-                    dashColor: Color(0xFFE3EAF2),
-                    dashGapLength: 3,
-                    dashLength: 4,
-                  ),
-                  ListView.separated(
-                      padding: const EdgeInsets.only(top: 0),
-                      shrinkWrap: true,
-                      primary: false,
-                      itemBuilder: (BuildContext context, int index) =>
-                          _itemProduct(
-                              context: context,
-                              groupValue: controller.valueProduct,
-                              product: controller.listProduct[index],
-                              value: index,
-                              onChange: (value) {
-                                controller.valueProduct.value = value;
-                                controller.resetPackage();
-                                if (value > -1) {
-                                  controller.isLoadingOTTService = true;
-                                  controller.resetPlanOTTs();
-                                  controller.getOTTService();
-                                }
-                              }),
-                      separatorBuilder: (BuildContext context, int index) =>
-                          const Divider(
-                            color: AppColors.colorLineDash,
-                            height: 1,
-                            thickness: 1,
-                          ),
-                      itemCount: controller.listProduct.length)
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Obx(
-              () => Visibility(
-                visible: controller.valueProduct.value > -1,
-                child: Container(
-                  margin: const EdgeInsets.only(left: 15, right: 15),
-                  padding: const EdgeInsets.only(top: 15),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      border: Border.all(color: const Color(0xFFE3EAF2)),
-                      color: Colors.white,
-                      boxShadow: const [
-                        BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
-                      ]),
-                  child: Column(
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.textSelectPaymentMethod,
-                        style: const TextStyle(
-                            color: AppColors.colorContent,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: 'Barlow'),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      const DottedLine(
-                        dashColor: Color(0xFFE3EAF2),
-                        dashGapLength: 3,
-                        dashLength: 4,
-                      ),
-                      ListView.separated(
-                          padding: const EdgeInsets.only(top: 0),
-                          shrinkWrap: true,
-                          primary: false,
-                          itemBuilder: (BuildContext context, int index) =>
-                              _itemPackage(
-                                  context: context,
-                                  groupValue: controller.valuePackage,
-                                  package: controller.listPackage[index],
-                                  value: index,
-                                  onChange: (value) {
-                                    controller.valuePackage.value = value;
-                                    controller.isLoadingReason = true;
-                                    controller.isLoadingPromotion = true;
-                                    // controller.isLoadingOTTService = true;
-                                    controller.checkLoading();
-                                    controller.resetPlanReason();
-                                    controller.resetPromotions();
-                                    // controller.resetPlanOTTs();
-                                    if (value > -1) {
-                                      controller.getPlanReasons();
-                                      controller.getPromotions();
-                                      // controller.getOTTService();
-                                    }
-                                  },
-                                  fee: controller.getProduct().productValue),
-                          separatorBuilder: (BuildContext context, int index) =>
-                              const Divider(
-                                color: AppColors.colorLineDash,
-                                height: 1,
-                                thickness: 1,
-                              ),
-                          itemCount: controller.listPackage.length)
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Obx(
-              () => Visibility(
-                visible: controller.valueProduct.value > -1 &&
-                    controller.valuePackage.value > -1,
-                child: Container(
-                  constraints: const BoxConstraints(minHeight: 100),
-                  margin: const EdgeInsets.only(left: 15, right: 15),
-                  padding: const EdgeInsets.only(top: 15),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      border: Border.all(color: const Color(0xFFE3EAF2)),
-                      color: Colors.white,
-                      boxShadow: const [
-                        BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
-                      ]),
-                  child: Column(
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!
-                            .textChonseAReasonConnection,
-                        style: const TextStyle(
-                            color: AppColors.colorContent,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: 'Barlow'),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      const DottedLine(
-                        dashColor: Color(0xFFE3EAF2),
-                        dashGapLength: 3,
-                        dashLength: 4,
-                      ),
-                      controller.isLoadingReason
-                          ? LoadingCirculApi()
-                          : ListView.separated(
-                              padding: const EdgeInsets.only(top: 0),
-                              shrinkWrap: true,
-                              primary: false,
-                              itemBuilder: (BuildContext context, int index) =>
-                                  _itemMethod(
-                                      context: context,
-                                      groupValue: controller.valueMethod,
-                                      reason: controller.listPlanReason[index],
-                                      value: index,
-                                      onChange: (value) {
-                                        controller.valueMethod.value = value;
-                                      }),
-                              separatorBuilder:
-                                  (BuildContext context, int index) =>
-                                      const Divider(
-                                        color: AppColors.colorLineDash,
-                                        height: 1,
-                                        thickness: 1,
-                                      ),
-                              itemCount: controller.listPlanReason.length)
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Obx(
-              () => Visibility(
-                visible: controller.valueProduct.value > -1 &&
-                    controller.valuePackage.value > -1,
-                child: Container(
-                  constraints: const BoxConstraints(minHeight: 100),
-                  margin: const EdgeInsets.only(left: 15, right: 15),
-                  padding: const EdgeInsets.only(top: 15),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      border: Border.all(color: const Color(0xFFE3EAF2)),
-                      color: Colors.white,
-                      boxShadow: const [
-                        BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
-                      ]),
-                  child: Column(
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.textChoosePromotion,
-                        style: const TextStyle(
-                            color: AppColors.colorContent,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: 'Barlow'),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      const DottedLine(
-                        dashColor: Color(0xFFE3EAF2),
-                        dashGapLength: 3,
-                        dashLength: 4,
-                      ),
-                      controller.isLoadingPromotion
-                          ? LoadingCirculApi()
-                          : ListView.separated(
-                              padding: const EdgeInsets.only(top: 0),
-                              shrinkWrap: true,
-                              primary: false,
-                              itemBuilder: (BuildContext context, int index) =>
-                                  _itemPromotion(
-                                    context: context,
-                                    promotion: controller.listPromotion[index],
-                                  ),
-                              separatorBuilder:
-                                  (BuildContext context, int index) =>
-                                      const Divider(
-                                        color: AppColors.colorLineDash,
-                                        height: 1,
-                                        thickness: 1,
-                                      ),
-                              itemCount: controller.listPromotion.length)
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Obx(
-              () => Visibility(
-                visible: controller.valueMethod.value > -1,
+            child: Container(
+          color: Colors.white,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(left: 15, right: 15),
+                padding: const EdgeInsets.only(top: 15),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    border: Border.all(color: const Color(0xFFE3EAF2)),
+                    color: Colors.white,
+                    boxShadow: const [
+                      BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
+                    ]),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
+                    Text(
+                      AppLocalizations.of(context)!.textSelectProduct,
+                      style: const TextStyle(
+                          color: AppColors.colorContent,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'Barlow'),
+                    ),
                     const SizedBox(
-                      height: 20,
+                      height: 15,
                     ),
-                    Container(
-                      constraints: const BoxConstraints(minHeight: 100),
-                      margin: const EdgeInsets.only(left: 15, right: 15),
-                      padding: const EdgeInsets.only(top: 15),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          border: Border.all(color: const Color(0xFFE3EAF2)),
-                          color: Colors.white,
-                          boxShadow: const [
-                            BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
-                          ]),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            AppLocalizations.of(context)!.textTypecontract,
-                            // ignore: prefer_const_constructors
-                            style: TextStyle(
-                                color: AppColors.colorContent,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'Barlow'),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          const DottedLine(
-                            dashColor: Color(0xFFE3EAF2),
-                            dashGapLength: 3,
-                            dashLength: 4,
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15, right: 15),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                    child: typeContact(
-                                        check: !controller.isForcedTerm(),
-                                        content: AppLocalizations.of(context)!
-                                            .textUndetermined)),
-                                Expanded(
-                                    child: typeContact(
-                                        check: controller.isForcedTerm(),
-                                        content: AppLocalizations.of(context)!
-                                            .textForcedTerm))
-                              ],
+                    const DottedLine(
+                      dashColor: Color(0xFFE3EAF2),
+                      dashGapLength: 3,
+                      dashLength: 4,
+                    ),
+                    ListView.separated(
+                        padding: const EdgeInsets.only(top: 0),
+                        shrinkWrap: true,
+                        primary: false,
+                        itemBuilder: (BuildContext context, int index) =>
+                            _itemProduct(
+                                context: context,
+                                groupValue: controller.valueProduct,
+                                product: controller.listProduct[index],
+                                value: index,
+                                onChange: (value) {
+                                  controller.valueProduct.value = value;
+                                  controller.resetPackage();
+                                  if (value > -1) {
+                                    controller.isLoadingOTTService = true;
+                                    controller.resetPlanOTTs();
+                                    controller.getOTTService();
+                                  }
+                                }),
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const Divider(
+                              color: AppColors.colorLineDash,
+                              height: 1,
+                              thickness: 1,
                             ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                        ],
-                      ),
-                    ),
+                        itemCount: controller.listProduct.length)
                   ],
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Obx(
-              () => Visibility(
-                visible: controller.valueProduct.value > -1,
-                child: Container(
-                  constraints: const BoxConstraints(minHeight: 100),
-                  margin: const EdgeInsets.only(left: 15, right: 15),
-                  padding: const EdgeInsets.only(top: 15),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      border: Border.all(color: const Color(0xFFE3EAF2)),
-                      color: Colors.white,
-                      boxShadow: const [
-                        BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
-                      ]),
+              const SizedBox(
+                height: 20,
+              ),
+              Obx(
+                () => Visibility(
+                  visible: controller.valueProduct.value > -1,
+                  child: Container(
+                    margin: const EdgeInsets.only(left: 15, right: 15),
+                    padding: const EdgeInsets.only(top: 15),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color: const Color(0xFFE3EAF2)),
+                        color: Colors.white,
+                        boxShadow: const [
+                          BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
+                        ]),
+                    child: Column(
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.textSelectPaymentMethod,
+                          style: const TextStyle(
+                              color: AppColors.colorContent,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Barlow'),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        const DottedLine(
+                          dashColor: Color(0xFFE3EAF2),
+                          dashGapLength: 3,
+                          dashLength: 4,
+                        ),
+                        ListView.separated(
+                            padding: const EdgeInsets.only(top: 0),
+                            shrinkWrap: true,
+                            primary: false,
+                            itemBuilder: (BuildContext context, int index) =>
+                                _itemPackage(
+                                    context: context,
+                                    groupValue: controller.valuePackage,
+                                    package: controller.listPackage[index],
+                                    value: index,
+                                    onChange: (value) {
+                                      controller.valuePackage.value = value;
+                                      controller.isLoadingReason = true;
+                                      controller.isLoadingPromotion = true;
+                                      // controller.isLoadingOTTService = true;
+                                      controller.checkLoading();
+                                      controller.resetPlanReason();
+                                      controller.resetPromotions();
+                                      // controller.resetPlanOTTs();
+                                      if (value > -1) {
+                                        controller.getPlanReasons();
+                                        controller.getPromotions();
+                                        // controller.getOTTService();
+                                      }
+                                    },
+                                    fee: controller.getProduct().productValue),
+                            separatorBuilder:
+                                (BuildContext context, int index) =>
+                                    const Divider(
+                                      color: AppColors.colorLineDash,
+                                      height: 1,
+                                      thickness: 1,
+                                    ),
+                            itemCount: controller.listPackage.length)
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Obx(
+                () => Visibility(
+                  visible: controller.valueProduct.value > -1 &&
+                      controller.valuePackage.value > -1,
+                  child: Container(
+                    constraints: const BoxConstraints(minHeight: 100),
+                    margin: const EdgeInsets.only(left: 15, right: 15),
+                    padding: const EdgeInsets.only(top: 15),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color: const Color(0xFFE3EAF2)),
+                        color: Colors.white,
+                        boxShadow: const [
+                          BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
+                        ]),
+                    child: Column(
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!
+                              .textChonseAReasonConnection,
+                          style: const TextStyle(
+                              color: AppColors.colorContent,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Barlow'),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        const DottedLine(
+                          dashColor: Color(0xFFE3EAF2),
+                          dashGapLength: 3,
+                          dashLength: 4,
+                        ),
+                        controller.isLoadingReason
+                            ? LoadingCirculApi()
+                            : ListView.separated(
+                                padding: const EdgeInsets.only(top: 0),
+                                shrinkWrap: true,
+                                primary: false,
+                                itemBuilder: (BuildContext context,
+                                        int index) =>
+                                    _itemMethod(
+                                        context: context,
+                                        groupValue: controller.valueMethod,
+                                        reason:
+                                            controller.listPlanReason[index],
+                                        value: index,
+                                        onChange: (value) {
+                                          controller.valueMethod.value = value;
+                                        }),
+                                separatorBuilder:
+                                    (BuildContext context, int index) =>
+                                        const Divider(
+                                          color: AppColors.colorLineDash,
+                                          height: 1,
+                                          thickness: 1,
+                                        ),
+                                itemCount: controller.listPlanReason.length)
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Obx(
+                () => Visibility(
+                  visible: controller.valueProduct.value > -1 &&
+                      controller.valuePackage.value > -1,
+                  child: Container(
+                    constraints: const BoxConstraints(minHeight: 100),
+                    margin: const EdgeInsets.only(left: 15, right: 15),
+                    padding: const EdgeInsets.only(top: 15),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color: const Color(0xFFE3EAF2)),
+                        color: Colors.white,
+                        boxShadow: const [
+                          BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
+                        ]),
+                    child: Column(
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.textChoosePromotion,
+                          style: const TextStyle(
+                              color: AppColors.colorContent,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Barlow'),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        const DottedLine(
+                          dashColor: Color(0xFFE3EAF2),
+                          dashGapLength: 3,
+                          dashLength: 4,
+                        ),
+                        controller.isLoadingPromotion
+                            ? LoadingCirculApi()
+                            : ListView.separated(
+                                padding: const EdgeInsets.only(top: 0),
+                                shrinkWrap: true,
+                                primary: false,
+                                itemBuilder:
+                                    (BuildContext context, int index) =>
+                                        _itemPromotion(
+                                          context: context,
+                                          promotion:
+                                              controller.listPromotion[index],
+                                        ),
+                                separatorBuilder:
+                                    (BuildContext context, int index) =>
+                                        const Divider(
+                                          color: AppColors.colorLineDash,
+                                          height: 1,
+                                          thickness: 1,
+                                        ),
+                                itemCount: controller.listPromotion.length)
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Obx(
+                () => Visibility(
+                  visible: controller.valueMethod.value > -1,
                   child: Column(
                     children: [
-                      Text(
-                        AppLocalizations.of(context)!.textOTTService,
-                        style: const TextStyle(
-                            color: AppColors.colorContent,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: 'Barlow'),
-                      ),
                       const SizedBox(
-                        height: 15,
+                        height: 20,
                       ),
-                      const DottedLine(
-                        dashColor: Color(0xFFE3EAF2),
-                        dashGapLength: 3,
-                        dashLength: 4,
+                      Container(
+                        constraints: const BoxConstraints(minHeight: 100),
+                        margin: const EdgeInsets.only(left: 15, right: 15),
+                        padding: const EdgeInsets.only(top: 15),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            border: Border.all(color: const Color(0xFFE3EAF2)),
+                            color: Colors.white,
+                            boxShadow: const [
+                              BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
+                            ]),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              AppLocalizations.of(context)!.textTypecontract,
+                              // ignore: prefer_const_constructors
+                              style: TextStyle(
+                                  color: AppColors.colorContent,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: 'Barlow'),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            const DottedLine(
+                              dashColor: Color(0xFFE3EAF2),
+                              dashGapLength: 3,
+                              dashLength: 4,
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 15, right: 15),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                      child: typeContact(
+                                          check: !controller.isForcedTerm(),
+                                          content: AppLocalizations.of(context)!
+                                              .textUndetermined)),
+                                  Expanded(
+                                      child: typeContact(
+                                          check: controller.isForcedTerm(),
+                                          content: AppLocalizations.of(context)!
+                                              .textForcedTerm))
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                          ],
+                        ),
                       ),
-                      controller.isLoadingOTTService
-                          ? LoadingCirculApi()
-                          : controller.listPlanOTT.isNotEmpty
-                              ? ListView.separated(
-                                  padding: const EdgeInsets.only(top: 0),
-                                  shrinkWrap: true,
-                                  primary: false,
-                                  itemBuilder: (BuildContext context,
-                                          int index) =>
-                                      _itemOTT(
-                                        context: context,
-                                        ott: controller.listPlanOTT[index],
-                                        value: index,
-                                        listValue: controller.listSelectOtt,
-                                        onChange: (value) {
-                                          if (controller.listSelectOtt
-                                              .contains(value)) {
-                                            controller.listSelectOtt
-                                                .removeWhere((element) =>
-                                                    element == value);
-                                          } else {
-                                            controller.listSelectOtt.add(value);
-                                          }
-                                          controller.update();
-                                        },
-                                        controller: controller,
-                                      ),
-                                  separatorBuilder:
-                                      (BuildContext context, int index) =>
-                                          const Divider(
-                                            color: AppColors.colorLineDash,
-                                            height: 1,
-                                            thickness: 1,
-                                          ),
-                                  itemCount: controller.listPlanOTT.length)
-                              : Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                        AppLocalizations.of(context)!
-                                            .textNoOTTService,
-                                        style: AppStyles.r2B3A4A_12_500
-                                            .copyWith(fontSize: 13)),
-                                  ],
-                                )
                     ],
                   ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Obx(
-              () => bottomButton(
-                  text: AppLocalizations.of(context)!.textContinue,
-                  onTap: () {
-                    if (controller.checkBtnContinue()) {
-                      controller.isOnMethodPage.value = false;
-                      controller.isOnInvoicePage.value = true;
+              const SizedBox(
+                height: 20,
+              ),
+              Obx(
+                () => Visibility(
+                  visible: controller.valueProduct.value > -1,
+                  child: Container(
+                    constraints: const BoxConstraints(minHeight: 100),
+                    margin: const EdgeInsets.only(left: 15, right: 15),
+                    padding: const EdgeInsets.only(top: 15),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color: const Color(0xFFE3EAF2)),
+                        color: Colors.white,
+                        boxShadow: const [
+                          BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
+                        ]),
+                    child: Column(
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.textOTTService,
+                          style: const TextStyle(
+                              color: AppColors.colorContent,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Barlow'),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        const DottedLine(
+                          dashColor: Color(0xFFE3EAF2),
+                          dashGapLength: 3,
+                          dashLength: 4,
+                        ),
+                        controller.isLoadingOTTService
+                            ? LoadingCirculApi()
+                            : controller.listPlanOTT.isNotEmpty
+                                ? ListView.separated(
+                                    padding: const EdgeInsets.only(top: 0),
+                                    shrinkWrap: true,
+                                    primary: false,
+                                    itemBuilder: (BuildContext context,
+                                            int index) =>
+                                        _itemOTT(
+                                          context: context,
+                                          ott: controller.listPlanOTT[index],
+                                          value: index,
+                                          listValue: controller.listSelectOtt,
+                                          onChange: (value) {
+                                            if (controller.listSelectOtt
+                                                .contains(value)) {
+                                              controller.listSelectOtt
+                                                  .removeWhere((element) =>
+                                                      element == value);
+                                            } else {
+                                              controller.listSelectOtt
+                                                  .add(value);
+                                            }
+                                            controller.update();
+                                          },
+                                          controller: controller,
+                                        ),
+                                    separatorBuilder:
+                                        (BuildContext context, int index) =>
+                                            const Divider(
+                                              color: AppColors.colorLineDash,
+                                              height: 1,
+                                              thickness: 1,
+                                            ),
+                                    itemCount: controller.listPlanOTT.length)
+                                : Column(
+                                    children: [
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                          AppLocalizations.of(context)!
+                                              .textNoOTTService,
+                                          style: AppStyles.r2B3A4A_12_500
+                                              .copyWith(fontSize: 13)),
+                                    ],
+                                  )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Obx(
+                () => bottomButton(
+                    text: AppLocalizations.of(context)!.textContinue,
+                    onTap: () {
+                      if (controller.checkBtnContinue()) {
+                        controller.isOnMethodPage.value = false;
+                        controller.isOnInvoicePage.value = true;
 
-                      controller.scrollController?.scrollTo(
-                        index: 1,
-                        duration: const Duration(milliseconds: 200),
-                      );
-                      controller.isLoadingWallet = true;
-                      controller.isLoadingBill = true;
-                      controller.checkLoadingBill();
-                      controller.getWallet(context);
-                      controller.postContractInformation();
-                    }
-                  },
-                  color: !(controller.valueMethod.value > -1 &&
-                          controller.valueProduct.value > -1 &&
-                          controller.valuePackage.value > -1)
-                      ? const Color(0xFF415263).withOpacity(0.2)
-                      : null),
-            ),
-            const SizedBox(
-              height: 30,
-            )
-          ],
+                        controller.scrollController?.scrollTo(
+                          index: 1,
+                          duration: const Duration(milliseconds: 200),
+                        );
+                        controller.isLoadingWallet = true;
+                        controller.isLoadingBill = true;
+                        controller.checkLoadingBill();
+                        controller.getWallet(context);
+                        controller.postContractInformation();
+                      }
+                    },
+                    color: !(controller.valueMethod.value > -1 &&
+                            controller.valueProduct.value > -1 &&
+                            controller.valuePackage.value > -1)
+                        ? const Color(0xFF415263).withOpacity(0.2)
+                        : null),
+              ),
+              const SizedBox(
+                height: 30,
+              )
+            ],
+          ),
         )),
       ),
     );
