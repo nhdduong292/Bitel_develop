@@ -723,7 +723,7 @@
   "textE078": "Ingrese el número de teléfono de Bitel para recibir este beneficio.",
   "textSignTransferRequest": "Firmar solicitud de transferencia",
   "textReload": "Recargar",
-  "textMustBeBitelNumber": "Debe ser número de Bitel",
-  "textMustBeA9DigitsNumbers": "El número debe tener 9 dígitos",
-  "textCannotBeBlank": "No puede dejarlo vacio"
+  "textMustBeBitelNumber": "Debe ser número de Bitel.",
+  "textMustBeA9DigitsNumbers": "El número debe tener 9 dígitos.",
+  "textCannotBeBlank": "No puede dejarlo vacio."
 }
