@@ -403,7 +403,7 @@ class RequestDetailPage extends GetWidget {
                                               .requestModel
                                               .ottServices[index - 1];
                                           return buildRow([
-                                            model.subOttName,
+                                            model.description,
                                             model.isdn,
                                             Common.numberFormat(model.fee),
                                             model.status,
