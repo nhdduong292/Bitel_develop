@@ -9,6 +9,7 @@ class ChangePlanInforModel {
   String? _dateOfRequest;
   String? _billCycle;
   String? _startOfNewPlan;
+  String? _promotionName;
 
   ChangePlanInforModel();
   ChangePlanInforModel.fromJson(Map<String, dynamic> json) {
@@ -27,6 +28,7 @@ class ChangePlanInforModel {
     _dateOfRequest = json['dateOfRequest'];
     _billCycle = json['billCycle'];
     _startOfNewPlan = json['startOfNewPlan'];
+    _promotionName = json['promotionName'];
   }
 
   String get startOfNewPlan => _startOfNewPlan ?? "---";
@@ -38,6 +40,8 @@ class ChangePlanInforModel {
   CustomerModel get customer => _customer ?? CustomerModel();
 
   String get operationCode => _operationCode ?? "---";
+
+  String get promotionName => _promotionName ?? "---";
 
   ProductModel get currentPlan => _currentPlan ?? ProductModel();
 

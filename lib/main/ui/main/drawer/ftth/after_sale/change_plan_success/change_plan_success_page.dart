@@ -197,7 +197,7 @@ class ChangePlanSuccessPage extends GetView {
                                     AppLocalizations.of(context)!.textPromotion,
                                 richText: () {
                                   return Text(
-                                    '---',
+                                    controller.model.promotionName,
                                     style: AppStyles.r415263_13_500,
                                   );
                                 }),
