@@ -178,7 +178,7 @@ class ChooseChangePlanLogic extends GetxController {
     );
   }
 
-  void getPromotions() async {
+  void getOTTService() async {
     bool isConnect =
         await ConnectionService.getInstance()?.checkConnect(context) ?? true;
     if (!isConnect) {
@@ -269,7 +269,7 @@ class ChooseChangePlanLogic extends GetxController {
     return list;
   }
 
-  void getOTTService() async {
+  void getPromotions() async {
     isLoadingPromotion = true;
     update();
     ApiUtil.getInstance()!.get(
