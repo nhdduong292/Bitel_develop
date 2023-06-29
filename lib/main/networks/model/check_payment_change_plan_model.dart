@@ -35,7 +35,7 @@ class CheckPaymentChangePlanModel {
   }
 
   double get totalAmount {
-    return _ottFee ?? 0;
+    return _totalAmount ?? 0;
   }
 
   double get penalty {
