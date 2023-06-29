@@ -736,5 +736,8 @@
   "textE078": "Please enter Bitel phone number to receive this benifit.",
   "textSignTransferRequest": "Sign transfer request",
   "textReload": "Reload",
-  "textRemainingOfAdvanced": "Remaining of advanced"
+  "textRemainingOfAdvanced": "Remaining of advanced",
+  "textMustBeBitelNumber": "Must be Bitel number.",
+  "textMustBeA9DigitsNumbers": "Must be a 9 digits numbers.",
+  "textCannotBeBlank": "Cannot be blank."
 }

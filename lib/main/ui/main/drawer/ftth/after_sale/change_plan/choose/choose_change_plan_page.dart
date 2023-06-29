@@ -305,8 +305,151 @@ class ChooseChangePlanPage extends GetView {
                                             fontWeight: FontWeight.w500,
                                             fontFamily: 'Barlow'),
                                       ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.only(left: 2),
+                                  child: Text(
+                                    AppLocalizations.of(context)!.textNewPlan,
+                                    style: const TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w700,
+                                        fontFamily: 'Barlow',
+                                        fontSize: 16),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.only(top: 15),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      border: Border.all(
+                                          color: const Color(0xFFE3EAF2)),
+                                      color: Colors.white,
+                                      boxShadow: const [
+                                        BoxShadow(
+                                            color: Color(0xFFE3EAF2),
+                                            blurRadius: 3)
+                                      ]),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      ListView.separated(
+                                          padding:
+                                              const EdgeInsets.only(top: 0),
+                                          shrinkWrap: true,
+                                          primary: false,
+                                          itemBuilder: (BuildContext context,
+                                                  int index) =>
+                                              _itemProduct(
+                                                  context: context,
+                                                  groupValue:
+                                                      controller.valueProduct,
+                                                  product: controller
+                                                      .productChangePlanModel
+                                                      .newPlan[index],
+                                                  value: index,
+                                                  onChange: (value) {
+                                                    controller.valueProduct
+                                                        .value = value;
+
+                                                    controller.resetPlanOTTs();
+                                                    if (value > -1) {
+                                                      controller
+                                                          .getOTTService();
+                                                    }
+                                                    controller.update();
+                                                  }),
+                                          separatorBuilder:
+                                              (BuildContext context,
+                                                      int index) =>
+                                                  const Divider(
+                                                    color:
+                                                        AppColors.colorLineDash,
+                                                    height: 1,
+                                                    thickness: 1,
+                                                  ),
+                                          itemCount: controller
+                                              .productChangePlanModel
+                                              .newPlan
+                                              .length)
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.only(top: 15),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      border: Border.all(
+                                          color: const Color(0xFFE3EAF2)),
+                                      color: Colors.white,
+                                      boxShadow: const [
+                                        BoxShadow(
+                                            color: Color(0xFFE3EAF2),
+                                            blurRadius: 3)
+                                      ]),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        AppLocalizations.of(context)!
+                                            .textTypecontract,
+                                        // ignore: prefer_const_constructors
+                                        style: TextStyle(
+                                            color: AppColors.colorContent,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: 'Barlow'),
+                                      ),
                                       const SizedBox(
                                         height: 15,
+                                      ),
+                                      const DottedLine(
+                                        dashColor: Color(0xFFE3EAF2),
+                                        dashGapLength: 3,
+                                        dashLength: 4,
+                                      ),
+                                      const SizedBox(
+                                        height: 16,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 15, right: 15),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                                child: typeContact(
+                                                    check: controller
+                                                        .isUndetermined(
+                                                            ContractType
+                                                                .UNDETERMINED),
+                                                    content:
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .textUndetermined)),
+                                            Expanded(
+                                                child: typeContact(
+                                                    check: controller
+                                                        .isUndetermined(
+                                                            ContractType
+                                                                .FORCED_TERM),
+                                                    content:
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .textForcedTerm))
+                                          ],
+                                        ),
                                       ),
                                       const DottedLine(
                                         dashColor: Color(0xFFE3EAF2),

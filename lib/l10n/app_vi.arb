@@ -723,5 +723,8 @@
 
   "textSignTransferRequest": "Ký yêu cầu chuyển nhượng",
   "textReload": "Tải lại",
-  "textRemainingOfAdvanced": "Nâng cao còn lại"
+  "textRemainingOfAdvanced": "Nâng cao còn lại",
+  "textMustBeBitelNumber": "Phải là số Bitel.",
+  "textMustBeA9DigitsNumbers": "Phải là số có 9 chữ số.",
+  "textCannotBeBlank": "Không được để trống."
 }
