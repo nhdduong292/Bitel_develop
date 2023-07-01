@@ -1,4 +1,6 @@
 import 'package:bitel_ventas/main/networks/model/promotion_model.dart';
+import 'package:expandable/expandable.dart';
+import 'package:flutter/cupertino.dart';
 
 class SubOTTModel {
   String? _ottCode;
@@ -8,6 +10,12 @@ class SubOTTModel {
   String? _description;
   double? _fee;
   List<PromotionModel>? _promotions;
+  ExpandableController? controller;
+  TextEditingController? textController;
+  FocusNode? focusNode;
+  String? errorText;
+  bool isSuccess = false;
+  String? email;
 
   SubOTTModel();
 
@@ -51,5 +59,11 @@ class SubOTTModel {
 
   double get fee {
     return _fee ?? 0;
+  }
+
+  List<int> getPromotionIds() {
+    List<int> promotionIds = [];
+    promotions.map((e) => promotionIds.add(e.proId ?? 0));
+    return promotionIds;
   }
 }

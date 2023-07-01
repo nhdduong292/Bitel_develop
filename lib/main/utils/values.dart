@@ -109,3 +109,9 @@ class PDFType {
   static final String MAIN = "MAIN";
   static final String LENDING = "LENDING";
 }
+
+class OTTService {
+  static final String PARAMOUNT = "PARAMOUNT";
+  static final String BITEL_VIDEO = "BITEL_VIDEO";
+  static final String CABLE_GO = "CABLE_GO";
+}

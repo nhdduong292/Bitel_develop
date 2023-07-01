@@ -12,6 +12,7 @@ import 'package:bitel_ventas/main/networks/model/request_ott_service_model.dart'
 import 'package:bitel_ventas/main/networks/response/product_response.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/request_detail/request_detail_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,6 +22,7 @@ import '../../../../../networks/model/customer_model.dart';
 import '../../../../../networks/model/method_model.dart';
 import '../../../../../networks/model/plan_reason_model.dart';
 import '../../../../../networks/model/product_model.dart';
+import '../../../../../networks/model/sub_ott_model.dart';
 import '../../../../../services/connection_service.dart';
 import '../../../../../utils/common.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -44,6 +46,8 @@ class ProductPaymentMethodLogic extends GetxController {
   String status = 'CREATE';
 
   List<int> listSelectOtt = [];
+  List<int> listSelectCableGo = [];
+  var valueCableGo = (-1).obs;
 
   ProductPaymentMethodLogic({required this.context});
 
@@ -584,6 +588,22 @@ class ProductPaymentMethodLogic extends GetxController {
     update();
   }
 
+  void onChangeEmail(String value, SubOTTModel model) {
+    if (value.isEmpty) {
+      model.errorText = AppLocalizations.of(context)!.textCannotBeBlank;
+      model.isSuccess = false;
+    } else if (!Common.validateEmail(value)) {
+      model.errorText = AppLocalizations.of(context)!.textValidateEmail;
+      model.isSuccess = false;
+    } else {
+      model.errorText = null;
+      model.isSuccess = true;
+      model.email = value;
+      update();
+    }
+    update();
+  }
+
   void checkSim(String value, var isSuccess) {
     _onLoading(context);
     ApiUtil.getInstance()!.get(
@@ -613,9 +633,18 @@ class ProductPaymentMethodLogic extends GetxController {
         valueProduct.value > -1 &&
         valuePackage.value > -1) {
       for (int value in listSelectOtt) {
-        if (!listPlanOTT[value].isSuccess) {
+        if (!listPlanOTT[value].isSuccess &&
+            listPlanOTT[value].ottService != OTTService.CABLE_GO) {
           listPlanOTT[value].focusNode!.requestFocus();
           return false;
+        } else if (listPlanOTT[value].ottService == OTTService.CABLE_GO) {
+          if (!listPlanOTT[value].listSubOtt[valueCableGo.value].isSuccess) {
+            listPlanOTT[value]
+                .listSubOtt[valueCableGo.value]
+                .focusNode!
+                .requestFocus();
+            return false;
+          }
         }
       }
       return true;
@@ -627,11 +656,21 @@ class ProductPaymentMethodLogic extends GetxController {
   List<RequestOTTServiceModel> getJsonOTTService() {
     List<RequestOTTServiceModel> list = [];
     for (int value in listSelectOtt) {
-      list.add(RequestOTTServiceModel(
-          ottService: listPlanOTT[value].ottService,
-          ottCode: listPlanOTT[value].listSubOtt[0].ottCode,
-          isdn: listPlanOTT[value].isdn,
-          promotionIds: []));
+      if (listPlanOTT[value].ottService != OTTService.CABLE_GO) {
+        list.add(RequestOTTServiceModel(
+            ottService: listPlanOTT[value].ottService,
+            ottCode: listPlanOTT[value].listSubOtt[0].ottCode,
+            isdn: listPlanOTT[value].isdn,
+            promotionIds: listPlanOTT[value].listSubOtt[0].getPromotionIds()));
+      } else {
+        list.add(RequestOTTServiceModel(
+            ottService: listPlanOTT[value].ottService,
+            ottCode: listPlanOTT[value].listSubOtt[valueCableGo.value].ottCode,
+            isdn: listPlanOTT[value].listSubOtt[valueCableGo.value].email,
+            promotionIds: listPlanOTT[value]
+                .listSubOtt[valueCableGo.value]
+                .getPromotionIds()));
+      }
     }
     return list;
   }

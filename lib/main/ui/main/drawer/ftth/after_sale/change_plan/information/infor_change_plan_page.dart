@@ -395,11 +395,6 @@ class InforChangePlanPage extends GetView {
                                     dashGapLength: 3,
                                     dashLength: 4,
                                   ),
-                                  const DottedLine(
-                                    dashColor: Color(0xFFE3EAF2),
-                                    dashGapLength: 3,
-                                    dashLength: 4,
-                                  ),
                                   _paymentElement(
                                       AppLocalizations.of(context)!.textPenalty,
                                       'S/${Common.numberFormat(controller.checkPaymentChangePlanModel.penalty)}',

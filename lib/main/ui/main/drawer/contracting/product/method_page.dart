@@ -14,6 +14,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 
 import '../../../../../networks/model/method_model.dart';
+import '../../../../../networks/model/sub_ott_model.dart';
 import '../../../../../utils/common.dart';
 import '../../../../../utils/common_widgets.dart';
 
@@ -417,25 +418,55 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                                     primary: false,
                                     itemBuilder: (BuildContext context,
                                             int index) =>
-                                        _itemOTT(
-                                          context: context,
-                                          ott: controller.listPlanOTT[index],
-                                          value: index,
-                                          listValue: controller.listSelectOtt,
-                                          onChange: (value) {
-                                            if (controller.listSelectOtt
-                                                .contains(value)) {
-                                              controller.listSelectOtt
-                                                  .removeWhere((element) =>
-                                                      element == value);
-                                            } else {
-                                              controller.listSelectOtt
-                                                  .add(value);
-                                            }
-                                            controller.update();
-                                          },
-                                          controller: controller,
-                                        ),
+                                        controller.listPlanOTT[index]
+                                                    .ottService !=
+                                                OTTService.CABLE_GO
+                                            ? _itemOTT(
+                                                context: context,
+                                                ott: controller
+                                                    .listPlanOTT[index],
+                                                value: index,
+                                                listValue:
+                                                    controller.listSelectOtt,
+                                                onChange: (value) {
+                                                  if (controller.listSelectOtt
+                                                      .contains(value)) {
+                                                    controller.listSelectOtt
+                                                        .removeWhere(
+                                                            (element) =>
+                                                                element ==
+                                                                value);
+                                                  } else {
+                                                    controller.listSelectOtt
+                                                        .add(value);
+                                                  }
+                                                  controller.update();
+                                                },
+                                                controller: controller,
+                                              )
+                                            : _itemOTTCableGo(
+                                                context: context,
+                                                ott: controller
+                                                    .listPlanOTT[index],
+                                                value: index,
+                                                listValue:
+                                                    controller.listSelectOtt,
+                                                onChange: (value) {
+                                                  if (controller.listSelectOtt
+                                                      .contains(value)) {
+                                                    controller.listSelectOtt
+                                                        .removeWhere(
+                                                            (element) =>
+                                                                element ==
+                                                                value);
+                                                  } else {
+                                                    controller.listSelectOtt
+                                                        .add(value);
+                                                  }
+                                                  controller.update();
+                                                },
+                                                controller: controller,
+                                              ),
                                     separatorBuilder:
                                         (BuildContext context, int index) =>
                                             const Divider(
@@ -844,6 +875,305 @@ Widget _itemOTT(
                                       top: 5, left: 18, right: 10),
                                   hintText: AppLocalizations.of(context)!
                                       .textEnterBitelPhoneNumber,
+                                  hintStyle: AppStyles.r2.copyWith(
+                                      color: AppColors.colorHint1,
+                                      fontWeight: FontWeight.w400),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(24),
+                                      borderSide: const BorderSide(
+                                          width: 1,
+                                          color: AppColors.colorLineDash)),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(24),
+                                      borderSide: const BorderSide(
+                                          width: 1, color: Colors.redAccent)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(24),
+                                      borderSide: const BorderSide(
+                                          width: 1,
+                                          color: AppColors.colorLineDash)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(24),
+                                      borderSide: const BorderSide(
+                                          width: 1,
+                                          color: AppColors.colorLineDash)),
+                                )),
+                          ),
+                        ),
+                      ],
+                    )),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget _itemOTTCableGo(
+    {required BuildContext context,
+    required PlanOttModel ott,
+    required int value,
+    required List<int> listValue,
+    required var onChange,
+    required ProductPaymentMethodLogic controller}) {
+  var check = listValue.contains(value).obs;
+  if (ott.controller == null) {
+    ott.controller = ExpandableController();
+    ott.controller!.addListener(() {
+      onChange(value);
+    });
+  }
+  ott.textController ??= TextEditingController();
+  ott.focusNode ??= FocusNode();
+  return Container(
+    margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+    child: ExpandableNotifier(
+      child: Column(
+        children: [
+          ExpandablePanel(
+            controller: ott.controller,
+            theme: const ExpandableThemeData(hasIcon: false),
+            expanded: ExpandableButton(
+              child: Row(
+                children: [
+                  Obx(() => check.value
+                      ? const Icon(
+                          Icons.check_box,
+                          color: AppColors.colorSubContent,
+                        )
+                      : const Icon(
+                          Icons.check_box_outline_blank,
+                          color: AppColors.colorSubContent,
+                        )),
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
+                      child: Text(ott.ottName,
+                          style:
+                              AppStyles.r2B3A4A_12_500.copyWith(fontSize: 13)),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            collapsed: Column(
+              children: [
+                ExpandableButton(
+                  child: Row(
+                    children: [
+                      Obx(() => check.value
+                          ? const Icon(
+                              Icons.check_box,
+                              color: AppColors.colorSubContent,
+                            )
+                          : const Icon(
+                              Icons.check_box_outline_blank,
+                              // color: Colors.white,
+                              color: AppColors.colorSubContent,
+                            )),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 10),
+                        child: Text(ott.ottName,
+                            style: AppStyles.r2B3A4A_12_500
+                                .copyWith(fontSize: 13)),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                ListView.separated(
+                    padding: const EdgeInsets.only(top: 0),
+                    shrinkWrap: true,
+                    primary: false,
+                    itemBuilder: (BuildContext context, int index) =>
+                        _itemCableGo(
+                          context: context,
+                          model: ott.listSubOtt[index],
+                          value: index,
+                          groupValue: controller.valueCableGo,
+                          onChange: (value) {
+                            // controller.update();
+                            for (var item in ott.listSubOtt) {
+                              final index = ott.listSubOtt.indexOf(item);
+                              if (index != value) {
+                                item.controller!.expanded = false;
+                              }
+                            }
+                          },
+                          controller: controller,
+                        ),
+                    separatorBuilder: (BuildContext context, int index) =>
+                        const Divider(
+                          color: AppColors.colorLineDash,
+                          height: 1,
+                          thickness: 1,
+                        ),
+                    itemCount: ott.listSubOtt.length)
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget _itemCableGo(
+    {required BuildContext context,
+    required SubOTTModel model,
+    required int value,
+    required var groupValue,
+    required var onChange,
+    required ProductPaymentMethodLogic controller}) {
+  if (model.controller == null) {
+    model.controller = ExpandableController();
+    model.controller!.addListener(() {
+      if (model.controller!.expanded) {
+        onChange(value);
+      }
+      groupValue.value != value
+          ? controller.valueCableGo.value = value
+          : controller.valueCableGo.value = -1;
+    });
+  }
+  model.textController ??= TextEditingController();
+  model.focusNode ??= FocusNode();
+  return Container(
+    margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+    child: ExpandableNotifier(
+      child: Column(
+        children: [
+          ExpandablePanel(
+            controller: model.controller,
+            theme: const ExpandableThemeData(hasIcon: false),
+            collapsed: ExpandableButton(
+              child: Row(
+                children: [
+                  Obx(() => groupValue.value == value
+                      ? iconChecked()
+                      : iconUnchecked()),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 13, vertical: 10),
+                      child: Text(model.subOttName,
+                          style:
+                              AppStyles.r2B3A4A_12_500.copyWith(fontSize: 13)),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 13, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: AppColors.colorSubContent.withOpacity(0.07),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(
+                      '${Common.numberFormat(model.fee)}/${AppLocalizations.of(context)!.textMonth}',
+                      style: AppStyles.r9454C9_14_500
+                          .copyWith(fontWeight: FontWeight.w700, fontSize: 16),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            expanded: Column(
+              children: [
+                ExpandableButton(
+                  child: Row(
+                    children: [
+                      Obx(() => groupValue.value == value
+                          ? iconChecked()
+                          : iconUnchecked()),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 13, vertical: 10),
+                          child: Text(model.subOttName,
+                              style: AppStyles.r2B3A4A_12_500
+                                  .copyWith(fontSize: 13)),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 13, vertical: 10),
+                        decoration: BoxDecoration(
+                          color: AppColors.colorSubContent.withOpacity(0.07),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          '${Common.numberFormat(model.fee)}/${AppLocalizations.of(context)!.textMonth}',
+                          style: AppStyles.r9454C9_14_500.copyWith(
+                              fontWeight: FontWeight.w700, fontSize: 16),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Container(
+                    padding: const EdgeInsets.only(top: 15),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: const Color(0xFFF0FAFA),
+                        boxShadow: const [
+                          BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
+                        ]),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 16, right: 16),
+                          child: Text(AppLocalizations.of(context)!.textEmail,
+                              textAlign: TextAlign.left,
+                              style: AppStyles.r2B3A4A_12_500.copyWith(
+                                  fontSize: 13,
+                                  color: const Color(0xFF6C8AA1))),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 16, right: 16, top: 12, bottom: 17),
+                          child: SizedBox(
+                            height: 65,
+                            child: TextField(
+                                controller: model.textController,
+                                keyboardType: TextInputType.text,
+                                focusNode: model.focusNode,
+                                style: AppStyles.r2B3A4A_12_500.copyWith(
+                                    fontSize: 14,
+                                    color: AppColors.color_2B3A4A
+                                        .withOpacity(0.85)),
+                                onChanged: (value) {
+                                  controller.onChangeEmail(value, model);
+                                },
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  errorText: model.errorText,
+                                  fillColor: Colors.white,
+                                  contentPadding: const EdgeInsets.only(
+                                      top: 5, left: 18, right: 10),
+                                  hintText: AppLocalizations.of(context)!
+                                      .textEnterEmail,
                                   hintStyle: AppStyles.r2.copyWith(
                                       color: AppColors.colorHint1,
                                       fontWeight: FontWeight.w400),

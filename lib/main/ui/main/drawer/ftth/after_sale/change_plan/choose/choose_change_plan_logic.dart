@@ -12,6 +12,7 @@ import '../../../../../../../networks/model/check_payment_change_plan_model.dart
 import '../../../../../../../networks/model/plan_ott_model.dart';
 import '../../../../../../../networks/model/request_ott_service_model.dart';
 import '../../../../../../../networks/model/promotion_model.dart';
+import '../../../../../../../networks/model/sub_ott_model.dart';
 import '../../../../../../../services/connection_service.dart';
 import '../../../../../../../utils/common.dart';
 import '../../../../../../../utils/common_widgets.dart';
@@ -38,6 +39,8 @@ class ChooseChangePlanLogic extends GetxController {
   bool isLoadingPromotion = true;
   List<PromotionModel> listPromotion = [];
   List<int> listIdPromotion = [];
+
+  var valueCableGo = (-1).obs;
 
   AfterSaleSearchLogic afterSaleSearchLogic = Get.find();
 
@@ -252,11 +255,21 @@ class ChooseChangePlanLogic extends GetxController {
   List<RequestOTTServiceModel> getJsonOTTService() {
     List<RequestOTTServiceModel> list = [];
     for (int value in listSelectOtt) {
-      list.add(RequestOTTServiceModel(
-          ottService: listPlanOTT[value].ottService,
-          ottCode: listPlanOTT[value].listSubOtt[0].ottCode,
-          isdn: listPlanOTT[value].isdn,
-          promotionIds: []));
+      if (listPlanOTT[value].ottService != OTTService.CABLE_GO) {
+        list.add(RequestOTTServiceModel(
+            ottService: listPlanOTT[value].ottService,
+            ottCode: listPlanOTT[value].listSubOtt[0].ottCode,
+            isdn: listPlanOTT[value].isdn,
+            promotionIds: listPlanOTT[value].listSubOtt[0].getPromotionIds()));
+      } else {
+        list.add(RequestOTTServiceModel(
+            ottService: listPlanOTT[value].ottService,
+            ottCode: listPlanOTT[value].listSubOtt[valueCableGo.value].ottCode,
+            isdn: listPlanOTT[value].listSubOtt[valueCableGo.value].email,
+            promotionIds: listPlanOTT[value]
+                .listSubOtt[valueCableGo.value]
+                .getPromotionIds()));
+      }
     }
     return list;
   }
@@ -308,5 +321,21 @@ class ChooseChangePlanLogic extends GetxController {
 
   void resetPromotions() {
     listPromotion.clear();
+  }
+
+  void onChangeEmail(String value, SubOTTModel model) {
+    if (value.isEmpty) {
+      model.errorText = AppLocalizations.of(context)!.textCannotBeBlank;
+      model.isSuccess = false;
+    } else if (!Common.validateEmail(value)) {
+      model.errorText = AppLocalizations.of(context)!.textValidateEmail;
+      model.isSuccess = false;
+    } else {
+      model.errorText = null;
+      model.isSuccess = true;
+      model.email = value;
+      update();
+    }
+    update();
   }
 }
