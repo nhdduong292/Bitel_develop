@@ -63,7 +63,9 @@ class SubOTTModel {
 
   List<int> getPromotionIds() {
     List<int> promotionIds = [];
-    promotions.map((e) => promotionIds.add(e.proId ?? 0));
+    for (var item in promotions) {
+      promotionIds.add(item.proId ?? 0);
+    }
     return promotionIds;
   }
 }
