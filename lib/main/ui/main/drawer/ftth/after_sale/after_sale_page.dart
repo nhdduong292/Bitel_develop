@@ -98,17 +98,22 @@ class AfterSalePage extends GetView {
                       ),
                     ),
                     onTap: () {
-                      Get.toNamed(RouteConfig.validateFingerprint, arguments: [
-                        ValidateFingerStatus.STAFF_CHANGE_PLAN
-                      ])?.then((value) {
-                        if (value != null) {
-                          Get.to(
-                              AfterSaleSearchPage(
-                                  AppLocalizations.of(context)!.textChangePlan,
-                                  AfterSaleStatus.CHANGE_PLAN),
-                              arguments: [value]);
-                        }
-                      });
+                      // Get.toNamed(RouteConfig.validateFingerprint, arguments: [
+                      //   ValidateFingerStatus.STAFF_CHANGE_PLAN
+                      // ])?.then((value) {
+                      //   if (value != null) {
+                      //     Get.to(
+                      //         AfterSaleSearchPage(
+                      //             AppLocalizations.of(context)!.textChangePlan,
+                      //             AfterSaleStatus.CHANGE_PLAN),
+                      //         arguments: [value]);
+                      //   }
+                      // });
+                      Get.to(
+                          AfterSaleSearchPage(
+                              AppLocalizations.of(context)!.textChangePlan,
+                              AfterSaleStatus.CHANGE_PLAN),
+                          arguments: [123]);
                     },
                   ),
                 ),

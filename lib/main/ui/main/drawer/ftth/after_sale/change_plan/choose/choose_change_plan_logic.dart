@@ -295,7 +295,7 @@ class ChooseChangePlanLogic extends GetxController {
       onError: (error) {
         Get.back();
         isSuccess(false);
-        // Common.showMessageError(error: error, context: context);
+        Common.showMessageError(error: error, context: context);
       },
     );
   }
