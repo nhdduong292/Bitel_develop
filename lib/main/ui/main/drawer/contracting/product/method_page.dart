@@ -12,8 +12,6 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
-
-import '../../../../../networks/model/method_model.dart';
 import '../../../../../networks/model/sub_ott_model.dart';
 import '../../../../../utils/common.dart';
 import '../../../../../utils/common_widgets.dart';
@@ -500,18 +498,21 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                     text: AppLocalizations.of(context)!.textContinue,
                     onTap: () {
                       if (controller.checkBtnContinue()) {
-                        controller.isOnMethodPage.value = false;
-                        controller.isOnInvoicePage.value = true;
-
-                        controller.scrollController?.scrollTo(
-                          index: 1,
-                          duration: const Duration(milliseconds: 200),
-                        );
-                        controller.isLoadingWallet = true;
-                        controller.isLoadingBill = true;
-                        controller.checkLoadingBill();
-                        controller.getWallet(context);
-                        controller.postContractInformation();
+                        controller.checkEmailCableGo((isSuccess) {
+                          if (isSuccess) {
+                            controller.isOnMethodPage.value = false;
+                            controller.isOnInvoicePage.value = true;
+                            controller.scrollController?.scrollTo(
+                              index: 1,
+                              duration: const Duration(milliseconds: 200),
+                            );
+                            controller.isLoadingWallet = true;
+                            controller.isLoadingBill = true;
+                            controller.checkLoadingBill();
+                            controller.getWallet(context);
+                            controller.postContractInformation();
+                          }
+                        });
                       }
                     },
                     color: !(controller.valueMethod.value > -1 &&
@@ -865,7 +866,8 @@ Widget _itemOTT(
                                     color: AppColors.color_2B3A4A
                                         .withOpacity(0.85)),
                                 onChanged: (value) {
-                                  controller.onChangePhoneNumber(value, ott);
+                                  controller.onChangePhoneNumber(
+                                      ott.ottService, value, ott);
                                 },
                                 decoration: InputDecoration(
                                   filled: true,

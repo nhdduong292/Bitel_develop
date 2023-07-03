@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:bitel_ventas/main/networks/model/find_account_model.dart';
 import 'package:bitel_ventas/main/networks/model/product_change_plan_model.dart';
 import 'package:bitel_ventas/main/networks/model/reasons_cancel_service_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_search_logic.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
 
 import '../../../../../../../networks/api_end_point.dart';
@@ -32,6 +35,10 @@ class ChooseChangePlanLogic extends GetxController {
   int subId = 0;
   bool isForcedTerm = false;
   int fingerId = 0;
+
+  String currentEmail = "";
+  bool isCableGo = false;
+  SubOTTModel currentSubOTT = SubOTTModel();
 
   List<PlanOttModel> listPlanOTT = [];
   List<int> listSelectOtt = [];
@@ -157,30 +164,6 @@ class ChooseChangePlanLogic extends GetxController {
     }
   }
 
-  void checkSim(String value, var isSuccess) {
-    _onLoading(context);
-    ApiUtil.getInstance()!.get(
-      url: ApiEndPoints.API_CHECK_SIM,
-      params: {
-        "isdn": value,
-      },
-      onSuccess: (response) {
-        Get.back();
-        if (response.isSuccess) {
-          isSuccess(true);
-        } else {
-          isSuccess(false);
-          print("error: ${response.status}");
-        }
-      },
-      onError: (error) {
-        Get.back();
-        isSuccess(false);
-        Common.showMessageError(error: error, context: context);
-      },
-    );
-  }
-
   void getOTTService() async {
     bool isConnect =
         await ConnectionService.getInstance()?.checkConnect(context) ?? true;
@@ -222,14 +205,17 @@ class ChooseChangePlanLogic extends GetxController {
     }
   }
 
-  void onChangePhoneNumber(String value, PlanOttModel ott) {
+  void onChangePhoneNumber(String type, String value, PlanOttModel ott) {
+    isCableGo = false;
     if (value.isEmpty) {
       ott.errorText = AppLocalizations.of(context)!.textCannotBeBlank;
+      ott.isSuccess = false;
     } else if (value.length < 9) {
       ott.errorText = AppLocalizations.of(context)!.textMustBeA9DigitsNumbers;
+      ott.isSuccess = false;
     } else if (value.length == 9) {
       ott.errorText = null;
-      checkSim(value, (isSuccess) {
+      checkSim(type, value, (isSuccess) {
         if (!isSuccess) {
           ott.focusNode!.requestFocus();
           ott.isSuccess = false;
@@ -244,6 +230,74 @@ class ChooseChangePlanLogic extends GetxController {
       });
     }
     update();
+  }
+
+  void checkEmailCableGo(var onSuccess) {
+    if (!isCableGo) {
+      onSuccess(true);
+      return;
+    }
+    if (Common.validateEmail(currentEmail)) {
+      checkSim(OTTService.CABLE_GO, currentEmail, (isSuccess) {
+        if (!isSuccess) {
+          currentSubOTT.focusNode!.requestFocus();
+          currentSubOTT.isSuccess = false;
+          currentSubOTT.errorText =
+              AppLocalizations.of(context)!.textMustBeAnEmailFormat;
+          onSuccess(false);
+        } else {
+          currentSubOTT.errorText = null;
+          currentSubOTT.isSuccess = true;
+          currentSubOTT.email = currentEmail;
+          onSuccess(true);
+        }
+        update();
+      });
+    }
+  }
+
+  void onChangeEmail(String value, SubOTTModel model) {
+    isCableGo = true;
+    currentEmail = value;
+    currentSubOTT = model;
+    if (value.isEmpty) {
+      model.errorText = AppLocalizations.of(context)!.textCannotBeBlank;
+      model.isSuccess = false;
+    } else if (!Common.validateEmail(value)) {
+      model.errorText = AppLocalizations.of(context)!.textMustBeAnEmailFormat;
+      model.isSuccess = false;
+    } else {
+      model.errorText = null;
+      model.isSuccess = true;
+      model.email = value;
+      update();
+    }
+    update();
+  }
+
+  void checkSim(String type, String value, var isSuccess) {
+    _onLoading(context);
+    ApiUtil.getInstance()!.get(
+      url: ApiEndPoints.API_CHECK_SIM,
+      params: {
+        "serviceType": type,
+        "isdn": value,
+      },
+      onSuccess: (response) {
+        Get.back();
+        if (response.isSuccess) {
+          isSuccess(true);
+        } else {
+          isSuccess(false);
+          print("error: ${response.status}");
+        }
+      },
+      onError: (error) {
+        Get.back();
+        isSuccess(false);
+        // Common.showMessageError(error: error, context: context);
+      },
+    );
   }
 
   void resetPlanOTTs() {
@@ -262,13 +316,16 @@ class ChooseChangePlanLogic extends GetxController {
             isdn: listPlanOTT[value].isdn,
             promotionIds: listPlanOTT[value].listSubOtt[0].getPromotionIds()));
       } else {
-        list.add(RequestOTTServiceModel(
-            ottService: listPlanOTT[value].ottService,
-            ottCode: listPlanOTT[value].listSubOtt[valueCableGo.value].ottCode,
-            isdn: listPlanOTT[value].listSubOtt[valueCableGo.value].email,
-            promotionIds: listPlanOTT[value]
-                .listSubOtt[valueCableGo.value]
-                .getPromotionIds()));
+        if (valueCableGo.value > -1) {
+          list.add(RequestOTTServiceModel(
+              ottService: listPlanOTT[value].ottService,
+              ottCode:
+                  listPlanOTT[value].listSubOtt[valueCableGo.value].ottCode,
+              isdn: listPlanOTT[value].listSubOtt[valueCableGo.value].email,
+              promotionIds: listPlanOTT[value]
+                  .listSubOtt[valueCableGo.value]
+                  .getPromotionIds()));
+        }
       }
     }
     return list;
@@ -277,7 +334,13 @@ class ChooseChangePlanLogic extends GetxController {
   List<String> getListOTTService() {
     List<String> list = [];
     for (int value in listSelectOtt) {
-      list.add(listPlanOTT[value].ottService);
+      if (listPlanOTT[value].ottService != OTTService.CABLE_GO) {
+        list.add(listPlanOTT[value].ottService);
+      } else {
+        if (valueCableGo.value > -1) {
+          list.add(listPlanOTT[value].ottService);
+        }
+      }
     }
     return list;
   }
@@ -321,21 +384,5 @@ class ChooseChangePlanLogic extends GetxController {
 
   void resetPromotions() {
     listPromotion.clear();
-  }
-
-  void onChangeEmail(String value, SubOTTModel model) {
-    if (value.isEmpty) {
-      model.errorText = AppLocalizations.of(context)!.textCannotBeBlank;
-      model.isSuccess = false;
-    } else if (!Common.validateEmail(value)) {
-      model.errorText = AppLocalizations.of(context)!.textValidateEmail;
-      model.isSuccess = false;
-    } else {
-      model.errorText = null;
-      model.isSuccess = true;
-      model.email = value;
-      update();
-    }
-    update();
   }
 }

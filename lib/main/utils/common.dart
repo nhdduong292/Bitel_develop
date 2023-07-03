@@ -381,6 +381,8 @@ class Common {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE076);
       } else if (errorCode == 'E078') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE078);
+      } else if (errorCode == 'E083') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE083);
       } else {
         showSystemErrorDialog(context, error.response!.data['errorMessage']);
       }

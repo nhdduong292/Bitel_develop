@@ -584,30 +584,38 @@ class ChooseChangePlanPage extends GetView {
                                             controller
                                                 .listPlanOTT[value].focusNode!
                                                 .requestFocus();
-                                            return false;
+                                            return;
                                           } else if (controller
                                                   .listPlanOTT[value]
                                                   .ottService ==
                                               OTTService.CABLE_GO) {
-                                            if (!controller
-                                                .listPlanOTT[value]
-                                                .listSubOtt[controller
-                                                    .valueCableGo.value]
-                                                .isSuccess) {
-                                              controller
+                                            if (controller.valueCableGo.value >
+                                                -1) {
+                                              if (!controller
                                                   .listPlanOTT[value]
                                                   .listSubOtt[controller
                                                       .valueCableGo.value]
-                                                  .focusNode!
-                                                  .requestFocus();
-                                              return false;
+                                                  .isSuccess) {
+                                                controller
+                                                    .listPlanOTT[value]
+                                                    .listSubOtt[controller
+                                                        .valueCableGo.value]
+                                                    .focusNode!
+                                                    .requestFocus();
+                                                return;
+                                              }
                                             }
                                           }
                                         }
-                                        controller.getPayment((isSuccess) {
+                                        controller
+                                            .checkEmailCableGo((isSuccess) {
                                           if (isSuccess) {
-                                            Get.toNamed(
-                                                RouteConfig.inforChangePlan);
+                                            controller.getPayment((isSuccess) {
+                                              if (isSuccess) {
+                                                Get.toNamed(RouteConfig
+                                                    .inforChangePlan);
+                                              }
+                                            });
                                           }
                                         });
                                       }
@@ -836,7 +844,8 @@ class ChooseChangePlanPage extends GetView {
                                       color: AppColors.color_2B3A4A
                                           .withOpacity(0.85)),
                                   onChanged: (value) {
-                                    controller.onChangePhoneNumber(value, ott);
+                                    controller.onChangePhoneNumber(
+                                        ott.ottService, value, ott);
                                   },
                                   decoration: InputDecoration(
                                     filled: true,

@@ -739,5 +739,10 @@
   "textRemainingOfAdvanced": "Remaining of advanced",
   "textMustBeBitelNumber": "Must be Bitel number.",
   "textMustBeA9DigitsNumbers": "Must be a 9 digits numbers.",
-  "textCannotBeBlank": "Cannot be blank."
+  "textCannotBeBlank": "Cannot be blank.",
+  "textMustBeAnEmailFormat": "Must be an email format.",
+  "textE083": "Ott Service is registered.",
+  "textPaymentMethod": "Payment method",
+  "textPayByCash": "Pay by cash",
+  "textPayByBankCode": "Pay by bank code"
 }

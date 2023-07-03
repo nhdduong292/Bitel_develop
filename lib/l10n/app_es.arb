@@ -726,5 +726,10 @@
   "textRemainingOfAdvanced": "Restante de avanzado",
   "textMustBeBitelNumber": "Debe ser número de Bitel.",
   "textMustBeA9DigitsNumbers": "El número debe tener 9 dígitos.",
-  "textCannotBeBlank": "No puede dejarlo vacio."
+  "textCannotBeBlank": "No puede dejarlo vacio.",
+  "textMustBeAnEmailFormat": "Deberá estar en formato de correo.",
+  "textE083": "Ott Service está registrado.",
+  "textPaymentMethod": "Método de pago",
+  "textPayByCash": "Paga en efectivo",
+  "textPayByBankCode": "Paga con código bancario"
 }

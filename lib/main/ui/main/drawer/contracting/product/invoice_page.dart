@@ -260,60 +260,147 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                           const Color(0xFF9454C9)),
                     ],
                   ),
-                )
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  padding: const EdgeInsets.only(left: 2),
+                  child: Text(
+                    AppLocalizations.of(context)!.textPaymentMethod,
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Barlow',
+                        fontSize: 14),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  constraints: const BoxConstraints(minHeight: 80),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      border: Border.all(color: const Color(0xFFE3EAF2)),
+                      color: Colors.white,
+                      boxShadow: const [
+                        BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
+                      ]),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            flex: 1,
+                            child: InkWell(
+                              onTap: () {
+                                controller.isPayBankCode =
+                                    !controller.isPayBankCode;
+                                controller.update();
+                              },
+                              child: typePayment(
+                                  check: !controller.isPayBankCode,
+                                  content: AppLocalizations.of(context)!
+                                      .textPayByCash),
+                            )),
+                        Expanded(
+                            flex: 1,
+                            child: InkWell(
+                              onTap: () {
+                                controller.isPayBankCode =
+                                    !controller.isPayBankCode;
+                                controller.update();
+                              },
+                              child: typePayment(
+                                  check: controller.isPayBankCode,
+                                  content: AppLocalizations.of(context)!
+                                      .textPayByBankCode),
+                            ))
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
           bottomButton(
               text: AppLocalizations.of(context)!.textContinue,
               onTap: () {
-                controller.checkBalance((value) {
-                  if (value) {
-                    controller.checkRegisterCustomer(context, (value) {
-                      if (value) {
-                        Get.toNamed(RouteConfig.customerInformation,
-                            arguments: [
-                              controller.customer,
-                              controller.requestModel,
-                              controller.getProduct().productId,
-                              controller.getPlanReason().id,
-                              controller.isForcedTerm(),
-                              controller.listIdPromotion,
-                              controller.getPackage().packageId,
-                              ContractStatus.New
-                            ]);
-                      } else {
-                        Get.toNamed(RouteConfig.createContact, arguments: [
-                          controller.requestModel,
-                          controller.getProduct().productId,
-                          controller.getPlanReason().id,
-                          controller.isForcedTerm(),
-                          controller.listIdPromotion,
-                          controller.getPackage().packageId
-                        ]);
-                      }
-                    });
-                  } else {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return RechargeDialog(
-                            height: 340,
-                            onCanncel: () {
-                              controller.isOnInvoicePage.value = false;
-                              controller.isOnMethodPage.value = true;
-                              controller.scrollController?.scrollTo(
-                                index: 0,
-                                duration: const Duration(milliseconds: 200),
-                              );
-                            },
-                            onContinue: () {
-                              Get.toNamed(RouteConfig.createOrder);
-                            },
-                          );
-                        });
-                  }
-                });
+                if (controller.isPayBankCode) {
+                  controller.checkBalance((value) {
+                    if (value) {
+                      controller.checkRegisterCustomer(context, (value) {
+                        if (value) {
+                          Get.toNamed(RouteConfig.customerInformation,
+                              arguments: [
+                                controller.customer,
+                                controller.requestModel,
+                                controller.getProduct().productId,
+                                controller.getPlanReason().id,
+                                controller.isForcedTerm(),
+                                controller.listIdPromotion,
+                                controller.getPackage().packageId,
+                                ContractStatus.New
+                              ]);
+                        } else {
+                          Get.toNamed(RouteConfig.createContact, arguments: [
+                            controller.requestModel,
+                            controller.getProduct().productId,
+                            controller.getPlanReason().id,
+                            controller.isForcedTerm(),
+                            controller.listIdPromotion,
+                            controller.getPackage().packageId
+                          ]);
+                        }
+                      });
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return RechargeDialog(
+                              height: 340,
+                              onCanncel: () {
+                                controller.isOnInvoicePage.value = false;
+                                controller.isOnMethodPage.value = true;
+                                controller.scrollController?.scrollTo(
+                                  index: 0,
+                                  duration: const Duration(milliseconds: 200),
+                                );
+                              },
+                              onContinue: () {
+                                Get.toNamed(RouteConfig.createOrder);
+                              },
+                            );
+                          });
+                    }
+                  });
+                } else {
+                  controller.checkRegisterCustomer(context, (value) {
+                    if (value) {
+                      Get.toNamed(RouteConfig.customerInformation, arguments: [
+                        controller.customer,
+                        controller.requestModel,
+                        controller.getProduct().productId,
+                        controller.getPlanReason().id,
+                        controller.isForcedTerm(),
+                        controller.listIdPromotion,
+                        controller.getPackage().packageId,
+                        ContractStatus.New
+                      ]);
+                    } else {
+                      Get.toNamed(RouteConfig.createContact, arguments: [
+                        controller.requestModel,
+                        controller.getProduct().productId,
+                        controller.getPlanReason().id,
+                        controller.isForcedTerm(),
+                        controller.listIdPromotion,
+                        controller.getPackage().packageId
+                      ]);
+                    }
+                  });
+                }
               }),
         ],
       )),
@@ -342,6 +429,25 @@ Widget _paymentElement(String label, String value, Color color) {
         )
       ],
     ),
+  );
+}
+
+Widget typePayment({required bool check, required String content}) {
+  return Row(
+    mainAxisSize: MainAxisSize.max,
+    children: [
+      check ? iconChecked() : iconUnchecked(),
+      const SizedBox(
+        width: 13,
+      ),
+      Expanded(
+        child: Text(
+          content,
+          style: AppStyles.r2B3A4A_12_500.copyWith(
+              color: AppColors.color_2B3A4A.withOpacity(0.85), fontSize: 13),
+        ),
+      ),
+    ],
   );
 }
 

@@ -726,5 +726,10 @@
   "textRemainingOfAdvanced": "Nâng cao còn lại",
   "textMustBeBitelNumber": "Phải là số Bitel.",
   "textMustBeA9DigitsNumbers": "Phải là số có 9 chữ số.",
-  "textCannotBeBlank": "Không được để trống."
+  "textCannotBeBlank": "Không được để trống.",
+  "textMustBeAnEmailFormat": "Phải là một định dạng email.",
+  "textE083": "Dịch vụ Ott đã được đăng ký.",
+  "textPaymentMethod": "Phương thức thanh toán",
+  "textPayByCash": "Thanh toán bằng tiền mặt",
+  "textPayByBankCode": "Thanh toán bằng mã ngân hàng"
 }
