@@ -76,7 +76,7 @@ class FTTHContractingLogic extends GetxController {
       for (var item in contractModel.subOtts) {
         names.add(item.description);
       }
-      return names.join(',');
+      return names.join(', ');
     }
   }
 

@@ -642,7 +642,7 @@
   "textE054": "¡Fracaso al cancelar la transacción de AnyPay!",
   "textE055": "Revocar el error GPON de suscriptor.",
   "textE056": "Revocar el error AAA de suscriptor.",
-  "textE057": "El suscriptor ya tiene una solicitud de cancelación de servicio.",
+  "textE057": "El suscriptor ya tiene solicitud de servicio de cancelación o transferencia.",
   "textE058": "Error general al obtener información de compra de AnyPay.",
   "textE059": "Falla en la creación de orden de Anypay.",
   "textE060": "Falla en la confirmación de orden de Anypay.",
@@ -731,5 +731,6 @@
   "textE083": "Ott Service está registrado.",
   "textPaymentMethod": "Método de pago",
   "textPayByCash": "Paga en efectivo",
-  "textPayByBankCode": "Paga con código bancario"
+  "textPayByBankCode": "Paga con código bancario",
+  "textE091": "El suscriptor ya tiene una solicitud de servicio de cambio de plan."
 }

@@ -57,17 +57,30 @@ class ChooseServicePage extends GetWidget {
                 // _onLoading(context);
                 if (controller.afterSaleSearchLogic.type ==
                     AfterSaleStatus.CHANGE_PLAN) {
-                  RequestDetailModel requestModel = RequestDetailModel();
-                  Get.toNamed(RouteConfig.chooseChangePlan, arguments: [
-                    controller.listAccount[controller.valueService.value].subId
-                  ]);
+                  controller.checkOldRequest(AfterSaleStatus.CHANGE_PLAN,
+                      (value) {
+                    if (value) {
+                      Get.toNamed(RouteConfig.chooseChangePlan, arguments: [
+                        controller
+                            .listAccount[controller.valueService.value].subId
+                      ]);
+                    }
+                  });
                 } else if (controller.afterSaleSearchLogic.type ==
                     AfterSaleStatus.TRANSFER_SERVICE) {
-                  Get.toNamed(RouteConfig.createTransferService, arguments: [
-                    controller.listAccount[controller.valueService.value]
-                  ]);
+                  controller.checkOldRequest(AfterSaleStatus.TRANSFER_SERVICE,
+                      (value) {
+                    if (value) {
+                      Get.toNamed(RouteConfig.createTransferService,
+                          arguments: [
+                            controller
+                                .listAccount[controller.valueService.value]
+                          ]);
+                    }
+                  });
                 } else {
-                  controller.checkOldRequest((value) {
+                  controller.checkOldRequest(AfterSaleStatus.CANCEL_SERVICE,
+                      (value) {
                     if (value) {
                       controller.checkDebtWO((value) {
                         if (value) {
@@ -76,10 +89,6 @@ class ChooseServicePage extends GetWidget {
                       });
                     }
                   });
-
-                  // Get.toNamed(RouteConfig.dateCancelService, arguments: [
-                  //   controller.listAccount[controller.valueService.value]
-                  // ]);
                 }
               },
             ),

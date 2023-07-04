@@ -641,7 +641,7 @@
   "textE054": "Lỗi hủy giao dịch anypay!",
   "textE055": "Lỗi thu hồi thuê bao GPON.",
   "textE056": "Lỗi thu hồi thuê bao AAA.",
-  "textE057": "Thuê bao đã có yêu cầu hủy dịch vụ.",
+  "textE057": "Thuê bao đã có yêu cầu hủy hoặc chuyển dịch vụ.",
   "textE058": "Lỗi thông tin chung mua anypay.",
   "textE059": "Lỗi tạo đơn hàng anypay.",
   "textE060": "Lỗi xác nhận đơn hàng anypay.",
@@ -731,5 +731,6 @@
   "textE083": "Dịch vụ Ott đã được đăng ký.",
   "textPaymentMethod": "Phương thức thanh toán",
   "textPayByCash": "Thanh toán bằng tiền mặt",
-  "textPayByBankCode": "Thanh toán bằng mã ngân hàng"
+  "textPayByBankCode": "Thanh toán bằng mã ngân hàng",
+  "textE091": "Thuê bao đã có yêu cầu thay đổi gói dịch vụ."
 }

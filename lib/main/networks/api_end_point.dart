@@ -164,4 +164,8 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/transfer/lock-infra/requestId";
   static const String API_GET_PROMOTION_CHANGE_PLAN =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/change-plan/get-list-promotion";
+  static const String API_CHECK_OLD_REQUEST_TRANSFER =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/transfer/check-old-request/subId";
+  static const String API_CHECK_OLD_REQUEST_CHANGE_PLAN =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/change-plan/check-old-request/subId";
 }

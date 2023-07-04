@@ -655,7 +655,7 @@
   "textE054": "Cancel anypay trans fail!",
   "textE055": "Revoke subscriber GPON error.",
   "textE056": "Revoke subscriber AAA error.",
-  "textE057": "Subscriber already has cancel service request.",
+  "textE057": "Subscriber already has cancel or transfer service request.",
   "textE058": "General information buy anypay error.",
   "textE059": "Create order anypay fail.",
   "textE060": "Confirm order anypay fail.",
@@ -744,5 +744,6 @@
   "textE083": "Ott Service is registered.",
   "textPaymentMethod": "Payment method",
   "textPayByCash": "Pay by cash",
-  "textPayByBankCode": "Pay by bank code"
+  "textPayByBankCode": "Pay by bank code",
+  "textE091": "Subscriber already has change plan service request."
 }

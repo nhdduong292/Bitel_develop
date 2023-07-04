@@ -2,6 +2,7 @@ import 'package:bitel_ventas/main/networks/model/cancel_service_model.dart';
 import 'package:bitel_ventas/main/networks/model/find_account_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_search_logic.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -70,16 +71,25 @@ class ChooseServiceLogic extends GetxController {
     );
   }
 
-  void checkOldRequest(var onSuccess) async {
+  void checkOldRequest(String type, var onSuccess) async {
     bool isConnect =
         await ConnectionService.getInstance()?.checkConnect(context) ?? true;
     if (!isConnect) {
       return;
     }
     _onLoading(context);
+    String url = "";
+    if (type == AfterSaleStatus.CANCEL_SERVICE) {
+      url = ApiEndPoints.API_CHECK_OLD_CANCEL_SERVICE;
+    } else if (type == AfterSaleStatus.CHANGE_PLAN) {
+      url = ApiEndPoints.API_CHECK_OLD_REQUEST_CHANGE_PLAN;
+    } else if (type == AfterSaleStatus.TRANSFER_SERVICE) {
+      url = ApiEndPoints.API_CHECK_OLD_REQUEST_TRANSFER;
+    }
     ApiUtil.getInstance()!.get(
-      url: ApiEndPoints.API_CHECK_OLD_CANCEL_SERVICE.replaceAll(
+      url: url.replaceAll(
           'subId', listAccount[valueService.value].subId.toString()),
+      params: {"subId": listAccount[valueService.value].subId},
       onSuccess: (response) {
         Get.back();
         if (response.isSuccess) {

@@ -383,6 +383,8 @@ class Common {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE078);
       } else if (errorCode == 'E083') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE083);
+      } else if (errorCode == 'E091') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE091);
       } else {
         showSystemErrorDialog(context, error.response!.data['errorMessage']);
       }
