@@ -164,6 +164,20 @@ class FTTHContractingPage extends GetView<FTTHContractingLogic> {
                             ),
                             inforContractRow(
                                 lable:
+                                    "${AppLocalizations.of(context)!.textOTTServices}:",
+                                richText: () {
+                                  return Text(
+                                    controller.getOTTServiesName(),
+                                    style: AppStyles.r415263_13_500,
+                                  );
+                                }),
+                            DottedLine(
+                              dashColor: Color(0xFFE3EAF2),
+                              dashGapLength: 3,
+                              dashLength: 4,
+                            ),
+                            inforContractRow(
+                                lable:
                                     AppLocalizations.of(context)!.textPromotion,
                                 richText: () {
                                   return Text(

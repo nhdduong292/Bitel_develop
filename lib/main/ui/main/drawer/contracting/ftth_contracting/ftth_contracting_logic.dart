@@ -68,6 +68,18 @@ class FTTHContractingLogic extends GetxController {
     }
   }
 
+  String getOTTServiesName() {
+    List<String> names = [];
+    if (contractModel.subOtts.isEmpty) {
+      return '---';
+    } else {
+      for (var item in contractModel.subOtts) {
+        names.add(item.description);
+      }
+      return names.join(',');
+    }
+  }
+
   void _onLoading(BuildContext context) {
     showDialog(
       context: context,

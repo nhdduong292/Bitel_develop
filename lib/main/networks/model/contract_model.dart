@@ -1,3 +1,5 @@
+import 'package:bitel_ventas/main/networks/model/sub_ott_model.dart';
+
 class ContractModel {
   int? _contractId;
   String? _contractNo;
@@ -25,6 +27,7 @@ class ContractModel {
   String? _precinctName;
   String? _precinct;
   String? _address;
+  List<SubOTTModel>? _subOtts;
 
   ContractModel();
   ContractModel.fromJson(Map<String, dynamic> json) {
@@ -54,6 +57,11 @@ class ContractModel {
     _precinctName = json['precinctName'];
     _precinct = json['precinct'];
     _address = json['address'];
+    if (json['subOtts'] != null) {
+      _subOtts = (json['subOtts'] as List)
+          .map((e) => SubOTTModel.fromJson(e))
+          .toList();
+    }
   }
 
   String get promotionName => _promotionName ?? "";
@@ -147,4 +155,6 @@ class ContractModel {
   String get precinct => _precinct ?? "";
 
   String get address => _address ?? "";
+
+  List<SubOTTModel> get subOtts => _subOtts ?? [];
 }
