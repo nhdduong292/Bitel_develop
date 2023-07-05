@@ -444,7 +444,7 @@
   "textScan": "SCAN",
   "textAcceptTheRules": "You must accept the rules",
   "textCircle": "Circle",
-  "textRadiusLimit": "Radius limit is 500",
+  "textRadiusLimit": "Radius limit is 300",
   "textNoData": "No data",
   "textPleaseSelect": "Please select gender.",
   "textConfiguracion": "Configuration",
