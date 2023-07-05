@@ -26,7 +26,7 @@ class DialogSurveyMapLogic extends GetxController {
 
   String currentTechnology = "GPON";
   List<String> listTechnology = ["AON", "GPON"];
-  String currentRadius = "500";
+  String currentRadius = "300";
   double lat = 0;
   double long = 0;
   RequestDetailModel requestModel;
