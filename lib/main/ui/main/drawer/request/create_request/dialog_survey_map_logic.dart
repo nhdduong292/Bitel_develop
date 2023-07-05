@@ -185,13 +185,13 @@ class DialogSurveyMapLogic extends GetxController {
     try {
       radius = int.parse(currentRadius);
     } catch (e) {}
-    if (currentTechnology == "GPON" && (radius > 500 || radius < 1)) {
+    if (currentTechnology == "GPON" && (radius > 300 || radius < 1)) {
       // setRadius("500");
       Common.showToastCenter(
           AppLocalizations.of(context)!.textRadiusLimit, context);
       return true;
     }
-    if (currentTechnology == "AON" && (radius > 500 || radius < 1)) {
+    if (currentTechnology == "AON" && (radius > 300 || radius < 1)) {
       // setRadius("300");
       Common.showToastCenter(
           AppLocalizations.of(context)!.textRadiusLimit, context);
