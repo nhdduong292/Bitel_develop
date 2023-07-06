@@ -59,6 +59,8 @@ class ProductPaymentMethodLogic extends GetxController {
   ExpandableController voiceContractExpand = ExpandableController();
   TextEditingController voiceContractTextController = TextEditingController();
   FocusNode voiceContractFocusNode = FocusNode();
+  RxBool checkVoiceContract = false.obs;
+  String? voiceContractError;
 
   ProductPaymentMethodLogic({required this.context});
 
@@ -71,6 +73,15 @@ class ProductPaymentMethodLogic extends GetxController {
     status = data[1];
     getProduts(requestModel.id);
     getPackages(requestModel.id);
+
+    voiceContractExpand.addListener(() {
+      checkVoiceContract.value = !checkVoiceContract.value;
+      if (checkVoiceContract.value) {
+        isPayBankCode = true;
+      } else {
+        isPayBankCode = false;
+      }
+    });
   }
 
   final ItemScrollController? scrollController = ItemScrollController();
@@ -674,6 +685,14 @@ class ProductPaymentMethodLogic extends GetxController {
     if (valueMethod.value > -1 &&
         valueProduct.value > -1 &&
         valuePackage.value > -1) {
+      if (checkVoiceContract.value) {
+        if (voiceContractTextController.text.trim().isEmpty) {
+          voiceContractFocusNode.requestFocus();
+          voiceContractError = AppLocalizations.of(context)!.textCannotBeBlank;
+          update();
+          return false;
+        }
+      }
       for (int value in listSelectOtt) {
         if (!listPlanOTT[value].isSuccess &&
             listPlanOTT[value].ottService != OTTService.CABLE_GO) {
@@ -721,5 +740,17 @@ class ProductPaymentMethodLogic extends GetxController {
       }
     }
     return list;
+  }
+
+  void checkBankCode(bool value) {
+    if (checkVoiceContract.value && !value) {
+      Common.showToastCenter(
+          AppLocalizations.of(context)!
+              .textTypeOfVoiceContractThatOnlyAllowsBankCode,
+          context);
+    } else {
+      isPayBankCode = value;
+      update();
+    }
   }
 }

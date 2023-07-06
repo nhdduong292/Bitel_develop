@@ -732,5 +732,9 @@
   "textPaymentMethod": "Phương thức thanh toán",
   "textPayByCash": "Thanh toán bằng tiền mặt",
   "textPayByBankCode": "Thanh toán bằng mã ngân hàng",
-  "textE091": "Thuê bao đã có yêu cầu thay đổi gói dịch vụ."
+  "textE091": "Thuê bao đã có yêu cầu thay đổi gói dịch vụ.",
+  "textVoiceContract": "Hợp đồng thoại",
+  "textCallId": "ID cuộc gọi",
+  "textEnterCallID": "Nhập ID cuộc gọi",
+  "textTypeOfVoiceContractThatOnlyAllowsBankCode": "Loại hợp đồng thoại chỉ cho phép mã ngân hàng"
 }

@@ -1,3 +1,4 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:bitel_ventas/main/networks/model/package_model.dart';
 import 'package:bitel_ventas/main/networks/model/plan_ott_model.dart';
 import 'package:bitel_ventas/main/networks/model/plan_reason_model.dart';
@@ -39,11 +40,7 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
               child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _voiceContract(
-                  context: context,
-                  check: false.obs,
-                  onChange: (value) {},
-                  controller: controller),
+              _voiceContract(context: context, controller: controller),
               Container(
                 margin: const EdgeInsets.only(left: 15, right: 15),
                 padding: const EdgeInsets.only(top: 15),
@@ -1214,12 +1211,7 @@ Widget _itemCableGo(
 
 Widget _voiceContract(
     {required BuildContext context,
-    required var check,
-    required var onChange,
     required ProductPaymentMethodLogic controller}) {
-  controller.voiceContractExpand.addListener(() {
-    onChange(check.value);
-  });
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
     child: ExpandableNotifier(
@@ -1228,10 +1220,10 @@ Widget _voiceContract(
           ExpandablePanel(
             controller: controller.voiceContractExpand,
             theme: const ExpandableThemeData(hasIcon: false),
-            expanded: ExpandableButton(
+            collapsed: ExpandableButton(
               child: Row(
                 children: [
-                  Obx(() => check.value
+                  Obx(() => controller.checkVoiceContract.value
                       ? const Icon(
                           Icons.check_box,
                           color: AppColors.colorSubContent,
@@ -1245,18 +1237,18 @@ Widget _voiceContract(
                   ),
                   Expanded(
                     flex: 1,
-                    child: Text("ott.ottName",
+                    child: Text(AppLocalizations.of(context)!.textVoiceContract,
                         style: AppStyles.r2B3A4A_12_500.copyWith(fontSize: 13)),
                   ),
                 ],
               ),
             ),
-            collapsed: Column(
+            expanded: Column(
               children: [
                 ExpandableButton(
                   child: Row(
                     children: [
-                      Obx(() => check.value
+                      Obx(() => controller.checkVoiceContract.value
                           ? const Icon(
                               Icons.check_box,
                               color: AppColors.colorSubContent,
@@ -1271,7 +1263,8 @@ Widget _voiceContract(
                       ),
                       Expanded(
                         flex: 1,
-                        child: Text("ott.ottName",
+                        child: Text(
+                            AppLocalizations.of(context)!.textVoiceContract,
                             style: AppStyles.r2B3A4A_12_500
                                 .copyWith(fontSize: 13)),
                       ),
@@ -1297,12 +1290,23 @@ Widget _voiceContract(
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 16, right: 16),
-                          child: Text(
-                              AppLocalizations.of(context)!.textPhoneNumber,
-                              textAlign: TextAlign.left,
+                          child: RichText(
+                            textAlign: TextAlign.left,
+                            text: TextSpan(
+                              text: AppLocalizations.of(context)!.textCallId,
                               style: AppStyles.r2B3A4A_12_500.copyWith(
-                                  fontSize: 13,
-                                  color: const Color(0xFF6C8AA1))),
+                                  fontSize: 13, color: const Color(0xFF6C8AA1)),
+                              children: [
+                                TextSpan(
+                                    text: ' *',
+                                    style: TextStyle(
+                                      color: AppColors.colorTextError,
+                                      fontFamily: 'Barlow',
+                                      fontSize: 14,
+                                    )),
+                              ],
+                            ),
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
@@ -1312,22 +1316,30 @@ Widget _voiceContract(
                             child: TextField(
                                 controller:
                                     controller.voiceContractTextController,
-                                maxLength: 9,
                                 keyboardType: TextInputType.phone,
                                 focusNode: controller.voiceContractFocusNode,
                                 style: AppStyles.r2B3A4A_12_500.copyWith(
                                     fontSize: 14,
                                     color: AppColors.color_2B3A4A
                                         .withOpacity(0.85)),
-                                onChanged: (value) {},
+                                onChanged: (value) {
+                                  if (value.trim().isNotEmpty) {
+                                    controller.voiceContractError = null;
+                                  } else {
+                                    controller.voiceContractError =
+                                        AppLocalizations.of(context)!
+                                            .textCannotBeBlank;
+                                  }
+                                  controller.update();
+                                },
                                 decoration: InputDecoration(
                                   filled: true,
-                                  errorText: null,
+                                  errorText: controller.voiceContractError,
                                   fillColor: Colors.white,
                                   contentPadding: const EdgeInsets.only(
                                       top: 5, left: 18, right: 10),
                                   hintText: AppLocalizations.of(context)!
-                                      .textEnterBitelPhoneNumber,
+                                      .textEnterCallID,
                                   hintStyle: AppStyles.r2.copyWith(
                                       color: AppColors.colorHint1,
                                       fontWeight: FontWeight.w400),

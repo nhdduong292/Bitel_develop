@@ -6,6 +6,7 @@ import 'package:bitel_ventas/main/networks/model/cancel_service_infor_model.dart
 import 'package:bitel_ventas/main/networks/model/change_plan_infor_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_ott_service_model.dart';
 import 'package:bitel_ventas/main/networks/model/transfer_service_infor_model.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/change_plan/choose/choose_change_plan_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/transfer_service/bill_transfer_service_logic.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
@@ -63,6 +64,10 @@ class ValidateFingerprintLogic extends GetxController {
 
   List<RequestOTTServiceModel> listRequestOTT = [];
 
+  String paymentMethod = "";
+  bool isVoiceContract = false;
+  String voiceContractCallId = "";
+
   ValidateFingerprintLogic(this.context);
 
   @override
@@ -112,6 +117,16 @@ class ValidateFingerprintLogic extends GetxController {
       typeCustomer = data[2];
       idNumber = data[3];
       contractId = data[4];
+      bool isExitChooseProduct = Get.isRegistered<ProductPaymentMethodLogic>();
+      if (isExitChooseProduct) {
+        ProductPaymentMethodLogic productPaymentMethodLogic = Get.find();
+        paymentMethod = productPaymentMethodLogic.isPayBankCode
+            ? PaymentType.BANK_CODE
+            : PaymentType.CASH;
+        isVoiceContract = productPaymentMethodLogic.checkVoiceContract.value;
+        voiceContractCallId =
+            productPaymentMethodLogic.voiceContractTextController.text.trim();
+      }
     } else if (type == ValidateFingerStatus.STAFF_CHANGE_PLAN) {
     } else if (type == ValidateFingerStatus.STAFF_TRANSFER_SERVICE) {
     } else if (type == ValidateFingerStatus.CUSTOMER_TRANSFER_SERVICE) {
@@ -316,7 +331,10 @@ class ValidateFingerprintLogic extends GetxController {
       Map<String, dynamic> body = {
         "finger": bestFinger.left != 0 ? bestFinger.left : bestFinger.right,
         "listImage": listFinger,
-        "pk": pk
+        "pk": pk,
+        "paymentMethod": paymentMethod,
+        "isVoiceContract": isVoiceContract,
+        "voiceContractCallId": voiceContractCallId
       };
       Map<String, dynamic> params = {"type": type};
       ApiUtil.getInstance()!.put(

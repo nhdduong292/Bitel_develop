@@ -296,9 +296,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                             flex: 1,
                             child: InkWell(
                               onTap: () {
-                                controller.isPayBankCode =
-                                    !controller.isPayBankCode;
-                                controller.update();
+                                controller.checkBankCode(false);
                               },
                               child: typePayment(
                                   check: !controller.isPayBankCode,
@@ -309,9 +307,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
                             flex: 1,
                             child: InkWell(
                               onTap: () {
-                                controller.isPayBankCode =
-                                    !controller.isPayBankCode;
-                                controller.update();
+                                controller.checkBankCode(true);
                               },
                               child: typePayment(
                                   check: controller.isPayBankCode,

@@ -745,5 +745,9 @@
   "textPaymentMethod": "Payment method",
   "textPayByCash": "Pay by cash",
   "textPayByBankCode": "Pay by bank code",
-  "textE091": "Subscriber already has change plan service request."
+  "textE091": "Subscriber already has change plan service request.",
+  "textVoiceContract": "Voice contract",
+  "textCallId": "Call ID",
+  "textEnterCallID": "Enter call ID",
+  "textTypeOfVoiceContractThatOnlyAllowsBankCode": "Type of voice contract that only allows bank code"
 }

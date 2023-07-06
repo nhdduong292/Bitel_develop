@@ -95,6 +95,11 @@ class ActionType1 {
   static final String CANCEL_CONTRACT = "CANCEL_CONTRACT";
 }
 
+class PaymentType {
+  static final String BANK_CODE = "BANK_CODE";
+  static final String CASH = "CASH";
+}
+
 class ClearDebtSearchType {
   static final String SERVICE_CODE = "SERVICE_CODE";
   static final String ACCOUNT = "ACCOUNT";

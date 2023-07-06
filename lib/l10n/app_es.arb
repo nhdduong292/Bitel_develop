@@ -732,5 +732,9 @@
   "textPaymentMethod": "Método de pago",
   "textPayByCash": "Paga en efectivo",
   "textPayByBankCode": "Paga con código bancario",
-  "textE091": "El suscriptor ya tiene una solicitud de servicio de cambio de plan."
+  "textE091": "El suscriptor ya tiene una solicitud de servicio de cambio de plan.",
+  "textVoiceContract": "Contrato de voz",
+  "textCallId": "Llamar ID",
+  "textEnterCallID": "Ingresa llamada ID",
+  "textTypeOfVoiceContractThatOnlyAllowsBankCode": "Tipo de contrato de voz que solo permite código bancario"
 }
