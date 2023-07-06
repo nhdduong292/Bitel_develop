@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 import '../../../../../services/connection_service.dart';
 import '../../../../../utils/common.dart';
+import '../../../../../utils/common_widgets.dart';
 
 class DialogSurveySuccessfulLogic extends GetxController {
   BuildContext context;
@@ -42,10 +43,11 @@ class DialogSurveySuccessfulLogic extends GetxController {
     if (!isConnect) {
       return;
     }
+    _onLoading(context);
     ApiUtil.getInstance()!.get(
-        url:
-            "${ApiEndPoints.API_SURVEY}/${id}${ApiEndPoints.API_SURVEY_ONLINE}",
+        url: "${ApiEndPoints.API_SURVEY}/$id${ApiEndPoints.API_SURVEY_ONLINE}",
         onSuccess: (response) {
+          Get.back();
           if (response.isSuccess) {
             print("success");
             callBack.call(true);
@@ -55,6 +57,7 @@ class DialogSurveySuccessfulLogic extends GetxController {
           }
         },
         onError: (error) {
+          Get.back();
           callBack.call(false);
           Common.showMessageError(error: error, context: context);
         });
@@ -66,11 +69,13 @@ class DialogSurveySuccessfulLogic extends GetxController {
     if (!isConnect) {
       return;
     }
+    _onLoading(context);
     ApiUtil.getInstance()!.post(
         url: ApiEndPoints.API_LOCK_TRANSFER_SERVICE
             .replaceAll("requestId", id.toString()),
         params: {"requestId": id},
         onSuccess: (response) {
+          Get.back();
           if (response.isSuccess) {
             print("success");
             callBack.call(true);
@@ -80,6 +85,7 @@ class DialogSurveySuccessfulLogic extends GetxController {
           }
         },
         onError: (error) {
+          Get.back();
           callBack.call(false);
           Common.showMessageError(error: error, context: context);
         });
@@ -140,5 +146,19 @@ class DialogSurveySuccessfulLogic extends GetxController {
           callBack.call(false);
           Common.showMessageError(error: error, context: context);
         });
+  }
+
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: LoadingCirculApi(),
+        );
+      },
+    );
   }
 }

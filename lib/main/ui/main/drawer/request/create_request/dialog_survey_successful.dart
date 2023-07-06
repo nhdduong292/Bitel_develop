@@ -173,9 +173,7 @@ class DialogSurveySuccessful extends GetWidget {
                             if (!controller.isSelectOffline) {
                               if (controller.type ==
                                   AfterSaleStatus.TRANSFER_SERVICE) {
-                                _onLoading(context);
                                 controller.lockTransferService((isSuccess) {
-                                  Get.back();
                                   if (isSuccess) {
                                     Get.toNamed(RouteConfig.billTransferService,
                                         arguments: [requestModel]);
@@ -185,20 +183,17 @@ class DialogSurveySuccessful extends GetWidget {
                               }
                             }
                             if (!controller.isSelectOffline) {
-                              _onLoading(context);
                               controller.createSurveyOnline(
                                 (isSuccess) {
                                   if (isSuccess) {
                                     //   Get.back();
                                     //   DialogSurveyMapLogic surveyMapLogic = Get.find();
                                     //   surveyMapLogic.setStateConnect(true);
-                                    Get.close(4);
+                                    Get.close(3);
                                     // Get.toNamed(RouteConfig.productPayment,
                                     //     arguments: controller.requestModel.id);
                                     Get.toNamed(RouteConfig.productPayment,
                                         arguments: [requestModel, 'CREATE']);
-                                  } else {
-                                    Get.back();
                                   }
                                 },
                               );
