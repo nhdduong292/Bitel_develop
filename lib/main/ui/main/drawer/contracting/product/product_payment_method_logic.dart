@@ -14,6 +14,7 @@ import 'package:bitel_ventas/main/ui/main/drawer/request/request_detail/request_
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:dio/dio.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
@@ -54,6 +55,10 @@ class ProductPaymentMethodLogic extends GetxController {
   SubOTTModel currentSubOTT = SubOTTModel();
 
   bool isPayBankCode = false;
+
+  ExpandableController voiceContractExpand = ExpandableController();
+  TextEditingController voiceContractTextController = TextEditingController();
+  FocusNode voiceContractFocusNode = FocusNode();
 
   ProductPaymentMethodLogic({required this.context});
 

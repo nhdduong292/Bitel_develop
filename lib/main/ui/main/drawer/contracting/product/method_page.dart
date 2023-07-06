@@ -39,6 +39,11 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
               child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              _voiceContract(
+                  context: context,
+                  check: false.obs,
+                  onChange: (value) {},
+                  controller: controller),
               Container(
                 margin: const EdgeInsets.only(left: 15, right: 15),
                 padding: const EdgeInsets.only(top: 15),
@@ -731,11 +736,6 @@ Widget _itemOTT(
   if (ott.controller == null) {
     ott.controller = ExpandableController();
     ott.controller!.addListener(() {
-      // if (ott.controller!.expanded) {
-      //   groupValue.value != value ? onChange(value) : onChange(-1);
-      // } else {
-      //   groupValue.value != value ? onChange(value) : onChange(-1);
-      // }
       onChange(value);
     });
   }
@@ -1176,6 +1176,158 @@ Widget _itemCableGo(
                                       top: 5, left: 18, right: 10),
                                   hintText: AppLocalizations.of(context)!
                                       .textEnterEmail,
+                                  hintStyle: AppStyles.r2.copyWith(
+                                      color: AppColors.colorHint1,
+                                      fontWeight: FontWeight.w400),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(24),
+                                      borderSide: const BorderSide(
+                                          width: 1,
+                                          color: AppColors.colorLineDash)),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(24),
+                                      borderSide: const BorderSide(
+                                          width: 1, color: Colors.redAccent)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(24),
+                                      borderSide: const BorderSide(
+                                          width: 1,
+                                          color: AppColors.colorLineDash)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(24),
+                                      borderSide: const BorderSide(
+                                          width: 1,
+                                          color: AppColors.colorLineDash)),
+                                )),
+                          ),
+                        ),
+                      ],
+                    )),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget _voiceContract(
+    {required BuildContext context,
+    required var check,
+    required var onChange,
+    required ProductPaymentMethodLogic controller}) {
+  controller.voiceContractExpand.addListener(() {
+    onChange(check.value);
+  });
+  return Container(
+    margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+    child: ExpandableNotifier(
+      child: Column(
+        children: [
+          ExpandablePanel(
+            controller: controller.voiceContractExpand,
+            theme: const ExpandableThemeData(hasIcon: false),
+            expanded: ExpandableButton(
+              child: Row(
+                children: [
+                  Obx(() => check.value
+                      ? const Icon(
+                          Icons.check_box,
+                          color: AppColors.colorSubContent,
+                        )
+                      : const Icon(
+                          Icons.check_box_outline_blank,
+                          color: AppColors.colorSubContent,
+                        )),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Text("ott.ottName",
+                        style: AppStyles.r2B3A4A_12_500.copyWith(fontSize: 13)),
+                  ),
+                ],
+              ),
+            ),
+            collapsed: Column(
+              children: [
+                ExpandableButton(
+                  child: Row(
+                    children: [
+                      Obx(() => check.value
+                          ? const Icon(
+                              Icons.check_box,
+                              color: AppColors.colorSubContent,
+                            )
+                          : const Icon(
+                              Icons.check_box_outline_blank,
+                              // color: Colors.white,
+                              color: AppColors.colorSubContent,
+                            )),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Text("ott.ottName",
+                            style: AppStyles.r2B3A4A_12_500
+                                .copyWith(fontSize: 13)),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Container(
+                    padding: const EdgeInsets.only(top: 15),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: const Color(0xFFF0FAFA),
+                        boxShadow: const [
+                          BoxShadow(color: Color(0xFFE3EAF2), blurRadius: 3)
+                        ]),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 16, right: 16),
+                          child: Text(
+                              AppLocalizations.of(context)!.textPhoneNumber,
+                              textAlign: TextAlign.left,
+                              style: AppStyles.r2B3A4A_12_500.copyWith(
+                                  fontSize: 13,
+                                  color: const Color(0xFF6C8AA1))),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 16, right: 16, top: 12, bottom: 17),
+                          child: SizedBox(
+                            height: 65,
+                            child: TextField(
+                                controller:
+                                    controller.voiceContractTextController,
+                                maxLength: 9,
+                                keyboardType: TextInputType.phone,
+                                focusNode: controller.voiceContractFocusNode,
+                                style: AppStyles.r2B3A4A_12_500.copyWith(
+                                    fontSize: 14,
+                                    color: AppColors.color_2B3A4A
+                                        .withOpacity(0.85)),
+                                onChanged: (value) {},
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  errorText: null,
+                                  fillColor: Colors.white,
+                                  contentPadding: const EdgeInsets.only(
+                                      top: 5, left: 18, right: 10),
+                                  hintText: AppLocalizations.of(context)!
+                                      .textEnterBitelPhoneNumber,
                                   hintStyle: AppStyles.r2.copyWith(
                                       color: AppColors.colorHint1,
                                       fontWeight: FontWeight.w400),
