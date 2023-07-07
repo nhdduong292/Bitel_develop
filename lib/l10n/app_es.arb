@@ -728,7 +728,7 @@
   "textMustBeA9DigitsNumbers": "El número debe tener 9 dígitos.",
   "textCannotBeBlank": "No puede dejarlo vacio.",
   "textMustBeAnEmailFormat": "Deberá estar en formato de correo.",
-  "textE083": "Ott Service está registrado.",
+  "textE083": "Ott Service {name} está registrado.",
   "textPaymentMethod": "Método de pago",
   "textPayByCash": "Paga en efectivo",
   "textPayByBankCode": "Paga con código bancario",
