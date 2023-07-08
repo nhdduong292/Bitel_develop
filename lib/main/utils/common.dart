@@ -194,7 +194,7 @@ class Common {
     if (type == OTTService.BITEL_VIDEO) {
       ottName = "Bitel video";
     } else if (type == OTTService.PARAMOUNT) {
-      ottName = "Paramount";
+      ottName = "Paramount+";
     } else if (type == OTTService.CABLE_GO) {
       ottName = "Cable go";
     }
