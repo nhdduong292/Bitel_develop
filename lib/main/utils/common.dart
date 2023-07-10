@@ -4,6 +4,7 @@ import 'dart:math' as Math;
 
 import 'package:bitel_ventas/main/services/settings_service.dart';
 import 'package:bitel_ventas/main/utils/dialog_util.dart';
+import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -184,8 +185,19 @@ class Common {
   }
 
   static void showMessageError(
-      {required var error, required BuildContext context, bool? isShow}) {
+      {required var error,
+      required BuildContext context,
+      bool? isShow,
+      String? type}) {
     isShow = isShow ?? false;
+    String ottName = "";
+    if (type == OTTService.BITEL_VIDEO) {
+      ottName = "Bitel video";
+    } else if (type == OTTService.PARAMOUNT) {
+      ottName = "Paramount+";
+    } else if (type == OTTService.CABLE_GO) {
+      ottName = "Cable go";
+    }
     try {
       if (error != null) {
         if (error is! DioError) {
@@ -382,7 +394,8 @@ class Common {
       } else if (errorCode == 'E078') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE078);
       } else if (errorCode == 'E083') {
-        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE083);
+        showSystemErrorDialog(
+            context, AppLocalizations.of(context)!.textE083(ottName));
       } else if (errorCode == 'E091') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE091);
       } else {

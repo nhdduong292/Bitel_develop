@@ -687,7 +687,7 @@ class ProductPaymentMethodLogic extends GetxController {
       onError: (error) {
         Get.back();
         isSuccess(false);
-        Common.showMessageError(error: error, context: context);
+        Common.showMessageError(error: error, context: context, type: type);
       },
     );
   }
@@ -711,14 +711,13 @@ class ProductPaymentMethodLogic extends GetxController {
           return false;
         } else if (listPlanOTT[value].ottService == OTTService.CABLE_GO) {
           if (valueCableGo.value > -1) {
-            return true;
-          }
-          if (!listPlanOTT[value].listSubOtt[valueCableGo.value].isSuccess) {
-            listPlanOTT[value]
-                .listSubOtt[valueCableGo.value]
-                .focusNode!
-                .requestFocus();
-            return false;
+            if (!listPlanOTT[value].listSubOtt[valueCableGo.value].isSuccess) {
+              listPlanOTT[value]
+                  .listSubOtt[valueCableGo.value]
+                  .focusNode!
+                  .requestFocus();
+              return false;
+            }
           }
         }
       }
@@ -730,6 +729,7 @@ class ProductPaymentMethodLogic extends GetxController {
 
   List<RequestOTTServiceModel> getJsonOTTService() {
     List<RequestOTTServiceModel> list = [];
+    listSelectOtt.sort((a, b) => a.compareTo(b));
     for (int value in listSelectOtt) {
       if (listPlanOTT[value].ottService != OTTService.CABLE_GO) {
         list.add(RequestOTTServiceModel(

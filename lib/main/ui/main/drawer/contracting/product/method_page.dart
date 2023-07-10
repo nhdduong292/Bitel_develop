@@ -1066,7 +1066,7 @@ Widget _itemCableGo(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 13, vertical: 10),
-                      child: Text(model.subOttName,
+                      child: Text(model.description,
                           style:
                               AppStyles.r2B3A4A_12_500.copyWith(fontSize: 13)),
                     ),
@@ -1103,7 +1103,7 @@ Widget _itemCableGo(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 13, vertical: 10),
-                          child: Text(model.subOttName,
+                          child: Text(model.description,
                               style: AppStyles.r2B3A4A_12_500
                                   .copyWith(fontSize: 13)),
                         ),
