@@ -72,7 +72,7 @@ class ProductPaymentMethodLogic extends GetxController {
     requestModel = data[0];
     status = data[1];
     getProduts(requestModel.id);
-    getPackages(requestModel.id);
+    getPackages(requestModel.id, () {});
 
     voiceContractExpand.addListener(() {
       checkVoiceContract.value = !checkVoiceContract.value;
@@ -81,6 +81,13 @@ class ProductPaymentMethodLogic extends GetxController {
       } else {
         isPayBankCode = false;
       }
+      resetPackage();
+      resetPlanReason();
+      resetPromotions();
+      _onLoading(context);
+      getPackages(requestModel.id, () {
+        Get.back();
+      });
     });
   }
 
@@ -151,7 +158,7 @@ class ProductPaymentMethodLogic extends GetxController {
     );
   }
 
-  void getPackages(int requestId) async {
+  void getPackages(int requestId, var onSuccess) async {
     bool isConnect =
         await ConnectionService.getInstance()?.checkConnect(context) ?? true;
     if (!isConnect) {
@@ -161,6 +168,7 @@ class ProductPaymentMethodLogic extends GetxController {
     }
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_GET_PACKAGE,
+      params: {"isVoiceContract": checkVoiceContract.value},
       onSuccess: (response) {
         if (response.isSuccess) {
           listPackage = (response.data['data'] as List)
@@ -170,10 +178,12 @@ class ProductPaymentMethodLogic extends GetxController {
           print("error: ${response.status}");
         }
         isLoadingPackage = false;
+        onSuccess();
         update();
       },
       onError: (error) {
         isLoadingPackage = false;
+        onSuccess();
         update();
         Common.showMessageError(error: error, context: context);
       },

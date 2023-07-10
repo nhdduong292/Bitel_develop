@@ -30,6 +30,8 @@ class RequestDetailModel {
   ContractModel? _contractModel;
   List<WorkOrderModel>? _listWO;
   List<SubOTTModel>? _ottServices;
+  double? _advancePayment;
+  String? _advancePaymentStatus;
 
   RequestDetailModel();
 
@@ -68,6 +70,8 @@ class RequestDetailModel {
           .map((postJson) => SubOTTModel.fromJson(postJson))
           .toList();
     }
+    _advancePayment = json['advancePayment'];
+    _advancePaymentStatus = json['advancePaymentStatus'];
   }
 
   String get service => _service ?? "";
@@ -172,6 +176,10 @@ class RequestDetailModel {
   String get code => _code ?? "";
 
   String get actionType => _actionType ?? "";
+
+  double get advancePayment => _advancePayment ?? 0;
+
+  String get advancePaymentStatus => _advancePaymentStatus ?? "---";
 
   String getActionType(BuildContext context) {
     if (actionType == ActionType.type_00) {

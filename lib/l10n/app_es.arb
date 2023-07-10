@@ -736,5 +736,6 @@
   "textVoiceContract": "Contrato de voz",
   "textCallId": "Llamar ID",
   "textEnterCallID": "Ingresa llamada ID",
-  "textTypeOfVoiceContractThatOnlyAllowsBankCode": "Tipo de contrato de voz que solo permite código bancario"
+  "textTypeOfVoiceContractThatOnlyAllowsBankCode": "Tipo de contrato de voz que solo permite código bancario",
+  "textAdvancedPayment": "Pago por adelantado"
 }

@@ -749,5 +749,6 @@
   "textVoiceContract": "Voice contract",
   "textCallId": "Call ID",
   "textEnterCallID": "Enter call ID",
-  "textTypeOfVoiceContractThatOnlyAllowsBankCode": "Type of voice contract that only allows bank code"
+  "textTypeOfVoiceContractThatOnlyAllowsBankCode": "Type of voice contract that only allows bank code",
+  "textAdvancedPayment": "Advanced payment"
 }

@@ -736,5 +736,6 @@
   "textVoiceContract": "Hợp đồng thoại",
   "textCallId": "ID cuộc gọi",
   "textEnterCallID": "Nhập ID cuộc gọi",
-  "textTypeOfVoiceContractThatOnlyAllowsBankCode": "Loại hợp đồng thoại chỉ cho phép mã ngân hàng"
+  "textTypeOfVoiceContractThatOnlyAllowsBankCode": "Loại hợp đồng thoại chỉ cho phép mã ngân hàng",
+  "textAdvancedPayment": "Thanh toán nâng cao"
 }

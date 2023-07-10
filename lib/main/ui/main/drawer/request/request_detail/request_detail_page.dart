@@ -361,6 +361,68 @@ class RequestDetailPage extends GetWidget {
                                   child: Row(
                                     children: [
                                       Text(
+                                        AppLocalizations.of(context)!
+                                            .textAdvancedPayment,
+                                        style: const TextStyle(
+                                            color: AppColors.colorText2,
+                                            fontSize: 15,
+                                            fontFamily: 'Barlow'),
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          controller.requestModel
+                                                      .advancePayment <
+                                                  1
+                                              ? "---"
+                                              : Common.numberFormat(controller
+                                                  .requestModel.advancePayment),
+                                          textAlign: TextAlign.right,
+                                          style: AppStyles.r415263_13_500,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                const DottedLine(
+                                  dashColor: Color(0xFFE3EAF2),
+                                  dashGapLength: 3,
+                                  dashLength: 4,
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(
+                                      bottom: 15, left: 15, right: 15, top: 15),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        AppLocalizations.of(context)!
+                                            .textStatus,
+                                        style: const TextStyle(
+                                            color: AppColors.colorText2,
+                                            fontSize: 15,
+                                            fontFamily: 'Barlow'),
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          controller.requestModel
+                                              .advancePaymentStatus,
+                                          textAlign: TextAlign.right,
+                                          style: AppStyles.r415263_13_500,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                const DottedLine(
+                                  dashColor: Color(0xFFE3EAF2),
+                                  dashGapLength: 3,
+                                  dashLength: 4,
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(
+                                      bottom: 15, left: 15, right: 15, top: 15),
+                                  child: Row(
+                                    children: [
+                                      Text(
                                         "*${AppLocalizations.of(context)!.textOTTServices}",
                                         style: const TextStyle(
                                             color: AppColors.colorText2,
