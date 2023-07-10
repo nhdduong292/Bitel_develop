@@ -675,15 +675,14 @@ class ProductPaymentMethodLogic extends GetxController {
           listPlanOTT[value].focusNode!.requestFocus();
           return false;
         } else if (listPlanOTT[value].ottService == OTTService.CABLE_GO) {
-          if (valueCableGo.value < 0) {
-            return true;
-          }
-          if (!listPlanOTT[value].listSubOtt[valueCableGo.value].isSuccess) {
-            listPlanOTT[value]
-                .listSubOtt[valueCableGo.value]
-                .focusNode!
-                .requestFocus();
-            return false;
+          if (valueCableGo.value > -1) {
+            if (!listPlanOTT[value].listSubOtt[valueCableGo.value].isSuccess) {
+              listPlanOTT[value]
+                  .listSubOtt[valueCableGo.value]
+                  .focusNode!
+                  .requestFocus();
+              return false;
+            }
           }
         }
       }
