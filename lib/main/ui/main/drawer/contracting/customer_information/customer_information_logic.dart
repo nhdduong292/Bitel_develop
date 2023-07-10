@@ -110,6 +110,10 @@ class CustomerInformationLogic extends GetxController {
   bool isLoadingMain = false;
   bool isLoadingLending = false;
 
+  String paymentMethod = "";
+  bool isVoiceContract = false;
+  String voiceContractCallId = "";
+
   List<RequestOTTServiceModel>? listRequestOTT;
 
   @override
@@ -164,11 +168,23 @@ class CustomerInformationLogic extends GetxController {
       statusRequest = requestDetailLogic.requestModel.status;
       contractRequestId =
           requestDetailLogic.requestModel.contractModel.contractId;
+      paymentMethod = requestDetailLogic.requestModel.paymentMethod;
+      isVoiceContract = requestDetailLogic.requestModel.isVoiceContract;
+      voiceContractCallId = requestDetailLogic.requestModel.callId.toString();
+      if (isVoiceContract) {
+        paymentMethod = PaymentType.BANK_CODE;
+      }
     }
     bool isExitChooseProduct = Get.isRegistered<ProductPaymentMethodLogic>();
     if (isExitChooseProduct) {
       ProductPaymentMethodLogic productPaymentMethodLogic = Get.find();
       listRequestOTT = productPaymentMethodLogic.getJsonOTTService();
+      paymentMethod = productPaymentMethodLogic.isPayBankCode
+          ? PaymentType.BANK_CODE
+          : PaymentType.CASH;
+      isVoiceContract = productPaymentMethodLogic.checkVoiceContract.value;
+      voiceContractCallId =
+          productPaymentMethodLogic.voiceContractTextController.text.trim();
     }
 
     showButtonContinue();
@@ -1000,6 +1016,46 @@ class CustomerInformationLogic extends GetxController {
       return true;
     } else {
       return false;
+    }
+  }
+
+  void signContractVoiceContract(String type, Function(bool) isSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
+    try {
+      _onLoading(context);
+      Map<String, dynamic> body = {
+        "paymentMethod": paymentMethod,
+        "isVoiceContract": isVoiceContract,
+        "voiceContractCallId": voiceContractCallId
+      };
+      Map<String, dynamic> params = {"type": type};
+      ApiUtil.getInstance()!.put(
+        url: ApiEndPoints.API_SIGN_CONTRACT
+            .replaceAll('id', contractRequestId.toString()),
+        body: body,
+        params: params,
+        onSuccess: (response) {
+          Get.back();
+          if (response.isSuccess) {
+            isSuccess.call(true);
+          } else {
+            isSuccess.call(false);
+            print("error: ${response.status}");
+          }
+        },
+        onError: (error) {
+          Get.back();
+          isSuccess.call(false);
+          Common.showMessageError(error: error, context: context);
+        },
+      );
+    } catch (e) {
+      Get.back();
+      Common.showToastCenter(e.toString(), context);
     }
   }
 }

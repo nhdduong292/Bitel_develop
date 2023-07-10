@@ -324,7 +324,8 @@ class ProductPaymentMethodLogic extends GetxController {
         url: '${ApiEndPoints.API_PLAN_REASON}/${getProduct().productId}',
         params: {
           "requestId": requestModel.id,
-          "packageId": getPackage().packageId
+          "packageId": getPackage().packageId,
+          "isVoiceContract": checkVoiceContract.value
         },
         onSuccess: (response) {
           isLoadingReason = false;
@@ -775,6 +776,9 @@ class ProductPaymentMethodLogic extends GetxController {
     if (checkVoiceContract.value) {
       voiceContractExpand.expanded = true;
       isPayBankCode = true;
+      if (requestModel.callId != 0) {
+        voiceContractTextController.text = requestModel.callId.toString();
+      }
     }
   }
 }

@@ -79,8 +79,12 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
                     highlightColor: Colors.transparent,
                     splashColor: Colors.transparent,
                     onTap: () {
-                      controller.checkLendingContract.value = false;
-                      controller.checkMainContract.value = true;
+                      if (controller.isVoiceContract ||
+                          controller.statusContract ==
+                              ContractStatus.Change_plan) {
+                        controller.checkLendingContract.value = false;
+                        controller.checkMainContract.value = true;
+                      }
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 16),
@@ -97,8 +101,12 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
                     highlightColor: Colors.transparent,
                     splashColor: Colors.transparent,
                     onTap: () {
-                      controller.checkLendingContract.value = true;
-                      controller.checkMainContract.value = false;
+                      if (controller.isVoiceContract ||
+                          controller.statusContract ==
+                              ContractStatus.Change_plan) {
+                        controller.checkLendingContract.value = true;
+                        controller.checkMainContract.value = false;
+                      }
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(right: 16),
@@ -164,6 +172,20 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
                     .textSignContract
                     .toUpperCase(),
                 onTap: () {
+                  if (controller.isVoiceContract) {
+                    controller.signContractVoiceContract(
+                        ValidateFingerStatus.MAIN, (isSuccessMain) {
+                      if (isSuccessMain) {
+                        controller.signContractVoiceContract(
+                            ValidateFingerStatus.LENDING, (isSuccessLending) {
+                          Get.toNamed(RouteConfig.ftthContracting, arguments: [
+                            controller.contractRequestId,
+                          ]);
+                        });
+                      }
+                    });
+                    return;
+                  }
                   if (controller.statusContract == ContractStatus.Change_plan) {
                     Get.toNamed(RouteConfig.validateFingerprint, arguments: [
                       ValidateFingerStatus.CUSTOMER_CHANGE_PLAN,

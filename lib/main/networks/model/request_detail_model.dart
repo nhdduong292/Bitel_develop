@@ -34,6 +34,7 @@ class RequestDetailModel {
   String? _advancePaymentStatus;
   String? _paymentMethod;
   bool? _isVoiceContract;
+  int? _callId;
 
   RequestDetailModel();
 
@@ -76,6 +77,7 @@ class RequestDetailModel {
     _advancePaymentStatus = json['advancePaymentStatus'];
     _paymentMethod = json['paymentMethod'];
     _isVoiceContract = json['isVoiceContract'];
+    _callId = json['_callId'];
   }
 
   String get service => _service ?? "";
@@ -188,6 +190,8 @@ class RequestDetailModel {
   String get paymentMethod => _paymentMethod ?? PaymentType.CASH;
 
   bool get isVoiceContract => _isVoiceContract ?? false;
+
+  int get callId => _callId ?? 0;
 
   String getActionType(BuildContext context) {
     if (actionType == ActionType.type_00) {

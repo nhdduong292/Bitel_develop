@@ -66,10 +66,6 @@ class ValidateFingerprintLogic extends GetxController {
 
   List<RequestOTTServiceModel> listRequestOTT = [];
 
-  String paymentMethod = "";
-  bool isVoiceContract = false;
-  String voiceContractCallId = "";
-
   ValidateFingerprintLogic(this.context);
 
   @override
@@ -119,25 +115,6 @@ class ValidateFingerprintLogic extends GetxController {
       typeCustomer = data[2];
       idNumber = data[3];
       contractId = data[4];
-      bool isExitRequestDetail = Get.isRegistered<RequestDetailLogic>();
-      if (isExitRequestDetail) {
-        RequestDetailLogic requestDetailLogic = Get.find();
-        paymentMethod = requestDetailLogic.requestModel.paymentMethod;
-
-        isVoiceContract = requestDetailLogic.requestModel.isVoiceContract;
-        // voiceContractCallId =
-        //     productPaymentMethodLogic.voiceContractTextController.text.trim();
-      }
-      bool isExitChooseProduct = Get.isRegistered<ProductPaymentMethodLogic>();
-      if (isExitChooseProduct) {
-        ProductPaymentMethodLogic productPaymentMethodLogic = Get.find();
-        paymentMethod = productPaymentMethodLogic.isPayBankCode
-            ? PaymentType.BANK_CODE
-            : PaymentType.CASH;
-        isVoiceContract = productPaymentMethodLogic.checkVoiceContract.value;
-        voiceContractCallId =
-            productPaymentMethodLogic.voiceContractTextController.text.trim();
-      }
     } else if (type == ValidateFingerStatus.STAFF_CHANGE_PLAN) {
     } else if (type == ValidateFingerStatus.STAFF_TRANSFER_SERVICE) {
     } else if (type == ValidateFingerStatus.CUSTOMER_TRANSFER_SERVICE) {
@@ -343,9 +320,6 @@ class ValidateFingerprintLogic extends GetxController {
         "finger": bestFinger.left != 0 ? bestFinger.left : bestFinger.right,
         "listImage": listFinger,
         "pk": pk,
-        "paymentMethod": paymentMethod,
-        "isVoiceContract": isVoiceContract,
-        "voiceContractCallId": voiceContractCallId
       };
       Map<String, dynamic> params = {"type": type};
       ApiUtil.getInstance()!.put(

@@ -6,6 +6,7 @@ import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_informatio
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/view_item/contract_uploading/contract_uploading_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/resign_contract/resign_contract_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
+import 'package:dio/dio.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -160,6 +161,14 @@ class ReSignContractPage extends GetView {
                                     InkWell(
                                       highlightColor: Colors.transparent,
                                       splashColor: Colors.transparent,
+                                      onTap: () {
+                                        if (controller.isVoiceContract) {
+                                          controller.checkMainContract.value =
+                                              true;
+                                          controller.checkLendingContract
+                                              .value = false;
+                                        }
+                                      },
                                       child: Padding(
                                         padding:
                                             const EdgeInsets.only(left: 16),
@@ -180,6 +189,14 @@ class ReSignContractPage extends GetView {
                                     InkWell(
                                       highlightColor: Colors.transparent,
                                       splashColor: Colors.transparent,
+                                      onTap: () {
+                                        if (controller.isVoiceContract) {
+                                          controller.checkMainContract.value =
+                                              false;
+                                          controller.checkLendingContract
+                                              .value = true;
+                                        }
+                                      },
                                       child: Padding(
                                         padding:
                                             const EdgeInsets.only(right: 16),
@@ -248,6 +265,24 @@ class ReSignContractPage extends GetView {
                                       .textSignContract
                                       .toUpperCase(),
                                   onTap: () {
+                                    if (controller.isVoiceContract) {
+                                      controller.signContract(
+                                          ValidateFingerStatus.MAIN,
+                                          (isSuccessMain) {
+                                        if (isSuccessMain) {
+                                          controller.signContract(
+                                              ValidateFingerStatus.LENDING,
+                                              (isSuccessLending) {
+                                            Get.toNamed(
+                                                RouteConfig.ftthContracting,
+                                                arguments: [
+                                                  controller.contractId,
+                                                ]);
+                                          });
+                                        }
+                                      });
+                                      return;
+                                    }
                                     Get.toNamed(RouteConfig.validateFingerprint,
                                         arguments: [
                                           controller.checkMainContract.value
