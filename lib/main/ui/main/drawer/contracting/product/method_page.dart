@@ -1316,7 +1316,8 @@ Widget _voiceContract(
                             child: TextField(
                                 controller:
                                     controller.voiceContractTextController,
-                                keyboardType: TextInputType.phone,
+                                maxLength: 100,
+                                keyboardType: TextInputType.text,
                                 focusNode: controller.voiceContractFocusNode,
                                 style: AppStyles.r2B3A4A_12_500.copyWith(
                                     fontSize: 14,

@@ -32,6 +32,8 @@ class RequestDetailModel {
   List<SubOTTModel>? _ottServices;
   double? _advancePayment;
   String? _advancePaymentStatus;
+  String? _paymentMethod;
+  bool? _isVoiceContract;
 
   RequestDetailModel();
 
@@ -72,6 +74,8 @@ class RequestDetailModel {
     }
     _advancePayment = json['advancePayment'];
     _advancePaymentStatus = json['advancePaymentStatus'];
+    _paymentMethod = json['paymentMethod'];
+    _isVoiceContract = json['isVoiceContract'];
   }
 
   String get service => _service ?? "";
@@ -180,6 +184,10 @@ class RequestDetailModel {
   double get advancePayment => _advancePayment ?? 0;
 
   String get advancePaymentStatus => _advancePaymentStatus ?? "---";
+
+  String get paymentMethod => _paymentMethod ?? PaymentType.CASH;
+
+  bool get isVoiceContract => _isVoiceContract ?? false;
 
   String getActionType(BuildContext context) {
     if (actionType == ActionType.type_00) {

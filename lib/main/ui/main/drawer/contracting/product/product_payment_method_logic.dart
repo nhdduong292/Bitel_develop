@@ -71,6 +71,7 @@ class ProductPaymentMethodLogic extends GetxController {
     var data = Get.arguments;
     requestModel = data[0];
     status = data[1];
+    initVoiceContractAndBankCode();
     getProduts(requestModel.id);
     getPackages(requestModel.id, () {});
 
@@ -709,7 +710,7 @@ class ProductPaymentMethodLogic extends GetxController {
           listPlanOTT[value].focusNode!.requestFocus();
           return false;
         } else if (listPlanOTT[value].ottService == OTTService.CABLE_GO) {
-          if (valueCableGo.value < 0) {
+          if (valueCableGo.value > -1) {
             return true;
           }
           if (!listPlanOTT[value].listSubOtt[valueCableGo.value].isSuccess) {
@@ -761,6 +762,19 @@ class ProductPaymentMethodLogic extends GetxController {
     } else {
       isPayBankCode = value;
       update();
+    }
+  }
+
+  void initVoiceContractAndBankCode() {
+    if (requestModel.paymentMethod == PaymentType.BANK_CODE) {
+      isPayBankCode = true;
+    } else {
+      isPayBankCode = false;
+    }
+    checkVoiceContract.value = requestModel.isVoiceContract;
+    if (checkVoiceContract.value) {
+      voiceContractExpand.expanded = true;
+      isPayBankCode = true;
     }
   }
 }

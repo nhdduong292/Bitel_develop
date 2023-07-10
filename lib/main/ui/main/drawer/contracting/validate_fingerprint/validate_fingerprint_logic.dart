@@ -4,11 +4,13 @@ import 'dart:convert';
 import 'package:bitel_ventas/main/networks/model/best_finger_model.dart';
 import 'package:bitel_ventas/main/networks/model/cancel_service_infor_model.dart';
 import 'package:bitel_ventas/main/networks/model/change_plan_infor_model.dart';
+import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_ott_service_model.dart';
 import 'package:bitel_ventas/main/networks/model/transfer_service_infor_model.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/change_plan/choose/choose_change_plan_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/transfer_service/bill_transfer_service_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/request_detail/request_detail_logic.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/main/utils/native_util.dart';
@@ -117,6 +119,15 @@ class ValidateFingerprintLogic extends GetxController {
       typeCustomer = data[2];
       idNumber = data[3];
       contractId = data[4];
+      bool isExitRequestDetail = Get.isRegistered<RequestDetailLogic>();
+      if (isExitRequestDetail) {
+        RequestDetailLogic requestDetailLogic = Get.find();
+        paymentMethod = requestDetailLogic.requestModel.paymentMethod;
+
+        isVoiceContract = requestDetailLogic.requestModel.isVoiceContract;
+        // voiceContractCallId =
+        //     productPaymentMethodLogic.voiceContractTextController.text.trim();
+      }
       bool isExitChooseProduct = Get.isRegistered<ProductPaymentMethodLogic>();
       if (isExitChooseProduct) {
         ProductPaymentMethodLogic productPaymentMethodLogic = Get.find();
