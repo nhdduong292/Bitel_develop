@@ -1034,8 +1034,11 @@ class CustomerInformationLogic extends GetxController {
       };
       Map<String, dynamic> params = {"type": type};
       ApiUtil.getInstance()!.put(
-        url: ApiEndPoints.API_SIGN_CONTRACT
-            .replaceAll('id', contractRequestId.toString()),
+        url: ApiEndPoints.API_SIGN_CONTRACT.replaceAll(
+            'id',
+            contractRequestId != 0
+                ? contractRequestId.toString()
+                : contract.contractId.toString()),
         body: body,
         params: params,
         onSuccess: (response) {

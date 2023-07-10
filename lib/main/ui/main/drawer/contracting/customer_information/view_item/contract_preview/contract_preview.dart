@@ -179,7 +179,9 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
                         controller.signContractVoiceContract(
                             ValidateFingerStatus.LENDING, (isSuccessLending) {
                           Get.toNamed(RouteConfig.ftthContracting, arguments: [
-                            controller.contractRequestId,
+                            controller.contractRequestId != 0
+                                ? controller.contractRequestId
+                                : controller.contract.contractId,
                           ]);
                         });
                       }

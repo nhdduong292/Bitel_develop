@@ -15,6 +15,7 @@ import '../../../../../../../networks/model/address_model.dart';
 import '../../../../../../../services/connection_service.dart';
 import '../../../../../../../utils/common.dart';
 import '../../../../../../../utils/common_widgets.dart';
+import '../../../../contracting/product/product_payment_method_logic.dart';
 import '../../cretate_contact_page_logic.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -80,6 +81,8 @@ class ClientDataDNILogic extends GetxController {
   FocusNode focusPrecinct = FocusNode();
   FocusNode focusAddress = FocusNode();
 
+  bool isVoiceContract = false;
+
   final FocusScopeNode focusScopeNode = FocusScopeNode();
 
   @override
@@ -96,6 +99,12 @@ class ClientDataDNILogic extends GetxController {
     province = logicCreateContact.requestModel.province;
     district = logicCreateContact.requestModel.district;
     precinct = logicCreateContact.requestModel.precinct;
+
+    bool isExitChooseProduct = Get.isRegistered<ProductPaymentMethodLogic>();
+    if (isExitChooseProduct) {
+      ProductPaymentMethodLogic productPaymentMethodLogic = Get.find();
+      isVoiceContract = productPaymentMethodLogic.checkVoiceContract.value;
+    }
   }
 
   void setDefaultDob() {
@@ -507,6 +516,10 @@ class ClientDataDNILogic extends GetxController {
           function.call(false);
           Common.showMessageError(error: error, context: context);
         });
+  }
+
+  void onLoading() {
+    _onLoading(context);
   }
 
   void createCustomer(Function(bool isSuccess) callBack) async {

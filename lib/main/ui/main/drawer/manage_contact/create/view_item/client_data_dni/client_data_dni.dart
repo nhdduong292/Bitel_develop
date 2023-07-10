@@ -39,7 +39,7 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                 FocusScope.of(context).requestFocus(FocusNode());
               },
               child: Container(
-                color: Colors.white ,
+                color: Colors.white,
                 child: SingleChildScrollView(
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -377,6 +377,28 @@ class ClientDataDNIWidget extends GetView<ClientDataDNILogic> {
                                 return;
                               }
                               controller.createBodyCustomer();
+                              if (controller.isVoiceContract) {
+                                controller.onLoading();
+                                controller.createCustomer((isSuccess) {
+                                  if (isSuccess) {
+                                    Get.offNamed(
+                                        RouteConfig.customerInformation,
+                                        arguments: [
+                                          controller.customerModel,
+                                          controller
+                                              .logicCreateContact.requestModel,
+                                          controller.productId,
+                                          controller.reasonId,
+                                          controller.isForcedTerm,
+                                          controller.listPromotionId,
+                                          controller.packageId,
+                                          ContractStatus.New
+                                        ]);
+                                  }
+                                });
+                                return;
+                              }
+
                               controller.checkFingerExit((isSuccess) {
                                 if (isSuccess) {
                                   showDialog(
