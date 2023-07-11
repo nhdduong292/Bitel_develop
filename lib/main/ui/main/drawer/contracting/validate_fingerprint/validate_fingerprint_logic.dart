@@ -66,6 +66,8 @@ class ValidateFingerprintLogic extends GetxController {
 
   List<RequestOTTServiceModel> listRequestOTT = [];
 
+  String paymentMethod = "";
+
   ValidateFingerprintLogic(this.context);
 
   @override
@@ -115,6 +117,14 @@ class ValidateFingerprintLogic extends GetxController {
       typeCustomer = data[2];
       idNumber = data[3];
       contractId = data[4];
+      bool isExitChooseProduct = Get.isRegistered<ProductPaymentMethodLogic>();
+      if (isExitChooseProduct) {
+        ProductPaymentMethodLogic productPaymentMethodLogic = Get.find();
+        listRequestOTT = productPaymentMethodLogic.getJsonOTTService();
+        paymentMethod = productPaymentMethodLogic.isPayBankCode
+            ? PaymentType.BANK_CODE
+            : PaymentType.CASH;
+      }
     } else if (type == ValidateFingerStatus.STAFF_CHANGE_PLAN) {
     } else if (type == ValidateFingerStatus.STAFF_TRANSFER_SERVICE) {
     } else if (type == ValidateFingerStatus.CUSTOMER_TRANSFER_SERVICE) {
@@ -320,6 +330,8 @@ class ValidateFingerprintLogic extends GetxController {
         "finger": bestFinger.left != 0 ? bestFinger.left : bestFinger.right,
         "listImage": listFinger,
         "pk": pk,
+        "ottServices": listRequestOTT,
+        "paymentMethod": paymentMethod
       };
       Map<String, dynamic> params = {"type": type};
       ApiUtil.getInstance()!.put(
