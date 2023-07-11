@@ -364,6 +364,9 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                                 ],
                               ),
                             ),
+                            const SizedBox(
+                              height: 20,
+                            ),
                           ],
                         ),
                       ),
