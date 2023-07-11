@@ -120,7 +120,6 @@ class ValidateFingerprintLogic extends GetxController {
       bool isExitChooseProduct = Get.isRegistered<ProductPaymentMethodLogic>();
       if (isExitChooseProduct) {
         ProductPaymentMethodLogic productPaymentMethodLogic = Get.find();
-        listRequestOTT = productPaymentMethodLogic.getJsonOTTService();
         paymentMethod = productPaymentMethodLogic.isPayBankCode
             ? PaymentType.BANK_CODE
             : PaymentType.CASH;
@@ -330,7 +329,6 @@ class ValidateFingerprintLogic extends GetxController {
         "finger": bestFinger.left != 0 ? bestFinger.left : bestFinger.right,
         "listImage": listFinger,
         "pk": pk,
-        "ottServices": listRequestOTT,
         "paymentMethod": paymentMethod
       };
       Map<String, dynamic> params = {"type": type};
