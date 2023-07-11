@@ -398,6 +398,10 @@ class Common {
             context, AppLocalizations.of(context)!.textE083(ottName));
       } else if (errorCode == 'E091') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE091);
+      } else if (errorCode == 'E093') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE093);
+      } else if (errorCode == 'E094') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE094);
       } else {
         showSystemErrorDialog(context, error.response!.data['errorMessage']);
       }

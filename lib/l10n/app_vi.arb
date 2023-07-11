@@ -737,5 +737,7 @@
   "textCallId": "ID cuộc gọi",
   "textEnterCallID": "Nhập ID cuộc gọi",
   "textTypeOfVoiceContractThatOnlyAllowsBankCode": "Loại hợp đồng thoại chỉ cho phép mã ngân hàng",
-  "textAdvancedPayment": "Thanh toán nâng cao"
+  "textAdvancedPayment": "Thanh toán nâng cao",
+  "textE093": "Failed to generate bank code, please tray again later.",
+  "textE094": "Voice contract call ID is required. Please input call ID."
 }

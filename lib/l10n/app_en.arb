@@ -750,5 +750,7 @@
   "textCallId": "Call ID",
   "textEnterCallID": "Enter call ID",
   "textTypeOfVoiceContractThatOnlyAllowsBankCode": "Type of voice contract that only allows bank code",
-  "textAdvancedPayment": "Advanced payment"
+  "textAdvancedPayment": "Advanced payment",
+  "textE093": "Failed to generate bank code, please tray again later.",
+  "textE094": "Voice contract call ID is required. Please input call ID."
 }

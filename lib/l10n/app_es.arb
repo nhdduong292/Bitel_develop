@@ -737,5 +737,7 @@
   "textCallId": "Llamar ID",
   "textEnterCallID": "Ingresa llamada ID",
   "textTypeOfVoiceContractThatOnlyAllowsBankCode": "Tipo de contrato de voz que solo permite código bancario",
-  "textAdvancedPayment": "Pago por adelantado"
+  "textAdvancedPayment": "Pago por adelantado",
+  "textE093": "Không thể tạo mã ngân hàng, vui lòng thử lại sau.",
+  "textE094": "Yêu cầu ID cuộc gọi hợp đồng âm thanh. Vui lòng nhập ID cuộc gọi."
 }
