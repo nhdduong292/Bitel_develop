@@ -275,29 +275,29 @@ class ValidateFingerprintLogic extends GetxController {
 
   String findPathFinger(bool isLeft) {
     if (isLeft) {
-      if (bestFinger.left == 6) {
+      if (bestFinger.left == 1) {
         return AppImages.imgFingerLeftThumbUpdate;
-      } else if (bestFinger.left == 7) {
+      } else if (bestFinger.left == 2) {
         return AppImages.imgFingerLeftIndexUpdate;
-      } else if (bestFinger.left == 8) {
+      } else if (bestFinger.left == 3) {
         return AppImages.imgFingerLeftMiddleUpdate;
-      } else if (bestFinger.left == 9) {
+      } else if (bestFinger.left == 4) {
         return AppImages.imgFingerLeftRingUpdate;
-      } else if (bestFinger.left == 10) {
+      } else if (bestFinger.left == 5) {
         return AppImages.imgFingerLeftLittleUpdate;
       } else {
         return AppImages.imgHandleLeftUpdate;
       }
     } else {
-      if (bestFinger.right == 1) {
+      if (bestFinger.right == 6) {
         return AppImages.imgFingerRightThumbUpdate;
-      } else if (bestFinger.right == 2) {
+      } else if (bestFinger.right == 7) {
         return AppImages.imgFingerRightIndexUpdate;
-      } else if (bestFinger.right == 3) {
+      } else if (bestFinger.right == 8) {
         return AppImages.imgFingerRightMiddleUpdate;
-      } else if (bestFinger.right == 4) {
+      } else if (bestFinger.right == 9) {
         return AppImages.imgFingerRightRingUpdate;
-      } else if (bestFinger.right == 5) {
+      } else if (bestFinger.right == 10) {
         return AppImages.imgFingerRightLittleUpdate;
       } else {
         return AppImages.imgHandleRightUpdate;
