@@ -68,19 +68,16 @@ class ChooseServicePage extends GetWidget {
                   });
                 } else if (controller.afterSaleSearchLogic.type ==
                     AfterSaleStatus.TRANSFER_SERVICE) {
-                  // controller.checkOldRequest(AfterSaleStatus.TRANSFER_SERVICE,
-                  //     (value) {
-                  //   if (value) {
-                  //     Get.toNamed(RouteConfig.createTransferService,
-                  //         arguments: [
-                  //           controller
-                  //               .listAccount[controller.valueService.value]
-                  //         ]);
-                  //   }
-                  // });
-                  Get.toNamed(RouteConfig.createTransferService, arguments: [
-                    controller.listAccount[controller.valueService.value]
-                  ]);
+                  controller.checkOldRequest(AfterSaleStatus.TRANSFER_SERVICE,
+                      (value) {
+                    if (value) {
+                      Get.toNamed(RouteConfig.createTransferService,
+                          arguments: [
+                            controller
+                                .listAccount[controller.valueService.value]
+                          ]);
+                    }
+                  });
                 } else {
                   controller.checkOldRequest(AfterSaleStatus.CANCEL_SERVICE,
                       (value) {
