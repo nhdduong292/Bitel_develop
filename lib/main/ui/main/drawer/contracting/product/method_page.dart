@@ -147,17 +147,14 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                                     value: index,
                                     onChange: (value) {
                                       controller.valuePackage.value = value;
-                                      controller.isLoadingReason = true;
-                                      controller.isLoadingPromotion = true;
-                                      // controller.isLoadingOTTService = true;
-                                      controller.checkLoading();
                                       controller.resetPlanReason();
                                       controller.resetPromotions();
-                                      // controller.resetPlanOTTs();
                                       if (value > -1) {
+                                        controller.isLoadingReason = true;
+                                        controller.isLoadingPromotion = true;
+                                        controller.checkLoading();
                                         controller.getPlanReasons();
                                         controller.getPromotions();
-                                        // controller.getOTTService();
                                       }
                                     },
                                     fee: controller.getProduct().productValue),
@@ -212,31 +209,27 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                           dashGapLength: 3,
                           dashLength: 4,
                         ),
-                        controller.isLoadingReason
-                            ? LoadingCirculApi()
-                            : ListView.separated(
-                                padding: const EdgeInsets.only(top: 0),
-                                shrinkWrap: true,
-                                primary: false,
-                                itemBuilder: (BuildContext context,
-                                        int index) =>
-                                    _itemMethod(
-                                        context: context,
-                                        groupValue: controller.valueMethod,
-                                        reason:
-                                            controller.listPlanReason[index],
-                                        value: index,
-                                        onChange: (value) {
-                                          controller.valueMethod.value = value;
-                                        }),
-                                separatorBuilder:
-                                    (BuildContext context, int index) =>
-                                        const Divider(
-                                          color: AppColors.colorLineDash,
-                                          height: 1,
-                                          thickness: 1,
-                                        ),
-                                itemCount: controller.listPlanReason.length)
+                        ListView.separated(
+                            padding: const EdgeInsets.only(top: 0),
+                            shrinkWrap: true,
+                            primary: false,
+                            itemBuilder: (BuildContext context, int index) =>
+                                _itemMethod(
+                                    context: context,
+                                    groupValue: controller.valueMethod,
+                                    reason: controller.listPlanReason[index],
+                                    value: index,
+                                    onChange: (value) {
+                                      controller.valueMethod.value = value;
+                                    }),
+                            separatorBuilder:
+                                (BuildContext context, int index) =>
+                                    const Divider(
+                                      color: AppColors.colorLineDash,
+                                      height: 1,
+                                      thickness: 1,
+                                    ),
+                            itemCount: controller.listPlanReason.length)
                       ],
                     ),
                   ),
@@ -279,27 +272,23 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                           dashGapLength: 3,
                           dashLength: 4,
                         ),
-                        controller.isLoadingPromotion
-                            ? LoadingCirculApi()
-                            : ListView.separated(
-                                padding: const EdgeInsets.only(top: 0),
-                                shrinkWrap: true,
-                                primary: false,
-                                itemBuilder:
-                                    (BuildContext context, int index) =>
-                                        _itemPromotion(
-                                          context: context,
-                                          promotion:
-                                              controller.listPromotion[index],
-                                        ),
-                                separatorBuilder:
-                                    (BuildContext context, int index) =>
-                                        const Divider(
-                                          color: AppColors.colorLineDash,
-                                          height: 1,
-                                          thickness: 1,
-                                        ),
-                                itemCount: controller.listPromotion.length)
+                        ListView.separated(
+                            padding: const EdgeInsets.only(top: 0),
+                            shrinkWrap: true,
+                            primary: false,
+                            itemBuilder: (BuildContext context, int index) =>
+                                _itemPromotion(
+                                  context: context,
+                                  promotion: controller.listPromotion[index],
+                                ),
+                            separatorBuilder:
+                                (BuildContext context, int index) =>
+                                    const Divider(
+                                      color: AppColors.colorLineDash,
+                                      height: 1,
+                                      thickness: 1,
+                                    ),
+                            itemCount: controller.listPromotion.length)
                       ],
                     ),
                   ),
@@ -366,6 +355,9 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                                 ],
                               ),
                             ),
+                            const SizedBox(
+                              height: 20,
+                            ),
                           ],
                         ),
                       ),
@@ -409,84 +401,73 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                           dashGapLength: 3,
                           dashLength: 4,
                         ),
-                        controller.isLoadingOTTService
-                            ? LoadingCirculApi()
-                            : controller.listPlanOTT.isNotEmpty
-                                ? ListView.separated(
-                                    padding: const EdgeInsets.only(top: 0),
-                                    shrinkWrap: true,
-                                    primary: false,
-                                    itemBuilder: (BuildContext context,
-                                            int index) =>
-                                        controller.listPlanOTT[index]
-                                                    .ottService !=
-                                                OTTService.CABLE_GO
-                                            ? _itemOTT(
-                                                context: context,
-                                                ott: controller
-                                                    .listPlanOTT[index],
-                                                value: index,
-                                                listValue:
-                                                    controller.listSelectOtt,
-                                                onChange: (value) {
-                                                  if (controller.listSelectOtt
-                                                      .contains(value)) {
-                                                    controller.listSelectOtt
-                                                        .removeWhere(
-                                                            (element) =>
-                                                                element ==
-                                                                value);
-                                                  } else {
-                                                    controller.listSelectOtt
-                                                        .add(value);
-                                                  }
-                                                  controller.update();
-                                                },
-                                                controller: controller,
-                                              )
-                                            : _itemOTTCableGo(
-                                                context: context,
-                                                ott: controller
-                                                    .listPlanOTT[index],
-                                                value: index,
-                                                listValue:
-                                                    controller.listSelectOtt,
-                                                onChange: (value) {
-                                                  if (controller.listSelectOtt
-                                                      .contains(value)) {
-                                                    controller.listSelectOtt
-                                                        .removeWhere(
-                                                            (element) =>
-                                                                element ==
-                                                                value);
-                                                  } else {
-                                                    controller.listSelectOtt
-                                                        .add(value);
-                                                  }
-                                                  controller.update();
-                                                },
-                                                controller: controller,
-                                              ),
-                                    separatorBuilder:
-                                        (BuildContext context, int index) =>
-                                            const Divider(
-                                              color: AppColors.colorLineDash,
-                                              height: 1,
-                                              thickness: 1,
-                                            ),
-                                    itemCount: controller.listPlanOTT.length)
-                                : Column(
-                                    children: [
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                          AppLocalizations.of(context)!
-                                              .textNoOTTService,
-                                          style: AppStyles.r2B3A4A_12_500
-                                              .copyWith(fontSize: 13)),
-                                    ],
-                                  )
+                        controller.listPlanOTT.isNotEmpty
+                            ? ListView.separated(
+                                padding: const EdgeInsets.only(top: 0),
+                                shrinkWrap: true,
+                                primary: false,
+                                itemBuilder: (BuildContext context,
+                                        int index) =>
+                                    controller.listPlanOTT[index].ottService !=
+                                            OTTService.CABLE_GO
+                                        ? _itemOTT(
+                                            context: context,
+                                            ott: controller.listPlanOTT[index],
+                                            value: index,
+                                            listValue: controller.listSelectOtt,
+                                            onChange: (value) {
+                                              if (controller.listSelectOtt
+                                                  .contains(value)) {
+                                                controller.listSelectOtt
+                                                    .removeWhere((element) =>
+                                                        element == value);
+                                              } else {
+                                                controller.listSelectOtt
+                                                    .add(value);
+                                              }
+                                              controller.update();
+                                            },
+                                            controller: controller,
+                                          )
+                                        : _itemOTTCableGo(
+                                            context: context,
+                                            ott: controller.listPlanOTT[index],
+                                            value: index,
+                                            listValue: controller.listSelectOtt,
+                                            onChange: (value) {
+                                              if (controller.listSelectOtt
+                                                  .contains(value)) {
+                                                controller.listSelectOtt
+                                                    .removeWhere((element) =>
+                                                        element == value);
+                                              } else {
+                                                controller.listSelectOtt
+                                                    .add(value);
+                                              }
+                                              controller.update();
+                                            },
+                                            controller: controller,
+                                          ),
+                                separatorBuilder:
+                                    (BuildContext context, int index) =>
+                                        const Divider(
+                                          color: AppColors.colorLineDash,
+                                          height: 1,
+                                          thickness: 1,
+                                        ),
+                                itemCount: controller.listPlanOTT.length)
+                            : Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                      AppLocalizations.of(context)!
+                                          .textNoOTTService,
+                                      style: AppStyles.r2B3A4A_12_500
+                                          .copyWith(fontSize: 13)),
+                                ],
+                              )
                       ],
                     ),
                   ),

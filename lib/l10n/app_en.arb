@@ -752,5 +752,10 @@
   "textTypeOfVoiceContractThatOnlyAllowsBankCode": "Type of voice contract that only allows bank code",
   "textAdvancedPayment": "Advanced payment",
   "textE093": "Failed to generate bank code, please tray again later.",
+  "textE079": "Ott code isn't exist.",
+ "textE080": "Sub service ott isn't exist.",
+  "textE081": "Product ott isn't exist.",
+ "textE082": "Sub vav isn't exist.",
+  "textE092": "Subscriber already has transfer service request.",
   "textE094": "Voice contract call ID is required. Please input call ID."
 }

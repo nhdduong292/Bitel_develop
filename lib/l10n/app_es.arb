@@ -738,6 +738,11 @@
   "textEnterCallID": "Ingresa llamada ID",
   "textTypeOfVoiceContractThatOnlyAllowsBankCode": "Tipo de contrato de voz que solo permite código bancario",
   "textAdvancedPayment": "Pago por adelantado",
-  "textE093": "Không thể tạo mã ngân hàng, vui lòng thử lại sau.",
-  "textE094": "Yêu cầu ID cuộc gọi hợp đồng âm thanh. Vui lòng nhập ID cuộc gọi."
+  "textE079": "El código ott no existe.",
+"textE080": "El servicio ott secundario no existe.",
+"textE081": "El producto ott no existe.",
+"textE082": "El sub vav no existe.",
+"textE092": "El suscriptor ya tiene una solicitud de servicio de transferencia.",
+"textE093": "Error al generar el código de banco.",
+"textE094": "Se requiere el ID de llamada del contrato de voz. Por favor, ingrese el ID de llamada."
 }
