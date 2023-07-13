@@ -734,7 +734,7 @@
   "textPayByBankCode": "Paga con código bancario",
   "textE091": "El suscriptor ya tiene una solicitud de servicio de cambio de plan.",
   "textVoiceContract": "Contrato de voz",
-  "textCallId": "Llamar ID",
+  "textCallId": "ID de llamada",
   "textEnterCallID": "Ingresa llamada ID",
   "textTypeOfVoiceContractThatOnlyAllowsBankCode": "Tipo de contrato de voz que solo permite código bancario",
   "textAdvancedPayment": "Pago por adelantado",
