@@ -732,5 +732,12 @@
   "textPaymentMethod": "Método de pago",
   "textPayByCash": "Paga en efectivo",
   "textPayByBankCode": "Paga con código bancario",
-  "textE091": "El suscriptor ya tiene una solicitud de servicio de cambio de plan."
+  "textE091": "El suscriptor ya tiene una solicitud de servicio de cambio de plan.",
+  "textE079": "El código ott no existe.",
+"textE080": "El servicio ott secundario no existe.",
+"textE081": "El producto ott no existe.",
+"textE082": "El sub vav no existe.",
+"textE092": "El suscriptor ya tiene una solicitud de servicio de transferencia.",
+"textE093": "Error al generar el código de banco.",
+"textE094": "Se requiere el ID de llamada del contrato de voz. Por favor, ingrese el ID de llamada."
 }

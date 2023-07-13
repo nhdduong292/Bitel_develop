@@ -254,6 +254,12 @@ class ChooseChangePlanPage extends GetView {
                                                     controller
                                                         .resetPromotions();
                                                     if (value > -1) {
+                                                      controller.isLoadingOTT =
+                                                          true;
+                                                      controller
+                                                              .isLoadingPromotion =
+                                                          true;
+                                                      controller.checkLoading();
                                                       controller
                                                           .getPromotions();
                                                       controller
@@ -284,6 +290,8 @@ class ChooseChangePlanPage extends GetView {
                                   () => Visibility(
                                     visible: controller.valueProduct.value > -1,
                                     child: Container(
+                                      constraints:
+                                          const BoxConstraints(minHeight: 100),
                                       padding: const EdgeInsets.only(top: 15),
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
@@ -316,34 +324,30 @@ class ChooseChangePlanPage extends GetView {
                                             dashGapLength: 3,
                                             dashLength: 4,
                                           ),
-                                          !controller.isLoadingPromotion
-                                              ? ListView.separated(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 0),
-                                                  shrinkWrap: true,
-                                                  primary: false,
-                                                  itemBuilder:
-                                                      (BuildContext context,
-                                                              int index) =>
-                                                          _itemPromotion(
-                                                            context: context,
-                                                            promotion: controller
-                                                                    .listPromotion[
-                                                                index],
-                                                          ),
-                                                  separatorBuilder:
-                                                      (BuildContext context,
-                                                              int index) =>
-                                                          const Divider(
-                                                            color: AppColors
-                                                                .colorLineDash,
-                                                            height: 1,
-                                                            thickness: 1,
-                                                          ),
-                                                  itemCount: controller
-                                                      .listPromotion.length)
-                                              : LoadingCirculApi()
+                                          ListView.separated(
+                                              padding:
+                                                  const EdgeInsets.only(top: 0),
+                                              shrinkWrap: true,
+                                              primary: false,
+                                              itemBuilder: (BuildContext
+                                                          context,
+                                                      int index) =>
+                                                  _itemPromotion(
+                                                    context: context,
+                                                    promotion: controller
+                                                        .listPromotion[index],
+                                                  ),
+                                              separatorBuilder:
+                                                  (BuildContext context,
+                                                          int index) =>
+                                                      const Divider(
+                                                        color: AppColors
+                                                            .colorLineDash,
+                                                        height: 1,
+                                                        thickness: 1,
+                                                      ),
+                                              itemCount: controller
+                                                  .listPromotion.length)
                                         ],
                                       ),
                                     ),

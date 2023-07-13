@@ -732,5 +732,12 @@
   "textPaymentMethod": "Phương thức thanh toán",
   "textPayByCash": "Thanh toán bằng tiền mặt",
   "textPayByBankCode": "Thanh toán bằng mã ngân hàng",
-  "textE091": "Thuê bao đã có yêu cầu thay đổi gói dịch vụ."
+  "textE091": "Thuê bao đã có yêu cầu thay đổi gói dịch vụ.",
+  "textE079": "Mã ott không tồn tại.",
+"textE080": "Dịch vụ con ott không tồn tại.",
+"textE081": "Sản phẩm ott không tồn tại.",
+"textE082": "Dịch vụ con vav không tồn tại.",
+"textE092": "Người đăng ký đã có yêu cầu dịch vụ chuyển đổi.",
+"textE093": "Không thể tạo mã ngân hàng.",
+"textE094": "Yêu cầu hợp đồng thoại yêu cầu ID cuộc gọi. Vui lòng nhập ID cuộc gọi."
 }

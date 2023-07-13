@@ -745,5 +745,12 @@
   "textPaymentMethod": "Payment method",
   "textPayByCash": "Pay by cash",
   "textPayByBankCode": "Pay by bank code",
-  "textE091": "Subscriber already has change plan service request."
+  "textE091": "Subscriber already has change plan service request.",
+  "textE079": "Ott code isn't exist.",
+ "textE080": "Sub service ott isn't exist.",
+  "textE081": "Product ott isn't exist.",
+ "textE082": "Sub vav isn't exist.",
+  "textE092": "Subscriber already has transfer service request.",
+ "textE093": "Failed to generate bank code.",
+  "textE094": "Voice contract call ID is required. Please input call ID."
 }

@@ -381,23 +381,37 @@ class Common {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE071);
       } else if (errorCode == 'E072') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE072);
-      } else if (errorCode == 'E077') {
-        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE077);
-      } else if (errorCode == 'E090') {
-        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE090);
       } else if (errorCode == 'E074') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE074);
       } else if (errorCode == 'E075') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE075);
       } else if (errorCode == 'E076') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE076);
+      } else if (errorCode == 'E077') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE077);
       } else if (errorCode == 'E078') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE078);
+      } else if (errorCode == 'E079') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE079);
+      } else if (errorCode == 'E080') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE080);
+      } else if (errorCode == 'E081') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE081);
+      } else if (errorCode == 'E082') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE082);
       } else if (errorCode == 'E083') {
         showSystemErrorDialog(
             context, AppLocalizations.of(context)!.textE083(ottName));
+      } else if (errorCode == 'E090') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE090);
       } else if (errorCode == 'E091') {
         showSystemErrorDialog(context, AppLocalizations.of(context)!.textE091);
+      } else if (errorCode == 'E092') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE092);
+      } else if (errorCode == 'E093') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE093);
+      } else if (errorCode == 'E094') {
+        showSystemErrorDialog(context, AppLocalizations.of(context)!.textE094);
       } else {
         showSystemErrorDialog(context, error.response!.data['errorMessage']);
       }

@@ -165,10 +165,10 @@ class ProductPaymentMethodLogic extends GetxController {
   }
 
   void checkLoading() {
-    if (!isLoadingReason && !isLoadingPromotion && !isLoadingOTTService) {
-      // Get.back();
-    } else if (isLoadingReason && isLoadingPromotion && isLoadingOTTService) {
-      // _onLoading(context);
+    if (!isLoadingReason && !isLoadingPromotion) {
+      Get.back();
+    } else if (isLoadingReason && isLoadingPromotion) {
+      _onLoading(context);
     }
   }
 
@@ -188,8 +188,6 @@ class ProductPaymentMethodLogic extends GetxController {
       checkLoading();
       return;
     }
-    isLoadingPromotion = true;
-    update();
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_LIST_PROMOTION,
       params: {
@@ -198,7 +196,6 @@ class ProductPaymentMethodLogic extends GetxController {
       },
       onSuccess: (response) {
         isLoadingPromotion = false;
-        update();
         checkLoading();
         if (response.isSuccess) {
           listPromotion = (response.data['data'] as List)
@@ -212,6 +209,7 @@ class ProductPaymentMethodLogic extends GetxController {
       },
       onError: (error) {
         isLoadingPromotion = false;
+        isLoadingReason = false;
         checkLoading();
         update();
         Common.showMessageError(error: error, context: context);
@@ -290,8 +288,6 @@ class ProductPaymentMethodLogic extends GetxController {
       checkLoading();
       return;
     }
-    isLoadingReason = true;
-    update();
     try {
       ApiUtil.getInstance()!.get(
         url: '${ApiEndPoints.API_PLAN_REASON}/${getProduct().productId}',
@@ -301,7 +297,6 @@ class ProductPaymentMethodLogic extends GetxController {
         },
         onSuccess: (response) {
           isLoadingReason = false;
-          update();
           checkLoading();
           if (response.isSuccess) {
             listPlanReason = (response.data['data'] as List)
@@ -314,7 +309,7 @@ class ProductPaymentMethodLogic extends GetxController {
         },
         onError: (error) {
           isLoadingReason = false;
-          update();
+          isLoadingPromotion = false;
           checkLoading();
           Common.showMessageError(error: error, context: context);
         },
@@ -322,7 +317,6 @@ class ProductPaymentMethodLogic extends GetxController {
     } catch (e) {
       Get.back();
       isLoadingReason = false;
-      update();
       checkLoading();
       Common.showToastCenter(e.toString(), context);
     }
@@ -526,12 +520,10 @@ class ProductPaymentMethodLogic extends GetxController {
     bool isConnect =
         await ConnectionService.getInstance()?.checkConnect(context) ?? true;
     if (!isConnect) {
-      isLoadingOTTService = false;
-      checkLoading();
       return;
     }
+    _onLoading(context);
     isLoadingOTTService = true;
-    update();
     try {
       ApiUtil.getInstance()!.get(
         url: '${ApiEndPoints.API_GET_OTT}/${getProduct().productId}',
@@ -540,12 +532,12 @@ class ProductPaymentMethodLogic extends GetxController {
         },
         onSuccess: (response) {
           isLoadingOTTService = false;
-          update();
-          checkLoading();
+          Get.back();
           if (response.isSuccess) {
             listPlanOTT = (response.data['data'] as List)
                 .map((postJson) => PlanOttModel.fromJson(postJson))
                 .toList();
+            listSelectOtt.clear();
             for (var model in listPlanOTT) {
               int index = listPlanOTT.indexOf(model);
               listSelectOtt.add(index);
@@ -556,16 +548,12 @@ class ProductPaymentMethodLogic extends GetxController {
           }
         },
         onError: (error) {
-          isLoadingOTTService = false;
-          update();
-          checkLoading();
+          Get.back();
           Common.showMessageError(error: error, context: context);
         },
       );
     } catch (e) {
-      isLoadingOTTService = false;
-      update();
-      checkLoading();
+      Get.back();
       Common.showToastCenter(e.toString(), context);
     }
   }

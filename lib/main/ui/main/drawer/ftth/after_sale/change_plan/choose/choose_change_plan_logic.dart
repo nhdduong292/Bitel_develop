@@ -44,6 +44,7 @@ class ChooseChangePlanLogic extends GetxController {
   List<int> listSelectOtt = [];
   var valueOTT = (-1).obs; //index cua promotion
   bool isLoadingPromotion = true;
+  bool isLoadingOTT = true;
   List<PromotionModel> listPromotion = [];
   List<int> listIdPromotion = [];
 
@@ -164,13 +165,22 @@ class ChooseChangePlanLogic extends GetxController {
     }
   }
 
+  void checkLoading() {
+    if (!isLoadingOTT && !isLoadingPromotion) {
+      Get.back();
+    } else if (isLoadingOTT && isLoadingPromotion) {
+      _onLoading(context);
+    }
+  }
+
   void getOTTService() async {
     bool isConnect =
         await ConnectionService.getInstance()?.checkConnect(context) ?? true;
     if (!isConnect) {
+      isLoadingOTT = false;
+      checkLoading();
       return;
     }
-    _onLoading(context);
     try {
       ApiUtil.getInstance()!.get(
         url:
@@ -180,11 +190,13 @@ class ChooseChangePlanLogic extends GetxController {
               productChangePlanModel.newPlan[valueProduct.value].productId,
         },
         onSuccess: (response) {
-          Get.back();
+          isLoadingOTT = false;
+          checkLoading();
           if (response.isSuccess) {
             listPlanOTT = (response.data['data'] as List)
                 .map((postJson) => PlanOttModel.fromJson(postJson))
                 .toList();
+            listSelectOtt.clear();
             for (var model in listPlanOTT) {
               int index = listPlanOTT.indexOf(model);
               listSelectOtt.add(index);
@@ -195,12 +207,16 @@ class ChooseChangePlanLogic extends GetxController {
           }
         },
         onError: (error) {
-          Get.back();
+          isLoadingOTT = false;
+          isLoadingPromotion = false;
+          checkLoading();
           Common.showMessageError(error: error, context: context);
         },
       );
     } catch (e) {
-      Get.back();
+      isLoadingOTT = false;
+      isLoadingPromotion = false;
+      checkLoading();
       Common.showToastCenter(e.toString(), context);
     }
   }
@@ -347,8 +363,13 @@ class ChooseChangePlanLogic extends GetxController {
   }
 
   void getPromotions() async {
-    isLoadingPromotion = true;
-    update();
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      isLoadingPromotion = false;
+      checkLoading();
+      return;
+    }
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_GET_PROMOTION_CHANGE_PLAN,
       params: {
@@ -358,6 +379,7 @@ class ChooseChangePlanLogic extends GetxController {
       },
       onSuccess: (response) {
         isLoadingPromotion = false;
+        checkLoading();
         if (response.isSuccess) {
           listPromotion = (response.data['data'] as List)
               .map((postJson) => PromotionModel.fromJson(postJson))
@@ -369,8 +391,9 @@ class ChooseChangePlanLogic extends GetxController {
         update();
       },
       onError: (error) {
+        isLoadingOTT = false;
         isLoadingPromotion = false;
-        update();
+        checkLoading();
         Common.showMessageError(error: error, context: context);
       },
     );
