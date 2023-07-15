@@ -1038,44 +1038,11 @@ class ChooseChangePlanPage extends GetView {
               controller: model.controller,
               theme: const ExpandableThemeData(hasIcon: false),
               collapsed: ExpandableButton(
-                child: Row(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Obx(() => groupValue.value == value
-                        ? iconChecked()
-                        : iconUnchecked()),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 13, vertical: 10),
-                        child: Text(model.description,
-                            style: AppStyles.r2B3A4A_12_500
-                                .copyWith(fontSize: 13)),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 13, vertical: 10),
-                      decoration: BoxDecoration(
-                        color: AppColors.colorSubContent.withOpacity(0.07),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Text(
-                        '${Common.numberFormat(model.fee)}/${AppLocalizations.of(context)!.textMonth}',
-                        style: AppStyles.r9454C9_14_500.copyWith(
-                            fontWeight: FontWeight.w700, fontSize: 16),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              expanded: Column(
-                children: [
-                  ExpandableButton(
-                    child: Row(
+                    Row(
                       children: [
                         Obx(() => groupValue.value == value
                             ? iconChecked()
@@ -1087,7 +1054,7 @@ class ChooseChangePlanPage extends GetView {
                           flex: 1,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 13, vertical: 10),
+                                horizontal: 0, vertical: 10),
                             child: Text(model.description,
                                 style: AppStyles.r2B3A4A_12_500
                                     .copyWith(fontSize: 13)),
@@ -1104,6 +1071,76 @@ class ChooseChangePlanPage extends GetView {
                             '${Common.numberFormat(model.fee)}/${AppLocalizations.of(context)!.textMonth}',
                             style: AppStyles.r9454C9_14_500.copyWith(
                                 fontWeight: FontWeight.w700, fontSize: 16),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Visibility(
+                      visible: model.promotions.isNotEmpty,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 36),
+                        child: Text(
+                            model.promotions.isNotEmpty
+                                ? model.promotions[0].name ?? '---'
+                                : '---',
+                            style: AppStyles.r2B3A4A_12_500
+                                .copyWith(fontSize: 13)),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              expanded: Column(
+                children: [
+                  ExpandableButton(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Obx(() => groupValue.value == value
+                                ? iconChecked()
+                                : iconUnchecked()),
+                            const SizedBox(
+                              width: 16,
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 0, vertical: 10),
+                                child: Text(model.description,
+                                    style: AppStyles.r2B3A4A_12_500
+                                        .copyWith(fontSize: 13)),
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 13, vertical: 10),
+                              decoration: BoxDecoration(
+                                color:
+                                    AppColors.colorSubContent.withOpacity(0.07),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Text(
+                                '${Common.numberFormat(model.fee)}/${AppLocalizations.of(context)!.textMonth}',
+                                style: AppStyles.r9454C9_14_500.copyWith(
+                                    fontWeight: FontWeight.w700, fontSize: 16),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Visibility(
+                          visible: model.promotions.isNotEmpty,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 36),
+                            child: Text(
+                                model.promotions.isNotEmpty
+                                    ? model.promotions[0].name ?? '---'
+                                    : '---',
+                                style: AppStyles.r2B3A4A_12_500
+                                    .copyWith(fontSize: 13)),
                           ),
                         ),
                       ],
