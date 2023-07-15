@@ -735,7 +735,7 @@
   "textE091": "El suscriptor ya tiene una solicitud de servicio de cambio de plan.",
   "textVoiceContract": "Contrato de voz",
   "textCallId": "ID de llamada",
-  "textEnterCallID": "Ingresa llamada ID",
+  "textEnterCallID": "Ingresa ID de llamada",
   "textTypeOfVoiceContractThatOnlyAllowsBankCode": "Tipo de contrato de voz que solo permite código bancario",
   "textAdvancedPayment": "Pago por adelantado",
   "textE079": "El código ott no existe.",
