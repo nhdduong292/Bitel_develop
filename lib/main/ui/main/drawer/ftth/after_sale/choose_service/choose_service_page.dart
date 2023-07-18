@@ -16,6 +16,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../../../res/app_images.dart';
 import '../../../../../../networks/model/request_detail_model.dart';
 import '../../../../../../router/route_config.dart';
+import '../../../../../../utils/common.dart';
 import '../../../../../../utils/common_widgets.dart';
 
 class ChooseServicePage extends GetWidget {
@@ -158,13 +159,15 @@ class NotiCancelDialog extends Dialog {
                     children: [
                       Text(
                         isDebt
-                            ? "${AppLocalizations.of(context)!.textAmountOfDebt}:"
+                            ? "${AppLocalizations.of(context)!.textAmountOfDebt}: "
                             : '${AppLocalizations.of(context)!.textStatus}:',
                         style: AppStyles.r15,
                         textAlign: TextAlign.center,
                       ),
                       Text(
-                        isDebt ? model.debt.toString() : model.pendingWoStatus,
+                        isDebt
+                            ? 'S/${Common.numberFormat(model.debt)}'
+                            : model.pendingWoStatus,
                         style: AppStyles.r15,
                         textAlign: TextAlign.center,
                       ),
@@ -176,8 +179,8 @@ class NotiCancelDialog extends Dialog {
                     children: [
                       Text(
                         isDebt
-                            ? "${AppLocalizations.of(context)!.textInvoiceNumber}:"
-                            : '${AppLocalizations.of(context)!.textWOType}:',
+                            ? "${AppLocalizations.of(context)!.textInvoiceNumber}: "
+                            : '${AppLocalizations.of(context)!.textWOType}: ',
                         style: AppStyles.r15,
                         textAlign: TextAlign.center,
                       ),
@@ -191,6 +194,11 @@ class NotiCancelDialog extends Dialog {
                 ],
               ),
             ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text('${AppLocalizations.of(context)!.textCancelAnyway}?',
+                style: AppStyles.r415263_14_600.copyWith(fontSize: 16)),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,

@@ -228,6 +228,13 @@ class SearchClearDebtPage extends GetView<SearchClearDebtLogic> {
                               controller.focusScopeNode.unfocus();
                               controller.searchClearDebt(isSuccess: (value) {
                                 if (value) {
+                                  if (controller.listClearDebt.isEmpty) {
+                                    Common.showToastCenter(
+                                        AppLocalizations.of(context)!
+                                            .textNoResultIsFound,
+                                        context);
+                                    return;
+                                  }
                                   ClearDebtLogic clearDebtLogic = Get.find();
                                   clearDebtLogic.balance =
                                       controller.balance.value;
