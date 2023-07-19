@@ -149,56 +149,64 @@ class NotiCancelDialog extends Dialog {
             const SizedBox(
               height: 5,
             ),
-            Center(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      isDebt
+                          ? "${AppLocalizations.of(context)!.textAmountOfDebt}: "
+                          : '${AppLocalizations.of(context)!.textStatus}:',
+                      style: AppStyles.r15,
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      isDebt
+                          ? 'S/${Common.numberFormat(model.debt)}'
+                          : model.pendingWoStatus,
+                      style: AppStyles.r15,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      isDebt
+                          ? "${AppLocalizations.of(context)!.textInvoiceNumber}: "
+                          : '${AppLocalizations.of(context)!.textWOType}: ',
+                      style: AppStyles.r15,
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      isDebt ? model.debtInvoiceNumber : model.pendingWoType,
+                      style: AppStyles.r15,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 15, right: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        isDebt
-                            ? "${AppLocalizations.of(context)!.textAmountOfDebt}: "
-                            : '${AppLocalizations.of(context)!.textStatus}:',
-                        style: AppStyles.r15,
-                        textAlign: TextAlign.center,
-                      ),
-                      Text(
-                        isDebt
-                            ? 'S/${Common.numberFormat(model.debt)}'
-                            : model.pendingWoStatus,
-                        style: AppStyles.r15,
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
+                  Container(
+                    height: 10,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        isDebt
-                            ? "${AppLocalizations.of(context)!.textInvoiceNumber}: "
-                            : '${AppLocalizations.of(context)!.textWOType}: ',
-                        style: AppStyles.r15,
-                        textAlign: TextAlign.center,
-                      ),
-                      Text(
-                        isDebt ? model.debtInvoiceNumber : model.pendingWoType,
-                        style: AppStyles.r15,
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
+                  Text('${AppLocalizations.of(context)!.textCancelAnyway}?',
+                      textAlign: TextAlign.start,
+                      style: AppStyles.r415263_14_600.copyWith(fontSize: 16)),
                 ],
               ),
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text('${AppLocalizations.of(context)!.textCancelAnyway}?',
-                style: AppStyles.r415263_14_600.copyWith(fontSize: 16)),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,

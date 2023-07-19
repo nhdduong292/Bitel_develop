@@ -13,6 +13,8 @@ class WorkOrderModel {
   String? _teamName;
   String? _staffCode;
   String? _staffName;
+  String? _appointmentTime;
+  String? _appointmentReason;
 
   WorkOrderModel();
   WorkOrderModel.fromJson(Map<String, dynamic> json) {
@@ -30,6 +32,8 @@ class WorkOrderModel {
     _teamName = json['teamName'];
     _staffCode = json['staffCode'];
     _staffName = json['staffName'];
+    _appointmentTime = json['appointmentTime'];
+    _appointmentReason = json['appointmentReason'];
   }
 
   String get staffName => _staffName ?? "";
@@ -46,7 +50,7 @@ class WorkOrderModel {
 
   String get note => _note ?? "";
 
-  String get reason => _reason ?? "";
+  String get reason => _reason ?? "---";
 
   String get result => _result ?? "";
 
@@ -59,4 +63,8 @@ class WorkOrderModel {
   int get idRequest => _idRequest ?? 0;
 
   int get id => _id ?? 0;
+
+  String get appointmentTime => _appointmentTime ?? "";
+
+  String get appointmentReason => _appointmentReason ?? "---";
 }

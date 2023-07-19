@@ -28,6 +28,10 @@ class ContractModel {
   String? _precinct;
   String? _address;
   List<SubOTTModel>? _subOtts;
+  String? _paymentMethod;
+  String? _bankCode;
+  String? _appointmentTime;
+  String? _appointmentReason;
 
   ContractModel();
   ContractModel.fromJson(Map<String, dynamic> json) {
@@ -62,6 +66,10 @@ class ContractModel {
           .map((e) => SubOTTModel.fromJson(e))
           .toList();
     }
+    _paymentMethod = json['paymentMethod'];
+    _bankCode = json['bankCode'];
+    _appointmentTime = json['appointmentTime'];
+    _appointmentReason = json['appointmentReason'];
   }
 
   String get promotionName => _promotionName ?? "";
@@ -157,4 +165,12 @@ class ContractModel {
   String get address => _address ?? "";
 
   List<SubOTTModel> get subOtts => _subOtts ?? [];
+
+  String get paymentMethod => _paymentMethod ?? "";
+
+  String get bankCode => _bankCode ?? "";
+
+  String get appointmentTime => _appointmentTime ?? "";
+
+  String get appointmentReason => _appointmentReason ?? "";
 }

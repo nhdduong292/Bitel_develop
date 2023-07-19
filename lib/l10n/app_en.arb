@@ -757,5 +757,8 @@
   "textE081": "Product ott isn't exist.",
  "textE082": "Sub vav isn't exist.",
   "textE092": "Subscriber already has transfer service request.",
-  "textE094": "Voice contract call ID is required. Please input call ID."
+  "textE094": "Voice contract call ID is required. Please input call ID.",
+  "textScheduleImplementationDate": "Schedule implementation date.",
+  "textDateTime": "Date & time",
+  "textImplementationAppointment": "Implementation appointment"
 }

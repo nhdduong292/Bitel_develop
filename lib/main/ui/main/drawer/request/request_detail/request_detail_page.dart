@@ -711,8 +711,9 @@ class RequestDetailPage extends GetWidget {
                                         0: FixedColumnWidth(150),
                                         1: FixedColumnWidth(150),
                                         2: FixedColumnWidth(150),
-                                        3: FixedColumnWidth(100),
+                                        3: FixedColumnWidth(150),
                                         4: FixedColumnWidth(100),
+                                        5: FixedColumnWidth(100),
                                       },
                                       children: List.generate(
                                           controller
@@ -722,6 +723,8 @@ class RequestDetailPage extends GetWidget {
                                           return buildRow([
                                             AppLocalizations.of(context)!
                                                 .textWOType,
+                                            AppLocalizations.of(context)!
+                                                .textImplementationAppointment,
                                             AppLocalizations.of(context)!
                                                 .textStaff,
                                             AppLocalizations.of(context)!
@@ -736,6 +739,7 @@ class RequestDetailPage extends GetWidget {
                                               .requestModel.listWO[index - 1];
                                           return buildRow([
                                             model.woType,
+                                            '${AppLocalizations.of(context)!.textDateTime}: ${Common.convertDateTime(model.appointmentTime)}\n${AppLocalizations.of(context)!.textReason}: ${model.appointmentReason}',
                                             controller.getStaffName(model),
                                             model.status,
                                             model.creationDate.isNotEmpty

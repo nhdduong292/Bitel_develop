@@ -921,6 +921,7 @@ Widget spinnerFormV2(
                         EdgeInsets.only(left: 12, top: 6, bottom: 6, right: 6),
                     child: TextField(
                         maxLines: isMaxlenght ?? false ? null : 1,
+                        focusNode: focusNode,
                         expands: isMaxlenght ?? false,
                         maxLength: isMaxlenght ?? false ? 500 : null,
                         controller: controlTextField,

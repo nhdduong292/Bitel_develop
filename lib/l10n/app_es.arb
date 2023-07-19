@@ -744,5 +744,8 @@
 "textE082": "El sub vav no existe.",
 "textE092": "El suscriptor ya tiene una solicitud de servicio de transferencia.",
 "textE093": "Error al generar el código de banco.",
-"textE094": "Se requiere el ID de llamada del contrato de voz. Por favor, ingrese el ID de llamada."
+"textE094": "Se requiere el ID de llamada del contrato de voz. Por favor, ingrese el ID de llamada.",
+  "textScheduleImplementationDate": "Programar fecha de implementación.",
+  "textDateTime": "Fecha & tiempo",
+  "textImplementationAppointment": "Cita de implementación"
 }

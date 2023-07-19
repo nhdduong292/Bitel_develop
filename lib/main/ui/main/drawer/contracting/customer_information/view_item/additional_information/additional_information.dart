@@ -162,6 +162,9 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                       )
                     ]),
                   ),
+                  SizedBox(
+                    height: 16,
+                  ),
                   customRadioMutiple(
                       width: width,
                       text: AppLocalizations.of(context)!
@@ -204,6 +207,89 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                       ),
                     ),
                   ),
+                  customRadioMutiple(
+                      width: width,
+                      text: AppLocalizations.of(context)!
+                          .textScheduleImplementationDate,
+                      check: controller.checkAppointmentDate,
+                      changeValue: (value) {
+                        controller.checkAppointmentDate.value = value;
+                        controller.isActiveUpdate = value;
+                      }),
+                  Obx(() => Visibility(
+                        visible: controller.checkAppointmentDate.value,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 10,
+                            ),
+                            formDateView(
+                                controller: controller,
+                                context: context,
+                                hint:
+                                    AppLocalizations.of(context)!.textEnterDate,
+                                label:
+                                    AppLocalizations.of(context)!.textDateTime,
+                                content: controller.appointmentDate,
+                                required: true,
+                                isIcon: true,
+                                width: width * 0.5),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              margin:
+                                  const EdgeInsets.only(left: 18, right: 18),
+                              width: width - 50,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  RichText(
+                                    text: TextSpan(
+                                      text: AppLocalizations.of(context)!
+                                          .textReason,
+                                      style: AppStyles.r2B3A4A_12_500.copyWith(
+                                          fontSize: 14,
+                                          color: AppColors.color_2B3A4A
+                                              .withOpacity(0.85)),
+                                      children: [
+                                        TextSpan(
+                                            text: ' *',
+                                            style: const TextStyle(
+                                              color: AppColors.colorTextError,
+                                              fontFamily: 'Barlow',
+                                              fontSize: 14,
+                                            )),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
+                                  spinnerFormV2(
+                                      fontSize: 14,
+                                      focusNode: controller.appointmenFocusNode,
+                                      isMaxlenght: true,
+                                      context: context,
+                                      hint: AppLocalizations.of(context)!
+                                          .hintNote,
+                                      required: false,
+                                      dropValue: "",
+                                      function: (value) {
+                                        controller.setNote(value);
+                                      },
+                                      listDrop: [],
+                                      controlTextField: controller.tfNote,
+                                      height: 100)
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      )),
                   SizedBox(
                       width: width,
                       child: Row(
@@ -345,6 +431,161 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
         ),
       ],
     );
+  }
+
+  Widget formDateView(
+      {required BuildContext context,
+      required String label,
+      required String hint,
+      required String content,
+      required bool required,
+      required bool isIcon,
+      required var controller,
+      required var width}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          margin: const EdgeInsets.only(
+            left: 18,
+            right: 18,
+          ),
+          child: RichText(
+            text: TextSpan(
+              text: label,
+              style: AppStyles.r2B3A4A_12_500.copyWith(
+                  fontSize: 14,
+                  color: AppColors.color_2B3A4A.withOpacity(0.85)),
+              children: [
+                TextSpan(
+                    text: required ? ' *' : '',
+                    style: const TextStyle(
+                      color: AppColors.colorTextError,
+                      fontFamily: 'Barlow',
+                      fontSize: 14,
+                    )),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            InkWell(
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
+              onTap: () {
+                _selectDate(context, controller, false);
+              },
+              child: Container(
+                margin: const EdgeInsets.only(
+                  left: 18,
+                  right: 18,
+                ),
+                child: Container(
+                    height: 45,
+                    width: width,
+                    padding: const EdgeInsets.only(left: 18, right: 16),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(24),
+                        border: Border.all(
+                            color: const Color(0xFFE3EAF2), width: 1)),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              content.isNotEmpty ? content : hint,
+                              style: content.isNotEmpty
+                                  ? AppStyles.r2B3A4A_12_500.copyWith(
+                                      fontSize: 14,
+                                      color: AppColors.color_2B3A4A
+                                          .withOpacity(0.85))
+                                  : AppStyles.r2.copyWith(
+                                      color: AppColors.colorHint1,
+                                      fontWeight: FontWeight.w400),
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                            visible: isIcon,
+                            child: SvgPicture.asset(AppImages.icCalendar))
+                      ],
+                    )),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget customRadioMutiple(
+      {required var width,
+      required String text,
+      required var check,
+      required var changeValue}) {
+    return Container(
+      margin: EdgeInsets.only(left: 15, right: 15, top: 0),
+      child: InkWell(
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        onTap: () {
+          changeValue(!check.value);
+        },
+        child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+          Obx(() => check.value
+              ? SvgPicture.asset(AppImages.icRadioChecked)
+              : SvgPicture.asset(AppImages.icRadioUnChecked)),
+          SizedBox(
+            width: 10,
+          ),
+          SizedBox(
+              width: width * 0.75,
+              child: Text(
+                text,
+                style: AppStyles.r2B3A4A_12_500.copyWith(fontSize: 14),
+              )),
+        ]),
+      ),
+    );
+  }
+
+  _selectDate(
+      BuildContext context, CustomerInformationLogic control, bool from) async {
+    // DateTime firstDate = control.getFirstDate();
+    final DateTime? selectedDate = await showDatePicker(
+      context: context,
+      initialDate: control.appointmentDate.isNotEmpty
+          ? control.datePicker!
+          : DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(const Duration(days: 365 * 200)),
+    );
+    if (selectedDate == null) return;
+    // ignore: use_build_context_synchronously
+    final TimeOfDay? selectedTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.fromDateTime(selectedDate),
+    );
+    DateTime? picked = selectedTime == null
+        ? selectedDate
+        : DateTime(
+            selectedDate.year,
+            selectedDate.month,
+            selectedDate.day,
+            selectedTime.hour,
+            selectedTime.minute,
+          );
+    if (from) {
+      control.setFromDate(picked);
+    } else {
+      control.setToDate(picked);
+    }
   }
 
   Widget lockedBox(
