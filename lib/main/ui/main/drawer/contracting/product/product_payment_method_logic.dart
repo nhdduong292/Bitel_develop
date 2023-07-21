@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
@@ -28,6 +29,8 @@ import '../../../../../networks/model/sub_ott_model.dart';
 import '../../../../../services/connection_service.dart';
 import '../../../../../utils/common.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../utilitis/info_bussiness.dart';
 
 class ProductPaymentMethodLogic extends GetxController {
   bool isLoadingProduct = true;
@@ -62,6 +65,8 @@ class ProductPaymentMethodLogic extends GetxController {
   RxBool checkVoiceContract = false.obs;
   String? voiceContractError;
 
+  bool isShowVoiceContract = true;
+
   ProductPaymentMethodLogic({required this.context});
 
   @override
@@ -74,6 +79,8 @@ class ProductPaymentMethodLogic extends GetxController {
     initVoiceContractAndBankCode();
     getProduts(requestModel.id);
     getPackages(requestModel.id, () {});
+
+    isShowVoiceContract = isShowVoiceContractWithPermission();
 
     voiceContractExpand.addListener(() {
       checkVoiceContract.value = !checkVoiceContract.value;
@@ -767,6 +774,15 @@ class ProductPaymentMethodLogic extends GetxController {
       if (requestModel.callId != 0) {
         voiceContractTextController.text = requestModel.callId.toString();
       }
+    }
+  }
+
+  bool isShowVoiceContractWithPermission() {
+    var listPermission = InfoBusiness.getInstance()!.getUser().functions;
+    if (listPermission.contains(Permission.VOICE_CONTRACT)) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

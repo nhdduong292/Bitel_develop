@@ -26,6 +26,7 @@ class Permission {
   static const String TRANSFER_SERVICE = "TRANSFER_SERVICE";
   static const String BUY_ANYPAY = "BUY_ANYPAY";
   static const String CLEAR_DEBT = "CLEAR_DEBT";
+  static const String VOICE_CONTRACT = "VOICE_CONTRACT";
 }
 
 class RequestStatus {

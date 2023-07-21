@@ -40,7 +40,9 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
               child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _voiceContract(context: context, controller: controller),
+              Visibility(
+                visible: controller.isShowVoiceContract,
+                child: _voiceContract(context: context, controller: controller)),
               Container(
                 margin: const EdgeInsets.only(left: 15, right: 15),
                 padding: const EdgeInsets.only(top: 15),
