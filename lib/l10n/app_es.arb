@@ -744,5 +744,10 @@
 "textE082": "El sub vav no existe.",
 "textE092": "El suscriptor ya tiene una solicitud de servicio de transferencia.",
 "textE093": "Error al generar el código de banco.",
-"textE094": "Se requiere el ID de llamada del contrato de voz. Por favor, ingrese el ID de llamada."
+"textE094": "Se requiere el ID de llamada del contrato de voz. Por favor, ingrese el ID de llamada.",
+"textE101": "La solicitud de cancelación falló porque la cancelación del despliegue WO falló.",
+"textE102": "La solicitud de cancelación falló porque la cancelación de la provisión falló.",
+"textE103": "La solicitud de cancelación falló porque la liberación del puerto falló.",
+"textE104": "La solicitud de cancelación falló porque el reembolso del monto adelantado a la cuenta anypay del usuario del conector falló.",
+"textE105": "No se puede encontrar información de SALE TRANS, por favor inténtelo nuevamente más tarde."
 }

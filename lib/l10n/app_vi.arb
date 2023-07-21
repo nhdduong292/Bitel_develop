@@ -744,5 +744,10 @@
 "textE082": "Dịch vụ con vav không tồn tại.",
 "textE092": "Người đăng ký đã có yêu cầu dịch vụ chuyển đổi.",
 "textE093": "Không thể tạo mã ngân hàng.",
-"textE094": "Yêu cầu hợp đồng thoại yêu cầu ID cuộc gọi. Vui lòng nhập ID cuộc gọi."
+"textE094": "Yêu cầu hợp đồng thoại yêu cầu ID cuộc gọi. Vui lòng nhập ID cuộc gọi.",
+"textE101": "Yêu cầu hủy không thành công vì việc hủy triển khai WO thất bại.",
+"textE102": "Yêu cầu hủy không thành công vì việc hủy cung cấp thất bại.",
+"textE103": "Yêu cầu hủy không thành công vì việc giải phóng cổng thất bại.",
+"textE104": "Yêu cầu hủy không thành công vì việc hoàn lại số tiền thanh toán trước cho tài khoản anypay của người dùng kết nối đã thất bại.",
+"textE105": "Không thể tìm thông tin GIAO DỊCH BÁN HÀNG, vui lòng thử lại sau."
 }
