@@ -14,6 +14,7 @@ import 'package:bitel_ventas/main/ui/main/drawer/request/request_detail/request_
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:dio/dio.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
@@ -541,6 +542,14 @@ class ProductPaymentMethodLogic extends GetxController {
             for (var model in listPlanOTT) {
               int index = listPlanOTT.indexOf(model);
               listSelectOtt.add(index);
+              if (model.ottService == OTTService.CABLE_GO) {
+                for (var subModel in model.listSubOtt) {
+                  if (subModel.ottCode == "9911") {
+                    var index = model.listSubOtt.indexOf(subModel);
+                    valueCableGo.value = index;
+                  }
+                }
+              }
             }
             update();
           } else {
