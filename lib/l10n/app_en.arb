@@ -760,5 +760,10 @@
   "textE094": "Voice contract call ID is required. Please input call ID.",
   "textScheduleImplementationDate": "Schedule implementation date.",
   "textDateTime": "Date & time",
-  "textImplementationAppointment": "Implementation appointment"
+  "textImplementationAppointment": "Implementation appointment",
+  "textE101": "Cancel request failed because cancel WO deployment failed.",
+  "textE102": "Cancel request failed because cancel provision failed.",
+  "textE103": "Cancel request failed because release port failed.",
+  "textE104": "Cancel request failed because the refund amount of the advanced payment to the connector user's anypay account failed.",
+  "textE105": "Can not find SALE TRANS information, please try again later."
 }

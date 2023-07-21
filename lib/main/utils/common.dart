@@ -496,6 +496,21 @@ class Common {
       } else if (errorCode == 'E094') {
         showSystemErrorDialog(
             context, 'E094 ${AppLocalizations.of(context)!.textE094}');
+      } else if (errorCode == 'E101') {
+        showSystemErrorDialog(
+            context, 'E101 ${AppLocalizations.of(context)!.textE101}');
+      } else if (errorCode == 'E102') {
+        showSystemErrorDialog(
+            context, 'E102 ${AppLocalizations.of(context)!.textE102}');
+      } else if (errorCode == 'E103') {
+        showSystemErrorDialog(
+            context, 'E103 ${AppLocalizations.of(context)!.textE103}');
+      } else if (errorCode == 'E104') {
+        showSystemErrorDialog(
+            context, 'E104 ${AppLocalizations.of(context)!.textE104}');
+      } else if (errorCode == 'E105') {
+        showSystemErrorDialog(
+            context, 'E105 ${AppLocalizations.of(context)!.textE105}');
       } else {
         showSystemErrorDialog(context, error.response!.data['errorMessage']);
       }
