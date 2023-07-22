@@ -1017,6 +1017,10 @@ Widget _itemCableGo(
     required ProductPaymentMethodLogic controller}) {
   if (model.controller == null) {
     model.controller = ExpandableController();
+    if (model.ottCode == '9911') {
+      model.controller!.expanded = true;
+    }
+
     model.controller!.addListener(() {
       if (model.controller!.expanded) {
         onChange(value);
@@ -1028,6 +1032,7 @@ Widget _itemCableGo(
   }
   model.textController ??= TextEditingController();
   model.focusNode ??= FocusNode();
+
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
     child: ExpandableNotifier(

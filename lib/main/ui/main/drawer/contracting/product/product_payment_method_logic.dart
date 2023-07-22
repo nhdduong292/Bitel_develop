@@ -576,6 +576,14 @@ class ProductPaymentMethodLogic extends GetxController {
             for (var model in listPlanOTT) {
               int index = listPlanOTT.indexOf(model);
               listSelectOtt.add(index);
+              if (model.ottService == OTTService.CABLE_GO) {
+                for (var subModel in model.listSubOtt) {
+                  if (subModel.ottCode == "9911") {
+                    var index = model.listSubOtt.indexOf(subModel);
+                    valueCableGo.value = index;
+                  }
+                }
+              }
             }
             update();
           } else {
