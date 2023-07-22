@@ -117,6 +117,11 @@ class ValidateFingerprintLogic extends GetxController {
       typeCustomer = data[2];
       idNumber = data[3];
       contractId = data[4];
+      bool isExit = Get.isRegistered<RequestDetailLogic>();
+      if (isExit) {
+        RequestDetailLogic requestDetailLogic = Get.find();
+        paymentMethod = requestDetailLogic.requestModel.paymentMethod;
+      }
       bool isExitChooseProduct = Get.isRegistered<ProductPaymentMethodLogic>();
       if (isExitChooseProduct) {
         ProductPaymentMethodLogic productPaymentMethodLogic = Get.find();
@@ -143,6 +148,17 @@ class ValidateFingerprintLogic extends GetxController {
   void onReady() {
     // TODO: implement onReady
     super.onReady();
+    if (isStaff()) {
+      getBestFingerStaff();
+    } else {
+      getBestFinger();
+    }
+  }
+
+  void reset() {
+    textCapture = "";
+    isGetFingerSuccess = false;
+    listFinger.clear();
     if (isStaff()) {
       getBestFingerStaff();
     } else {
@@ -225,6 +241,8 @@ class ValidateFingerprintLogic extends GetxController {
       update();
       return;
     }
+    isGetFingerSuccess = false;
+    update();
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_BEST_FINGER.replaceAll('id', cusId.toString()),
       onSuccess: (response) {
@@ -247,7 +265,13 @@ class ValidateFingerprintLogic extends GetxController {
       onError: (error) {
         isGetFingerFail = true;
         update();
-        Common.showMessageError(error: error, context: context);
+        Common.showMessageError(
+            error: error,
+            context: context,
+            isDNI: typeCustomer == 'DNI',
+            onContinue: () {
+              Get.toNamed(RouteConfig.registerFinger, arguments: [cusId]);
+            });
       },
     );
   }
@@ -349,7 +373,10 @@ class ValidateFingerprintLogic extends GetxController {
         onError: (error) {
           Get.back();
           isSuccess.call(false);
-          Common.showMessageError(error: error, context: context);
+          Common.showMessageError(
+            error: error,
+            context: context,
+          );
         },
       );
     } catch (e) {

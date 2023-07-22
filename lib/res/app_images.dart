@@ -203,4 +203,5 @@ class AppImages {
   static const String imgFingerRightThumbUpdate =
       "assets/images/img_finger_right_thumb_update.png";
   static const String icNoConnection = "assets/icons/ic_no_connection.png";
+  static const String icWarningNew = 'assets/images/ic_warning.svg';
 }

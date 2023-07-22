@@ -513,7 +513,16 @@ class ClientDataDNILogic extends GetxController {
         },
         onError: (error) {
           Get.back();
-          function.call(false);
+          try {
+            if (error.response!.data['errorCode'] == 'E038' ||
+                error.response!.data['errorCode'] == 'E037' ||
+                error.response!.data['errorCode'] == 'E045') {
+              function.call(false);
+              return;
+            }
+          } catch (e) {
+            print(e.toString());
+          }
           Common.showMessageError(error: error, context: context);
         });
   }

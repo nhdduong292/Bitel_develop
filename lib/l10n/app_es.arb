@@ -749,5 +749,6 @@
 "textE102": "La solicitud de cancelación falló porque la cancelación de la provisión falló.",
 "textE103": "La solicitud de cancelación falló porque la liberación del puerto falló.",
 "textE104": "La solicitud de cancelación falló porque el reembolso del monto adelantado a la cuenta anypay del usuario del conector falló.",
-"textE105": "No se puede encontrar información de SALE TRANS, por favor inténtelo nuevamente más tarde."
+"textE105": "No se puede encontrar información de SALE TRANS, por favor inténtelo nuevamente más tarde.",
+"textWarning": "Advertencia"
 }

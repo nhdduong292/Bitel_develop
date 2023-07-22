@@ -188,8 +188,11 @@ class Common {
       {required var error,
       required BuildContext context,
       bool? isShow,
-      String? type}) {
+      String? type,
+      Function? onContinue,
+      bool? isDNI}) {
     isShow = isShow ?? false;
+    isDNI = isDNI ?? true;
     String ottName = "";
     if (type == OTTService.BITEL_VIDEO) {
       ottName = "Bitel video";
@@ -198,6 +201,7 @@ class Common {
     } else if (type == OTTService.CABLE_GO) {
       ottName = "Cable go";
     }
+
     try {
       if (error != null) {
         if (error is! DioError) {
@@ -284,8 +288,15 @@ class Common {
         showSystemErrorDialog(
             context, 'E015 ${AppLocalizations.of(context)!.textE015}');
       } else if (errorCode == 'E016') {
-        showSystemErrorDialog(
-            context, 'E016 ${AppLocalizations.of(context)!.textE016}');
+        isDNI
+            ? showSystemWarningDialog(
+                context, 'E016 ${AppLocalizations.of(context)!.textE016}')
+            : showSystemWarningFingerDialog(
+                context, 'E016 ${AppLocalizations.of(context)!.textE016}', () {
+                if (onContinue != null) {
+                  onContinue();
+                }
+              });
       } else if (errorCode == 'E017') {
         showSystemErrorDialog(
             context, 'E017 ${AppLocalizations.of(context)!.textE017}');
@@ -345,11 +356,25 @@ class Common {
         showSystemErrorDialog(
             context, 'E036 ${AppLocalizations.of(context)!.textE036}');
       } else if (errorCode == 'E037') {
-        showSystemErrorDialog(
-            context, 'E037 ${AppLocalizations.of(context)!.textE037}');
+        isDNI
+            ? showSystemWarningDialog(
+                context, 'E037 ${AppLocalizations.of(context)!.textE037}')
+            : showSystemWarningFingerDialog(
+                context, 'E037 ${AppLocalizations.of(context)!.textE037}', () {
+                if (onContinue != null) {
+                  onContinue();
+                }
+              });
       } else if (errorCode == 'E038') {
-        showSystemErrorDialog(
-            context, 'E038 ${AppLocalizations.of(context)!.textE038}');
+        isDNI
+            ? showSystemWarningDialog(
+                context, 'E038 ${AppLocalizations.of(context)!.textE038}')
+            : showSystemWarningFingerDialog(
+                context, 'E038 ${AppLocalizations.of(context)!.textE038}', () {
+                if (onContinue != null) {
+                  onContinue();
+                }
+              });
       } else if (errorCode == 'E039') {
         showSystemErrorDialog(
             context, 'E039 ${AppLocalizations.of(context)!.textE039}');
@@ -540,6 +565,30 @@ class Common {
         context: context,
         builder: (context) {
           return SystemErrorDialog(
+            text: text,
+          );
+        });
+  }
+
+  static void showSystemWarningFingerDialog(
+      BuildContext context, String text, Function onContinue) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return SystemWarningFingerDialog(
+            text: text,
+            onContinue: () {
+              onContinue();
+            },
+          );
+        });
+  }
+
+  static void showSystemWarningDialog(BuildContext context, String text) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return SystemWarningDialog(
             text: text,
           );
         });
