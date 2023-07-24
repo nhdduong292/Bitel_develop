@@ -766,5 +766,6 @@
   "textWarning": "Warning",
   "textE120": "Voice contract call ID is used for other request, please check it again and use other call ID.",
   "textOTTServiceHasBeenActive": "OTT service has been activated, not unchecked",
-  "textDownload": "Download"
+  "textDownload": "Download",
+   "textDownloadContractSuccessfully": "Download contract successfully"
 }

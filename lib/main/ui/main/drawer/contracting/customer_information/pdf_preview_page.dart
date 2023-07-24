@@ -191,7 +191,7 @@ class PDFPreviewPage extends GetView<PDFPreviewLogic> {
                                 .textDownload
                                 .toUpperCase(),
                             onTap: () {
-                              Get.back();
+                              controller.downloadPDF();
                             },
                           ),
                         ),

@@ -754,5 +754,6 @@
 "textWarning": "Advertencia",
  "textE120": "El identificador de llamada del contrato de voz se usa para otra solicitud, verifíquelo nuevamente y use otro identificador de llamada.",
 "textOTTServiceHasBeenActive": "El servicio OTT ha sido activado, no desmarcado",
-"textDownload": "Descargar"
+"textDownload": "Descargar",
+"textDownloadContractSuccessfully": "Descargar contrato con éxito"
 }
