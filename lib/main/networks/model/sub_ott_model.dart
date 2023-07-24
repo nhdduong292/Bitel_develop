@@ -16,6 +16,7 @@ class SubOTTModel {
   FocusNode? focusNode;
   String? errorText;
   bool isSuccess = false;
+  bool currentActive = false;
   String? email;
 
   SubOTTModel();
@@ -36,6 +37,7 @@ class SubOTTModel {
     if (_isdn != null && _isdn!.isNotEmpty) {
       isActive = true;
       isSuccess = true;
+      currentActive = true;
     }
   }
 
