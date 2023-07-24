@@ -1038,16 +1038,23 @@ class ChooseChangePlanPage extends GetView {
       }
 
       model.controller!.addListener(() {
+        // if (isActive && groupValue.value == value) {
+        //   model.controller!.expanded = true;
+        //   return;
+        // }
         if (model.controller!.expanded) {
           onChange(value);
         }
-        if (isActive) {
-          controller.valueCableGo.value = value;
-        } else {
-          groupValue.value != value
-              ? controller.valueCableGo.value = value
-              : controller.valueCableGo.value = -1;
-        }
+        // if (isActive) {
+        //   controller.valueCableGo.value = value;
+        // } else {
+        //   groupValue.value != value
+        //       ? controller.valueCableGo.value = value
+        //       : controller.valueCableGo.value = -1;
+        // }
+        groupValue.value != value
+            ? controller.valueCableGo.value = value
+            : controller.valueCableGo.value = -1;
       });
     }
     if (model.textController == null) {
