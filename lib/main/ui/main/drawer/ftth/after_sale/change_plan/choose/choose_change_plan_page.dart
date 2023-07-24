@@ -713,15 +713,17 @@ class ChooseChangePlanPage extends GetView {
     if (ott.controller == null) {
       ott.controller = ExpandableController();
       ott.controller!.addListener(() {
-        // if (ott.controller!.expanded) {
-        //   groupValue.value != value ? onChange(value) : onChange(-1);
-        // } else {
-        //   groupValue.value != value ? onChange(value) : onChange(-1);
-        // }
+        if (ott.listSubOtt[0].isActive) {
+          ott.controller!.expanded = false;
+          Common.showToastCenter("fjaslfjdlasjdfldjas", context);
+          return;
+        }
         onChange(value);
       });
     }
-    ott.textController ??= TextEditingController();
+    if (ott.textController == null) {
+      ott.textController = TextEditingController();
+    }
     ott.focusNode ??= FocusNode();
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),

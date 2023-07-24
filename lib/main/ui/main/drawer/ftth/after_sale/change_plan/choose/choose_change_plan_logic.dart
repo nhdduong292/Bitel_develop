@@ -183,10 +183,10 @@ class ChooseChangePlanLogic extends GetxController {
     }
     try {
       ApiUtil.getInstance()!.get(
-        url:
-            '${ApiEndPoints.API_GET_OTT}/${productChangePlanModel.newPlan[valueProduct.value].productId}',
+        url: ApiEndPoints.API_GET_OTT_CHANGE_PLAN,
         params: {
-          "planId":
+          "subId": subId,
+          "productId":
               productChangePlanModel.newPlan[valueProduct.value].productId,
         },
         onSuccess: (response) {
