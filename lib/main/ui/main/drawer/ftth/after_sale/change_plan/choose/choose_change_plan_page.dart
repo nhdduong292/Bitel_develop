@@ -713,15 +713,20 @@ class ChooseChangePlanPage extends GetView {
     if (ott.controller == null) {
       ott.controller = ExpandableController();
       ott.controller!.addListener(() {
-        // if (ott.controller!.expanded) {
-        //   groupValue.value != value ? onChange(value) : onChange(-1);
-        // } else {
-        //   groupValue.value != value ? onChange(value) : onChange(-1);
-        // }
+        if (ott.listSubOtt[0].isActive) {
+          ott.controller!.expanded = false;
+          Common.showToastCenter(
+              AppLocalizations.of(context)!.textOTTServiceHasBeenActive,
+              context);
+          return;
+        }
         onChange(value);
       });
     }
-    ott.textController ??= TextEditingController();
+    if (ott.textController == null) {
+      ott.textController = TextEditingController();
+      ott.textController!.text = ott.listSubOtt[0].isdn;
+    }
     ott.focusNode ??= FocusNode();
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
@@ -906,6 +911,13 @@ class ChooseChangePlanPage extends GetView {
     if (ott.controller == null) {
       ott.controller = ExpandableController();
       ott.controller!.addListener(() {
+        if (ott.listSubOtt[0].isActive) {
+          ott.controller!.expanded = false;
+          Common.showToastCenter(
+              AppLocalizations.of(context)!.textOTTServiceHasBeenActive,
+              context);
+          return;
+        }
         onChange(value);
       });
     }
@@ -982,12 +994,16 @@ class ChooseChangePlanPage extends GetView {
                             model: ott.listSubOtt[index],
                             value: index,
                             groupValue: controller.valueCableGo,
+                            isActive: ott.isActive,
                             onChange: (value) {
                               // controller.update();
                               for (var item in ott.listSubOtt) {
                                 final index = ott.listSubOtt.indexOf(item);
                                 if (index != value) {
                                   item.controller!.expanded = false;
+                                  item.currentActive = false;
+                                } else {
+                                  item.currentActive = true;
                                 }
                               }
                             },
@@ -1014,20 +1030,44 @@ class ChooseChangePlanPage extends GetView {
       required SubOTTModel model,
       required int value,
       required var groupValue,
+      required bool isActive,
       required var onChange,
       required ChooseChangePlanLogic controller}) {
     if (model.controller == null) {
       model.controller = ExpandableController();
+      if (model.isActive) {
+        model.controller!.expanded = true;
+        controller.valueCableGo.value = value;
+      }
+
       model.controller!.addListener(() {
-        if (model.controller!.expanded) {
-          onChange(value);
+        if (model.currentActive) {
+          if (isActive && groupValue.value == value) {
+            model.controller!.expanded = true;
+          } else if (groupValue.value == value) {
+            controller.valueCableGo.value = -1;
+          }
+          return;
         }
+
         groupValue.value != value
             ? controller.valueCableGo.value = value
             : controller.valueCableGo.value = -1;
+
+        if (model.controller!.expanded) {
+          onChange(value);
+        }
+
+        // groupValue.value != value
+        //     ? controller.valueCableGo.value = value
+        //     : controller.valueCableGo.value = -1;
       });
     }
-    model.textController ??= TextEditingController();
+    if (model.textController == null) {
+      model.textController = TextEditingController();
+      model.textController!.text = model.isdn;
+    }
+
     model.focusNode ??= FocusNode();
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),

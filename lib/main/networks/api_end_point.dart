@@ -170,4 +170,8 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/change-plan/check-old-request/subId";
   static const String API_SAVE_INTERNAL_FINGER =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/customers/cusId/save-internal-finger";
+  static const String API_GET_OTT_CHANGE_PLAN =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/change-plan/ott-services";
+  static const String API_CHECK_OTT_CHANGE_PLAN =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/change-plan/ott-services/check";
 }

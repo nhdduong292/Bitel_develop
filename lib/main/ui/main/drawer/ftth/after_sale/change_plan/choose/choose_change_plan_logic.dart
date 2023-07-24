@@ -183,10 +183,11 @@ class ChooseChangePlanLogic extends GetxController {
     }
     try {
       ApiUtil.getInstance()!.get(
-        url:
-            '${ApiEndPoints.API_GET_OTT}/${productChangePlanModel.newPlan[valueProduct.value].productId}',
+        url: ApiEndPoints.API_GET_OTT_CHANGE_PLAN,
         params: {
-          "planId":
+          // "subId": subId,
+          "subId": 92944349,
+          "productId":
               productChangePlanModel.newPlan[valueProduct.value].productId,
         },
         onSuccess: (response) {
@@ -294,8 +295,9 @@ class ChooseChangePlanLogic extends GetxController {
   void checkSim(String type, String value, var isSuccess) {
     _onLoading(context);
     ApiUtil.getInstance()!.get(
-      url: ApiEndPoints.API_CHECK_SIM,
+      url: ApiEndPoints.API_CHECK_OTT_CHANGE_PLAN,
       params: {
+        "subId": subId,
         "serviceType": type,
         "isdn": value,
       },

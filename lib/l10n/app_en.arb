@@ -764,5 +764,6 @@
   "textE104": "Cancel request failed because the refund amount of the advanced payment to the connector user's anypay account failed.",
   "textE105": "Can not find SALE TRANS information, please try again later.",
   "textWarning": "Warning",
-  "textE120": "Voice contract call ID is used for other request, please check it again and use other call ID."
+  "textE120": "Voice contract call ID is used for other request, please check it again and use other call ID.",
+  "textOTTServiceHasBeenActive": "OTT service has been activated, not unchecked"
 }

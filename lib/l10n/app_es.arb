@@ -751,5 +751,6 @@
 "textE104": "La solicitud de cancelación falló porque el reembolso del monto adelantado a la cuenta anypay del usuario del conector falló.",
 "textE105": "No se puede encontrar información de SALE TRANS, por favor inténtelo nuevamente más tarde.",
 "textWarning": "Advertencia",
- "textE120": "El identificador de llamada del contrato de voz se usa para otra solicitud, verifíquelo nuevamente y use otro identificador de llamada."
+ "textE120": "El identificador de llamada del contrato de voz se usa para otra solicitud, verifíquelo nuevamente y use otro identificador de llamada.",
+"textOTTServiceHasBeenActive": "El servicio OTT ha sido activado, no desmarcado"
 }

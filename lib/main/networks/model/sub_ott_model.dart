@@ -9,12 +9,14 @@ class SubOTTModel {
   String? _isdn;
   String? _description;
   double? _fee;
+  bool isActive = false;
   List<PromotionModel>? _promotions;
   ExpandableController? controller;
   TextEditingController? textController;
   FocusNode? focusNode;
   String? errorText;
   bool isSuccess = false;
+  bool currentActive = false;
   String? email;
 
   SubOTTModel();
@@ -31,6 +33,12 @@ class SubOTTModel {
     _description = json['description'];
     _fee = json['fee'];
     _isdn = json['isdn'];
+
+    if (_isdn != null && _isdn!.isNotEmpty) {
+      isActive = true;
+      isSuccess = true;
+      currentActive = true;
+    }
   }
 
   List<PromotionModel> get promotions {
@@ -54,7 +62,7 @@ class SubOTTModel {
   }
 
   String get isdn {
-    return _isdn ?? '---';
+    return _isdn ?? '';
   }
 
   double get fee {
