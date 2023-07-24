@@ -11,6 +11,7 @@ class PlanOttModel {
   FocusNode? focusNode;
   String? errorText;
   bool isSuccess = false;
+  bool isActive = false;
   String? isdn;
 
   PlanOttModel();
@@ -22,6 +23,23 @@ class PlanOttModel {
       _listSubOtt = (json['listSubOtt'] as List)
           .map((item) => SubOTTModel.fromJson(item))
           .toList();
+    }
+    if (_listSubOtt != null) {
+      for (var item in _listSubOtt!) {
+        if (item.isSuccess) {
+          isSuccess = true;
+          break;
+        }
+      }
+    }
+
+    if (_listSubOtt != null) {
+      for (var item in _listSubOtt!) {
+        if (item.isActive) {
+          isActive = true;
+          break;
+        }
+      }
     }
   }
 

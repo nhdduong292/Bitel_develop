@@ -752,5 +752,6 @@
  "textE082": "Sub vav isn't exist.",
   "textE092": "Subscriber already has transfer service request.",
  "textE093": "Failed to generate bank code.",
-  "textE094": "Voice contract call ID is required. Please input call ID."
+  "textE094": "Voice contract call ID is required. Please input call ID.",
+  "textOTTServiceHasBeenActive": "OTT service has been activated, not unchecked"
 }

@@ -715,7 +715,9 @@ class ChooseChangePlanPage extends GetView {
       ott.controller!.addListener(() {
         if (ott.listSubOtt[0].isActive) {
           ott.controller!.expanded = false;
-          Common.showToastCenter("fjaslfjdlasjdfldjas", context);
+          Common.showToastCenter(
+              AppLocalizations.of(context)!.textOTTServiceHasBeenActive,
+              context);
           return;
         }
         onChange(value);
@@ -723,6 +725,7 @@ class ChooseChangePlanPage extends GetView {
     }
     if (ott.textController == null) {
       ott.textController = TextEditingController();
+      ott.textController!.text = ott.listSubOtt[0].isdn;
     }
     ott.focusNode ??= FocusNode();
     return Container(
@@ -908,6 +911,13 @@ class ChooseChangePlanPage extends GetView {
     if (ott.controller == null) {
       ott.controller = ExpandableController();
       ott.controller!.addListener(() {
+        if (ott.listSubOtt[0].isActive) {
+          ott.controller!.expanded = false;
+          Common.showToastCenter(
+              AppLocalizations.of(context)!.textOTTServiceHasBeenActive,
+              context);
+          return;
+        }
         onChange(value);
       });
     }
@@ -984,6 +994,7 @@ class ChooseChangePlanPage extends GetView {
                             model: ott.listSubOtt[index],
                             value: index,
                             groupValue: controller.valueCableGo,
+                            isActive: ott.isActive,
                             onChange: (value) {
                               // controller.update();
                               for (var item in ott.listSubOtt) {
@@ -1016,20 +1027,34 @@ class ChooseChangePlanPage extends GetView {
       required SubOTTModel model,
       required int value,
       required var groupValue,
+      required bool isActive,
       required var onChange,
       required ChooseChangePlanLogic controller}) {
     if (model.controller == null) {
       model.controller = ExpandableController();
+      if (model.isActive) {
+        model.controller!.expanded = true;
+        controller.valueCableGo.value = value;
+      }
+
       model.controller!.addListener(() {
         if (model.controller!.expanded) {
           onChange(value);
         }
-        groupValue.value != value
-            ? controller.valueCableGo.value = value
-            : controller.valueCableGo.value = -1;
+        if (isActive) {
+          controller.valueCableGo.value = value;
+        } else {
+          groupValue.value != value
+              ? controller.valueCableGo.value = value
+              : controller.valueCableGo.value = -1;
+        }
       });
     }
-    model.textController ??= TextEditingController();
+    if (model.textController == null) {
+      model.textController = TextEditingController();
+      model.textController!.text = model.isdn;
+    }
+
     model.focusNode ??= FocusNode();
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),

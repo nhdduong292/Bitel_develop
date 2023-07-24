@@ -739,5 +739,6 @@
 "textE082": "El sub vav no existe.",
 "textE092": "El suscriptor ya tiene una solicitud de servicio de transferencia.",
 "textE093": "Error al generar el código de banco.",
-"textE094": "Se requiere el ID de llamada del contrato de voz. Por favor, ingrese el ID de llamada."
+"textE094": "Se requiere el ID de llamada del contrato de voz. Por favor, ingrese el ID de llamada.",
+"textOTTServiceHasBeenActive": "El servicio OTT ha sido activado, no desmarcado"
 }

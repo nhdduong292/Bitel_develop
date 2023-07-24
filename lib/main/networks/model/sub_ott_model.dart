@@ -9,7 +9,7 @@ class SubOTTModel {
   String? _isdn;
   String? _description;
   double? _fee;
-  bool isActive = true;
+  bool isActive = false;
   List<PromotionModel>? _promotions;
   ExpandableController? controller;
   TextEditingController? textController;
@@ -60,7 +60,7 @@ class SubOTTModel {
   }
 
   String get isdn {
-    return _isdn ?? '---';
+    return _isdn ?? '';
   }
 
   double get fee {
