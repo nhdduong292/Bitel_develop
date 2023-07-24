@@ -216,4 +216,13 @@ class PDFPreviewLogic extends GetxController {
     }
     return '---';
   }
+
+  void writeLogToFile(Uint8List bytes) async {
+    final directory = Platform.isAndroid
+        ? Directory("/storage/emulated/0/Download") //FOR ANDROID
+        : await getApplicationDocumentsDirectory(); //FOR iOS
+    final file = File(
+        '${directory.path}/${AppLocalizations.of(context)!.textMainContract}_abc');
+    await file.writeAsBytes(bytes.toList());
+  }
 }

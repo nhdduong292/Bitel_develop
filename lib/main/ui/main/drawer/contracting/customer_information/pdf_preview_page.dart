@@ -188,7 +188,7 @@ class PDFPreviewPage extends GetView<PDFPreviewLogic> {
                         Expanded(
                           child: bottomButtonV2(
                             text: AppLocalizations.of(context)!
-                                .textContinue
+                                .textDownload
                                 .toUpperCase(),
                             onTap: () {
                               Get.back();
