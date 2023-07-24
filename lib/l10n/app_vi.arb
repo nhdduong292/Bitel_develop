@@ -750,5 +750,6 @@
 "textE103": "Yêu cầu hủy không thành công vì việc giải phóng cổng thất bại.",
 "textE104": "Yêu cầu hủy không thành công vì việc hoàn lại số tiền thanh toán trước cho tài khoản anypay của người dùng kết nối đã thất bại.",
 "textE105": "Không thể tìm thông tin GIAO DỊCH BÁN HÀNG, vui lòng thử lại sau.",
-"textWarning": "Cảnh báo"
+"textWarning": "Cảnh báo",
+ "textE120": "ID cuộc gọi hợp đồng thoại được sử dụng cho yêu cầu khác, vui lòng kiểm tra lại và sử dụng ID cuộc gọi khác."
 }
