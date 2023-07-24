@@ -183,13 +183,29 @@ class PDFPreviewPage extends GetView<PDFPreviewLogic> {
                   Container(
                     width: width - 62,
                     margin: const EdgeInsets.only(left: 31, right: 31),
-                    child: bottomButton(
-                      text: AppLocalizations.of(context)!
-                          .textContinue
-                          .toUpperCase(),
-                      onTap: () {
-                        Get.back();
-                      },
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: bottomButtonV2(
+                            text: AppLocalizations.of(context)!
+                                .textContinue
+                                .toUpperCase(),
+                            onTap: () {
+                              Get.back();
+                            },
+                          ),
+                        ),
+                        Expanded(
+                          child: bottomButton(
+                            text: AppLocalizations.of(context)!
+                                .textContinue
+                                .toUpperCase(),
+                            onTap: () {
+                              Get.back();
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   )
                 ],

@@ -752,5 +752,6 @@
 "textE105": "Không thể tìm thông tin GIAO DỊCH BÁN HÀNG, vui lòng thử lại sau.",
 "textWarning": "Cảnh báo",
  "textE120": "ID cuộc gọi hợp đồng thoại được sử dụng cho yêu cầu khác, vui lòng kiểm tra lại và sử dụng ID cuộc gọi khác.",
-"textOTTServiceHasBeenActive": "OTT service đã được kích hoạt không được bỏ chọn"
+"textOTTServiceHasBeenActive": "OTT service đã được kích hoạt không được bỏ chọn",
+"textDownload": "Tải về"
 }
