@@ -1,10 +1,13 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/customer_information_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/change_plan/information/infor_change_plan_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/date_cancel_service/date_cancel_service.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/date_cancel_service/date_cancel_service_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/request_detail/request_detail_logic.dart';
+import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +35,8 @@ class PDFPreviewLogic extends GetxController {
   String note = '';
   String newPlan = '';
   int requestId = 0;
+  RxDouble progessValue = 0.0.obs;
+  String cusFullName = "";
 
   PDFPreviewLogic({required this.context});
 
@@ -48,6 +53,17 @@ class PDFPreviewLogic extends GetxController {
       return;
     } else if (type == PDFType.MAIN || type == PDFType.LENDING) {
       contractId = data[1];
+      bool isExitRequestDetailLogic = Get.isRegistered<RequestDetailLogic>();
+      if (isExitRequestDetailLogic) {
+        RequestDetailLogic requestDetailLogic = Get.find();
+        cusFullName = requestDetailLogic.requestModel.customerModel.fullName;
+      }
+      bool isExitCustomerInformationLogic =
+          Get.isRegistered<CustomerInformationLogic>();
+      if (isExitCustomerInformationLogic) {
+        CustomerInformationLogic customerInformationLogic = Get.find();
+        cusFullName = customerInformationLogic.customer.fullName;
+      }
       bool isExit = Get.isRegistered<InforChangePlanLogic>();
       if (isExit) {
         InforChangePlanLogic inforChangePlanLogic = Get.find();
@@ -111,6 +127,38 @@ class PDFPreviewLogic extends GetxController {
         },
       );
     } catch (e) {
+      throw Exception('Error parsing asset file!');
+    }
+  }
+
+  downloadPDF() async {
+    // To open from assets, you can copy them to the app storage folder, and the access them "locally"
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
+    _onLoading(context);
+    progessValue.value = 0;
+    try {
+      ApiUtil.getInstance()!.downloadPDF(
+        url: ApiEndPoints.API_CONTRACT_PREVIEW
+            .replaceAll("id", contractId.toString()),
+        params: {"type": type},
+        onProgress: (value) {
+          progessValue.value = value * 100;
+        },
+        onSuccess: (response) async {
+          Get.back();
+          bytesPDF = response.data;
+          writeLogToFile(bytesPDF!);
+        },
+        onError: (error) {
+          Get.back();
+        },
+      );
+    } catch (e) {
+      Get.back();
       throw Exception('Error parsing asset file!');
     }
   }
@@ -215,5 +263,46 @@ class PDFPreviewLogic extends GetxController {
       return AppLocalizations.of(context)!.textCancellationRequestForm;
     }
     return '---';
+  }
+
+  void writeLogToFile(Uint8List bytes) async {
+    final directory = Platform.isAndroid
+        ? Directory("/storage/emulated/0/Download") //FOR ANDROID
+        : await getApplicationDocumentsDirectory(); //FOR iOS
+    final file = File(
+        '${directory.path}/${type == PDFType.MAIN ? AppLocalizations.of(context)!.textMainContract : AppLocalizations.of(context)!.textLendingContract}_$cusFullName.pdf');
+    await file.writeAsBytes(bytes.toList());
+    // ignore: use_build_context_synchronously
+    Common.showToastCenter(
+        AppLocalizations.of(context)!.textDownloadContractSuccessfully,
+        context);
+  }
+
+  void _onLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        var height = MediaQuery.of(context).size.height;
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: Column(
+            children: [
+              const Expanded(child: SizedBox()),
+              LoadingCirculApi(),
+              const SizedBox(
+                height: 10,
+              ),
+              Obx(() => Text(
+                    "${progessValue.value.toInt()}%",
+                    style: const TextStyle(color: Colors.yellow),
+                  )),
+              const Expanded(child: SizedBox()),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

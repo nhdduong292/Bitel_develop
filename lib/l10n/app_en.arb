@@ -765,5 +765,7 @@
   "textE105": "Can not find SALE TRANS information, please try again later.",
   "textWarning": "Warning",
   "textE120": "Voice contract call ID is used for other request, please check it again and use other call ID.",
-  "textOTTServiceHasBeenActive": "OTT service has been activated, not unchecked"
+  "textOTTServiceHasBeenActive": "OTT service has been activated, not unchecked",
+  "textDownload": "Download",
+   "textDownloadContractSuccessfully": "Download contract successfully"
 }

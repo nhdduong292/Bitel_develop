@@ -77,6 +77,34 @@ class ApiUtil {
     });
   }
 
+  Future<void> downloadPDF({
+    required String url,
+    Map<String, dynamic> params = const {},
+    required Function onProgress,
+    required Function(Response success) onSuccess,
+    required Function(dynamic error) onError,
+  }) async {
+    String token = await SharedPreferenceUtil.getToken();
+    if (token.isNotEmpty) {
+      dio!.options.headers['Authorization'] = 'Bearer ${token}';
+    }
+    dio!.get(
+      url,
+      onReceiveProgress: (count, total) {
+        onProgress(count / total);
+      },
+      queryParameters: params,
+      options: Options(
+        responseType: ResponseType.bytes,
+        followRedirects: false,
+      ),
+    ).then((res) {
+      if (onSuccess != null) onSuccess(res);
+    }).catchError((error) {
+      if (onError != null) onError(error);
+    });
+  }
+
   Future<void> postPDF({
     required String url,
     Map<String, dynamic> params = const {},
@@ -104,8 +132,6 @@ class ApiUtil {
       if (onError != null) onError(error);
     });
   }
-
-
 
   Future<void> put({
     required String url,
