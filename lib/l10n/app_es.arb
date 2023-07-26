@@ -121,6 +121,7 @@
   "hintPrecinct": "Elegir Distrito",
   "textAddress": "Dirección",
   "hintAddress": "Elegir Dirección",
+  "textCancelDeploy": "Cancelar",
   "textCancel": "Cancelado",
   "textSurvey": "Encuesta",
   "textAddNewContact": "Agregar nuevo contrato",
@@ -759,5 +760,6 @@
 "textOTTServiceHasBeenActive": "El servicio OTT ha sido activado, no desmarcado",
 "textDownload": "Descargar",
 "textDownloadContractSuccessfully": "Descargar contrato con éxito",
-"textDownloadContractPreview": "Descargar vista previa del contrato"
+"textDownloadContractPreview": "Descargar vista previa del contrato",
+"textTheContractIsAlreadySigned": "El contrato ya está firmado y ¿Todavía desea cancelar el contrato?"
 }

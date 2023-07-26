@@ -122,6 +122,7 @@
   "textAddress": "Địa chỉ",
   "hintAddress": "Chọn Địa chỉ",
   "textCancel": "Hủy",
+  "textCancelDeploy": "Hủy",
   "textSurvey": "Khảo sát",
   "textAddNewContact": "Thêm liên hệ mới",
   "textTitleSurveySuccessful": "Khảo sát trực tuyến thành công",
@@ -758,5 +759,6 @@
 "textOTTServiceHasBeenActive": "OTT service đã được kích hoạt không được bỏ chọn",
 "textDownload": "Tải về",
 "textDownloadContractSuccessfully": "Tải xuống hợp đồng thành công",
-"textDownloadContractPreview": "Tải xuống bản xem trước hợp đồng"
+"textDownloadContractPreview": "Tải xuống bản xem trước hợp đồng",
+"textTheContractIsAlreadySigned": "Hợp đồng đã được ký kết và Bạn vẫn muốn hủy hợp đồng?"
 }
