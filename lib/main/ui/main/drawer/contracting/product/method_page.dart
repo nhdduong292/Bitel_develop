@@ -41,8 +41,9 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Visibility(
-                visible: controller.isShowVoiceContract,
-                child: _voiceContract(context: context, controller: controller)),
+                  visible: controller.isShowVoiceContract,
+                  child:
+                      _voiceContract(context: context, controller: controller)),
               Container(
                 margin: const EdgeInsets.only(left: 15, right: 15),
                 padding: const EdgeInsets.only(top: 15),
@@ -672,6 +673,21 @@ Widget _itemMethod(
                       .copyWith(fontSize: 12, fontWeight: FontWeight.w500),
                 ),
               ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
+            decoration: BoxDecoration(
+              color: AppColors.colorSubContent.withOpacity(0.07),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Text(
+              Common.numberFormat(reason.feeInstallation),
+              style: const TextStyle(
+                  fontSize: 16,
+                  fontFamily: 'Barlow',
+                  color: AppColors.colorText3,
+                  fontWeight: FontWeight.w700),
             ),
           ),
         ],
