@@ -42,11 +42,11 @@ class ApiInterceptors extends InterceptorsWrapper {
   }
 
   void writeLogToFile(String log) async {
-    final directory = Platform.isAndroid
-        ? Directory("/storage/emulated/0/Documents") //FOR ANDROID
-        : await getApplicationDocumentsDirectory(); //FOR iOS
-    final file = File('${directory.path}/logBitel.txt');
-    await file.writeAsString('$log\n', mode: FileMode.append);
+    // final directory = Platform.isAndroid
+    //     ? Directory("/storage/emulated/0/Documents") //FOR ANDROID
+    //     : await getApplicationDocumentsDirectory(); //FOR iOS
+    // final file = File('${directory.path}/logBitel.txt');
+    // await file.writeAsString('$log\n', mode: FileMode.append);
   }
 
   @override

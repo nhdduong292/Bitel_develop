@@ -207,15 +207,18 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                       ),
                     ),
                   ),
-                  customRadioMutiple(
-                      width: width,
-                      text: AppLocalizations.of(context)!
-                          .textScheduleImplementationDate,
-                      check: controller.checkAppointmentDate,
-                      changeValue: (value) {
-                        controller.checkAppointmentDate.value = value;
-                        controller.isActiveUpdate = value;
-                      }),
+                  Visibility(
+                    visible: controller.isShowAppointment(),
+                    child: customRadioMutiple(
+                        width: width,
+                        text: AppLocalizations.of(context)!
+                            .textScheduleImplementationDate,
+                        check: controller.checkAppointmentDate,
+                        changeValue: (value) {
+                          controller.checkAppointmentDate.value = value;
+                          controller.isActiveUpdate = value;
+                        }),
+                  ),
                   Obx(() => Visibility(
                         visible: controller.checkAppointmentDate.value,
                         child: Column(

@@ -1194,4 +1194,11 @@ class CustomerInformationLogic extends GetxController {
     datePicker = picked;
     update();
   }
+
+  bool isShowAppointment() {
+    if (statusContract == ContractStatus.Change_plan) {
+      return false;
+    }
+    return true;
+  }
 }
