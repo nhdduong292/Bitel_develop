@@ -193,8 +193,9 @@ class DialogCancelRequest extends GetWidget {
                     color: controller.checkValidate(context)
                         ? const Color(0xFF415263).withOpacity(0.2)
                         : null,
-                    text:
-                        AppLocalizations.of(context)!.textCancel.toUpperCase(),
+                    text: AppLocalizations.of(context)!
+                        .textCancelDeploy
+                        .toUpperCase(),
                     onTap: () {
                       if (controller.checkValidate(context)) return;
                       _onLoading(context);

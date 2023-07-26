@@ -50,6 +50,20 @@ class Common {
     }
   }
 
+  static String formatDatePeru(DateTime? date) {
+    if (date == null) {
+      return "";
+    }
+    // Độ chênh lệch múi giờ giữa Peru và Việt Nam (đơn vị là giờ)
+    double timeZoneOffsetPeru = -5.0; // Peru có múi giờ UTC-5
+
+    // Áp dụng độ chênh lệch múi giờ cho thời gian hiện tại của Việt Nam
+    DateTime nowInPeru =
+        date.toUtc().add(Duration(hours: timeZoneOffsetPeru.toInt()));
+    // Tạo đối tượng DateFormat cho định dạng mong muốn
+    return nowInPeru.toIso8601String();
+  }
+
   static String fromDate(DateTime date, format) {
     try {
       String dateString = DateFormat(format).format(date);

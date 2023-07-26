@@ -320,7 +320,7 @@ class CustomerInformationLogic extends GetxController {
       "receiveFromBitel": checkOption4.value,
       "ottServices": listRequestOTT,
       "appointmentTime":
-          checkAppointmentDate.value ? datePicker?.toIso8601String() : null,
+          checkAppointmentDate.value ? Common.formatDatePeru(datePicker) : null,
       "appointmentReason":
           checkAppointmentDate.value ? appointmentReason.trim() : null
     };
@@ -387,7 +387,7 @@ class CustomerInformationLogic extends GetxController {
       "receiveFromBitel": checkOption4.value,
       "ottServices": listRequestOTT,
       "appointmentTime":
-          checkAppointmentDate.value ? datePicker?.toIso8601String() : null,
+          checkAppointmentDate.value ? Common.formatDatePeru(datePicker) : null,
       "appointmentReason":
           checkAppointmentDate.value ? appointmentReason.trim() : null
     };

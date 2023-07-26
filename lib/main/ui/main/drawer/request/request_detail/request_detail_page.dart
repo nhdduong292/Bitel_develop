@@ -776,7 +776,7 @@ class RequestDetailPage extends GetWidget {
                                         isBoxShadow: true,
                                         color: Colors.white,
                                         text: AppLocalizations.of(context)!
-                                            .textCancel,
+                                            .textCancelDeploy,
                                         onTap: () {
                                           if (controller.requestModel.status ==
                                               RequestStatus.DEPLOYING) {
@@ -919,7 +919,7 @@ class RequestDetailPage extends GetWidget {
                                             isBoxShadow: true,
                                             color: Colors.white,
                                             text: AppLocalizations.of(context)!
-                                                .textCancel,
+                                                .textCancelDeploy,
                                             onTap: () {
                                               showDialogCancelRequest(context,
                                                   controller.requestModel.id);
