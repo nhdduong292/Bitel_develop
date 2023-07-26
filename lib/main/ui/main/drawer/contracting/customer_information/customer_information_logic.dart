@@ -116,6 +116,14 @@ class CustomerInformationLogic extends GetxController {
 
   RxDouble progessValue = 0.0.obs;
   Uint8List? bytesPDF;
+  String appointmentDate = '';
+  String appointmentReason = '';
+  TextEditingController tfNote = TextEditingController();
+  FocusNode appointmenFocusNode = FocusNode();
+  DateTime? datePicker;
+  var fromDate = "".obs;
+  var toDate = "".obs;
+  var checkAppointmentDate = false.obs;
 
   List<RequestOTTServiceModel>? listRequestOTT;
 
@@ -310,7 +318,11 @@ class CustomerInformationLogic extends GetxController {
       "receiveInfoByMail": checkOption2.value,
       "receiveFromThirdParty": checkOption3.value,
       "receiveFromBitel": checkOption4.value,
-      "ottServices": listRequestOTT
+      "ottServices": listRequestOTT,
+      "appointmentTime":
+          checkAppointmentDate.value ? datePicker?.toIso8601String() : null,
+      "appointmentReason":
+          checkAppointmentDate.value ? appointmentReason.trim() : null
     };
     ApiUtil.getInstance()!.post(
       url: ApiEndPoints.API_CREATE_CONTRACT,
@@ -373,7 +385,11 @@ class CustomerInformationLogic extends GetxController {
       "receiveInfoByMail": checkOption2.value,
       "receiveFromThirdParty": checkOption3.value,
       "receiveFromBitel": checkOption4.value,
-      "ottServices": listRequestOTT
+      "ottServices": listRequestOTT,
+      "appointmentTime":
+          checkAppointmentDate.value ? datePicker?.toIso8601String() : null,
+      "appointmentReason":
+          checkAppointmentDate.value ? appointmentReason.trim() : null
     };
     ApiUtil.getInstance()!.put(
       url: "${ApiEndPoints.API_CREATE_CONTRACT}/$contractRequestId",
@@ -461,6 +477,17 @@ class CustomerInformationLogic extends GetxController {
       Common.showToastCenter(
           AppLocalizations.of(context)!.textNotEmptyAddress, context);
       return true;
+    } else if (checkAppointmentDate.value) {
+      if (appointmentDate.isEmpty) {
+        Common.showToastCenter(
+            AppLocalizations.of(context)!.textCannotBeBlank, context);
+        return true;
+      } else if (appointmentReason.trim().isEmpty) {
+        appointmenFocusNode.requestFocus();
+        Common.showToastCenter(
+            AppLocalizations.of(context)!.textCannotBeBlank, context);
+        return true;
+      }
     }
     return false;
   }
@@ -1150,5 +1177,21 @@ class CustomerInformationLogic extends GetxController {
     Common.showToastCenter(
         AppLocalizations.of(context)!.textDownloadContractSuccessfully,
         context);
+  }
+
+  void setNote(String note) {
+    appointmentReason = note;
+    update();
+  }
+
+  void setFromDate(DateTime picked) {
+    fromDate.value = DateFormat('dd/MM/yyyy HH:mm:ss').format(picked);
+    update();
+  }
+
+  void setToDate(DateTime picked) {
+    appointmentDate = DateFormat('dd/MM/yyyy HH:mm:ss').format(picked);
+    datePicker = picked;
+    update();
   }
 }
