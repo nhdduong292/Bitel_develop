@@ -122,6 +122,7 @@
   "textAddress": "Địa chỉ",
   "hintAddress": "Chọn Địa chỉ",
   "textCancel": "Hủy",
+  "textCancelDeploy": "Hủy",
   "textSurvey": "Khảo sát",
   "textAddNewContact": "Thêm liên hệ mới",
   "textTitleSurveySuccessful": "Khảo sát trực tuyến thành công",
@@ -754,5 +755,6 @@
  "textE120": "ID cuộc gọi hợp đồng thoại được sử dụng cho yêu cầu khác, vui lòng kiểm tra lại và sử dụng ID cuộc gọi khác.",
 "textOTTServiceHasBeenActive": "OTT service đã được kích hoạt không được bỏ chọn",
 "textDownload": "Tải về",
-"textDownloadContractSuccessfully": "Tải xuống hợp đồng thành công"
+"textDownloadContractSuccessfully": "Tải xuống hợp đồng thành công",
+"textTheContractIsAlreadySigned": "Hợp đồng đã được ký kết và Bạn vẫn muốn hủy hợp đồng?"
 }

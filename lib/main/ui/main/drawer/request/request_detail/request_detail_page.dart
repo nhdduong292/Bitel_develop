@@ -774,8 +774,28 @@ class RequestDetailPage extends GetWidget {
                                         text: AppLocalizations.of(context)!
                                             .textCancel,
                                         onTap: () {
-                                          showDialogCancelRequest(context,
-                                              controller.requestModel.id);
+                                          if (controller.requestModel.status ==
+                                              RequestStatus.DEPLOYING) {
+                                            showDialog(
+                                                barrierDismissible: false,
+                                                context: context,
+                                                builder: (context) {
+                                                  return WarningCancelDialog(
+                                                      onContinue: () {
+                                                        showDialogCancelRequest(
+                                                            context,
+                                                            controller
+                                                                .requestModel
+                                                                .id);
+                                                      },
+                                                      text: AppLocalizations.of(
+                                                              context)!
+                                                          .textTheContractIsAlreadySigned);
+                                                });
+                                          } else {
+                                            showDialogCancelRequest(context,
+                                                controller.requestModel.id);
+                                          }
                                         })),
                               ),
                               Visibility(
@@ -1058,6 +1078,78 @@ class ChooseProductAgainDialog extends Dialog {
           ],
         ),
       ]),
+    );
+  }
+}
+
+class WarningCancelDialog extends Dialog {
+  String text;
+  Function onContinue;
+
+  WarningCancelDialog(
+      {super.key, required this.text, required this.onContinue});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 22,
+            ),
+            SvgPicture.asset(AppImages.icWarningNew),
+            const SizedBox(
+              height: 15,
+            ),
+            Text(
+              AppLocalizations.of(context)!.textWarning,
+              style: AppStyles.rF7A55A_13_500,
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            const DottedLine(
+              dashColor: AppColors.colorLineDash,
+              dashGapLength: 3,
+              dashLength: 4,
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 30, right: 30),
+              child: Text(
+                text,
+                style: AppStyles.r15,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                    child: bottomButtonV2(
+                        text: AppLocalizations.of(context)!.textNo,
+                        onTap: () {
+                          Get.back();
+                        })),
+                Expanded(
+                    child: bottomButton(
+                        text: AppLocalizations.of(context)!.textYes,
+                        onTap: () {
+                          Get.back();
+                          onContinue();
+                        })),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            )
+          ],
+        ),
+      ),
     );
   }
 }

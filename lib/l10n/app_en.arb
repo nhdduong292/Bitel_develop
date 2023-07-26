@@ -122,6 +122,7 @@
   "textAddress": "Address",
   "hintAddress": "Choose Address",
   "textCancel": "Cancel",
+  "textCancelDeploy": "Hủy",
   "textSurvey": "Survey",
   "textAddNewContact": "Add new contact",
   "textTitleSurveySuccessful": "Survey online is successful",
@@ -767,5 +768,6 @@
   "textE120": "Voice contract call ID is used for other request, please check it again and use other call ID.",
   "textOTTServiceHasBeenActive": "OTT service has been activated, not unchecked",
   "textDownload": "Download",
-   "textDownloadContractSuccessfully": "Download contract successfully"
+   "textDownloadContractSuccessfully": "Download contract successfully",
+   "textTheContractIsAlreadySigned": "The contract is already signed and Do you  still want to cancel contract?"
 }
