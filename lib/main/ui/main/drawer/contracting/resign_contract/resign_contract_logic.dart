@@ -1,8 +1,11 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:bitel_ventas/main/ui/main/drawer/request/request_detail/request_detail_logic.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
@@ -24,6 +27,10 @@ class ReSignContractLogic extends GetxController {
   String voiceContractCallId = "";
   int contractId = 0;
 
+  RxDouble progessValue = 0.0.obs;
+  Uint8List? bytesPDF;
+
+  String cusFullName = "";
   RequestDetailLogic requestDetailLogic = Get.find();
 
   ReSignContractLogic({required this.context});
@@ -33,12 +40,18 @@ class ReSignContractLogic extends GetxController {
     // TODO: implement onInit
     super.onInit();
 
-    contractId = requestDetailLogic.requestModel.id;
+    contractId = requestDetailLogic.requestModel.contractModel.contractId;
     paymentMethod = requestDetailLogic.requestModel.paymentMethod;
     isVoiceContract = requestDetailLogic.requestModel.isVoiceContract;
     voiceContractCallId = requestDetailLogic.requestModel.callId.toString();
     if (isVoiceContract) {
       paymentMethod = PaymentType.BANK_CODE;
+    }
+
+    bool isExit = Get.isRegistered<RequestDetailLogic>();
+    if (isExit) {
+      RequestDetailLogic requestDetailLogic = Get.find();
+      cusFullName = requestDetailLogic.requestModel.customerModel.fullName;
     }
     bool isExitChooseProduct = Get.isRegistered<ProductPaymentMethodLogic>();
     if (isExitChooseProduct) {
@@ -104,5 +117,90 @@ class ReSignContractLogic extends GetxController {
         );
       },
     );
+  }
+
+  void _onLoadingDownload(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        var height = MediaQuery.of(context).size.height;
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: Column(
+            children: [
+              const Expanded(child: SizedBox()),
+              LoadingCirculApi(),
+              const SizedBox(
+                height: 10,
+              ),
+              Obx(() => Text(
+                    "${progessValue.value.toInt()}%",
+                    style: const TextStyle(color: Colors.yellow),
+                  )),
+              const Expanded(child: SizedBox()),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  downloadPDF() async {
+    // To open from assets, you can copy them to the app storage folder, and the access them "locally"
+    String type = "";
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
+    if (checkMainContract.value) {
+      type = PDFType.MAIN;
+    } else {
+      type = PDFType.LENDING;
+    }
+    _onLoadingDownload(context);
+    progessValue.value = 0;
+    try {
+      ApiUtil.getInstance()!.downloadPDF(
+        url: ApiEndPoints.API_CONTRACT_PREVIEW
+            .replaceAll("id", contractId.toString()),
+        params: {"type": type},
+        onProgress: (value) {
+          progessValue.value = value * 100;
+        },
+        onSuccess: (response) async {
+          Get.back();
+          bytesPDF = response.data;
+          writeLogToFile(bytesPDF!);
+        },
+        onError: (error) {
+          Get.back();
+        },
+      );
+    } catch (e) {
+      Get.back();
+      throw Exception('Error parsing asset file!');
+    }
+  }
+
+  void writeLogToFile(Uint8List bytes) async {
+    String type = "";
+    if (checkMainContract.value) {
+      type = PDFType.MAIN;
+    } else {
+      type = PDFType.LENDING;
+    }
+    final directory = Platform.isAndroid
+        ? Directory("/storage/emulated/0/Download") //FOR ANDROID
+        : await getApplicationDocumentsDirectory(); //FOR iOS
+    final file = File(
+        '${directory.path}/${type == PDFType.MAIN ? AppLocalizations.of(context)!.textMainContract : AppLocalizations.of(context)!.textLendingContract}_$cusFullName.pdf');
+    await file.writeAsBytes(bytes.toList());
+    // ignore: use_build_context_synchronously
+    Common.showToastCenter(
+        AppLocalizations.of(context)!.textDownloadContractSuccessfully,
+        context);
   }
 }

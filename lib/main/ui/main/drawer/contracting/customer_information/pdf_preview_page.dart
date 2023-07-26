@@ -186,16 +186,6 @@ class PDFPreviewPage extends GetView<PDFPreviewLogic> {
                     child: Row(
                       children: [
                         Expanded(
-                          child: bottomButtonV2(
-                            text: AppLocalizations.of(context)!
-                                .textDownload
-                                .toUpperCase(),
-                            onTap: () {
-                              controller.downloadPDF();
-                            },
-                          ),
-                        ),
-                        Expanded(
                           child: bottomButton(
                             text: AppLocalizations.of(context)!
                                 .textContinue

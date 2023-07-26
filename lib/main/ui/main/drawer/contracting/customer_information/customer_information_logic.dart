@@ -114,6 +114,9 @@ class CustomerInformationLogic extends GetxController {
   bool isVoiceContract = false;
   String voiceContractCallId = "";
 
+  RxDouble progessValue = 0.0.obs;
+  Uint8List? bytesPDF;
+
   List<RequestOTTServiceModel>? listRequestOTT;
 
   @override
@@ -1062,5 +1065,90 @@ class CustomerInformationLogic extends GetxController {
       Get.back();
       Common.showToastCenter(e.toString(), context);
     }
+  }
+
+  void _onLoadingDownload(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        var height = MediaQuery.of(context).size.height;
+        return Dialog(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: Column(
+            children: [
+              const Expanded(child: SizedBox()),
+              LoadingCirculApi(),
+              const SizedBox(
+                height: 10,
+              ),
+              Obx(() => Text(
+                    "${progessValue.value.toInt()}%",
+                    style: const TextStyle(color: Colors.yellow),
+                  )),
+              const Expanded(child: SizedBox()),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  downloadPDF() async {
+    // To open from assets, you can copy them to the app storage folder, and the access them "locally"
+    String type = "";
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
+    if (checkMainContract.value) {
+      type = PDFType.MAIN;
+    } else {
+      type = PDFType.LENDING;
+    }
+    _onLoadingDownload(context);
+    progessValue.value = 0;
+    try {
+      ApiUtil.getInstance()!.downloadPDF(
+        url: ApiEndPoints.API_CONTRACT_PREVIEW
+            .replaceAll("id", contract.contractId.toString()),
+        params: {"type": type},
+        onProgress: (value) {
+          progessValue.value = value * 100;
+        },
+        onSuccess: (response) async {
+          Get.back();
+          bytesPDF = response.data;
+          writeLogToFile(bytesPDF!);
+        },
+        onError: (error) {
+          Get.back();
+        },
+      );
+    } catch (e) {
+      Get.back();
+      throw Exception('Error parsing asset file!');
+    }
+  }
+
+  void writeLogToFile(Uint8List bytes) async {
+    String type = "";
+    if (checkMainContract.value) {
+      type = PDFType.MAIN;
+    } else {
+      type = PDFType.LENDING;
+    }
+    final directory = Platform.isAndroid
+        ? Directory("/storage/emulated/0/Download") //FOR ANDROID
+        : await getApplicationDocumentsDirectory(); //FOR iOS
+    final file = File(
+        '${directory.path}/${type == PDFType.MAIN ? AppLocalizations.of(context)!.textMainContract : AppLocalizations.of(context)!.textLendingContract}_${customer.fullName}.pdf');
+    await file.writeAsBytes(bytes.toList());
+    // ignore: use_build_context_synchronously
+    Common.showToastCenter(
+        AppLocalizations.of(context)!.textDownloadContractSuccessfully,
+        context);
   }
 }

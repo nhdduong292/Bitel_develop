@@ -163,7 +163,19 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
             )
           ]),
         ),
-        Container(
+        const SizedBox(
+          height: 20,
+        ),
+        InkWell(
+          onTap: () {
+            controller.downloadPDF();
+          },
+          child: Text(AppLocalizations.of(context)!.textDownloadContractPreview,
+              style: const TextStyle(
+                  color: AppColors.colorUnderText,
+                  decoration: TextDecoration.underline)),
+        ),
+        SizedBox(
           width: width,
           // margin: EdgeInsets.only(left: 15, right: 15),
           child: Obx(
@@ -178,11 +190,14 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
                       if (isSuccessMain) {
                         controller.signContractVoiceContract(
                             ValidateFingerStatus.LENDING, (isSuccessLending) {
-                          Get.toNamed(RouteConfig.ftthContracting, arguments: [
-                            controller.contractRequestId != 0
-                                ? controller.contractRequestId
-                                : controller.contract.contractId,
-                          ]);
+                          if (isSuccessLending) {
+                            Get.toNamed(RouteConfig.ftthContracting,
+                                arguments: [
+                                  controller.contractRequestId != 0
+                                      ? controller.contractRequestId
+                                      : controller.contract.contractId,
+                                ]);
+                          }
                         });
                       }
                     });

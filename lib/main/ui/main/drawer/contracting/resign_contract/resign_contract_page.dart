@@ -1,12 +1,5 @@
-import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/customer_information_logic.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/pdf_preview_logic.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/view_item/contract_information/contract_information.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/view_item/contract_preview/contract_preview.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/view_item/additional_information/additional_information.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/contracting/customer_information/view_item/contract_uploading/contract_uploading_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/resign_contract/resign_contract_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
-import 'package:dio/dio.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,7 +9,6 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../../../res/app_colors.dart';
 import '../../../../../../res/app_images.dart';
 import '../../../../../../res/app_styles.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../../../router/route_config.dart';
 import '../../../../../utils/values.dart';
@@ -256,6 +248,20 @@ class ReSignContractPage extends GetView {
                               )
                             ]),
                           ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              controller.downloadPDF();
+                            },
+                            child: Text(
+                                AppLocalizations.of(context)!
+                                    .textDownloadContractPreview,
+                                style: const TextStyle(
+                                    color: AppColors.colorUnderText,
+                                    decoration: TextDecoration.underline)),
+                          ),
                           Container(
                             width: width - 62,
                             margin: const EdgeInsets.only(left: 31, right: 31),
@@ -273,11 +279,13 @@ class ReSignContractPage extends GetView {
                                           controller.signContract(
                                               ValidateFingerStatus.LENDING,
                                               (isSuccessLending) {
-                                            Get.toNamed(
-                                                RouteConfig.ftthContracting,
-                                                arguments: [
-                                                  controller.contractId,
-                                                ]);
+                                            if (isSuccessLending) {
+                                              Get.toNamed(
+                                                  RouteConfig.ftthContracting,
+                                                  arguments: [
+                                                    controller.contractId,
+                                                  ]);
+                                            }
                                           });
                                         }
                                       });
