@@ -780,24 +780,22 @@ class RequestDetailPage extends GetWidget {
                                         onTap: () {
                                           if (controller.requestModel.status ==
                                               RequestStatus.DEPLOYING) {
-                                            // showDialog(
-                                            //     barrierDismissible: false,
-                                            //     context: context,
-                                            //     builder: (context) {
-                                            //       return WarningCancelDialog(
-                                            //           onContinue: () {
-                                            //             showDialogCancelRequest(
-                                            //                 context,
-                                            //                 controller
-                                            //                     .requestModel
-                                            //                     .id);
-                                            //           },
-                                            //           text: AppLocalizations.of(
-                                            //                   context)!
-                                            //               .textTheContractIsAlreadySigned);
-                                            //     });
-                                            showDialogCancelRequest(context,
-                                                controller.requestModel.id);
+                                            showDialog(
+                                                barrierDismissible: false,
+                                                context: context,
+                                                builder: (context) {
+                                                  return WarningCancelDialog(
+                                                      onContinue: () {
+                                                        showDialogCancelRequest(
+                                                            context,
+                                                            controller
+                                                                .requestModel
+                                                                .id);
+                                                      },
+                                                      text: AppLocalizations.of(
+                                                              context)!
+                                                          .textTheContractIsAlreadySigned);
+                                                });
                                           } else {
                                             showDialogCancelRequest(context,
                                                 controller.requestModel.id);

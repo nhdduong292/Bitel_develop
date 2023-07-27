@@ -1201,4 +1201,11 @@ class CustomerInformationLogic extends GetxController {
     }
     return true;
   }
+
+  bool isShowDownload() {
+    if (statusContract == ContractStatus.Change_plan) {
+      return false;
+    }
+    return true;
+  }
 }

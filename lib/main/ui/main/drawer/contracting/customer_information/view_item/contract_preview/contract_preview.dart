@@ -163,17 +163,25 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
             )
           ]),
         ),
-        const SizedBox(
-          height: 20,
-        ),
-        InkWell(
-          onTap: () {
-            controller.downloadPDF();
-          },
-          child: Text(AppLocalizations.of(context)!.textDownloadContractPreview,
-              style: const TextStyle(
-                  color: AppColors.colorUnderText,
-                  decoration: TextDecoration.underline)),
+        Visibility(
+          visible: controller.isShowDownload(),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              InkWell(
+                onTap: () {
+                  controller.downloadPDF();
+                },
+                child: Text(
+                    AppLocalizations.of(context)!.textDownloadContractPreview,
+                    style: const TextStyle(
+                        color: AppColors.colorUnderText,
+                        decoration: TextDecoration.underline)),
+              ),
+            ],
+          ),
         ),
         SizedBox(
           width: width,

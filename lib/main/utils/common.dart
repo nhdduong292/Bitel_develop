@@ -61,7 +61,8 @@ class Common {
     DateTime nowInPeru =
         date.toUtc().add(Duration(hours: timeZoneOffsetPeru.toInt()));
     // Tạo đối tượng DateFormat cho định dạng mong muốn
-    return nowInPeru.toIso8601String();
+    DateFormat outputFormat = DateFormat("yyyy-MM-ddTHH:mm:ss");
+    return outputFormat.format(nowInPeru);
   }
 
   static String fromDate(DateTime date, format) {
