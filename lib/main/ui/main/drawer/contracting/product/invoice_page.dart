@@ -324,7 +324,7 @@ class InvoicePage extends GetView<ProductPaymentMethodLogic> {
           bottomButton(
               text: AppLocalizations.of(context)!.textContinue,
               onTap: () {
-                if (controller.isPayBankCode) {
+                if (!controller.isPayBankCode) {
                   controller.checkBalance((value) {
                     if (value) {
                       controller.checkRegisterCustomer(context, (value) {
