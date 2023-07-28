@@ -773,5 +773,7 @@
   "textDownload": "Download",
    "textDownloadContractSuccessfully": "Download contract successfully",
    "textDownloadContractPreview": "Download contract preview",
-   "textTheContractIsAlreadySigned": "The contract is already signed and Do you  still want to cancel contract?"
+   "textTheContractIsAlreadySigned": "The contract is already signed and Do you  still want to cancel contract?",
+   "textChooseProduct": "Choose product",
+   "textContinueContracting": "Continue contracting"
 }

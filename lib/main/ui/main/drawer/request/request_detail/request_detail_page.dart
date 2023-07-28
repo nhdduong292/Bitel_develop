@@ -1055,25 +1055,21 @@ class ChooseProductAgainDialog extends Dialog {
                       AppLocalizations.of(context)!
                           .textDoYouWantToContinueOrChooseTheProduct,
                       style: AppStyles.r415263_14_600.copyWith(fontSize: 16)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                          child: bottomButtonV2(
-                              text: AppLocalizations.of(context)!.textAgain,
-                              onTap: () {
-                                Get.back();
-                                onAgain();
-                              })),
-                      Expanded(
-                          child: bottomButton(
-                              text: AppLocalizations.of(context)!.textContinue,
-                              onTap: () {
-                                Get.back();
-                                onContinue();
-                              }))
-                    ],
-                  ),
+                  bottomButton(
+                      isBoxShadow: true,
+                      color: Colors.white,
+                      text: AppLocalizations.of(context)!.textChooseProduct,
+                      onTap: () {
+                        Get.back();
+                        onAgain();
+                      }),
+                  bottomButton(
+                      text:
+                          AppLocalizations.of(context)!.textContinueContracting,
+                      onTap: () {
+                        Get.back();
+                        onContinue();
+                      }),
                   const SizedBox(
                     height: 20,
                   )
@@ -1135,7 +1131,9 @@ class WarningCancelDialog extends Dialog {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
-                    child: bottomButtonV2(
+                    child: bottomButton(
+                        isBoxShadow: true,
+                        color: Colors.white,
                         text: AppLocalizations.of(context)!.textNo,
                         onTap: () {
                           Get.back();

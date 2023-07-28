@@ -668,6 +668,8 @@ class ValidateFingerprintLogic extends GetxController {
             Get.toNamed(RouteConfig.inforTransferService, arguments: [
               transferServiceInforModel,
             ]);
+          } else {
+            resetFingerPrint();
           }
         },
       );
@@ -681,6 +683,8 @@ class ValidateFingerprintLogic extends GetxController {
             Get.toNamed(RouteConfig.cancelServiceInfor, arguments: [
               cancelServiceInforModel,
             ]);
+          } else {
+            resetFingerPrint();
           }
         },
       );
@@ -693,6 +697,8 @@ class ValidateFingerprintLogic extends GetxController {
           if (isSuccess) {
             Get.toNamed(RouteConfig.successChangePlan,
                 arguments: [changePlanInforModel]);
+          } else {
+            resetFingerPrint();
           }
         },
       );
@@ -704,6 +710,8 @@ class ValidateFingerprintLogic extends GetxController {
         (isSuccess) {
           if (isSuccess) {
             Get.back(result: fingerId);
+          } else {
+            resetFingerPrint();
           }
         },
       );
@@ -715,6 +723,8 @@ class ValidateFingerprintLogic extends GetxController {
         (isSuccess) {
           if (isSuccess) {
             Get.back(result: fingerId);
+          } else {
+            resetFingerPrint();
           }
         },
       );
@@ -726,6 +736,8 @@ class ValidateFingerprintLogic extends GetxController {
         (isSuccess) {
           if (isSuccess) {
             Get.back(result: fingerId);
+          } else {
+            resetFingerPrint();
           }
         },
       );
@@ -739,6 +751,8 @@ class ValidateFingerprintLogic extends GetxController {
             Get.toNamed(RouteConfig.ftthContracting, arguments: [
               contractId,
             ]);
+          } else {
+            resetFingerPrint();
           }
         },
       );
@@ -747,10 +761,18 @@ class ValidateFingerprintLogic extends GetxController {
         (p0) {
           if (p0) {
             Get.back(result: true);
+          } else {
+            resetFingerPrint();
           }
         },
       );
       return;
     }
+  }
+
+  void resetFingerPrint() {
+    textCapture = "";
+    listFinger.clear();
+    update();
   }
 }
