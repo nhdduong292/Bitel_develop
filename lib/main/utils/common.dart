@@ -285,16 +285,16 @@ class Common {
         showSystemErrorDialog(
             context, 'E009 ${AppLocalizations.of(context)!.textE009}');
       } else if (errorCode == 'E010') {
-        showSystemErrorDialog(
+        showSystemWarningDialog(
             context, 'E010 ${AppLocalizations.of(context)!.textE010}');
       } else if (errorCode == 'E011') {
         showSystemErrorDialog(
             context, 'E011 ${AppLocalizations.of(context)!.textE011}');
       } else if (errorCode == 'E012') {
-        showSystemErrorDialog(
+        showSystemWarningDialog(
             context, 'E012 ${AppLocalizations.of(context)!.textE012}');
       } else if (errorCode == 'E013') {
-        showSystemErrorDialog(
+        showSystemWarningDialog(
             context, 'E013 ${AppLocalizations.of(context)!.textE013}');
       } else if (errorCode == 'E014') {
         showSystemErrorDialog(
@@ -319,13 +319,13 @@ class Common {
         showSystemErrorDialog(
             context, 'E018 ${AppLocalizations.of(context)!.textE018}');
       } else if (errorCode == 'E019') {
-        showSystemErrorDialog(
+        showSystemWarningDialog(
             context, 'E019 ${AppLocalizations.of(context)!.textE019}');
       } else if (errorCode == 'E020') {
         showSystemErrorDialog(
             context, 'E020 ${AppLocalizations.of(context)!.textE020}');
       } else if (errorCode == 'E021') {
-        showSystemErrorDialog(
+        showSystemWarningDialog(
             context, 'E021 ${AppLocalizations.of(context)!.textE021}');
       } else if (errorCode == 'E022') {
         showSystemErrorDialog(
@@ -342,12 +342,12 @@ class Common {
         showSystemErrorDialog(
             context, 'E026 ${AppLocalizations.of(context)!.textE026}');
       } else if (errorCode == 'E027') {
-        showSystemErrorDialog(
+        showSystemWarningDialog(
             context, 'E027 ${AppLocalizations.of(context)!.textE027}');
       } else if (errorCode == 'E028') {
         // showSystemErrorDialog(context, AppLocalizations.of(context)!.textE028);
       } else if (errorCode == 'E029') {
-        showSystemErrorDialog(
+        showSystemWarningDialog(
             context, 'E029 ${AppLocalizations.of(context)!.textE029}');
       } else if (errorCode == 'E030') {
         showSystemErrorDialog(
@@ -411,7 +411,7 @@ class Common {
       } else if (errorCode == 'E045') {
         // showSystemErrorDialog(context, AppLocalizations.of(context)!.textE045);
       } else if (errorCode == 'E046') {
-        showSystemErrorDialog(
+        showSystemWarningDialog(
             context, 'E046 ${AppLocalizations.of(context)!.textE046}');
       } else if (errorCode == 'E047') {
         showSystemErrorDialog(
@@ -429,7 +429,7 @@ class Common {
         showSystemErrorDialog(
             context, 'E051 ${AppLocalizations.of(context)!.textE051}');
       } else if (errorCode == 'E052') {
-        showSystemErrorDialog(
+        showSystemWarningDialog(
             context, 'E052 ${AppLocalizations.of(context)!.textE052}');
       } else if (errorCode == 'E053') {
         showSystemErrorDialog(
@@ -444,7 +444,7 @@ class Common {
         showSystemErrorDialog(
             context, 'E056 ${AppLocalizations.of(context)!.textE056}');
       } else if (errorCode == 'E057') {
-        showSystemErrorDialog(
+        showSystemWarningDialog(
             context, 'E057 ${AppLocalizations.of(context)!.textE057}');
       } else if (errorCode == 'E058') {
         showSystemErrorDialog(
