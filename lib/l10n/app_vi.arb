@@ -760,5 +760,7 @@
 "textDownload": "Tải về",
 "textDownloadContractSuccessfully": "Tải xuống hợp đồng thành công",
 "textDownloadContractPreview": "Tải xuống bản xem trước hợp đồng",
-"textTheContractIsAlreadySigned": "Hợp đồng đã được ký kết và Bạn vẫn muốn hủy hợp đồng?"
+"textTheContractIsAlreadySigned": "Hợp đồng đã được ký kết và Bạn vẫn muốn hủy hợp đồng?",
+"textChooseProduct": "Chọn sản phẩm",
+"textContinueContracting": "Tiếp tục hợp đồng"
 }
