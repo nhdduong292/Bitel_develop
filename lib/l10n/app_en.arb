@@ -775,5 +775,6 @@
    "textDownloadContractPreview": "Download contract preview",
    "textTheContractIsAlreadySigned": "The contract is already signed and Do you  still want to cancel contract?",
    "textChooseProduct": "Choose product",
-   "textContinueContracting": "Continue contracting"
+   "textContinueContracting": "Continue contracting",
+    "textPaymentIsRequired": "Payment method is required"
 }

@@ -763,5 +763,6 @@
 "textDownloadContractPreview": "Descargar vista previa del contrato",
 "textTheContractIsAlreadySigned": "El contrato ya está firmado y ¿Todavía desea cancelar el contrato?",
 "textChooseProduct": "Elegir producto",
-"textContinueContracting": "Continuar contratando"
+"textContinueContracting": "Continuar contratando",
+ "textPaymentIsRequired": "Se requiere método de pago"
 }

@@ -40,6 +40,7 @@ class ReviewOrderInformationLogic extends GetxController {
   RequestDetailModel requestModel = RequestDetailModel();
 
   bool isPayBankCode = false;
+  bool isPayCash = false;
 
   int contractId = 0;
 
@@ -62,6 +63,15 @@ class ReviewOrderInformationLogic extends GetxController {
   CustomerModel customer = CustomerModel();
   List<int> listIdPromotion = [];
   BillModel billModel = BillModel();
+
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+    checkLoadingBill();
+    getWallet(context);
+    getInvoiceInfo(context);
+  }
 
   void checkLoadingBill() {
     if (!isLoadingBill && !isLoadingWallet) {
@@ -87,7 +97,8 @@ class ReviewOrderInformationLogic extends GetxController {
         isLoadingBill = false;
         checkLoadingBill();
         if (response.isSuccess) {
-          balance.value = response.data['data'] as double;
+          billModel = BillModel.fromJson(response.data['data']);
+          update();
         } else {
           print("error: ${response.status}");
         }
@@ -142,63 +153,6 @@ class ReviewOrderInformationLogic extends GetxController {
     );
   }
 
-  // void postContractInformation() async {
-  //   bool isConnect =
-  //       await ConnectionService.getInstance()?.checkConnect(context) ?? true;
-  //   if (!isConnect) {
-  //     isLoadingBill = false;
-  //     checkLoadingBill();
-  //     return;
-  //   }
-  //   isLoadingBill = true;
-  //   Map<String, dynamic> body = {
-  //     "requestId": requestModel.id,
-  //     "productId": getProduct().productId,
-  //     "reasonId": getPlanReason().id,
-  //     "packageId": getPackage().packageId,
-  //     "promotionId": listIdPromotion,
-  //     "contractType": isForcedTerm() ? "FORCED_TERM" : "UNDETERMINED",
-  //     "numOfSubscriber": 1,
-  //     "signDate": null,
-  //     "billCycle": "CYCLE6",
-  //     "changeNotification": "Email",
-  //     "printBill": "Email",
-  //     "currency": "SOL",
-  //     "language": null,
-  //     "province": null,
-  //     "district": null,
-  //     "precinct": null,
-  //     "address": null,
-  //     "phone": null,
-  //     "email": null,
-  //     "protectionFilter": null,
-  //     "receiveInfoByMail": null,
-  //     "receiveFromThirdParty": null,
-  //     "receiveFromBitel": null,
-  //     "ottServices": getJsonOTTService()
-  //   };
-  //   ApiUtil.getInstance()!.post(
-  //     url: ApiEndPoints.API_POST_CONTRACT_INFORMATION,
-  //     body: body,
-  //     onSuccess: (response) {
-  //       isLoadingBill = false;
-  //       checkLoadingBill();
-  //       if (response.isSuccess) {
-  //         billModel = BillModel.fromJson(response.data['data']);
-  //         update();
-  //         print(response.data['data']);
-  //       } else {
-  //         print("error: ${response.status}");
-  //       }
-  //     },
-  //     onError: (error) {
-  //       isLoadingBill = false;
-  //       checkLoadingBill();
-  //       // Common.showMessageError(error: error, context: context);
-  //     },
-  //   );
-  // }
-
   void checkBalance(var onSuccess) async {
     bool isConnect =
         await ConnectionService.getInstance()?.checkConnect(context) ?? true;
@@ -232,7 +186,22 @@ class ReviewOrderInformationLogic extends GetxController {
   }
 
   void checkBankCode(bool value) {
-    isPayBankCode = value;
+    if (value) {
+      isPayBankCode = true;
+      isPayCash = false;
+    } else {
+      isPayCash = true;
+      isPayBankCode = false;
+    }
     update();
+  }
+
+  bool validatePayment() {
+    if (isPayBankCode || isPayCash) {
+      return true;
+    }
+    Common.showToastCenter(
+        AppLocalizations.of(context)!.textPaymentIsRequired, context);
+    return false;
   }
 }

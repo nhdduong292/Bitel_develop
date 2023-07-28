@@ -418,8 +418,7 @@ class ReviewOrderInformationPage extends GetView<ReviewOrderInformationLogic> {
                                               controller.checkBankCode(false);
                                             },
                                             child: typePayment(
-                                                check:
-                                                    !controller.isPayBankCode,
+                                                check: controller.isPayCash,
                                                 content: AppLocalizations.of(
                                                         context)!
                                                     .textPayByCash),
@@ -446,9 +445,13 @@ class ReviewOrderInformationPage extends GetView<ReviewOrderInformationLogic> {
                         bottomButton(
                             text: AppLocalizations.of(context)!.textContinue,
                             onTap: () {
-                              if (controller.isPayBankCode) {
+                              if (!controller.validatePayment()) {
+                                return;
+                              }
+                              if (!controller.isPayBankCode) {
                                 controller.checkBalance((value) {
                                   if (value) {
+                                    Get.toNamed(RouteConfig.resignContract);
                                   } else {
                                     showDialog(
                                         context: context,
@@ -464,7 +467,9 @@ class ReviewOrderInformationPage extends GetView<ReviewOrderInformationLogic> {
                                         });
                                   }
                                 });
-                              } else {}
+                              } else {
+                                Get.toNamed(RouteConfig.resignContract);
+                              }
                             }),
                       ],
                     )),

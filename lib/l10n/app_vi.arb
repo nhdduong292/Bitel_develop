@@ -762,5 +762,6 @@
 "textDownloadContractPreview": "Tải xuống bản xem trước hợp đồng",
 "textTheContractIsAlreadySigned": "Hợp đồng đã được ký kết và Bạn vẫn muốn hủy hợp đồng?",
 "textChooseProduct": "Chọn sản phẩm",
-"textContinueContracting": "Tiếp tục hợp đồng"
+"textContinueContracting": "Tiếp tục hợp đồng",
+ "textPaymentIsRequired": "Phương thức thanh toán là bắt buộc"
 }

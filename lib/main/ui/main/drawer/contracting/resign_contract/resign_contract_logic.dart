@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:bitel_ventas/main/ui/main/drawer/contracting/resign_contract/review_order_information_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/request_detail/request_detail_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -53,15 +54,13 @@ class ReSignContractLogic extends GetxController {
       RequestDetailLogic requestDetailLogic = Get.find();
       cusFullName = requestDetailLogic.requestModel.customerModel.fullName;
     }
-    bool isExitChooseProduct = Get.isRegistered<ProductPaymentMethodLogic>();
-    if (isExitChooseProduct) {
-      ProductPaymentMethodLogic productPaymentMethodLogic = Get.find();
-      paymentMethod = productPaymentMethodLogic.isPayBankCode
+    bool isExitReviewOrderInfo =
+        Get.isRegistered<ReviewOrderInformationLogic>();
+    if (isExitReviewOrderInfo) {
+      ReviewOrderInformationLogic reviewOrderInformationLogic = Get.find();
+      paymentMethod = reviewOrderInformationLogic.isPayBankCode
           ? PaymentType.BANK_CODE
           : PaymentType.CASH;
-      isVoiceContract = productPaymentMethodLogic.checkVoiceContract.value;
-      voiceContractCallId =
-          productPaymentMethodLogic.voiceContractTextController.text.trim();
     }
   }
 
