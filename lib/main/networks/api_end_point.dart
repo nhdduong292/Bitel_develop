@@ -174,4 +174,6 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/change-plan/ott-services";
   static const String API_CHECK_OTT_CHANGE_PLAN =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/change-plan/ott-services/check";
+  static const String API_GET_INVOICE_INFO =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts/id/invoice-info";
 }

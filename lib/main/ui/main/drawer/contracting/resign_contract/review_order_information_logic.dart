@@ -41,14 +41,19 @@ class ReviewOrderInformationLogic extends GetxController {
 
   bool isPayBankCode = false;
 
+  int contractId = 0;
+
   ReviewOrderInformationLogic({required this.context});
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    var data = Get.arguments;
-    requestModel = data[0];
+    bool isExit = Get.isRegistered<RequestDetailLogic>();
+    if (isExit) {
+      RequestDetailLogic requestDetailLogic = Get.find();
+      contractId = requestDetailLogic.requestModel.contractModel.contractId;
+    }
   }
 
   var balance = (0.0).obs; // so du trong vi
@@ -64,6 +69,35 @@ class ReviewOrderInformationLogic extends GetxController {
     } else if (isLoadingBill && isLoadingWallet) {
       _onLoading(context);
     }
+  }
+
+  void getInvoiceInfo(BuildContext context) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      isLoadingBill = false;
+      checkLoadingBill();
+      return;
+    }
+    isLoadingBill = true;
+    ApiUtil.getInstance()!.get(
+      url: ApiEndPoints.API_GET_INVOICE_INFO
+          .replaceAll("id", contractId.toString()),
+      onSuccess: (response) {
+        isLoadingBill = false;
+        checkLoadingBill();
+        if (response.isSuccess) {
+          balance.value = response.data['data'] as double;
+        } else {
+          print("error: ${response.status}");
+        }
+      },
+      onError: (error) {
+        isLoadingBill = false;
+        checkLoadingBill();
+        Common.showMessageError(error: error, context: context);
+      },
+    );
   }
 
   void getWallet(BuildContext context) async {
@@ -90,51 +124,6 @@ class ReviewOrderInformationLogic extends GetxController {
         isLoadingWallet = false;
         checkLoadingBill();
         Common.showMessageError(error: error, context: context);
-      },
-    );
-  }
-
-  void checkRegisterCustomer(BuildContext context, var isSuccess) async {
-    bool isConnect =
-        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
-    if (!isConnect) {
-      return;
-    }
-    _onLoading(context);
-    ApiUtil.getInstance()!.get(
-      url: '${ApiEndPoints.API_CUSTOMER}/${requestModel.id}/',
-      onSuccess: (response) {
-        Get.back();
-        if (response.isSuccess) {
-          customer = CustomerModel.fromJson(response.data['data']);
-          isSuccess(true);
-        } else {
-          print("error: ${response.status}");
-          isSuccess(false);
-        }
-      },
-      onError: (error) {
-        Get.back();
-
-        try {
-          if (error != null) {
-            if (error is DioError &&
-                error.response!.data['errorCode'] != null) {
-              //neu tra ve code E012 la chua dang ky khach hang
-              if (error.response!.data['errorCode'] == 'E012') {
-                isSuccess(false);
-              } else {
-                Common.showMessageError(error: error, context: context);
-              }
-            } else {
-              Common.showToastCenter(
-                  AppLocalizations.of(context)!.textErrorAPI, context);
-            }
-          }
-        } catch (e) {
-          Common.showToastCenter(
-              AppLocalizations.of(context)!.textErrorAPI, context);
-        }
       },
     );
   }
@@ -240,5 +229,10 @@ class ReviewOrderInformationLogic extends GetxController {
         } catch (e) {}
       },
     );
+  }
+
+  void checkBankCode(bool value) {
+    isPayBankCode = value;
+    update();
   }
 }

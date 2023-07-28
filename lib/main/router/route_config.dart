@@ -8,6 +8,7 @@ import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/create_order/create_
 import 'package:bitel_ventas/main/ui/main/drawer/buy_anypay/order_management/order_management_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/resign_contract/resign_contract_page.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/contracting/resign_contract/review_order_information_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/after_sale_search_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/ftth/after_sale/cancel_service_pdf/cancel_service_pdf_page.dart';
@@ -102,6 +103,8 @@ class RouteConfig {
       "/menu/ftth/afterSale/transferService/pdfTransferService";
   static const String inforTransferService =
       "/menu/ftth/afterSale/transferService/inforTransferService";
+  static const String reviewOrderInfo =
+      "/menu/ftth/sale/contracting/reviewOrderInfo";
 
   ///page
   static final List<GetPage> getPages = [
@@ -145,6 +148,7 @@ class RouteConfig {
     GetPage(name: pdfTransferService, page: () => TransferServicePDF()),
     GetPage(
         name: inforTransferService, page: () => TransferServiceSuccessPage()),
+    GetPage(name: reviewOrderInfo, page: () => ReviewOrderInformationPage()),
   ];
 
   ///language

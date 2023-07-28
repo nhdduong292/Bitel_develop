@@ -983,7 +983,8 @@ class RequestDetailPage extends GetWidget {
                   arguments: [controller.requestModel, ProductStatus.ReSelect]);
             },
             onContinue: () {
-              Get.toNamed(RouteConfig.resignContract);
+              // Get.toNamed(RouteConfig.resignContract);
+              Get.toNamed(RouteConfig.reviewOrderInfo);
             },
           );
         });
