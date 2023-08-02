@@ -1358,7 +1358,6 @@ Widget _voiceContract(
                             child: TextField(
                                 controller:
                                     controller.voiceContractTextController,
-                                maxLength: 100,
                                 keyboardType: TextInputType.text,
                                 focusNode: controller.voiceContractFocusNode,
                                 style: AppStyles.r2B3A4A_12_500.copyWith(
@@ -1366,6 +1365,23 @@ Widget _voiceContract(
                                     color: AppColors.color_2B3A4A
                                         .withOpacity(0.85)),
                                 onChanged: (value) {
+                                  if (controller.voiceContractTextController
+                                          .text.length >
+                                      50) {
+                                    controller
+                                            .voiceContractTextController.text =
+                                        controller
+                                            .voiceContractTextController.text
+                                            .substring(0, 50);
+                                    controller.voiceContractTextController
+                                            .selection =
+                                        TextSelection.fromPosition(TextPosition(
+                                            offset: controller
+                                                .voiceContractTextController
+                                                .text
+                                                .length));
+                                    return;
+                                  }
                                   if (value.trim().isNotEmpty) {
                                     controller.voiceContractError = null;
                                   } else {

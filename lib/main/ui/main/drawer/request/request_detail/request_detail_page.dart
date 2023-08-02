@@ -1030,7 +1030,7 @@ class ChooseProductAgainDialog extends Dialog {
             const SizedBox(
               height: 22,
             ),
-            SvgPicture.asset(AppImages.imgNotify),
+            SvgPicture.asset(AppImages.imgCongratulations),
             const SizedBox(
               height: 15,
             ),
