@@ -104,7 +104,7 @@ class ContractModel {
     _operationCode = value;
   }
 
-  int get status => _status ?? 0;
+  int get status => _status ?? -1;
 
   String get billCycleFromCharging => _billCycleFromCharging ?? "";
 

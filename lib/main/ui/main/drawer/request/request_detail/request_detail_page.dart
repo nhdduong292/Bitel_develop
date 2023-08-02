@@ -740,7 +740,7 @@ class RequestDetailPage extends GetWidget {
                                           return buildRow([
                                             model.woType,
                                             '${AppLocalizations.of(context)!.textDateTime}: ${Common.convertDateTime(model.appointmentTime)}\n${AppLocalizations.of(context)!.textReason}: ${model.appointmentReason}',
-                                            controller.getStaffName(model),
+                                            '${controller.getStaffName(model)}\n${model.telMobile}',
                                             model.status,
                                             model.creationDate.isNotEmpty
                                                 ? Common.convertDateTime(
