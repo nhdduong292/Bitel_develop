@@ -256,126 +256,126 @@ class Common {
       String errorCode = error.response!.data['errorCode'];
       if (errorCode == 'E000') {
         showSystemErrorDialog(
-            context, 'E000 ${AppLocalizations.of(context)!.textE000}');
+            context, '[E000] ${AppLocalizations.of(context)!.textE000}');
       } else if (errorCode == 'E001') {
         showSystemErrorDialog(
-            context, 'E001 ${AppLocalizations.of(context)!.textE001}');
+            context, '[E001] ${AppLocalizations.of(context)!.textE001}');
       } else if (errorCode == 'E002') {
         showSystemErrorDialog(
-            context, 'E002 ${AppLocalizations.of(context)!.textE002}');
+            context, '[E002] ${AppLocalizations.of(context)!.textE002}');
       } else if (errorCode == 'E003') {
         showSystemErrorDialog(
-            context, 'E003 ${AppLocalizations.of(context)!.textE003}');
+            context, '[E003] ${AppLocalizations.of(context)!.textE003}');
       } else if (errorCode == 'E004') {
         showSystemErrorDialog(
-            context, 'E004 ${AppLocalizations.of(context)!.textE004}');
+            context, '[E004] ${AppLocalizations.of(context)!.textE004}');
       } else if (errorCode == 'E005') {
         showSystemErrorDialog(
-            context, 'E005 ${AppLocalizations.of(context)!.textE005}');
+            context, '[E005] ${AppLocalizations.of(context)!.textE005}');
       } else if (errorCode == 'E006') {
         showSystemErrorDialog(
-            context, 'E006 ${AppLocalizations.of(context)!.textE006}');
+            context, '[E006] ${AppLocalizations.of(context)!.textE006}');
       } else if (errorCode == 'E007') {
         showSystemErrorDialog(
-            context, 'E007 ${AppLocalizations.of(context)!.textE007}');
+            context, '[E007] ${AppLocalizations.of(context)!.textE007}');
       } else if (errorCode == 'E008') {
         showSystemErrorDialog(
-            context, 'E008 ${AppLocalizations.of(context)!.textE008}');
+            context, '[E008] ${AppLocalizations.of(context)!.textE008}');
       } else if (errorCode == 'E009') {
         showSystemErrorDialog(
-            context, 'E009 ${AppLocalizations.of(context)!.textE009}');
+            context, '[E009] ${AppLocalizations.of(context)!.textE009}');
       } else if (errorCode == 'E010') {
         showSystemWarningDialog(
-            context, 'E010 ${AppLocalizations.of(context)!.textE010}');
+            context, '[E010] ${AppLocalizations.of(context)!.textE010}');
       } else if (errorCode == 'E011') {
         showSystemErrorDialog(
-            context, 'E011 ${AppLocalizations.of(context)!.textE011}');
+            context, '[E011] ${AppLocalizations.of(context)!.textE011}');
       } else if (errorCode == 'E012') {
         showSystemWarningDialog(
-            context, 'E012 ${AppLocalizations.of(context)!.textE012}');
+            context, '[E012] ${AppLocalizations.of(context)!.textE012}');
       } else if (errorCode == 'E013') {
         showSystemWarningDialog(
-            context, 'E013 ${AppLocalizations.of(context)!.textE013}');
+            context, '[E013] ${AppLocalizations.of(context)!.textE013}');
       } else if (errorCode == 'E014') {
         showSystemErrorDialog(
-            context, 'E014 ${AppLocalizations.of(context)!.textE014}');
+            context, '[E014] ${AppLocalizations.of(context)!.textE014}');
       } else if (errorCode == 'E015') {
         showSystemErrorDialog(
-            context, 'E015 ${AppLocalizations.of(context)!.textE015}');
+            context, '[E015] ${AppLocalizations.of(context)!.textE015}');
       } else if (errorCode == 'E016') {
         isDNI
             ? showSystemWarningDialog(
-                context, 'E016 ${AppLocalizations.of(context)!.textE016}')
+                context, '[E016] ${AppLocalizations.of(context)!.textE016}')
             : showSystemWarningFingerDialog(
-                context, 'E016 ${AppLocalizations.of(context)!.textE016}', () {
+                context, '[E016] ${AppLocalizations.of(context)!.textE016}', () {
                 if (onContinue != null) {
                   onContinue();
                 }
               });
       } else if (errorCode == 'E017') {
         showSystemErrorDialog(
-            context, 'E017 ${AppLocalizations.of(context)!.textE017}');
+            context, '[E017] ${AppLocalizations.of(context)!.textE017}');
       } else if (errorCode == 'E018') {
         showSystemErrorDialog(
-            context, 'E018 ${AppLocalizations.of(context)!.textE018}');
+            context, '[E018] ${AppLocalizations.of(context)!.textE018}');
       } else if (errorCode == 'E019') {
         showSystemWarningDialog(
-            context, 'E019 ${AppLocalizations.of(context)!.textE019}');
+            context, '[E019] ${AppLocalizations.of(context)!.textE019}');
       } else if (errorCode == 'E020') {
         showSystemErrorDialog(
-            context, 'E020 ${AppLocalizations.of(context)!.textE020}');
+            context, '[E020] ${AppLocalizations.of(context)!.textE020}');
       } else if (errorCode == 'E021') {
         showSystemWarningDialog(
-            context, 'E021 ${AppLocalizations.of(context)!.textE021}');
+            context, '[E021] ${AppLocalizations.of(context)!.textE021}');
       } else if (errorCode == 'E022') {
         showSystemErrorDialog(
-            context, 'E022 ${AppLocalizations.of(context)!.textE022}');
+            context, '[E022] ${AppLocalizations.of(context)!.textE022}');
       } else if (errorCode == 'E023') {
         // showSystemErrorDialog(context, AppLocalizations.of(context)!.textE023);
       } else if (errorCode == 'E024') {
         showSystemErrorDialog(
-            context, 'E024 ${AppLocalizations.of(context)!.textE024}');
+            context, '[E024] ${AppLocalizations.of(context)!.textE024}');
       } else if (errorCode == 'E025') {
         showSystemErrorDialog(
-            context, 'E025 ${AppLocalizations.of(context)!.textE025}');
+            context, '[E025] ${AppLocalizations.of(context)!.textE025}');
       } else if (errorCode == 'E026') {
         showSystemErrorDialog(
-            context, 'E026 ${AppLocalizations.of(context)!.textE026}');
+            context, '[E026] ${AppLocalizations.of(context)!.textE026}');
       } else if (errorCode == 'E027') {
         showSystemWarningDialog(
-            context, 'E027 ${AppLocalizations.of(context)!.textE027}');
+            context, '[E027] ${AppLocalizations.of(context)!.textE027}');
       } else if (errorCode == 'E028') {
         // showSystemErrorDialog(context, AppLocalizations.of(context)!.textE028);
       } else if (errorCode == 'E029') {
         showSystemWarningDialog(
-            context, 'E029 ${AppLocalizations.of(context)!.textE029}');
+            context, '[E029] ${AppLocalizations.of(context)!.textE029}');
       } else if (errorCode == 'E030') {
         showSystemErrorDialog(
-            context, 'E030 ${AppLocalizations.of(context)!.textE030}');
+            context, '[E030] ${AppLocalizations.of(context)!.textE030}');
       } else if (errorCode == 'E031') {
         showSystemErrorDialog(
-            context, 'E031 ${AppLocalizations.of(context)!.textE031}');
+            context, '[E031] ${AppLocalizations.of(context)!.textE031}');
       } else if (errorCode == 'E032') {
         showSystemErrorDialog(
-            context, 'E032 ${AppLocalizations.of(context)!.textE032}');
+            context, '[E032] ${AppLocalizations.of(context)!.textE032}');
       } else if (errorCode == 'E033') {
         showSystemErrorDialog(
-            context, 'E033 ${AppLocalizations.of(context)!.textE033}');
+            context, '[E033] ${AppLocalizations.of(context)!.textE033}');
       } else if (errorCode == 'E034') {
         showSystemErrorDialog(
-            context, 'E034 ${AppLocalizations.of(context)!.textE034}');
+            context, '[E034] ${AppLocalizations.of(context)!.textE034}');
       } else if (errorCode == 'E035') {
         showSystemErrorDialog(
-            context, 'E035 ${AppLocalizations.of(context)!.textE035}');
+            context, '[E035] ${AppLocalizations.of(context)!.textE035}');
       } else if (errorCode == 'E036') {
         showSystemErrorDialog(
-            context, 'E036 ${AppLocalizations.of(context)!.textE036}');
+            context, '[E036] ${AppLocalizations.of(context)!.textE036}');
       } else if (errorCode == 'E037') {
         isDNI
             ? showSystemWarningDialog(
-                context, 'E037 ${AppLocalizations.of(context)!.textE037}')
+                context, '[E037] ${AppLocalizations.of(context)!.textE037}')
             : showSystemWarningFingerDialog(
-                context, 'E037 ${AppLocalizations.of(context)!.textE037}', () {
+                context, '[E037] ${AppLocalizations.of(context)!.textE037}', () {
                 if (onContinue != null) {
                   onContinue();
                 }
@@ -383,189 +383,189 @@ class Common {
       } else if (errorCode == 'E038') {
         isDNI
             ? showSystemWarningDialog(
-                context, 'E038 ${AppLocalizations.of(context)!.textE038}')
+                context, '[E038] ${AppLocalizations.of(context)!.textE038}')
             : showSystemWarningFingerDialog(
-                context, 'E038 ${AppLocalizations.of(context)!.textE038}', () {
+                context, '[E038] ${AppLocalizations.of(context)!.textE038}', () {
                 if (onContinue != null) {
                   onContinue();
                 }
               });
       } else if (errorCode == 'E039') {
         showSystemErrorDialog(
-            context, 'E039 ${AppLocalizations.of(context)!.textE039}');
+            context, '[E039] ${AppLocalizations.of(context)!.textE039}');
       } else if (errorCode == 'E040') {
         showSystemErrorDialog(
-            context, 'E040 ${AppLocalizations.of(context)!.textE040}');
+            context, '[E040] ${AppLocalizations.of(context)!.textE040}');
       } else if (errorCode == 'E041') {
         showSystemErrorDialog(
-            context, 'E041 ${AppLocalizations.of(context)!.textE041}');
+            context, '[E041] ${AppLocalizations.of(context)!.textE041}');
       } else if (errorCode == 'E042') {
         showSystemErrorDialog(
-            context, 'E042 ${AppLocalizations.of(context)!.textE042}');
+            context, '[E042] ${AppLocalizations.of(context)!.textE042}');
       } else if (errorCode == 'E043') {
         showSystemErrorDialog(
-            context, 'E043 ${AppLocalizations.of(context)!.textE043}');
+            context, '[E043] ${AppLocalizations.of(context)!.textE043}');
       } else if (errorCode == 'E044') {
         showSystemErrorDialog(
-            context, 'E044 ${AppLocalizations.of(context)!.textE044}');
+            context, '[E044] ${AppLocalizations.of(context)!.textE044}');
       } else if (errorCode == 'E045') {
         // showSystemErrorDialog(context, AppLocalizations.of(context)!.textE045);
       } else if (errorCode == 'E046') {
         showSystemWarningDialog(
-            context, 'E046 ${AppLocalizations.of(context)!.textE046}');
+            context, '[E046] ${AppLocalizations.of(context)!.textE046}');
       } else if (errorCode == 'E047') {
         showSystemErrorDialog(
-            context, 'E047 ${AppLocalizations.of(context)!.textE047}');
+            context, '[E047] ${AppLocalizations.of(context)!.textE047}');
       } else if (errorCode == 'E048') {
         showSystemErrorDialog(
-            context, 'E048 ${AppLocalizations.of(context)!.textE048}');
+            context, '[E048] ${AppLocalizations.of(context)!.textE048}');
       } else if (errorCode == 'E049') {
         showSystemErrorDialog(
-            context, 'E049 ${AppLocalizations.of(context)!.textE049}');
+            context, '[E049] ${AppLocalizations.of(context)!.textE049}');
       } else if (errorCode == 'E050') {
         showSystemErrorDialog(
-            context, 'E050 ${AppLocalizations.of(context)!.textE050}');
+            context, '[E050] ${AppLocalizations.of(context)!.textE050}');
       } else if (errorCode == 'E051') {
         showSystemErrorDialog(
-            context, 'E051 ${AppLocalizations.of(context)!.textE051}');
+            context, '[E051] ${AppLocalizations.of(context)!.textE051}');
       } else if (errorCode == 'E052') {
         showSystemWarningDialog(
-            context, 'E052 ${AppLocalizations.of(context)!.textE052}');
+            context, '[E052] ${AppLocalizations.of(context)!.textE052}');
       } else if (errorCode == 'E053') {
         showSystemErrorDialog(
-            context, 'E053 ${AppLocalizations.of(context)!.textE053}');
+            context, '[E053] ${AppLocalizations.of(context)!.textE053}');
       } else if (errorCode == 'E054') {
         showSystemErrorDialog(
-            context, 'E054 ${AppLocalizations.of(context)!.textE054}');
+            context, '[E054] ${AppLocalizations.of(context)!.textE054}');
       } else if (errorCode == 'E055') {
         showSystemErrorDialog(
-            context, 'E055 ${AppLocalizations.of(context)!.textE055}');
+            context, '[E055] ${AppLocalizations.of(context)!.textE055}');
       } else if (errorCode == 'E056') {
         showSystemErrorDialog(
-            context, 'E056 ${AppLocalizations.of(context)!.textE056}');
+            context, '[E056] ${AppLocalizations.of(context)!.textE056}');
       } else if (errorCode == 'E057') {
         showSystemWarningDialog(
-            context, 'E057 ${AppLocalizations.of(context)!.textE057}');
+            context, '[E057] ${AppLocalizations.of(context)!.textE057}');
       } else if (errorCode == 'E058') {
         showSystemErrorDialog(
-            context, 'E058 ${AppLocalizations.of(context)!.textE058}');
+            context, '[E058] ${AppLocalizations.of(context)!.textE058}');
       } else if (errorCode == 'E059') {
         showSystemErrorDialog(
-            context, 'E059 ${AppLocalizations.of(context)!.textE059}');
+            context, '[E059] ${AppLocalizations.of(context)!.textE059}');
       } else if (errorCode == 'E060') {
         showSystemErrorDialog(
-            context, 'E060 ${AppLocalizations.of(context)!.textE060}');
+            context, '[E060] ${AppLocalizations.of(context)!.textE060}');
       } else if (errorCode == 'E061') {
         showSystemErrorDialog(
-            context, 'E061 ${AppLocalizations.of(context)!.textE061}');
+            context, '[E061] ${AppLocalizations.of(context)!.textE061}');
       } else if (errorCode == 'E062') {
         showSystemErrorDialog(
-            context, 'E062 ${AppLocalizations.of(context)!.textE062}');
+            context, '[E062] ${AppLocalizations.of(context)!.textE062}');
       } else if (errorCode == 'E063') {
         showSystemErrorDialog(
-            context, 'E063 ${AppLocalizations.of(context)!.textE063}');
+            context, '[E063] ${AppLocalizations.of(context)!.textE063}');
       } else if (errorCode == 'E064') {
         showSystemErrorDialog(
-            context, 'E064 ${AppLocalizations.of(context)!.textE064}');
+            context, '[E064] ${AppLocalizations.of(context)!.textE064}');
       } else if (errorCode == 'E065') {
         showSystemErrorDialog(
-            context, 'E065 ${AppLocalizations.of(context)!.textE065}');
+            context, '[E065] ${AppLocalizations.of(context)!.textE065}');
       } else if (errorCode == 'E066') {
         showSystemErrorDialog(
-            context, 'E066 ${AppLocalizations.of(context)!.textE066}');
+            context, '[E066] ${AppLocalizations.of(context)!.textE066}');
       } else if (errorCode == 'E067') {
         showSystemErrorDialog(
-            context, 'E067 ${AppLocalizations.of(context)!.textE067}');
+            context, '[E067] ${AppLocalizations.of(context)!.textE067}');
       } else if (errorCode == 'E068') {
         showSystemErrorDialog(
-            context, 'E068 ${AppLocalizations.of(context)!.textE068}');
+            context, '[E068] ${AppLocalizations.of(context)!.textE068}');
       } else if (errorCode == 'E069') {
         showSystemErrorDialog(
-            context, 'E069 ${AppLocalizations.of(context)!.textE069}');
+            context, '[E069] ${AppLocalizations.of(context)!.textE069}');
       } else if (errorCode == 'E070') {
         showSystemErrorDialog(
-            context, 'E070 ${AppLocalizations.of(context)!.textE070}');
+            context, '[E070] ${AppLocalizations.of(context)!.textE070}');
       } else if (errorCode == 'E071') {
         showSystemErrorDialog(
-            context, 'E071 ${AppLocalizations.of(context)!.textE071}');
+            context, '[E071] ${AppLocalizations.of(context)!.textE071}');
       } else if (errorCode == 'E072') {
         showSystemErrorDialog(
-            context, 'E072 ${AppLocalizations.of(context)!.textE072}');
+            context, '[E072] ${AppLocalizations.of(context)!.textE072}');
       } else if (errorCode == 'E074') {
         showSystemErrorDialog(
-            context, 'E074 ${AppLocalizations.of(context)!.textE074}');
+            context, '[E074] ${AppLocalizations.of(context)!.textE074}');
       } else if (errorCode == 'E075') {
         showSystemErrorDialog(
-            context, 'E075 ${AppLocalizations.of(context)!.textE075}');
+            context, '[E075] ${AppLocalizations.of(context)!.textE075}');
       } else if (errorCode == 'E076') {
         showSystemErrorDialog(
-            context, 'E076 ${AppLocalizations.of(context)!.textE076}');
+            context, '[E076] ${AppLocalizations.of(context)!.textE076}');
       } else if (errorCode == 'E077') {
         showSystemErrorDialog(
-            context, 'E077 ${AppLocalizations.of(context)!.textE077}');
+            context, '[E077] ${AppLocalizations.of(context)!.textE077}');
       } else if (errorCode == 'E078') {
         showSystemErrorDialog(
-            context, 'E078 ${AppLocalizations.of(context)!.textE078}');
+            context, '[E078] ${AppLocalizations.of(context)!.textE078}');
       } else if (errorCode == 'E079') {
         showSystemErrorDialog(
-            context, 'E079 ${AppLocalizations.of(context)!.textE079}');
+            context, '[E079] ${AppLocalizations.of(context)!.textE079}');
       } else if (errorCode == 'E080') {
         showSystemErrorDialog(
-            context, 'E080 ${AppLocalizations.of(context)!.textE080}');
+            context, '[E080] ${AppLocalizations.of(context)!.textE080}');
       } else if (errorCode == 'E081') {
         showSystemErrorDialog(
-            context, 'E081 ${AppLocalizations.of(context)!.textE081}');
+            context, '[E081] ${AppLocalizations.of(context)!.textE081}');
       } else if (errorCode == 'E082') {
         showSystemErrorDialog(
-            context, 'E082 ${AppLocalizations.of(context)!.textE082}');
+            context, '[E082] ${AppLocalizations.of(context)!.textE082}');
       } else if (errorCode == 'E083') {
         showSystemErrorDialog(
-            context, 'E083 ${AppLocalizations.of(context)!.textE083(ottName)}');
+            context, '[E083] ${AppLocalizations.of(context)!.textE083(ottName)}');
       } else if (errorCode == 'E090') {
         showSystemErrorDialog(
-            context, 'E090 ${AppLocalizations.of(context)!.textE090}');
+            context, '[E090] ${AppLocalizations.of(context)!.textE090}');
       } else if (errorCode == 'E091') {
         showSystemErrorDialog(
-            context, 'E091 ${AppLocalizations.of(context)!.textE091}');
+            context, '[E091] ${AppLocalizations.of(context)!.textE091}');
       } else if (errorCode == 'E092') {
         showSystemErrorDialog(
-            context, 'E092 ${AppLocalizations.of(context)!.textE092}');
+            context, '[E092] ${AppLocalizations.of(context)!.textE092}');
       } else if (errorCode == 'E093') {
         showSystemErrorDialog(
-            context, 'E093 ${AppLocalizations.of(context)!.textE093}');
+            context, '[E093] ${AppLocalizations.of(context)!.textE093}');
       } else if (errorCode == 'E094') {
         showSystemErrorDialog(
-            context, 'E094 ${AppLocalizations.of(context)!.textE094}');
+            context, '[E094] ${AppLocalizations.of(context)!.textE094}');
       } else if (errorCode == 'E101') {
         showSystemErrorDialog(
-            context, 'E101 ${AppLocalizations.of(context)!.textE101}');
+            context, '[E101] ${AppLocalizations.of(context)!.textE101}');
       } else if (errorCode == 'E102') {
         showSystemErrorDialog(
-            context, 'E102 ${AppLocalizations.of(context)!.textE102}');
+            context, '[E102] ${AppLocalizations.of(context)!.textE102}');
       } else if (errorCode == 'E103') {
         showSystemErrorDialog(
-            context, 'E103 ${AppLocalizations.of(context)!.textE103}');
+            context, '[E103] ${AppLocalizations.of(context)!.textE103}');
       } else if (errorCode == 'E104') {
         showSystemErrorDialog(
-            context, 'E104 ${AppLocalizations.of(context)!.textE104}');
+            context, '[E104] ${AppLocalizations.of(context)!.textE104}');
       } else if (errorCode == 'E105') {
         showSystemErrorDialog(
-            context, 'E105 ${AppLocalizations.of(context)!.textE105}');
+            context, '[E105] ${AppLocalizations.of(context)!.textE105}');
       } else if (errorCode == 'E110') {
         showSystemErrorDialog(
-            context, 'E110 ${AppLocalizations.of(context)!.textE110}');
+            context, '[E110] ${AppLocalizations.of(context)!.textE110}');
       } else if (errorCode == 'E112') {
         showSystemErrorDialog(
-            context, 'E112 ${AppLocalizations.of(context)!.textE112}');
+            context, '[E112] ${AppLocalizations.of(context)!.textE112}');
       } else if (errorCode == 'E113') {
         showSystemErrorDialog(
-            context, 'E113 ${AppLocalizations.of(context)!.textE113}');
+            context, '[E113] ${AppLocalizations.of(context)!.textE113}');
       } else if (errorCode == 'E114') {
         showSystemErrorDialog(
-            context, 'E114 ${AppLocalizations.of(context)!.textE114}');
+            context, '[E114] ${AppLocalizations.of(context)!.textE114}');
       } else if (errorCode == 'E120') {
         showSystemErrorDialog(
-            context, 'E120 ${AppLocalizations.of(context)!.textE120}');
+            context, '[E120] ${AppLocalizations.of(context)!.textE120}');
       } else {
         showSystemErrorDialog(context, error.response!.data['errorMessage']);
       }
