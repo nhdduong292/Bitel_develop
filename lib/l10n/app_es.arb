@@ -764,5 +764,10 @@
 "textTheContractIsAlreadySigned": "El contrato ya está firmado y ¿Todavía desea cancelar el contrato?",
 "textChooseProduct": "Elegir producto",
 "textContinueContracting": "Continuar contratando",
- "textPaymentIsRequired": "Se requiere método de pago"
+ "textPaymentIsRequired": "Se requiere método de pago",
+"textE110": "Se requiere el motivo de la cita.",
+"textE112": "El campo de correo electrónico está vacío. Por favor, proporcione una dirección de correo electrónico válida.",
+"textE113": "El correo electrónico está bloqueado. Por favor, póngase en contacto con el soporte para obtener ayuda.",
+"textE114": "Formato de dirección de correo electrónico no válido. Por favor, ingrese un correo electrónico válido.",
+"textE120": "El ID de llamada del contrato de voz se está utilizando para otra solicitud, por favor verifíquelo nuevamente y utilice otro ID de llamada."
 }
