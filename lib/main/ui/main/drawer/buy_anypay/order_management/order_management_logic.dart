@@ -146,8 +146,8 @@ class OrderManagementLogic extends GetxController {
       params: {
         'bankCode': bankCode,
         'status': getCodeStatus(status),
-        'from': formatDateIso(from),
-        'to': formatDateIso(to),
+        'from': formatDate(fromDate),
+        'to': formatDate(toDate),
         'page': 0,
         'pageSize': 10,
         'sort': 'createdDate'
@@ -196,10 +196,9 @@ class OrderManagementLogic extends GetxController {
     );
   }
 
-  String formatDateIso(String date) {
-    DateTime dateTime = DateFormat('dd/MM/yyyy').parse(date);
-    String isoString = dateTime.toIso8601String();
-    return isoString;
+  String formatDate(DateTime time) {
+    DateFormat outputFormat = DateFormat("yyyy-MM-dd");
+    return outputFormat.format(time);
   }
 
   String getTextStatus(String status) {
