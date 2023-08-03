@@ -41,7 +41,8 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Visibility(
-                  visible: controller.isShowVoiceContract,
+                  visible: controller.isShowVoiceContract &&
+                      controller.requestModel.customerModel.type == "DNI",
                   child:
                       _voiceContract(context: context, controller: controller)),
               Container(
