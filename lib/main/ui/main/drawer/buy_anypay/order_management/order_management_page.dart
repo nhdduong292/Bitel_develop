@@ -80,420 +80,432 @@ class OrderManagementPage extends GetWidget {
               ),
             ),
             body: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  InkWell(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    child: Container(
-                      width: double.infinity,
-                      margin: const EdgeInsets.only(
-                          top: 20, left: 15, right: 15, bottom: 20),
-                      padding: const EdgeInsets.only(
-                          left: 16, top: 13, bottom: 13, right: 16),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(24),
-                        border: Border.all(
-                            width: 1, color: AppColors.colorLineDash),
-                        boxShadow: const [
-                          BoxShadow(
-                            offset: Offset(0, 0),
-                            blurRadius: 1,
-                            color: AppColors.colorLineDash,
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Text(
-                                AppLocalizations.of(context)!.textBankCode,
-                                style: AppStyles.r8.copyWith(
-                                    color:
-                                        AppColors.colorText1.withOpacity(0.85),
-                                    fontWeight: FontWeight.w400)),
-                          ),
-                          spinnerFormV2(
-                              context: context,
-                              hint: AppLocalizations.of(context)!.hintEnterCode,
-                              required: false,
-                              dropValue: "",
-                              function: (value) {
-                                controller.textBankCode = value;
-                              },
-                              onSubmit: (value) {},
-                              listDrop: []),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10, top: 10),
-                            child: Text(
-                                AppLocalizations.of(context)!.textStatus,
-                                style: AppStyles.r8.copyWith(
-                                    color:
-                                        AppColors.colorText1.withOpacity(0.85),
-                                    fontWeight: FontWeight.w400)),
-                          ),
-                          Container(
-                            height: 45,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(24),
-                                border:
-                                    Border.all(color: const Color(0xFFE3EAF2))),
-                            child: DropdownButtonFormField2(
-                              decoration: const InputDecoration(
-                                isDense: true,
-                                contentPadding: EdgeInsets.zero,
-                                border: InputBorder.none,
-                              ),
-                              // selectedItemHighlightColor: Colors.red,
-                              buttonPadding:
-                                  const EdgeInsets.only(left: 0, right: 10),
-                              dropdownDecoration: BoxDecoration(
+              child: Container(
+                color: Colors.white,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    InkWell(
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      child: Container(
+                        width: double.infinity,
+                        margin: const EdgeInsets.only(
+                            top: 20, left: 15, right: 15, bottom: 20),
+                        padding: const EdgeInsets.only(
+                            left: 16, top: 13, bottom: 13, right: 16),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(24),
+                          border: Border.all(
+                              width: 1, color: AppColors.colorLineDash),
+                          boxShadow: const [
+                            BoxShadow(
+                              offset: Offset(0, 0),
+                              blurRadius: 1,
+                              color: AppColors.colorLineDash,
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                  AppLocalizations.of(context)!.textBankCode,
+                                  style: AppStyles.r8.copyWith(
+                                      color: AppColors.colorText1
+                                          .withOpacity(0.85),
+                                      fontWeight: FontWeight.w400)),
+                            ),
+                            spinnerFormV2(
+                                context: context,
+                                hint:
+                                    AppLocalizations.of(context)!.hintEnterCode,
+                                required: false,
+                                dropValue: "",
+                                function: (value) {
+                                  controller.textBankCode = value;
+                                },
+                                onSubmit: (value) {},
+                                listDrop: []),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 10, top: 10),
+                              child: Text(
+                                  AppLocalizations.of(context)!.textStatus,
+                                  style: AppStyles.r8.copyWith(
+                                      color: AppColors.colorText1
+                                          .withOpacity(0.85),
+                                      fontWeight: FontWeight.w400)),
+                            ),
+                            Container(
+                              height: 45,
+                              decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(24),
                                   border: Border.all(
                                       color: const Color(0xFFE3EAF2))),
-                              isExpanded: true,
-                              value: controller.currentStatus.isNotEmpty
-                                  ? controller.currentStatus
-                                  : null,
-                              onChanged: (value) {
-                                controller.setStatus(value!);
-                              },
-                              buttonHeight: 60,
-                              items: controller
-                                  .getListStatus()
-                                  .map<DropdownMenuItem<String>>(
-                                      (String value) {
-                                return DropdownMenuItem(
-                                    value: value, child: Text(value));
-                              }).toList(),
-                              style: AppStyles.r2.copyWith(
-                                  color: AppColors.color_415263,
-                                  fontWeight: FontWeight.w500),
-                              icon:
-                                  SvgPicture.asset(AppImages.icDropdownSpinner),
-                              validator: (value) {
-                                if (value == null) {
-                                  return 'Please select gender.';
-                                }
-                              },
+                              child: DropdownButtonFormField2(
+                                decoration: const InputDecoration(
+                                  isDense: true,
+                                  contentPadding: EdgeInsets.zero,
+                                  border: InputBorder.none,
+                                ),
+                                // selectedItemHighlightColor: Colors.red,
+                                buttonPadding:
+                                    const EdgeInsets.only(left: 0, right: 10),
+                                dropdownDecoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(24),
+                                    border: Border.all(
+                                        color: const Color(0xFFE3EAF2))),
+                                isExpanded: true,
+                                value: controller.currentStatus.isNotEmpty
+                                    ? controller.currentStatus
+                                    : null,
+                                onChanged: (value) {
+                                  controller.setStatus(value!);
+                                },
+                                buttonHeight: 60,
+                                items: controller
+                                    .getListStatus()
+                                    .map<DropdownMenuItem<String>>(
+                                        (String value) {
+                                  return DropdownMenuItem(
+                                      value: value, child: Text(value));
+                                }).toList(),
+                                style: AppStyles.r2.copyWith(
+                                    color: AppColors.color_415263,
+                                    fontWeight: FontWeight.w500),
+                                icon: SvgPicture.asset(
+                                    AppImages.icDropdownSpinner),
+                                validator: (value) {
+                                  if (value == null) {
+                                    return 'Please select gender.';
+                                  }
+                                },
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10, top: 10),
-                            child: Text(
-                                AppLocalizations.of(context)!.textOrderDate,
-                                style: AppStyles.r8.copyWith(
-                                    color:
-                                        AppColors.colorText1.withOpacity(0.85),
-                                    fontWeight: FontWeight.w400)),
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: InkWell(
-                                    highlightColor: Colors.transparent,
-                                    splashColor: Colors.transparent,
-                                    onTap: () {
-                                      _selectDate(context, controller, true);
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(24),
-                                          border: Border.all(
-                                              color: const Color(0xFFE3EAF2))),
-                                      padding: const EdgeInsets.only(
-                                          top: 11,
-                                          bottom: 11,
-                                          left: 16,
-                                          right: 16),
-                                      child: Row(
-                                        children: [
-                                          Visibility(
-                                            visible:
-                                                controller.from.value.isEmpty,
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 8.0),
-                                              child: SvgPicture.asset(
-                                                  AppImages.icSelectDate),
-                                            ),
-                                          ),
-                                          Text.rich(TextSpan(
-                                              style: AppStyles.r2.copyWith(
-                                                  color: controller
-                                                          .from.value.isEmpty
-                                                      ? AppColors.colorHint1
-                                                      : AppColors.colorText1,
-                                                  fontWeight: FontWeight.w400),
-                                              children: [
-                                                TextSpan(
-                                                  text: controller
-                                                          .from.value.isEmpty
-                                                      ? AppLocalizations.of(
-                                                              context)!
-                                                          .textFrom
-                                                      : controller.from.value,
-                                                )
-                                              ])),
-                                        ],
-                                      ),
-                                    )),
-                              ),
-                              const SizedBox(
-                                width: 12,
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: InkWell(
-                                    highlightColor: Colors.transparent,
-                                    splashColor: Colors.transparent,
-                                    onTap: () {
-                                      _selectDate(context, controller, false);
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(24),
-                                          border: Border.all(
-                                              color: const Color(0xFFE3EAF2))),
-                                      padding: const EdgeInsets.only(
-                                          top: 11,
-                                          bottom: 11,
-                                          left: 16,
-                                          right: 16),
-                                      child: Row(
-                                        children: [
-                                          Visibility(
-                                            visible:
-                                                controller.to.value.isEmpty,
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 8.0),
-                                              child: SvgPicture.asset(
-                                                  AppImages.icSelectDate),
-                                            ),
-                                          ),
-                                          Text.rich(TextSpan(
-                                              style: AppStyles.r2.copyWith(
-                                                  color: controller
-                                                          .to.value.isEmpty
-                                                      ? AppColors.colorHint1
-                                                      : AppColors.colorText1,
-                                                  fontWeight: FontWeight.w400),
-                                              children: [
-                                                TextSpan(
-                                                  text: controller
-                                                          .to.value.isEmpty
-                                                      ? AppLocalizations.of(
-                                                              context)!
-                                                          .textTo
-                                                      : controller.to.value,
-                                                )
-                                              ])),
-                                        ],
-                                      ),
-                                    )),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                    onTap: () {},
-                  ),
-                  InkWell(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    onTap: () {
-                      controller.isSearched = true;
-
-                      controller.searchBuyAnyPay(
-                          bankCode: controller.textBankCode,
-                          status: controller.currentStatus,
-                          from: controller.from.value,
-                          to: controller.to.value);
-                      controller.update();
-                    },
-                    child: Container(
-                      width: width / 2,
-                      margin: const EdgeInsets.only(
-                          bottom: 30, left: 25, right: 25, top: 20),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      decoration: BoxDecoration(
-                        color: AppColors.colorButton,
-                        borderRadius: BorderRadius.circular(24),
-                        boxShadow: [
-                          BoxShadow(
-                            offset: const Offset(0, 1),
-                            blurRadius: 2,
-                            color: Colors.black.withOpacity(0.3),
-                          ),
-                        ],
-                      ),
-                      child: Center(
-                          child: Text(
-                        AppLocalizations.of(context)!.textSearch.toUpperCase(),
-                        style:
-                            AppStyles.r5.copyWith(fontWeight: FontWeight.w500),
-                      )),
-                    ),
-                  ),
-                  Visibility(
-                    visible: controller.isSearched,
-                    child: Container(
-                      width: double.infinity,
-                      margin:
-                          const EdgeInsets.only(top: 1, left: 10, right: 10),
-                      padding: const EdgeInsets.only(
-                          left: 16, top: 13, bottom: 13, right: 16),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(24),
-                        border: Border.all(
-                            width: 1, color: AppColors.colorLineDash),
-                        boxShadow: const [
-                          BoxShadow(
-                            offset: Offset(0, 0),
-                            blurRadius: 1,
-                            color: AppColors.colorLineDash,
-                          ),
-                        ],
-                      ),
-                      constraints: const BoxConstraints(minHeight: 200),
-                      child: controller.isLoading
-                          ? LoadingCirculApi()
-                          : controller.listBuyAnyPay.isNotEmpty
-                              ? ListView.separated(
-                                  padding: const EdgeInsets.only(top: 0),
-                                  shrinkWrap: true,
-                                  primary: false,
-                                  itemBuilder: (context, index) {
-                                    return _itemOrderSearch(
-                                      controller: controller,
-                                      buyAnyPayModel:
-                                          controller.listBuyAnyPay[index],
-                                      index: index,
-                                      onDelete: (value) {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return ConfirmDialog(
-                                              height: 277,
-                                              bankNumber: controller
-                                                  .listBuyAnyPay[value]
-                                                  .saleOrderCode,
-                                              onSuccess: () {
-                                                controller.deleteBuyAnyPay(
-                                                    saleOrderId: controller
-                                                        .listBuyAnyPay[value]
-                                                        .saleOrderId,
-                                                    isSuccess: (isSuccess) {
-                                                      if (isSuccess) {
-                                                        Get.back();
-                                                        controller.searchBuyAnyPay(
-                                                            bankCode: controller
-                                                                .textBankCode,
-                                                            status: controller
-                                                                .currentStatus,
-                                                            from: controller
-                                                                .from.value,
-                                                            to: controller
-                                                                .to.value);
-                                                        Common.showToastCenter(
-                                                            AppLocalizations.of(
-                                                                    context)!
-                                                                .textCancelBuyAnyPaySuccess,
-                                                            context);
-                                                      }
-                                                    });
-                                              },
-                                            );
-                                          },
-                                        );
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 10, top: 10),
+                              child: Text(
+                                  AppLocalizations.of(context)!.textOrderDate,
+                                  style: AppStyles.r8.copyWith(
+                                      color: AppColors.colorText1
+                                          .withOpacity(0.85),
+                                      fontWeight: FontWeight.w400)),
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: InkWell(
+                                      highlightColor: Colors.transparent,
+                                      splashColor: Colors.transparent,
+                                      onTap: () {
+                                        _selectDate(context, controller, true);
                                       },
-                                    );
-                                  },
-                                  separatorBuilder: (context, index) {
-                                    return const Divider(
-                                      color: AppColors.colorLineDash,
-                                      height: 1,
-                                      thickness: 1,
-                                    );
-                                  },
-                                  itemCount: controller.listBuyAnyPay.length)
-                              : Center(
-                                  child: Text(AppLocalizations.of(context)!
-                                      .textNoResultIsFound),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(24),
+                                            border: Border.all(
+                                                color:
+                                                    const Color(0xFFE3EAF2))),
+                                        padding: const EdgeInsets.only(
+                                            top: 11,
+                                            bottom: 11,
+                                            left: 16,
+                                            right: 16),
+                                        child: Row(
+                                          children: [
+                                            Visibility(
+                                              visible:
+                                                  controller.from.value.isEmpty,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 8.0),
+                                                child: SvgPicture.asset(
+                                                    AppImages.icSelectDate),
+                                              ),
+                                            ),
+                                            Text.rich(TextSpan(
+                                                style: AppStyles.r2.copyWith(
+                                                    color: controller
+                                                            .from.value.isEmpty
+                                                        ? AppColors.colorHint1
+                                                        : AppColors.colorText1,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                                children: [
+                                                  TextSpan(
+                                                    text: controller
+                                                            .from.value.isEmpty
+                                                        ? AppLocalizations.of(
+                                                                context)!
+                                                            .textFrom
+                                                        : controller.from.value,
+                                                  )
+                                                ])),
+                                          ],
+                                        ),
+                                      )),
                                 ),
-                    ),
-                  ),
-                  InkWell(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    child: Container(
-                      width: double.infinity,
-                      margin: const EdgeInsets.only(
-                          top: 50, left: 10, right: 10, bottom: 50),
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(24),
-                        border: Border.all(
-                            width: 1, color: AppColors.colorLineDash),
-                        boxShadow: const [
-                          BoxShadow(
-                            offset: Offset(0, 0),
-                            blurRadius: 1,
-                            color: AppColors.colorLineDash,
-                          ),
-                        ],
+                                const SizedBox(
+                                  width: 12,
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: InkWell(
+                                      highlightColor: Colors.transparent,
+                                      splashColor: Colors.transparent,
+                                      onTap: () {
+                                        _selectDate(context, controller, false);
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(24),
+                                            border: Border.all(
+                                                color:
+                                                    const Color(0xFFE3EAF2))),
+                                        padding: const EdgeInsets.only(
+                                            top: 11,
+                                            bottom: 11,
+                                            left: 16,
+                                            right: 16),
+                                        child: Row(
+                                          children: [
+                                            Visibility(
+                                              visible:
+                                                  controller.to.value.isEmpty,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 8.0),
+                                                child: SvgPicture.asset(
+                                                    AppImages.icSelectDate),
+                                              ),
+                                            ),
+                                            Text.rich(TextSpan(
+                                                style: AppStyles.r2.copyWith(
+                                                    color: controller
+                                                            .to.value.isEmpty
+                                                        ? AppColors.colorHint1
+                                                        : AppColors.colorText1,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                                children: [
+                                                  TextSpan(
+                                                    text: controller
+                                                            .to.value.isEmpty
+                                                        ? AppLocalizations.of(
+                                                                context)!
+                                                            .textTo
+                                                        : controller.to.value,
+                                                  )
+                                                ])),
+                                          ],
+                                        ),
+                                      )),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
                       ),
-                      child: Column(
-                        children: [
-                          RichText(
-                            text: TextSpan(
-                                text: AppLocalizations.of(context)!
-                                    .textTitleAnypay1,
-                                style: AppStyles.r415263_14_600,
-                                children: [
-                                  TextSpan(
-                                      text: AppLocalizations.of(context)!
-                                          .textTitleAnypay2,
-                                      style: AppStyles.r415263_14_400)
-                                ]),
-                            textAlign: TextAlign.center,
-                          ),
-                          Container(
-                              margin: const EdgeInsets.only(top: 20),
-                              child: IntrinsicHeight(
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
+                      onTap: () {},
+                    ),
+                    InkWell(
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      onTap: () {
+                        controller.isSearched = true;
+
+                        controller.searchBuyAnyPay(
+                            bankCode: controller.textBankCode,
+                            status: controller.currentStatus,
+                            from: controller.from.value,
+                            to: controller.to.value);
+                        controller.update();
+                      },
+                      child: Container(
+                        width: width / 2,
+                        margin: const EdgeInsets.only(
+                            bottom: 30, left: 25, right: 25, top: 20),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        decoration: BoxDecoration(
+                          color: AppColors.colorButton,
+                          borderRadius: BorderRadius.circular(24),
+                          boxShadow: [
+                            BoxShadow(
+                              offset: const Offset(0, 1),
+                              blurRadius: 2,
+                              color: Colors.black.withOpacity(0.3),
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                            child: Text(
+                          AppLocalizations.of(context)!
+                              .textSearch
+                              .toUpperCase(),
+                          style: AppStyles.r5
+                              .copyWith(fontWeight: FontWeight.w500),
+                        )),
+                      ),
+                    ),
+                    Visibility(
+                      visible: controller.isSearched,
+                      child: Container(
+                        width: double.infinity,
+                        margin:
+                            const EdgeInsets.only(top: 1, left: 10, right: 10),
+                        padding: const EdgeInsets.only(
+                            left: 16, top: 13, bottom: 13, right: 16),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(24),
+                          border: Border.all(
+                              width: 1, color: AppColors.colorLineDash),
+                          boxShadow: const [
+                            BoxShadow(
+                              offset: Offset(0, 0),
+                              blurRadius: 1,
+                              color: AppColors.colorLineDash,
+                            ),
+                          ],
+                        ),
+                        constraints: const BoxConstraints(minHeight: 200),
+                        child: controller.isLoading
+                            ? LoadingCirculApi()
+                            : controller.listBuyAnyPay.isNotEmpty
+                                ? ListView.separated(
+                                    padding: const EdgeInsets.only(top: 0),
+                                    shrinkWrap: true,
+                                    primary: false,
+                                    itemBuilder: (context, index) {
+                                      return _itemOrderSearch(
+                                        controller: controller,
+                                        buyAnyPayModel:
+                                            controller.listBuyAnyPay[index],
+                                        index: index,
+                                        onDelete: (value) {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return ConfirmDialog(
+                                                height: 277,
+                                                bankNumber: controller
+                                                    .listBuyAnyPay[value]
+                                                    .saleOrderCode,
+                                                onSuccess: () {
+                                                  controller.deleteBuyAnyPay(
+                                                      saleOrderId: controller
+                                                          .listBuyAnyPay[value]
+                                                          .saleOrderId,
+                                                      isSuccess: (isSuccess) {
+                                                        if (isSuccess) {
+                                                          Get.back();
+                                                          controller.searchBuyAnyPay(
+                                                              bankCode: controller
+                                                                  .textBankCode,
+                                                              status: controller
+                                                                  .currentStatus,
+                                                              from: controller
+                                                                  .from.value,
+                                                              to: controller
+                                                                  .to.value);
+                                                          Common.showToastCenter(
+                                                              AppLocalizations.of(
+                                                                      context)!
+                                                                  .textCancelBuyAnyPaySuccess,
+                                                              context);
+                                                        }
+                                                      });
+                                                },
+                                              );
+                                            },
+                                          );
+                                        },
+                                      );
+                                    },
+                                    separatorBuilder: (context, index) {
+                                      return const Divider(
+                                        color: AppColors.colorLineDash,
+                                        height: 1,
+                                        thickness: 1,
+                                      );
+                                    },
+                                    itemCount: controller.listBuyAnyPay.length)
+                                : Center(
+                                    child: Text(AppLocalizations.of(context)!
+                                        .textNoResultIsFound),
+                                  ),
+                      ),
+                    ),
+                    InkWell(
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      child: Container(
+                        width: double.infinity,
+                        margin: const EdgeInsets.only(
+                            top: 50, left: 10, right: 10, bottom: 50),
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(24),
+                          border: Border.all(
+                              width: 1, color: AppColors.colorLineDash),
+                          boxShadow: const [
+                            BoxShadow(
+                              offset: Offset(0, 0),
+                              blurRadius: 1,
+                              color: AppColors.colorLineDash,
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  text: AppLocalizations.of(context)!
+                                      .textTitleAnypay1,
+                                  style: AppStyles.r415263_14_600,
                                   children: [
-                                    Expanded(
-                                        child: SvgPicture.asset(
-                                            AppImages.icAnypayBBVA)),
-                                    const VerticalDivider(
-                                      color: AppColors.colorLineDash,
-                                    ),
-                                    Expanded(
-                                        child: SvgPicture.asset(
-                                            AppImages.icAnypayBCP))
-                                  ],
-                                ),
-                              ))
-                        ],
+                                    TextSpan(
+                                        text: AppLocalizations.of(context)!
+                                            .textTitleAnypay2,
+                                        style: AppStyles.r415263_14_400)
+                                  ]),
+                              textAlign: TextAlign.center,
+                            ),
+                            Container(
+                                margin: const EdgeInsets.only(top: 20),
+                                child: IntrinsicHeight(
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Expanded(
+                                          child: SvgPicture.asset(
+                                              AppImages.icAnypayBBVA)),
+                                      const VerticalDivider(
+                                        color: AppColors.colorLineDash,
+                                      ),
+                                      Expanded(
+                                          child: SvgPicture.asset(
+                                              AppImages.icAnypayBCP))
+                                    ],
+                                  ),
+                                ))
+                          ],
+                        ),
                       ),
+                      onTap: () {},
                     ),
-                    onTap: () {},
-                  ),
-                ],
+                  ],
+                ),
               ),
             ));
       },
@@ -502,9 +514,10 @@ class OrderManagementPage extends GetWidget {
 
   _selectDate(
       BuildContext context, OrderManagementLogic control, bool from) async {
+    var selecDate = from ? control.fromDate : control.toDate;
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: control.selectDate,
+      initialDate: selecDate,
       firstDate: DateTime(2000),
       lastDate: DateTime(2025),
     );
@@ -512,9 +525,9 @@ class OrderManagementPage extends GetWidget {
       return;
     }
     if (from) {
-      control.setFromDate(picked!);
+      control.setFromDate(picked);
     } else {
-      control.setToDate(picked!);
+      control.setToDate(picked);
     }
   }
 }

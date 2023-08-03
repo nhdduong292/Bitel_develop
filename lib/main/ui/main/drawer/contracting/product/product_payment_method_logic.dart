@@ -307,6 +307,9 @@ class ProductPaymentMethodLogic extends GetxController {
   }
 
   bool isForcedTerm() {
+    if (checkVoiceContract.value) {
+      return false;
+    }
     if (getPlanReason().feeInstallation != null &&
         getPlanReason().feeInstallation! > 0.0) {
       return false;
@@ -495,7 +498,8 @@ class ProductPaymentMethodLogic extends GetxController {
       "receiveInfoByMail": null,
       "receiveFromThirdParty": null,
       "receiveFromBitel": null,
-      "ottServices": getJsonOTTService()
+      "ottServices": getJsonOTTService(),
+      "isVoiceContract": checkVoiceContract.value
     };
     ApiUtil.getInstance()!.post(
       url: ApiEndPoints.API_POST_CONTRACT_INFORMATION,

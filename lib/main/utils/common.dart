@@ -307,7 +307,8 @@ class Common {
             ? showSystemWarningDialog(
                 context, '[E016] ${AppLocalizations.of(context)!.textE016}')
             : showSystemWarningFingerDialog(
-                context, '[E016] ${AppLocalizations.of(context)!.textE016}', () {
+                context, '[E016] ${AppLocalizations.of(context)!.textE016}',
+                () {
                 if (onContinue != null) {
                   onContinue();
                 }
@@ -375,7 +376,8 @@ class Common {
             ? showSystemWarningDialog(
                 context, '[E037] ${AppLocalizations.of(context)!.textE037}')
             : showSystemWarningFingerDialog(
-                context, '[E037] ${AppLocalizations.of(context)!.textE037}', () {
+                context, '[E037] ${AppLocalizations.of(context)!.textE037}',
+                () {
                 if (onContinue != null) {
                   onContinue();
                 }
@@ -385,7 +387,8 @@ class Common {
             ? showSystemWarningDialog(
                 context, '[E038] ${AppLocalizations.of(context)!.textE038}')
             : showSystemWarningFingerDialog(
-                context, '[E038] ${AppLocalizations.of(context)!.textE038}', () {
+                context, '[E038] ${AppLocalizations.of(context)!.textE038}',
+                () {
                 if (onContinue != null) {
                   onContinue();
                 }
@@ -519,13 +522,13 @@ class Common {
         showSystemErrorDialog(
             context, '[E082] ${AppLocalizations.of(context)!.textE082}');
       } else if (errorCode == 'E083') {
-        showSystemErrorDialog(
-            context, '[E083] ${AppLocalizations.of(context)!.textE083(ottName)}');
+        showSystemErrorDialog(context,
+            '[E083] ${AppLocalizations.of(context)!.textE083(ottName)}');
       } else if (errorCode == 'E090') {
         showSystemErrorDialog(
             context, '[E090] ${AppLocalizations.of(context)!.textE090}');
       } else if (errorCode == 'E091') {
-        showSystemErrorDialog(
+        showSystemWarningDialog(
             context, '[E091] ${AppLocalizations.of(context)!.textE091}');
       } else if (errorCode == 'E092') {
         showSystemErrorDialog(
@@ -567,7 +570,8 @@ class Common {
         showSystemErrorDialog(
             context, '[E120] ${AppLocalizations.of(context)!.textE120}');
       } else {
-        showSystemErrorDialog(context, error.response!.data['errorMessage']);
+        showSystemErrorDialog(
+            context, "[$errorCode] ${error.response!.data['errorMessage']}");
       }
     } catch (e) {
       if (kDebugMode) {
