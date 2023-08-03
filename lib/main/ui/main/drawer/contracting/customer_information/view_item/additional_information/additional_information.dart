@@ -321,24 +321,50 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                                   if (controller.isActiveUpdate &&
                                       controller
                                           .checkChangeAdditionalInformation()) {
-                                    controller.updateCustomer((isSuccess) {
-                                      if (isSuccess) {
-                                        Common.showToastCenter(
-                                            AppLocalizations.of(context)!
-                                                .textUpdateCustomerInformationSuccessfully,
-                                            context);
-                                        if (controller.valueCheckBypass &&
-                                            controller.showBypass()) {
-                                          controller.checkBypass((isSuccess) {
-                                            if (isSuccess) {
+                                    if (controller.emailController.text !=
+                                        controller.customer.email) {
+                                      controller.validateEmailFromServer(
+                                          (isSuccessValidate) {
+                                        controller.updateCustomer((isSuccess) {
+                                          if (isSuccess) {
+                                            Common.showToastCenter(
+                                                AppLocalizations.of(context)!
+                                                    .textUpdateCustomerInformationSuccessfully,
+                                                context);
+                                            if (controller.valueCheckBypass &&
+                                                controller.showBypass()) {
+                                              controller
+                                                  .checkBypass((isSuccess) {
+                                                if (isSuccess) {
+                                                  callback();
+                                                }
+                                              });
+                                            } else {
                                               callback();
                                             }
-                                          });
-                                        } else {
-                                          callback();
-                                        }
-                                      } else {}
-                                    });
+                                          } else {}
+                                        });
+                                      });
+                                    } else {
+                                      controller.updateCustomer((isSuccess) {
+                                        if (isSuccess) {
+                                          Common.showToastCenter(
+                                              AppLocalizations.of(context)!
+                                                  .textUpdateCustomerInformationSuccessfully,
+                                              context);
+                                          if (controller.valueCheckBypass &&
+                                              controller.showBypass()) {
+                                            controller.checkBypass((isSuccess) {
+                                              if (isSuccess) {
+                                                callback();
+                                              }
+                                            });
+                                          } else {
+                                            callback();
+                                          }
+                                        } else {}
+                                      });
+                                    }
                                   } else {
                                     if (controller.valueCheckBypass &&
                                         controller.showBypass()) {

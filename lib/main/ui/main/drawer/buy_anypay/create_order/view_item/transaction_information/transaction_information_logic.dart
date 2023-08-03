@@ -192,4 +192,33 @@ class TransactionInformationLogic extends GetxController {
       return base64Decode(captchaModel.base64Img!);
     }
   }
+
+  void validateEmailFromServer(var isSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
+    _onLoading(context);
+    Map<String, dynamic> body = {
+      "email": textEmailController.text.trim(),
+    };
+    ApiUtil.getInstance()!.get(
+      url: ApiEndPoints.API_VALIDATE_EMAIL,
+      params: body,
+      onSuccess: (response) {
+        Get.back();
+        if (response.isSuccess) {
+          isSuccess(true);
+        } else {
+          isSuccess(false);
+        }
+      },
+      onError: (error) {
+        Get.back();
+        isSuccess(false);
+        Common.showMessageError(error: error, context: context);
+      },
+    );
+  }
 }
