@@ -188,9 +188,11 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
           // margin: EdgeInsets.only(left: 15, right: 15),
           child: Obx(
             () => bottomButton(
-                text: AppLocalizations.of(context)!
-                    .textSignContract
-                    .toUpperCase(),
+                text: controller.isVoiceContract
+                    ? AppLocalizations.of(context)!.textContinue
+                    : AppLocalizations.of(context)!
+                        .textSignContract
+                        .toUpperCase(),
                 onTap: () {
                   if (controller.isVoiceContract) {
                     controller.signContractVoiceContract(

@@ -664,7 +664,7 @@ class _itemOrderSearch extends StatelessWidget {
                             onDelete(index);
                           },
                           child: Padding(
-                            padding: const EdgeInsets.all(16),
+                            padding: const EdgeInsets.all(6),
                             child: SvgPicture.asset(AppImages.icDeleteOrder),
                           ),
                         ),
