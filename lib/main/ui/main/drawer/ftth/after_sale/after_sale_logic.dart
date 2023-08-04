@@ -16,7 +16,7 @@ class AfterSaleLogic extends GetxController {
 
   bool isShowChangePlan() {
     var listPermission = InfoBusiness.getInstance()!.getUser().functions;
-    if (listPermission.contains(Permission.CHANGE_PLAN)) {
+    if (listPermission.contains(UserPermission.CHANGE_PLAN)) {
       return true;
     } else {
       return false;
@@ -25,7 +25,7 @@ class AfterSaleLogic extends GetxController {
 
   bool isShowTransferService() {
     var listPermission = InfoBusiness.getInstance()!.getUser().functions;
-    if (listPermission.contains(Permission.TRANSFER_SERVICE)) {
+    if (listPermission.contains(UserPermission.TRANSFER_SERVICE)) {
       return true;
     } else {
       return false;
@@ -34,7 +34,7 @@ class AfterSaleLogic extends GetxController {
 
   bool isShowCancelService() {
     var listPermission = InfoBusiness.getInstance()!.getUser().functions;
-    if (listPermission.contains(Permission.CANCEL_SERVICE)) {
+    if (listPermission.contains(UserPermission.CANCEL_SERVICE)) {
       return true;
     } else {
       return false;

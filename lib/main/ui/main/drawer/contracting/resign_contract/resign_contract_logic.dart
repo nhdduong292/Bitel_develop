@@ -6,7 +6,9 @@ import 'package:bitel_ventas/main/ui/main/drawer/request/request_detail/request_
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../../networks/api_end_point.dart';
 import '../../../../../networks/api_util.dart';
@@ -15,6 +17,7 @@ import '../../../../../utils/common.dart';
 import '../../../../../utils/common_widgets.dart';
 import '../../../../../utils/values.dart';
 import '../product/product_payment_method_logic.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ReSignContractLogic extends GetxController {
   late BuildContext context;
@@ -40,7 +43,6 @@ class ReSignContractLogic extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-
     contractId = requestDetailLogic.requestModel.contractModel.contractId;
     paymentMethod = requestDetailLogic.requestModel.paymentMethod;
     isVoiceContract = requestDetailLogic.requestModel.isVoiceContract;
@@ -146,8 +148,19 @@ class ReSignContractLogic extends GetxController {
     );
   }
 
-  downloadPDF() async {
+  downloadPDF(var onSuccess) async {
     // To open from assets, you can copy them to the app storage folder, and the access them "locally"
+    PermissionStatus status = await Permission.manageExternalStorage.request();
+
+    // Kiểm tra xem quyền đã được cấp hay chưa
+    if (status.isGranted) {
+      // Quyền đã được cấp, bạn có thể thực hiện các hành động liên quan đến bộ nhớ ngoài ở đây
+      print('Quyền truy cập bộ nhớ ngoài đã được cấp!');
+    } else {
+      // Quyền không được cấp, bạn có thể hiển thị thông báo hoặc xử lý trường hợp khi không có quyền truy cập
+      print('Quyền truy cập bộ nhớ ngoài không được cấp!');
+      onSuccess(false);
+    }
     String type = "";
     bool isConnect =
         await ConnectionService.getInstance()?.checkConnect(context) ?? true;
@@ -172,19 +185,25 @@ class ReSignContractLogic extends GetxController {
         onSuccess: (response) async {
           Get.back();
           bytesPDF = response.data;
-          writeLogToFile(bytesPDF!);
+          writeLogToFile(bytesPDF!, (isSuccess) {
+            if (isSuccess) {
+              onSuccess(true);
+            }
+          });
         },
         onError: (error) {
+          onSuccess(false);
           Get.back();
         },
       );
     } catch (e) {
       Get.back();
+      onSuccess(false);
       throw Exception('Error parsing asset file!');
     }
   }
 
-  void writeLogToFile(Uint8List bytes) async {
+  void writeLogToFile(Uint8List bytes, var onSuccess) async {
     String type = "";
     if (checkMainContract.value) {
       type = PDFType.MAIN;
@@ -198,8 +217,6 @@ class ReSignContractLogic extends GetxController {
         '${directory.path}/${type == PDFType.MAIN ? AppLocalizations.of(context)!.textMainContract : AppLocalizations.of(context)!.textLendingContract}_$cusFullName.pdf');
     await file.writeAsBytes(bytes.toList());
     // ignore: use_build_context_synchronously
-    Common.showToastCenter(
-        AppLocalizations.of(context)!.textDownloadContractSuccessfully,
-        context);
+    onSuccess(true);
   }
 }

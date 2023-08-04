@@ -95,11 +95,11 @@ class DrawerLogic extends GetxController {
   List<DrawerItem> getListItemWithPermission(BuildContext context) {
     var list = getListItem(context);
     var listPermission = InfoBusiness.getInstance()!.getUser().functions;
-    if (!listPermission.contains(Permission.BUY_ANYPAY)) {
+    if (!listPermission.contains(UserPermission.BUY_ANYPAY)) {
       list.removeWhere((element) =>
           element.label == AppLocalizations.of(context)!.textBuyAnypay);
     }
-    if (!listPermission.contains(Permission.CLEAR_DEBT)) {
+    if (!listPermission.contains(UserPermission.CLEAR_DEBT)) {
       list.removeWhere((element) =>
           element.label == AppLocalizations.of(context)!.textClearDebt);
     }
@@ -126,9 +126,9 @@ class DrawerLogic extends GetxController {
 
   bool isShowAfterSale() {
     var listPermission = InfoBusiness.getInstance()!.getUser().functions;
-    if (!listPermission.contains(Permission.CANCEL_SERVICE) &&
-        !listPermission.contains(Permission.CHANGE_PLAN) &&
-        !listPermission.contains(Permission.TRANSFER_SERVICE)) {
+    if (!listPermission.contains(UserPermission.CANCEL_SERVICE) &&
+        !listPermission.contains(UserPermission.CHANGE_PLAN) &&
+        !listPermission.contains(UserPermission.TRANSFER_SERVICE)) {
       return false;
     } else {
       return true;

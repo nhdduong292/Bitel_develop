@@ -773,7 +773,7 @@
   "textDownload": "Download",
    "textDownloadContractSuccessfully": "Download contract successfully",
    "textDownloadContractPreview": "Download contract preview",
-   "textTheContractIsAlreadySigned": "The contract is already signed and Do you  still want to cancel contract?",
+   "textTheContractIsAlreadySigned": "The contract is already signed and installation is progressing. Do you still want to cancel the contract?",
    "textChooseProduct": "Choose product",
    "textContinueContracting": "Continue contracting",
     "textPaymentIsRequired": "Payment method is required",
@@ -781,5 +781,7 @@
     "textE112": "Email field is empty. Please provide a valid email address.",
     "textE113": "Email is locked. Please contact support for assistance.",
     "textE114": "Invalid email address format. Please enter a valid email.",
-    "textE120": "Voice contract call ID is used for other request, please check it again and use other call ID."
+    "textE120": "Voice contract call ID is used for other request, please check it again and use other call ID.",
+    "textOpenFile": "Open file",
+    "textDoYouWantToOpen": "Do you want to open the file now?"
 }

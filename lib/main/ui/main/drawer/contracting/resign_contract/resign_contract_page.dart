@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/resign_contract/resign_contract_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -5,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../../../../../res/app_colors.dart';
 import '../../../../../../res/app_images.dart';
@@ -253,7 +257,25 @@ class ReSignContractPage extends GetView {
                           ),
                           InkWell(
                             onTap: () {
-                              controller.downloadPDF();
+                              controller.downloadPDF((isSuccess) {
+                                if (isSuccess) {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return DownloadSuccessDialog(
+                                            height: 299,
+                                            isSuccess: true,
+                                            onClick: () async {
+                                              final directory = Platform
+                                                      .isAndroid
+                                                  ? Directory(
+                                                      "/storage/emulated/0/Download") //FOR ANDROID
+                                                  : await getApplicationDocumentsDirectory(); //FOR iOS
+                                              OpenFile.open(directory.path);
+                                            });
+                                      });
+                                }
+                              });
                             },
                             child: Text(
                                 AppLocalizations.of(context)!
@@ -334,5 +356,90 @@ class ReSignContractPage extends GetView {
             ),
           );
         });
+  }
+}
+
+class DownloadSuccessDialog extends Dialog {
+  final double height;
+  final bool isSuccess;
+  var onClick;
+
+  DownloadSuccessDialog(
+      {super.key,
+      required this.height,
+      required this.isSuccess,
+      required this.onClick});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: SizedBox(
+        width: 330,
+        height: height,
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 30,
+            ),
+            SvgPicture.asset(
+                isSuccess ? AppImages.imgCongratulations : AppImages.imgNotify),
+            const SizedBox(
+              height: 24,
+            ),
+            Text(
+              AppLocalizations.of(context)!.textIFelicidades,
+              style: isSuccess ? AppStyles.r14 : AppStyles.r16,
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            const DottedLine(
+              dashColor: Color(0xFFE3EAF2),
+              dashGapLength: 3,
+              dashLength: 4,
+            ),
+            const SizedBox(
+              height: 22,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 30, right: 30),
+              child: Text(
+                AppLocalizations.of(context)!.textDownloadContractSuccessfully,
+                style: AppStyles.r15,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 30, right: 30),
+              child: Text(
+                AppLocalizations.of(context)!.textDoYouWantToOpen,
+                style: AppStyles.r15,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Row(
+              children: [
+                Expanded(
+                    child: bottomButton(
+                        isBoxShadow: true,
+                        color: Colors.white,
+                        text: AppLocalizations.of(context)!.textNo,
+                        onTap: () {
+                          Get.back();
+                        })),
+                Expanded(
+                    child: bottomButton(
+                        text: AppLocalizations.of(context)!.textYes,
+                        onTap: () {
+                          Get.back();
+                          onClick();
+                        }))
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

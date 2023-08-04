@@ -192,7 +192,7 @@ class RequestDetailLogic extends GetxController {
 
   bool isShowCancelWithPermission() {
     var listPermission = InfoBusiness.getInstance()!.getUser().functions;
-    if (listPermission.contains(Permission.CANCEL_REQUEST)) {
+    if (listPermission.contains(UserPermission.CANCEL_REQUEST)) {
       return true;
     } else {
       return false;
@@ -201,7 +201,7 @@ class RequestDetailLogic extends GetxController {
 
   bool isShowTransferWithPermission() {
     var listPermission = InfoBusiness.getInstance()!.getUser().functions;
-    if (listPermission.contains(Permission.TRANSFER_REQUEST)) {
+    if (listPermission.contains(UserPermission.TRANSFER_REQUEST)) {
       return true;
     } else {
       return false;

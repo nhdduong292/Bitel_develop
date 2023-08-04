@@ -761,7 +761,7 @@
 "textDownload": "Descargar",
 "textDownloadContractSuccessfully": "Descargar contrato con éxito",
 "textDownloadContractPreview": "Descargar vista previa del contrato",
-"textTheContractIsAlreadySigned": "El contrato ya está firmado, ¿Desea cancelar el contrato de todas formas?",
+"textTheContractIsAlreadySigned": "El contrato ya está firmado y la instalación está progresando. ¿Aún quieres cancelar el contrato?",
 "textChooseProduct": "Elegir producto",
 "textContinueContracting": "Continuar contratando",
  "textPaymentIsRequired": "Se requiere método de pago",
@@ -769,5 +769,7 @@
 "textE112": "El campo de correo electrónico está vacío. Por favor, proporcione una dirección de correo electrónico válida.",
 "textE113": "El correo electrónico está bloqueado. Por favor, póngase en contacto con el soporte para obtener ayuda.",
 "textE114": "Formato de dirección de correo electrónico no válido. Por favor, ingrese un correo electrónico válido.",
-"textE120": "El ID de llamada del contrato de voz se está utilizando para otra solicitud, por favor verifíquelo nuevamente y utilice otro ID de llamada."
+"textE120": "El ID de llamada del contrato de voz se está utilizando para otra solicitud, por favor verifíquelo nuevamente y utilice otro ID de llamada.",
+"textOpenFile": "Abrir documento",
+"textDoYouWantToOpen": "¿Quieres abrir el archivo ahora?"
 }

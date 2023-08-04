@@ -11,7 +11,7 @@ class Reason {
   static const String REASON_DEPLOYMENT = "DEPLOYMENT";
 }
 
-class Permission {
+class UserPermission {
   static const String CONTRACTING = "CONTRACTING";
   static const String TRANSFER_REQUEST = "TRANSFER_REQUEST";
   static const String MBCCS_FTTH_REQUEST = "MBCCS_FTTH.REQUEST";

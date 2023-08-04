@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:io';
+
 import 'package:bitel_ventas/main/router/route_config.dart';
 import 'dart:async';
 import 'dart:typed_data';
@@ -16,10 +18,13 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:open_file/open_file.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../../../../../../../../res/app_colors.dart';
+import '../../../resign_contract/resign_contract_page.dart';
 import '../../pdf_preview_logic.dart';
 import '../../pdf_preview_page.dart';
 
@@ -172,7 +177,26 @@ class ContractPreviewWidget extends GetView<CustomerInformationLogic> {
               ),
               InkWell(
                 onTap: () {
-                  controller.downloadPDF();
+                  controller.downloadPDF((isSuccess) {
+                    if (isSuccess) {
+                      if (isSuccess) {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return DownloadSuccessDialog(
+                                  height: 299,
+                                  isSuccess: true,
+                                  onClick: () async {
+                                    final directory = Platform.isAndroid
+                                        ? Directory(
+                                            "/storage/emulated/0/Download") //FOR ANDROID
+                                        : await getApplicationDocumentsDirectory(); //FOR iOS
+                                    OpenFile.open(directory.path);
+                                  });
+                            });
+                      }
+                    }
+                  });
                 },
                 child: Text(
                     AppLocalizations.of(context)!.textDownloadContractPreview,

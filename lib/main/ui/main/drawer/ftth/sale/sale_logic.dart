@@ -61,19 +61,19 @@ class SaleLogic extends GetxController {
   List<OptionSale> getListOptionSaleWithPermission() {
     var list = getListOptionSale(context);
     var listPermission = InfoBusiness.getInstance()!.getUser().functions;
-    if (!listPermission.contains(Permission.CONTRACTING)) {
+    if (!listPermission.contains(UserPermission.CONTRACTING)) {
       list.removeWhere((element) =>
           element.title == AppLocalizations.of(context)!.textConnectSubscriber);
     }
-    if (!listPermission.contains(Permission.CREATE_REQUEST)) {
+    if (!listPermission.contains(UserPermission.CREATE_REQUEST)) {
       list.removeWhere((element) =>
           element.title == AppLocalizations.of(context)!.textCreateRequest);
     }
-    if (!listPermission.contains(Permission.BUY_ANYPAY)) {
+    if (!listPermission.contains(UserPermission.BUY_ANYPAY)) {
       list.removeWhere((element) =>
           element.title == AppLocalizations.of(context)!.textRechargeAnypay);
     }
-    if (!listPermission.contains(Permission.CLEAR_DEBT)) {
+    if (!listPermission.contains(UserPermission.CLEAR_DEBT)) {
       list.removeWhere((element) =>
           element.title == AppLocalizations.of(context)!.textClearDebt);
     }

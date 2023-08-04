@@ -791,7 +791,7 @@ class ProductPaymentMethodLogic extends GetxController {
 
   bool isShowVoiceContractWithPermission() {
     var listPermission = InfoBusiness.getInstance()!.getUser().functions;
-    if (listPermission.contains(Permission.VOICE_CONTRACT)) {
+    if (listPermission.contains(UserPermission.VOICE_CONTRACT)) {
       return true;
     } else {
       return false;

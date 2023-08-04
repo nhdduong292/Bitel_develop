@@ -760,7 +760,7 @@
 "textDownload": "Tải về",
 "textDownloadContractSuccessfully": "Tải xuống hợp đồng thành công",
 "textDownloadContractPreview": "Tải xuống bản xem trước hợp đồng",
-"textTheContractIsAlreadySigned": "Hợp đồng đã được ký kết và Bạn vẫn muốn hủy hợp đồng?",
+"textTheContractIsAlreadySigned": "Hợp đồng đã được ký kết và quá trình cài đặt đang được tiến hành. Bạn vẫn muốn hủy hợp đồng?",
 "textChooseProduct": "Chọn sản phẩm",
 "textContinueContracting": "Tiếp tục hợp đồng",
  "textPaymentIsRequired": "Phương thức thanh toán là bắt buộc",
@@ -768,5 +768,7 @@
 "textE112": "Trường email trống. Vui lòng cung cấp một địa chỉ email hợp lệ.",
 "textE113": "Email đã bị khóa. Vui lòng liên hệ bộ phận hỗ trợ để được giúp đỡ.",
 "textE114": "Định dạng địa chỉ email không hợp lệ. Vui lòng nhập một địa chỉ email hợp lệ.",
-"textE120": "ID cuộc gọi hợp đồng giọng nói đã được sử dụng cho yêu cầu khác, vui lòng kiểm tra lại và sử dụng ID cuộc gọi khác."
+"textE120": "ID cuộc gọi hợp đồng giọng nói đã được sử dụng cho yêu cầu khác, vui lòng kiểm tra lại và sử dụng ID cuộc gọi khác.",
+"textOpenFile": "Mở têp",
+"textDoYouWantToOpen": "Bạn có muốn mở file không?"
 }
