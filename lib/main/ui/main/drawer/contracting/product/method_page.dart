@@ -11,6 +11,7 @@ import 'package:bitel_ventas/res/app_styles.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import '../../../../../networks/model/sub_ott_model.dart';
@@ -1357,6 +1358,10 @@ Widget _voiceContract(
                           child: SizedBox(
                             height: 65,
                             child: TextField(
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp(r'[a-zA-Z0-9]+')),
+                                ],
                                 controller:
                                     controller.voiceContractTextController,
                                 keyboardType: TextInputType.text,

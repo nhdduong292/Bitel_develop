@@ -325,25 +325,28 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                                     //     controller.customer.email) {
                                     //   controller.validateEmailFromServer(
                                     //       (isSuccessValidate) {
-                                    //     controller.updateCustomer((isSuccess) {
-                                    //       if (isSuccess) {
-                                    //         Common.showToastCenter(
-                                    //             AppLocalizations.of(context)!
-                                    //                 .textUpdateCustomerInformationSuccessfully,
-                                    //             context);
-                                    //         if (controller.valueCheckBypass &&
-                                    //             controller.showBypass()) {
-                                    //           controller
-                                    //               .checkBypass((isSuccess) {
-                                    //             if (isSuccess) {
-                                    //               callback();
-                                    //             }
-                                    //           });
-                                    //         } else {
-                                    //           callback();
-                                    //         }
-                                    //       } else {}
-                                    //     });
+                                    //     if (isSuccessValidate) {
+                                    //       controller
+                                    //           .updateCustomer((isSuccess) {
+                                    //         if (isSuccess) {
+                                    //           Common.showToastCenter(
+                                    //               AppLocalizations.of(context)!
+                                    //                   .textUpdateCustomerInformationSuccessfully,
+                                    //               context);
+                                    //           if (controller.valueCheckBypass &&
+                                    //               controller.showBypass()) {
+                                    //             controller
+                                    //                 .checkBypass((isSuccess) {
+                                    //               if (isSuccess) {
+                                    //                 callback();
+                                    //               }
+                                    //             });
+                                    //           } else {
+                                    //             callback();
+                                    //           }
+                                    //         } else {}
+                                    //       });
+                                    //     }
                                     //   });
                                     // } else {
                                     //   controller.updateCustomer((isSuccess) {
@@ -365,6 +368,7 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                                     //     } else {}
                                     //   });
                                     // }
+
                                     controller.updateCustomer((isSuccess) {
                                       if (isSuccess) {
                                         Common.showToastCenter(

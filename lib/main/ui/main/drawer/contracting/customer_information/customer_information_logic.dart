@@ -322,7 +322,8 @@ class CustomerInformationLogic extends GetxController {
       "appointmentTime":
           checkAppointmentDate.value ? Common.formatDatePeru(datePicker) : null,
       "appointmentReason":
-          checkAppointmentDate.value ? appointmentReason.trim() : null
+          checkAppointmentDate.value ? appointmentReason.trim() : null,
+      "isVoiceContract": isVoiceContract
     };
     ApiUtil.getInstance()!.post(
       url: ApiEndPoints.API_CREATE_CONTRACT,
