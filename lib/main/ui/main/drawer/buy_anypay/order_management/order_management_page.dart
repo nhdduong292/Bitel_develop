@@ -121,6 +121,7 @@ class OrderManagementPage extends GetWidget {
                             ),
                             spinnerFormV2(
                                 context: context,
+                                inputType: TextInputType.number,
                                 hint:
                                     AppLocalizations.of(context)!.hintEnterCode,
                                 required: false,
@@ -221,34 +222,53 @@ class OrderManagementPage extends GetWidget {
                                             right: 16),
                                         child: Row(
                                           children: [
-                                            Visibility(
-                                              visible:
-                                                  controller.from.value.isEmpty,
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 8.0),
-                                                child: SvgPicture.asset(
-                                                    AppImages.icSelectDate),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .textFrom,
+                                                    style: AppStyles.r8
+                                                        .copyWith(
+                                                            color: AppColors
+                                                                .colorText1
+                                                                .withOpacity(
+                                                                    0.85)),
+                                                  ),
+                                                  Text.rich(TextSpan(
+                                                      style: AppStyles.r2.copyWith(
+                                                          color: controller.from
+                                                                  .value.isEmpty
+                                                              ? AppColors
+                                                                  .colorHint1
+                                                              : AppColors
+                                                                  .colorText1,
+                                                          fontWeight:
+                                                              FontWeight.w400),
+                                                      children: [
+                                                        TextSpan(
+                                                          text: controller.from
+                                                                  .value.isEmpty
+                                                              ? AppLocalizations
+                                                                      .of(
+                                                                          context)!
+                                                                  .textFrom
+                                                              : controller
+                                                                  .from.value,
+                                                        )
+                                                      ])),
+                                                ],
                                               ),
                                             ),
-                                            Text.rich(TextSpan(
-                                                style: AppStyles.r2.copyWith(
-                                                    color: controller
-                                                            .from.value.isEmpty
-                                                        ? AppColors.colorHint1
-                                                        : AppColors.colorText1,
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                                children: [
-                                                  TextSpan(
-                                                    text: controller
-                                                            .from.value.isEmpty
-                                                        ? AppLocalizations.of(
-                                                                context)!
-                                                            .textFrom
-                                                        : controller.from.value,
-                                                  )
-                                                ])),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 10.0),
+                                              child: SvgPicture.asset(
+                                                  AppImages.icSelectDate),
+                                            ),
                                           ],
                                         ),
                                       )),
@@ -278,34 +298,53 @@ class OrderManagementPage extends GetWidget {
                                             right: 16),
                                         child: Row(
                                           children: [
-                                            Visibility(
-                                              visible:
-                                                  controller.to.value.isEmpty,
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 8.0),
-                                                child: SvgPicture.asset(
-                                                    AppImages.icSelectDate),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .textTo,
+                                                    style: AppStyles.r8
+                                                        .copyWith(
+                                                            color: AppColors
+                                                                .colorText1
+                                                                .withOpacity(
+                                                                    0.85)),
+                                                  ),
+                                                  Text.rich(TextSpan(
+                                                      style: AppStyles.r2.copyWith(
+                                                          color: controller.to
+                                                                  .value.isEmpty
+                                                              ? AppColors
+                                                                  .colorHint1
+                                                              : AppColors
+                                                                  .colorText1,
+                                                          fontWeight:
+                                                              FontWeight.w400),
+                                                      children: [
+                                                        TextSpan(
+                                                          text: controller.to
+                                                                  .value.isEmpty
+                                                              ? AppLocalizations
+                                                                      .of(
+                                                                          context)!
+                                                                  .textTo
+                                                              : controller
+                                                                  .to.value,
+                                                        )
+                                                      ])),
+                                                ],
                                               ),
                                             ),
-                                            Text.rich(TextSpan(
-                                                style: AppStyles.r2.copyWith(
-                                                    color: controller
-                                                            .to.value.isEmpty
-                                                        ? AppColors.colorHint1
-                                                        : AppColors.colorText1,
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                                children: [
-                                                  TextSpan(
-                                                    text: controller
-                                                            .to.value.isEmpty
-                                                        ? AppLocalizations.of(
-                                                                context)!
-                                                            .textTo
-                                                        : controller.to.value,
-                                                  )
-                                                ])),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 10.0),
+                                              child: SvgPicture.asset(
+                                                  AppImages.icSelectDate),
+                                            ),
                                           ],
                                         ),
                                       )),

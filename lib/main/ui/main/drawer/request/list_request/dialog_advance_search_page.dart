@@ -1,22 +1,16 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:bitel_ventas/main/custom_views/line_dash.dart';
 import 'package:bitel_ventas/main/networks/model/address_model.dart';
 import 'package:bitel_ventas/main/networks/request/search_request.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/dialog_address_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/dialog_advance_search_logic.dart';
-import 'package:bitel_ventas/main/ui/main/drawer/request/list_request/dialog_transfer_request_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
-import 'package:bitel_ventas/main/utils/event_bus.dart';
-import 'package:bitel_ventas/main/utils/provider/search_request_provider.dart';
 import 'package:bitel_ventas/res/app_colors.dart';
 import 'package:bitel_ventas/res/app_images.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

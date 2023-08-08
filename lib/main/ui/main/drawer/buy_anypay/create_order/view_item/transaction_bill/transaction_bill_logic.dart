@@ -30,9 +30,6 @@ class TransactionBillLogic extends GetxController {
   }
 
   String getCreationDate(String? date) {
-    if (date != null) {
-      return Common.fromDate(DateTime.parse(date), 'dd/MM/yyyy');
-    }
-    return '---';
+    return Common.convertDateTime(date ?? " ");
   }
 }
