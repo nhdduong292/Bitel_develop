@@ -1,7 +1,7 @@
 class ApiEndPoints {
   static const String DOMAIN = "http://181.176.242.147:9901/ftth";
   static const String DOMAIN_TEST = "http://10.121.14.196:9901";
-  static const bool isDev = false; //todo true là test false la that
+  static const bool isDev = true; //todo true là test false la that
   static const String API_LIST_REQUEST =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/requests";
   static const String API_CREATE_REQUEST =
@@ -178,4 +178,6 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts/id/invoice-info";
   static const String API_VALIDATE_EMAIL =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/validates/email";
+  static const String API_CHECK_VERSION_APP =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/app-version";
 }

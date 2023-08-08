@@ -30,6 +30,7 @@ class MainPage extends GetWidget {
     return GetBuilder(
       init: MainLogic(),
       builder: (controller) {
+        controller.checkVersionApp(context);
         return Scaffold(
           key: controller.scaffoldKey,
           body: Center(

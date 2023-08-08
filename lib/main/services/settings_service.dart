@@ -7,6 +7,7 @@ import 'package:bitel_ventas/main/utils/shared_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jwt_decode/jwt_decode.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 extension ThemeModeExtension on ThemeMode {
@@ -48,6 +49,9 @@ class SettingService extends GetxService {
 
   Future<SettingService> init() async {
     prefs = await SharedPreferences.getInstance();
+
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    version.value = packageInfo.version;
 
     ///ThemeMode
     String themeModeCode =
