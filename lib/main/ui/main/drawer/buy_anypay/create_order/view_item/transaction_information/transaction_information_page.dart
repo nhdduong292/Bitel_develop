@@ -7,6 +7,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -159,11 +160,19 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                         context: context,
                                         hint: AppLocalizations.of(context)!
                                             .textEnterTheAmount,
-                                        type: TextInputType.number,
+                                        type: TextInputType.numberWithOptions(
+                                            decimal: true),
                                         errorText: controller.errorTextAmount,
                                         onChange: () {
+                                          if (controller
+                                              .textAmountController.text
+                                              .startsWith(".")) {
+                                            controller.textAmountController
+                                                .clear();
+                                          }
                                           controller.checkValidate();
-                                        })
+                                        },
+                                        reg: RegExp(r'^\d*\.?\d*')),
                                   ],
                                 ),
                               ),
@@ -447,16 +456,23 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
     );
   }
 
-  Widget inputFrom(
-      {required TextEditingController controller,
-      required BuildContext context,
-      required String hint,
-      required TextInputType type,
-      String? errorText,
-      required onChange}) {
+  Widget inputFrom({
+    required TextEditingController controller,
+    required BuildContext context,
+    required String hint,
+    required TextInputType type,
+    RegExp? reg,
+    String? errorText,
+    required onChange,
+  }) {
     return TextField(
         controller: controller,
         keyboardType: type,
+        inputFormatters: reg != null
+            ? [
+                FilteringTextInputFormatter.allow(reg),
+              ]
+            : null,
         textInputAction: TextInputAction.done,
         style: AppStyles.r2
             .copyWith(color: AppColors.colorTitle, fontWeight: FontWeight.w500),

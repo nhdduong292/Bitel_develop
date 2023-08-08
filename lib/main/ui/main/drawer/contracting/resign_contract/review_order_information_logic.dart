@@ -1,36 +1,17 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
 import 'package:bitel_ventas/main/networks/model/bill_model.dart';
-import 'package:bitel_ventas/main/networks/model/package_model.dart';
-import 'package:bitel_ventas/main/networks/model/plan_ott_model.dart';
-import 'package:bitel_ventas/main/networks/model/promotion_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
-import 'package:bitel_ventas/main/networks/model/request_ott_service_model.dart';
-import 'package:bitel_ventas/main/networks/response/product_response.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/request/request_detail/request_detail_logic.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
-import 'package:bitel_ventas/main/utils/values.dart';
-import 'package:dio/dio.dart';
-import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../../../networks/model/customer_model.dart';
-import '../../../../../networks/model/method_model.dart';
-import '../../../../../networks/model/plan_reason_model.dart';
-import '../../../../../networks/model/product_model.dart';
-import '../../../../../networks/model/sub_ott_model.dart';
 import '../../../../../services/connection_service.dart';
 import '../../../../../utils/common.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../../utilitis/info_bussiness.dart';
 
 class ReviewOrderInformationLogic extends GetxController {
   BuildContext context;
