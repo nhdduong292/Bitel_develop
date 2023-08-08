@@ -11,6 +11,7 @@ import 'package:bitel_ventas/main/ui/main/drawer/request/request_detail/request_
 import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:bitel_ventas/main/utils/common_widgets.dart';
 import 'package:bitel_ventas/main/utils/values.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -1127,16 +1128,32 @@ class CustomerInformationLogic extends GetxController {
 
   downloadPDF(var onSuccess) async {
     // To open from assets, you can copy them to the app storage folder, and the access them "locally"
-    PermissionStatus status = await Permission.manageExternalStorage.request();
-
-    // Kiểm tra xem quyền đã được cấp hay chưa
-    if (status.isGranted) {
-      // Quyền đã được cấp, bạn có thể thực hiện các hành động liên quan đến bộ nhớ ngoài ở đây
-      print('Quyền truy cập bộ nhớ ngoài đã được cấp!');
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    if (androidInfo.version.sdkInt < 30) {
+      PermissionStatus statusStorage = await Permission.storage.request();
+      // Kiểm tra xem quyền đã được cấp hay chưa
+      if (statusStorage.isGranted) {
+        // Quyền đã được cấp, bạn có thể thực hiện các hành động liên quan đến bộ nhớ ngoài ở đây
+        print('Quyền truy cập bộ nhớ ngoài đã được cấp!');
+      } else {
+        // Quyền không được cấp, bạn có thể hiển thị thông báo hoặc xử lý trường hợp khi không có quyền truy cập
+        print('Quyền truy cập bộ nhớ ngoài không được cấp!');
+        onSuccess(false);
+        return;
+      }
     } else {
-      // Quyền không được cấp, bạn có thể hiển thị thông báo hoặc xử lý trường hợp khi không có quyền truy cập
-      print('Quyền truy cập bộ nhớ ngoài không được cấp!');
-      onSuccess(false);
+      PermissionStatus status =
+          await Permission.manageExternalStorage.request();
+      if (status.isGranted) {
+        // Quyền đã được cấp, bạn có thể thực hiện các hành động liên quan đến bộ nhớ ngoài ở đây
+        print('Quyền truy cập bộ nhớ ngoài đã được cấp!');
+      } else {
+        // Quyền không được cấp, bạn có thể hiển thị thông báo hoặc xử lý trường hợp khi không có quyền truy cập
+        print('Quyền truy cập bộ nhớ ngoài không được cấp!');
+        onSuccess(false);
+        return;
+      }
     }
     String type = "";
     bool isConnect =

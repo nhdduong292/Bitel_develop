@@ -317,35 +317,22 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                   controller.update();
                                   return;
                                 }
-                                // controller.validateEmailFromServer(
-                                //     (isSuccessValidate) {
-                                //   if (isSuccessValidate) {
-                                //     controller.postBuyAnyPayComfirm(
-                                //         isSuccess: (isSuccess) {
-                                //       if (isSuccess) {
-                                //         controller.setBuyAnyPayModel();
+                                controller.validateEmailFromServer(
+                                    (isSuccessValidate) {
+                                  if (isSuccessValidate) {
+                                    controller.postBuyAnyPayComfirm(
+                                        isSuccess: (isSuccess) {
+                                      if (isSuccess) {
+                                        controller.setBuyAnyPayModel();
 
-                                //         controller.createOrderLogic.isTabOne
-                                //             .value = false;
-                                //         controller.createOrderLogic.isTabTwo
-                                //             .value = true;
+                                        controller.createOrderLogic.isTabOne
+                                            .value = false;
+                                        controller.createOrderLogic.isTabTwo
+                                            .value = true;
 
-                                //         controller.createOrderLogic.nextPage(1);
-                                //       }
-                                //     });
-                                //   }
-                                // });
-                                controller.postBuyAnyPayComfirm(
-                                    isSuccess: (isSuccess) {
-                                  if (isSuccess) {
-                                    controller.setBuyAnyPayModel();
-
-                                    controller.createOrderLogic.isTabOne.value =
-                                        false;
-                                    controller.createOrderLogic.isTabTwo.value =
-                                        true;
-
-                                    controller.createOrderLogic.nextPage(1);
+                                        controller.createOrderLogic.nextPage(1);
+                                      }
+                                    });
                                   }
                                 });
                               }
