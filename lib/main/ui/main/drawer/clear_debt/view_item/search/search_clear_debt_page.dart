@@ -150,6 +150,7 @@ class SearchClearDebtPage extends GetView<SearchClearDebtLogic> {
                                       FilteringTextInputFormatter.allow(
                                           RegExp(r'[0-9]')),
                                     ],
+                                    keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
                                       hintText: AppLocalizations.of(context)!
                                           .textEnterCaptcha,
