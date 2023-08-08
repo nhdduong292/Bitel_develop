@@ -37,7 +37,7 @@ class DialogSurveyMapPage extends GetWidget {
             borderRadius: BorderRadius.circular(15),
           ),
           elevation: 0.0,
-          insetPadding: EdgeInsets.all(10),
+          insetPadding: const EdgeInsets.all(10),
           backgroundColor: Colors.white,
           child: SingleChildScrollView(
             child: Padding(
@@ -53,9 +53,38 @@ class DialogSurveyMapPage extends GetWidget {
                       Get.back();
                     },
                     child: Container(
-                        margin: const EdgeInsets.only(bottom: 20),
+                        margin: const EdgeInsets.only(bottom: 0),
                         alignment: Alignment.centerRight,
                         child: SvgPicture.asset(AppImages.icClose)),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      controller.getCurrentLocation();
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: Image.asset(
+                            AppImages.icCurrentLocation,
+                            fit: BoxFit.fitHeight,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          AppLocalizations.of(context)!
+                              .textUseMyCurrentLocation,
+                          style: AppStyles.bText1_14_500,
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
                   ),
                   Container(
                     width: double.infinity,

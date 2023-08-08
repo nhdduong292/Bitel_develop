@@ -83,6 +83,19 @@ class DialogSurveyMapLogic extends GetxController {
     );
   }
 
+  void getCurrentLocation() {
+    _onLoading(context);
+    _getCurrentLocation().then(
+      (value) {
+        lat = value.latitude;
+        long = value.longitude;
+
+        currentPoint = LatLng(lat, long);
+        setCircleFirst(currentPoint);
+      },
+    );
+  }
+
   void setMarker(LatLng point) {
     Marker marker = Marker(
         markerId: MarkerId('marker_1'),

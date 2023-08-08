@@ -783,5 +783,6 @@
     "textE114": "Invalid email address format. Please enter a valid email.",
     "textE120": "Voice contract call ID is used for other request, please check it again and use other call ID.",
     "textOpenFile": "Open file",
-    "textDoYouWantToOpen": "Do you want to open the file now?"
+    "textDoYouWantToOpen": "Do you want to open the file now?",
+    "textUseMyCurrentLocation": "Use my current location"
 }

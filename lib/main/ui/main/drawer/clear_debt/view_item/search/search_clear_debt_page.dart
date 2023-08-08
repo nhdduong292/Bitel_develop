@@ -146,6 +146,7 @@ class SearchClearDebtPage extends GetView<SearchClearDebtLogic> {
                                     onChanged: (value) {
                                       controller.setCapcha(value);
                                     },
+                                    keyboardType: TextInputType.number,
                                     inputFormatters: [
                                       FilteringTextInputFormatter.allow(
                                           RegExp(r'[0-9]')),

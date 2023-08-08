@@ -155,8 +155,8 @@
   "textStatus": "Estado",
   "hintStatus": "Crear solicitud, Crear",
   "textRequestDate": "Fecha de solicitud",
-  "textFrom": "De",
-  "textTo": "A",
+  "textFrom": "Desde",
+  "textTo": "Hasta",
   "textCustomerInformation": "Información de cliente",
   "textPhoneNumber": "Número de contacto",
   "hintPhoneNumber": "Ingresa número de contacto",
@@ -771,5 +771,6 @@
 "textE114": "Formato de dirección de correo electrónico no válido. Por favor, ingrese un correo electrónico válido.",
 "textE120": "El ID de llamada del contrato de voz se está utilizando para otra solicitud, por favor verifíquelo nuevamente y utilice otro ID de llamada.",
 "textOpenFile": "Abrir documento",
-"textDoYouWantToOpen": "¿Quieres abrir el archivo ahora?"
+"textDoYouWantToOpen": "¿Quieres abrir el archivo ahora?",
+"textUseMyCurrentLocation": "Usar mi ubicación actual"
 }
