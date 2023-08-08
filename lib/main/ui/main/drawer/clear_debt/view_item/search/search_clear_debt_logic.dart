@@ -94,6 +94,11 @@ class SearchClearDebtLogic extends GetxController {
     } else {
       setActiveButton(true);
     }
+    if ((currentIdNumber.length < 8 && currentIdentityType == "DNI") ||
+        (currentIdNumber.length < 9 && currentIdentityType == "CE") ||
+        (currentIdNumber.length < 6 && currentIdentityType == "PP")) {
+      setActiveButton(true);
+    }
     update();
   }
 

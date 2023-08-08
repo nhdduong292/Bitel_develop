@@ -165,19 +165,51 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                   SizedBox(
                     height: 16,
                   ),
-                  customRadioMutiple(
-                      width: width,
-                      text: AppLocalizations.of(context)!
-                          .textUpdateCustomerInformation,
-                      check: controller.checkOption,
-                      changeValue: (value) {
-                        controller.checkOption.value = value;
-                        controller.isActiveUpdate = value;
-                      }),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 15, right: 20, top: 10),
+                    child: InkWell(
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      onTap: () {
+                        controller.checkOption.value =
+                            !controller.checkOption.value;
+                        controller.isActiveUpdate =
+                            controller.checkOption.value;
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Obx(() => controller.checkOption.value
+                              ? Padding(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: const Icon(
+                                    Icons.check_box,
+                                    color: AppColors.colorSubContent,
+                                  ),
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: const Icon(
+                                    Icons.check_box_outline_blank,
+                                    color: AppColors.colorSubContent,
+                                  ),
+                                )),
+                          Text(
+                            '${AppLocalizations.of(context)!.textUpdateCustomerInformation}.',
+                            style:
+                                AppStyles.r2B3A4A_12_500.copyWith(fontSize: 14),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                   Visibility(
                     visible: controller.showBypass(),
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 2, right: 20),
+                      padding:
+                          const EdgeInsets.only(left: 15, right: 20, top: 10),
                       child: InkWell(
                         highlightColor: Colors.transparent,
                         splashColor: Colors.transparent,
@@ -190,13 +222,21 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Checkbox(
-                                activeColor: AppColors.colorText3,
-                                value: controller.valueCheckBypass,
-                                onChanged: (value) {
-                                  controller.valueCheckBypass = value ?? false;
-                                  controller.update();
-                                }),
+                            controller.valueCheckBypass
+                                ? Padding(
+                                    padding: const EdgeInsets.only(right: 10),
+                                    child: const Icon(
+                                      Icons.check_box,
+                                      color: AppColors.colorSubContent,
+                                    ),
+                                  )
+                                : Padding(
+                                    padding: const EdgeInsets.only(right: 10),
+                                    child: const Icon(
+                                      Icons.check_box_outline_blank,
+                                      color: AppColors.colorSubContent,
+                                    ),
+                                  ),
                             Text(
                               '${AppLocalizations.of(context)!.textBypassFingerprint}.',
                               style: AppStyles.r2B3A4A_12_500
@@ -209,15 +249,46 @@ class AdditionalInformationWidget extends GetView<CustomerInformationLogic> {
                   ),
                   Visibility(
                     visible: controller.isShowAppointment(),
-                    child: customRadioMutiple(
-                        width: width,
-                        text: AppLocalizations.of(context)!
-                            .textScheduleImplementationDate,
-                        check: controller.checkAppointmentDate,
-                        changeValue: (value) {
-                          controller.checkAppointmentDate.value = value;
-                          controller.isActiveUpdate = value;
-                        }),
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(left: 15, right: 20, top: 10),
+                      child: InkWell(
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+                        onTap: () {
+                          controller.checkAppointmentDate.value =
+                              !controller.checkAppointmentDate.value;
+                          controller.isActiveUpdate =
+                              controller.checkAppointmentDate.value;
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Obx(() => controller.checkAppointmentDate.value
+                                ? Padding(
+                                    padding: const EdgeInsets.only(right: 10),
+                                    child: const Icon(
+                                      Icons.check_box,
+                                      color: AppColors.colorSubContent,
+                                    ),
+                                  )
+                                : Padding(
+                                    padding: const EdgeInsets.only(right: 10),
+                                    child: const Icon(
+                                      Icons.check_box_outline_blank,
+                                      color: AppColors.colorSubContent,
+                                    ),
+                                  )),
+                            Text(
+                              '${AppLocalizations.of(context)!.textScheduleImplementationDate}.',
+                              style: AppStyles.r2B3A4A_12_500
+                                  .copyWith(fontSize: 14),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                   Obx(() => Visibility(
                         visible: controller.checkAppointmentDate.value,

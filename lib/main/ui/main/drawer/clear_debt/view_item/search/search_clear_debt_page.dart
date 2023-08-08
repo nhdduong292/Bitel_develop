@@ -5,6 +5,7 @@ import 'package:bitel_ventas/res/app_fonts.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -145,6 +146,10 @@ class SearchClearDebtPage extends GetView<SearchClearDebtLogic> {
                                     onChanged: (value) {
                                       controller.setCapcha(value);
                                     },
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                          RegExp(r'[0-9]')),
+                                    ],
                                     decoration: InputDecoration(
                                       hintText: AppLocalizations.of(context)!
                                           .textEnterCaptcha,

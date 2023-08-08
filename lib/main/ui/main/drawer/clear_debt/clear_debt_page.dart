@@ -55,8 +55,8 @@ class ClearDebtPage extends GetView<ClearDebtLogic> {
                         top: 50,
                         left: 20,
                         child: InkWell(
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          splashColor: Colors.transparent,
                           onTap: () {
                             if (controller.index == 1) {
                               controller.isTabTwo.value = false;
@@ -124,14 +124,17 @@ class ClearDebtPage extends GetView<ClearDebtLogic> {
                   height: 7,
                 ),
                 Expanded(
-                    child: TabBarView(
-                        controller: controller.tabController,
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: [
-                      SearchClearDebtPage(),
-                      ClearDebtDetailPage(),
-                      OTPClearDebtPage()
-                    ])),
+                    child: Container(
+                  color: Colors.white,
+                  child: TabBarView(
+                      controller: controller.tabController,
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: [
+                        SearchClearDebtPage(),
+                        ClearDebtDetailPage(),
+                        OTPClearDebtPage()
+                      ]),
+                )),
               ],
             ),
           );
