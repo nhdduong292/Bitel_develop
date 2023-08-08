@@ -87,6 +87,8 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                                 product: controller.listProduct[index],
                                 value: index,
                                 onChange: (value) {
+                                  FocusScope.of(context)
+                                      .requestFocus(FocusNode());
                                   controller.valueProduct.value = value;
                                   controller.resetPackage();
                                   controller.resetPlanReason();
@@ -152,6 +154,8 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                                     package: controller.listPackage[index],
                                     value: index,
                                     onChange: (value) {
+                                      FocusScope.of(context)
+                                          .requestFocus(FocusNode());
                                       controller.valuePackage.value = value;
                                       controller.resetPlanReason();
                                       controller.resetPromotions();
@@ -225,6 +229,8 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                                       reason: controller.listPlanReason[index],
                                       value: index,
                                       onChange: (value) {
+                                        FocusScope.of(context)
+                                            .requestFocus(FocusNode());
                                         controller.valueMethod.value = value;
                                       }),
                               separatorBuilder:
@@ -422,6 +428,8 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                                             value: index,
                                             listValue: controller.listSelectOtt,
                                             onChange: (value) {
+                                              FocusScope.of(context)
+                                                  .requestFocus(FocusNode());
                                               if (controller.listSelectOtt
                                                   .contains(value)) {
                                                 controller.listSelectOtt
@@ -441,6 +449,8 @@ class MethodPage extends GetView<ProductPaymentMethodLogic> {
                                             value: index,
                                             listValue: controller.listSelectOtt,
                                             onChange: (value) {
+                                              FocusScope.of(context)
+                                                  .requestFocus(FocusNode());
                                               if (controller.listSelectOtt
                                                   .contains(value)) {
                                                 controller.listSelectOtt
@@ -1001,6 +1011,7 @@ Widget _itemOTTCableGo(
                           groupValue: controller.valueCableGo,
                           onChange: (value) {
                             // controller.update();
+                            FocusScope.of(context).requestFocus(FocusNode());
                             for (var item in ott.listSubOtt) {
                               final index = ott.listSubOtt.indexOf(item);
                               if (index != value) {
