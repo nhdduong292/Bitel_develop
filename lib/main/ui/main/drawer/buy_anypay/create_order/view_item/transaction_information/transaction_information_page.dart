@@ -234,6 +234,11 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                           focusNode: controller.focusCaptcha,
                                           controller:
                                               controller.textCaptchaController,
+                                          inputFormatters: [
+                                            FilteringTextInputFormatter.allow(
+                                                RegExp(r'[0-9]')),
+                                          ],
+                                          keyboardType: TextInputType.number,
                                           style: AppStyles.r415263_13_500
                                               .copyWith(fontSize: 16),
                                           onChanged: (value) {
