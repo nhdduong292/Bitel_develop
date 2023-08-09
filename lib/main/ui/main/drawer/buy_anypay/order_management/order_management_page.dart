@@ -122,6 +122,8 @@ class OrderManagementPage extends GetWidget {
                             spinnerFormV2(
                                 context: context,
                                 inputType: TextInputType.number,
+                                maxLenght: 14,
+                                height: 60,
                                 hint:
                                     AppLocalizations.of(context)!.hintEnterCode,
                                 required: false,
@@ -763,7 +765,7 @@ class ConfirmDialog extends Dialog {
             Padding(
               padding: const EdgeInsets.only(left: 30, right: 30),
               child: Text(
-                '${AppLocalizations.of(context)!.textAreYouSureToCancel} $bankNumber?',
+                '${AppLocalizations.of(context)!.textAreYouSureToCancel} [$bankNumber]?',
                 style: AppStyles.r15,
                 textAlign: TextAlign.center,
               ),
@@ -773,7 +775,7 @@ class ConfirmDialog extends Dialog {
               children: [
                 Expanded(
                     child: bottomButtonV2(
-                        text: AppLocalizations.of(context)!.textCancel,
+                        text: AppLocalizations.of(context)!.textCancelDeploy,
                         onTap: () => Get.back())),
                 Expanded(
                     child: bottomButton(
