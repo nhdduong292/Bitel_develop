@@ -53,34 +53,44 @@ class DialogSurveyMapPage extends GetWidget {
                       Get.back();
                     },
                     child: Container(
-                        margin: const EdgeInsets.only(bottom: 0),
+                        margin: const EdgeInsets.only(bottom: 10),
                         alignment: Alignment.centerRight,
                         child: SvgPicture.asset(AppImages.icClose)),
                   ),
                   InkWell(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     onTap: () {
                       controller.getCurrentLocation();
                     },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: 24,
-                          height: 24,
-                          child: Image.asset(
-                            AppImages.icCurrentLocation,
-                            fit: BoxFit.fitHeight,
-                          ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Color.fromARGB(255, 229, 222, 226)),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 5, bottom: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: Image.asset(
+                                AppImages.icCurrentLocation,
+                                fit: BoxFit.fitHeight,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            Text(
+                              AppLocalizations.of(context)!
+                                  .textUseMyCurrentLocation,
+                              style: AppStyles.bText1_14_500,
+                            )
+                          ],
                         ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Text(
-                          AppLocalizations.of(context)!
-                              .textUseMyCurrentLocation,
-                          style: AppStyles.bText1_14_500,
-                        )
-                      ],
+                      ),
                     ),
                   ),
                   const SizedBox(
