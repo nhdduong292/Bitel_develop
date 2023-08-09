@@ -171,6 +171,8 @@ class SearchClearDebtLogic extends GetxController {
     currentAccount = '';
     currentIdNumber = '';
     currentPhone = '';
+    isActive = true;
+    update();
   }
 
   void getCaptcha() async {

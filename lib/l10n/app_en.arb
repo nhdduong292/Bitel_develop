@@ -599,7 +599,7 @@
   "textE036": "Register finger with customer non dni fail.",
   "textE037": "A new customer has not yet registered a fingerprint.",
   "textE038": "The customer's finger has expired.",
-  "textE039": "Validate fingerprint fail.",
+  "textE039": "Validate fingerprint fail. Click [Capture] to capture fingerprint again.",
   "textLastFatherNameNotEmpty": "Last name of father cannot be empty",
   "textLastMotherNameNotEmpty": "Last name of mother cannot be empty",
   "textFullNameNotEmpty": "Full name cannot be empty",

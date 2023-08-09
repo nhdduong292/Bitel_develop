@@ -894,7 +894,8 @@ Widget spinnerFormV2(
     Function(String value)? function,
     Function(String value)? onSubmit,
     FocusNode? focusNode,
-    bool? isMaxlenght}) {
+    bool? isMaxlenght,
+    int? maxLenght}) {
   return Column(
     children: [
       Stack(
@@ -923,7 +924,7 @@ Widget spinnerFormV2(
                         maxLines: isMaxlenght ?? false ? null : 1,
                         focusNode: focusNode,
                         expands: isMaxlenght ?? false,
-                        maxLength: isMaxlenght ?? false ? 500 : null,
+                        maxLength: isMaxlenght ?? false ? 500 : maxLenght,
                         controller: controlTextField,
                         keyboardType: inputType,
                         autofocus: required,
