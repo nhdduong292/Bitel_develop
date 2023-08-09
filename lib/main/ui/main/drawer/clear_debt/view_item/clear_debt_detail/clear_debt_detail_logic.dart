@@ -40,15 +40,6 @@ class ClearDebtDetailLogic extends GetxController {
     listClearDebt = clearDebtLogic.listClearDebt;
   }
 
-  bool isEnoughPayment() {
-    // if (clearDebtLogic.balance > totalService) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
-    return Random().nextBool();
-  }
-
   void setupListSelect() {
     listSelectClearDebt.clear();
     listSelect.map((e) {

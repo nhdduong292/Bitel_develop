@@ -222,19 +222,23 @@ class ReSignContractLogic extends GetxController {
   }
 
   void writeLogToFile(Uint8List bytes, var onSuccess) async {
-    String type = "";
-    if (checkMainContract.value) {
-      type = PDFType.MAIN;
-    } else {
-      type = PDFType.LENDING;
+    try {
+      String type = "";
+      if (checkMainContract.value) {
+        type = PDFType.MAIN;
+      } else {
+        type = PDFType.LENDING;
+      }
+      final directory = Platform.isAndroid
+          ? Directory("/storage/emulated/0/Download") //FOR ANDROID
+          : await getApplicationDocumentsDirectory(); //FOR iOS
+      final file = File(
+          '${directory.path}/${type == PDFType.MAIN ? AppLocalizations.of(context)!.textMainContract : AppLocalizations.of(context)!.textLendingContract}_$cusFullName.pdf');
+      await file.writeAsBytes(bytes.toList());
+      // ignore: use_build_context_synchronously
+      onSuccess(true);
+    } catch (e) {
+      onSuccess(false);
     }
-    final directory = Platform.isAndroid
-        ? Directory("/storage/emulated/0/Download") //FOR ANDROID
-        : await getApplicationDocumentsDirectory(); //FOR iOS
-    final file = File(
-        '${directory.path}/${type == PDFType.MAIN ? AppLocalizations.of(context)!.textMainContract : AppLocalizations.of(context)!.textLendingContract}_$cusFullName.pdf');
-    await file.writeAsBytes(bytes.toList());
-    // ignore: use_build_context_synchronously
-    onSuccess(true);
   }
 }

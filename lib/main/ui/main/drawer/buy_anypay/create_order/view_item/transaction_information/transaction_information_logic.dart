@@ -124,7 +124,7 @@ class TransactionInformationLogic extends GetxController {
     Map<String, dynamic> body = {
       "idType": buyAnyPayComfirmModel.idType,
       "idNumber": buyAnyPayComfirmModel.idNumber,
-      "amount": int.parse(textAmountController.text.trim()),
+      "amount": double.parse(textAmountController.text.trim()),
       "email": textEmailController.text.trim(),
     };
     createOrderLogic.bodyRequestBuyAnyPay = body;
