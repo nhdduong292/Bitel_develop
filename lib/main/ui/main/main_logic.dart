@@ -8,6 +8,7 @@ import '../../networks/api_util.dart';
 import '../../services/connection_service.dart';
 import '../../utils/common.dart';
 import '../../utils/common_widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainLogic extends GetxController {
   var index = 0.obs;
@@ -54,8 +55,8 @@ class MainLogic extends GetxController {
         if (response.isSuccess) {
           bool needUpdate = response.data['needUpdate'];
           if (needUpdate) {
-            Common.showSystemErrorLoginDialog(
-                context, "ban can update phien ban moi", () {});
+            Common.showSystemErrorLoginDialog(context,
+                AppLocalizations.of(context)!.textUpdateVersionApp, () {});
           }
         } else {}
       },

@@ -770,5 +770,6 @@
 "textE114": "Định dạng địa chỉ email không hợp lệ. Vui lòng nhập một địa chỉ email hợp lệ.",
 "textE120": "ID cuộc gọi hợp đồng giọng nói đã được sử dụng cho yêu cầu khác, vui lòng kiểm tra lại và sử dụng ID cuộc gọi khác.",
 "textOpenFile": "Mở têp",
-"textDoYouWantToOpen": "Bạn có muốn mở file không?"
+"textDoYouWantToOpen": "Bạn có muốn mở file không?",
+"textUpdateVersionApp": "La versión actual de Ventas FTTH es demasiado antigua, actualice a la última versión para usar la aplicación."
 }
