@@ -678,12 +678,28 @@ class Common {
   static String numberFormat(var content) {
     var number;
     if (content is String) {
-      number = double.parse(content);
+      try {
+        number = double.parse(content);
+        // Kiểm tra nếu giá trị là số nguyên
+        if (number == number.toInt()) {
+          return number.toInt().toString(); // Trả về số nguyên
+        } else {
+          number = double.parse(number.toStringAsFixed(1));
+        }
+      } catch (e) {
+        print("Không thể chuyển đổi chuỗi thành số: $e");
+        return "---"; // Trả về null nếu không thể chuyển đổi
+      }
     } else if (content is double) {
       number = content;
-      number = double.parse(number.toStringAsFixed(1));
+      if (number == number.toInt()) {
+        return number.toInt().toString(); // Trả về số nguyên
+      } else {
+        number = double.parse(number.toStringAsFixed(1));
+      }
     } else if (content is int) {
       number = content;
+      return number.toString();
     } else {
       return '---';
     }

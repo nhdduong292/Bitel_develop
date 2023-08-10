@@ -14,6 +14,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../../../../res/app_colors.dart';
 import '../../../../../../../../res/app_images.dart';
 import '../../../../../../../../res/app_styles.dart';
+import '../../../../../../../utils/common.dart';
 import '../../../../../../../utils/common_widgets.dart';
 
 class TransactionDetailPage extends GetView<TransactionDetailLogic> {
@@ -101,7 +102,7 @@ class TransactionDetailPage extends GetView<TransactionDetailLogic> {
                               title:
                                   '${AppLocalizations.of(context)!.textAmount} (1)',
                               content:
-                                  'S/${controller.buyAnyPayCreateModel.amount}',
+                                  'S/${Common.numberFormat(controller.buyAnyPayCreateModel.amount)}',
                               isColor: true),
                           DottedLine(
                             dashColor: Color(0xFFE3EAF2),
