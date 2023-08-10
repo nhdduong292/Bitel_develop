@@ -204,4 +204,5 @@ class AppImages {
       "assets/images/img_finger_right_thumb_update.png";
   static const String icNoConnection = "assets/icons/ic_no_connection.png";
   static const String icWarningNew = 'assets/images/ic_warning.svg';
+  static const icCurrentLocation = 'assets/images/icon_location.png';
 }
