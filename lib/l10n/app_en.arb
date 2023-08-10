@@ -784,5 +784,6 @@
     "textE120": "Voice contract call ID is used for other request, please check it again and use other call ID.",
     "textOpenFile": "Open file",
     "textDoYouWantToOpen": "Do you want to open the file now?",
-    "textUseMyCurrentLocation": "Use my current location"
+    "textUseMyCurrentLocation": "Use my current location",
+    "textUpdateVersionApp": "Phiên bản hiện tại của Ventas FTTH đã quá cũ, vui lòng cập nhật phiên bản mới nhất để sử dụng ứng dụng."
 }

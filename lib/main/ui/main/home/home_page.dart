@@ -43,7 +43,7 @@ class HomePage extends GetView<HomeLogic> {
               ),
             ));
     return GetBuilder(
-      init: HomeLogic(),
+      init: HomeLogic(context: context),
       builder: (controller) {
         return Scaffold(
           appBar: AppBar(

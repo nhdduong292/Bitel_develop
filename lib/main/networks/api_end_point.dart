@@ -178,4 +178,6 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/contracts/id/invoice-info";
   static const String API_VALIDATE_EMAIL =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/validates/email";
+  static const String API_CHECK_VERSION_APP =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/app-version";
 }
