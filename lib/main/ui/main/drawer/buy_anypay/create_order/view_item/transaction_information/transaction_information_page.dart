@@ -164,15 +164,9 @@ class TransactionInformationPage extends GetView<TransactionInformationLogic> {
                                             decimal: true),
                                         errorText: controller.errorTextAmount,
                                         onChange: () {
-                                          if (controller
-                                              .textAmountController.text
-                                              .startsWith(".")) {
-                                            controller.textAmountController
-                                                .clear();
-                                          }
                                           controller.checkValidate();
                                         },
-                                        reg: RegExp(r'^\d*\.?\d*')),
+                                        reg: RegExp(r'[0-9]')),
                                   ],
                                 ),
                               ),

@@ -124,7 +124,7 @@ class ChooseChangePlanLogic extends GetxController {
         "subId": subId,
         "newPlan":
             productChangePlanModel.newPlan[valueProduct.value].productCode,
-        "ottServices": getListOTTService()
+        "ottServices": getListOTTCode()
       },
       onSuccess: (response) {
         Get.back();
@@ -349,14 +349,14 @@ class ChooseChangePlanLogic extends GetxController {
     return list;
   }
 
-  List<String> getListOTTService() {
+  List<String> getListOTTCode() {
     List<String> list = [];
     for (int value in listSelectOtt) {
       if (listPlanOTT[value].ottService != OTTService.CABLE_GO) {
-        list.add(listPlanOTT[value].ottService);
+        list.add(listPlanOTT[value].listSubOtt[0].ottCode);
       } else {
         if (valueCableGo.value > -1) {
-          list.add(listPlanOTT[value].ottService);
+          list.add(listPlanOTT[value].listSubOtt[valueCableGo.value].ottCode);
         }
       }
     }

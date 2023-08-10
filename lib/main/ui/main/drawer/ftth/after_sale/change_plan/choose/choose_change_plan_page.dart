@@ -911,12 +911,14 @@ class ChooseChangePlanPage extends GetView {
     if (ott.controller == null) {
       ott.controller = ExpandableController();
       ott.controller!.addListener(() {
-        if (ott.listSubOtt[0].isActive) {
-          ott.controller!.expanded = false;
-          Common.showToastCenter(
-              AppLocalizations.of(context)!.textOTTServiceHasBeenActive,
-              context);
-          return;
+        for (var subOTT in ott.listSubOtt) {
+          if (subOTT.isActive) {
+            ott.controller!.expanded = false;
+            Common.showToastCenter(
+                AppLocalizations.of(context)!.textOTTServiceHasBeenActive,
+                context);
+            return;
+          }
         }
         onChange(value);
       });
