@@ -51,7 +51,8 @@ class ListRequestTabLogic extends GetxController {
       "key": "",
       "page": "0",
       "pageSize": "10",
-      "sort": "createdDate"
+      "sort": "createdDate",
+      // "appVersion": Common.getVersionApp()
     };
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_LIST_REQUEST,

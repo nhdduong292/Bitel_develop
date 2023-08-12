@@ -37,6 +37,7 @@ class PlanOttModel {
       for (var item in _listSubOtt!) {
         if (item.isActive) {
           isActive = true;
+          isdn = item.isdn;
           break;
         }
       }

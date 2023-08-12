@@ -33,7 +33,7 @@ class HomeLogic extends GetxController {
   void onReady() {
     // TODO: implement onReady
     super.onReady();
-    checkVersionApp(context);
+    // checkVersionApp(context);
   }
 
   void openDrawer() {

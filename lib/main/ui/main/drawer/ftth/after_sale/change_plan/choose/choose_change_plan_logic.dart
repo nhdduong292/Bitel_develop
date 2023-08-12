@@ -124,7 +124,8 @@ class ChooseChangePlanLogic extends GetxController {
         "subId": subId,
         "newPlan":
             productChangePlanModel.newPlan[valueProduct.value].productCode,
-        "ottServices": getListOTTCode()
+        "promotionIds": listIdPromotion,
+        "ottCodes": getListOTTCode()
       },
       onSuccess: (response) {
         Get.back();
@@ -132,6 +133,7 @@ class ChooseChangePlanLogic extends GetxController {
           checkPaymentChangePlanModel =
               CheckPaymentChangePlanModel.fromJson(response.data['data']);
           onSuccess(true);
+          getJsonOTTService();
         } else {
           onSuccess(false);
           print("error: ${response.status}");

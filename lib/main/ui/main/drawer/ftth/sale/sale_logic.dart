@@ -191,7 +191,8 @@ class SaleLogic extends GetxController {
       url: ApiEndPoints.API_HOME_SALE,
       params: {
         "fromDate": fromDate.substring(0, 10),
-        "toDate": toDate.substring(0, 10)
+        "toDate": toDate.substring(0, 10),
+        // "version": Common.getVersionApp()
       },
       onSuccess: (response) {
         // Get.back();
