@@ -421,7 +421,55 @@ class InforChangePlanPage extends GetView {
                                       const Color(0xFF9454C9)),
                                 ],
                               ),
-                            )
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              constraints: const BoxConstraints(minHeight: 80),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  border: Border.all(
+                                      color: const Color(0xFFE3EAF2)),
+                                  color: Colors.white,
+                                  boxShadow: const [
+                                    BoxShadow(
+                                        color: Color(0xFFE3EAF2), blurRadius: 3)
+                                  ]),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 15, right: 15),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                        flex: 1,
+                                        child: InkWell(
+                                          onTap: () {
+                                            controller.checkBankCode(false);
+                                          },
+                                          child: typePayment(
+                                              check: !controller.isPayBankCode,
+                                              content:
+                                                  AppLocalizations.of(context)!
+                                                      .textPayByCash),
+                                        )),
+                                    Expanded(
+                                        flex: 1,
+                                        child: InkWell(
+                                          onTap: () {
+                                            controller.checkBankCode(true);
+                                          },
+                                          child: typePayment(
+                                              check: controller.isPayBankCode,
+                                              content:
+                                                  AppLocalizations.of(context)!
+                                                      .textPayByBankCode),
+                                        ))
+                                  ],
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
