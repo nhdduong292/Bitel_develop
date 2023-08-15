@@ -1220,6 +1220,7 @@ class ChooseChangePlanPage extends GetView {
                             child: SizedBox(
                               height: 65,
                               child: TextField(
+                                  enabled: !model.isActive,
                                   controller: model.textController,
                                   keyboardType: TextInputType.text,
                                   focusNode: model.focusNode,
