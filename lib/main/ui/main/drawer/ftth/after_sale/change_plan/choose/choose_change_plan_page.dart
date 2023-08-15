@@ -844,6 +844,7 @@ class ChooseChangePlanPage extends GetView {
                             child: SizedBox(
                               height: 65,
                               child: TextField(
+                                  enabled: !ott.listSubOtt[0].isActive,
                                   controller: ott.textController,
                                   maxLength: 9,
                                   keyboardType: TextInputType.phone,
