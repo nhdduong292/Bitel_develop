@@ -152,7 +152,7 @@ class ListRequestTabState extends State<ListRequestTabPage> {
       "page": "$page",
       "pageSize": "$PAGE_NUM",
       "sort": "createdDate",
-      // "appVersion": Common.getVersionApp()
+      "version": Common.getVersionApp()
     };
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_LIST_REQUEST,
