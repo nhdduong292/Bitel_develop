@@ -995,6 +995,7 @@ class ChooseChangePlanPage extends GetView {
                           _itemCableGo(
                             context: context,
                             model: ott.listSubOtt[index],
+                            isdn: ott.isdn,
                             value: index,
                             groupValue: controller.valueCableGo,
                             isActive: ott.isActive,
@@ -1006,6 +1007,7 @@ class ChooseChangePlanPage extends GetView {
                                   item.controller!.expanded = false;
                                   item.currentActive = false;
                                 } else {
+                                  item.controller!.expanded = true;
                                   item.currentActive = true;
                                 }
                               }
@@ -1035,7 +1037,8 @@ class ChooseChangePlanPage extends GetView {
       required var groupValue,
       required bool isActive,
       required var onChange,
-      required ChooseChangePlanLogic controller}) {
+      required ChooseChangePlanLogic controller,
+      required String? isdn}) {
     if (model.controller == null) {
       model.controller = ExpandableController();
       if (model.isActive) {
@@ -1044,31 +1047,43 @@ class ChooseChangePlanPage extends GetView {
       }
 
       model.controller!.addListener(() {
-        if (model.currentActive) {
-          if (isActive && groupValue.value == value) {
-            model.controller!.expanded = true;
-          } else if (groupValue.value == value) {
-            controller.valueCableGo.value = -1;
+        if (model.isActive) {
+          if (model.currentActive) {
+            if (isActive && groupValue.value == value) {
+              model.controller!.expanded = true;
+            } else if (groupValue.value == value) {
+              controller.valueCableGo.value = -1;
+            }
+            return;
           }
-          return;
+
+          groupValue.value != value
+              ? controller.valueCableGo.value = value
+              : controller.valueCableGo.value = -1;
+
+          if (model.controller!.expanded) {
+            onChange(value);
+          }
+        } else {
+          if (model.controller!.expanded) {
+            onChange(value);
+          }
+          groupValue.value != value
+              ? controller.valueCableGo.value = value
+              : controller.valueCableGo.value = -1;
         }
-
-        groupValue.value != value
-            ? controller.valueCableGo.value = value
-            : controller.valueCableGo.value = -1;
-
-        if (model.controller!.expanded) {
-          onChange(value);
-        }
-
-        // groupValue.value != value
-        //     ? controller.valueCableGo.value = value
-        //     : controller.valueCableGo.value = -1;
       });
     }
     if (model.textController == null) {
       model.textController = TextEditingController();
       model.textController!.text = model.isdn;
+    }
+
+    if (isdn != null) {
+      model.isActive = true;
+      model.isSuccess = true;
+      model.email = isdn;
+      model.textController!.text = isdn;
     }
 
     model.focusNode ??= FocusNode();
