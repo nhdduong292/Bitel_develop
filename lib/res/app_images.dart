@@ -183,7 +183,7 @@ class AppImages {
   static const String imgHandleRightUpdate =
       'assets/images/img_handle_right_update.png';
   static const String imgFingerLeftLittleUpdate =
-      "assets/images/img_finger_left_little_update.png";
+      "assets/images/img_finger_left_litter_update.png";
   static const String imgFingerLeftRingUpdate =
       "assets/images/img_finger_left_ring_update.png";
   static const String imgFingerLeftMiddleUpdate =
@@ -193,7 +193,7 @@ class AppImages {
   static const String imgFingerLeftThumbUpdate =
       "assets/images/img_finger_left_thumb_update.png";
   static const String imgFingerRightLittleUpdate =
-      "assets/images/img_finger_right_little_update.png";
+      "assets/images/img_finger_right_litter_update.png";
   static const String imgFingerRightRingUpdate =
       "assets/images/img_finger_right_ring_update.png";
   static const String imgFingerRightMiddleUpdate =
