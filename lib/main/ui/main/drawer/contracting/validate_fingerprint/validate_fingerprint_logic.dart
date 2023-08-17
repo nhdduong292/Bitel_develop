@@ -341,15 +341,15 @@ class ValidateFingerprintLogic extends GetxController {
       }
     } else {
       if (bestFinger.right == 6) {
-        return AppImages.imgFingerRightThumbUpdate;
+        return AppImages.imgFingerRightLittleUpdate;
       } else if (bestFinger.right == 7) {
-        return AppImages.imgFingerRightIndexUpdate;
+        return AppImages.imgFingerRightRingUpdate;
       } else if (bestFinger.right == 8) {
         return AppImages.imgFingerRightMiddleUpdate;
       } else if (bestFinger.right == 9) {
-        return AppImages.imgFingerRightRingUpdate;
+        return AppImages.imgFingerRightIndexUpdate;
       } else if (bestFinger.right == 10) {
-        return AppImages.imgFingerRightLittleUpdate;
+        return AppImages.imgFingerRightThumbUpdate;
       } else {
         return AppImages.imgHandleRightUpdate;
       }

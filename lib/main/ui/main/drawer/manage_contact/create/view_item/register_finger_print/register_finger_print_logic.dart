@@ -90,19 +90,19 @@ class RegisterFingerPrintLogic extends GetxController {
       //todo phai
       indexLeft = 0;
       if (fingerValue.value == 1) {
-        indexRight = 6;
+        indexRight = 10;
         return AppImages.imgFingerRightThumb;
       } else if (fingerValue.value == 2) {
-        indexRight = 7;
+        indexRight = 9;
         return AppImages.imgFingerRightIndex;
       } else if (fingerValue.value == 3) {
         indexRight = 8;
         return AppImages.imgFingerRightMiddle;
       } else if (fingerValue.value == 4) {
-        indexRight = 9;
+        indexRight = 7;
         return AppImages.imgFingerRightRing;
       } else {
-        indexRight = 10;
+        indexRight = 6;
         return AppImages.imgFingerRightLittle;
       }
     }
