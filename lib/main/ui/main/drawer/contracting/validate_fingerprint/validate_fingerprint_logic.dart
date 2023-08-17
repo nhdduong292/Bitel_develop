@@ -326,29 +326,29 @@ class ValidateFingerprintLogic extends GetxController {
 
   String findPathFinger(bool isLeft) {
     if (isLeft) {
-      if (bestFinger.left == 1) {
+      if (bestFinger.left == 1 || bestFinger.left == 6) {
         return AppImages.imgFingerLeftThumbUpdate;
-      } else if (bestFinger.left == 2) {
+      } else if (bestFinger.left == 2 || bestFinger.left == 7) {
         return AppImages.imgFingerLeftIndexUpdate;
-      } else if (bestFinger.left == 3) {
+      } else if (bestFinger.left == 3 || bestFinger.left == 8) {
         return AppImages.imgFingerLeftMiddleUpdate;
-      } else if (bestFinger.left == 4) {
+      } else if (bestFinger.left == 4 || bestFinger.left == 9) {
         return AppImages.imgFingerLeftRingUpdate;
-      } else if (bestFinger.left == 5) {
+      } else if (bestFinger.left == 5 || bestFinger.left == 10) {
         return AppImages.imgFingerLeftLittleUpdate;
       } else {
         return AppImages.imgHandleLeftUpdate;
       }
     } else {
-      if (bestFinger.right == 6) {
+      if (bestFinger.right == 6 || bestFinger.right == 1) {
         return AppImages.imgFingerRightLittleUpdate;
-      } else if (bestFinger.right == 7) {
+      } else if (bestFinger.right == 7 || bestFinger.right == 2) {
         return AppImages.imgFingerRightRingUpdate;
-      } else if (bestFinger.right == 8) {
+      } else if (bestFinger.right == 8 || bestFinger.right == 3) {
         return AppImages.imgFingerRightMiddleUpdate;
-      } else if (bestFinger.right == 9) {
+      } else if (bestFinger.right == 9 || bestFinger.right == 4) {
         return AppImages.imgFingerRightIndexUpdate;
-      } else if (bestFinger.right == 10) {
+      } else if (bestFinger.right == 10 || bestFinger.right == 5) {
         return AppImages.imgFingerRightThumbUpdate;
       } else {
         return AppImages.imgHandleRightUpdate;
