@@ -192,7 +192,7 @@ class SaleLogic extends GetxController {
       params: {
         "fromDate": fromDate.substring(0, 10),
         "toDate": toDate.substring(0, 10),
-        // "version": Common.getVersionApp()
+        "version": Common.getVersionApp()
       },
       onSuccess: (response) {
         // Get.back();

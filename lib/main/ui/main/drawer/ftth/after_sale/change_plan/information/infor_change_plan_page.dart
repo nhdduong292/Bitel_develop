@@ -389,7 +389,7 @@ class InforChangePlanPage extends GetView {
                                       AppLocalizations.of(context)!
                                           .textOTTServices,
                                       'S/${Common.numberFormat(controller.checkPaymentChangePlanModel.ottFee)}',
-                                      const Color(0xFFD91C02)),
+                                      const Color(0xFF415263)),
                                   const DottedLine(
                                     dashColor: Color(0xFFE3EAF2),
                                     dashGapLength: 3,

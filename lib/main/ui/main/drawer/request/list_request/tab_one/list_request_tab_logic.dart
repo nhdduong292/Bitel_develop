@@ -52,7 +52,7 @@ class ListRequestTabLogic extends GetxController {
       "page": "0",
       "pageSize": "10",
       "sort": "createdDate",
-      // "appVersion": Common.getVersionApp()
+      "version": Common.getVersionApp()
     };
     ApiUtil.getInstance()!.get(
         url: ApiEndPoints.API_LIST_REQUEST,

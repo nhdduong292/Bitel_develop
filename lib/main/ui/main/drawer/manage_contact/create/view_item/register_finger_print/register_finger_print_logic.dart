@@ -71,38 +71,38 @@ class RegisterFingerPrintLogic extends GetxController {
       //todo trai
       indexRight = 0;
       if (fingerValue.value == 1) {
-        indexLeft = 6;
+        indexLeft = 1;
         return AppImages.imgFingerLeftThumb;
       } else if (fingerValue.value == 2) {
-        indexLeft = 7;
+        indexLeft = 2;
         return AppImages.imgFingerLeftIndex;
       } else if (fingerValue.value == 3) {
-        indexLeft = 8;
+        indexLeft = 3;
         return AppImages.imgFingerLeftMiddle;
       } else if (fingerValue.value == 4) {
-        indexLeft = 9;
+        indexLeft = 4;
         return AppImages.imgFingerLeftRing;
       } else {
-        indexLeft = 10;
+        indexLeft = 5;
         return AppImages.imgFingerLeftLittle;
       }
     } else {
       //todo phai
       indexLeft = 0;
       if (fingerValue.value == 1) {
-        indexRight = 1;
+        indexRight = 6;
         return AppImages.imgFingerRightThumb;
       } else if (fingerValue.value == 2) {
-        indexRight = 2;
+        indexRight = 7;
         return AppImages.imgFingerRightIndex;
       } else if (fingerValue.value == 3) {
-        indexRight = 3;
+        indexRight = 8;
         return AppImages.imgFingerRightMiddle;
       } else if (fingerValue.value == 4) {
-        indexRight = 4;
+        indexRight = 9;
         return AppImages.imgFingerRightRing;
       } else {
-        indexRight = 5;
+        indexRight = 10;
         return AppImages.imgFingerRightLittle;
       }
     }
