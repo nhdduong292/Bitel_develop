@@ -426,6 +426,20 @@ class InforChangePlanPage extends GetView {
                               height: 10,
                             ),
                             Container(
+                              padding: const EdgeInsets.only(left: 2),
+                              child: Text(
+                                AppLocalizations.of(context)!.textPaymentMethod,
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w700,
+                                    fontFamily: 'Barlow',
+                                    fontSize: 14),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Container(
                               constraints: const BoxConstraints(minHeight: 80),
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
