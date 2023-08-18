@@ -175,6 +175,7 @@ class DialogSurveySuccessful extends GetWidget {
                                   AfterSaleStatus.TRANSFER_SERVICE) {
                                 controller.lockTransferService((isSuccess) {
                                   if (isSuccess) {
+                                    Get.close(2);
                                     Get.toNamed(RouteConfig.billTransferService,
                                         arguments: [requestModel]);
                                   }

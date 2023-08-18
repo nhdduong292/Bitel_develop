@@ -30,6 +30,8 @@ class InforChangePlanLogic extends GetxController {
   int fingerId = 0;
   List<int> listIdPromotion = [];
 
+  bool isPayBankCode = false;
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -147,5 +149,19 @@ class InforChangePlanLogic extends GetxController {
         Common.showMessageError(error: error, context: context);
       },
     );
+  }
+
+  void checkBankCode(bool value) {
+    // if (checkVoiceContract.value && !value) {
+    //   Common.showToastCenter(
+    //       AppLocalizations.of(context)!
+    //           .textTypeOfVoiceContractThatOnlyAllowsBankCode,
+    //       context);
+    // } else {
+    //   isPayBankCode = value;
+    //   update();
+    // }
+    isPayBankCode = value;
+    update();
   }
 }

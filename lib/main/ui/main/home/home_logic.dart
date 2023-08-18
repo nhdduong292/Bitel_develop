@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bitel_ventas/main/services/settings_service.dart';
 import 'package:bitel_ventas/main/ui/main/main_logic.dart';
@@ -61,8 +62,11 @@ class HomeLogic extends GetxController {
         if (response.isSuccess) {
           bool needUpdate = response.data['needUpdate'];
           if (needUpdate) {
-            Common.showSystemErrorLoginDialog(context,
-                AppLocalizations.of(context)!.textUpdateVersionApp, () {});
+            Common.showSystemErrorLoginDialog(
+                context, AppLocalizations.of(context)!.textUpdateVersionApp,
+                () {
+              exit(0);
+            });
           }
         } else {}
       },

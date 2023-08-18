@@ -171,6 +171,83 @@ class BillTransferServicePage extends GetView<BillTransferServiceLogic> {
                               AppLocalizations.of(context)!.textTransferFee,
                               'S/${Common.numberFormat(controller.billTransferServiceModel.transferFee)}',
                               const Color(0xFF9454C9)),
+                          Visibility(
+                            visible: (controller
+                                        .billTransferServiceModel.transferFee ??
+                                    0) >
+                                0,
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.only(left: 2),
+                                  child: Text(
+                                    AppLocalizations.of(context)!
+                                        .textPaymentMethod,
+                                    style: const TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w700,
+                                        fontFamily: 'Barlow',
+                                        fontSize: 14),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                  constraints:
+                                      const BoxConstraints(minHeight: 80),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      border: Border.all(
+                                          color: const Color(0xFFE3EAF2)),
+                                      color: Colors.white,
+                                      boxShadow: const [
+                                        BoxShadow(
+                                            color: Color(0xFFE3EAF2),
+                                            blurRadius: 3)
+                                      ]),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15, right: 15),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                            flex: 1,
+                                            child: InkWell(
+                                              onTap: () {
+                                                controller.checkBankCode(false);
+                                              },
+                                              child: typePayment(
+                                                  check:
+                                                      !controller.isPayBankCode,
+                                                  content: AppLocalizations.of(
+                                                          context)!
+                                                      .textPayByCash),
+                                            )),
+                                        Expanded(
+                                            flex: 1,
+                                            child: InkWell(
+                                              onTap: () {
+                                                controller.checkBankCode(true);
+                                              },
+                                              child: typePayment(
+                                                  check:
+                                                      controller.isPayBankCode,
+                                                  content: AppLocalizations.of(
+                                                          context)!
+                                                      .textPayByBankCode),
+                                            ))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -237,6 +314,25 @@ Widget addressBox({required String content}) {
             ),
           ],
         )),
+  );
+}
+
+Widget typePayment({required bool check, required String content}) {
+  return Row(
+    mainAxisSize: MainAxisSize.max,
+    children: [
+      check ? iconChecked() : iconUnchecked(),
+      const SizedBox(
+        width: 13,
+      ),
+      Expanded(
+        child: Text(
+          content,
+          style: AppStyles.r2B3A4A_12_500.copyWith(
+              color: AppColors.color_2B3A4A.withOpacity(0.85), fontSize: 13),
+        ),
+      ),
+    ],
   );
 }
 

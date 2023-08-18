@@ -31,6 +31,8 @@ class BillTransferServiceLogic extends GetxController {
   double balance = 0;
   int requestId = 0;
   int fingerId = 0;
+
+  bool isPayBankCode = false;
   RequestDetailModel requestDetailModel = RequestDetailModel();
   BillTransferServiceModel billTransferServiceModel =
       BillTransferServiceModel();
@@ -152,5 +154,19 @@ class BillTransferServiceLogic extends GetxController {
         Common.showMessageError(error: error, context: context);
       },
     );
+  }
+
+  void checkBankCode(bool value) {
+    // if (checkVoiceContract.value && !value) {
+    //   Common.showToastCenter(
+    //       AppLocalizations.of(context)!
+    //           .textTypeOfVoiceContractThatOnlyAllowsBankCode,
+    //       context);
+    // } else {
+    //   isPayBankCode = value;
+    //   update();
+    // }
+    isPayBankCode = value;
+    update();
   }
 }

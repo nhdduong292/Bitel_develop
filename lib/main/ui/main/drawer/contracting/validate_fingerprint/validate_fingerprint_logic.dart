@@ -105,6 +105,9 @@ class ValidateFingerprintLogic extends GetxController {
         newPlan = inforChangePlanLogic.newPlan.productCode ?? "";
         fingerId = inforChangePlanLogic.fingerId;
         listIdPromotion = inforChangePlanLogic.listIdPromotion;
+        paymentMethod = inforChangePlanLogic.isPayBankCode
+            ? PaymentType.BANK_CODE
+            : PaymentType.CASH;
       }
 
       bool isExitChooseProduct = Get.isRegistered<ChooseChangePlanLogic>();
@@ -149,6 +152,9 @@ class ValidateFingerprintLogic extends GetxController {
       if (isExit) {
         BillTransferServiceLogic billTransferServiceLogic = Get.find();
         fingerId = billTransferServiceLogic.fingerId;
+        paymentMethod = billTransferServiceLogic.isPayBankCode
+            ? PaymentType.BANK_CODE
+            : PaymentType.CASH;
       }
     }
   }
@@ -450,7 +456,8 @@ class ValidateFingerprintLogic extends GetxController {
         "staffFingerId": fingerId,
         "finger": bestFinger.right != 0 ? bestFinger.right : bestFinger.left,
         "listImage": listFinger,
-        "pk": pk
+        "pk": pk,
+        "paymentMethod": paymentMethod
       };
       ApiUtil.getInstance()!.post(
         url: ApiEndPoints.API_SIGN_TRANSFER_SERVICE
@@ -636,7 +643,8 @@ class ValidateFingerprintLogic extends GetxController {
         "promotionId": listIdPromotion,
         "finger": bestFinger.right != 0 ? bestFinger.right : bestFinger.left,
         "listImage": listFinger,
-        "pk": pk
+        "pk": pk,
+        "paymentMethod": paymentMethod
       };
       ApiUtil.getInstance()!.put(
         url: ApiEndPoints.API_CHANGE_PLAN_SIGN,
