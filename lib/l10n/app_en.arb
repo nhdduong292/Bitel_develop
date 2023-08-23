@@ -788,5 +788,7 @@
     "textUpdateVersionApp": "The current version of Ventas FTTH is too old, please update to the latest version to use the application.",
     "textTimeKeeping": "Timekeeping",
     "textCheckIn": "Check-In",
-    "textCheckOut": "Check-Out"
+    "textCheckOut": "Check-Out",
+    "textE086": "Checkin position is not exist",
+    "textE087": "Can not timekeeping. Please check-in/check-out at the designated area" 
 }

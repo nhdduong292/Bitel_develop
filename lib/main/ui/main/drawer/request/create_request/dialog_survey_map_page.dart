@@ -231,7 +231,9 @@ class DialogSurveyMapPage extends GetWidget {
                     ),
                   ),
                   Visibility(
-                    visible: controller.isSuccessGetLocation,
+                    visible: controller.isSuccessGetLocation &&
+                        !(isTimekeeping &&
+                            (controller.checkInModel.isCheckin == null)),
                     child: Row(
                       children: [
                         Expanded(
@@ -241,11 +243,11 @@ class DialogSurveyMapPage extends GetWidget {
                                     ? Colors.white
                                     : AppColors.colorButton,
                                 text: isTimekeeping
-                                    ? controller.checkInModel.isCheckin
+                                    ? controller.checkInModel.isCheckin ?? false
                                         ? AppLocalizations.of(context)!
-                                            .textCheckOut
-                                        : AppLocalizations.of(context)!
                                             .textCheckIn
+                                        : AppLocalizations.of(context)!
+                                            .textCheckOut
                                     : AppLocalizations.of(context)!.textSurvey,
                                 onTap: () async {
                                   if (controller.isActive ||
@@ -254,16 +256,18 @@ class DialogSurveyMapPage extends GetWidget {
                                   }
 
                                   if (isTimekeeping) {
-                                   
                                     final service = FlutterBackgroundService();
                                     var isRunning = await service.isRunning();
-
-                                    if (controller.checkInModel.isCheckin) {
+                                    if (controller.checkInModel.isCheckin ==
+                                        null) {
+                                      return;
+                                    }
+                                    if (!controller.checkInModel.isCheckin!) {
                                       controller.checkOut(
                                           controller.currentPoint, (isSuccess) {
                                         if (isSuccess) {
                                           controller.checkInModel.isCheckin =
-                                              false;
+                                              null;
                                           controller.update();
                                           if (isRunning) {
                                             service.invoke("stopService");
@@ -275,7 +279,7 @@ class DialogSurveyMapPage extends GetWidget {
                                           controller.currentPoint, (isSuccess) {
                                         if (isSuccess) {
                                           controller.checkInModel.isCheckin =
-                                              true;
+                                              null;
                                           controller.update();
                                           service.startService();
                                         }

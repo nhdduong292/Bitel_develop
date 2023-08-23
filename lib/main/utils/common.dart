@@ -524,6 +524,12 @@ class Common {
       } else if (errorCode == 'E083') {
         showSystemErrorDialog(context,
             '[E083] ${AppLocalizations.of(context)!.textE083(ottName)}');
+      } else if (errorCode == 'E086') {
+        showSystemErrorDialog(
+            context, '[E086] ${AppLocalizations.of(context)!.textE086}');
+      } else if (errorCode == 'E087') {
+        showSystemErrorDialog(
+            context, '[E087] ${AppLocalizations.of(context)!.textE087}');
       } else if (errorCode == 'E090') {
         showSystemErrorDialog(
             context, '[E090] ${AppLocalizations.of(context)!.textE090}');

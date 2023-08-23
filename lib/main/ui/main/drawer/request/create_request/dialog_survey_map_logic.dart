@@ -205,7 +205,7 @@ class DialogSurveyMapLogic extends GetxController {
           circleId: CircleId('raj'),
           center: locationCheckIn,
           fillColor: Colors.blue.withOpacity(0.1),
-          radius: radiusValue,
+          radius: checkInModel.radius.toDouble(),
           strokeColor: Colors.blue,
           strokeWidth: 1));
       isActive = false;
@@ -413,6 +413,11 @@ class DialogSurveyMapLogic extends GetxController {
   }
 
   void getLocationCheckIn(var onSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_GET_LOCATION_CHECK_IN,
@@ -424,11 +429,17 @@ class DialogSurveyMapLogic extends GetxController {
       },
       onError: (error) {
         Get.back();
+        Common.showMessageError(error: error, context: context);
       },
     );
   }
 
   void checkIn(LatLng point, var onSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.post(
       url: ApiEndPoints.API_GET_LOCATION_CHECK_IN,
@@ -444,11 +455,17 @@ class DialogSurveyMapLogic extends GetxController {
       },
       onError: (error) {
         Get.back();
+        Common.showMessageError(error: error, context: context);
       },
     );
   }
 
   void checkOut(LatLng point, var onSuccess) async {
+    bool isConnect =
+        await ConnectionService.getInstance()?.checkConnect(context) ?? true;
+    if (!isConnect) {
+      return;
+    }
     _onLoading(context);
     ApiUtil.getInstance()!.post(
       url: ApiEndPoints.API_GET_LOCATION_CHECK_IN,
@@ -464,6 +481,7 @@ class DialogSurveyMapLogic extends GetxController {
       },
       onError: (error) {
         Get.back();
+        Common.showMessageError(error: error, context: context);
       },
     );
   }

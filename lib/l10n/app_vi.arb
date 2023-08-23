@@ -784,5 +784,7 @@
 "textUpdateVersionApp": "Phiên bản FTTH Sales hiện tại đã quá cũ, vui lòng cập nhật phiên bản mới nhất để sử dụng ứng dụng.",
 "textTimeKeeping": "Chấm công",
 "textCheckIn": "Registrarse",
-"textCheckOut": "Verificar"
+"textCheckOut": "Verificar",
+"textE086": "Vị trí đăng ký không tồn tại.",
+"textE087": "Không chấm công được. Vui lòng check-in/check-out tại khu vực được chỉ định." 
 }
