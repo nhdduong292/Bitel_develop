@@ -7,6 +7,7 @@ import 'package:bitel_ventas/main/utils/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:launch_review/launch_review.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../networks/api_end_point.dart';
@@ -52,7 +53,8 @@ class HomeLogic extends GetxController {
     String version = packageInfo.version;
     _onLoading(context);
     Map<String, dynamic> body = {
-      "version": version,
+      // "version": version,
+      "version": "1.1.30",
     };
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_CHECK_VERSION_APP,
@@ -65,7 +67,7 @@ class HomeLogic extends GetxController {
             Common.showSystemErrorLoginDialog(
                 context, AppLocalizations.of(context)!.textUpdateVersionApp,
                 () {
-              exit(0);
+              LaunchReview.launch(androidAppId: "com.bitel.bss.ringme.v1");
             });
           }
         } else {}
