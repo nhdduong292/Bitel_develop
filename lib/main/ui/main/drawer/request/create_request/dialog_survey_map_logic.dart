@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:bitel_ventas/main/networks/api_end_point.dart';
 import 'package:bitel_ventas/main/networks/api_util.dart';
+import 'package:bitel_ventas/main/networks/model/check_in_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_detail_model.dart';
 import 'package:bitel_ventas/main/networks/model/request_model.dart';
 import 'package:bitel_ventas/main/utils/common.dart';
@@ -53,8 +54,13 @@ class DialogSurveyMapLogic extends GetxController {
   bool isActive = true;
   Timer? _debounce;
   bool isSuccessGetLocation = true;
+  bool isTimekeeping = false;
+  CheckInModel checkInModel = CheckInModel();
 
-  DialogSurveyMapLogic({required this.context, required this.requestModel});
+  DialogSurveyMapLogic(
+      {required this.context,
+      required this.requestModel,
+      required this.isTimekeeping});
 
   @override
   void onInit() {
@@ -74,13 +80,19 @@ class DialogSurveyMapLogic extends GetxController {
   void onReady() {
     // TODO: implement onReady
     super.onReady();
-    _onLoading(context);
-    _getCurrentLocation().then(
-      (value) {
-        getLocationAddress(false);
-        // Get.back();
-      },
-    );
+    if (isTimekeeping) {
+      getLocationCheckIn((isSuccess) {
+        getCurrentLocation();
+      });
+    } else {
+      _onLoading(context);
+      _getCurrentLocation().then(
+        (value) {
+          getLocationAddress(false);
+          // Get.back();
+        },
+      );
+    }
   }
 
   void getCurrentLocation() {
@@ -91,7 +103,11 @@ class DialogSurveyMapLogic extends GetxController {
         long = value.longitude;
 
         currentPoint = LatLng(lat, long);
-        setCircleFirst(currentPoint);
+        if (isTimekeeping) {
+          setCircles(currentPoint);
+        } else {
+          setCircleFirst(currentPoint);
+        }
       },
     );
   }
@@ -130,16 +146,64 @@ class DialogSurveyMapLogic extends GetxController {
     currentPoint = point;
     lat = point.latitude;
     long = point.longitude;
+
     try {
       List<Placemark> placemarks =
           await placemarkFromCoordinates(lat, long, localeIdentifier: "en_US");
-      setMarker(point);
+      markers.add(Marker(
+          markerId: MarkerId('marker_1'),
+          position: point,
+          onTap: () {},
+          icon: BitmapDescriptor.defaultMarker));
       GoogleMapController controller = await controllerMap.future;
       controller.animateCamera(CameraUpdate.newCameraPosition(
           CameraPosition(target: point, zoom: 14.4746)));
       circles.add(Circle(
           circleId: CircleId('raj'),
           center: point,
+          fillColor: Colors.blue.withOpacity(0.1),
+          radius: radiusValue,
+          strokeColor: Colors.blue,
+          strokeWidth: 1));
+      isActive = false;
+      update();
+      Get.back();
+    } catch (e) {
+      if (kDebugMode) {
+        Common.showToastCenter(e.toString(), context);
+      }
+    }
+  }
+
+  void setCircles(LatLng point) async {
+    currentPoint = point;
+    lat = point.latitude;
+    long = point.longitude;
+
+    var locationCheckIn =
+        LatLng(double.parse(checkInModel.lat), double.parse(checkInModel.lng));
+
+    try {
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(lat, long, localeIdentifier: "en_US");
+      markers.add(Marker(
+          markerId: MarkerId('marker_1'),
+          position: locationCheckIn,
+          onTap: () {},
+          icon: BitmapDescriptor.defaultMarker));
+      markers.add(Marker(
+          markerId: MarkerId('marker_2'),
+          position: point,
+          onTap: () {},
+          icon: BitmapDescriptor.defaultMarkerWithHue(
+              BitmapDescriptor.hueAzure)));
+      setMarker(locationCheckIn);
+      GoogleMapController controller = await controllerMap.future;
+      controller.animateCamera(CameraUpdate.newCameraPosition(
+          CameraPosition(target: locationCheckIn, zoom: 14.4746)));
+      circles.add(Circle(
+          circleId: CircleId('raj'),
+          center: locationCheckIn,
           fillColor: Colors.blue.withOpacity(0.1),
           radius: radiusValue,
           strokeColor: Colors.blue,
@@ -344,6 +408,62 @@ class DialogSurveyMapLogic extends GetxController {
           backgroundColor: Colors.transparent,
           child: LoadingCirculApi(),
         );
+      },
+    );
+  }
+
+  void getLocationCheckIn(var onSuccess) async {
+    _onLoading(context);
+    ApiUtil.getInstance()!.get(
+      url: ApiEndPoints.API_GET_LOCATION_CHECK_IN,
+      onSuccess: (response) {
+        Get.back();
+        checkInModel = CheckInModel.fromJson(response.data['data']);
+        update();
+        onSuccess(true);
+      },
+      onError: (error) {
+        Get.back();
+      },
+    );
+  }
+
+  void checkIn(LatLng point, var onSuccess) async {
+    _onLoading(context);
+    ApiUtil.getInstance()!.post(
+      url: ApiEndPoints.API_GET_LOCATION_CHECK_IN,
+      body: {
+        "lat": point.latitude,
+        "lng": point.longitude,
+        "radius": checkInModel.radius,
+        "isCheckin": true
+      },
+      onSuccess: (response) {
+        Get.back();
+        onSuccess(true);
+      },
+      onError: (error) {
+        Get.back();
+      },
+    );
+  }
+
+  void checkOut(LatLng point, var onSuccess) async {
+    _onLoading(context);
+    ApiUtil.getInstance()!.post(
+      url: ApiEndPoints.API_GET_LOCATION_CHECK_IN,
+      body: {
+        "lat": point.latitude,
+        "lng": point.longitude,
+        "radius": checkInModel.radius,
+        "isCheckin": false
+      },
+      onSuccess: (response) {
+        Get.back();
+        onSuccess(true);
+      },
+      onError: (error) {
+        Get.back();
       },
     );
   }

@@ -5,28 +5,29 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'request/create_request/dialog_survey_map_logic.dart';
 
-class DemoGoogleMap extends GetWidget{
+class DemoGoogleMap extends GetWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
         init: DialogSurveyMapLogic(
-            context: context, requestModel: RequestDetailModel()),
+            context: context,
+            requestModel: RequestDetailModel(),
+            isTimekeeping: false),
         builder: (controller) {
           return !controller.isLocation
               ? Container()
               : GoogleMap(
-            mapType: MapType.normal,
-            onMapCreated: (GoogleMapController control) {
-              controller.controllerMap.complete(control);
-            },
-            initialCameraPosition: controller.kGooglePlex,
-            circles: controller.circles,
-            markers: controller.markers,
-            onTap: (argument) {
-              controller.setCircle(argument);
-            },
-          );
-        }
-    );
+                  mapType: MapType.normal,
+                  onMapCreated: (GoogleMapController control) {
+                    controller.controllerMap.complete(control);
+                  },
+                  initialCameraPosition: controller.kGooglePlex,
+                  circles: controller.circles,
+                  markers: controller.markers,
+                  onTap: (argument) {
+                    controller.setCircle(argument);
+                  },
+                );
+        });
   }
 }

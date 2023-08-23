@@ -3,6 +3,7 @@
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_logic.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/contracting/product/product_payment_method_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/drawer_logic.dart';
+import 'package:bitel_ventas/main/ui/main/drawer/request/create_request/dialog_survey_map_page.dart';
 import 'package:bitel_ventas/main/ui/main/drawer/utilitis/change_language/dialog_change_language_page.dart';
 import 'package:bitel_ventas/res/app_fonts.dart';
 import 'package:bitel_ventas/res/app_styles.dart';
@@ -15,6 +16,7 @@ import 'package:get/get.dart';
 
 import '../../../../res/app_colors.dart';
 import '../../../../res/app_images.dart';
+import '../../../networks/model/request_detail_model.dart';
 import '../../../router/route_config.dart';
 import '../activate_prepaid_pages/find_customer_page.dart';
 
@@ -226,6 +228,17 @@ class DrawerPage extends GetView<DrawerLogic> {
                         return DialogChangeLanguagePage();
                       },
                     );
+                  } else if (i == 1) {
+                    print("index: 5");
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return DialogSurveyMapPage(
+                            onSubmit: (isSuccess) {},
+                            requestModel: RequestDetailModel(),
+                            isTimekeeping: true,
+                          );
+                        });
                   }
                 }
               },

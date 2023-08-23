@@ -88,6 +88,7 @@ class DrawerLogic extends GetxController {
           isSelected: false,
           list: [
             AppLocalizations.of(context)!.textChangeLanguage,
+            AppLocalizations.of(context)!.textTimeKeeping,
           ])
     ];
   }
@@ -104,24 +105,6 @@ class DrawerLogic extends GetxController {
           element.label == AppLocalizations.of(context)!.textClearDebt);
     }
     return list;
-  }
-
-  void showDialogSurveyMap(BuildContext context) {
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return DialogSurveyMapPage(
-            onSubmit: (isSuccess) {
-              // if(isSuccess) {
-              //   showDialogSurveySuccessful(context, controller);
-              // } else {
-              //   showDialogSurveyUnsuccessful(context, controller);
-              // }
-            },
-            requestModel: RequestDetailModel(),
-          );
-        });
   }
 
   bool isShowAfterSale() {

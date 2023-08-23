@@ -781,5 +781,8 @@
 "textOpenFile": "Mở têp",
 "textDoYouWantToOpen": "Bạn có muốn mở file không?",
 "textUseMyCurrentLocation": "Sử dụng vị trí hiện tại của tôi",
-"textUpdateVersionApp": "Phiên bản FTTH Sales hiện tại đã quá cũ, vui lòng cập nhật phiên bản mới nhất để sử dụng ứng dụng."
+"textUpdateVersionApp": "Phiên bản FTTH Sales hiện tại đã quá cũ, vui lòng cập nhật phiên bản mới nhất để sử dụng ứng dụng.",
+"textTimeKeeping": "Chấm công",
+"textCheckIn": "Registrarse",
+"textCheckOut": "Verificar"
 }

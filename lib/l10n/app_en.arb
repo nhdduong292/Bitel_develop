@@ -785,5 +785,8 @@
     "textOpenFile": "Open file",
     "textDoYouWantToOpen": "Do you want to open the file now?",
     "textUseMyCurrentLocation": "Use my current location",
-    "textUpdateVersionApp": "The current version of Ventas FTTH is too old, please update to the latest version to use the application."
+    "textUpdateVersionApp": "The current version of Ventas FTTH is too old, please update to the latest version to use the application.",
+    "textTimeKeeping": "Timekeeping",
+    "textCheckIn": "Check-In",
+    "textCheckOut": "Check-Out"
 }
