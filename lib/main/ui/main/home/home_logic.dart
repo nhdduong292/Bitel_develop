@@ -67,6 +67,7 @@ class HomeLogic extends GetxController {
                 context, AppLocalizations.of(context)!.textUpdateVersionApp,
                 () {
               LaunchReview.launch(androidAppId: "com.bitel.bss.ringme.v1");
+              exit(0);
             });
           }
         } else {}
