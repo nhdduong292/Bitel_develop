@@ -53,8 +53,7 @@ class HomeLogic extends GetxController {
     String version = packageInfo.version;
     _onLoading(context);
     Map<String, dynamic> body = {
-      // "version": version,
-      "version": "1.1.30",
+      "version": version,
     };
     ApiUtil.getInstance()!.get(
       url: ApiEndPoints.API_CHECK_VERSION_APP,
