@@ -14,6 +14,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:launch_review/launch_review.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
@@ -569,6 +570,18 @@ class Common {
       } else if (errorCode == 'E120') {
         showSystemErrorDialog(
             context, '[E120] ${AppLocalizations.of(context)!.textE120}');
+      } else if (errorCode == 'E144') {
+        Common.showSystemErrorLoginDialog(
+            context, AppLocalizations.of(context)!.textUpdateVersionApp, () {
+          LaunchReview.launch(androidAppId: "com.bitel.bss.ringme.v1");
+          exit(0);
+        });
+      } else if (errorCode == 'E146') {
+        Common.showSystemErrorLoginDialog(
+            context, AppLocalizations.of(context)!.textUpdateVersionApp, () {
+          LaunchReview.launch(androidAppId: "com.bitel.bss.ringme.v1");
+          exit(0);
+        });
       } else {
         showSystemErrorDialog(
             context, "[$errorCode] ${error.response!.data['errorMessage']}");
