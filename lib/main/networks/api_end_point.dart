@@ -180,4 +180,8 @@ class ApiEndPoints {
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/validates/email";
   static const String API_CHECK_VERSION_APP =
       "${isDev ? DOMAIN_TEST : DOMAIN}/v1/app-version";
+  static const String API_SHARE_LOCATION =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/timekeeping/position";
+  static const String API_GET_LOCATION_CHECK_IN =
+      "${isDev ? DOMAIN_TEST : DOMAIN}/v1/timekeeping";
 }
